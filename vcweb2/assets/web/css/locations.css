@@ -1,0 +1,29 @@
+/**
+ * Handles responsive design through the use of the @respond-to mixin
+ * 
+ * @param $size ('tablet', 'mobile')
+ */
+.subtitle {
+  font-size: 18px;
+  font-style: italic;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: 1px dashed #cccccc;
+}
+
+.venue-list {
+  list-style: none;
+  margin: 20px 0 0 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 22px;
+  color: #cccccc;
+}
+.venue-list li {
+  width: 33.33%;
+  float: left;
+  margin: 10px 0;
+}
+.venue-list a {
+  text-decoration: none;
+}

@@ -1,0 +1,212 @@
+/**
+ * Handles responsive design through the use of the @respond-to mixin
+ * 
+ * @param $size ('tablet', 'mobile')
+ */
+#news h1 {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+#news .updates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#news .updates li {
+  overflow: hidden;
+  margin: 15px 0;
+  border-bottom: 1px dashed #CCC;
+}
+#news .updates .avatar {
+  float: left;
+  min-width: 50px;
+  margin-right: 15px;
+}
+#news .updates .info {
+  float: left;
+}
+#news .updates .time {
+	display: inline-block;
+	float: right;
+	vertical-align: top;
+	padding-right: 8px;
+}
+#news .updates .time p {
+	margin: 0;
+}
+#news .updates .info > a{
+//	display: inline-block;
+}
+#news .updates .info h2 {
+  margin: 0 0 5px 0;
+  font-size: 22px;
+}
+#news .updates .info p {
+  margin: 0;
+  display: inline-block;
+  font-size: 16px;
+  width: 335px;
+  padding-bottom: 8px;
+}
+
+#news .updates .info a.list{
+	display: inline-block;
+	margin-right: 8px;
+	vertical-align: top;
+}
+
+#news .updates p.news_item_date{
+	display: inline-block;
+	float: right;
+	font-size: 14px;
+	text-align: right;
+	width: auto;
+}
+
+#news .updates .info strong{
+	font-weight: 400;
+}
+#news .updates .info img {
+	display: inline-block;
+	vertical-align: top;
+	width: 35px;
+}
+@media screen and (max-width: 479px) {
+  #news .updates .avatar {
+    width: auto;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  #news .updates .info {
+    float: none;
+  }
+}
+#news .updates {
+  margin: 0px;
+}
+
+
+div#news_feed_side_data{
+	width: 34%;
+	height: 100%;
+	float: right;
+	margin-bottom: 10px;
+	z-index: 0;
+}
+
+section#news ul.updates{
+	float: left;
+	width: 63%;
+	border-right: 1px dashed #CCC;
+}
+
+
+article#app_requests section#news ul.updates{
+	border-right:0;
+	margin-bottom: 25px;
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+div.fixed_side{
+	position: fixed;
+	width: 340px;
+	top: 100px;
+}
+
+@media screen and (max-width: 991px){
+	div.fixed_side{
+		width: 254px;
+		top: 30px;
+	}
+}
+
+@media screen and (max-width: 767px){
+	
+	div#news_feed_side_data{
+		width: 100%;
+	}
+	
+	div#news_feed_side_data div#side_data_content > div{
+		width: 100%;
+		display: block;
+	}
+	
+	section#news ul.updates{
+		float: none;
+		width: 100%;
+		border-right: 0;
+	}
+	
+	ul.updates{
+		width: 100%;
+		border-right: 0px;
+	}
+	
+	div.fixed_side{
+		position: relative;
+		width: 100%;
+	}
+	
+	
+	
+}
+
+div#news_feed_side_data p.header{
+	background: #4D4D4D;
+	color: #FFF;
+	margin: 0px;
+	height: 30px;
+	font-size: 16px;
+	padding-left: 10px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+div#news_feed_side_data li:hover{
+	background: #828282;
+}
+div#trending_gl ul{
+	list-style: none;
+	list-style-image: none;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+}
+div#trending_gl ul li{
+	width: 100% !important;
+	cursor: pointer;
+	padding: 8px;
+}
+div#trending_gl ul li span{
+	color: #3CA6E2;
+	font-size: 16px;
+}
+div#trending_gl ul li span.subtext{
+	color: #000;
+	font-size: 12px;
+}
+div#trending_gl ul li a{
+	width: 100%;
+	height: 100%;
+}
+div#trending_gl ul li img{
+	vertical-align: top;
+	width: 40px;
+	height: 60px;
+}

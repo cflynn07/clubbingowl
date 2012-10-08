@@ -1,0 +1,1 @@
+<div style="display:none;" id="ajaxify_page_title"><?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : '' ?><?= $central->title ?></div>

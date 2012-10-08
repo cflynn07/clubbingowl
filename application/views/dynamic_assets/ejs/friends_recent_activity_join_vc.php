@@ -1,0 +1,1 @@
+<li><?= $this->lang->line('fr-rec_act_join_vc') ?></li>

@@ -1,0 +1,107 @@
+ul.team li{
+	display: inline-block;
+	width: 49%;
+	margin-bottom: 15px;
+	list-style: none;
+	vertical-align: top;
+}
+ul.team .people .name{
+	margin: 0;
+}
+ul.team li div.bio{
+	font-size: 18px;
+	line-height: 24px;
+	overflow: hidden;
+	display: inline-block;
+	position: relative;
+	padding-left: 35px;
+}
+ul.team li div.bio p.name{
+	font-size: 22px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	text-overflow: clip;
+	text-align: left;
+}
+ul.team li div.bio p.title{
+	font-size: 16px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+ul.team img.logo{
+	float: left;
+	margin-right: 15px;
+}
+ul.team a{
+	text-decoration: none;
+}
+hr.divider{
+	border: 0px;
+	border-bottom: 1px dashed #CCC;
+	clear: both;
+}
+@media screen and (max-width: 991px){
+	
+	ul.team li{
+		display: block;
+		width: 100%;
+	}
+	
+}
+ul.team li div.bio div.top div.name_title{
+	margin-top: 5px;
+	margin-bottom: 10px;
+	text-align: left;
+	min-width: 240px;
+	white-space: normal;
+}
+@media screen and (max-width: 479px){
+	
+	ul.team li div.bio div.top div.name_title{
+		max-width: 210px;
+	}
+	
+	ul.team li{
+		width: 90%;
+	}
+	
+}
+ul.team{
+	padding: 0;
+}
+ul.team li div.bio div.top{
+	white-space: nowrap;
+	vertical-align: top;
+}
+ul.team li div.bio div.top div{
+	display: inline-block;
+}
+ul.team li div.bio div.description{
+	padding: 0px 10px 0px 10px;
+}
+
+
+/**
+ * Styles for terms of service
+ * 
+ */
+#tos ul.team li{
+	display: inline-block;
+	width: 49%;
+	margin-bottom: 15px;
+	list-style: none;
+}
+#tos ul.team div.name{
+	float: left;
+	font-size: 20px;
+	line-height: 24px;
+	max-width: 180px;
+	overflow: hidden;
+}
+#tos ul.team img.logo{
+	float: left;
+	margin-right: 15px;
+}
+#tos ul.team a{
+	text-decoration: none;
+}

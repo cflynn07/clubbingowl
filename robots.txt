@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /requests/
+Disallow: /ajax/
+Disallow: /worker/
+Disallow: /assets/
+Sitemap: http://www.vibecompass.com/sitemap.xml

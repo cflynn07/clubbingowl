@@ -1,0 +1,101 @@
+.history header {
+  overflow: hidden;
+}
+.history header h1 {
+  color: #52b0e5;
+  font-size: 50px;
+  float: left;
+  margin: 0;
+  border-bottom: 1px dashed #cccccc;
+  padding: 20px 0;
+  margin-bottom: 40px;
+  width: 100%;
+}
+.history .history-table {
+  padding: 20px;
+  margin-bottom: 40px;
+  background: white;
+}
+.history .history-table table {
+  width: 100%;
+}
+.history .history-table th {
+  padding-bottom: 20px;
+  text-align: left;
+}
+.history .history-table tbody tr {
+  border-top: 1px dashed #cccccc;
+}
+.history .history-table td {
+  padding: 20px 0;
+}
+.history .column {
+  display: inline-block;
+  width: 49.5%;
+  vertical-align: top;
+}
+.history .column h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.history #promoters {
+  padding-right: 20px;
+  border-right: 1px dashed #cccccc;
+}
+.history .people {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.history .people .avatar {
+  background: url('../images/friend.png?1335923939') center center no-repeat;
+  width: 106px;
+  height: 106px;
+}
+.history .people .avatar img {
+  margin: 0 auto;
+  padding-top: 28px;
+  display: block;
+}
+.history .people .name {
+  color: #777777;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.history .people a.name {
+  text-decoration: underline;
+}
+.history .people .invite {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('../images/invite-small.png?1335924837');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 113px;
+  height: 24px;
+  display: block;
+  margin: 10px auto;
+}
+.history .people li {
+  float: left;
+  width: 33.333%;
+  height: 163px;
+  text-align: center;
+}
+.history .people .avatar {
+  margin: 0 auto;
+}
+.history .people .name {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+}
+.history #settings {
+  padding-left: 20px;
+}
+.history #settings label {
+  margin-left: 10px;
+}

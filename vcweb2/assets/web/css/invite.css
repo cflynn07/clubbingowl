@@ -1,0 +1,33 @@
+/**
+ * Handles responsive design through the use of the @respond-to mixin
+ * 
+ * @param $size ('tablet', 'mobile')
+ */
+#invite {
+  padding: 30px 0;
+  overflow: hidden;
+  border-bottom: 1px dashed #cccccc;
+}
+#invite h1 {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+#invite p {
+  font-size: 18px;
+  margin: 0;
+}
+#invite .invite {
+  float: right;
+  margin-left: 20px;
+}
+@media screen and (max-width: 479px) {
+		#invite {
+		display: none;
+	}
+}

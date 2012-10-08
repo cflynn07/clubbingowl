@@ -1,0 +1,254 @@
+.profile {
+  overflow: hidden;
+}
+.profile header {
+  border-bottom: 1px dashed #cccccc;
+  padding: 20px 0;
+  overflow: hidden;
+}
+.profile header h1 {
+  color: #52b0e5;
+  font-size: 50px;
+  float: left;
+  margin: 0;
+}
+.profile header .avatar {
+  float: right;
+}
+.profile section, .profile .column {
+  float: left;
+}
+.profile section {
+  margin-top: 30px;
+}
+.profile section h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.profile aside h1 {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.profile aside h2 {
+  font-size: 20px;
+}
+
+#friends {
+  width: 25%;
+  padding-right: 30px;
+}
+#friends .people {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#friends .people .avatar {
+  background: url('../images/friend.png?1335923939') center center no-repeat;
+  width: 106px;
+  height: 106px;
+}
+#friends .people .avatar img {
+  margin: 0 auto;
+  padding-top: 28px;
+  display: block;
+}
+#friends .people .name {
+  color: #777777;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#friends .people a.name {
+  text-decoration: underline;
+}
+#friends .people .invite {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('../images/invite-small.png?1335924837');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 113px;
+  height: 24px;
+  display: block;
+  margin: 10px auto;
+}
+#friends .people li {
+  overflow: hidden;
+}
+#friends .people .avatar {
+  float: left;
+  margin-right: 20px;
+}
+#friends .people .name {
+  margin-top: 42px;
+}
+
+#activity {
+  width: 50%;
+  padding: 0 30px;
+  border-left: 1px dashed #cccccc;
+  border-right: 1px dashed #cccccc;
+}
+#activity ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#activity li {
+  margin: 15px 0;
+  line-height: 2em;
+}
+#activity .avatar {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+#promoters {
+  padding-left: 30px;
+  width: 25%;
+}
+#promoters .people {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#promoters .people .avatar img {
+  margin: 0 auto 28px;
+  display: block;
+}
+#promoters .people .name {
+  color: #777777;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#promoters .people a.name {
+  text-decoration: underline;
+}
+#promoters .people .invite {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('../images/invite-small.png?1335924837');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 113px;
+  height: 24px;
+  display: block;
+  margin: 10px auto;
+}
+#promoters .people li {
+  overflow: hidden;
+}
+#promoters .people .avatar {
+  float: left;
+  margin-right: 20px;
+}
+#promoters .people .name {
+  margin-top: 42px;
+}
+
+#history {
+  clear: both;
+  float: left;
+  width: 100%;
+  border-top: 1px dashed #cccccc;
+  padding-top: 30px;
+  margin-top: 30px;
+}
+#history .column {
+  width: 50%;
+}
+#history .people {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#history .people .avatar img {
+  margin: 0 auto 28px;
+  display: block;
+}
+#history .people .name {
+  color: #777777;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#history .people a.name {
+  text-decoration: underline;
+}
+#history .people .invite {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('../images/invite-small.png?1335924837');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 113px;
+  height: 24px;
+  display: block;
+  margin: 10px auto;
+}
+#history .people li {
+  overflow: hidden;
+}
+#history .people .avatar {
+  float: left;
+  margin-right: 20px;
+}
+#history .people .name {
+  margin-top: 42px;
+}
+#history .people .name {
+  margin-top: 12px;
+}
+#history .venues {
+  list-style: none;
+  padding: 0 0 15px;
+  margin: 0 0 15px;
+  border-bottom: 1px dashed #cccccc;
+}
+#history .venues li {
+  display: inline-block;
+  width: 99%;
+  margin-bottom: 15px;
+}
+#history .venues li a {
+  overflow: hidden;
+  display: block;
+}
+#history .venues li .logo {
+  float: left;
+  margin-right: 15px;
+}
+#history .venues li .name {
+  float: left;
+  font-size: 20px;
+  line-height: 2em;
+}
+#history .venues li .name a {
+  text-decoration: none;
+  color: #3ca6e2;
+}
+#history .venues li p {
+  clear: both;
+  float: left;
+  margin-top: 15px;
+  font-size: 12px;
+}
+#history .venues li p .thumbnail {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+}

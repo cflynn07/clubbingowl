@@ -1,0 +1,1 @@
+<?= $this->lang->line('v-friend_count_msg') ?>

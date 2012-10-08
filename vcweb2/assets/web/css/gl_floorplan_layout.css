@@ -1,0 +1,331 @@
+div.guestlist-form-right div#tabs div.tabs_tables img.loading_indicator{
+	display: none;
+}
+	
+div.guestlist-form-right div.vl{
+	margin-left: auto;
+	margin-right: auto;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin-top: -20px;
+}
+	
+div.guestlist-form-right div.vlf div.vlfit_id{
+	display: none;
+}
+	
+div.guestlist-form-right table.normal tbody td{
+	vertical-align: top !important;
+}
+	
+div.guestlist-form-right table.user_messages td.message_header{
+	background:#333 !important;
+	color:#FFF;
+	font-weight:bold;
+}
+	
+div.guestlist-form-right .hovered{
+	background: #888 !important;
+}
+	
+div.guestlist-form-right .hovered > td{
+	margin-left: -3px;
+	margin-right: -3px;
+	padding:0px;
+	border: #888 !important;
+	background: none !important;
+}
+	
+	
+div.guestlist-form-right div.vlf{
+	background: rgb(38, 38, 38);
+	margin-top: 20px;
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+}
+	
+div.guestlist-form-right div.vlf div.item{
+	position: absolute;
+	font-size: 9px;
+	background: transparent;
+	z-index: 1; 
+	color: #FFF;
+	vertical-align: middle;
+	text-align:left;
+	padding: 1px;
+	border: 1px solid #000;
+}
+	
+div.guestlist-form-right div.vlf div.reserved{
+	background: darkRed;
+}
+	
+div.guestlist-form-right div.vlf div.item span.title{
+	position: relative;
+	top: -5px;
+}
+	
+div.guestlist-form-right div.vlf div.table div.max_capacity{
+	position: relative;
+	top: -14px;
+}
+	
+div.guestlist-form-right div.item > div.day_price{
+	display:none !important;
+}
+	
+div.guestlist-form-right div.table{
+	border: 1px solid red !important;
+}
+	
+div.guestlist-form-right div.table > div.max_capacity{
+	font-size: 9px !important;
+	position: relative;
+	top: -5px;
+}
+	
+div.guestlist-form-right div.dancefloor{
+	background: #000 !important;
+	z-index: 0 !important;
+}
+	
+div.guestlist-form-right div.stage{
+	background: #000 !important;
+	z-index: 0 !important;
+}
+
+div.guestlist-form-right div.djbooth{
+	border: 1px solid rgb(140, 30, 30) !important;
+}
+	
+div.guestlist-form-right div.bathroom{
+	border: 2px solid #FFF !important;
+}
+	
+div.guestlist-form-right div.entrance{
+	border: 2px solid #FFF !important;
+}
+	
+div.guestlist-form-right div.stairs{
+	border: 1px solid rgb(74, 74, 74) !important;
+}
+	
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor{
+	width: 800px;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	background: rgb(38, 38, 38);
+	border: 1px solid #000;
+	position: relative;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.item{
+	position: absolute;
+	font-size: 9px;
+	background: transparent;
+	z-index: 1; 
+	color: #FFF;
+	vertical-align: middle;
+	text-align:left;
+	padding: 1px;
+	border: 1px solid #000;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.item > div.day_price{
+	display:none !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.table{
+	border: 1px solid red !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.reserved{
+	border: 1px solid red !important;
+	background: darkRed;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.table > div.max_capacity{
+	font-size: 9px !important;
+	position: relative;
+	top: -5px;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.dancefloor{
+	background: #000 !important;
+	z-index: 0 !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.stage{
+	background: #000 !important;
+	z-index: 0 !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.djbooth{
+	border: 1px solid rgb(140, 30, 30) !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.bathroom{
+	border: 2px solid #FFF !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.entrance{
+	border: 2px solid #FFF !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.stairs{
+	border: 1px solid rgb(74, 74, 74) !important;
+}
+	
+div.guestlist-form-right div#vlf_dialog div#vlf_dialog_floor div.item div.vlfi_id{
+	display: none;
+}
+	
+div.guestlist-form-right div.vlf div.vlf_title{
+	position: absolute;
+	left: 0px;
+	top: -20px;
+}
+	
+div.guestlist-form-right div.ui-datepicker{
+	color: #000 !important;
+}
+	
+div.guestlist-form-right div.reservations table tbody td{
+	vertical-align: top;
+}
+
+div.guestlist-form-right img.loading_indicator{
+	margin-left: 10px;
+}
+
+div.guestlist-form-right div#price_opt_hide{
+	border:1px solid #CCC; 
+	padding:8px; 
+	margin-top:10px;
+}
+
+div.guestlist-form-right table#vlf_key{
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 12px;
+}
+
+div.guestlist-form-right table#vlf_key td{
+	padding-left: 5px;
+	color: #FFF;
+}
+	
+	
+div.guestlist-form-right div#vl_small{
+	display: none;
+}
+div.guestlist-form-right div#vl_big{
+	display: block;
+}
+@media screen and (max-width: 479px){
+	div.guestlist-form-right  div#vl_small{
+		display: block;
+	}
+	div.guestlist-form-right  div#vl_big{
+		display: none;
+	}
+}
+
+
+
+
+
+
+
+/**
+ * 	Styles related to new accordion layout of GL join form
+ */
+section#guestlist{
+	min-height: 680px;
+}
+section#guestlist .ui-accordion .ui-accordion-header {
+	background: #5E5E5E;
+}
+section#guestlist .ui-accordion .ui-accordion-header a{
+	color: #FFF;
+}
+section#guestlist div#accordion .ui-widget-content{
+	position: relative;
+	border: 0px; 
+}
+section#guestlist div#accordion .ui-accordion-content{
+	background: #828282;
+	width: 100% !important;
+}
+section#guestlist div#accordion{
+}
+section#guestlist div#accordion .blue{
+	color: #3CA6E2;
+	font-weight: normal;
+}
+section#guestlist div#accordion .white{
+	color: #FFF;
+	font-weight: normal;
+	text-decoration: underline;
+}
+section#guestlist div#accordion .subtext{
+	color: #5E5E5E;
+}
+section#guestlist div#accordion span.friend_name{
+}
+section#guestlist div#accordion img.friend_pic{
+	vertical-align: middle;
+	margin-right: 15px;
+	margin-bottom: 4px;
+}
+section#guestlist div#accordion div#loading_indicator{
+	width: 100%;
+	text-align: center;
+}
+section#guestlist div#accordion div#facebook-guest-list-friends{
+	height: 220px;
+}
+section#guestlist .step_submit{
+	position: absolute;
+	bottom: 10px;
+	color: #000;
+	right: 10px;
+}
+
+
+
+section#guestlist p#gl_title_header{
+	font-size: 18px;
+	font-family: 'Mensch',Arial,sans-serif;
+	padding-bottom: 15px;
+	word-spacing: -1px;
+	border-bottom: 1px dashed #CCC;
+	margin-top: 0px;
+}
+section#guestlist img#gl_image{
+	border: 1px solid #CCC;
+}
+section#guestlist table#list_info{
+	width: 100%;
+}
+section#guestlist table#list_info td{
+	padding-right: 10px;
+}
+section#guestlist table#list_info tr{
+	padding-bottom: 10px;
+}
+
+section#guestlist div#twtr-widget-1 div.twtr-doc{
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+}
+
+section#guestlist div#accordion_replace_msg{
+	background:#CCC;
+	border-radius: 10px;
+}

@@ -1,0 +1,39 @@
+<?php if(ENVIRONMENT == 'production'):
+	//quick, easy, dirty way of disabling all javascript console debugging if this is production code 
+	
+		if(!isset($central->vc_user) || !$central->vc_user || (isset($central->vc_user->oauth_uid) && $central->vc_user->oauth_uid != '504405294')):
+?>
+<script type="text/javascript">console={};console.log=function(){};</script>
+		<?php endif; ?>
+<?php endif; ?>
+
+<?php # ------------------------ Begin META tags ------------------------ # ?>
+<meta http-equiv="Content-Type" 	content="text/html; charset=UTF-8" />
+<meta name="description" 			content="<?= (isset($header_custom->page_description)) ? $header_custom->page_description : $this->lang->line('ad-description') ?>">
+<meta name="viewport" 				content="width=device-width">
+<meta http-equiv="Content-Language" content="<?= $this->config->item('current_lang_code') ?>">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" 	content="IE=edge,chrome=1">
+
+<meta property="og:type" 			content="website"/>
+<meta property="og:title" 			content="<?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : '' ?><?= $central->title ?>"/>
+<meta property="og:url" 			content="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.vibecompass.com/' ?>"/>
+<meta property="og:image" 			content="<?= (isset($header_custom->page_image)) ? $header_custom->page_image : ($central->front_assets . 'images/main_link_image.png') ?>"/>
+<meta property="og:site_name" 		content="VibeCompass"/>
+<meta property="fb:app_id" 			content="<?= $central->facebook_app_id ?>"/>
+<meta property="og:description"		content="<?= (isset($header_custom->page_description)) ? $header_custom->page_description : $this->lang->line('ad-description') ?>"/>
+<link rel="apple-touch-icon-precomposed" href="<?= $central->front_assets ?>images/main_link_image.png" />
+<?php # ------------------------ End META tags ------------------------ # ?>
+
+
+<link rel="shortcut icon" href="<?= $central->global_assets ?>images/fav_v_2.jpg"/>
+<link rel="canonical" href="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.vibecompass.com/' ?>" />
+
+<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=ejs_templates&lang=' . $this->config->item('current_lang_code') . '&cache=' . $central->cache_global_js ?>"></script>
+<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=base&cache=' . $central->cache_global_js ?>"></script>
+
+<link href="<?= $central->static_assets_domain . 'assets/css?g=base&cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
+
+<?php if(extension_loaded('newrelic')): ?>
+	<?= newrelic_get_browser_timing_header(); ?>
+<?php endif; ?>

@@ -1,0 +1,38 @@
+.subtitle {
+  font-size: 18px;
+  font-style: italic;
+  margin: 0 0 20px 0;
+  padding: 20px 0;
+  border-bottom: 1px dashed #cccccc;
+}
+
+.venue-list {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  overflow: hidden;
+}
+.venue-list li {
+  width: 33.333%;
+  margin-bottom: 20px;
+  float: left;
+}
+.venue-list li .venue-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+.venue-list li a {
+  display: block;
+  font-size: 22px;
+  text-decoration: none;
+}
+.venue-list li p {
+  font-size: 12px;
+}
+.venue-list li p img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+}

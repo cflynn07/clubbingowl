@@ -1,0 +1,55 @@
+.people {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.people .avatar {
+  background: url('../images/friend.png?1335923939') center center no-repeat;
+  width: 106px;
+  height: 106px;
+}
+.people .avatar img {
+  margin: 0 auto;
+  padding-top: 28px;
+  display: block;
+}
+.people .name {
+  color: #777777;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.people a.name {
+  text-decoration: underline;
+}
+.people .invite {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('../images/invite-small.png?1335924837');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 113px;
+  height: 24px;
+  display: block;
+  margin: 10px auto;
+}
+.people li {
+  float: left;
+  width: 20%;
+  height: 163px;
+  text-align: center;
+}
+.people .avatar {
+  margin: 0 auto;
+}
+.people .name {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.people {
+  margin-top: 40px;
+}

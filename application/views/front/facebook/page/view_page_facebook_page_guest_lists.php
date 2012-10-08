@@ -1,0 +1,135 @@
+<div id="fan_page_id" style="display:none;"><?=$signed_request_data['page']['id']?></div>
+<style type="text/css">
+	.unauth_content{
+		display:<?= (isset($vc_user) && $vc_user) ? 'none' : 'block'?>;
+	}
+	.auth_content{
+		display:<?= (isset($vc_user) && $vc_user) ? 'block' : 'none'?>;
+	}
+</style>
+
+
+	<div id="user" class="plugin_user" style="display: block; width:100%;">
+		<div style="width:100%; padding-right:20px;" class="center">
+			
+			<div class="unauth_content" style="display:<?= (($this->session->userdata('vc_user')) ? 'none' : 'block' ) ?>;float:left; max-width:500px;">
+				<p style="margin-left:10px;font-size:12px">Log in to <a target="_new" style="margin-left:0px;" href="http://www.vibecompass.com/">VibeCompass</a> with Facebook</p>
+			</div>
+			
+			<ul></ul>
+		</div>
+	</div>
+	<script type="text/javascript">window.module.VCAuth.prototype.update_menu();</script>
+
+
+	<div id="content" style="border:0" class="content">
+	  
+	  	<section id="guestlist" style="min-height:0px;">
+			<div id="guest_list_content">
+			<h1>Guest Lists & Tables</h1>
+		  	<div style="border-top:1px dashed #CCC;border-bottom:0" class="guestlist-table">
+			    <table>
+				      <tbody>
+				      	
+				      	<?php for($i = 0; $i < 7; $i++): ?>
+				    	<?php $time = strtotime("Today +$i days"); ?>
+				    	            	
+				    	<tr>
+				        	<th><strong><?= strftime('%A', $time) ?></strong><br><?= strftime('%D', $time) ?></th>
+				       		<td>
+					          <ul class="tables">
+					                      	
+					          	<?php foreach($guest_lists as $gl): ?>
+					          		<?php if(strtolower($gl->tgla_day) == strtolower(date('l', $time) . 's')): ?>
+					                    <li>
+					                     
+					                      <div class="info">
+					                      	<div class="gl_image">
+					                      		<img src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $gl->tgla_image . '_t.jpg' ?>" style="width:33px;height:44px;" alt="" />
+					                      	</div>
+					                      	<div class="gl_text">
+					                      		<div class="name"><?= $gl->tgla_name ?></div> 
+												<div class="location">
+													@ <a href="<?= $central->front_link_base ?>venues/<?= $gl->c_url_identifier ?>/<?= str_replace(' ', '_', $gl->tv_name) ?>/" target="_new"><?= $gl->tv_name ?></a>
+												</div>			                      	
+											</div>
+					                      </div>
+					                      
+					                      <div class="friends">
+					                    <?php if(false): ?>  	
+					                        3 Friends <img src="http://placehold.it/20x20" alt="Avatar"> <img src="http://placehold.it/20x20" alt="Avatar"> <img src="http://placehold.it/20x20" alt="Avatar">
+					                    <?php endif; ?>
+					                      </div>
+					                      <div class="action">
+					                      	<span class="tgla_id" style="display:none;"><?= $gl->tgla_id ?></span>
+					                      	<span class="tv_id" style="display:none;"><?= $gl->tv_id ?></span>
+					                      	<a class="gl_join" href="#">Info/Join</a>
+					                      </div>
+					                    </li>
+					            	<?php endif; ?>
+					            <?php endforeach; ?>
+					
+					      		</ul>
+				         	</td>
+				         </tr>	
+				            		
+				        <?php endfor; ?>
+				      	
+				      </tbody>
+			    </table>
+		  	</div>
+		 </div><!-- guest_list_content -->
+		 </section>
+	
+	
+	
+		<ul class="venue-list" style="margin-top:20px;">
+			
+			<?php $count = 0; ?>
+			<?php foreach($team_venues as $venue): ?>
+			  <li>
+				
+				<?php if($venue->tv_image): ?>
+			  	<img style="max-width:254px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
+			  	<?php else: ?>
+			  	<img style="max-width:254px;" src="http://placehold.it/286x86?text=Coming+Soon" alt="Venue Banner">
+			  	<?php endif; ?>
+			  	
+			  	<br>
+					  	
+				<a target="_new" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/"><?= $venue->tv_name ?></a>
+			    
+			    <p class="friends_holder">
+			    	
+			    	<div class="auth_content tv_friends" id="friends_<?= $venue->tv_id ?>">
+			    		<img class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+			    	</div>
+				    
+			    </p>
+			    
+			  </li>
+			  <?php $count++ ?>
+			  <?php if($count % 3 == 0): ?>
+			  	<div style="clear:both;"></div>
+			  <?php endif; ?>
+			<?php endforeach; ?>
+			
+		</ul>
+		
+		<div style="margin-bottom:15px;margin-left:-10px;">
+			<div class="fb-like-box" data-href="http://www.facebook.com/vibecompass" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div> 
+		</div>
+		
+		<div style="padding-top:0px;border-bottom:1px dashed #CCC;padding-bottom:4px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
+		
+
+	</div><!--content-->
+	
+	<a href="<?= $central->front_link_base ?>" target="_new">
+		  <img style="margin-top:30px;" class="logo" src="<?= $central->front_assets ?>images/logo_large.png" />
+	</a>
+	
+	<div id="guest_list_content_temp_holder" style="display:none;"></div>
+
+</body>
+</html>

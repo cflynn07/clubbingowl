@@ -1,0 +1,196 @@
+/**
+ * Handles responsive design through the use of the @respond-to mixin
+ * 
+ * @param $size ('tablet', 'mobile')
+ */
+.history header {
+  overflow: hidden;
+}
+.history header h1 {
+  color: #52b0e5;
+  font-size: 50px;
+  float: left;
+  margin: 0;
+  border-bottom: 1px dashed #cccccc;
+  padding: 20px 0;
+  margin-bottom: 40px;
+  width: 100%;
+}
+.history .history-table {
+  padding: 20px;
+  margin-bottom: 40px;
+  background: white;
+}
+.history .history-table table {
+  width: 100%;
+}
+.history .history-table th {
+  padding-bottom: 20px;
+  text-align: left;
+}
+.history .history-table tbody tr {
+  border-top: 1px dashed #cccccc;
+}
+.history .history-table td {
+  padding: 20px 0;
+}
+.history .column {
+  display: inline-block;
+  width: 49.5%;
+  vertical-align: top;
+}
+.history .column h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.history #promoters {
+  padding-right: 20px;
+  border-right: 1px dashed #cccccc;
+}
+.history .people {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.history .people .avatar {
+  background: url('//www.staticcompass.com/vcweb2/assets/web/images/friend.png?1335923939') center center no-repeat;
+  width: 106px;
+  height: 106px;
+}
+.history .people .avatar img {
+  margin: 0 auto;
+  padding-top: 28px;
+  display: block;
+}
+.history .people .name {
+  color: #777777;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.history .people a.name {
+  text-decoration: underline;
+}
+.history .people .invite {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('//www.staticcompass.com/vcweb2/assets/web/images/invite-small.png?1335924837');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 113px;
+  height: 24px;
+  display: block;
+  margin: 10px auto;
+}
+.history .people li {
+  float: left;
+  width: 33.333%;
+  height: 163px;
+  text-align: center;
+}
+.history .people .avatar {
+  margin: 0 auto;
+}
+.history .people .name {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+}
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  .history .people li {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 479px) {
+  .history .people li {
+    width: 33%;
+  }
+  .history .history-table {
+    /* Hide table headers (but not display: none;, for accessibility) */
+  }
+  .history .history-table, .history .history-table thead, .history .history-table tbody, .history .history-table th, .history .history-table td, .history .history-table tr {
+    display: block;
+  }
+  .history .history-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .history .history-table th {
+    width: 100%;
+    padding-left: 10px;
+    border-right: 0;
+  }
+  .history .history-table td {
+    position: relative;
+    padding: 10px;
+    border-bottom: 0;
+  }
+  .history .history-table tbody td {
+    overflow: hidden;
+  }
+  .history .history-table tbody td:before {
+    font-weight: bold;
+    width: 100px;
+    float: left;
+  }
+  .history .history-table tbody td:nth-child(1):before {
+    content: 'Date: ';
+  }
+  .history .history-table tbody td:nth-child(2):before {
+    content: 'Promoter: ';
+  }
+  .history .history-table tbody td:nth-child(3):before {
+    content: 'Guest List Name: ';
+  }
+  .history .history-table tbody td:nth-child(4):before {
+    content: 'Request Message: ';
+  }
+  .history .history-table tbody td:nth-child(5):before {
+    content: 'Response Message: ';
+  }
+  .history .history-table tbody td:nth-child(6):before {
+    content: 'Approval Status: ';
+  }
+
+}
+.history #settings {
+  padding-left: 20px;
+}
+.history #settings label {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  #promoters .people li {
+    width: 50%;
+  }
+
+  .history .column {
+    width: 100%;
+  }
+  .history #promoters {
+    border-right: none;
+  }
+}
+
+article.history table#history_table thead th{
+	text-align: left;
+	white-space: nowrap;
+	padding-right: 20px;
+}
+article.history table#history_table tbody td{
+	padding: 20px 20px 20px 0px;
+}
+article.history table#history_table tbody td.request_msg{
+	width: 200px;
+}
+article.history table#history_table tbody td.response_msg{
+	width: 200px;
+}
+article.history table#history_table tbody td.response{
+	text-align: center;
+}

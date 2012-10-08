@@ -1,0 +1,19 @@
+#pageslide {
+    /* These styles MUST be included. Do not change. */
+    display: none;
+    position: fixed;
+	border-top: 1px solid red;
+    
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    height: 340px;
+    width: 100%;
+    
+    /* These styles are optional, and describe how the pageslide will look */
+    background-color: rgb(41, 41, 41);
+    color: #FFF;
+    z-index: 1000;
+}

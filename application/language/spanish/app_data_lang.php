@@ -1,0 +1,33 @@
+<?php 
+
+$lang["ad-description"]		= "VibeCompass es una aplicación que te facilita reservar listas y mesas con tus amigos en tus clubes preferidos!";
+$lang["ad-vc_team"]		= "El Equipo VibeCompass";
+$lang["ad-tos"]		= "Términos de Servicio";
+$lang["ad-friends"]		= "Amigos";
+$lang["ad-friends_desc"]		= "<%=friend_name%> esta en VibeCompass!";
+$lang["ad-promoters_home_title_city"]		= "Promotores en <%=location%>";
+$lang["ad-promoters_home_desc_city"]		= "Promotores, listas y eventos de VibeCompass en <%=location%>";
+$lang["ad-promoters_home_title"]		= "Promotores de Clubes";
+$lang["ad-promoters_home_desc"]		= "Promotores de Clubes, listas y mesas en VibeCompass";
+$lang["ad-promoters_home_profile_desc"]		= "Perfil, listas, mesas y eventos de <%=promoter_u_full_name%>";
+$lang["ad-promoters_all_guest_lists_desc"]		= "Listas y mesas de <%=promoter_u_full_name%> en VibeCompass";
+$lang["ad-promoters_all_guest_lists_title"]		= "Listas y mesas de <%=promoter_u_full_name%> en VibeCompass";
+$lang["ad-promoters_spec_gl_desc"]		= "Lista de <%=promoter_u_full_name%> llamada <%=pgla_name%> en <%=tv_name%>";
+$lang["ad-promoters_spec_gl_title"]		= "Lista de <%=promoter_u_full_name%> llamada <%=pgla_name%> en <%=tv_name%>";
+$lang["ad-venues_home_title_city"]		= "Clubes en <%=location%>";
+$lang["ad-venues_home_desc_city"]		= "Clubes miembros de VibeCompass en <%=location%>";
+$lang["ad-venues_home_title"]		= "Clubes";
+$lang["ad-venues_home_desc"]		= "Clubes miembros de VibeCompass";
+$lang["ad-venues_home_profile_desc"]		= "Perfil de <%=venue_name%>";
+$lang["ad-venues_all_guest_lists_desc"]		= "Reservaciones de listas y mesas en <%=venue_name%> ubicado en <%=location%>";
+$lang["ad-venues_all_guest_lists_title"]		= "Reservaciones de listas y mesas en <%=venue_name%> ubicado en <%=location%>";
+$lang["ad-venues_spec_gl_desc"]		= "Lista <%=tgla_name%> en <%=venue_name%>";
+$lang["ad-venues_spec_gl_title"]		= "Lista <%=tgla_name%> en <%=venue_name%>";
+$lang["ad-vc_user_profile"]		= "Perfil de <%=user_name%> en VibeCompass";
+$lang["ad-no_search_results"]		= "No hay resultados para \"<%=term%>\"";
+$lang["ad-loading"]		= "Cargando";
+$lang["ad-request_response_promoter"]		= "<%= promoter_name %> ha <%= response %> tu petición para unirte a  <%= guest_list_name %>.";
+$lang["ad-request_response_team"]		= "<%= venue_name %> ha <%= response %> tu petición para unirte a  <%= guest_list_name %>.";
+$lang["ad-request_response_resp_msg"]		= "Respuesta:";
+$lang["ad-request_response_close"]		= "Cerrar";
+$lang["ad-invite_friends"]		= "";

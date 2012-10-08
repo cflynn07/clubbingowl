@@ -1,0 +1,62 @@
+/**
+ * Handles responsive design through the use of the @respond-to mixin
+ * 
+ * @param $size ('tablet', 'mobile')
+ */
+.home {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 100px;
+  min-height: 826px;
+  background: url('//www.staticcompass.com/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
+}
+.home h1 {
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+  background: url('//www.staticcompass.com/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
+  width: 699px;
+  height: 79px;
+  margin: 0 auto 100px;
+}
+.home p {
+  font-size: 18px;
+}
+.home .fb-connect {
+  margin: 50px auto;
+  width: 319px;
+  max-width: 100%;
+  display: block;
+  position: relative;
+}
+.home .fb-connect:active {
+  top: 1px;
+}
+.home .fb-connect:focus {
+  outline: none;
+}
+.home .fb-facepile {
+  padding-top: 50px;
+  border-top: 1px dashed #cccccc;
+}
+@media screen and (max-width: 991px) {
+  .mobile .home {
+    padding-top: 20px;
+    min-height: 0;
+    background: none;
+  }
+  .mobile .home h1 {
+    width: 85%; 
+    margin: 0 0 20px 0;
+    background-position-x: center;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+  }
+}
+div#notifications_holder div#loading_indicator{
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}
