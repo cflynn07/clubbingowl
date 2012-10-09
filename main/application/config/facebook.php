@@ -10,6 +10,22 @@
 | app registration process.
 | ------------------------------------------------------------------- 
  */
+ 
+ 
+$facebook_variables = array(
+	//nemesis
+	'local'			=> array(),
+	
+	//nemesis_staging
+	'staging'		=> array(),
+	
+	//clubbingowl
+	'production'	=> array()
+);
+ 
+ 
+ 
+ 
 
 $project_avicii_local_app_id = '236258849725316';
 $project_avicii_local_app_secret = '7d279eb359234840123a78522a5809bb';

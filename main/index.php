@@ -1,5 +1,34 @@
 <?php
 
+
+$dotcloud_environment = '/home/dotcloud/environment.json';
+define('DOTCLOUD_JSON', $dotcloud_environment);
+
+if(file_exists(DOTCLOUD_JSON)){
+	//we're on dotcloud...
+	
+	$dotcloud_environment = json_decode(file_get_contents($dotcloud_environment), true);
+	if(isset($dotcloud_environment['DOTCLOUD_PROJECT']) && $dotcloud_environment['DOTCLOUD_PROJECT'] == 'clubbingowlproduction'){
+		define('MODE', 'production');
+		define('TLD', 'com');
+	}else{
+		define('MODE', 'staging');
+		define('TLD', 'staging');
+	}
+	
+}else{
+	//we're on local...
+	
+	define('MODE', 'local');
+	define('TLD', 'dev');
+	
+}
+unset($dotcloud_environment);
+
+
+
+/*
+
 //determine environment/variables
 $string = (isset($_ENV['CRED_FILE'])) ? file_get_contents($_ENV['CRED_FILE'], false) : false;
 if($string){
@@ -12,10 +41,15 @@ if($string){
 	define('TLD', 'dev');
 }
 
-//var_dump($_ENV);
+*/
 
+
+
+
+//Casey Flynn Added 5/6/2012
+//Hack for compatability. SSL enabled with CloudFlare -- does not reach server (USER ---ssl---- CF -------- HOST)
 //BEGIN HACK -----------------------------
-if(DEPLOYMENT_ENV == 'cloudcontrol'){
+if(MODE == 'production'){ 		//|| MODE == 'staging'
 	
 	if(isset($_SERVER['HTTP_CF_VISITOR'])){
 		$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR']);
@@ -35,8 +69,42 @@ if(DEPLOYMENT_ENV == 'cloudcontrol'){
 }
 //END HACK ---------------------------
 
+//assume always https for staging
+if(MODE == 'staging'){
+	$_SERVER['HTTPS'] = 'on';
+}
 
-//shut down any requests at www.vibecompass.com/index.php/.....
+
+
+
+
+//shut down any requests at www.clubbingowl.com/index.php/.....
+if(php_sapi_name() !== 'cli')
+	if(strpos($_SERVER['REQUEST_URI'], '/index.php') === 0){
+			
+		$base_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
+	    $base_url .= '://'. $_SERVER['HTTP_HOST'];
+	    $base_url .= isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != '80' ? ( ':'.$_SERVER['SERVER_PORT'] ) : '';
+	 	$base_url .= '/';
+		
+		header('HTTP/1.1 301 Moved Permanently');
+		if(strpos($_SERVER['REQUEST_URI'], '/index.php/') === 0)
+			header('Location: ' . $base_url . str_replace('/index.php/', '', $_SERVER['REQUEST_URI']));
+		else
+			header('Location: ' . $base_url);
+		
+		die();
+	}
+
+
+
+
+
+
+
+
+
+//shut down any requests at www.clubbingowl.com/index.php/.....
 if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		
 	$perform_redirect = false;
@@ -52,10 +120,9 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		'ja'			//Japanese
 	);
 	
-	$domain = "tinkerbay";
+	$domain = "clubbingowl";
 	
 	foreach($allowed_hosts as $key => $val){
-	//	$allowed_hosts[$key] = $allowed_hosts[$key] . '.vibecompass.' . TLD;
 		$allowed_hosts[$key] = $allowed_hosts[$key] . '.' . $domain . '.' . TLD;
 	}
 	
@@ -78,7 +145,7 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 	}
 	
 	//one exception, www.staticcompass.com/assets/
-	if($_SERVER['HTTP_HOST'] == 'www.staticcompass.' . TLD){
+	if($_SERVER['HTTP_HOST'] == 'www.staticowl.' . TLD){
 		if(strpos($_SERVER['REQUEST_URI'], '/assets') === 0)
 			$perform_redirect = false;
 		else
@@ -107,51 +174,51 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 
 /**
  * 
-	#force non-www to www.vibecompass.com
+	#force non-www to www.clubbingowl.com
 	#DEVELOPMENT URLS
-	RewriteCond %{HTTP_HOST} !^www.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^ar.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^cs.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^de.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^el.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^es.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^fr.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^hi.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^it.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^iw.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^ja.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^ko.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^nl.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^no.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^pl.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^pt.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^ru.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^sv.vibecompass.dev$
-	RewriteCond %{HTTP_HOST} !^zh.vibecompass.dev$
+	RewriteCond %{HTTP_HOST} !^www.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^ar.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^cs.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^de.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^el.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^es.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^fr.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^hi.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^it.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^iw.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^ja.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^ko.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^nl.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^no.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^pl.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^pt.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^ru.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^sv.clubbingowl.dev$
+	RewriteCond %{HTTP_HOST} !^zh.clubbingowl.dev$
 	
 	#PRODUCTION URLS
-	RewriteCond %{HTTP_HOST} !^www.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^ar.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^cs.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^de.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^el.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^es.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^fr.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^hi.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^it.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^iw.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^ja.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^ko.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^nl.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^no.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^pl.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^pt.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^ru.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^sv.vibecompass.com$
-	RewriteCond %{HTTP_HOST} !^zh.vibecompass.com$
+	RewriteCond %{HTTP_HOST} !^www.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^ar.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^cs.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^de.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^el.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^es.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^fr.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^hi.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^it.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^iw.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^ja.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^ko.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^nl.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^no.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^pl.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^pt.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^ru.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^sv.clubbingowl.com$
+	RewriteCond %{HTTP_HOST} !^zh.clubbingowl.com$
 
-	RewriteRule ^(.*)$ http://www.vibecompass.com/$1 [R=301]
+	RewriteRule ^(.*)$ http://www.clubbingowl.com/$1 [R=301]
  */
 
 
@@ -180,25 +247,28 @@ date_default_timezone_set('America/New_York');
  *
  */
 
-$local = 'development';
-//$local = 'production';
-$cloudcontrol = 'production';
-//$cloudcontrol = 'development';
+$local_mode = 'development';
+$staging_mode = 'development';
+//$production_mode = 'development';
 
 
-if(php_sapi_name() == 'cli') {
-    $local = 'development';
-	$cloudcontrol = 'development';
+switch(MODE){
+	case 'local':
+		define('ENVIRONMENT', (isset($local_mode)) 		? $local_mode 		: 'production');
+		break;
+	case 'staging':
+		define('ENVIRONMENT', (isset($staging_mode)) 	? $staging_mode 	: 'production');
+		break;
+	case 'production':
+		define('ENVIRONMENT', (isset($production_mode)) ? $production_mode 	: 'production');
+		break;
 }
-
-if(DEPLOYMENT_ENV == 'cloudcontrol'){
-	define('ENVIRONMENT', $cloudcontrol);
-}else{
-	define('ENVIRONMENT', $local);
-}
+unset($local_mode);
+unset($staging_mode);
+unset($production_mode);
 
 
-
+ 
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -214,10 +284,9 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'development':
 			error_reporting(E_ALL);
-			ini_set('display_errors', '1');
 		break;
 	
-		case 'testing':
+		case 'staging':
 		case 'production':
 			error_reporting(0);
 		break;
@@ -226,6 +295,7 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
+
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME
