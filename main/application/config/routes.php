@@ -76,7 +76,6 @@ $route['ajax/pusher_presence/(:any)'] 	= 'ajax/pusher_presence/index/$1';
 $route['ajax/notifications/(:any)'] 	= 'ajax/notifications/index/$1';
 
 
-
 # ----------- sitemap url route -------------- #
 $route['sitemap.xml'] = 'sitemap/index';
 /* End of file routes.php */

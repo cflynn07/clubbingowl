@@ -14,52 +14,35 @@
  
 $facebook_variables = array(
 	//nemesis
-	'local'			=> array(),
+	'local'			=> array(
+		'facebook_app_id'				=> '362616127152925',
+		'facebook_api_secet'			=> '7a6be74ff92589c1ae47d9258a608f8d',
+		'facebook_app_access_token'		=> '362616127152925|JZ3waQHUCgtqa6rBh_IwSvB_UMM'
+	),
 	
 	//nemesis_staging
-	'staging'		=> array(),
+	'staging'		=> array(
+		'facebook_app_id'				=> '395302060543702',
+		'facebook_api_secet'			=> 'd71da8500017dc071efb48104062e3f0',
+		'facebook_app_access_token'		=> '395302060543702|sAQGyTaBQYZ2XlISusrGoUrp4bo'
+	),
 	
 	//clubbingowl
-	'production'	=> array()
+	'production'	=> array(
+		'facebook_app_id'				=> '286248728153271',
+		'facebook_api_secet'			=> '907ab65ecd8b8b82cfa976c02f523510',
+		'facebook_app_access_token'		=> '286248728153271|pPLR00nzyzqJow1XfR9Cqpbv9xg'
+	)
 );
- 
- 
- 
- 
 
-$project_avicii_local_app_id = '236258849725316';
-$project_avicii_local_app_secret = '7d279eb359234840123a78522a5809bb';
-$project_avicii_local_app_access_token = '236258849725316|OK6iu5HSDxIexFEyZ6iG0OuK6qs';
-
-// old test app, not used anymore
-//$project_avicii_app_id = '227135463992977';
-//$project_avicii_app_secret = '5b248a72086081ac5bfd705f9ca393e6';
-//$project_avicii_app_access_token = '227135463992977|LroWH8cKb51efavdF9h1srceVvY';
-
-$vibecompass_app_id = '236915563048749';
-$vibecompass_app_secret = 'c10e35fd0e33d45ebbd324ee9cb37562';
-$vibecompass_app_access_token = '236915563048749|o6MOkeodeu1tzxied7MgFATIK_w';
+$creds = $facebook_variables[MODE];
 
 
-if(DEPLOYMENT_ENV == 'cloudcontrol'){
-	//cloudcontrol
-	
-	//vibecompass
-	$config['facebook_app_id'] 			= $vibecompass_app_id;
-	$config['facebook_api_secret'] 		= $vibecompass_app_secret;
-	//The app access token only changes when the facbeook api secret changes
-	$config['facebook_app_access_token'] = $vibecompass_app_access_token;
-	
-}else{
-	//local
-	
-	// projectavicii_local
-	$config['facebook_app_id'] 			= $project_avicii_local_app_id;
-	$config['facebook_api_secret'] 		= $project_avicii_local_app_secret;
-	//The app access token only changes when the facbeook api secret changes
-	$config['facebook_app_access_token'] = $project_avicii_local_app_access_token;
-	
-}
+$config['facebook_app_id'] 				= $creds['facebook_app_id'];
+$config['facebook_api_secret'] 			= $creds['facebook_api_secret'];
+//The app access token only changes when the facbeook api secret changes
+$config['facebook_app_access_token'] 	= $creds['facebook_app_access_token'];
+
 
 $config['facebook_default_scope']	= 'email,publish_stream'; // E.G 'read_stream,birthday,users_events,rsvp_event'
 $config['facebook_api_url'] 		= 'https://graph.facebook.com/'; // Just in case it changes.

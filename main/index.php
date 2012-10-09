@@ -1,5 +1,7 @@
 <?php
 
+define('SITE', 'clubbingowl');
+
 
 $dotcloud_environment = '/home/dotcloud/environment.json';
 define('DOTCLOUD_JSON', $dotcloud_environment);

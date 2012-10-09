@@ -15,28 +15,7 @@
 |
 */
 
-//Casey Flynn Added 5/6/2012
-//Hack for compatability. SSL enabled with CloudFlare -- does not reach server (USER ---ssl---- CF -------- HOST)
-//BEGIN HACK -----------------------------
-	if(DEPLOYMENT_ENV == 'cloudcontrol'){
-		
-		if(isset($_SERVER['HTTP_CF_VISITOR'])){
-			$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR']);
-			if(isset($http_cf_visitor->scheme)){
-				
-				if($http_cf_visitor->scheme == 'https'){
-					$_SERVER['HTTPS'] = 'on';
-				}else{
-					$_SERVER['HTTPS'] = 'off';
-				}
-				
-			}else{
-				$_SERVER['HTTPS'] = 'off';
-			}
-		}
-	
-	}
-//END HACK ---------------------------
+
 
 if(isset($_SERVER['HTTP_HOST']))
 {
@@ -48,7 +27,7 @@ if(isset($_SERVER['HTTP_HOST']))
 }
 else
 {
-    $config['base_url'] = 'http://www.vibecompass.dev/';
+    $config['base_url'] = 'http://www.' . SITE . '.' . TLD . '/';
 }
 
 /*
@@ -310,11 +289,7 @@ $config['sess_time_to_update']  = 60 * 60 * 6; //six hours
 |
 */
 
-if(DEPLOYMENT_ENV == 'cloudcontrol')
-	$config['cookie_domain']    = 'vibecompass.com';
-else
-	$config['cookie_domain'] = 'vibecompass.dev';
-
+$config['cookie_domain']	= SITE . '.' . TLD;
 $config['cookie_path']      = '/';
 $config['cookie_prefix']    = "";
 $config['cookie_secure']    = FALSE;
@@ -374,7 +349,7 @@ $config['csrf_expire'] = 7200;
 | by the output class.  Do not 'echo' any values with compression enabled.
 | TODO: ENABLE!
 */
-if(ENVIRONMENT == 'production')
+if(ENVIRONMENT == 'production' || ENVIRONMENT == 'staging')
 	$config['compress_output'] = TRUE;
 else 
 	$config['compress_output'] = FALSE;
@@ -426,7 +401,7 @@ $config['proxy_ips'] = '';
 |
 */
 // Title of web page
-$config['title_base'] = 'VibeCompass';
+$config['title_base'] = 'ClubbingOwl';
 //default file extension of all promoter profile pictures
 $config['img_file_ext'] = '.jpg';
 

@@ -14,32 +14,12 @@
  */
 
  
-$local_gearman 	= 	array(
+$gearman 	= 	array(
  						'servers' => array(
-// 											'ec2-79-125-91-67.eu-west-1.compute.amazonaws.com',
-//											'ec2-46-51-152-150.eu-west-1.compute.amazonaws.com'
-											'ec2-46-137-54-60.eu-west-1.compute.amazonaws.com'
-											)
-						);
+ 							'ec2-23-21-32-142.compute-1.amazonaws.com'
+						)
+					);
 						
-$cc_gearman 	= 	array(
- 						'servers' => array(
-// 											'ec2-46-137-142-15.eu-west-1.compute.amazonaws.com',	  	//		'ip-10-48-203-76.eu-west-1.compute.internal',
-//											'ec2-46-51-138-75.eu-west-1.compute.amazonaws.com'    		//'ip-10-227-59-108.eu-west-1.compute.internal'
-											'ec2-54-247-157-205.eu-west-1.compute.amazonaws.com'
-											)
- 						);
-
-
-if(DEPLOYMENT_ENV == 'cloudcontrol'){
-	//cloudcontrol
-	$gearman = $cc_gearman;
-	
-}else{
-	//local
-	$gearman = $local_gearman;
-	
-}
 
 $config['gearman'] = $gearman;
 

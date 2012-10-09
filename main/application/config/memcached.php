@@ -7,7 +7,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 // --------------------------------------------------------------------------
 
 
-if(DEPLOYMENT_ENV == 'cloudcontrol'){
+if(FALSE && (MODE == 'production' || MODE == 'staging')){
+	
 	
 	$string = file_get_contents($_ENV['CRED_FILE'], false);
     if ($string == false) {
@@ -55,7 +56,7 @@ if(DEPLOYMENT_ENV == 'cloudcontrol'){
 // Configuration
 // --------------------------------------------------------------------------
 
-if(DEPLOYMENT_ENV == 'cloudcontrol'){
+if(FALSE && (MODE == 'production' || MODE == 'staging')){
 	
 	
 	

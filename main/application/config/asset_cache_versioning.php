@@ -37,65 +37,23 @@
 | -------------------------------------------------------------------
 | */
 
-$base = '69_';
+$base = '20_';
+
+$cache_kill = true;
+
+
+$config['cache_global_css'] 	= $base . '1321057554' . ((MODE == 'local' && $cache_kill) ? '_' . time() : '');
+$config['cache_global_js'] 		= $base . '1321057554' . ((MODE == 'local' && $cache_kill) ? '_' . time() : '');
 
 
 
+$file = '/home/dotcloud/current/custom.json';
+if(file_exists($file)){
+	$custom = json_decode(file_get_contents($file), true);
 
-$config['cache_global_css'] 		= $base . '1321057759';
-$config['cache_global_js'] 			= $base . '1321057359';
+	
+	$config['cache_global_css'] = $custom['deployment_unique_id'];
+	$config['cache_global_js'] 	= $custom['deployment_unique_id'];
+}
 
-
-
-
-
-
-
-
-
-
-$config['cache_admin_css'] 			= $base . '1321057401';
-$config['cache_admin_js'] 			= $base . '1321057401';
-$config['cache_admin_images']		= $base . '1321057401';
-
-$config['cache_karma_css'] 			= $base . '1321057401';
-$config['cache_karma_js'] 			= $base . '1321057402';
-$config['cache_karma_images'] 		= $base . '1321057401';
-
-$config['cache_front_css'] 			= $base . '1321057455';
-$config['cache_front_js'] 			= $base . '1321057407';
-$config['cache_front_images'] 		= $base . '1321057401';
-
-
-$config['cache_global_images'] 		= $base . '1321057401';
-
-$config['cache_facebook_css'] 		= $base . '1321057401';
-$config['cache_facebook_js'] 		= $base . '1321057402';
-$config['cache_facebook_images'] 	= $base . '1321057401';
-
-
-
-
-
-/*
-| -------------------------------------------------------------------
-| PAGE CACHE CONTROL
-| -------------------------------------------------------------------
-|
-| Maintains separate groups of cached pages throughout the site. The
-| idea here is to provide one location in the code where you can modify
-| the caching of various groups of files throughout the site to assist
-| with temporarily bringing the site down in the future for upgrades and
-| maintenance. 
-|
-| An upgrade plan would presumably involve setting all of the cached 
-| pages to a 0, waiting until the cached versions on all users browsers
-| expire, and then bringing down the site. This process will ensure users
-| see a temporary 'Down for maintenance, be back soon' page instead of 
-| a cached version of the existing website.
-| */
-
-$config['cache_group_a'] = '';
-$config['cache_group_b'] = '';
-$config['cache_group_c'] = '';
-$config['cache_group_d'] = '';
+$config['cache_global_images'] 	= $base . '1321057401';

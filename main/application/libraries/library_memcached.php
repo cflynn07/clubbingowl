@@ -13,6 +13,7 @@ class Library_memcached
 	public function __construct()
 	{
 		$this->ci =& get_instance();
+		return;
 		
 		// Lets try to load Memcache or Memcached Class
 		$this->client_type = class_exists('Memcache') ? "Memcache" : (class_exists('Memcached') ? "Memcached" : FALSE);
@@ -106,19 +107,7 @@ class Library_memcached
 	public function add($key = NULL, $value = NULL, $expiration = NULL)
 	{
 		
-		if(DEPLOYMENT_ENV == 'cloudcontrol' && false){
-			
-			if(strpos($key, 'H:') === 0){
-				$this->ci->db->insert('memached_temp', array(
-					'key' 		=> $key,
-					'value' 	=> $value
-				));
-				
-				return true;
-			}
-			
-		}
-		
+		return true;
 			
 		if(is_null($expiration))
 		{
@@ -166,7 +155,10 @@ class Library_memcached
 	+-------------------------------------+
 	*/
 	public function set($key = NULL, $value = NULL, $expiration = NULL)
-	{		
+	{
+		
+		return true;
+				
 		if(is_null($expiration))
 		{
 			$expiration = $this->config['config']['expiration'];
@@ -212,25 +204,7 @@ class Library_memcached
 	{
 		
 		
-		
-		if(DEPLOYMENT_ENV == 'cloudcontrol' && false){
-			
-			if(strpos($key, 'H:') === 0){
-				
-				$sql = "select * from `depzv4w6kkb`.`memached_temp` where `key` = '$key'  limit 0,1";
-				
-				$query = $this->ci->db->query($sql);
-								
-				$result = $query->row();
-				
-				if(!$result)
-					return false;
-				
-				return $result->value;
-			}
-			
-			
-		}
+		return false;
 		
 		
 		
