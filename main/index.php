@@ -1,5 +1,6 @@
 <?php
 
+error_reporting(E_ALL);
 var_dump($_SERVER);
 die();
 //if(isset($_SERVER['REMOTE_ADDR']))
