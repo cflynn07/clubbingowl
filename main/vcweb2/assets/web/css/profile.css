@@ -54,7 +54,7 @@
   overflow: hidden;
 }
 #friends .people .avatar {
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/friend.png?1335923939') center center no-repeat;
+  background: url('/vcweb2/assets/web/images/friend.png?1335923939') center center no-repeat;
   width: 106px;
   height: 106px;
 }
@@ -77,7 +77,7 @@
   text-indent: 110%;
   white-space: nowrap;
   overflow: hidden;
-  background-image: url('//www.staticcompass.com/vcweb2/assets/web/images/invite-small.png?1335924837');
+  background-image: url('/vcweb2/assets/web/images/invite-small.png?1335924837');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 113px;
@@ -153,7 +153,7 @@ article.profile p#since_date{
   text-indent: 110%;
   white-space: nowrap;
   overflow: hidden;
-  background-image: url('//www.staticcompass.com/vcweb2/assets/web/images/invite-small.png?1335924837');
+  background-image: url('/vcweb2/assets/web/images/invite-small.png?1335924837');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 113px;
@@ -207,7 +207,7 @@ article.profile p#since_date{
   text-indent: 110%;
   white-space: nowrap;
   overflow: hidden;
-  background-image: url('//www.staticcompass.com/vcweb2/assets/web/images/invite-small.png?1335924837');
+  background-image: url('/vcweb2/assets/web/images/invite-small.png?1335924837');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 113px;

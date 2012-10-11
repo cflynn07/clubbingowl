@@ -38,59 +38,55 @@
 | the active record class
 */
 
-//testing, local dev env connect to remote db
 
-if(DEPLOYMENT_ENV == 'cloudcontrol'){
-	$active_group = 'cctrl';
+
+
+
+
+
+
+
+
+if(MODE == 'production' || MODE == 'staging'){
+	$active_group 	= 'cloud';
+	$dotcloud 		= json_decode(file_get_contents(DOTCLOUD_JSON), true);
 }else{
-	$active_group = 'local';
+	$active_group 	= 'local';
 }
- 
+
+
 $active_record = TRUE;
 
-# read the credentials file
-$string = (isset($_ENV['CRED_FILE'])) ? file_get_contents($_ENV['CRED_FILE'], false) : false;
-$active_group = 'local';
+	//DOTCLOUD_DB_MYSQL_PASSWORD
+// cloud 
+$db['cloud']['hostname'] = (isset($dotcloud['DOTCLOUD_DB_MYSQL_HOST'])) 	? $dotcloud['DOTCLOUD_DB_MYSQL_HOST'] 		: '';
+$db['cloud']['username'] = (isset($dotcloud['DOTCLOUD_DB_MYSQL_LOGIN'])) 	? $dotcloud['DOTCLOUD_DB_MYSQL_LOGIN'] 		: '';					//'application';
+$db['cloud']['password'] = (isset($dotcloud['DOTCLOUD_DB_MYSQL_PASSWORD'])) ? $dotcloud['DOTCLOUD_DB_MYSQL_PASSWORD'] 	: '';					//'chepufraCheDagu3p8Ch';
+$db['cloud']['database'] =  MODE;  //staging or production
+//$db['cloud']['database'] = 'cobarsystems_' . MODE;  //staging or production
+$db['cloud']['dbdriver'] = 'mysqli';
+$db['cloud']['dbprefix'] = '';
+$db['cloud']['pconnect'] = FALSE;
+$db['cloud']['port']	 = (isset($dotcloud['DOTCLOUD_DB_MYSQL_PORT'])) 	? $dotcloud['DOTCLOUD_DB_MYSQL_PORT'] 		: ''; 
+$db['cloud']['db_debug'] = FALSE;
+$db['cloud']['cache_on'] = FALSE;
+$db['cloud']['cachedir'] = '';
+$db['cloud']['char_set'] = 'utf8';
+$db['cloud']['dbcollat'] = 'utf8_general_ci';
+$db['cloud']['swap_pre'] = '';
+$db['cloud']['autoinit'] = TRUE;
+$db['cloud']['stricton'] = FALSE;
 
-if($string){
-	
-	# the file contains a JSON string, decode it and return an associative array
-	$creds = json_decode($string, true);
-	$active_group = 'cctrl';
-	
-	// cloudcontrol 
-//	$db['cctrl']['hostname'] = $creds['MYSQLS']['MYSQLS_HOSTNAME'];
-//	$db['cctrl']['username'] = $creds['MYSQLS']['MYSQLS_USERNAME'];
-//	$db['cctrl']['password'] = $creds['MYSQLS']['MYSQLS_PASSWORD'];
-//	$db['cctrl']['database'] = $creds['MYSQLS']['MYSQLS_DATABASE'];
-	$db['cctrl']['hostname'] = $creds['MYSQLD']['MYSQLD_HOST'];
-	$db['cctrl']['username'] = $creds['MYSQLD']['MYSQLD_USER'];
-	$db['cctrl']['password'] = $creds['MYSQLD']['MYSQLD_PASSWORD'];
-	$db['cctrl']['database'] = $creds['MYSQLD']['MYSQLD_DATABASE'];
-	
-	$db['cctrl']['dbdriver'] = 'mysql';
-	$db['cctrl']['dbprefix'] = '';
-	$db['cctrl']['pconnect'] = FALSE;
-	$db['cctrl']['db_debug'] = FALSE;
-	$db['cctrl']['cache_on'] = FALSE;
-	$db['cctrl']['cachedir'] = '';
-	$db['cctrl']['char_set'] = 'utf8';
-	$db['cctrl']['dbcollat'] = 'utf8_general_ci';
-	$db['cctrl']['swap_pre'] = '';
-	$db['cctrl']['autoinit'] = TRUE;
-	$db['cctrl']['stricton'] = FALSE;
-	
-}
 
 // local
-$db['local']['hostname'] = '127.0.0.1';
+$db['local']['hostname'] = 'localhost';
 $db['local']['username'] = 'root';
-$db['local']['password'] = '';
-//$db['local']['database'] = 'backup2_live_05.19.2012';
-$db['local']['database'] = 'backup';
-$db['local']['dbdriver'] = 'mysql';
+$db['local']['password'] = 'root';
+$db['local']['database'] = 'clubbingowl_development';
+$db['local']['dbdriver'] = 'mysqli';
 $db['local']['dbprefix'] = '';
 $db['local']['pconnect'] = FALSE;
+$db['local']['port']	 = 8889; 
 $db['local']['db_debug'] = FALSE;
 $db['local']['cache_on'] = FALSE;
 $db['local']['cachedir'] = '';
@@ -99,6 +95,7 @@ $db['local']['dbcollat'] = 'utf8_general_ci';
 $db['local']['swap_pre'] = '';
 $db['local']['autoinit'] = TRUE;
 $db['local']['stricton'] = FALSE;
+
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -7,7 +7,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 // --------------------------------------------------------------------------
 
 
-if(FALSE && (MODE == 'production' || MODE == 'staging')){
+if((MODE == 'production' || MODE == 'staging')){
 	
 	
 	$string = file_get_contents($_ENV['CRED_FILE'], false);

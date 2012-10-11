@@ -13,7 +13,7 @@ class Library_memcached
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-		return;
+	//	return;
 		
 		// Lets try to load Memcache or Memcached Class
 		$this->client_type = class_exists('Memcache') ? "Memcache" : (class_exists('Memcached') ? "Memcached" : FALSE);
@@ -33,7 +33,7 @@ class Library_memcached
 					
 					//this runs on CC
 					//added to library for cloudcontrol authentication
-					$this->m->configureSasl($this->config['config']['username'], $this->config['config']['password']);
+				//	$this->m->configureSasl($this->config['config']['username'], $this->config['config']['password']);
 									
 					
 					
@@ -107,7 +107,10 @@ class Library_memcached
 	public function add($key = NULL, $value = NULL, $expiration = NULL)
 	{
 		
-		return true;
+//		return true;
+		$this->ci->db->delete('key_value_temp_store', array('key' => $key));
+		$this->ci->db->insert('key_value_temp_store', array('key' => $key, 'value' => $value));
+		return true;	
 			
 		if(is_null($expiration))
 		{
@@ -157,6 +160,8 @@ class Library_memcached
 	public function set($key = NULL, $value = NULL, $expiration = NULL)
 	{
 		
+		$this->ci->db->delete('key_value_temp_store', array('key' => $key));
+		$this->ci->db->insert('key_value_temp_store', array('key' => $key, 'value' => $value));
 		return true;
 				
 		if(is_null($expiration))
@@ -202,7 +207,16 @@ class Library_memcached
 	*/
 	public function get($key = NULL)
 	{
+				
 		
+		$this->ci->db->select('value as v')
+			->from('key_value_temp_store')
+			->where(array('key' => $key));
+		$query = $this->ci->db->get();
+		$result = $query->row();
+		
+		if($result)
+			return $result->v;
 		
 		return false;
 		
@@ -246,6 +260,10 @@ class Library_memcached
 	*/
 	public function delete($key, $expiration = NULL)
 	{
+		
+		$this->ci->db->delete('key_value_temp_store', array('key' => $key));
+		return true;
+		
 		if(is_null($key))
 		{
 			$this->errors[] = 'The key value cannot be NULL';

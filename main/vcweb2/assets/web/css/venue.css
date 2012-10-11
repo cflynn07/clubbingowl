@@ -85,12 +85,12 @@
 }
 .venue .tabs li.active {
   background: #3594cb;
-  background: url('////www.staticcompass.com/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3da8e4), color-stop(100%, #3594cb));
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -webkit-linear-gradient(#3da8e4, #3594cb);
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -moz-linear-gradient(#3da8e4, #3594cb);
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -o-linear-gradient(#3da8e4, #3594cb);
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -ms-linear-gradient(#3da8e4, #3594cb);
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, linear-gradient(#3da8e4, #3594cb);
+  background: url('///vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3da8e4), color-stop(100%, #3594cb));
+  background: url('/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -webkit-linear-gradient(#3da8e4, #3594cb);
+  background: url('/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -moz-linear-gradient(#3da8e4, #3594cb);
+  background: url('/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -o-linear-gradient(#3da8e4, #3594cb);
+  background: url('/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, -ms-linear-gradient(#3da8e4, #3594cb);
+  background: url('/vcweb2/assets/web/images/highlight.png?1335933583') center 1px no-repeat, linear-gradient(#3da8e4, #3594cb);
   -webkit-box-shadow: 0 1px 0 #2273a8;
   -moz-box-shadow: 0 1px 0 #2273a8;
   box-shadow: 0 1px 0 #2273a8;
@@ -184,12 +184,12 @@
 }
 .rating .stars-on {
   z-index: 200;
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/star_on.png?1336008780') left center repeat-x;
+  background: url('/vcweb2/assets/web/images/star_on.png?1336008780') left center repeat-x;
 }
 .rating .stars-off {
   z-index: 100;
   width: 125px;
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/star_off.png?1336008787') left center repeat-x;
+  background: url('/vcweb2/assets/web/images/star_off.png?1336008787') left center repeat-x;
 }
 
 #profile .bio {

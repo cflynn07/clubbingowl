@@ -131,7 +131,7 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 			
 			//notify fede & casey if this is a pre-launch user signup
 			if($notify_admins){
-				$to_fede = "6178279119@txt.att.net";
+				$to_johann = "@txt.att.net";
 				$to_casey = "7745734580@vtext.com";
 	
 				$text_message = 'VC: New User -> ' . $fb_user_info['name'];	

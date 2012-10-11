@@ -19,7 +19,7 @@ class Assets extends MY_Common_Controller {
 	 * */
 	function __construct(){
 		parent::__construct();
-		
+				
 		$this->load->driver('minify');
 		$this->load->library('library_memcached', '', 'memcached');
 		
@@ -126,7 +126,7 @@ class Assets extends MY_Common_Controller {
 				break;
 		}
 
-		if(DEPLOYMENT_ENV == 'cloudcontrol')
+		if(ENVIRONMENT == 'production')
 			if($cached = $this->memcached->get($group . '-css-' . $this->config->item('cache_global_css'))){
 				$this->output->set_output($cached);
 				return;
@@ -151,10 +151,7 @@ class Assets extends MY_Common_Controller {
 		$merge_array = array_merge($front_css_include, $admin_css_include, $facebook_css_include, $global_css_include);
 		$output = $this->minify->combine_files($merge_array, 'css', true);
 		
-		if(DEPLOYMENT_ENV == 'local')
-			$output = str_replace('staticcompass.com', 'staticcompass.dev', $output);
-	
-		if(DEPLOYMENT_ENV == 'cloudcontrol')
+		if(ENVIRONMENT == 'production')
 			$this->memcached->add($group . '-css-' . $this->config->item('cache_global_css'), $output, 60 * 60 * 24 * 5); //5 days	
 	
 		$this->output->set_output($output);	
@@ -184,7 +181,8 @@ class Assets extends MY_Common_Controller {
 					array('jquery.history',												'global_js'),
 					array('jquery/jquery-ui-1.8.18.min',								'global_js'),
 					array('pusher/pusher-1.11',											'global_js'),
-					array('jquery.cookies.2.2.0.min',									'global_js'),
+					array('jquery.cookies.2.2.0.min',									'global_js'),					
+					array('jquery_cookies_domain_settings', 							'global_js'),
 					array('json2',														'global_js'),
 					array('jquery_notify/jquery.notify',								'global_js'),
 					array('kswedberg-jquery-cluetip-477822d/jquery.cluetip.all.min',	'global_js'),
@@ -201,6 +199,7 @@ class Assets extends MY_Common_Controller {
 					array(
 						array('front/view_dynamic_assets_js_front_pusher_init', ''), 	'dynamic'
 					),
+					
 					
 					array('lib/modernizr',												'front_js'),
 					array('app/app',													'front_js'),
@@ -502,8 +501,8 @@ class Assets extends MY_Common_Controller {
 		}
 		
 		
-		$compress = (DEPLOYMENT_ENV == 'cloudcontrol') ? true : false;
-		if(DEPLOYMENT_ENV == 'cloudcontrol'){
+		$compress = (ENVIRONMENT == 'production') ? true : false;
+		if(ENVIRONMENT == 'production'){
 			if($cached = $this->memcached->get($group . '-js-' . $this->config->item('cache_global_js'))){
 				$this->output->set_output($cached);
 				return;
@@ -556,10 +555,10 @@ class Assets extends MY_Common_Controller {
 		}
 		
 		
-		if(DEPLOYMENT_ENV == 'local')
-			$output = str_replace('staticcompass.com', 'staticcompass.dev', $output);
+//		if(DEPLOYMENT_ENV == 'local')
+//			$output = str_replace('staticcompass.com', 'staticcompass.dev', $output);
 		
-		if(DEPLOYMENT_ENV == 'cloudcontrol')
+		if(ENVIRONMENT == 'production')
 			$this->memcached->add($group . '-js-' . $this->config->item('cache_global_js'), $output, 60 * 60 * 24 * 5); //5 days	
 		
 		$this->output->set_output($output);

@@ -75,6 +75,7 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 								$data,
 								60);		
 		
+		//var_dump($data);
 		var_dump($handle);
 		echo "Retrieved vc_user news feed @ iterator position: " . (($iterator_position === false) ? "false" : $iterator_position) . " - notifications: " . count($notifications->data) . PHP_EOL;
     }

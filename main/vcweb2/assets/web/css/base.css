@@ -322,8 +322,8 @@ table {
 
 @font-face {
   font-family: "Mensch";
-  src: url('//www.staticcompass.com/vcweb2/assets/web/fonts/mensch-wf.eot');
-  src: url('//www.staticcompass.com/vcweb2/assets/web/fonts/mensch-wf.eot?#iefix') format('eot'), url('//www.staticcompass.com/vcweb2/assets/web/fonts/mensch-wf.woff') format('woff'), url('//www.staticcompass.com/vcweb2/assets/web/fonts/mensch-wf.ttf') format('truetype'), url('//www.staticcompass.com/vcweb2/assets/web/fonts/mensch-wf.svg#MenschMenschRegular') format('svg');
+  src: url('/vcweb2/assets/web/fonts/mensch-wf.eot');
+  src: url('/vcweb2/assets/web/fonts/mensch-wf.eot?#iefix') format('eot'), url('/vcweb2/assets/web/fonts/mensch-wf.woff') format('woff'), url('/vcweb2/assets/web/fonts/mensch-wf.ttf') format('truetype'), url('/vcweb2/assets/web/fonts/mensch-wf.svg#MenschMenschRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -346,14 +346,14 @@ body {
   color: #5e5e5e;
   padding: 0;
   margin: 0;
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/grunge.jpg?1335919852') left top repeat;
+  background: url('/vcweb2/assets/web/images/grunge.jpg?1335919852') left top repeat;
 }
 
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  *behavior: url(//www.staticcompass.com/vcweb2/assets/web/js/lib/boxsizing.htc);
+  *behavior: url(/vcweb2/assets/web/js/lib/boxsizing.htc);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -524,7 +524,7 @@ label {
   text-indent: 110%;
   white-space: nowrap;
   overflow: hidden;
-  background-image: url('//www.staticcompass.com/vcweb2/assets/web/images/loader.gif?1335922726');
+  background-image: url('/vcweb2/assets/web/images/loader.gif?1335922726');
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
@@ -548,7 +548,7 @@ label {
   width: 200px;
 }
 #navigation .search .icon {
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/search.png?1337211735') center center no-repeat;
+  background: url('/vcweb2/assets/web/images/search.png?1337211735') center center no-repeat;
   background-color: #4c4c4c;
   display: none;
 }
@@ -567,7 +567,7 @@ label {
 
 .arrow-down:after, #navigation .login span:after, #navigation .language span:after {
   content: '';
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/arrow-down.png?1335148824');
+  background: url('/vcweb2/assets/web/images/arrow-down.png?1335148824');
   width: 10px;
   height: 6px;
   position: absolute;
@@ -578,7 +578,7 @@ label {
 
 .arrow-up:after, #navigation .login.authenticated span:after {
   content: '';
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/arrow-up.png?1335148809');
+  background: url('/vcweb2/assets/web/images/arrow-up.png?1335148809');
   width: 10px;
   height: 6px;
   position: absolute;
@@ -870,7 +870,7 @@ div[role=main] {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/logo.png?1335304750') left center no-repeat;
+  background: url('/vcweb2/assets/web/images/logo.png?1335304750') left center no-repeat;
   width: 289px;
 }
 
@@ -1009,7 +1009,7 @@ div#loading_modal div#loading_modal_inner p{
 }
 
 #navigation form#search input.searching{
-	background: url('//www.staticcompass.com/vcweb2/assets/global/images/ajax_round.gif');
+	background: url('/vcweb2/assets/global/images/ajax_round.gif');
 	background-color: #FFF;
 	background-position: right center;
 	

@@ -32,7 +32,7 @@ class MY_Common_Controller extends CI_Controller{
 		
 		
 		
-		$is_not_static_request = (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] != 'www.staticcompass.' . TLD));
+		$is_not_static_request = (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] != 'www.' . ASSETS_SITE . '.' . TLD));
 		
 		if($is_not_static_request)
 			$this->load->library('session');
@@ -108,7 +108,7 @@ class MY_Common_Controller extends CI_Controller{
 		$central->facebook_link_base  = base_url() . 'facebook/';
 		
 						
-		$static_assets_domain = "$central->scheme://www.staticcompass." . TLD;
+		$static_assets_domain = "$central->scheme://www." . ASSETS_SITE . "." . TLD;
 		$central->static_assets_domain = $static_assets_domain . '/';
 		
 	//	$central->front_assets = $this->config->item('front_assets');

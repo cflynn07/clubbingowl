@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 .people .avatar {
-  background: url('//www.staticcompass.com/vcweb2/assets/web/images/friend.png?1335923939') center center no-repeat;
+  background: url('/vcweb2/assets/web/images/friend.png?1335923939') center center no-repeat;
   width: 106px;
   height: 106px;
 }
@@ -33,7 +33,7 @@
   text-indent: 110%;
   white-space: nowrap;
   overflow: hidden;
-  background-image: url('//www.staticcompass.com/vcweb2/assets/web/images/invite-small.png?1335924837');
+  background-image: url('/vcweb2/assets/web/images/invite-small.png?1335924837');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 113px;
@@ -77,7 +77,7 @@
 	  font: 0/0 a;
 	  text-shadow: none;
 	  color: transparent;
-	  background: url('//www.staticcompass.com/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
+	  background: url('/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
 	  width: 699px;
 	  height: 79px;
 	  margin: 0 auto 100px;	
@@ -88,7 +88,7 @@
 	margin-bottom: 20px;
 	padding-top: 100px;
 	min-height: 826px;
-	background: url('//www.staticcompass.com/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
+	background: url('/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
 }
 #friends_list div#unauth_content_holder > p.message{
 	font-size: 18px;

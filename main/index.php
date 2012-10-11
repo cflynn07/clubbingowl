@@ -1,16 +1,19 @@
 <?php
 
-define('SITE', 'clubbingowl');
+if(isset($_SERVER['REMOTE_ADDR']))
+	if($_SERVER['REMOTE_ADDR'] != '72.74.100.88')
+		die();
 
+define('SITE', 'clubbingowl');
+define('ASSETS_SITE', 'staticowl');
 
 $dotcloud_environment = '/home/dotcloud/environment.json';
 define('DOTCLOUD_JSON', $dotcloud_environment);
-
 if(file_exists(DOTCLOUD_JSON)){
 	//we're on dotcloud...
 	
 	$dotcloud_environment = json_decode(file_get_contents($dotcloud_environment), true);
-	if(isset($dotcloud_environment['DOTCLOUD_PROJECT']) && $dotcloud_environment['DOTCLOUD_PROJECT'] == 'clubbingowlproduction'){
+	if(isset($dotcloud_environment['DOTCLOUD_PROJECT']) && $dotcloud_environment['DOTCLOUD_PROJECT'] == 'coproduction'){
 		define('MODE', 'production');
 		define('TLD', 'com');
 	}else{
@@ -26,25 +29,6 @@ if(file_exists(DOTCLOUD_JSON)){
 	
 }
 unset($dotcloud_environment);
-
-
-
-/*
-
-//determine environment/variables
-$string = (isset($_ENV['CRED_FILE'])) ? file_get_contents($_ENV['CRED_FILE'], false) : false;
-if($string){
-	//cloudcontrol
-	define('DEPLOYMENT_ENV', 'cloudcontrol');
-	define('TLD', 'com');
-}else{
-	//local
-	define('DEPLOYMENT_ENV', 'local');
-	define('TLD', 'dev');
-}
-
-*/
-
 
 
 
@@ -75,8 +59,6 @@ if(MODE == 'production'){ 		//|| MODE == 'staging'
 if(MODE == 'staging'){
 	$_SERVER['HTTPS'] = 'on';
 }
-
-
 
 
 
@@ -146,8 +128,10 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		
 	}
 	
-	//one exception, www.staticcompass.com/assets/
-	if($_SERVER['HTTP_HOST'] == 'www.staticowl.' . TLD){
+	
+	//http://www.staticowl.dev/assets/js?g=base&cache=20_1321057554_1349920359
+	//one exception, www.staticowl.com/assets/
+	if($_SERVER['HTTP_HOST'] == 'www.' . ASSETS_SITE . '.' . TLD){
 		if(strpos($_SERVER['REQUEST_URI'], '/assets') === 0)
 			$perform_redirect = false;
 		else
@@ -162,7 +146,7 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		
 	}
 
-	if($perform_redirect){
+	if($perform_redirect){		
 		header('HTTP/1.1 301 Moved Permanently');
 		header('Location: ' . $redirect_url);
 		die();
@@ -253,7 +237,6 @@ $local_mode = 'development';
 $staging_mode = 'development';
 //$production_mode = 'development';
 
-
 switch(MODE){
 	case 'local':
 		define('ENVIRONMENT', (isset($local_mode)) 		? $local_mode 		: 'production');
@@ -320,7 +303,7 @@ if (defined('ENVIRONMENT'))
  * can also be renamed or relocated anywhere on your server.  If
  * you do, use a full server path. For more info please see the user guide:
  * http://codeigniter.com/user_guide/general/managing_apps.html
- *
+ * 
  * NO TRAILING SLASH!
  *
  */
