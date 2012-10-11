@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-	if($_SERVER['HTTP_X_FORWARDED_FOR'] != '72.74.100.88')
+	if($_SERVER['HTTP_X_FORWARDED_FOR'] != '174.63.106.24')
 		die();
 
 define('SITE', 'clubbingowl');
