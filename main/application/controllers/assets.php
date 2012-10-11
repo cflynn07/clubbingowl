@@ -126,7 +126,7 @@ class Assets extends MY_Common_Controller {
 				break;
 		}
 
-		if(ENVIRONMENT == 'production')
+		if(FALSE && ENVIRONMENT == 'production')
 			if($cached = $this->memcached->get($group . '-css-' . $this->config->item('cache_global_css'))){
 				$this->output->set_output($cached);
 				return;
@@ -151,7 +151,7 @@ class Assets extends MY_Common_Controller {
 		$merge_array = array_merge($front_css_include, $admin_css_include, $facebook_css_include, $global_css_include);
 		$output = $this->minify->combine_files($merge_array, 'css', true);
 		
-		if(ENVIRONMENT == 'production')
+		if(FALSE && ENVIRONMENT == 'production')
 			$this->memcached->add($group . '-css-' . $this->config->item('cache_global_css'), $output, 60 * 60 * 24 * 5); //5 days	
 	
 		$this->output->set_output($output);	
@@ -502,7 +502,7 @@ class Assets extends MY_Common_Controller {
 		
 		
 		$compress = (ENVIRONMENT == 'production') ? true : false;
-		if(ENVIRONMENT == 'production'){
+		if(FALSE && ENVIRONMENT == 'production'){
 			if($cached = $this->memcached->get($group . '-js-' . $this->config->item('cache_global_js'))){
 				$this->output->set_output($cached);
 				return;
@@ -558,7 +558,7 @@ class Assets extends MY_Common_Controller {
 //		if(DEPLOYMENT_ENV == 'local')
 //			$output = str_replace('staticcompass.com', 'staticcompass.dev', $output);
 		
-		if(ENVIRONMENT == 'production')
+		if(FALSE && ENVIRONMENT == 'production')
 			$this->memcached->add($group . '-js-' . $this->config->item('cache_global_js'), $output, 60 * 60 * 24 * 5); //5 days	
 		
 		$this->output->set_output($output);

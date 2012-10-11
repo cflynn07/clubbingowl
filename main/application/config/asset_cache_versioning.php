@@ -42,8 +42,8 @@ $base = '20_';
 $cache_kill = true;
 
 
-$config['cache_global_css'] 	= $base . '1321057554' . ((MODE == 'local' && $cache_kill) ? '_' . time() : '');
-$config['cache_global_js'] 		= $base . '1321057554' . ((MODE == 'local' && $cache_kill) ? '_' . time() : '');
+$config['cache_global_css'] 	= $base . '1321057555' . ((MODE == 'local' && $cache_kill) ? '_' . time() : '');
+$config['cache_global_js'] 		= $base . '1321057555' . ((MODE == 'local' && $cache_kill) ? '_' . time() : '');
 
 
 
