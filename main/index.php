@@ -1,8 +1,10 @@
 <?php
 
-if(isset($_SERVER['REMOTE_ADDR']))
-	if($_SERVER['REMOTE_ADDR'] != '72.74.100.88')
-		die();
+var_dump($_SERVER);
+die();
+//if(isset($_SERVER['REMOTE_ADDR']))
+//	if($_SERVER['REMOTE_ADDR'] != '72.74.100.88')
+//		die();
 
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'staticowl');
