@@ -20,8 +20,13 @@ $config['admin_assets'] 		= $config['s3_assets_base_url'] . 'admin/';
 $config['global_assets'] 		= $config['s3_assets_base_url'] . 'global/';
 $config['facebook_assets'] 		= $config['s3_assets_base_url'] . 'facebook/';
 
-$config['s3_uploaded_images_base_url'] = $protocol . '://d1pv30wi5cq71r.cloudfront.net/vc-images/'; 
+
+
+//$config['s3_uploaded_images_base_url'] = $protocol . '://d1pv30wi5cq71r.cloudfront.net/vc-images/'; 
+$config['s3_uploaded_images_base_url'] = $protocol . '://clubbingowl.s3-website-us-east-1.amazonaws.com/clubbingowl/vc-images/'; 
 $config['s3_promoter_picture_base_url'] = $config['s3_uploaded_images_base_url'] . 'profile-pics/';
+
+
 
 unset($base_url);
 unset($protocol);

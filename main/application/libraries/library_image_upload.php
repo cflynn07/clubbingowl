@@ -36,7 +36,7 @@ class Library_image_upload{
 										//creating gigantic duplicate object of CI superobject
 		if(!isset($_SERVER['TMP_DIR'])){
 			//assume local dev env
-			$this->TMP_CC_WORKING_DIR = '/Applications/XAMPP/xamppfiles/temp/';
+			$this->TMP_CC_WORKING_DIR = '/tmp/';
 			
 		}else{
 			$this->TMP_CC_WORKING_DIR = $_SERVER['TMP_DIR'] . '/'; //Implemented for CC compatability

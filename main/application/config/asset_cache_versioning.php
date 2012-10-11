@@ -51,7 +51,6 @@ $file = '/home/dotcloud/current/custom.json';
 if(file_exists($file)){
 	$custom = json_decode(file_get_contents($file), true);
 
-	
 	$config['cache_global_css'] = $custom['deployment_unique_id'];
 	$config['cache_global_js'] 	= $custom['deployment_unique_id'];
 }
