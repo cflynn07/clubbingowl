@@ -34,6 +34,8 @@ class MY_Common_Controller extends CI_Controller{
 		
 		$is_not_static_request = (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] != 'www.' . ASSETS_SITE . '.' . TLD));
 		
+		$is_not_static_request = true;
+		
 		if($is_not_static_request)
 			$this->load->library('session');
 		

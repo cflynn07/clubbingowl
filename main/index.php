@@ -5,7 +5,7 @@ if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
 		die();
 
 define('SITE', 'clubbingowl');
-define('ASSETS_SITE', 'staticowl');
+define('ASSETS_SITE', 'clubbingowl'); //staticowl
 
 $dotcloud_environment = '/home/dotcloud/environment.json';
 define('DOTCLOUD_JSON', $dotcloud_environment);
@@ -131,7 +131,7 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 	
 	//http://www.staticowl.dev/assets/js?g=base&cache=20_1321057554_1349920359
 	//one exception, www.staticowl.com/assets/
-	if($_SERVER['HTTP_HOST'] == 'www.' . ASSETS_SITE . '.' . TLD){
+/*	if($_SERVER['HTTP_HOST'] == 'www.' . ASSETS_SITE . '.' . TLD){
 		if(strpos($_SERVER['REQUEST_URI'], '/assets') === 0)
 			$perform_redirect = false;
 		else
@@ -145,6 +145,8 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		}
 		
 	}
+*/
+
 
 	if($perform_redirect){		
 		header('HTTP/1.1 301 Moved Permanently');
