@@ -1,7 +1,5 @@
 <?php
 
-var_dump($_SERVER);
-
 if(isset($_SERVER['REMOTE_ADDR']))
 	if($_SERVER['REMOTE_ADDR'] != '72.74.100.88')
 		die();
