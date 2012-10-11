@@ -1,11 +1,8 @@
 <?php
 
-error_reporting(E_ALL);
-var_dump($_SERVER);
-die();
-//if(isset($_SERVER['REMOTE_ADDR']))
-//	if($_SERVER['REMOTE_ADDR'] != '72.74.100.88')
-//		die();
+if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+	if($_SERVER['HTTP_X_FORWARDED_FOR'] != '72.74.100.88')
+		die();
 
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'staticowl');
