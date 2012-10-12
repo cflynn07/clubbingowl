@@ -1,8 +1,12 @@
 <?php
 
-if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-	if($_SERVER['HTTP_X_FORWARDED_FOR'] != '174.63.106.24')
-		die();
+if(!isset($_COOKIE['token_value'])){
+	die();
+}else{
+	if($_COOKIE['token_value'] != 'v49y49fgs068y33nwfg90'){
+		die();	
+	}
+}
 
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'clubbingowl'); //staticowl
