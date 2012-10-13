@@ -43,7 +43,7 @@
 <?php else: ?>
 
 	<link 	href="<?= $central->static_assets_domain . 'vcweb2/assets/all_admin_base_' . $central->cache_global_css . '.css'; ?>" rel="stylesheet" type="text/css" />
-	<script  src="<?= $central->static_assets_domain . 'vcweb2/assets/all_admin_base_' . $subg . '_' . $central->cache_global_js ?>" type="text/javascript"></script>	
+	<script  src="<?= $central->static_assets_domain . 'vcweb2/assets/all_admin_base_' . $subg . '_' . $central->cache_global_js . '.js'; ?>" type="text/javascript"></script>	
 	
 <?php endif; ?>
 
