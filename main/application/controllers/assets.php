@@ -531,7 +531,9 @@ class Assets extends MY_Common_Controller {
 				break;
 		}
 		
-		$output_file_name = 'all_' . $group . '_' . $subg . '_';
+		$output_file_name = 'all_' . $group . '_';
+		if($subg)
+			$output_file_name .= $subg . '_';
 		
 		$compress = (ENVIRONMENT == 'production') ? true : false;
 		if(php_sapi_name() == 'cli')
