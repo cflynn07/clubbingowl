@@ -11,25 +11,42 @@
 <?php
 	//global javascript variables for team chat system
 	$vc_tc_obj = new stdClass;
-	$vc_tc_obj->team_chat_members 	= $team_chat_members;
-	$vc_tc_obj->team_fan_page_id	= $team_fan_page_id;
 	
-	$users = array();
-	foreach($team_chat_members->managers as $man){
-		$users[] = $man->oauth_uid;
+	/**
+	 * Will be false in super-admin area
+	 */
+	if(isset($team_fan_page_id) && isset($team_chat_members)){
+		
+		$vc_tc_obj->team_chat_members 	= $team_chat_members;
+		$vc_tc_obj->team_fan_page_id	= $team_fan_page_id;
+		
+		$users = array();
+		foreach($team_chat_members->managers as $man){
+			$users[] = $man->oauth_uid;
+		}
+		foreach($team_chat_members->promoters as $pro){
+			$users[] = $pro->oauth_uid;
+		}
+		foreach($team_chat_members->hosts as $host){
+			$users[] = $host->oauth_uid;
+		}
+		$vc_tc_obj->users			  	= $users;
 	}
-	foreach($team_chat_members->promoters as $pro){
-		$users[] = $pro->oauth_uid;
-	}
-	foreach($team_chat_members->hosts as $host){
-		$users[] = $host->oauth_uid;
-	}
-	$vc_tc_obj->users			  	= $users;
 ?>
 <script type="text/javascript">window.vc_tc_obj=<?= json_encode($vc_tc_obj) ?>;</script>
 
-<link href="<?= $central->static_assets_domain . 'assets/css?g=admin_base&cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=admin_base&subg=' . $subg . '&cache=' . $central->cache_global_js ?>"></script>
+<?php if(MODE == 'local'): ?>
+
+	<link   href="<?= $central->static_assets_domain . 'assets/css/admin_base?cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
+	<script  src="<?= $central->static_assets_domain . 'assets/js/admin_base/' . $subg . '?cache=' . $central->cache_global_js ?>" type="text/javascript"></script>
+
+<?php else: ?>
+
+	<link 	href="<?= $central->static_assets_domain . 'vcweb2/assets/all_admin_base_' . $central->cache_global_css . '.css'; ?>" rel="stylesheet" type="text/css" />
+	<script  src="<?= $central->static_assets_domain . 'vcweb2/assets/all_admin_base_' . $subg . '_' . $central->cache_global_js ?>" type="text/javascript"></script>	
+	
+<?php endif; ?>
+
 
 <!--[if IE 8]>
 	<script type='text/javascript' src='<?=$central->admin_assets?>js/excanvas.js'></script>

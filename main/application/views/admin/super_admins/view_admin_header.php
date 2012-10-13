@@ -16,13 +16,7 @@
 ?>
 </head>
 <body>
-<div id="fb-root"></div>	
-<?php if(MODE == 'local'): ?>
-	<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=facebook_sdk' ?>"></script>
-<?php else: ?>
-	<script type="text/javascript" src="<?= $central->static_assets_domain . 'vcweb2/assets/all_facebook_sdk_' . $this->config->item('cache_global_js') . '.js' ?>"></script>
-<?php endif; ?>
-
+<?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
 	<div id="container">
 		<div id="bgwrap">

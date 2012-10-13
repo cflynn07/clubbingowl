@@ -32,29 +32,11 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 
 </head>
 <body>
-<div id="fb-root"></div>	
-<?php if(MODE == 'local'): ?>
-	<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=facebook_sdk_admin&cache' ?>"></script>
-<?php else: ?>
-	<script type="text/javascript" src="<?= $central->static_assets_domain . 'vcweb2/assets/all_facebook_sdk_admin_' . $this->config->item('cache_global_js') . '.js' ?>"></script>
-<?php endif; ?>
-
-
-<div id="loading_modal" style="display:none;">
-	<div id="loading_modal_inner">
-		<p><?= $this->lang->line('ad-loading') ?>...</p>
-		<img src="<?= $central->global_assets . 'images/ajax.gif' ?>" alt="loading..." />
-	</div>
-</div>
-
-
+<?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
 
 <?php $this->load->view('admin/_common/view_common_promoter_admin_user_stats'); ?>
 <?php $this->load->view('admin/_common/view_common_admin_chat'); ?>
-
-
-
 
 
 	<div id="container">
