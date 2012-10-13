@@ -23,7 +23,7 @@
 </head>
 <body>
 <div id="fb-root"></div>
-<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=facebook_sdk' ?>"></script>
+<script type="text/javascript" src="<?= $central->static_assets_domain . 'vcweb2/assets/all_facebook_sdk_' . $this->config->item('cache_global_js') . '.js' ?>"></script>
 
 
 
