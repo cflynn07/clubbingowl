@@ -1,12 +1,17 @@
 <?php
 
-if(!isset($_COOKIE['token_value'])){
-	die();
-}else{
-	if($_COOKIE['token_value'] != 'v49y49fgs068y33nwfg90'){
-		die();	
+
+if(php_sapi_name() != 'cli')
+	if(!isset($_COOKIE['token_value'])){
+		die();
+	}else{
+		if($_COOKIE['token_value'] != 'v49y49fgs068y33nwfg90'){
+			die();	
+		}
 	}
-}
+
+
+
 
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'clubbingowl'); //staticowl
