@@ -29,10 +29,21 @@
 <link rel="shortcut icon" href="<?= $central->global_assets ?>images/fav_v_2.jpg"/>
 <link rel="canonical" href="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.vibecompass.com/' ?>" />
 
-<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=ejs_templates&lang=' . $this->config->item('current_lang_code') . '&cache=' . $central->cache_global_js ?>"></script>
-<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=base&cache=' . $central->cache_global_js ?>"></script>
 
-<link href="<?= $central->static_assets_domain . 'assets/css?g=base&cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
+<?php if(MODE == 'local'): ?>
+
+	<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js/ejs_templates/' . $this->config->item('current_lang_code') . '?cache=' . $central->cache_global_js ?>"></script>
+	<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js/base?cache=' . $central->cache_global_js ?>"></script>
+	<link href="<?= $central->static_assets_domain . 'assets/css/base?cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
+
+<?php else: ?>
+	
+	<script 		 src="<?= $central->static_assets_domain . 'vcweb2/assets/all_ejs_templates_' . $this->config->item('current_lang_code') . '_' . $central->cache_global_js . '.js' ?>" type="text/javascript"></script>
+	<script 		 src="<?= $central->static_assets_domain . 'vcweb2/assets/all_base_' . $central->cache_global_js . '.js' ?>" type="text/javascript"></script>
+	<link 			href="<?= $central->static_assets_domain . 'vcweb2/assets/all_base_' . $central->cache_global_css . '.css' ?>" rel="stylesheet" type="text/css" />
+	
+<?php endif; ?>
+
 
 <?php if(extension_loaded('newrelic')): ?>
 	<?= newrelic_get_browser_timing_header(); ?>

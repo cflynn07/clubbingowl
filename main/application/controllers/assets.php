@@ -461,7 +461,7 @@ class Assets extends MY_Common_Controller {
 				
 				$languages = $this->config->item('supported_langs');
 				$language = $languages[$lang];
-				$group .= '-' . $lang;
+			//	$group .= '-' . $lang;
 				
 				//load all language files needed by the EJS templates
 				
@@ -531,7 +531,7 @@ class Assets extends MY_Common_Controller {
 				break;
 		}
 		
-		$output_file_name = 'all_' . $group . '_' . $subg;
+		$output_file_name = 'all_' . $group . '_' . $subg . '_';
 		
 		$compress = (ENVIRONMENT == 'production') ? true : false;
 		if(php_sapi_name() == 'cli')
