@@ -42,10 +42,14 @@ jQuery(function(){
 				
 			if(!app_friends)	
 				fbEnsureInit(function(){
-					var query = FB.Data.query('SELECT name, uid, pic_square, third_party_id FROM user WHERE uid IN (SELECT uid1 FROM friend WHERE uid2 = me()) AND is_app_user = 1');
-					query.wait(function(rows){
-					    app_friends = rows;
+					
+					FB.api({
+						method: 'fql.query', 
+						query: 'SELECT name, uid, pic_square, third_party_id FROM user WHERE uid IN (SELECT uid1 FROM friend WHERE uid2 = me()) AND is_app_user = 1'
+					}, function(rows){
+						 app_friends = rows;
 					});
+									
 				});
 			
 			

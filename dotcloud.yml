@@ -4,6 +4,7 @@ www:
  systempackages:
   - libfuse2
   - fuse-utils
+ postinstall: ./postinstall.sh
 daemons:
  type: php-worker
  approot: main

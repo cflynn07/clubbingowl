@@ -33,10 +33,16 @@ jQuery(function(){
 				dataType: 'json',
 				success: function(data, textStatus, jqXHR){
 					
+					if(!data.success){
+						alert(data.message);
+						jQuery('img#ajax_complete').css('display', 'none');
+					}else{
+						jQuery('img#ajax_complete').css('display', 'inline-block');
+					}
+					
 					console.log(data);
 					jQuery(this).css('disabled', '');
 					jQuery('img#ajax_loading').css('display', 'none');
-					jQuery('img#ajax_complete').css('display', 'inline-block');
 					
 				},
 				failure: function(){

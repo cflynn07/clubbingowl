@@ -38,9 +38,7 @@ jQuery(function(){
 		routes_prod[routes_prefix + i + routes_suffix] = routes[i];
 	}
 	
-	
-	console.log(routes_prod);
-	
+		
 	var Router = Backbone.Router.extend({
 
 		//---------------------------------------------------------------------------

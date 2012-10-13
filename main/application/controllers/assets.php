@@ -19,6 +19,18 @@ class Assets extends MY_Common_Controller {
 	 * */
 	function __construct(){
 		parent::__construct();
+		
+		
+		/**
+		 * This controller should not be accessed from production or staging environments unless by CLI
+		 * to generate asset files
+		 * 
+		 */
+		if(MODE == 'production' || MODE == 'staging')
+			if(php_sapi_name() != 'cli')
+				show_404();
+				
+				
 				
 		$this->load->driver('minify');
 		$this->load->library('library_memcached', '', 'memcached');
@@ -41,10 +53,12 @@ class Assets extends MY_Common_Controller {
 	/**
 	 * Combine and minify css files
 	 */
-	function css(){
+	function css($group = ''){
 		
 		header('Content-Type: text/css');
-		$group = $this->input->get('g');
+		
+		
+	//	$group = $this->input->get('g');
 		# ----------------------- ASSET GROUPS --------------------- #
 
 		//globally included css
@@ -86,6 +100,7 @@ class Assets extends MY_Common_Controller {
 				break;
 			case 'admin_base':
 				
+				
 				$global_css_include = array(
 					'pageslider/jquery.pageslide',
 					'jquery_notify/jquery.notify',
@@ -126,12 +141,13 @@ class Assets extends MY_Common_Controller {
 				break;
 		}
 
-		if(FALSE && ENVIRONMENT == 'production')
-			if($cached = $this->memcached->get($group . '-css-' . $this->config->item('cache_global_css'))){
-				$this->output->set_output($cached);
-				return;
-			}		
+
+		$output_file_name = 'all_' . $group . '_';
+
+
 		# ----------------------- /ASSET GROUPS --------------------- #
+	
+	
 	
 		//combine with base and remove duplicates
 				
@@ -151,20 +167,34 @@ class Assets extends MY_Common_Controller {
 		$merge_array = array_merge($front_css_include, $admin_css_include, $facebook_css_include, $global_css_include);
 		$output = $this->minify->combine_files($merge_array, 'css', true);
 		
-		if(FALSE && ENVIRONMENT == 'production')
-			$this->memcached->add($group . '-css-' . $this->config->item('cache_global_css'), $output, 60 * 60 * 24 * 5); //5 days	
-	
-		$this->output->set_output($output);	
+		
+		
+			
+		if(MODE == 'local' && php_sapi_name() != 'cli'){
+			$this->output->set_output($output);
+		}else{
+			$filename = FCPATH . 'vcweb2/assets/' . $output_file_name . $this->config->item('cache_global_css') . '.css';
+			if(!file_exists($filename)){
+				$fh = fopen($filename, 'w+');
+				fwrite($fh, $output);
+				fclose($fh);
+			}
+		}
+		
+		
+		
+		
+		
 	}
 	
 	/**
 	 * Combine and minify js files
 	 */
-	function js(){
+	function js($group = '', $subg = ''){
 		
 		header('Content-Type: text/javascript');
 		
-		$group = $this->input->get('g');
+		//$group = $this->input->get('g');
 		# ----------------------- ASSET GROUPS --------------------- #
 		
 		
@@ -358,10 +388,11 @@ class Assets extends MY_Common_Controller {
 				);
 				
 				
-				switch($this->input->get('subg')){
+				//switch($this->input->get('subg')){
+				switch($subg){
 					case 'promoters':
 					
-						$group .= '-promoters';
+					//	$group .= '-promoters';
 						
 						$group_assets[] = array('promoters/promoters_ajaxify_front', 						'admin_js');
 						
@@ -382,7 +413,7 @@ class Assets extends MY_Common_Controller {
 						break;
 					case 'managers':
 					
-						$group .= '-managers';
+					//	$group .= '-managers';
 					
 						$group_assets[] = array('managers/managers_ajaxify_front', 						'admin_js');
 					
@@ -422,7 +453,7 @@ class Assets extends MY_Common_Controller {
 				 * 
 				 */
 				
-				$lang = $this->input->get('lang');
+				$lang = $subg; //$this->input->get('lang');
 				
 				if(!in_array($lang, array_keys($this->config->item('supported_lang_codes'))))
 					$lang = 'en'; //default
@@ -500,14 +531,13 @@ class Assets extends MY_Common_Controller {
 				break;
 		}
 		
+		$output_file_name = 'all_' . $group . '_' . $subg;
 		
 		$compress = (ENVIRONMENT == 'production') ? true : false;
-		if(FALSE && ENVIRONMENT == 'production'){
-			if($cached = $this->memcached->get($group . '-js-' . $this->config->item('cache_global_js'))){
-				$this->output->set_output($cached);
-				return;
-			}			
-		}		
+		if(php_sapi_name() == 'cli')
+			$compress = true;
+			
+			
 		# ----------------------- /ASSET GROUPS --------------------- #
 		
 		
@@ -551,17 +581,22 @@ class Assets extends MY_Common_Controller {
 								
 			}
 			
-			
 		}
 		
 		
-//		if(DEPLOYMENT_ENV == 'local')
-//			$output = str_replace('staticcompass.com', 'staticcompass.dev', $output);
+			
 		
-		if(FALSE && ENVIRONMENT == 'production')
-			$this->memcached->add($group . '-js-' . $this->config->item('cache_global_js'), $output, 60 * 60 * 24 * 5); //5 days	
+		if(MODE == 'local' && php_sapi_name() != 'cli'){
+			$this->output->set_output($output);
+		}else{
+			$filename = FCPATH . 'vcweb2/assets/' . $output_file_name . $this->config->item('cache_global_js') . '.js';
+			if(!file_exists($filename)){
+				$fh = fopen($filename, 'w+');
+				fwrite($fh, $output);
+				fclose($fh);
+			}
+		}
 		
-		$this->output->set_output($output);
 		
 	}
 		

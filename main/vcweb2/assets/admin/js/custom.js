@@ -126,6 +126,17 @@ jQuery(document).ready(function() {
 	});
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //----------------------------------------------------------------------
 	//special fix for browsers with viewports that cannot fit entire menu
 	var test_set_relative_menu = function(){
@@ -149,28 +160,25 @@ jQuery(document).ready(function() {
 	});
 //----------------------------------------------------------------------
 	
+
+	
 	fbEnsureInit(function(){
 		
 		var vc_user = jQuery.cookies.get('vc_user');
-		
 		var user;
 		var fql = "SELECT uid, name, pic_square FROM user WHERE uid = " + vc_user.vc_oauth_uid;
-		var query = FB.Data.query(fql);
-		query.wait(function(rows){
-								
+		FB.api({
+			method: 'fql.query', 
+			query: fql
+		}, function(rows){
+			
+			console.log('--------');
+			console.log(rows);
+			
 			if(rows.length == 0)
 				return;
 			
 			user = rows[0];
-			
-			var tempDate = new Date();
-			var opts = {
-				domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-				path: '/',
-				expiresAt: new Date(tempDate.getTime() + 63113851900),
-				secure: false
-			};
-			jQuery.cookies.setOptions(opts);
 			
 			var vc_user = jQuery.cookies.get('vc_user');
 			if(vc_user.vc_admin_user){
@@ -199,10 +207,20 @@ jQuery(document).ready(function() {
 				admin_display_user();
 				
 			}
-			
 		});
+				
 
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	jQuery('img.tooltip').tooltip();
 	
@@ -217,14 +235,14 @@ jQuery(document).ready(function() {
 	    fbUserLookup: function(users, fields, callback){
 	    	
 	    	fbEnsureInit(function(){
-	    		
+	    			    		
 	    		if(users.length > 0){
 	    			
 	    			if(fields.length == 0)
 	    				fields = "uid, name, first_name, last_name, pic_square, pic_big";
 	    			
 	    			var fql = "SELECT " + fields + " FROM user WHERE ";
-					for(var i = 0; i < users.length; i++){
+	    			for(var i = 0; i < users.length; i++){
 						if(i == (users.length - 1)){
 							fql += "uid = " + users[i];
 						}else{
@@ -232,10 +250,14 @@ jQuery(document).ready(function() {
 						}
 					}
 					
-					var query = FB.Data.query(fql);
-	    			query.wait(function(rows){
-	    				callback(rows);
-	    			});
+	    			
+	    			FB.api({
+						method: 'fql.query', 
+						query: fql
+					}, function(rows){
+						callback(rows);
+					});
+					
 	    			
 	    		}else{
     			

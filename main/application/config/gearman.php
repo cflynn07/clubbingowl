@@ -13,13 +13,26 @@
  * 
  */
 
- 
-$gearman 	= 	array(
- 						'servers' => array(
- 							'ec2-23-21-32-142.compute-1.amazonaws.com'
-						)
-					);
-						
+if(MODE == 'local'){
+	$gearman = 	array(
+					'servers' => array(
+						'ec2-67-202-41-204.compute-1.amazonaws.com'
+					)
+				);
+}else if(MODE == 'staging'){
+	$gearman = 	array(
+					'servers' => array(
+						''
+					)
+				);
+}else if(MODE == 'production'){
+	$gearman = 	array(
+					'servers' => array(
+						'ec2-23-21-32-142.compute-1.amazonaws.com'
+					)
+				);
+}
+
 
 $config['gearman'] = $gearman;
 

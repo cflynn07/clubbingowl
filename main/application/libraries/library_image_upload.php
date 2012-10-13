@@ -616,7 +616,7 @@ class Library_image_upload{
 		
 		foreach($required_crop_keys as $key)
 			if(!array_key_exists($key, $crop_array)){
-	//			log_message('error', 'image_upload->profile_picture_crop() called with post array missing key: ' . $key);
+				//log_message('error', 'image_upload->profile_picture_crop() called with post array missing key: ' . $key);
 				die(json_encode(array('success' => false,
 										'message' => 'improper post submission')));
 			}
@@ -625,7 +625,7 @@ class Library_image_upload{
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		$current_promoter = $this->CI->library_promoters->promoter;
 		if(!isset($current_promoter->up_profile_image)){
-	//		log_message('error', 'image_upload->profile_picture_crop() unable to find profile picture image name for promoter ' . $this->CI->session->userdata('promoter_id'));
+			//log_message('error', 'image_upload->profile_picture_crop() unable to find profile picture image name for promoter ' . $this->CI->session->userdata('promoter_id'));
 			die(json_encode(array('success' => false,
 									'message' => 'Unable to find promoter profile picture')));
 		}
@@ -656,7 +656,7 @@ class Library_image_upload{
 															
 		//retrieve original promoter profile image from s3
 		$this->CI->load->library('s3');
-		$response_obj = $this->CI->s3->getObject('vcweb2', 'vc-images/profile-pics/originals/' . $image_name . '.jpg');
+		$response_obj = $this->CI->s3->getObject($this->CI->config->item('s3_bucket_name'), 'vc-images/profile-pics/originals/' . $image_name . '.jpg');
 		
 		//Did the request have an error?
 		if($response_obj->error){
@@ -677,7 +677,7 @@ class Library_image_upload{
 		
 		//place temporary file on s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $new_image_name . '.jpg';
-		$bucket = 'vcweb2';
+		$bucket = $this->CI->config->item('s3_bucket_name');
 		$newFileName = 'vc-images/profile-pics/originals/' . $new_image_name . '.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -717,7 +717,7 @@ class Library_image_upload{
 		
 		//transport image to s3, overwriting old cropped image
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $new_image_name . '_p.jpg';
-		$bucket = 'vcweb2';
+		$bucket = $this->CI->config->item('s3_bucket_name');
 		$newFileName = 'vc-images/profile-pics/' . $new_image_name . '_p.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -727,7 +727,7 @@ class Library_image_upload{
 		
 		//transport image to s3, overwriting old cropped image
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $thumbnail_image;
-		$bucket = 'vcweb2';
+		$bucket = $this->CI->config->item('s3_bucket_name');
 		$newFileName = 'vc-images/profile-pics/' . $new_image_name . '_t.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -843,7 +843,7 @@ class Library_image_upload{
 		
 		//place temporary file on s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $new_image_name . '.jpg';
-		$bucket = 'vcweb2';
+		$bucket = $this->CI->config->item('s3_bucket_name');
 		$newFileName = 'vc-images/' . $image_type . '/originals/' . ((!$live_image) ? 'temp/' : '') . $new_image_name . '.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
