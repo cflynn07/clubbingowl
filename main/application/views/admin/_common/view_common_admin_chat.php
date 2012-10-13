@@ -178,15 +178,6 @@ jQuery(function(){
 	    if(vc_admin_user && (vc_admin_user.active != undefined) && !vc_admin_user.active){
 	    	//alert active
 	    	
-	    	var tempDate = new Date();
-			var opts = {
-				domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-				path: '/',
-				expiresAt: new Date(tempDate.getTime() + 63113851900),
-				secure: false
-			};
-			jQuery.cookies.setOptions(opts);
-	    	
 	    	vc_admin_user.active = true;
 	    	vc_user.vc_admin_user = vc_admin_user;
 	    	jQuery.cookies.set('vc_user', vc_user);
@@ -376,6 +367,15 @@ jQuery(function(){
 				}
 			}
 			
+			
+			FB.api({
+				method: 'fql.query', 
+				query: fql
+			}, function(rows){
+				
+				
+				
+			});
 			var query = FB.Data.query(fql);
 			query.wait(function(rows){
 				
@@ -1034,6 +1034,13 @@ jQuery(function(){
 			}
 			
 			console.log(fql);
+			
+			FB.api({
+				method: 'fql.query',
+				fql: fql
+			}, function(rows){
+				
+			});
 			
 			var query = FB.Data.query(fql);
 			query.wait(function(rows){
