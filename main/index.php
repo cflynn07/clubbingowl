@@ -1,12 +1,6 @@
 <?php
 
 
-if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-	if($_SERVER['HTTP_X_FORWARDED_FOR'] != '174.63.106.24')
-		die();
-
-
-
 
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'clubbingowl'); //staticowl
@@ -33,6 +27,40 @@ if(file_exists(DOTCLOUD_JSON)){
 	
 }
 unset($dotcloud_environment);
+
+
+
+
+
+
+
+if(isset($_GET['token_value'])){
+	setcookie('token_value', 
+				$_GET['token_value'], 
+				time()+60*60*24*30, 
+				'/', 
+				(SITE . '.' . TLD), 
+				false,
+				falseto);
+	
+	header('Location: http://www.' . SITE . '.' . TLD . '/');
+	die();
+}
+
+
+if(php_sapi_name() != 'cli')
+	if(!isset($_COOKIE['token_value'])){
+		die();
+	}else{
+		if($_COOKIE['token_value'] != 'v49y49fgs068y33nwfg90'){
+			die();	
+		}
+	}
+
+
+
+
+
 
 
 
