@@ -299,10 +299,30 @@ jQuery(function(){
 				jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:30px; height:30px;" src="' + vc_user.pic_square + '" />');
 			}
 			fbEnsureInit(function(){
+												
+				var fql = "SELECT pic_square FROM user WHERE uid = me()";// + vc_user.vc_oauth_uid;
+				FB.api({
+					method: 'fql.query',
+					query: fql
+				}, function(data){
+					if(data.length == 0)
+						return; //error
+					
+					if(!vc_user.pic_square){
+						vc_user.pic_square = data[0].pic_square;
+						jQuery.cookies.set('vc_user', vc_user);
+						jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:30px; height:30px;" src="' + vc_user.pic_square + '" />');
+					}else{
+						if(vc_user.pic_square != data[0].pic_square){
+							vc_user.pic_square = data[0].pic_square;
+							jQuery.cookies.set('vc_user', vc_user);
+							jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:30px; height:30px;" src="' + vc_user.pic_square + '" />');
+						}
+					}
+				});
 				
 				
-								
-				var fql = "SELECT pic_square FROM user WHERE uid = " + vc_user.vc_oauth_uid;
+				/*
 				var query = FB.Data.query(fql);
 				query.wait(function(data){
 					
@@ -322,6 +342,8 @@ jQuery(function(){
 					}
 					
 				});
+				*/
+				
 			});
 			
 			jQuery('nav#navigation > ul.menu > li.login > span').attr('class', 'arrow-up');
