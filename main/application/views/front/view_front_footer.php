@@ -49,7 +49,11 @@
   <div class="content">
   
     <ul>
+    	
+    <?php if(false): ?>
       <li><a href="<?= $central->front_link_base ?>corp/"><?= $this->lang->line('f-team') ?></a></li>
+    <?php endif; ?>
+      
       <li><a href="<?= $central->front_link_base ?>corp/tos/"><?= $this->lang->line('f-tos') ?></a></li>
     </ul>
 	

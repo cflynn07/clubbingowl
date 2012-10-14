@@ -99,6 +99,7 @@ class Corp extends MY_Controller {
 		 * */
 		if($arg0 == ''){
 			
+			show_404();
 			$arg0 = 'primary';
 			
 		}
