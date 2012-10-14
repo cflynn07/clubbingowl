@@ -336,6 +336,7 @@ class Assets extends MY_Common_Controller {
 					array('history',														'global_js'),
 					array('jquery.history',													'global_js'),
 					array('jquery.cookies.2.2.0.min',										'global_js'),
+					array('jquery_cookies_domain_settings', 								'global_js'),
 					array('custom',															'admin_js'),
 					array('ejs/ejs_0.9_alpha_1_production.min',								'global_js'),
 					array('admin_event_handler',											'admin_js'),

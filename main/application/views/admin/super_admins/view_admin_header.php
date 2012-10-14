@@ -16,7 +16,8 @@
 ?>
 </head>
 <body>
-<?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
+<div id="fb-root"></div>	
+<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=facebook_sdk_admin' ?>"></script>
 
 	<div id="container">
 		<div id="bgwrap">
