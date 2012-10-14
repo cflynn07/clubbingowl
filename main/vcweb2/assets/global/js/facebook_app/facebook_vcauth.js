@@ -52,14 +52,6 @@ jQuery(function(){
 		
 		VCAuth.prototype.session_login_locked = true;
 		
-		var tempDate = new Date();
-		var opts = {
-			domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-			path: '/',
-			expiresAt: new Date(tempDate.getTime() + 63113851900),
-			secure: false
-		};
-		jQuery.cookies.setOptions(opts);
 		
 //		jQuery('nav#navigation > ul.menu > li.login > span').html('<img src="' + window.module.Globals.prototype.front_assets + 'images/loader.gif" alt="" />');
 		
@@ -193,14 +185,7 @@ jQuery(function(){
 	 */
 	VCAuth.prototype.session_logout = function(){
 		
-		var tempDate = new Date();
-		var opts = {
-			domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-			path: '/',
-			expiresAt: new Date(tempDate.getTime() + 63113851900),
-			secure: false
-		};
-		jQuery.cookies.setOptions(opts);
+
 		
 		//cross-site request forgery token, accessed from session cookie
 		//requires jQuery cookie plugin
@@ -240,15 +225,6 @@ jQuery(function(){
 	 * @return	null
 	 */
 	VCAuth.prototype.update_menu = function(){
-		
-		var tempDate = new Date();
-		var opts = {
-			domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-			path: '/',
-			expiresAt: new Date(tempDate.getTime() + 63113851900),
-			secure: false
-		};
-		jQuery.cookies.setOptions(opts);
 		
 		//Get DOM node
 		var nav_ul = jQuery('div#user > div.center > ul');
