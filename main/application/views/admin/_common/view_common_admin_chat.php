@@ -14,16 +14,7 @@ pageslide_open = function(){
 	});
 	
 	jQuery('div#team_chat div.team_chat_messages').scrollTop(999999);
-	
-	var tempDate = new Date();
-	var opts = {
-		domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-		path: '/',
-		expiresAt: new Date(tempDate.getTime() + 63113851900),
-		secure: false
-	};
-	jQuery.cookies.setOptions(opts);
-	
+		
 	var vc_user = jQuery.cookies.get('vc_user');
 	var vc_admin_user = vc_user.vc_admin_user;
 	if(vc_admin_user){
@@ -49,16 +40,7 @@ jQuery(function(){
 	    window_focus = true;
 	    
 	    if(jQuery('div#pageslide').css('display') == 'block'){
-	    	
-	    	var tempDate = new Date();
-			var opts = {
-				domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-				path: '/',
-				expiresAt: new Date(tempDate.getTime() + 63113851900),
-				secure: false
-			};
-			jQuery.cookies.setOptions(opts);
-	    	
+	    		    	
 	    	var vc_user = jQuery.cookies.get('vc_user');
 	    	var vc_admin_user = vc_user.vc_admin_user;
 			if(vc_admin_user){
@@ -153,15 +135,6 @@ jQuery(function(){
 	    		vc_admin_user.active = false;
 	    		
 	    	}
-	    	
-	    	var tempDate = new Date();
-			var opts = {
-				domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-				path: '/',
-				expiresAt: new Date(tempDate.getTime() + 63113851900),
-				secure: false
-			};
-			jQuery.cookies.setOptions(opts);
 	    	
 	    	vc_user.vc_admin_user = vc_admin_user;
 	    	jQuery.cookies.set('vc_user', vc_user);
@@ -637,14 +610,6 @@ jQuery(function(){
 			if(message.oauth_uid == '<?= $users_oauth_uid ?>')
 				return;
 			
-			var tempDate = new Date();
-			var opts = {
-				domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-				path: '/',
-				expiresAt: new Date(tempDate.getTime() + 63113851900),
-				secure: false
-			};
-			jQuery.cookies.setOptions(opts);
 			
 			//increment unread if pageslide closed
 			if(jQuery('div#pageslide').css('display') == 'none' || !window_focus){
@@ -1073,16 +1038,7 @@ jQuery(function(){
 		var vc_admin_user = vc_user.vc_admin_user;
 		
 		if(vc_admin_user){
-			
-			var tempDate = new Date();
-			var opts = {
-				domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-				path: '/',
-				expiresAt: new Date(tempDate.getTime() + 63113851900),
-				secure: false
-			};
-			jQuery.cookies.setOptions(opts);
-			
+						
 			vc_admin_user.chat_open = false;
 			vc_user.vc_admin_user = vc_admin_user;
 			jQuery.cookies.set('vc_user', vc_user);

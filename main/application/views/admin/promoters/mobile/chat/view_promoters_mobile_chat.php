@@ -347,15 +347,6 @@ jQuery(document).bind('pageinit', function(){
 			if(message.oauth_uid == '<?= $users_oauth_uid ?>')
 				return;
 			
-			var tempDate = new Date();
-			var opts = {
-				domain: ((window.location.host.indexOf('.vibecompass.dev') != -1) ? '.vibecompass.dev' : '.vibecompass.com'),
-				path: '/',
-				expiresAt: new Date(tempDate.getTime() + 63113851900),
-				secure: false
-			};
-			jQuery.cookies.setOptions(opts);
-			
 			//increment unread if pageslide closed
 			if(jQuery('div#pageslide').css('display') == 'none' || !window_focus){
 				
