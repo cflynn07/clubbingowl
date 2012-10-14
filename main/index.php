@@ -1,7 +1,5 @@
 <?php
 
-
-var_dump($_SERVER); die();
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'clubbingowl'); //staticowl
 
@@ -70,7 +68,7 @@ if(MODE != 'local'){
 if(MODE == 'production'){ 		//|| MODE == 'staging'
 	
 	if(isset($_SERVER['HTTP_CF_VISITOR'])){
-		$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR']);
+		$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR'], true);
 		if(isset($http_cf_visitor->scheme)){
 			
 			if($http_cf_visitor->scheme == 'https'){
