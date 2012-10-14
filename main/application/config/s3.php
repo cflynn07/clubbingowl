@@ -9,7 +9,8 @@ $config["secretKey"] = "2ao7sd0vo9upNaxvHdzJW/40ZW7g9ZWfWf0GHOZi";
 $config["useSSL"] = FALSE;
 $config['s3_bucket_name'] = 'clubbingowl';
 
-$protocol = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http');
+$protocol = (isset($_SERVER['HTTPS']) 
+				&& (strtolower($_SERVER['HTTPS']) == 'on')) ? 'https' : 'http';
 $base_url = $protocol . '://www.staticowl.' . TLD . '/';
 
 $config['s3_base_url'] 			= $base_url . $config['s3_bucket_name'] . '/'; 
