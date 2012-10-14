@@ -9,7 +9,7 @@
   	<?php endif; ?>
   	
    	<?php if(true): ?>
-  	<div class="fb-like-box" data-href="http://www.facebook.com/vibecompass" data-width="292" data-colorscheme="dark" data-show-faces="false" data-stream="false" data-header="false"></div> 
+  	<div class="fb-like-box" data-href="http://www.facebook.com/clubbingowl" data-width="292" data-colorscheme="dark" data-show-faces="false" data-stream="false" data-header="false"></div> 
   	
   	<br>
   	
@@ -39,7 +39,7 @@
 	    live: false,
 	    behavior: 'default'
 	  }
-	}).render().setUser('VibeCompass').start();
+	}).render().setUser('BarackObama').start();
 	</script>
   	
   	<?php endif; ?>

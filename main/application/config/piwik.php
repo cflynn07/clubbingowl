@@ -5,14 +5,11 @@
 
 
 
-$production_piwik_base_url = 'http://vcpiwik.vibecompass.com/piwik/';
-$development_piwik_base_url = 'http://vcpiwik.vibecompass.com/piwik/';
+$production_piwik_base_url = 'http://piwik.' . SITE . '.com/piwik/';
 
-$production_piwik_base_url_https = 'https://vcpiwik.vibecompass.com/piwik/';
-$development_piwik_base_url_https = 'https://vcpiwik.vibecompass.com/piwik/';
+$production_piwik_base_url_https = 'https://piwik.' . SITE . '.com/piwik/';
 
-$production_piwik_token = '59aa77e674625c2b724ee2702d7c2ec2';
-$development_piwik_token = '59aa77e674625c2b724ee2702d7c2ec2';
+$production_piwik_token = '7a15573ca57bffaa7e050e728e261ef2';
 
 
 

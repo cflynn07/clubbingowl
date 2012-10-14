@@ -9,12 +9,6 @@
 	$this->load->view('admin/_common/view_common_header'); 
 ?>
 
-
-
-
-
-
-
 <?php if(false): ?>
 <script>
 window.EventHandlerObject.addListener('pusher_init', function(){
@@ -22,12 +16,6 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 });
 </script>
 <?php endif; ?>
-
-
-
-
-
-
 
 
 </head>
