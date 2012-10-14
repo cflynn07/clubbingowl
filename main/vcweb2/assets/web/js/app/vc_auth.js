@@ -6,7 +6,7 @@ jQuery(function(){
 			FB.logout(function(response){
 			
 				//unauthenticated user with authenticated session, update server and unset session
-			//	VCAuth.prototype.session_logout();
+				//VCAuth.prototype.session_logout();
 				
 			});
 		});
@@ -198,8 +198,10 @@ jQuery(function(){
 		jQuery.ajax({
 			url: '/ajax/auth/',
 			type: 'post',
-			data: {ci_csrf_token: cct,
-					vc_method: 'session_logout'},
+			data: {
+				ci_csrf_token: cct,
+				vc_method: 'session_logout'
+			},
 			cache: false,
 			dataType: 'json',
 			success: function(data, textStatus, jqXHR){
