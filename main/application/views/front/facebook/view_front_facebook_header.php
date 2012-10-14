@@ -17,8 +17,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php # ------------------------ End META tags ------------------------ # ?>
 
-<link href="<?= $central->static_assets_domain . 'assets/css?g=facebook_app_base&cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=facebook_app_base&cache=' . $central->cache_global_js ?>"></script>
+
+
+<?php if(MODE == 'local'): ?>
+	
+	<link  href="<?= $central->static_assets_domain . 'assets/css/facebook_app_base?cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
+	<script src="<?= $central->static_assets_domain . 'assets/js/facebook_app_base?cache=' . $central->cache_global_js ?>"  type="text/javascript"></script>
+	
+<?php else: ?>
+	
+	<link 	href="<?= $central->static_assets_domain . 'vcweb2/assets/all_facebook_app_base_' . $central->cache_global_css . '.css' ?>" rel="stylesheet" type="text/css" />
+	<script  src="<?= $central->static_assets_domain . 'vcweb2/assets/all_facebook_app_base_' . $central->cache_global_js . '.js' ?>" 	type="text/javascript"></script>
+	
+<?php endif; ?>
+
+
 <link rel="shortcut icon" href="<?= $central->global_assets ?>images/fav_v_2.jpg"/>
 
 <script type="text/javascript">
@@ -38,7 +51,13 @@ reinvigorate.track("k9096-0e37qc95ai");
 
 <body style="overflow:hidden;">
 <div id="fb-root"></div>
-<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js?g=facebook_sdk_facebook' ?>"></script>
+
+<?php if(MODE == 'local'): ?>
+	<script type="text/javascript" src="<?= $central->static_assets_domain . 'assets/js/facebook_sdk_facebook?cache=' . $central->cache_global_js ?>"></script>
+<?php else: ?>
+	<script type="text/javascript" src="<?= $central->static_assets_domain . 'vcweb2/assets/all_facebook_sdk_facebook_' . $central->cache_global_js . '.js' ?>"></script>
+<?php endif; ?>
+
 
 <?= $this->load->view('front/_common/view_individual_global_pusher_channels', '', true); ?>
 
