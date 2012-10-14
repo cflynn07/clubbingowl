@@ -13,8 +13,10 @@ php /home/dotcloud/current/index.php assets js facebook_sdk_facebook
 php /home/dotcloud/current/index.php assets js facebook_sdk_admin
 php /home/dotcloud/current/index.php assets js facebook_app_base
 php /home/dotcloud/current/index.php assets js admin_base
+php /home/dotcloud/current/index.php assets js admin_base hosts
 php /home/dotcloud/current/index.php assets js admin_base promoters
 php /home/dotcloud/current/index.php assets js admin_base managers
+php /home/dotcloud/current/index.php assets js admin_base super_admins
 php /home/dotcloud/current/index.php assets js ejs_templates en
 php /home/dotcloud/current/index.php assets js ejs_templates es
 php /home/dotcloud/current/index.php assets js ejs_templates de
