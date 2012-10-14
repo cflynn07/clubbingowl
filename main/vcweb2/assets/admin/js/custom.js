@@ -236,7 +236,7 @@ jQuery(document).ready(function() {
 	    	
 	    	fbEnsureInit(function(){
 	    			    		
-	    		if(users.length > 0){
+	    		if(users && users.length && users.length > 0){
 	    			
 	    			if(fields.length == 0)
 	    				fields = "uid, name, first_name, last_name, pic_square, pic_big";

@@ -199,8 +199,9 @@ class Assets extends MY_Common_Controller {
 		
 		
 		$group_assets = array();
+
+
 		
-	
 		switch($group){
 			case 'base':
 				
@@ -304,7 +305,12 @@ class Assets extends MY_Common_Controller {
 					array('jquery/jquery1.7.2.min',											'global_js'),
 					array('jquery/jquery-ui-1.8.18.min',									'global_js'),
 					array('pusher/pusher-1.11',												'global_js'),
-					array('jquery.cookies.2.2.0.min',										'global_js'),
+					
+					
+					array('jquery.cookies.2.2.0.min',										'global_js'),					
+					array('jquery_cookies_domain_settings', 								'global_js'),
+					
+					
 					array('json2',															'global_js'),
 					array('jquery_notify/jquery.notify',									'global_js'),
 					array('jquery.maskedinput-1.3.min',										'global_js'),
@@ -335,8 +341,10 @@ class Assets extends MY_Common_Controller {
 					array('pusher/pusher-1.11',												'global_js'),
 					array('history',														'global_js'),
 					array('jquery.history',													'global_js'),
+					
 					array('jquery.cookies.2.2.0.min',										'global_js'),
 					array('jquery_cookies_domain_settings', 								'global_js'),
+					
 					array('custom',															'admin_js'),
 					array('ejs/ejs_0.9_alpha_1_production.min',								'global_js'),
 					array('admin_event_handler',											'admin_js'),
