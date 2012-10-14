@@ -53,6 +53,8 @@ class MY_Common_Controller extends CI_Controller{
 		else 
 			$central->scheme = 'http';
 		
+		
+		
 		if($vc_user){
 			$vc_user = json_decode($vc_user);
 			

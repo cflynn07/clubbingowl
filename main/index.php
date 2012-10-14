@@ -1,7 +1,7 @@
 <?php
 
 
-
+var_dump($_SERVER); die();
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'clubbingowl'); //staticowl
 
