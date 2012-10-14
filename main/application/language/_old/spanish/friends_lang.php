@@ -8,5 +8,5 @@ $lang["fr-friends_title"]		= "Amigos en VibeCompass";
 $lang["fr-recent_activity_title"]		= "Actividad Reciente";
 $lang["fr-promoters_title"]		= "Promotores";
 $lang["fr-rec_act_join_vc"]		= "<%= individual_friend_obj.users_first_name %> se ha unido a VibeCompass!";
-$lang["fr-rec_act_join_pgl"]		= "<%= individual_friend_obj.users_first_name %> se ha unido a <strong>\"<%= data.pgla_name %>\"</strong> @ <%= data.tv_name %>";
-$lang["fr-rec_act_join_tgl"]		= "<%= individual_friend_obj.users_first_name %> se ha unido a <strong>\"<%= data.tgla_name %>\"</strong> @ <%= data.tv_name %>";
+$lang["fr-rec_act_join_pgl"]		= "";
+$lang["fr-rec_act_join_tgl"]		= "";

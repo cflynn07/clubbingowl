@@ -39,7 +39,7 @@
 	    live: false,
 	    behavior: 'default'
 	  }
-	}).render().setUser('BarackObama').start();
+	}).render().setUser('ClubbingOwl').start();
 	</script>
   	
   	<?php endif; ?>
