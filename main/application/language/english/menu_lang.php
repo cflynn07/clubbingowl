@@ -7,4 +7,4 @@ $lang["m-search"]		= "Search";
 $lang["m-lists"]		= "Lists";
 $lang["m-all_cities"]		= "Full City List";
 $lang["m-login"]		= "Login";
-$lang["m-login_message"]		= "Login to VibeCompass with your Facebook account.";
+$lang["m-login_message"]		= "Login to ClubbingOwl with your Facebook account.";
