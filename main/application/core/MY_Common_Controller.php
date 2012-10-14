@@ -112,7 +112,8 @@ class MY_Common_Controller extends CI_Controller{
 		$central->facebook_link_base  = base_url() . 'facebook/';
 		
 						
-		$static_assets_domain = "$central->scheme://www." . ASSETS_SITE . "." . TLD;
+		//$static_assets_domain = "$central->scheme://www." . ASSETS_SITE . "." . TLD;
+		$static_assets_domain = "https://www." . ASSETS_SITE . "." . TLD;
 		$central->static_assets_domain = $static_assets_domain . '/';
 		
 	//	$central->front_assets = $this->config->item('front_assets');
