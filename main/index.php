@@ -65,23 +65,19 @@ if(MODE != 'local'){
 //Casey Flynn Added 5/6/2012
 //Hack for compatability. SSL enabled with CloudFlare -- does not reach server (USER ---ssl---- CF -------- HOST)
 //BEGIN HACK -----------------------------
-if(MODE == 'production'){ 		//|| MODE == 'staging'
-	
-	if(isset($_SERVER['HTTP_CF_VISITOR'])){
-		$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR'], true);
-		if(isset($http_cf_visitor->scheme)){
-			
-			if($http_cf_visitor->scheme == 'https'){
-				$_SERVER['HTTPS'] = 'on';
-			}else{
-				$_SERVER['HTTPS'] = 'off';
-			}
-			
+if(isset($_SERVER['HTTP_CF_VISITOR'])){
+	$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR'], true);
+	if(isset($http_cf_visitor->scheme)){
+		
+		if($http_cf_visitor->scheme == 'https'){
+			$_SERVER['HTTPS'] = 'on';
 		}else{
 			$_SERVER['HTTPS'] = 'off';
 		}
+		
+	}else{
+		$_SERVER['HTTPS'] = 'off';
 	}
-
 }
 //END HACK ---------------------------
 
