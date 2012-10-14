@@ -299,6 +299,8 @@ jQuery(function(){
 				jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:30px; height:30px;" src="' + vc_user.pic_square + '" />');
 			}
 			fbEnsureInit(function(){
+				
+				
 								
 				var fql = "SELECT pic_square FROM user WHERE uid = " + vc_user.vc_oauth_uid;
 				var query = FB.Data.query(fql);

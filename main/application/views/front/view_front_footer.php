@@ -9,11 +9,11 @@
   	<?php endif; ?>
   	
    	<?php if(true): ?>
-  	<div class="fb-like-box" data-href="http://www.facebook.com/clubbingowl" data-width="292" data-colorscheme="dark" data-show-faces="false" data-stream="false" data-header="false"></div> 
+  	<div class="fb-like-box" data-href="https://www.facebook.com/clubbingowl" data-width="292" data-colorscheme="dark" data-show-faces="false" data-stream="false" data-header="false"></div> 
   	
   	<br>
   	
-  	<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+  	<script charset="utf-8" src="https://widgets.twimg.com/j/2/widget.js"></script>
 	<script>
 	new TWTR.Widget({
 	  version: 2,
