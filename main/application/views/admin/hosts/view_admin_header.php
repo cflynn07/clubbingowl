@@ -15,9 +15,6 @@
 <body>
 <?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
-
-
-
 <?php $this->load->view('admin/_common/view_common_admin_chat'); ?>
 	
 	<div id="container">

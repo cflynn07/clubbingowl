@@ -206,18 +206,14 @@ class Assets extends MY_Common_Controller {
 			case 'base':
 				
 				$group_assets = array(
-					
-					array('jquery/jquery1.7.2.min',										'global_js'),
+					array('jquery/jquery1.7.2.min',										'global_js'),					
 					array('history',													'global_js'),
 					array('jquery.history',												'global_js'),
 					array('jquery/jquery-ui-1.8.18.min',								'global_js'),
 					array('pusher/pusher-1.11',											'global_js'),
 					
-					
 					array('jquery.cookies.2.2.0.min',									'global_js'),					
-					array('jquery_cookies_domain_settings', 							'global_js'),
-					
-					
+					array('jquery_cookies_domain_settings', 							'global_js'),					
 					
 					array('json2',														'global_js'),
 					array('jquery_notify/jquery.notify',								'global_js'),
@@ -226,6 +222,7 @@ class Assets extends MY_Common_Controller {
 					array('charts/themes/gray',											'global_js'),
 					array('jquery.maskedinput-1.3.min',									'global_js'),
 					array('ejs/ejs_0.9_alpha_1_production.min',							'global_js'),
+					array('jquery/jquery_extensions', 									'global_js'),
 					array('underscore/underscore.min',									'global_js'),
 					array('backbone/backbone',											'global_js'),
 					
@@ -242,9 +239,7 @@ class Assets extends MY_Common_Controller {
 					array('page/promoter',												'front_js'),
 					array('app/event_handler',											'front_js'),
 					array('app/google_analytics',										'front_js'),
-					
-					array('app/vc_auth',												'front_js'),
-					
+					array('app/vc_auth',												'front_js'),					
 					array('app/vc_global_event_callbacks',								'front_js'),
 					array('app/facebook_invite',										'front_js'),
 					array('app/vc_invitations',											'front_js'),
@@ -305,16 +300,14 @@ class Assets extends MY_Common_Controller {
 					array('jquery/jquery1.7.2.min',											'global_js'),
 					array('jquery/jquery-ui-1.8.18.min',									'global_js'),
 					array('pusher/pusher-1.11',												'global_js'),
-					
-					
 					array('jquery.cookies.2.2.0.min',										'global_js'),					
 					array('jquery_cookies_domain_settings', 								'global_js'),
-					
-					
 					array('json2',															'global_js'),
 					array('jquery_notify/jquery.notify',									'global_js'),
 					array('jquery.maskedinput-1.3.min',										'global_js'),
 					array('ejs/ejs_0.9_alpha_1_production.min',								'global_js'),
+					array('jquery/jquery_extensions', 										'global_js'),					
+					
 					array('facebook_app/facebook_app_events',								'global_js'),
 					array('facebook_app/facebook_vcauth',									'global_js'),
 					array('underscore/underscore.min',										'global_js'),
@@ -347,11 +340,10 @@ class Assets extends MY_Common_Controller {
 					
 					array('custom',															'admin_js'),
 					array('ejs/ejs_0.9_alpha_1_production.min',								'global_js'),
+					array('jquery/jquery_extensions', 										'global_js'),
+					
 					array('admin_event_handler',											'admin_js'),
-					
-					
-					array('json2',															'global_js'),
-					
+					array('json2',															'global_js'),					
 					array('json_parse',														'global_js'),
 					array('json_parse_state',												'global_js'),
 					array('pageslider/jquery.pageslide.min',								'global_js'),

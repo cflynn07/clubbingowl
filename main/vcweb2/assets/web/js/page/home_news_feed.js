@@ -92,6 +92,38 @@ jQuery(function(){
 						return; //failed
 					}
 					
+					
+					jQuery.background_ajax({
+						data: {
+							vc_method: 'news_feed_retrieve',
+							status_check: true
+						},
+						success: function(data){
+							
+							
+							if(data.success){
+															
+								news_feed_items.append_item_html(data);	
+								incrementor = 0;
+								
+								if(data.message.data.length > 7)
+									news_feed_items.retrieve_feed_lock = false; //free to load more data
+								//otherwise it stays locked
+								
+							}else{
+								
+								incrementor++;
+								var timeout = setTimeout(retrieve_function, 1000);
+								timeout_cancels.push(timeout);
+								
+							}
+							
+							
+						}
+					});
+					
+					
+					/*
 					//cross-site request forgery token, accessed from session cookie
 					//requires jQuery cookie plugin
 					var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
@@ -127,10 +159,38 @@ jQuery(function(){
 						
 						}
 					});
+					
+					*/
+					
 				}
 				
 				//If this is an initial request, start job w/ server
 				if(request_first){
+					
+					
+					jQuery.background_ajax({
+						data: {
+							vc_method: 'news_feed_retrieve',
+							iterator: 	news_feed_items.items_iterator
+						},
+						success: function(data){
+							
+							
+							if(data.success){
+								//start first check 1 second after
+								var timeout = setTimeout(retrieve_function, 1000);
+								timeout_cancels.push(timeout);
+							}
+							
+							
+						}
+					});
+					
+					
+					
+					/*
+					
+					
 					//cross-site request forgery token, accessed from session cookie
 					//requires jQuery cookie plugin
 					var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
@@ -156,6 +216,11 @@ jQuery(function(){
 							
 						}
 					});
+					
+					*/
+					
+					
+					
 					
 					return;
 				}else{
