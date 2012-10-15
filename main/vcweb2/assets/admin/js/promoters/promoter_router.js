@@ -2,7 +2,10 @@ jQuery(function(){
 		
 	var callback_helper = function(callback){
 		if(typeof callback === 'function')
-			callback();		
+			callback();
+		
+		window.module.Globals.prototype.global_views.admin_wrapper.ajaxify_change();
+		
 	}
 	
 	
@@ -59,6 +62,7 @@ jQuery(function(){
 		support: function(){
 			
 			window.promoter_admin_menu_set_active('support');
+			callback_helper();
 			console.log('--------- promoter support  ---------');
 			
 		},

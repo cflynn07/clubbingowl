@@ -46,6 +46,14 @@
 			var current_url = window.location.href;
 			var relativeUrl = url.replace(rootUrl,'');
 			
+			
+			
+			jQuery('div#primary_right').css({
+				opacity: 0.4
+			});
+			
+			
+			
 			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
 			
 			// Ajax Request the Traditional Page
@@ -69,7 +77,9 @@
 					}
 						
 						
-						
+					jQuery('div#primary_right').css({
+						opacity: 1
+					});
 					jQuery('div#primary_right > div.inner').html(data);
 					
 					var title = 'VibeCompass';

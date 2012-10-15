@@ -7,18 +7,21 @@ function initMenu() {
 		jQuery(this).parent().find("li").removeClass("current");
 		jQuery(this).find("ul").slideToggle('fast');
 		jQuery(this).toggleClass("current");
-  });
+ 	});
 }
  
  
 jQuery(document).ready(function() {
 	
 
-	Cufon.replace('h1, h2, h5, .notification strong', { hover: 'true' }); // Cufon font replacement
-	initMenu(); // Initialize the menu!
+//	Cufon.replace('h1, h2, h5, .notification strong', { hover: 'true' }); // Cufon font replacement
+//	initMenu(); // Initialize the menu!
 	
-	jQuery(".tablesorter").tablesorter(); // Tablesorter plugin
+//	jQuery(".tablesorter").tablesorter(); // Tablesorter plugin
 			
+			
+			
+	/*		
 	jQuery('#dialog').dialog({
 		autoOpen: false,
 		width: 650,
@@ -31,35 +34,54 @@ jQuery(document).ready(function() {
 			} 
 		}
 	}); // Default dialog. Each should have it's own instance.
+	*/	
 			
+	/*	
 	jQuery('.dialog_link').click(function(){
 		jQuery('#dialog').dialog('open');
 		return false;
 	}); // Toggle dialog
+	*/
 	
+	
+	
+	/*
 	jQuery('.notification').hover(function() {
  		jQuery(this).css('cursor','pointer');
  	}, function() {
 		jQuery(this).css('cursor','auto');
 	}); // Close notifications
+	*/	
 			
+			
+			
+	/*
 	jQuery('.checkall').click(
 		function(){
 			jQuery(this).parent().parent().parent().parent().find("input[type='checkbox']").attr('checked', jQuery(this).is(':checked'));   
 		}
 	); // Top checkbox in a table will select all other checkboxes in a specified column
-			
-	jQuery('.iphone').iphoneStyle(); //iPhone like checkboxes
+	*/
+	
+		
+//	jQuery('.iphone').iphoneStyle(); //iPhone like checkboxes
 
-	jQuery('.notification span').click(function() {
-		jQuery(this).parents('.notification').fadeOut(800);
-	}); // Close notifications on clicking the X button
+//	jQuery('.notification span').click(function() {
+//		jQuery(this).parents('.notification').fadeOut(800);
+//	}); // Close notifications on clicking the X button
 			
-	jQuery(".tooltip").easyTooltip({
-		xOffset: -60,
-		yOffset: 70
-	}); // Tooltips! 
 			
+			
+//	jQuery(".tooltip").easyTooltip({
+//		xOffset: -60,
+//		yOffset: 70
+//	}); // Tooltips! 
+			
+			
+			
+	
+	
+/*			
 	jQuery('#menu li:not(".current"), #menu ul ul li a').hover(function() {
 		jQuery(this).find('span').animate({ marginLeft: '5px' }, 100);
 	}, function() {
@@ -105,17 +127,22 @@ jQuery(document).ready(function() {
 			colors: ['#6fb9e8', '#ec8526', '#9dc453', '#ddd74c']
 		}); // used with the visualize plugin. Statistics.
 	});
+*/	
+	
+	
+	
+	
 			
-	jQuery(".tabs").tabs(); // Enable tabs on all '.tabs' classes
+//	jQuery(".tabs").tabs(); // Enable tabs on all '.tabs' classes
 	
-	jQuery( ".datepicker" ).datepicker();
+//	jQuery( ".datepicker" ).datepicker();
 	
-	jQuery(".editor").cleditor({
-		width: '800px'
-	}); // The WYSIWYG editor for '.editor' classes
+//	jQuery(".editor").cleditor({
+//		width: '800px'
+//	}); // The WYSIWYG editor for '.editor' classes
 	
 	// Slider
-	jQuery(".slider").slider({
+/*	jQuery(".slider").slider({
 		range: true,
 		values: [20, 70]
 	});
@@ -124,7 +151,7 @@ jQuery(document).ready(function() {
 	jQuery(".progressbar").progressbar({
 		value: 40 
 	});
-	
+*/
 	
 	
 	
@@ -222,7 +249,7 @@ jQuery(document).ready(function() {
 	
 	
 	
-	jQuery('img.tooltip').tooltip();
+///	jQuery('img.tooltip').tooltip();
 	
 	
 	jQuery.extend({

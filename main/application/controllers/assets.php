@@ -338,7 +338,11 @@ class Assets extends MY_Common_Controller {
 					array('jquery.cookies.2.2.0.min',										'global_js'),
 					array('jquery_cookies_domain_settings', 								'global_js'),
 					
+					
+					//this is causing a few issues w/ new ajaxify-loading
 					array('custom',															'admin_js'),
+				
+				
 					array('ejs/ejs_0.9_alpha_1_production.min',								'global_js'),
 					array('jquery/jquery_extensions', 										'global_js'),
 					
@@ -414,6 +418,7 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('promoters/page/admin_promoter_manage_guest_lists_edit',	'admin_js');
 						$group_assets[] = array('promoters/page/admin_promoter_manage_image',				'admin_js');
 						
+						$group_assets[] = array('promoters/admin_promoters_backbone_view_wrapper', 			'admin_js');
 						$group_assets[] = array('promoters/promoter_router', 								'admin_js');
 					
 						break;
