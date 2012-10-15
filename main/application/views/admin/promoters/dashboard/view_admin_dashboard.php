@@ -125,11 +125,11 @@
 				Team Announcements
 				<img class="info_icon tooltip" title="Send announcements to your team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 			</h3>
-			
-			<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
-			
+						
 			<div id="team_announcements" class="tabs" style="display:none;height:320px;">
 				<?php //Kint::dump($announcements); ?>
+				
+				<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 				
 				<?php foreach($announcements as $an): ?>
 					<div>

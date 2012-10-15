@@ -17,58 +17,69 @@ jQuery(function(){
 		
 		
 		
-	
+		//how ghetto....
 		if(typeof window.page_obj.first_time_setup !== 'undefined')
 			return; //this isn't the normal dashboard...
 		
 		
 		
+		var Models = {};
+		var Collections = {};
+		var Views = {};
 		
 		
 		
 		
 		
 		
-		var team_managers = [];
-		for(var i in window.page_obj.team_chat_members.managers){
-			team_managers.push(window.page_obj.team_chat_members.managers[i].oauth_uid);
-		}
-		if(team_managers.length > 0){
-			jQuery.fbUserLookup(team_managers, '', function(rows){
+		Views.TeamAnnouncements = {
+			el: '#team_announcements',
+			
+			team_managers: [],
+			
+			initialize: function(){
 				
-				for(var i in rows){
-					
-					jQuery('div#team_announcements div.pic_square_' + rows[i].uid).html('<img src="' + rows[i].pic_square + '">');
-					
+				var team_managers = [];
+				for(var i in window.page_obj.team_chat_members.managers){
+					team_managers.push(window.page_obj.team_chat_members.managers[i].oauth_uid);
 				}
 				
-				jQuery('img#messages_loading_indicator').remove();
-				jQuery('div#team_announcements').show();
+				_this = this;
+				if(team_managers.length > 0){
+					jQuery.fbUserLookup(team_managers, '', function(rows){
+						
+						_this.team_managers = rows;
+						_this.render();
+																		
+					});
+				}else{
+					_this.render();
+				}
 				
-			});
-		}else{
-			jQuery('img#messages_loading_indicator').remove();
-			jQuery('div#team_announcements').show();
-		}
+			},
+			render: function(){
+				
+				for(var i in this.team_managers){
+					this.$el.find('div.pic_square_' + this.team_managers[i].uid).html('<img src="' + this.team_managers[i].pic_square + '">');
+				}
+				
+				this.$el.find('img#messages_loading_indicator').remove();
+				this.$el.show();
+				return this;
+			},
+			events: {
+				
+			}
+		}; Views.TeamAnnouncements = Backbone.View.extend(Views.TeamAnnouncements);
+		
+		var team_announcements = new Views.TeamAnnouncements({});
 		
 		
 		
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		jQuery('.tabs').tabs();
-		
+	
 		
 		
 		var vc_fql_users = [];

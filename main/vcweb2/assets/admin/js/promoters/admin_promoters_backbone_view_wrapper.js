@@ -27,7 +27,6 @@ jQuery(function(){
 			el_pr.find('.tabs').tabs();
 			el_pr.find('.datepicker').datepicker();
 			
-			
 			return this;
 		},
 		render: function(){
@@ -62,10 +61,8 @@ jQuery(function(){
 			
 		},
 		events_click_notification_span: function(e){
-			
 			var el = jQuery(e.currentTarget);
 			el.parents('.notification').fadeOut(800);
-			
 		}
 	}; Views.AdminWrapper = Backbone.View.extend(Views.AdminWrapper);
 	
