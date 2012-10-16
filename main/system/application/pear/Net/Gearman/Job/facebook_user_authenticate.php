@@ -62,12 +62,15 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 		parse_str($extend_response, $extend_response_arr);
 		
 		if(!isset($extend_response_arr['access_token']) || !isset($extend_response_arr['expires'])){
-			$data = json_encode(array('success' => false,
-										'message' => 'Failed to extend access_token expiration'));
-			$CI->memcached->add($handle,
-								$data,
-								120);
-			return;
+	//		$data = json_encode(array('success' => false,
+	//									'message' => 'Failed to extend access_token expiration'));
+	//		$CI->memcached->add($handle,
+	//							$data,
+	//							120);
+	//		return;
+			
+			$extend_response_arr['access_token'] 	= $access_token;
+			$extend_response_arr['expires']			= (60 * 60 * 2) . '';
 		}
 						
 		//is this user known to the system? If yes, set session. 
