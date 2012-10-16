@@ -9,56 +9,11 @@
 ?>
 
 
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28170126-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
 
 </head>
 
 <body>
-<div id="fb-root"></div>	
-<script type="text/javascript">
-	
-	window.fbAsyncInit = function() {
-	    FB.init({appId: '<?=$central->facebook_app_id?>',
-	    		status: true,
-	    		cookie: true,
-	             xfbml: true});
-	
-		//indicates facebook has completed loading
-	  	fbApiInit = true;
-	};
-	
-	//used to load code within body after facebook init complete
-	function fbEnsureInit(callback) {
-	    if(!window.fbApiInit) {
-	        setTimeout(function() {fbEnsureInit(callback);}, 50);
-	    } else {
-	        if(callback) {
-	            callback();
-	        }
-	    }
-	}
-	  
-	(function() {
-	    var e = document.createElement('script'); e.async = true;
-		e.src = document.location.protocol +
-	  			'//connect.facebook.net/en_US/all.js';
-				document.getElementById('fb-root').appendChild(e);
-	 }());
-
-</script>
+<?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
 	<div id="container">
 		<div id="bgwrap">
