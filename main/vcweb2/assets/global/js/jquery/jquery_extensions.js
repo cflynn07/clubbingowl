@@ -33,7 +33,9 @@
 
 		
 	var jQueryExtensions = {
-		
+		/**
+		 * 
+		 */
 		background_ajax: function(opts){
 			if(!opts.url)
 				opts.url = window.location.href;
@@ -50,8 +52,42 @@
 											
 				}
 			});	
+		},		
+		/**
+		 * 
+		 */
+		poll_job: function(obj){
+
+			var count = 0;
+			
+			var poll_function = function(){
+				
+				if(count > 4){
+					obj.expire();
+					return;
+				}
+			
+				obj.data.status_check = true;
+				jQuery.background_ajax({
+					data: obj.data,
+					success: function(data){
+						if(data.success){
+							obj.success(data);
+						}else{
+							count++;
+							setTimeout(poll_function, 1000);
+						}
+					}
+				});
+				
+			};
+			
+			setTimeout(function(){
+				poll_function();
+			}, 1000);
+					
 		}
-		
+
 	};
 	jQuery.extend(jQueryExtensions);
 	

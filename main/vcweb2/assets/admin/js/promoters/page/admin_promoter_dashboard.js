@@ -63,7 +63,7 @@ jQuery(function(){
 					this.$el.find('div.pic_square_' + this.team_managers[i].uid).html('<img src="' + this.team_managers[i].pic_square + '">');
 				}
 				
-				this.$el.find('img#messages_loading_indicator').remove();
+				jQuery('img#messages_loading_indicator').remove();
 				this.$el.show();
 				return this;
 			},
@@ -79,43 +79,27 @@ jQuery(function(){
 		
 		
 		
-	
 		
 		
-		var vc_fql_users = [];
 		
-		var promoter_dash_global = {
-			count: 0
-		}
-			
-		var retrieve_function = function(){
-			
-			console.log('retrieve_function called');
-			
-			if(promoter_dash_global.count > 4){
-				promoter_dash_global.count = 0;
-				jQuery('div.promoter_stats_tabs img#loading_gif').remove();
-				jQuery('div.promoter_stats_tabs div#tabs-1').html('<span style="color:red">We\'re sorry, something went wrong. We\'ll get it fixed as soon as possible, please try again in a few minutes.</span>').css('display', 'block');
-				return;
-			}
-			
-			//cross-site request forgery token, accessed from session cookie
-			//requires jQuery cookie plugin
-			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
-	
-			jQuery.ajax({
-				url: window.location,
-				type: 'post',
-				data: {'ci_csrf_token': cct,
-						'status_check': true,
-						'vc_method': 'stats_retrieve'},
-				cache: false,
-				dataType: 'json',
-				success: function(data, textStatus, jqXHR){
+		
+		
+		
+		
+		
+		
+		
+		
+		Views.Stats = {
+			el: '#promoter_stats_tabs',
+			initialize: function(){
 					
-					if(data.success){
-						
-						promoter_dash_global.count = 0;
+
+				var poll_job = {
+					data: {
+						vc_method: 'stats_retrieve'
+					},
+					success: function(data){
 						jQuery('img#loading_gif').remove();
 						
 						var categories = [];
@@ -171,22 +155,88 @@ jQuery(function(){
 								data: unique_visitors
 							}]
 						});
-						
-					}else{
-						
-						promoter_dash_global.count = promoter_dash_global.count + 1;
-						setTimeout(retrieve_function, 1000);
-						
-					}
-					
-				}
-			});
+					},
+					expire: function(){
+						jQuery('div.promoter_stats_tabs img#loading_gif').remove();
+						jQuery('div.promoter_stats_tabs div#tabs-1').html('<span style="color:red">We\'re sorry, something went wrong. We\'ll get it fixed as soon as possible, please try again in a few minutes.</span>').css('display', 'block');
+					},
+					scope: this
+				};
+							
+				jQuery.poll_job(poll_job);				
+				
+				var trailing_requests_chart = new Highcharts.Chart({
+					chart: {
+						renderTo: 'tabs-2',
+						type: 'column',
+						width: 1048
+					},
+					title: {
+						text: ' '
+					},
+					tooltip:{
+						enabled: false
+					},
+					margin: [0, 0, 0, 0],
+					xAxis: {
+						categories: window.page_obj.trailing_req_chart_categories
+					},
+					yAxis: {
+						title: {
+							text: null
+						}
+					},
+					legend: {
+						layout: 'vertical',
+						backgroundColor: '#FFFFFF',
+						align: 'left',
+						verticalAlign: 'top',
+						x: 100,
+						y: 70,
+						floating: true,
+						shadow: true
+					},
+					plotOptions: {
+						column: {
+							pointPadding: 0.2,
+							borderWidth: 0
+						}
+					},
+						series: [{
+						name: 'Requests',
+						data: window.page_obj.trailing_req_chart_values
 			
-		};		
+					}]
+				});
+					
+			},
+			render: function(){
+				
+				return this;
+			},
+			events: {
+				
+			}
+		}; Views.Stats = Backbone.View.extend(Views.Stats);
 		
-		//start first check 1 second after login request job sent
-		setTimeout(retrieve_function, 1000);
+		var stats = new Views.Stats({});
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		var vc_fql_users = [];
+				
 		fbEnsureInit(function(){
 			
 			if(! jQuery('div#pending_reservations table tbody tr.loading'))
@@ -237,49 +287,7 @@ jQuery(function(){
 			
 		});
 		
-		trailing_requests_chart = new Highcharts.Chart({
-			chart: {
-				renderTo: 'tabs-2',
-				type: 'column',
-				width: 1048
-			},
-			title: {
-				text: ' '
-			},
-			tooltip:{
-				enabled: false
-			},
-			margin: [0, 0, 0, 0],
-			xAxis: {
-				categories: window.page_obj.trailing_req_chart_categories
-			},
-			yAxis: {
-				title: {
-					text: null
-				}
-			},
-			legend: {
-				layout: 'vertical',
-				backgroundColor: '#FFFFFF',
-				align: 'left',
-				verticalAlign: 'top',
-				x: 100,
-				y: 70,
-				floating: true,
-				shadow: true
-			},
-			plotOptions: {
-				column: {
-					pointPadding: 0.2,
-					borderWidth: 0
-				}
-			},
-				series: [{
-				name: 'Requests',
-				data: window.page_obj.trailing_req_chart_values
-	
-			}]
-		});
+		
 		
 		
 		
@@ -379,44 +387,6 @@ jQuery(function(){
 		/*---------------- team presence channels ---------------------------*/
 				
 		Pusher.channel_auth_endpoint = '/ajax/pusher_presence/';
-		
-		Pusher.authorizers.ajax = function(pusher, callback){
-			var self = this, xhr;
-	
-		    if (Pusher.XHR) {
-		      xhr = new Pusher.XHR();
-		    } else {
-		      xhr = (window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"));
-		    }
-		
-		    xhr.open("POST", Pusher.channel_auth_endpoint, true);
-		    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-		    xhr.onreadystatechange = function() {
-		      if (xhr.readyState == 4) {
-		        if (xhr.status == 200) {
-		          var data, parsed = false;
-		
-		          try {
-		            data = JSON.parse(xhr.responseText);
-		            parsed = true;
-		          } catch (e) {
-		            callback(true, 'JSON returned from webapp was invalid, yet status code was 200. Data was: ' + xhr.responseText);
-		          }
-		
-		          if (parsed) { // prevents double execution.
-		            callback(false, data);
-		          }
-		        } else {
-		          Pusher.warn("Couldn't get auth info from your webapp", status);
-		          callback(true, xhr.status);
-		        }
-		      }
-		    };
-		    
-		    var csrf_token = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
-		    
-		    xhr.send('socket_id=' + encodeURIComponent(pusher.connection.socket_id) + '&channel_name=' + encodeURIComponent(self.name) + '&ci_csrf_token=' + csrf_token);
-		};
 		
 		var pusher = new Pusher(window.module.Globals.prototype.pusher_api_key);
 		var team_user_presence = pusher.subscribe('presence-promotervisitors-' + window.module.Globals.prototype.user_oauth_uid);

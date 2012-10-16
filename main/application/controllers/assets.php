@@ -211,6 +211,8 @@ class Assets extends MY_Common_Controller {
 					array('jquery.history',												'global_js'),
 					array('jquery/jquery-ui-1.8.18.min',								'global_js'),
 					array('pusher/pusher-1.11',											'global_js'),
+					array('pusher/pusher_extend',										'global_js'),
+					
 					
 					array('jquery.cookies.2.2.0.min',									'global_js'),					
 					array('jquery_cookies_domain_settings', 							'global_js'),					
@@ -223,6 +225,9 @@ class Assets extends MY_Common_Controller {
 					array('jquery.maskedinput-1.3.min',									'global_js'),
 					array('ejs/ejs_0.9_alpha_1_production.min',							'global_js'),
 					array('jquery/jquery_extensions', 									'global_js'),
+				
+				
+				
 					array('underscore/underscore.min',									'global_js'),
 					array('backbone/backbone',											'global_js'),
 					
@@ -300,6 +305,9 @@ class Assets extends MY_Common_Controller {
 					array('jquery/jquery1.7.2.min',											'global_js'),
 					array('jquery/jquery-ui-1.8.18.min',									'global_js'),
 					array('pusher/pusher-1.11',												'global_js'),
+					array('pusher/pusher_extend',											'global_js'),
+					
+					
 					array('jquery.cookies.2.2.0.min',										'global_js'),					
 					array('jquery_cookies_domain_settings', 								'global_js'),
 					array('json2',															'global_js'),
@@ -332,6 +340,10 @@ class Assets extends MY_Common_Controller {
 					array('jquery/jquery1.7.2.min',											'global_js'),
 					array('jquery/jquery-ui-1.8.18.min',									'global_js'),
 					array('pusher/pusher-1.11',												'global_js'),
+					array('pusher/pusher_extend',											'global_js'),
+					
+					
+					
 					array('history',														'global_js'),
 					array('jquery.history',													'global_js'),
 					
@@ -363,10 +375,7 @@ class Assets extends MY_Common_Controller {
 					array('jquery.dumbformstate-1.01',										'global_js'),
 					array('underscore/underscore.min',										'global_js'),
 					array('backbone/backbone',												'global_js'),
-					
-		//			array('jquery.maskedinput-1.3.min',										'global_js'),
-		//			array('ejs/ejs_0.9_alpha_1_production.min',								'global_js'),
-		
+
 					array(
 						array('front/view_dynamic_assets_js_front_global', ''), 			'dynamic'
 					),
@@ -526,6 +535,58 @@ class Assets extends MY_Common_Controller {
 									//promoters
 									'promoters_profile_friends_venues',
 									'promoters_profile_news_feed_item'
+																		
+								),
+								'lang' => $language
+							)
+						), 
+						'dynamic'
+					)
+				);
+				
+							
+				break;
+			case 'ejs_templates_admin_promoters':
+				
+				/**
+				 * Loads a separate JS file containing a single object of EJS templates for each
+				 * supported language.
+				 * 
+				 */
+				
+				$lang = $subg; //$this->input->get('lang');
+				
+				if(!in_array($lang, array_keys($this->config->item('supported_lang_codes'))))
+					$lang = 'en'; //default
+				
+				
+				$languages = $this->config->item('supported_langs');
+				$language = $languages[$lang];
+				
+				//load all language files needed by the EJS templates
+				
+				//load language files
+				$this->lang->load('menu', 					$language);
+				$this->lang->load('menu_user', 				$language);
+				$this->lang->load('invitations_dialog', 	$language);
+				$this->lang->load('invite', 				$language);
+				$this->lang->load('footer', 				$language);
+				$this->lang->load('app_data', 				$language);
+				$this->lang->load('home_auth', 				$language);
+				$this->lang->load('friends', 				$language);
+				$this->lang->load('venues', 				$language);
+				$this->lang->load('promoters', 				$language);
+								
+				$group_assets = array(
+					array(
+						array(
+							'global/view_dynamic_assets_js_ejs_templates_admin_promoters',
+							array(
+								'ejs_templates' => array(
+									
+									// ---------------- FRONT --------------------
+									
+									'user_thumb'
 																		
 								),
 								'lang' => $language

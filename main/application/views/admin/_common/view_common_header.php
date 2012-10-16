@@ -38,11 +38,15 @@
 <?php if(MODE == 'local'): ?>
 
 	<link   href="<?= $central->static_assets_domain . 'assets/css/admin_base?cache=' . $central->cache_global_css ?>" rel="stylesheet" type="text/css" />
-	<script  src="<?= $central->static_assets_domain . 'assets/js/admin_base/' . $subg . '?cache=' . $central->cache_global_js ?>" type="text/javascript"></script>
+	<script  src="<?= $central->static_assets_domain . 'assets/js/ejs_templates_admin_' . $subg . '/' . 'en' . '?cache=' . $central->cache_global_js ?>" type="text/javascript"></script>
 
+	<script  src="<?= $central->static_assets_domain . 'assets/js/admin_base/' . $subg . '?cache=' . $central->cache_global_js ?>" type="text/javascript"></script>
+	
 <?php else: ?>
 
 	<link 	href="<?= $central->static_assets_domain . 'vcweb2/assets/all_admin_base_' . $central->cache_global_css . '.css'; ?>" rel="stylesheet" type="text/css" />
+	<script  src="<?= $central->static_assets_domain . 'assets/js/all_ejs_templates_admin_' . $subg . '_' . 'en' . '_' . $central->cache_global_js . '.js' ?>" type="text/javascript"></script>
+
 	<script  src="<?= $central->static_assets_domain . 'vcweb2/assets/all_admin_base_' . $subg . '_' . $central->cache_global_js . '.js'; ?>" type="text/javascript"></script>	
 	
 <?php endif; ?>

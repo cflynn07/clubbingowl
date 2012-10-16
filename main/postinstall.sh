@@ -18,7 +18,12 @@ php /home/dotcloud/current/index.php assets js admin_base promoters
 php /home/dotcloud/current/index.php assets js admin_base managers
 php /home/dotcloud/current/index.php assets js admin_base super_admins
 php /home/dotcloud/current/index.php assets js ejs_templates en
+php /home/dotcloud/current/index.php assets js ejs_templates ja 
 php /home/dotcloud/current/index.php assets js ejs_templates de
-php /home/dotcloud/current/index.php assets js ejs_templates ja
+
+
+
+php /home/dotcloud/current/index.php assets js ejs_templates_admin_promoters en
+
 
 
