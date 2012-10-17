@@ -88,6 +88,21 @@ if(MODE == 'staging'){
 
 
 
+//force https globally
+if(php_sapi_name() !== 'cli')
+	if(strtolower($_SERVER['HTTPS']) != 'on'){
+		$base_url = 'https';
+	    $base_url .= '://'. $_SERVER['HTTP_HOST'];
+	// 	$base_url .= '/';
+		
+		header('HTTP/1.1 301 Moved Permanently');
+		header('Location: ' . $base_url . (($_SERVER['REQUEST_URI'] == '/') ? '' : $_SERVER['REQUEST_URI']));
+		die();
+	}
+		
+
+
+
 //shut down any requests at www.clubbingowl.com/index.php/.....
 if(php_sapi_name() !== 'cli')
 	if(strpos($_SERVER['REQUEST_URI'], '/index.php') === 0){
