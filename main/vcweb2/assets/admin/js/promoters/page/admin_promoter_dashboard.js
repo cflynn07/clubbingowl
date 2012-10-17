@@ -20,18 +20,11 @@ jQuery(function(){
 		//how ghetto....
 		if(typeof window.page_obj.first_time_setup !== 'undefined')
 			return; //this isn't the normal dashboard...
-		
-		
-		
+
 		var Models = {};
 		var Collections = {};
 		var Views = {};
-		
-		
-		
-		
-		
-		
+
 		Views.TeamAnnouncements = {
 			el: '#team_announcements',
 			
@@ -71,24 +64,6 @@ jQuery(function(){
 				
 			}
 		}; Views.TeamAnnouncements = Backbone.View.extend(Views.TeamAnnouncements);
-		
-		var team_announcements = new Views.TeamAnnouncements({});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		Views.Stats = {
 			el: '#promoter_stats_tabs',
@@ -219,9 +194,221 @@ jQuery(function(){
 			}
 		}; Views.Stats = Backbone.View.extend(Views.Stats);
 		
-		var stats = new Views.Stats({});
+		Views.TopVisitors = {
+			el: '#top_visitors_wrapper',
+			users: [],
+			initialize: function(){
+				
+				var _this = this;
+				//find visitors facebook info...
+				fbEnsureInit(function(){
+					var users = eval(window.page_obj.statistics.top_visitors);
+					
+					jQuery.fbUserLookup(users, 'uid, name, first_name, pic_square, pic_big, third_party_id', function(rows){
+					
+						_this.users = rows;
+						_this.render();
+							
+					});
+					
+				});				
+				
+			},
+			render: function(){
+				var el = this.$el.find('#top_visitors');
+				
+				el.empty();
+				for(var i in this.users){
+					
+					console.log(this.users);
+					
+					var html = new EJS({
+						text: window.ejs_view_templates_admin_promoters.user_thumb
+					}).render(this.users[i]);
+					el.append(html);
+				}
+				
+				return this;
+				
+			},
+			events: {
+				
+			}
+		}; Views.TopVisitors = Backbone.View.extend(Views.TopVisitors);
+		
+		Views.RecentVisitors = {
+			el: '#recent_visitors_wrapper',
+			users: [],
+			initialize: function(){
+			
+				var _this = this;
+				fbEnsureInit(function(){
+					var users = eval(window.page_obj.statistics.recent_visitors);
+
+					jQuery.fbUserLookup(users, 'uid, name, first_name, pic_square, pic_big, third_party_id', function(rows){
+					
+						_this.users = rows;
+						_this.render();
+							
+					});
+			
+				});
+				
+			},
+			render: function(){
+				
+				var el = this.$el.find('#recent_visitors');
+				el.empty();
+				for(var i in this.users){
+					var user = this.users[i];
+					var html = new EJS({
+						text: window.ejs_view_templates_admin_promoters.user_thumb
+					}).render(user);
+					html = jQuery(html);
+					html.data('user', user);
+					el.append(html);
+				}
+				
+				return this;
+			},
+			events: {
+				'click div.visitor': 'click_visitor'
+			},
+			click_visitor: function(e){
+				
+				var el = jQuery(e.currentTarget);
+				var data = el.data('user');
+				console.log(data);
+				
+			}
+		}; Views.RecentVisitors = Backbone.View.extend(Views.RecentVisitors);
+		
+		Views.LiveVisitors = {
+			el: '#live_visitors_wrapper',
+			users: [],
+			initialize: function(){
+				
+				/*---------------- team presence channels ---------------------------*/
+						
+				Pusher.channel_auth_endpoint = '/ajax/pusher_presence/';
+				
+				var pusher = new Pusher(window.module.Globals.prototype.pusher_api_key);
+				var team_user_presence = pusher.subscribe('presence-promotervisitors-' + window.module.Globals.prototype.user_oauth_uid);
+				pusher_disconnect_channel.push(team_user_presence);
+				
+				var _this = this;
+				var subscription_succeeded = function(members){
+					
+					var live_visitor_timeout_remove_queue = {};
 		
 		
+					//fix box we care about
+					_this.$el.find('div#live_visitors').empty();
+					
+					var users = [];
+					
+					members.each(function(member){
+						users.push(member.id);
+					});
+					
+					if(users.length == 0)
+						return;
+									
+					
+					var fql = "SELECT uid, name, first_name, pic_square, pic_big, third_party_id FROM user WHERE ";
+					for(var i = 0; i < users.length; i++){
+						if(i == (users.length - 1)){
+							fql += "uid = " + users[i];
+						}else{
+							fql += "uid = " + users[i] + " OR ";
+						}
+					}
+					
+					var query = FB.Data.query(fql);
+					query.wait(function(rows){
+						console.log(rows);
+						
+						for(var i = 0; i < rows.length; i++){													
+							var html = '<div class="live_visitor ' + rows[i].uid + '">';
+							html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
+							html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+							html += '</div>';
+							jQuery('div#live_visitors').append(html);
+						}
+						
+					});
+				}
+				team_user_presence.bind('pusher:subscription_succeeded', subscription_succeeded);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				var live_visitor_timeout_remove_queue = {};
+				team_user_presence.bind('pusher:member_added', function(member){
+				  	
+				  	if(live_visitor_timeout_remove_queue[member.id]){
+				  		clearTimeout(live_visitor_timeout_remove_queue[member.id]);
+				  	}
+				  	
+				  	//make sure not already in list
+				  	if(jQuery('div#live_visitors').find('div.' + member.id).length > 0)
+				  		return;
+				  	
+				  	var fql = "SELECT uid, name, first_name, pic_square, pic_big, third_party_id FROM user WHERE uid = " + member.id;
+				  	console.log(fql);
+				  	var query = FB.Data.query(fql);
+					query.wait(function(rows){
+						console.log(rows);
+						
+						for(var i = 0; i < rows.length; i++){
+							var html = '<div class="live_visitor ' + rows[i].uid + '">';
+							html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
+							html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+							html += '</div>';
+							jQuery('div#live_visitors').append(html);
+						}
+						
+					});
+					
+				  	console.log('promotervisitors member_added');
+					console.log(member)
+									  					  	
+				});
+				
+				team_user_presence.bind('pusher:member_removed', function(member){
+				  	
+				  	live_visitor_timeout_remove_queue[member.id] = setTimeout(function(){
+				  		jQuery('div#live_visitors').find('div.' + member.id).remove();
+				  	}, 1000 * 5);
+				  	
+				  	console.log('promotervisitors member_removed');
+				  	console.log(member);
+				  	
+				});
+				/*---------------- END team presence channels ---------------------------*/
+				
+				
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		}; Views.LiveVisitors = Backbone.View.extend(Views.LiveVisitors);
+		
+		var team_announcements 	= new Views.TeamAnnouncements({});
+		var stats 				= new Views.Stats({});
+		var top_visitors 		= new Views.TopVisitors({});
+		var recent_visitors 	= new Views.RecentVisitors({});
+		var live_visitors 		= new Views.LiveVisitors({});
 		
 		
 		
@@ -299,37 +486,6 @@ jQuery(function(){
 		
 		
 		
-		//display top visitors widget
-		fbEnsureInit(function(){
-			var users = eval(window.page_obj.statistics.top_visitors);
-			
-			
-			
-			if(users.length == 0){
-				jQuery('div#top_visitors').empty();
-				return;
-			}
-			
-						
-			jQuery.fbUserLookup(users, 'uid, name, first_name, pic_square, pic_big, third_party_id', function(rows){
-				
-				console.log('callback');
-				console.log(rows);
-				
-				jQuery('div#top_visitors').empty();
-				
-				for(var i = 0; i < rows.length; i++){
-										
-					var html = '<div class="top_visitor ' + rows[i].uid + '">';
-					html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
-					html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
-					html += '</div>';
-					jQuery('div#top_visitors').append(html);
-				}
-				
-			});
-			
-		});
 		
 		
 		
@@ -338,39 +494,7 @@ jQuery(function(){
 		
 		
 		
-		fbEnsureInit(function(){
-			var users = eval(window.page_obj.statistics.recent_visitors);
-			
-			if(users.length == 0){
-				jQuery('div#recent_visitors').empty();
-				return;
-			}
-			
-			var fql = "SELECT uid, name, first_name, pic_square, pic_big, third_party_id FROM user WHERE ";
-			for(var i = 0; i < users.length; i++){
-				if(i == (users.length - 1)){
-					fql += "uid = " + users[i];
-				}else{
-					fql += "uid = " + users[i] + " OR ";
-				}
-			}
-			
-			var query = FB.Data.query(fql);
-			query.wait(function(rows){
-				console.log(rows);
-				
-				jQuery('div#recent_visitors').empty();
-				
-				for(var i = 0; i < rows.length; i++){
-					var html = '<div class="recent_visitor ' + rows[i].uid + '">';
-					html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
-					html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
-					html += '</div>';
-					jQuery('div#recent_visitors').append(html);
-				}
-				
-			});
-		});
+		
 		
 		
 	
@@ -390,9 +514,7 @@ jQuery(function(){
 		
 		var pusher = new Pusher(window.module.Globals.prototype.pusher_api_key);
 		var team_user_presence = pusher.subscribe('presence-promotervisitors-' + window.module.Globals.prototype.user_oauth_uid);
-		console.log(team_user_presence);
 		pusher_disconnect_channel.push(team_user_presence);
-		
 		
 		
 		var subscription_succeeded = function(members){
@@ -435,6 +557,14 @@ jQuery(function(){
 			});
 		}
 		team_user_presence.bind('pusher:subscription_succeeded', subscription_succeeded);
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		var live_visitor_timeout_remove_queue = {};

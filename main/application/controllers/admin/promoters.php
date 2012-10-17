@@ -33,7 +33,7 @@ class Promoters extends MY_Controller {
 			die();
 		}
 		/*--------------------- End Login Handler --------------------*/
-
+				
 		/* --------------------- Load admin-promoter library ------------------------ */
 		$this->load->library('library_promoters');
 		$this->library_promoters->initialize(array('promoter_id' => $vc_user->promoter->up_id), true);
