@@ -37,8 +37,7 @@ function check_gearman_job_complete($job_name){
 										
 		}
 		
-		var_dump($temp);
-		
+		header('X-Accel-Buffering no');		
 		die($job_result); //<-- already json in memcache	
 		
 	}else{
