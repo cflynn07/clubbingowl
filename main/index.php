@@ -86,8 +86,10 @@ if(MODE == 'staging'){
 	$_SERVER['HTTPS'] = 'on';
 }
 
+echo '<pre>';
 var_dump($_SERVER);
 var_dump($_SERVER['HTTPS']);
+die();
 
 //force https globally
 if(php_sapi_name() !== 'cli')
