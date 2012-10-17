@@ -140,8 +140,10 @@ class Primary extends MY_Controller {
 		$this->load->library('Redis', '', 'redis');					
 		$this->redis->set('foo', 'bar');
 		
-		var_dump($this->redis->get('foo'));
 		
+		
+		var_dump($this->redis->get('foo'));
+		die();
 		
 		
 							
