@@ -37,6 +37,8 @@ function check_gearman_job_complete($job_name){
 										
 		}
 		
+		var_dump($temp);
+		
 		die($job_result); //<-- already json in memcache	
 		
 	}else{
