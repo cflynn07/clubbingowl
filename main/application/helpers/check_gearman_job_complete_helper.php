@@ -12,11 +12,13 @@ function check_gearman_job_complete($job_name){
 	$job->attempt += 1;
 	
 	//check job status to see if it's completed
-	$CI->load->library('library_memcached', '', 'memcached');
-	if($job_result = $CI->memcached->get($job->handle)){
+//	$CI->load->library('library_memcached', '', 'memcached');
+
+	$CI->load->library('Redis', '', 'redis');
+	if($job_result = $CI->redis->get($job->handle)){
 		
 		//free memory from memcached
-		$CI->memcached->delete($job->handle);
+		$CI->redis->delete($job->handle);
 		$CI->session->unset_userdata($job_name);
 		
 		$temp = json_decode($job_result);

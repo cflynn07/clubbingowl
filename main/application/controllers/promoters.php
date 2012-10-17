@@ -685,6 +685,13 @@ class Promoters extends MY_Controller {
 				if($this->input->post('status_check')){
 					//check to see if job complete
 					
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('gearman_individual_promoter_friend_activity');	
+					
+					
+					/*
+					
+					
 					if(!$gearman_individual_promoter_friend_activity = $this->session->userdata('gearman_individual_promoter_friend_activity'))
 						die(json_encode(array('success' => false,
 												'message' => 'No retrieve request found')));	
@@ -727,11 +734,15 @@ class Promoters extends MY_Controller {
 						
 					}
 					
+					
+					 */ 
+				
+
 				}else{
 					//create new job
 					
 					if($vc_user = $this->session->userdata('vc_user')){
-							
+						
 						$vc_user = json_decode($vc_user);
 						
 						$this->load->helper('run_gearman_job');

@@ -14,7 +14,7 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
     	$access_token = $args['access_token'];	
 		$notify_admins = $args['notify_admins'];
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$handle = $this->handle;
 		
 		//call graph API and get user basic info
@@ -37,9 +37,9 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 		if(!isset($fb_user_info[0])){
 			$data = json_encode(array('success' => false,
 							  			'message' => 'fb api call failure'));
-			$CI->memcached->add($handle, 
-								$data,
-								120);
+			$CI->redis->set($handle, 
+									$data);
+			$CI->redis->expire($handle, 120);	
 			return;
 		}
 		
@@ -50,9 +50,9 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 		if(array_key_exists('error', $fb_user_info)){
 			$data = json_encode(array('success' => false,
 										'message' => $fb_user_info['error']['message']));
-			$CI->memcached->add($handle,
-								$data,
-								120);
+			$CI->redis->set($handle, 
+								$data);
+			$CI->redis->expire($handle, 120);	
 			return;
 		}
 		
@@ -139,7 +139,7 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 	
 				$text_message = 'VC: New User -> ' . $fb_user_info['name'];	
 	
-				$to_emails = array($to_fede, $to_casey);
+				$to_emails = array($to_johann, $to_casey);
 				$to_names = array('Fede', 'Casey');
 				
 				$message = array(
@@ -196,9 +196,9 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 									'message' => $vibecompass_user));
 																	
 		//send result to memcached
-		$CI->memcached->add($handle,
-								$data,
-								120);
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);	
 		
 		//Possibly remove for production, kind of cool to look at tho.
 		echo 'Facebook user authenticate: ' . $vibecompass_user->users_full_name . ' logged in.' . PHP_EOL;

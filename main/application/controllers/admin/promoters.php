@@ -1127,6 +1127,11 @@ class Promoters extends MY_Controller {
 		switch($vc_method){
 			case 'stats_retrieve':
 				
+				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_promoter_piwik_stats');
+				
+				/*
 				if(!$admin_promoter_piwik_stats = $this->session->userdata('admin_promoter_piwik_stats'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1143,6 +1148,10 @@ class Promoters extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				*/
+				
+				
+				
 				
 				break;
 			default:
@@ -1358,6 +1367,13 @@ class Promoters extends MY_Controller {
 		switch($vc_method){
 			case 'client_list_retrieve':
 				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_promoter_client_list');
+				
+				
+				
+				
+				/*
 				if(!$admin_promoter_client_list = $this->session->userdata('admin_promoter_client_list'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1374,6 +1390,10 @@ class Promoters extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				*/
+				
+				
+				
 				
 				break;
 			case 'client_stats':

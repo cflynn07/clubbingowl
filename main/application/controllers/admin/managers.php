@@ -1370,6 +1370,13 @@ class Managers extends MY_Controller {
 				break;
 			case 'stats_retrieve':
 				
+				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_manager_piwik_stats');
+				
+				
+				/*
+				
 				if(!$admin_manager_piwik_stats = $this->session->userdata('admin_manager_piwik_stats'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1386,6 +1393,11 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				
+				*/
+				
+				
+				
 				
 				break;
 			default:
@@ -1421,6 +1433,12 @@ class Managers extends MY_Controller {
 				break;
 			case 'guest_lists_retrieve':
 				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_manager_guest_list');
+				
+				
+				/*
+				
 				if(!$admin_manager_guest_list = $this->session->userdata('admin_manager_guest_list'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1437,6 +1455,10 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				
+				*/
+				
+				
 				
 				break;
 			case 'team_guest_list_request_accept_deny':
@@ -1463,6 +1485,11 @@ class Managers extends MY_Controller {
 				if($this->input->post('status_check')){
 					//check to see if job complete
 					
+					
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('gearman_manager_manual_add');
+					
+					/*
 					if(!$gearman_manager_manual_add = $this->session->userdata('gearman_manager_manual_add'))
 						die(json_encode(array('success' => false,
 												'message' => 'No request found')));	
@@ -1479,10 +1506,22 @@ class Managers extends MY_Controller {
 					}else{
 						die(json_encode(array('success' => false)));
 					}
+					*/
+					
+					
 					
 				}else{
-					//create new job
+					//create new job					
 					
+					$vc_user = json_decode($this->session->userdata('vc_user'));
+					$this->load->helper('run_gearman_job');
+					run_gearman_job('gearman_manager_manual_add', array('user_oauth_uid' 	=> $vc_user->oauth_uid,
+																		'fan_page_id'		=> $vc_user->manager->team_fan_page_id,
+																		'access_token' 		=> $vc_user->access_token,
+																		'tgla_id'			=> $tgla_id,
+																		'oauth_uids' 		=> json_encode($oauth_uids)));
+					
+					/*
 					if($vc_user = $this->session->userdata('vc_user')){
 						
 						//head user uid is required
@@ -1532,7 +1571,7 @@ class Managers extends MY_Controller {
 						
 						die(json_encode(array('success' => false, 'message' => 'User not authenticated.')));
 						
-					}
+					} */
 				}
 				
 				break;
@@ -1561,6 +1600,11 @@ class Managers extends MY_Controller {
 		switch($vc_method){
 			case 'stats_retrieve':
 				
+				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('gearman_admin_manager_promoter_piwik_stats');
+				
+				/*
 				if(!$gearman_admin_manager_promoter_piwik_stats = $this->session->userdata('gearman_admin_manager_promoter_piwik_stats'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1577,6 +1621,9 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				*/
+				
+				
 				
 				break;
 			default:
@@ -1716,6 +1763,11 @@ class Managers extends MY_Controller {
 		switch($vc_method){
 			case 'client_list_retrieve':
 				
+				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_manager_client_list');
+				
+				/*
 				if(!$admin_manager_client_list = $this->session->userdata('admin_manager_client_list'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1732,6 +1784,9 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				*/
+				
+				
 				
 				break;
 			default:

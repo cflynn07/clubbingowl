@@ -562,8 +562,8 @@ class Model_teams extends CI_Model {
 		/* --------- END CONFIGURATION SETTINGS --------- */
 		
 		if($cache){
-			$this->load->library('library_memcached');
-			if($result = $this->library_memcached->get('model_app_data->retrieve_num_promoters')){
+			$this->load->library('Redis', '', 'redis');
+			if($result = $this->redis->get('model_app_data->retrieve_num_promoters')){
 				return $result;
 			}
 		}
@@ -574,9 +574,9 @@ class Model_teams extends CI_Model {
 		$result = $query->row();
 		
 		if($cache){
-			$this->library_memcached->put('model_app_data->retrieve_num_promoters',
-											$result,
-											$cache_length);
+			$this->redis->set('model_app_data->retrieve_num_promoters',
+											$result);
+			$this->redis->expire('model_app_data->retrieve_num_promoters', $cache_length);
 		}
 		
 		return $result;
@@ -948,10 +948,10 @@ class Model_teams extends CI_Model {
 	 */
 	function retrieve_venue_clients($tv_id, $cache_front = false){
 				
-		$this->load->library('library_memcached', '', 'memcached');
+		$this->load->library('Redis', '', 'redis');
 				
 		if($cache_front){
-			if($result = $this->memcached->get('MT-RVC-cache-front-' . $tv_id)){
+			if($result = $this->redis->get('MT-RVC-cache-front-' . $tv_id)){
 				return json_decode($result);
 			}		
 		}	
@@ -1041,7 +1041,8 @@ class Model_teams extends CI_Model {
 		$result = $uids;
 		
 		if($cache_front){
-			$this->memcached->add('MT-RVC-cache-front-' . $tv_id, json_encode($result), 60*30);
+			$this->redis->set('MT-RVC-cache-front-' . $tv_id, json_encode($result));
+			$this->redis->expire('MT-RVC-cache-front-' . $tv_id, 60*30);
 		}
 		
 		return $result;

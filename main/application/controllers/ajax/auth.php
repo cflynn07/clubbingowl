@@ -53,7 +53,9 @@ class Auth extends MY_Controller {
 		//Is request new job or status check?
 		if($this->input->post('status_check')){
 			//Status check
-						
+			
+			
+			
 			if(!$facebook_user_authenticate = $this->session->userdata('facebook_user_authenticate'))
 				die(json_encode(array('success' => false,
 										'message' => 'No login request')));	
@@ -205,6 +207,12 @@ class Auth extends MY_Controller {
 				//job not complete, come again.
 				die(json_encode(array('success' => false)));
 			}
+			
+			
+			
+			
+			
+			
 			
 		}else{
 			//New job request

@@ -136,15 +136,6 @@ class Primary extends MY_Controller {
 	 * @return 	null
 	 */
 	private function _primary($arg0 = ''){
-							
-		$this->load->library('Redis', '', 'redis');					
-		$this->redis->set('foo', 'bar');
-		
-		
-		
-		var_dump($this->redis->get('foo'));
-		die();
-		
 		
 							
 		if($vc_user = $this->session->userdata('vc_user')){
@@ -195,6 +186,14 @@ class Primary extends MY_Controller {
 				if($this->input->post('status_check')){
 					//check to see if job complete
 					
+					
+						
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('news_feed_retrieve');	
+					
+					/*
+					
+					
 					if(!$news_feed_retrieve = $this->session->userdata('news_feed_retrieve'))
 						die(json_encode(array('success' => false,
 												'message' => 'No retrieve request found')));
@@ -237,9 +236,14 @@ class Primary extends MY_Controller {
 						die(json_encode(array('success' => false)));
 					}
 					
+					 
+					*/ 
+			
+			
 				}else{
 					//create new job
 					
+			
 					if($vc_user = $this->session->userdata('vc_user')){
 						
 						$vc_user = json_decode($vc_user);
@@ -258,17 +262,11 @@ class Primary extends MY_Controller {
 						die(json_encode(array('success' => false, 'message' => 'User not authenticated.')));
 						
 					}
+			
 					
 				}
 				
-				
-				
-				
-				
-				
-				
-				
-				
+
 				break;
 			default:
 				die(json_encode(array('success' => false,

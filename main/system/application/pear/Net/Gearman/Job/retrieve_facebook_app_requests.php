@@ -17,7 +17,7 @@ class Net_Gearman_Job_retrieve_facebook_app_requests extends Net_Gearman_Job_Com
 		$request_ids = array_reverse($request_ids);
 		
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$handle = $this->handle;
 		
 		//call graph API and get user basic info
@@ -178,9 +178,10 @@ class Net_Gearman_Job_retrieve_facebook_app_requests extends Net_Gearman_Job_Com
 									'message' => $result));
 																	
 		//send result to memcached
-		$CI->memcached->add($handle, 
-								$data,
-								120);
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);	
+	
 		
 		//Possibly remove for production, kind of cool to look at tho.
 		$response = "Retrieved request IDS: ";

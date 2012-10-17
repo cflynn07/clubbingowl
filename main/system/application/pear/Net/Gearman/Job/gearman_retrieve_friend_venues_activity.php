@@ -10,7 +10,7 @@ class Net_Gearman_Job_gearman_retrieve_friend_venues_activity extends Net_Gearma
     	
 		// Get Codeigniter instance, and config.
 		$this->CI = get_instance();
-		$this->CI->load->library('library_memcached', '', 'memcached');
+		$this->CI->load->library('Redis', '', 'redis');
 		$this->CI->load->library('library_facebook', '', 'facebook');
 		$handle = $this->handle;
 		
@@ -24,15 +24,19 @@ class Net_Gearman_Job_gearman_retrieve_friend_venues_activity extends Net_Gearma
 		
 		//first get list of user's friends that are vc users
 		$this->CI->load->helper('retrieve_vc_user_friends');
-		$result = retrieve_vc_user_friends($user_oauth_uid, $access_token);
+		$result = retrieve_vc_user_friends($user_oauth_uid, $access_token);		
 		
 		if(isset($result['error_code'])){
 			var_dump($result);
 			echo 'sending error code' . PHP_EOL;
-			$this->CI->memcached->delete('cache_user_friends_' . $user_oauth_uid);
-			$this->CI->memcached->add($handle, 
-								json_encode(array('success' => false)),
-								60);			
+			
+			$this->CI->redis->delete('cache_user_friends_' . $user_oauth_uid);	
+								
+			$data = json_encode(array('success' => false));
+			$this->CI->redis->set($handle, 
+									$data);
+			$this->CI->redis->expire($handle, 120);					
+									
 			return;
 		}
 			
@@ -41,6 +45,9 @@ class Net_Gearman_Job_gearman_retrieve_friend_venues_activity extends Net_Gearma
 		$user_friends_ids = array();
 		
 		foreach($result as $key => $uf){
+			
+			$uf = (array)$uf;
+			
 			$user_friends[$uf['uid']] = $uf; //$uf['pic_square'];
 			$user_friends_ids[] = $uf['uid'];
 		}
@@ -59,9 +66,9 @@ class Net_Gearman_Job_gearman_retrieve_friend_venues_activity extends Net_Gearma
 		
 					
 		//send result to memcached
-		$this->CI->memcached->add($handle, 
-								$data,
-								60);
+		$this->CI->redis->set($handle, 
+								$data);
+		$this->CI->redis->expire($handle, 120);
 		
 		$this->CI->benchmark->mark('code_end');
 		

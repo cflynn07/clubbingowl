@@ -388,6 +388,14 @@ class Friends extends MY_Controller {
 				if($this->input->post('status_check')){
 					//check to see if job complete
 					
+					
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('friend_feed_retrieve');	
+					
+					
+					/*
+					
+					
 					if(!$friend_feed_retrieve = $this->session->userdata('friend_feed_retrieve'))
 						die(json_encode(array('success' => false,
 												'message' => 'No retrieve request found')));	
@@ -417,8 +425,8 @@ class Friends extends MY_Controller {
 														
 						}
 						
-						
-						die($friend_feed); //<-- already json in memcache
+						die($friend_feed); //<-- already json in memcache					 
+					 
 					}else{
 						
 						if($friend_feed_retrieve->attempt > 4)
@@ -428,6 +436,11 @@ class Friends extends MY_Controller {
 						
 						die(json_encode(array('success' => false)));
 					}
+					
+					*/
+					
+					
+					
 					
 				}else{
 					//create new job
@@ -490,6 +503,15 @@ class Friends extends MY_Controller {
 				break;
 			case 'friend_retrieve':
 				
+				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('friend_retrieve');	
+					
+					
+					
+					
+				
+				/*
 				if(!$friend_retrieve = $this->session->userdata('friend_retrieve'))
 					die(json_encode(array('success' => false,
 											'message' => 'No retrieve request found')));	
@@ -513,6 +535,11 @@ class Friends extends MY_Controller {
 					
 					die(json_encode(array('success' => false)));
 				}
+				
+				*/
+				
+				
+				
 			
 				break;
 			default:

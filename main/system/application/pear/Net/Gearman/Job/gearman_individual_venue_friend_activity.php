@@ -11,7 +11,7 @@ class Net_Gearman_Job_gearman_individual_venue_friend_activity extends Net_Gearm
 
 		//get all the stuff we're going to need...
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$CI->load->library('library_facebook', '', 'facebook');
 		$handle = $this->handle;
 
@@ -26,10 +26,17 @@ class Net_Gearman_Job_gearman_individual_venue_friend_activity extends Net_Gearm
 		if(isset($result['error_code'])){
 			var_dump($result);
 			echo 'sending error code' . PHP_EOL;
-			$CI->memcached->delete('cache_user_friends_' . $user_oauth_uid);
-			$CI->memcached->add($handle, 
-								json_encode(array('success' => false)),
-								60);			
+			
+			$CI->redis->delete('cache_user_friends_' . $user_oauth_uid);
+			$CI->redis->set($handle, 
+									json_encode(array('success' => false)));
+			$CI->redis->expire($handle, 120);
+			
+			
+		//	$CI->memcached->delete('cache_user_friends_' . $user_oauth_uid);
+		//	$CI->memcached->add($handle, 
+		//						json_encode(array('success' => false)),
+		//						60);			
 			return;
 		}
 			
@@ -38,6 +45,10 @@ class Net_Gearman_Job_gearman_individual_venue_friend_activity extends Net_Gearm
 		$user_friends_ids = array();
 		
 		foreach($result as $key => $uf){
+		
+			$uf = (array)$uf;
+			
+			
 			$user_friends[$uf['uid']] = $uf; //$uf['pic_square'];
 			$user_friends_ids[] = $uf['uid'];
 		}
@@ -62,9 +73,9 @@ class Net_Gearman_Job_gearman_individual_venue_friend_activity extends Net_Gearm
 		
 					
 		//send result to memcached
-		$CI->memcached->add($handle, 
-								$data,
-								60);
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);
 			
 		echo "Retrieved venue " . $venue_id[0] . " user friend popularity and news feed for " . $user_oauth_uid . PHP_EOL;
 		

@@ -10,7 +10,7 @@ class Net_Gearman_Job_admin_manager_piwik_stats extends Net_Gearman_Job_Common{
     			
     	$piwik_id_site = $args['piwik_id_site'];
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$handle = $this->handle;
 		
 		$CI->load->library('library_piwik', '', 'piwik');
@@ -28,9 +28,9 @@ class Net_Gearman_Job_admin_manager_piwik_stats extends Net_Gearman_Job_Common{
 									'message' => $result));
 																	
 		//send result to memcached
-		$CI->memcached->add($handle, 
-								$data,
-								120);
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);					
 		
 		echo 'Team piwik stats recieved for piwik_site_id: ' . $piwik_id_site . PHP_EOL;
 			

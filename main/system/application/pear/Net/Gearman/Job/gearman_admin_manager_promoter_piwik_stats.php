@@ -10,7 +10,7 @@ class Net_Gearman_Job_gearman_admin_manager_promoter_piwik_stats extends Net_Gea
     			
     	$promoter_site_ids = $args['promoter_site_ids'];
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$handle = $this->handle;
 		
 		$CI->load->library('library_piwik', '', 'piwik');
@@ -33,9 +33,11 @@ class Net_Gearman_Job_gearman_admin_manager_promoter_piwik_stats extends Net_Gea
 									'message' => $data));
 																	
 		//send result to memcached
-		$CI->memcached->add($handle, 
-								$data,
-								120);
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);	
+		
+		
 		
 		echo 'Admin Manager Promoter piwik stats recieved for piwik_site_ids: '; 
 		foreach($promoter_site_ids as $psi){ echo $psi . ', '; }

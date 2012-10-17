@@ -736,8 +736,11 @@ class Model_guest_lists extends CI_Model {
 	function retrieve_all_members_for_all_guest_lists($cache = false){
 		
 		//cache bypass if this value is stored in memcache
-		$this->load->library('library_memcached', '', 'memcached');
-		if($cache && ($results = $this->memcached->get('retrieve_all_members_for_all_guest_lists')))
+//		$this->load->library('library_memcached', '', 'memcached');
+//		if($cache && ($results = $this->memcached->get('retrieve_all_members_for_all_guest_lists')))
+//			return $results;
+		$this->load->library('Redis', '', 'redis');
+		if($cache && ($results = $this->redis->get('retrieve_all_members_for_all_guest_lists')))
 			return $results;
 		
 		//value not stored in memcache, query DB
@@ -775,8 +778,10 @@ class Model_guest_lists extends CI_Model {
 		$query = $this->db->query($sql);
 		
 		//Only save this query result if caching is true, don't save if false to avoid using up cache memory
-		if($cache)
-			$this->memcached->add('retrieve_all_members_for_all_guest_lists', $query->result(), 1200); //cache 10 minutes
+		if($cache){
+			$this->redis->set('retrieve_all_members_for_all_guest_lists', $query->result());
+			$this->redis->expire('retrieve_all_members_for_all_guest_lists', 1200); //cache 10 minutes
+		}
 		
 		return $query->result();
 	}
@@ -790,8 +795,8 @@ class Model_guest_lists extends CI_Model {
 	function retrieve_all_members_for_all_promoters($cache = false){
 		
 		//cache bypass if this value is stored in memcache
-		$this->load->library('library_memcached', '', 'memcached');
-		if($cache && ($results = $this->memcached->get('retrieve_all_members_for_all_promoters')))
+		$this->load->library('Redis', '', 'redis');
+		if($cache && ($results = $this->redis->get('retrieve_all_members_for_all_promoters')))
 			return $results;
 		
 		//value not stored in memcache, query DB
@@ -840,8 +845,11 @@ class Model_guest_lists extends CI_Model {
 		$query = $this->db->query($sql);
 		
 		//Only save this query result if caching is true, don't save if false to avoid using up cache memory
-		if($cache)
-			$this->memcached->add('retrieve_all_members_for_all_promoters', $query->result(), 600); //cache 5 minutes
+		if($cache){
+			$this->redis->set('retrieve_all_members_for_all_promoters', $query->result()); //cache 5 minutes
+			$this->redis->expire('retrieve_all_members_for_all_promoters', 1200);
+		}
+		
 		
 		return $query->result();
 	}	

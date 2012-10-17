@@ -9,7 +9,7 @@ class Net_Gearman_Job_friend_retrieve extends Net_Gearman_Job_Common{
     			
 		//get all the stuff we're going to need...
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$CI->load->library('library_facebook', '', 'facebook');
 		$handle = $this->handle;
 		
@@ -131,9 +131,9 @@ class Net_Gearman_Job_friend_retrieve extends Net_Gearman_Job_Common{
 			
 		}
 		
-		$CI->memcached->add($handle, 
-								$data,
-								60);
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);	
 		
 		echo "Retrieved friend_page of $friend->users_full_name for $user_oauth_uid. Users friends: " . (($result) ? "true" : "false") . PHP_EOL;
     }

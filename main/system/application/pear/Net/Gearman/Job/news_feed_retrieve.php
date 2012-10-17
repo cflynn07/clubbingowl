@@ -11,7 +11,7 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
     			
 		//get all the stuff we're going to need...
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$CI->load->library('library_facebook', '', 'facebook');
 		$handle = $this->handle;
 		
@@ -27,10 +27,14 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 										
 		if(isset($result['error_code'])){
 			var_dump($result);
-			$CI->memcached->delete('cache_user_friends_' . $user_oauth_uid);
-			$CI->memcached->add($handle, 
-								json_encode(array('success' => false)),
-								60);			
+			
+			$data = json_encode(array('success' => false));
+			$CI->redis->delete('cache_user_friends_' . $user_oauth_uid);
+			$CI->redis->set($handle, 
+									$data);
+			$CI->redis->expire($handle, 120);							
+								
+										
 			return;
 		}
 			
@@ -39,6 +43,9 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 		$user_friends_ids = array();
 		
 		foreach($result as $key => $uf){
+			
+			$uf = (array)$uf;
+			
 			$user_friends_pics[$uf['uid']] = $uf['pic_square'];
 			$user_friends_ids[] = $uf['uid'];
 		}
@@ -71,12 +78,11 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 		
 //		$handle = 'test_simple_handle';		
 		//send result to memcached
-		$CI->memcached->add($handle, 
-								$data,
-								60);		
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);			
 		
 		//var_dump($data);
-		var_dump($handle);
 		echo "Retrieved vc_user news feed @ iterator position: " . (($iterator_position === false) ? "false" : $iterator_position) . " - notifications: " . count($notifications->data) . PHP_EOL;
     }
 }
