@@ -66,18 +66,13 @@ if(MODE != 'local'){
 //Hack for compatability. SSL enabled with CloudFlare -- does not reach server (USER ---ssl---- CF -------- HOST)
 //BEGIN HACK -----------------------------
 if(isset($_SERVER['HTTP_CF_VISITOR'])){
-	$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR'], true);
-	if(isset($http_cf_visitor->scheme)){
-		
-		if($http_cf_visitor->scheme == 'https'){
-			$_SERVER['HTTPS'] = 'on';
-		}else{
-			$_SERVER['HTTPS'] = 'off';
-		}
-		
-	}else{
-		$_SERVER['HTTPS'] = 'off';
-	}
+	
+	$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR']);
+	if(isset($http_cf_visitor->scheme))
+		$_SERVER['HTTPS'] = ($http_cf_visitor->scheme == 'https') ? 'on' : 'off';
+	
+	var_dump($http_cf_visitor);
+	
 }
 //END HACK ---------------------------
 
