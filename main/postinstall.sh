@@ -24,3 +24,13 @@ php /home/dotcloud/current/index.php assets js ejs_templates de
 
 
 php /home/dotcloud/current/index.php assets js ejs_templates_admin_promoters en
+
+#REDIS
+git clone git://github.com/nicolasff/phpredis.git
+cd phpredis
+phpize
+./configure
+make
+cp modules/redis.so ~
+echo extension=/home/dotcloud/redis.so >>~/current/php.ini
+supervisorctl restart php5-fpm
