@@ -137,6 +137,14 @@ class Primary extends MY_Controller {
 	 */
 	private function _primary($arg0 = ''){
 							
+		$this->load->library('Redis', '', 'redis');					
+		$this->redis->set('foo', 'bar');
+		
+		var_dump($this->redis->get('foo'));
+		
+		
+		
+							
 		if($vc_user = $this->session->userdata('vc_user')){
 			$vc_user = json_decode($vc_user);
 						
@@ -146,7 +154,6 @@ class Primary extends MY_Controller {
 								'iterator_position' => false,
 								'lang_locale'		=> $this->config->item('current_lang_locale'));
 			run_gearman_job('news_feed_retrieve', $arguments);
-		
 		}
 
 		$this->lang->load('home_auth', $this->config->item('current_lang'));
@@ -177,6 +184,12 @@ class Primary extends MY_Controller {
 		
 		switch($vc_method){
 			case 'news_feed_retrieve':
+				
+				
+				
+				
+				
+				
 				if($this->input->post('status_check')){
 					//check to see if job complete
 					
@@ -245,6 +258,15 @@ class Primary extends MY_Controller {
 					}
 					
 				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				break;
 			default:
 				die(json_encode(array('success' => false,
