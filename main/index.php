@@ -89,6 +89,8 @@ if(MODE == 'staging'){
 echo '<pre>';
 var_dump($_SERVER);
 var_dump($_SERVER['HTTPS']);
+$_SERVER['HTTPS'] = 'on';
+var_dump($_SERVER['HTTPS']);
 die();
 
 //force https globally
