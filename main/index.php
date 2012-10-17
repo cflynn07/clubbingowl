@@ -70,9 +70,7 @@ if(isset($_SERVER['HTTP_CF_VISITOR'])){
 	$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR']);
 	if(isset($http_cf_visitor->scheme))
 		$_SERVER['HTTPS'] = ($http_cf_visitor->scheme == 'https') ? 'on' : 'off';
-	
-	var_dump($http_cf_visitor);
-	
+	unset($http_cf_visitor);
 }
 //END HACK ---------------------------
 
@@ -81,12 +79,6 @@ if(MODE == 'staging'){
 	$_SERVER['HTTPS'] = 'on';
 }
 
-echo '<pre>';
-var_dump($_SERVER);
-var_dump($_SERVER['HTTPS']);
-$_SERVER['HTTPS'] = 'on';
-var_dump($_SERVER['HTTPS']);
-die();
 
 //force https globally
 if(php_sapi_name() !== 'cli')
