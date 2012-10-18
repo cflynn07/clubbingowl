@@ -196,9 +196,32 @@ class Redis {
 	 */	
 	private function _single_line_reply()
 	{
-	//	$value = trim(fgets($this->_connection));
-		$value = trim(fgets($this->_connection, 32768));
-	
+		
+		
+		// Get the amount of bits to be read
+		$value_length = (int) fgets($this->_connection);
+		if ($value_length <= 0) return NULL;
+		
+		$response = rtrim(fread($this->_connection, $value_length + 1));
+		fgets($this->_connection);			// Get rid of the \n\r
+				
+		return isset($response) ? $response : FALSE;
+		
+		
+		
+		
+		
+		
+		$value = trim(fgets($this->_connection));
+	//	$value = trim(fgets($this->_connection, 32768));	
+	//	$value = trim(fread($this->_connection, 8000));
+	//	fgets($this->_connection);
+		
+		
+		
+		
+		
+		
 		return $value;
 		
 	}
