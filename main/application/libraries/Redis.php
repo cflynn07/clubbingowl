@@ -198,17 +198,8 @@ class Redis {
 	{
 		
 		
-		// Get the amount of bits to be read
-		$value_length = (int) fgets($this->_connection);
-		if ($value_length <= 0) return NULL;
-		
-		$response = rtrim(fread($this->_connection, $value_length + 1));
-		fgets($this->_connection);			// Get rid of the \n\r
-				
-		return isset($response) ? $response : FALSE;
-		
-		
-		
+		stream_set_read_buffer($this->_connection, 0);
+      	stream_set_chunk_size($this->_connection, 131072);
 		
 		
 		
@@ -216,10 +207,6 @@ class Redis {
 	//	$value = trim(fgets($this->_connection, 32768));	
 	//	$value = trim(fread($this->_connection, 8000));
 	//	fgets($this->_connection);
-		
-		
-		
-		
 		
 		
 		return $value;
