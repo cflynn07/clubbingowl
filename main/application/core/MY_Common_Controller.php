@@ -9,7 +9,8 @@ class MY_Common_Controller extends CI_Controller{
 		$central = new stdClass;
 		
 		
-		
+		if($this->input->is_ajax_request())
+			header('X-Accel-Buffering: no');
 		
 		
 		
