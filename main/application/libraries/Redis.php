@@ -196,7 +196,8 @@ class Redis {
 	 */	
 	private function _single_line_reply()
 	{
-		$value = trim(fgets($this->_connection));
+	//	$value = trim(fgets($this->_connection));
+		$value = trim(fgets($this->_connection, 32768));
 	
 		return $value;
 		
