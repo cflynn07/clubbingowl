@@ -18,7 +18,7 @@ function check_gearman_job_complete($job_name){
 	if($job_result = $CI->redis->get($job->handle)){
 		
 		//free memory from memcached
-		$CI->redis->delete($job->handle);
+		$CI->redis->del($job->handle);
 		$CI->session->unset_userdata($job_name);
 		
 		$temp = json_decode($job_result);

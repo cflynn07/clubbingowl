@@ -30,7 +30,7 @@ class Net_Gearman_Job_gearman_retrieve_friend_venues_activity extends Net_Gearma
 			var_dump($result);
 			echo 'sending error code' . PHP_EOL;
 			
-			$this->CI->redis->delete('cache_user_friends_' . $user_oauth_uid);	
+			$this->CI->redis->del('cache_user_friends_' . $user_oauth_uid);	
 								
 			$data = json_encode(array('success' => false));
 			$this->CI->redis->set($handle, 

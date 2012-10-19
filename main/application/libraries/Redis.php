@@ -37,6 +37,9 @@ class Redis {
 	 */
 	public $debug = FALSE;
 	
+	
+	private $predis;
+	
 	/**
 	 * Constructor
 	 */
@@ -47,6 +50,18 @@ class Redis {
 		
 		$this->_ci = get_instance();
 		$this->_ci->load->config('redis');
+		
+				
+		ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.BASEPATH.'application/pear/Net/Predis');
+		require BASEPATH.'application/pear/Net/Predis/Autoloader.php';
+		Predis\Autoloader::register();
+		$this->predis = new Predis\Client();
+						
+		return;
+		
+		
+		
+		
 		
 		// Connect to Redis
 		$this->_connection = @fsockopen($this->_ci->config->item('redis_host'), $this->_ci->config->item('redis_port'), $errno, $errstr, 3);
@@ -72,19 +87,28 @@ class Redis {
 	 */
 	public function __call($method, $arguments)
 	{
+		
+		return call_user_func_array(array($this->predis, strtoupper($method)), $arguments);	
+		
+		
+		
+		
+		
 		if ( ! isset($arguments[0]))
 		{
-		    return $this->command(strtoupper($method));
+			return $this->predis->${(strtoupper($method))}();
+		    //return $this->command(strtoupper($method));
 		}
 		if (is_array($arguments[0]))
 		{
-		    return $this->command(strtoupper($method), $arguments[0]);
+			return $this->predis->${(strtoupper($method))};
+		    //return $this->command(strtoupper($method), $arguments[0]);
 		}
 		if (isset($arguments[1])) 
 		{
-		    return $this->command(strtoupper($method) . ' ' . $arguments[0], $arguments[1]);            
+		   //return $this->command(strtoupper($method) . ' ' . $arguments[0], $arguments[1]);            
 		}
-		return $this->command(strtoupper($method) . ' ' . $arguments[0]);
+		//return $this->command(strtoupper($method) . ' ' . $arguments[0]);
 	}
 	
 	/**
@@ -198,12 +222,11 @@ class Redis {
 	{
 		
 		
-		stream_set_read_buffer($this->_connection, 0);
-      	stream_set_chunk_size($this->_connection, 131072);
-		
-		
 		
 		$value = trim(fgets($this->_connection));
+		
+		
+		
 	//	$value = trim(fgets($this->_connection, 32768));	
 	//	$value = trim(fread($this->_connection, 8000));
 	//	fgets($this->_connection);

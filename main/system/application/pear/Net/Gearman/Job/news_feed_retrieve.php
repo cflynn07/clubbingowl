@@ -29,7 +29,7 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 			var_dump($result);
 			
 			$data = json_encode(array('success' => false));
-			$CI->redis->delete('cache_user_friends_' . $user_oauth_uid);
+			$CI->redis->del('cache_user_friends_' . $user_oauth_uid);
 			$CI->redis->set($handle, 
 									$data);
 			$CI->redis->expire($handle, 120);							
