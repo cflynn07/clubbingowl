@@ -60,6 +60,8 @@ class Redis {
 			$dotcloud 		= json_decode(file_get_contents(DOTCLOUD_JSON), true);
 			//DOTCLOUD_DATA_REDIS_URL
 			$this->predis = new Predis\Client($dotcloud['DOTCLOUD_DATA_REDIS_URL']);
+			$this->predis->auth($dotcloud['DOTCLOUD_DATA_REDIS_PASSWORD']);
+			
 		}else{
 			$this->predis = new Predis\Client();
 		}
