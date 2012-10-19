@@ -59,7 +59,10 @@ class Redis {
 		if(MODE == 'production' || MODE == 'staging'){
 			$dotcloud 		= json_decode(file_get_contents(DOTCLOUD_JSON), true);
 			//DOTCLOUD_DATA_REDIS_URL
-			$this->predis = new Predis\Client($dotcloud['DOTCLOUD_DATA_REDIS_URL']);
+			$this->predis = new Predis\Client(array(
+				'host'	=> $dotcloud['DOTCLOUD_DATA_REDIS_HOST'],
+				'port'	=> $dotcloud['DOTCLOUD_DATA_REDIS_PORT']
+			));
 			$this->predis->auth($dotcloud['DOTCLOUD_DATA_REDIS_PASSWORD']);
 			
 		}else{
