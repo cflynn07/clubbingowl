@@ -55,8 +55,14 @@ class Redis {
 		ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.BASEPATH.'application/pear/Net/Predis');
 		require BASEPATH.'application/pear/Net/Predis/Autoloader.php';
 		Predis\Autoloader::register();
-		$this->predis = new Predis\Client();
-						
+		
+		if(MODE == 'production' || MODE == 'staging'){
+			$dotcloud 		= json_decode(file_get_contents(DOTCLOUD_JSON), true);
+			//DOTCLOUD_DATA_REDIS_URL
+			$this->predis = new Predis\Client($dotcloud['DOTCLOUD_DATA_REDIS_URL']);
+		}else{
+			$this->predis = new Predis\Client();
+		}
 		return;
 		
 		
