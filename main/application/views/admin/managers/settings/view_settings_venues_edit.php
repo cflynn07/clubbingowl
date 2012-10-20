@@ -102,22 +102,6 @@
 		</p>
 		
 		
-		<label>Venue Guest Lists</label>
-		<table id="venue_guest_lists" class="normal">
-			<thead>
-				<th>Name</th>
-				<th>Weekday</th>
-				<th>Description</th>
-				<th>Auto Approve</th>
-				<th>Actions</th>
-			</thead>
-			<tbody>
-				<?php foreach(array() as $val): ?>
-					
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		
 		<div class="clearboth"></div> 
 		
 		<p id="display_message"></p>

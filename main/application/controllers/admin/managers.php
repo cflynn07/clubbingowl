@@ -1114,7 +1114,7 @@ class Managers extends MY_Controller {
 	 */
 	private function _settings_venues_new($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		if(!$manage_image = $this->session->flashdata('manage_image')){
+		if(!$manage_image = $this->session->userdata('manage_image')){
 			//set this flash data so if user navigates to 'manage_image' it will allow
 			$manage_image = new stdClass;
 			$manage_image->existing = false;
@@ -1151,14 +1151,14 @@ class Managers extends MY_Controller {
 			die();
 		}
 		
-		if(!$manage_image = $this->session->flashdata('manage_image')){
+		if(!$manage_image = $this->session->userdata('manage_image')){
 			//set this flash data so if user navigates to 'manage_image' it will allow
 			$manage_image = new stdClass;
 			$manage_image->existing = false;
 			$manage_image->type = 'venues/banners';
 			$manage_image->live_image = false;
 			$manage_image->return = 'settings_venues_edit/' . $tv->id;
-			$this->session->set_flashdata('manage_image', json_encode($manage_image));
+			$this->session->set_userdata('manage_image', json_encode($manage_image));
 		}else{
 			$manage_image = json_decode($manage_image);
 			$this->session->keep_flashdata('manage_image');
@@ -1258,16 +1258,19 @@ class Managers extends MY_Controller {
 	 */
 	private function _manage_image($arg0 = '', $arg1 = '', $arg2 = ''){
 		//check flashdata to make sure there is a flashdata object either from creating a new event or editing an existing one (this might get a little tricky)
-		if(!$manage_image = $this->session->flashdata('manage_image')){
+		if(!$manage_image = $this->session->userdata('manage_image')){
 			redirect('/admin/managers/', 'refresh');
 			die();
 		}
+		
 		
 		$manage_image = json_decode($manage_image);
 		$this->session->keep_flashdata('manage_image');
 				
 		$data['manage_image'] = $manage_image;		
 		$this->body_html = $this->load->view($this->view_dir . 'manage/view_manage_image', $data, true);
+	
+	
 	}
 	
 	/**
@@ -1297,7 +1300,7 @@ class Managers extends MY_Controller {
 	private function _ocupload_manage_image($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		//check flashdata to make sure there is a flashdata object either from creating a new event or editing an existing one (this might get a little tricky)
-		if(!$manage_image = $this->session->flashdata('manage_image'))
+		if(!$manage_image = $this->session->userdata('manage_image'))
 			die(json_encode(array('success' => false)));
 		
 		$this->session->keep_flashdata('manage_image');
@@ -1316,7 +1319,7 @@ class Managers extends MY_Controller {
 		
 			//add uploaded image data to session
 			$manage_image->image_data = $this->image_upload->image_data;
-			$this->session->set_flashdata('manage_image', json_encode($manage_image));
+			$this->session->set_userdata('manage_image', json_encode($manage_image));
 		
 			die(json_encode(array('success' => true,
 									'image_data' => $this->image_upload->image_data)));
@@ -2222,7 +2225,7 @@ class Managers extends MY_Controller {
 		$vc_method = $this->input->post('vc_method');
 		
 		//check flashdata to make sure there is a flashdata object either from creating a new event or editing an existing one (this might get a little tricky)
-		if(!$manage_image = $this->session->flashdata('manage_image')){
+		if(!$manage_image = $this->session->userdata('manage_image')){
 			die(json_encode(array('success' => false)));
 		}
 		
@@ -2242,7 +2245,7 @@ class Managers extends MY_Controller {
 					
 					//add uploaded image data to session
 					$manage_image->image_data = $this->image_upload->image_data;
-					$this->session->set_flashdata('manage_image', json_encode($manage_image));
+					$this->session->set_userdata('manage_image', json_encode($manage_image));
 					
 					die(json_encode(array('success' => true,
 							'image_data' => $this->image_upload->image_data)));

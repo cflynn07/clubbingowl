@@ -64,12 +64,12 @@ class Auth extends MY_Controller {
 			$facebook_user_authenticate->attempt += 1;
 			
 			//check job status to see if it's completed
-			$this->load->library('library_memcached', '', 'memcached');
-			if($login_result = $this->memcached->get($facebook_user_authenticate->handle)){
+			$this->load->library('Redis', '', 'redis');
+			if($login_result = $this->redis->get($facebook_user_authenticate->handle)){
 				//job complete
 				
 				//free memory from memcached
-				$this->memcached->delete($facebook_user_authenticate->handle);
+				$this->redis->del($facebook_user_authenticate->handle);
 				$this->session->unset_userdata('facebook_user_authenticate');
 				
 				//unserialize

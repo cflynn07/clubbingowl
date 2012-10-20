@@ -40,7 +40,7 @@
 		  	<?php else: ?>
 		  	<img src="http://placehold.it/286x86?text=Coming+Soon" alt="Venue Banner">
 		  	<?php endif; ?>
-		  	</a>
+		  	</a><br/>
 				  	
 			<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/"><?= $venue->tv_name ?></a>
 		    
@@ -88,7 +88,7 @@
 				  	<?php else: ?>
 				  	<img src="http://placehold.it/286x86?text=Coming+Soon" alt="Venue Banner">
 				  	<?php endif; ?>
-				  	</a>
+				  	</a><br/>
 				  	
 				    <a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/"><?= $venue->tv_name ?></a>
 				    

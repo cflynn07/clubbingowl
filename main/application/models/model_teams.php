@@ -14,7 +14,16 @@ class Model_teams extends CI_Model {
 	 |	Create Methods (create)
 	 | ------------------------------------------------------------------------ */
 
-	 
+	 function edit_team_venue($fan_page_id, $tv_id, $venue_data){
+	 	
+		$this->db->where(array(
+			'team_fan_page_id'	=> $fan_page_id,
+			'id'				=> $tv_id
+		))->update('team_venues', $venue_data);
+				
+		return true;
+		
+	 }
 	 
 	 /**
 	  * 

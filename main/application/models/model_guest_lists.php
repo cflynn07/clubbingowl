@@ -529,8 +529,8 @@ class Model_guest_lists extends CI_Model {
 				JOIN 	promoters_guest_list_authorizations pgla
 				ON 		pgla.team_venue_id = tv.id
 				
-				WHERE	pgla.user_promoter_id = ?
-						AND up.id = ? ";
+				WHERE	pgla.user_promoter_id = ? ";
+				//		AND up.id = ? ";
 				
 				if($weekday)
 					$sql .= "AND pgla.day = ? ";
@@ -544,6 +544,9 @@ class Model_guest_lists extends CI_Model {
 						AND t.completed_setup = 1 ";
 		$query = $this->db->query($sql, array($promoter_id, $promoter_id, $weekday));
 		$results = $query->result();
+		
+		Kint::dump($this->db->last_query());
+		Kint::dump($results);
 		
 		//TODO: Check to see if there's an event that over-rides it on this day
 		#

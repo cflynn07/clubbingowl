@@ -378,7 +378,7 @@ class library_admin_managers{
 		$image_name = null;
 		
 		//IMAGE Handling
-		if($manage_image = $this->CI->session->flashdata('manage_image')){			
+		if($manage_image = $this->CI->session->userdata('manage_image')){			
 			$manage_image = json_decode($manage_image);
 			
 			if(isset($manage_image->image_data)){
@@ -447,7 +447,7 @@ class library_admin_managers{
 																					));
 			
 		}
-		
+		$this->CI->session->unset_userdata('manage_image');
 		return array('success' => true, 'message' => '');
 		
 	}
@@ -493,6 +493,7 @@ class library_admin_managers{
 	//		return array('success' => false,
 	//						'message' => 'Venue must have at least one guest list');
 		
+		if($venue_guest_lists)
 		foreach($venue_guest_lists as $key => &$vgl){
 			
 			$vgl = (object)$vgl;
@@ -535,6 +536,8 @@ class library_admin_managers{
 		unset($vgl);
 
 		$list_weekdays = array();
+		
+		if($venue_guest_lists)
 		foreach($venue_guest_lists as $vgl){
 			$list_weekdays[] = $vgl->tgla_day;
 		}
@@ -596,7 +599,7 @@ class library_admin_managers{
 		$image_name = null;
 		
 		//IMAGE Handling
-		if($manage_image = $this->CI->session->flashdata('manage_image')){			
+		if($manage_image = $this->CI->session->userdata('manage_image')){			
 			$manage_image = json_decode($manage_image);
 			
 			if(isset($manage_image->image_data)){
@@ -611,16 +614,15 @@ class library_admin_managers{
 		
 		$this->CI->load->model('model_teams', 'teams', true);
 		
-		//add venue to team_venues
-		$venues[] = array(
-						'description' => $venue_description,
-						'street_address' => $venue_street_address,
-						'state' => $venue_state,
-						'city' => $venue_city,
-						'zip' => $venue_zip,
-						'image' => $image_name
+		$venue = array(
+						'description' 		=> $venue_description,
+						'street_address' 	=> $venue_street_address,
+						'state' 			=> $venue_state,
+						'city' 				=> $venue_city,
+						'zip' 				=> $venue_zip,
+						'image' 			=> $image_name
 						);
-		$this->CI->teams->edit_team_venues($this->team->team_fan_page_id, $venues);
+		$this->CI->teams->edit_team_venue($this->team->team_fan_page_id, $tv_id, $venue);
 		
 		
 		
@@ -629,9 +631,10 @@ class library_admin_managers{
 		
 		
 		
-				
+				/*
 		$this->CI->load->model('model_team_guest_lists', 'team_guest_lists', true);
 		//add guest lists to venue
+		if($venue_guest_lists)
 		foreach($venue_guest_lists as $vgl){
 			
 			switch($vgl->tgla_day){
@@ -667,8 +670,8 @@ class library_admin_managers{
 																					'auto_approve' => ($vgl->tgla_auto_approve == 'true') ? 1 : 0
 																					));
 			
-		}
-		
+		}*/
+		$this->CI->session->unset_userdata('manage_image');
 		return array('success' => true, 'message' => '');
 		
 	}

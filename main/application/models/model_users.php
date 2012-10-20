@@ -1267,7 +1267,7 @@ class Model_users extends CI_Model {
 	 */
 	function update_invitation_status($ui_id, $response){
 		
-		$this->db->where('id', $ui_id);
+		$this->db->where(array('id' => $ui_id, 'response' => 0));
 		$this->db->update('user_invitations', array('response' => $response));
 		
 	}

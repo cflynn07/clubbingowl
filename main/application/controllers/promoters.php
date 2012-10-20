@@ -467,6 +467,8 @@ class Promoters extends MY_Controller {
 			$data['all_guest_lists'] = $this->library_promoters->retrieve_all_guest_lists();
 			$this->body_html .= $this->load->view($this->view_dir . 'guest_lists/view_front_promoters_profile_body_guest_lists', $data, true);				
 			
+			Kint::dump($data);
+			
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/';
 			
