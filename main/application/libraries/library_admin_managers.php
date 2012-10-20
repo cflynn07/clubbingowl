@@ -249,10 +249,11 @@ class library_admin_managers{
 		$venue_guest_lists = $this->CI->input->post('venue_guest_lists');
 		
 				
-		if(!$venue_guest_lists || count($venue_guest_lists) == 0)
-			return array('success' => false,
-							'message' => 'Venue must have at least one guest list');
+	//	if(!$venue_guest_lists || count($venue_guest_lists) == 0)
+	//		return array('success' => false,
+	//						'message' => 'Venue must have at least one guest list');
 		
+		if(is_array($venue_guest_lists))
 		foreach($venue_guest_lists as $key => &$vgl){
 			
 			$vgl = (object)$vgl;
@@ -261,6 +262,8 @@ class library_admin_managers{
 			
 			//remove excess spaces inside description
 			$vgl->name = trim(preg_replace('/\s\s+/', ' ', strip_tags($vgl->name)));
+			
+			continue;
 			
 			if(preg_match('~[^a-z0-9 ]~i', $vgl->name))
 				return array('success' => false,
@@ -290,13 +293,14 @@ class library_admin_managers{
 		unset($vgl);
 
 		$list_weekdays = array();
-		foreach($venue_guest_lists as $vgl){
-			$list_weekdays[] = $vgl->weekday;
-		}
 		
-		if(count($list_weekdays) != count(array_unique($list_weekdays)))
-			return array('success' => false,
-							'message' => 'You have two guest lists at this venue on the same night.');
+	//	foreach($venue_guest_lists as $vgl){
+	//		$list_weekdays[] = $vgl->weekday;
+	//	}
+		
+	//	if(count($list_weekdays) != count(array_unique($list_weekdays)))
+	//		return array('success' => false,
+	//						'message' => 'You have two guest lists at this venue on the same night.');
 				
 		//strip extra whitespace from ends and within string
 		$venue_name 			= strip_tags(trim(preg_replace('/\s\s+/', ' ', $venue_name)));			
@@ -403,7 +407,10 @@ class library_admin_managers{
 		$team_venue_id = $this->CI->teams->create_team_venues($this->team->team_fan_page_id, $venues);
 		
 		$this->CI->load->model('model_team_guest_lists', 'team_guest_lists', true);
+		
+		
 		//add guest lists to venue
+		if(false)
 		foreach($venue_guest_lists as $vgl){
 			
 			switch($vgl->weekday){
@@ -474,17 +481,17 @@ class library_admin_managers{
 							'message' => 'Please fill out all the form fields');
 		}		
 		
-		$venue_description = $this->CI->input->post('venue_description');
-		$venue_street_address = $this->CI->input->post('venue_street_address');
-		$venue_city = $this->CI->input->post('venue_city');
-		$venue_state = $this->CI->input->post('venue_state');
-		$venue_zip = $this->CI->input->post('venue_zip');
-		$venue_guest_lists = $this->CI->input->post('venue_guest_lists');
+		$venue_description 		= $this->CI->input->post('venue_description');
+		$venue_street_address 	= $this->CI->input->post('venue_street_address');
+		$venue_city 			= $this->CI->input->post('venue_city');
+		$venue_state 			= $this->CI->input->post('venue_state');
+		$venue_zip 				= $this->CI->input->post('venue_zip');
+		$venue_guest_lists 		= $this->CI->input->post('venue_guest_lists');
 		
-				
-		if(!$venue_guest_lists || count($venue_guest_lists) == 0)
-			return array('success' => false,
-							'message' => 'Venue must have at least one guest list');
+		
+	//	if(!$venue_guest_lists || count($venue_guest_lists) == 0)
+	//		return array('success' => false,
+	//						'message' => 'Venue must have at least one guest list');
 		
 		foreach($venue_guest_lists as $key => &$vgl){
 			
@@ -492,8 +499,14 @@ class library_admin_managers{
 			
 			$vgl->tgla_description = strip_tags($vgl->tgla_description);
 			
+			if(!isset($vgl->tgla_auto_approve))
+				$vgl->tgla_auto_approve = 'false';
+				
+			
 			//remove excess spaces inside description
 			$vgl->tgla_name = trim(preg_replace('/\s\s+/', ' ', strip_tags($vgl->tgla_name)));
+			
+			continue;
 			
 			if(preg_match('~[^a-z0-9 ]~i', $vgl->tgla_name))
 				return array('success' => false,
@@ -515,8 +528,7 @@ class library_admin_managers{
 								'message' => 'Invalid Guest List Weekday',
 								'key' => $key);
 			
-			if(!isset($vgl->tgla_auto_approve))
-				$vgl->tgla_auto_approve = 'false';
+			
 			
 		}
 
@@ -528,9 +540,9 @@ class library_admin_managers{
 		}
 		
 		//TODO.... possibly remove
-		if(count($list_weekdays) != count(array_unique($list_weekdays)))
-			return array('success' => false,
-							'message' => 'You have two guest lists at this venue on the same night.');
+	//	if(count($list_weekdays) != count(array_unique($list_weekdays)))
+	//		return array('success' => false,
+	//						'message' => 'You have two guest lists at this venue on the same night.');
 				
 		//strip extra whitespace from ends and within string
 		$venue_description 		= strip_tags(trim(preg_replace('/\s\s+/', ' ', $venue_description)));
@@ -548,13 +560,13 @@ class library_admin_managers{
 		}
 		
 		//verify lengths of important fields
-		if(strlen($venue_name) == 0)
-			return array('success' => false,
-							'message' => 'Venue name must not be blank');
+	//	if(strlen($venue_name) == 0)
+	//		return array('success' => false,
+	//						'message' => 'Venue name must not be blank');
 		
-		if(strlen($venue_name) > 255)
-			return array('success' => false,
-							'message' => 'Venue name must not exceed 255 characters');
+	//	if(strlen($venue_name) > 255)
+	//		return array('success' => false,
+	//						'message' => 'Venue name must not exceed 255 characters');
 							
 		if(strlen($venue_description) == 0)
 			return array('success' => false,

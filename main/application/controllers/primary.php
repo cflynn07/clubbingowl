@@ -8,10 +8,10 @@ class Primary extends MY_Controller {
 	
 	// Base path of views unique to this controller
 //	private $view_dir = 'karma/primary/';
-	private $view_dir = 'front/primary/';
-	private $header_html = '';
-	private $body_html = '';
-	private $footer_html = '';
+	private $view_dir 		= 'front/primary/';
+	private $header_html 	= '';	
+	private $body_html 		= '';
+	private $footer_html 	= '';
 	
 	/**
 	 * Controller constructor. Perform any universal operations here.

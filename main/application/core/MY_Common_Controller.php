@@ -43,6 +43,10 @@ class MY_Common_Controller extends CI_Controller{
 		else 
 			$vc_user = false;
 		
+		$this->session->keep_flashdata('manage_image');
+		
+		
+		
 			
 		$central->vc_user = ($vc_user) ? json_decode($vc_user) : false;
 		

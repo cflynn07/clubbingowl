@@ -66,7 +66,7 @@ class Library_image_upload{
 		//Original image
 		//retrieve original image from s3
 		$this->CI->load->library('s3');
-		$response_obj = $this->CI->s3->getObject('vcweb2', 'vc-images/' . $image_type . '/originals/temp/' . $original_name . '.jpg');
+		$response_obj = $this->CI->s3->getObject('clubbingowl', 'vc-images/' . $image_type . '/originals/temp/' . $original_name . '.jpg');
 		
 		//Did the request have an error?
 		if($response_obj->error){
@@ -85,7 +85,7 @@ class Library_image_upload{
 		
 		//place temporary file on s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $new_image_name . '.jpg';
-		$bucket = 'vcweb2';
+		$bucket = 'clubbingowl';
 		$newFileName = 'vc-images/' . $image_type . '/originals/' . $new_image_name . '.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -96,7 +96,7 @@ class Library_image_upload{
 		//--------------------------------------------------------------
 		//'_p'
 		
-		$response_obj = $this->CI->s3->getObject('vcweb2', 'vc-images/' . $image_type . '/originals/temp/' . $original_name . '_p.jpg');
+		$response_obj = $this->CI->s3->getObject('clubbingowl', 'vc-images/' . $image_type . '/originals/temp/' . $original_name . '_p.jpg');
 		
 		//Did the request have an error?
 		if($response_obj->error){
@@ -113,7 +113,7 @@ class Library_image_upload{
 		
 		//place temporary file on s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $new_image_name . '_p.jpg';
-		$bucket = 'vcweb2';
+		$bucket = 'clubbingowl';
 		$newFileName = 'vc-images/' . $image_type . '/' . $new_image_name . '_p.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -124,7 +124,7 @@ class Library_image_upload{
 		//--------------------------------------------------------------
 		//'_t'
 		
-		$response_obj = $this->CI->s3->getObject('vcweb2', 'vc-images/' . $image_type . '/originals/temp/' . $original_name . '_t.jpg');
+		$response_obj = $this->CI->s3->getObject('clubbingowl', 'vc-images/' . $image_type . '/originals/temp/' . $original_name . '_t.jpg');
 		
 		//Did the request have an error?
 		if($response_obj->error){
@@ -141,7 +141,7 @@ class Library_image_upload{
 		
 		//place temporary file on s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $new_image_name . '_t.jpg';
-		$bucket = 'vcweb2';
+		$bucket = 'clubbingowl';
 		$newFileName = 'vc-images/' . $image_type . '/' . $new_image_name . '_t.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -288,7 +288,7 @@ class Library_image_upload{
 		
 		//save original version of profile picture to s3
 		$sourceFile = $image_upload_data['full_path'];
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/' . $upload_type . (($live_image) ? '/originals/' : '/originals/temp/') . $new_image_name . '.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);		
@@ -301,7 +301,7 @@ class Library_image_upload{
 					
 		//upload cropped version to s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $image_cropped;
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/' . $upload_type . (($live_image) ? '/' : '/originals/temp/') . $new_image_name . '_p.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -311,7 +311,7 @@ class Library_image_upload{
 		
 		//upload thumb-cropped version to s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $thumb_image_cropped;
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/' . $upload_type . (($live_image) ? '/' : '/originals/temp/') . $new_image_name . '_t.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -429,7 +429,7 @@ class Library_image_upload{
 		
 		//save original version of profile picture to s3
 		$sourceFile = $image_upload_data['full_path'];
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/' . $upload_type . '/originals/temp/' . $new_image_name . '.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);		
@@ -442,7 +442,7 @@ class Library_image_upload{
 					
 		//upload cropped version to s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $image_cropped;
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/' . $upload_type . '/originals/temp/' . $new_image_name . '_p.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -452,7 +452,7 @@ class Library_image_upload{
 		
 		//upload thumb-cropped version to s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $thumb_image_cropped;
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/' . $upload_type . '/originals/temp/' . $new_image_name . '_t.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -543,7 +543,7 @@ class Library_image_upload{
 		
 		//save original version of profile picture to s3
 		$sourceFile = $image_upload_data['full_path'];
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/profile-pics/originals/' . $new_image_name . '.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);		
@@ -557,7 +557,7 @@ class Library_image_upload{
 					
 		//upload cropped version to s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $profile_pic_cropped;
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/profile-pics/' . $new_image_name . '_p.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -567,7 +567,7 @@ class Library_image_upload{
 		
 		//upload thumb-cropped version to s3
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $thumb_profile_pic_cropped;
-		$bucket = $this->CI->config->item('s3_bucket_name'); //vcweb2 as of 8.30.2011
+		$bucket = $this->CI->config->item('s3_bucket_name'); //clubbingowl as of 8.30.2011
 		$newFileName = 'vc-images/profile-pics/' . $new_image_name . '_t.jpg';
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);
@@ -824,7 +824,7 @@ class Library_image_upload{
 				
 		//retrieve original promoter profile image from s3
 		$this->CI->load->library('s3');
-		$response_obj = $this->CI->s3->getObject('vcweb2', 'vc-images/' . $image_type . '/originals/' . (($live_image) ? '' : 'temp/') . $image_name . '.jpg');
+		$response_obj = $this->CI->s3->getObject('clubbingowl', 'vc-images/' . $image_type . '/originals/' . (($live_image) ? '' : 'temp/') . $image_name . '.jpg');
 				
 		//Did the request have an error?
 		if(!$response_obj || $response_obj->error){
@@ -877,7 +877,7 @@ class Library_image_upload{
 		
 		//transport image to s3, overwriting old cropped image
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $new_image_name . '_p.jpg';
-		$bucket = 'vcweb2';
+		$bucket = 'clubbingowl';
 		
 		if($live_image){
 			$newFileName = 'vc-images/' . $image_type . '/' . $new_image_name . '_p.jpg';
@@ -895,7 +895,7 @@ class Library_image_upload{
 		
 		//transport image to s3, overwriting old cropped image
 		$sourceFile = $this->TMP_CC_WORKING_DIR . $thumbnail_image;
-		$bucket = 'vcweb2';
+		$bucket = 'clubbingowl';
 		
 		if($live_image){
 			$newFileName = 'vc-images/' . $image_type . '/' . $new_image_name . '_t.jpg';
@@ -968,29 +968,29 @@ class Library_image_upload{
 		
 		switch($type){
 			case 'promoter':
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/profile-pics/originals/' . $image_name . '.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/profile-pics/' . $image_name . '_p.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/profile-pics/' . $image_name . '_t.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/profile-pics/originals/' . $image_name . '.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/profile-pics/' . $image_name . '_p.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/profile-pics/' . $image_name . '_t.jpg');
 				break;
 			case 'guest_lists':
 				
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/guest_lists/originals/' . ((!$live_image) ? 'temp/' : '') . $image_name . '.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/guest_lists/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_p.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/guest_lists/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_t.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/guest_lists/originals/' . ((!$live_image) ? 'temp/' : '') . $image_name . '.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/guest_lists/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_p.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/guest_lists/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_t.jpg');
 				
 				break;
 			case 'events':
 				
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/events/originals/' . ((!$live_image) ? 'temp/' : '') . $image_name . '.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/events/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_p.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/events/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_t.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/events/originals/' . ((!$live_image) ? 'temp/' : '') . $image_name . '.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/events/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_p.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/events/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_t.jpg');
 				
 				break;
 			case 'venues':
 				
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/venues/originals/' . ((!$live_image) ? 'temp/' : '') . $image_name . '.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/venues/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_p.jpg');
-		//		$this->CI->s3->deleteObject('vcweb2', 'vc-images/venues/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_t.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/venues/originals/' . ((!$live_image) ? 'temp/' : '') . $image_name . '.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/venues/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_p.jpg');
+		//		$this->CI->s3->deleteObject('clubbingowl', 'vc-images/venues/' . ((!$live_image) ? 'originals/temp/' : '') . $image_name . '_t.jpg');
 				
 				break;
 			default:

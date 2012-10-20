@@ -1121,7 +1121,7 @@ class Managers extends MY_Controller {
 			$manage_image->type = 'venues/banners';
 			$manage_image->live_image = false;
 			$manage_image->return = 'settings_venues_new';
-			$this->session->set_flashdata('manage_image', json_encode($manage_image));
+			$this->session->set_userdata('manage_image', json_encode($manage_image));
 		}else{
 			$manage_image = json_decode($manage_image);
 			$this->session->keep_flashdata('manage_image');
@@ -1144,6 +1144,7 @@ class Managers extends MY_Controller {
 	private function _settings_venues_edit($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
+		
 		$this->load->model('model_users_managers', 'users_managers', true);
 		if(!$tv = $this->users_managers->retrieve_individual_team_venue($this->vc_user->manager->team_fan_page_id, $arg1)){
 			redirect('/admin/managers/settings_venues/', 'refresh');
@@ -1162,6 +1163,7 @@ class Managers extends MY_Controller {
 			$manage_image = json_decode($manage_image);
 			$this->session->keep_flashdata('manage_image');
 		}
+		
 		
 	//	Kint::dump($manage_image);
 		
@@ -1263,7 +1265,7 @@ class Managers extends MY_Controller {
 		
 		$manage_image = json_decode($manage_image);
 		$this->session->keep_flashdata('manage_image');
-		
+				
 		$data['manage_image'] = $manage_image;		
 		$this->body_html = $this->load->view($this->view_dir . 'manage/view_manage_image', $data, true);
 	}
@@ -2220,8 +2222,9 @@ class Managers extends MY_Controller {
 		$vc_method = $this->input->post('vc_method');
 		
 		//check flashdata to make sure there is a flashdata object either from creating a new event or editing an existing one (this might get a little tricky)
-		if(!$manage_image = $this->session->flashdata('manage_image'))
+		if(!$manage_image = $this->session->flashdata('manage_image')){
 			die(json_encode(array('success' => false)));
+		}
 		
 		$this->session->keep_flashdata('manage_image');
 		$manage_image = json_decode($manage_image);
@@ -2234,7 +2237,7 @@ class Managers extends MY_Controller {
 						
 		switch($vc_method){
 			case 'crop_action':
-				
+								
 				if($this->image_upload->image_crop($manage_image->image_data, $manage_image->type, $manage_image->live_image)){
 					
 					//add uploaded image data to session
