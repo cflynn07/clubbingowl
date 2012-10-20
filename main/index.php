@@ -53,6 +53,7 @@ if(MODE != 'local'){
 			if($_COOKIE['token_value'] != 'v49y49fgs068y33nwfg90'){
 				die();	
 			}
+			error_reporting(E_ALL);
 		}
 }
 
@@ -308,7 +309,7 @@ if (defined('ENVIRONMENT'))
 	
 		case 'staging':
 		case 'production':
-	//		error_reporting(0);
+			error_reporting(0);
 		break;
 
 		default:
