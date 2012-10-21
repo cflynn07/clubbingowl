@@ -565,7 +565,7 @@ class Model_app_data extends CI_Model {
 				JOIN 	cities c 
 				ON 		t.city_id = c.id 
 				
-				WHERE  	tv.name = ?
+				WHERE  	tv.url_identifier = ?
 				AND 	c.name = ?
 				AND 	t.completed_setup = 1
 				AND 	tv.banned = 0";
