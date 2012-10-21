@@ -565,8 +565,8 @@ class Model_app_data extends CI_Model {
 				JOIN 	cities c 
 				ON 		t.city_id = c.id 
 				
-				WHERE  	tv.url_identifier = ?
-				AND 	c.name = ?
+				WHERE  	tv.name = ?
+				AND 	c.url_identifier = ?
 				AND 	t.completed_setup = 1
 				AND 	tv.banned = 0";
 		$query = $this->db->query($sql, array(str_replace('_', ' ', $venue_name), $city));			
