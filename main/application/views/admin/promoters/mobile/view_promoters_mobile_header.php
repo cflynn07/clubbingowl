@@ -12,28 +12,18 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title><?= $title ?></title>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-        <style>
-            /* App custom styles */
-        </style>
-        
-<?php if(false): ?>        
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	        
-	<?php if($central->scheme == 'http'): //load https version if site loaded via https ?>
-		<script src="http://js.pusher.com/1.11/pusher.min.js"></script>
-	<?php elseif($central->scheme == 'https'): ?>
-		<script src="https://d3dy5gmtp8yhk7.cloudfront.net/1.11/pusher.min.js"></script>	
-	<?php endif; ?>
-<?php endif; ?>
+        <link rel="stylesheet" href="<?= $central->admin_assets ?>css/jquery.mobile-1.1.0.min.css" />
+       
 
-	<script type="text/javascript" src="<?= $central->global_assets_nocdn . 'js/jquery/jquery1.7.2.min.js?' . $central->cache_global_js ?>"></script>
-	<script type="text/javascript" src="<?= $central->global_assets_nocdn . 'js/jquery/jquery-ui-1.8.18.min.js?' . $central->cache_global_js ?>"></script>
-	<script type="text/javascript" src="<?= $central->global_assets_nocdn . 'js/pusher/pusher-1.11.js?' . $central->cache_global_js ?>"></script>
+		<script type="text/javascript" src="<?= $central->admin_assets 			. 'js/jquery-1.8.2.min.js?' . $central->cache_global_js ?>"></script>
+		<script type="text/javascript" src="<?= $central->admin_assets 			. 'js/jquery.mobile-1.2.0.min.js?' . $central->cache_global_js ?>"></script>		
+		
+		<?php if(false): ?>
+		<script type="text/javascript" src="<?= $central->global_assets_nocdn 	. 'js/jquery/jquery-ui-1.8.18.min.js?' . $central->cache_global_js ?>"></script>
+		<?php endif; ?>
+		
+		<script type="text/javascript" src="<?= $central->global_assets_nocdn 	. 'js/pusher/pusher-1.11.js?' . $central->cache_global_js ?>"></script>
 
-
-        <?php //additional global javascripts ?>
         <script type="text/javascript" src="<?= $central->global_assets ?>js/jquery.cookies.2.2.0.min.js?<?= $central->cache_global_js ?>"></script>
 		<script type="text/javascript" src="<?= $central->global_assets ?>js/json2.js?<?= $central->cache_global_js ?>"></script>
 		<script type="text/javascript" src="<?= $central->global_assets ?>js/json_parse.js?<?= $central->cache_global_js ?>"></script>

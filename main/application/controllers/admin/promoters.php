@@ -895,9 +895,7 @@ class Promoters extends MY_Controller {
 					$this->load->model('model_guest_lists', 'guest_lists', true);
 					$this->load->model('model_users_promoters', 'users_promoters', true);
 					$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
-					
-					$this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data);
-					
+										
 					if($arg2 == ''){
 						//showcase all guest lists
 						
@@ -924,8 +922,11 @@ class Promoters extends MY_Controller {
 												
 						// ------------------- end retrieve guest lists and guest list members ---------------------------------
 						
-						$this->body_html = $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists', $data, true);
 						
+						$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data, true);
+						$this->body_html .= $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists', $data, true);
+						$this->body_html .= $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);
+												
 					}else{
 						//showcase a specific guest list
 						
@@ -950,17 +951,17 @@ class Promoters extends MY_Controller {
 							$data['guest_list'] = $weekly_guest_lists;
 							$data['users'] = json_encode($users);
 							
-							$this->body_html = $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists_individual', $data, true);	
-							
+							$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data, true);
+							$this->body_html .= $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists_individual', $data, true);
+							$this->body_html .= $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);
+													
 						}else{
 							show_error('Promoter guest list does not exist', 404);
 							die();
 						}
 						
 					}
-					
-					$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);		
-					
+										
 					break;
 				case 'tables':
 					$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data, true);
