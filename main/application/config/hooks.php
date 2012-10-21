@@ -44,6 +44,8 @@ $hook['pre_controller'][] = array(
 
 if(isset($_SERVER['REQUEST_URI']) 
 	&& strpos($_SERVER['REQUEST_URI'], '/admin/hosts') !== 0
+	&& strpos($_SERVER['REQUEST_URI'], '/admin/promoters/mobile') !== 0
+	&& strpos($_SERVER['REQUEST_URI'], '/admin/managers/mobile') !== 0
 //	&& strpos($_SERVER['REQUEST_URI'], '/plugin') !== 0
 	&& strpos($_SERVER['REQUEST_URI'], '/sitemap.xml') !== 0 ){
 //	&& strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0){
