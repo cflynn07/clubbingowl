@@ -210,8 +210,12 @@ class Model_app_data extends CI_Model {
 		/* --------- END CONFIGURATION SETTINGS --------- */
 		
 		if($cache){
-			$this->load->library('library_memcached');
-			if($result = $this->library_memcached->get('model_app_data->retrieve_num_promoters')){
+//			$this->load->library('library_memcached');
+//			if($result = $this->library_memcached->get('model_app_data->retrieve_num_promoters')){
+//				return $result;
+//			}
+			$this->load->library('Redis', '', 'redis');
+			if($result = $this->redis->get('model_app_data->retrieve_num_promoters')){
 				return $result;
 			}
 		}
@@ -227,9 +231,9 @@ class Model_app_data extends CI_Model {
 		$result = $query->row();
 		
 		if($cache){
-			$this->library_memcached->put('model_app_data->retrieve_num_promoters',
-											$result,
-											$cache_length);
+			$this->redis->set('model_app_data->retrieve_num_promoters',
+											$result);
+			$this->redis->expire('model_app_data->retrieve_num_promoters', $cache_length);
 		}
 		
 		return $result;
@@ -265,10 +269,16 @@ class Model_app_data extends CI_Model {
 		/* --------- END CONFIGURATION SETTINGS --------- */
 		
 		if($cache){
-			$this->load->library('library_memcached');
-			if($result = $this->library_memcached->get('model_app_data->retrieve_num_vc_users' . ($since_date) ? $since_date : '')){
+	//		$this->load->library('library_memcached');
+	//		if($result = $this->library_memcached->get('model_app_data->retrieve_num_vc_users' . ($since_date) ? $since_date : '')){
+	//			return $result;
+	//		}
+	
+			$this->load->library('Redis', '', 'redis');
+			if($result = $this->redis->get('model_app_data->retrieve_num_vc_users' . ($since_date) ? $since_date : '')){
 				return $result;
 			}
+	
 		}
 		
 		$sql = "SELECT 	
@@ -286,9 +296,12 @@ class Model_app_data extends CI_Model {
 		$result = $query->row();
 		
 		if($cache){
-			$this->library_memcached->put('model_app_data->retrieve_num_vc_users' . ($since_date) ? $since_date : '',
-											$result,
-											$cache_length);
+		//	$this->library_memcached->put('model_app_data->retrieve_num_vc_users' . ($since_date) ? $since_date : '',
+		//									$result,
+		//									$cache_length);
+			$this->redis->set('model_app_data->retrieve_num_vc_users' . ($since_date) ? $since_date : '',
+											$result);
+			$this->redis->expire('model_app_data->retrieve_num_vc_users', $cache_length);
 		}
 		
 		return $result;
@@ -553,7 +566,7 @@ class Model_app_data extends CI_Model {
 				ON 		t.city_id = c.id 
 				
 				WHERE  	tv.name = ?
-				AND 	c.name = ?
+				AND 	c.url_identifier = ?
 				AND 	t.completed_setup = 1
 				AND 	tv.banned = 0";
 		$query = $this->db->query($sql, array(str_replace('_', ' ', $venue_name), $city));			
@@ -757,27 +770,6 @@ class Model_app_data extends CI_Model {
 				AND 	th.quit = 0";
 		$query = $this->db->query($sql);
 		return $query->result();		
-		
-	}
-	
-	/**
-	 * 
-	 */
-	function retrieve_app_live(){
-				
-		$sql = "SELECT as1.app_live as as_app_live 
-				FROM app_settings as1 
-				WHERE as1.id = 1";
-		
-		$this->load->library('library_memcached', '', 'memcached');
-		if(!$app_live = $this->memcached->get('app_live')){
-			$query = $this->db->query($sql);
-						
-			$app_live = $query->row();
-			$this->memcached->add('app_live', $app_live, 30);
-		}
-		
-		return $app_live;
 		
 	}
 	

@@ -53,7 +53,9 @@ class Auth extends MY_Controller {
 		//Is request new job or status check?
 		if($this->input->post('status_check')){
 			//Status check
-						
+			
+			
+			
 			if(!$facebook_user_authenticate = $this->session->userdata('facebook_user_authenticate'))
 				die(json_encode(array('success' => false,
 										'message' => 'No login request')));	
@@ -62,12 +64,12 @@ class Auth extends MY_Controller {
 			$facebook_user_authenticate->attempt += 1;
 			
 			//check job status to see if it's completed
-			$this->load->library('library_memcached', '', 'memcached');
-			if($login_result = $this->memcached->get($facebook_user_authenticate->handle)){
+			$this->load->library('Redis', '', 'redis');
+			if($login_result = $this->redis->get($facebook_user_authenticate->handle)){
 				//job complete
 				
 				//free memory from memcached
-				$this->memcached->delete($facebook_user_authenticate->handle);
+				$this->redis->del($facebook_user_authenticate->handle);
 				$this->session->unset_userdata('facebook_user_authenticate');
 				
 				//unserialize
@@ -206,6 +208,12 @@ class Auth extends MY_Controller {
 				die(json_encode(array('success' => false)));
 			}
 			
+			
+			
+			
+			
+			
+			
 		}else{
 			//New job request
 												
@@ -312,7 +320,7 @@ class Auth extends MY_Controller {
 		$response_json['oauth_uid'] = $vc_user->oauth_uid;
 		$response_json['first_name'] = $vc_user->first_name;
 		$response_json['last_name'] =  $vc_user->last_name;
-		
+				
 		//is this user also a promoter, manager, or super_admin?
 		if($message->users_promoter == '1'){
 							
@@ -379,6 +387,7 @@ class Auth extends MY_Controller {
 //				$result = $query->result();
 //				var_dump($result);
 //				die();
+
 
 		$this->session->set_userdata('vc_user', json_encode($vc_user));
 		die(json_encode($response_json));

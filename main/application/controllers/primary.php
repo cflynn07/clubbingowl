@@ -8,10 +8,10 @@ class Primary extends MY_Controller {
 	
 	// Base path of views unique to this controller
 //	private $view_dir = 'karma/primary/';
-	private $view_dir = 'front/primary/';
-	private $header_html = '';
-	private $body_html = '';
-	private $footer_html = '';
+	private $view_dir 		= 'front/primary/';
+	private $header_html 	= '';	
+	private $body_html 		= '';
+	private $footer_html 	= '';
 	
 	/**
 	 * Controller constructor. Perform any universal operations here.
@@ -136,6 +136,7 @@ class Primary extends MY_Controller {
 	 * @return 	null
 	 */
 	private function _primary($arg0 = ''){
+		
 							
 		if($vc_user = $this->session->userdata('vc_user')){
 			$vc_user = json_decode($vc_user);
@@ -146,7 +147,6 @@ class Primary extends MY_Controller {
 								'iterator_position' => false,
 								'lang_locale'		=> $this->config->item('current_lang_locale'));
 			run_gearman_job('news_feed_retrieve', $arguments);
-		
 		}
 
 		$this->lang->load('home_auth', $this->config->item('current_lang'));
@@ -177,8 +177,22 @@ class Primary extends MY_Controller {
 		
 		switch($vc_method){
 			case 'news_feed_retrieve':
+				
+				
+				
+				
+				
+				
 				if($this->input->post('status_check')){
 					//check to see if job complete
+					
+					
+						
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('news_feed_retrieve');	
+					
+					/*
+					
 					
 					if(!$news_feed_retrieve = $this->session->userdata('news_feed_retrieve'))
 						die(json_encode(array('success' => false,
@@ -222,9 +236,14 @@ class Primary extends MY_Controller {
 						die(json_encode(array('success' => false)));
 					}
 					
+					 
+					*/ 
+			
+			
 				}else{
 					//create new job
 					
+			
 					if($vc_user = $this->session->userdata('vc_user')){
 						
 						$vc_user = json_decode($vc_user);
@@ -243,8 +262,11 @@ class Primary extends MY_Controller {
 						die(json_encode(array('success' => false, 'message' => 'User not authenticated.')));
 						
 					}
+			
 					
 				}
+				
+
 				break;
 			default:
 				die(json_encode(array('success' => false,

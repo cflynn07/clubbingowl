@@ -27,18 +27,7 @@ jQuery(function(){
 			
 			if(users.length > 0){
 				
-				var fql = "SELECT uid, name, pic_square, pic_big, third_party_id FROM user WHERE ";
-				for(var i = 0; i < users.length; i++){
-					if(i == (users.length - 1)){
-						fql += "uid = " + users[i];
-					}else{
-						fql += "uid = " + users[i] + " OR ";
-					}
-				}
-				
-				var query = FB.Data.query(fql);
-				query.wait(function(rows){
-					
+				jQuery.fbUserLookup(users, 'uid, name, pic_square, pic_big, third_party_id', function(rows){
 					vc_fql_users = rows;
 					console.log(rows);
 					
@@ -52,9 +41,9 @@ jQuery(function(){
 					
 					jQuery('div#main_loading_indicator').remove();
 					jQuery('table#host_invites').css('display', 'table');
-									
 				});
 				
+			
 			}else{
 				
 				jQuery('div#main_loading_indicator').remove();
@@ -67,7 +56,6 @@ jQuery(function(){
 		});
 		
 		var hosts_settings_global = {
-		//	invited_users: eval('<?= json_encode($filter_uids) ?>')
 			invited_users: window.page_obj.filter_uids
 		};
 		
@@ -111,40 +99,29 @@ jQuery(function(){
 							
 								if(data.success){
 									
-									var fql = 'SELECT pic_square, name, uid FROM user WHERE ';
-									for(i = 0; i < request.to.length; i++){
-										if(i == 0)
-											fql += 'uid=' + request.to[i];
-										else
-											fql += ' OR uid=' + request.to[i];
-									}
 									
-									fbEnsureInit(function(){
-										//execute query and wait on results
-										var query = FB.Data.query(fql);
-										query.wait(function(rows) {
-											
-											var last_key = jQuery('table#host_invites tbody tr:last td:first').html();
-											if(last_key == null){
-												last_key = 0;
-											}else{
-												last_key = parseInt(last_key);
-											}
-																						
-											var table_html = '';
-											for(var i = 0; i < rows.length; i++){
-												table_html += '<tr>';
-												table_html += '<td>' + (last_key + i) + '</td>';
-												table_html += '<td><img src="' + rows[i].pic_square + '" alt="profile_picture"></td>';
-												table_html += '<td><a href="vc_name"><span style="display:none">' + rows[i].uid + '</span>' + rows[i].name + '</a></td>';
-												table_html += '<td>Invited</td>';
-												table_html += '<td>' + window.page_obj.date_time + '</td>';
-												table_html += '</tr>';
-											}
-											jQuery('table#host_invites tbody').append(table_html);
-											
-										});
+									jQuery.fbUserLookup(request.to, 'pic_square, name, uid', function(rows){
+										var last_key = jQuery('table#host_invites tbody tr:last td:first').html();
+										if(last_key == null){
+											last_key = 0;
+										}else{
+											last_key = parseInt(last_key);
+										}
+																					
+										var table_html = '';
+										for(var i = 0; i < rows.length; i++){
+											table_html += '<tr>';
+											table_html += '<td>' + (last_key + i) + '</td>';
+											table_html += '<td><img src="' + rows[i].pic_square + '" alt="profile_picture"></td>';
+											table_html += '<td><a href="vc_name"><span style="display:none">' + rows[i].uid + '</span>' + rows[i].name + '</a></td>';
+											table_html += '<td>Invited</td>';
+											table_html += '<td>' + window.page_obj.date_time + '</td>';
+											table_html += '</tr>';
+										}
+										jQuery('table#host_invites tbody').append(table_html);
+										
 									});
+									
 	
 								}
 								
@@ -233,11 +210,8 @@ jQuery(function(){
 		var uid_update = function(uid){
 			
 			fbEnsureInit(function(){
-				var fql = "SELECT uid, name, pic_square FROM user WHERE uid = " + uid;
-				console.log(fql);
-				var query = FB.Data.query(fql);
-				query.wait(function(rows){
-					
+				
+				jQuery.fbUserLookup([uid], 'uid, name, pic_square', function(rows){
 					console.log(rows);
 					
 					if(rows.length == 0){
@@ -247,11 +221,15 @@ jQuery(function(){
 					
 					user_url_result.html('<img src="' + rows[0].pic_square + '"><span>' + rows[0].name + '</span><span class="uid">' + rows[0].uid + '</span>');
 					jQuery('a#invite_manual').css('display', 'block');		
-							
 				});
+				
 			});
 			
 		};
+		
+		jQuery('input#user_url').bind('focus', function(){
+			jQuery(this).val('');
+		});
 		
 		jQuery('input#user_url').bind('input', function(){
 			
@@ -340,14 +318,11 @@ jQuery(function(){
 				success: function(data, textStatus, jqXHR){
 				
 					if(data.success){
-						
-						var fql = 'SELECT pic_square, name, uid FROM user WHERE uid = ' + invitees[0];
-						
+												
 						fbEnsureInit(function(){
-							//execute query and wait on results
-							var query = FB.Data.query(fql);
-							query.wait(function(rows) {
-								
+							
+							
+							jQuery.fbUserLookup(invitees, 'pic_square, name, uid', function(rows){
 								var last_key = jQuery('table#promoter_invites tbody tr:last td:first').html();
 								if(last_key == null){
 									last_key = 0;
@@ -367,6 +342,7 @@ jQuery(function(){
 								jQuery('table#promoter_invites tbody').prepend(table_html);
 								
 							});
+							
 						});
 						
 						jQuery('a#invite_manual').css('display', 'none');

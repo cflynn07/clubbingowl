@@ -1028,11 +1028,11 @@ class Model_users_promoters extends CI_Model {
 		/* --------- END CONFIGURATION SETTINGS --------- */
 				
 		//cache bypass if this value is stored in memcache
-		$this->load->library('library_memcached', '', 'memcached');
+		$this->load->library('Redis', '', 'redis');
 		//if($cache && ($results = $this->memcached->get('retrieve_promoter_clients_list')))
 		//	return json_decode($results);
 		if($cache_front){
-			if($results = $this->memcached->get('RPCL-cache-front-' . $promoter_id)){
+			if($results = $this->redis->get('RPCL-cache-front-' . $promoter_id)){
 				return json_decode($results);
 			}			
 		}
@@ -1066,7 +1066,8 @@ class Model_users_promoters extends CI_Model {
 	//		$this->memcached->add('retrieve_promoter_clients_list', json_encode($result), $cache_length);
 		
 		if($cache_front){
-			$this->memcached->add('RPCL-cache-front-' . $promoter_id, json_encode($result), 60*15);
+			$this->redis->set('RPCL-cache-front-' . $promoter_id, json_encode($result));
+			$this->redis->expire('RPCL-cache-front-' . $promoter_id, 60*15);
 		}
 		
 		return $result;
@@ -1081,8 +1082,8 @@ class Model_users_promoters extends CI_Model {
 	function retrieve_front_promoter_client_list($promoter_id){
 						
 		//cache bypass if this value is stored in memcache
-		$this->load->library('library_memcached', '', 'memcached');
-		if($result = $this->memcached->get('RFPCL-cache-front-' . $promoter_id)){
+		$this->load->library('Redis', '', 'redis');
+		if($result = $this->redis->get('RFPCL-cache-front-' . $promoter_id)){
 			return json_decode($result);
 		}			
 				
@@ -1121,7 +1122,8 @@ class Model_users_promoters extends CI_Model {
 		$query = $this->db->query($sql, array($promoter_id, $promoter_id));
 		$result = $query->result();
 		
-		$this->memcached->add('RFPCL-cache-front-' . $promoter_id, json_encode($result), 60*30);
+		$this->redis->set('RFPCL-cache-front-' . $promoter_id, json_encode($result));
+		$this->redis->expire('RFPCL-cache-front-' . $promoter_id, 60);
 		return $result;
 	}
 	

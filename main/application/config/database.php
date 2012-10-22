@@ -96,6 +96,7 @@ $db['local']['swap_pre'] = '';
 $db['local']['autoinit'] = TRUE;
 $db['local']['stricton'] = FALSE;
 
+unset($dotcloud);
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

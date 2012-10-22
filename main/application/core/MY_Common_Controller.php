@@ -13,7 +13,6 @@ class MY_Common_Controller extends CI_Controller{
 		
 		
 		
-		
 		//preventing pingdom from creating thousands of sessions...
 		$non_session_granting_user_agents = array(
 			'Pingdom.com_bot_version_1.4_(http://www.pingdom.com/)',	//pingdom bot
@@ -43,6 +42,10 @@ class MY_Common_Controller extends CI_Controller{
 			$vc_user = $this->session->userdata('vc_user');
 		else 
 			$vc_user = false;
+		
+		$this->session->keep_flashdata('manage_image');
+		
+		
 		
 			
 		$central->vc_user = ($vc_user) ? json_decode($vc_user) : false;

@@ -33,7 +33,6 @@ class Assets extends MY_Common_Controller {
 				
 				
 		$this->load->driver('minify');
-		$this->load->library('library_memcached', '', 'memcached');
 		
 		$this->global_assets 	= FCPATH . 'vcweb2/assets/global/';
 		$this->admin_assets 	= FCPATH . 'vcweb2/assets/admin/';
@@ -166,9 +165,7 @@ class Assets extends MY_Common_Controller {
 		
 		$merge_array = array_merge($front_css_include, $admin_css_include, $facebook_css_include, $global_css_include);
 		$output = $this->minify->combine_files($merge_array, 'css', true);
-		
-		
-		
+				
 			
 		if(MODE == 'local' && php_sapi_name() != 'cli'){
 			$this->output->set_output($output);
@@ -180,11 +177,7 @@ class Assets extends MY_Common_Controller {
 				fclose($fh);
 			}
 		}
-		
-		
-		
-		
-		
+
 	}
 	
 	/**

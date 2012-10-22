@@ -49,7 +49,8 @@ jQuery(function(){
 								
 								if(data.success){
 									
-									jQuery(_this).dialog('close');
+									
+									jQuery(_this).dialog('close').remove();
 									jQuery('#primary_left .li_dashboard a').trigger('click');
 									
 								}else{

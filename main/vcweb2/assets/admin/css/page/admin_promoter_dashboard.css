@@ -1,4 +1,4 @@
-div#s_admin_promoter_dashboard div#live_visitors{
+div#s_admin_promoter_dashboard div.visitors{
 	height: 230px;
 	padding: 10px;
 	width: 480px;
@@ -7,7 +7,7 @@ div#s_admin_promoter_dashboard div#live_visitors{
 	margin-right: auto;
 }
 
-div#s_admin_promoter_dashboard div#live_visitors div.live_visitor{
+div#s_admin_promoter_dashboard div.visitors div.visitor{
 	width: 53px;
 	height: 72px;
 	font-size: 10px;
@@ -17,87 +17,17 @@ div#s_admin_promoter_dashboard div#live_visitors div.live_visitor{
 	margin-right: 5px;
 }
 
-div#s_admin_promoter_dashboard div#live_visitors div.live_visitor span{
+div#s_admin_promoter_dashboard div.visitors div.visitor span{
 	margin-top: -10px;
 	top: -10px;
 	position: relative;
 	color: red;
 }
 
-div#s_admin_promoter_dashboard div#live_visitors div.live_visitor img{
+div#s_admin_promoter_dashboard div.visitors div.visitor img{
 	clear: right;
 	margin-bottom: 0px;
 }
 
 
 
-
-
-
-
-div#s_admin_promoter_dashboard div#top_visitors{
-	height: 230px;
-	padding: 10px;
-	width: 480px;
-	overflow-y: scroll;
-	margin-left: auto;
-	margin-right: auto;
-}
-						
-div#s_admin_promoter_dashboard div#top_visitors div.top_visitor{
-	width: 53px;
-	height: 72px;
-	font-size: 10px;
-	overflow: hidden;
-	display: inline-block;
-	text-align: center;
-	margin-right: 5px;
-}
-						
-div#s_admin_promoter_dashboard div#top_visitors div.top_visitor span{
-	margin-top: -10px;
-	top: -10px;
-	position: relative;
-	color: red;
-}
-						
-div#s_admin_promoter_dashboard div#top_visitors div.top_visitor img{
-	clear: right;
-	margin-bottom: 0px;
-}
-
-
-
-
-
-
-div#s_admin_promoter_dashboard div#recent_visitors{
-	height: 230px;
-	padding: 10px;
-	width: 480px;
-	overflow-y: scroll;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-div#s_admin_promoter_dashboard div#recent_visitors div.recent_visitor{
-	width: 53px;
-	height: 72px;
-	font-size: 10px;
-	overflow: hidden;
-	display: inline-block;
-	text-align: center;
-	margin-right: 5px;
-}
-
-div#s_admin_promoter_dashboard div#recent_visitors div.recent_visitor span{
-	margin-top: -10px;
-	top: -10px;
-	position: relative;
-	color: red;
-}
-
-div#s_admin_promoter_dashboard div#recent_visitors div.recent_visitor img{
-	clear: right;
-	margin-bottom: 0px;
-}

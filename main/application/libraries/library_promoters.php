@@ -736,6 +736,14 @@ class library_promoters{
 		if($this->CI->input->post('status_check')){
 			//check to see if job complete
 			
+			
+			
+			$this->CI->load->helper('check_gearman_job_complete');
+			check_gearman_job_complete('gearman_promoter_manual_add');	
+			
+			/*
+			
+			
 			if(!$gearman_promoter_manual_add = $this->CI->session->userdata('gearman_promoter_manual_add'))
 				die(json_encode(array('success' => false,
 										'message' => 'No request found')));	
@@ -753,6 +761,9 @@ class library_promoters{
 				return array('success' => false);
 			}
 			
+			*/
+			
+			
 		}else{
 			//create new job
 			
@@ -768,6 +779,9 @@ class library_promoters{
 				
 				$vc_user = json_decode($vc_user);
 				//start gearman job for retrieving guest lists
+				
+				
+				/*
 				$this->CI->load->library('pearloader');
 				$gearman_client = $this->CI->pearloader->load('Net', 'Gearman', 'Client');
 				
@@ -780,7 +794,10 @@ class library_promoters{
 																											'promoter_id'		=> $this->promoter->up_id,
 																											'access_token' 		=> $vc_user->access_token,
 																											'pgla_id'			=> $pgla_id,
-																											'oauth_uids' 		=> json_encode($oauth_uids))));
+																						'oauth_uids' 		=> json_encode($oauth_uids))));
+																						
+																						
+																						
 				$gearman_task->type = Net_Gearman_Task::JOB_BACKGROUND;
 				
 				//add test to a set
@@ -800,12 +817,28 @@ class library_promoters{
 				$this->CI->session->set_userdata('gearman_promoter_manual_add', json_encode($gearman_promoter_manual_add));
 				
 				return array('success' => true);
+				*/
+				
+				$this->CI->load->library('run_gearman_job');
+				run_gearman_job('gearman_promoter_manual_add', array('user_oauth_uid' 	=> $vc_user->oauth_uid,
+																	'promoter_id'		=> $this->promoter->up_id,
+																	'access_token' 		=> $vc_user->access_token,
+																	'pgla_id'			=> $pgla_id,
+																	'oauth_uids' 		=> json_encode($oauth_uids)));
+				
+				
+				
 				
 			}else{
 				
 				return array('success' => false, 'message' => 'User not authenticated.');
 				
 			}
+			
+			
+			
+			
+			
 		}
 
 	}

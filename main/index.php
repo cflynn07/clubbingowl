@@ -53,6 +53,7 @@ if(MODE != 'local'){
 			if($_COOKIE['token_value'] != 'v49y49fgs068y33nwfg90'){
 				die();	
 			}
+			error_reporting(E_ALL);
 		}
 }
 
@@ -66,18 +67,11 @@ if(MODE != 'local'){
 //Hack for compatability. SSL enabled with CloudFlare -- does not reach server (USER ---ssl---- CF -------- HOST)
 //BEGIN HACK -----------------------------
 if(isset($_SERVER['HTTP_CF_VISITOR'])){
-	$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR'], true);
-	if(isset($http_cf_visitor->scheme)){
-		
-		if($http_cf_visitor->scheme == 'https'){
-			$_SERVER['HTTPS'] = 'on';
-		}else{
-			$_SERVER['HTTPS'] = 'off';
-		}
-		
-	}else{
-		$_SERVER['HTTPS'] = 'off';
-	}
+	
+	$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR']);
+	if(isset($http_cf_visitor->scheme))
+		$_SERVER['HTTPS'] = ($http_cf_visitor->scheme == 'https') ? 'on' : 'off';
+	unset($http_cf_visitor);
 }
 //END HACK ---------------------------
 
@@ -85,6 +79,20 @@ if(isset($_SERVER['HTTP_CF_VISITOR'])){
 if(MODE == 'staging'){
 	$_SERVER['HTTPS'] = 'on';
 }
+
+
+//force https globally
+if(php_sapi_name() !== 'cli')
+	if(strtolower($_SERVER['HTTPS']) != 'on'){
+		$base_url = 'https';
+	    $base_url .= '://'. $_SERVER['HTTP_HOST'];
+	// 	$base_url .= '/';
+		
+		header('HTTP/1.1 301 Moved Permanently');
+		header('Location: ' . $base_url . (($_SERVER['REQUEST_URI'] == '/') ? '' : $_SERVER['REQUEST_URI']));
+		die();
+	}
+		
 
 
 
@@ -308,6 +316,7 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
+
 
 /*
  *---------------------------------------------------------------

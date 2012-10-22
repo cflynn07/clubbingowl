@@ -33,7 +33,7 @@ class Promoters extends MY_Controller {
 			die();
 		}
 		/*--------------------- End Login Handler --------------------*/
-
+				
 		/* --------------------- Load admin-promoter library ------------------------ */
 		$this->load->library('library_promoters');
 		$this->library_promoters->initialize(array('promoter_id' => $vc_user->promoter->up_id), true);
@@ -895,9 +895,7 @@ class Promoters extends MY_Controller {
 					$this->load->model('model_guest_lists', 'guest_lists', true);
 					$this->load->model('model_users_promoters', 'users_promoters', true);
 					$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
-					
-					$this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data);
-					
+										
 					if($arg2 == ''){
 						//showcase all guest lists
 						
@@ -924,8 +922,11 @@ class Promoters extends MY_Controller {
 												
 						// ------------------- end retrieve guest lists and guest list members ---------------------------------
 						
-						$this->body_html = $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists', $data, true);
 						
+						$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data, true);
+						$this->body_html .= $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists', $data, true);
+						$this->body_html .= $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);
+												
 					}else{
 						//showcase a specific guest list
 						
@@ -950,17 +951,17 @@ class Promoters extends MY_Controller {
 							$data['guest_list'] = $weekly_guest_lists;
 							$data['users'] = json_encode($users);
 							
-							$this->body_html = $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists_individual', $data, true);	
-							
+							$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data, true);
+							$this->body_html .= $this->load->view($this->view_dir . 'mobile/guest_lists/view_promoters_mobile_guest_lists_individual', $data, true);
+							$this->body_html .= $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);
+													
 						}else{
 							show_error('Promoter guest list does not exist', 404);
 							die();
 						}
 						
 					}
-					
-					$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);		
-					
+										
 					break;
 				case 'tables':
 					$this->body_html = $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_header', $data, true);
@@ -1127,6 +1128,11 @@ class Promoters extends MY_Controller {
 		switch($vc_method){
 			case 'stats_retrieve':
 				
+				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_promoter_piwik_stats');
+				
+				/*
 				if(!$admin_promoter_piwik_stats = $this->session->userdata('admin_promoter_piwik_stats'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1143,6 +1149,10 @@ class Promoters extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				*/
+				
+				
+				
 				
 				break;
 			default:
@@ -1358,6 +1368,13 @@ class Promoters extends MY_Controller {
 		switch($vc_method){
 			case 'client_list_retrieve':
 				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_promoter_client_list');
+				
+				
+				
+				
+				/*
 				if(!$admin_promoter_client_list = $this->session->userdata('admin_promoter_client_list'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1374,6 +1391,10 @@ class Promoters extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				*/
+				
+				
+				
 				
 				break;
 			case 'client_stats':

@@ -155,8 +155,7 @@
 			
 			<h5>Examples:</h5>
 			<div style="margin-left:auto; margin-right:auto; width:1006px;">
-				<img style="display:inline-block; width:500px;" src="<?= $central->admin_assets?>images/fb_url_no_uid.png" />
-				<img style="display:inline-block; width:500px;" src="<?= $central->admin_assets?>images/fb_url_uid.png" />
+				<img style="display:inline-block; width:500px; border: 1px solid #000;" src="<?= $central->admin_assets?>images/fb_url_no_uid.png" />
 			</div>
 			
 			<br>
@@ -165,9 +164,7 @@
 			<input id="user_url" type="text" name="user_url" value="Paste Facebook profile url..." style="border:1px solid #000;" />
 			<br><br>
 			<div id="user_url_result"></div>
-			<a id="invite_manual" class="button_link" style="display:none;width:45px;" href="#">Invite</a>
-
-			
+			<a id="invite_manual" class="button_link" style="display:none;width:45px;" href="#">Invite</a>			
 			
 		</div>
 		

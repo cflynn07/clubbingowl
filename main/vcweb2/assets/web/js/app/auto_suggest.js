@@ -1,8 +1,10 @@
 jQuery(function(){
 	var base_path = window.module.Globals.prototype.karma_assets;
 
-	var image_base_path = 'http://clubbingowl.s3.amazonaws.com/vc-images/profile-pics/';
-	//var image_base_path = window.location.protocol + '//cdn{-#-}.vibecompass.' + 'com/vc-images/';
+
+	var image_base_path = 'http://clubbingowl.s3.amazonaws.com/vc-images/';
+	//var image_base_path = window.location.protocol + '//cdn{-#-}.clubbingowl.' + 'com/vc-images/';
+
 	
 	window.app_friends = false;
 	
@@ -115,7 +117,7 @@ jQuery(function(){
 							jQuery('#search-drop-results > ul li:not(li.search_header)').remove();
 							
 							if(data.length === 0)
-								jQuery('#search-drop-results > ul').append('<li class="no_select">' + jQuery('div#no_search_results_msg').html().replace('<%=term%>', request.term) + '</li>');
+								jQuery('#search-drop-results > ul').append('<li class="no_select">' + jQuery('div#no_search_results_msg').html().replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace('<%=term%>', request.term) + '</li>');
 							
 							response(data);
 							

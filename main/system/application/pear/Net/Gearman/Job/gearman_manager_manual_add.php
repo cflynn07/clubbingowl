@@ -10,7 +10,7 @@ class Net_Gearman_Job_gearman_manager_manual_add extends Net_Gearman_Job_Common{
 
 		//get all the stuff we're going to need...
 		$CI =& get_instance();
-		$CI->load->library('library_memcached', '', 'memcached');
+		$CI->load->library('Redis', '', 'redis');
 		$CI->load->library('library_facebook', '', 'facebook');
 		$handle = $this->handle;
 		
@@ -44,9 +44,10 @@ class Net_Gearman_Job_gearman_manager_manual_add extends Net_Gearman_Job_Common{
 			
 			$data = json_encode(array('success' => true,
 									'message' => false));
-			$CI->memcached->add($handle, 
-								$data,
-								60);
+			
+			$CI->redis->set($handle, 
+									$data);
+			$CI->redis->expire($handle, 120);
 			return;
 			
 		}
@@ -77,9 +78,9 @@ class Net_Gearman_Job_gearman_manager_manual_add extends Net_Gearman_Job_Common{
 		$data = json_encode(array('success' => true,
 								'message' => $message));
 				
-		$CI->memcached->add($handle, 
-								$data,
-								60);
+		$CI->redis->set($handle, 
+								$data);
+		$CI->redis->expire($handle, 120);
 		
 		echo "Manager guest list manual add. TGLA_ID:" . $tgla_id . " User friend: " . (($result) ? "true" : "false") . PHP_EOL;
     }

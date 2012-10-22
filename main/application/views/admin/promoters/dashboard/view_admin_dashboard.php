@@ -207,12 +207,12 @@
 		<div style="width:1050px;">
 			
 
-			<div class="one_half">
+			<div id="live_visitors_wrapper" class="one_half">
 				<h3>
 					Live Profile Visitors 
 					<img class="info_icon tooltip" title="VibeCompass users that are actively viewing your promoter profile." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 				</h3>
-				<div class="ui-widget" style="width:100%;">
+				<div class="visitors ui-widget" style="width:100%;">
 					<div class="ui-widget-header">
 						<span>Live Visitors</span>
 					</div>										
@@ -225,12 +225,12 @@
 				
 				
 				
-			<div class="one_half last">
+			<div id="top_visitors_wrapper" class="one_half last">
 				<h3>
 					Top Profile Visitors
 					<img class="info_icon tooltip" title="VibeCompass users that frequently visit your promoter profile." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 				</h3>
-				<div class="ui-widget" style="width:100%;">
+				<div class="visitors ui-widget" style="width:100%;">
 					<div class="ui-widget-header">
 						<span>Top Visitors</span>
 					</div>
@@ -243,12 +243,12 @@
 			
 			
 			
-			<div class="one_half last">
+			<div id="recent_visitors_wrapper" class="one_half last">
 				<h3>
 					Recent Profile Visitors 
 					<img class="info_icon tooltip" title="The 100 most recent VibeCompass users to visit your promoter profile." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 				</h3>
-				<div class="ui-widget" style="width:100%;">
+				<div class="visitors ui-widget" style="width:100%;">
 					<div class="ui-widget-header">
 						<span>Recent Visitors</span>
 					</div>									

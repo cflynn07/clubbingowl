@@ -16,7 +16,10 @@ class MY_Controller extends MY_Common_Controller{
 		header("M355AGE: Well now, aren't you clever :)");
 		//allows cookies to be set in iframe w/ IE
 		header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
-				
+	//	if($this->input->is_ajax_request())
+			header('X-Accel-Buffering: no');
+		
+		
 				
 				
 				
