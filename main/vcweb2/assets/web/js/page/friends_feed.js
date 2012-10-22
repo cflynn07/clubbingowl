@@ -30,7 +30,7 @@ jQuery(function(){
 				
 				var friends_subset_handle = function(){
 					
-					var data = window.all_vc_friends.slice(vc_friends.items_iterator, vc_friends.items_iterator + 21);
+					var data = window.all_vc_friends.slice(vc_friends.items_iterator, vc_friends.items_iterator + 50);
 					vc_friends.append_item_html(data);				
 					vc_friends.items_iterator = vc_friends.items_iterator + data.length;
 					
