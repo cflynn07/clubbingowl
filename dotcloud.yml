@@ -12,7 +12,8 @@ daemons:
   - libfuse2
   - fuse-utils
  process: php /home/dotcloud/current/index.php worker all
- numprocs: 3
+ process: php /home/dotcloud/current/index.php worker all
+ process: php /home/dotcloud/current/index.php worker all
 db:
  type: mysql
 data:
