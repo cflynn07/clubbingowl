@@ -51,7 +51,7 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
 			$from_user = $from_user[0];
 		
 		
-			$CI->benchmark->mark('email_start');
+		$CI->benchmark->mark('email_start');
 		//create a separate curl request for each friend
 		$curls = array();
 		foreach($vibecompass_users as $key => $uf){
@@ -66,15 +66,15 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
 			$email_data = new stdClass;
 			$email_data->to_user = $uf;
 			$email_data->from_user = $from_user;
-			$email_data->message_title = "Your friend " . $from_user->u_first_name . " has joined VibeCompass!";
+			$email_data->message_title = "Your friend " . $from_user->u_first_name . " has joined ClubbingOwl!";
 			
 			$email_text = $CI->load->view('emails/' . 'view_email_friend_join_vc', array('email_data' => $email_data), true);
 			$message = array(
 			    'html' => $email_text,
 			    'text' => strip_tags($email_text),
 			    'subject' => "Your friend " . $from_user->u_first_name . " has joined VibeCompass!",
-			    'from_name' => 'VibeCompass',
-			    'from_email'=> 'no-reply@vibecompass.com',
+			    'from_name' => 'ClubbingOwl',
+			    'from_email'=> 'no-reply@clubbingowl.com',
 			    'to_email' => $to_emails,
 			    'to_name' => $to_names
 			);
@@ -87,7 +87,8 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
 			    'track_clicks' => false,
 			    'tags' => $tags
 			);
-			$url = "http://us4.sts.mailchimp.com/1.0/SendEmail";
+		//	$url = "http://us4.sts.mailchimp.com/1.0/SendEmail";
+			$url = "https://mandrillapp.com/api/1.0/messages/send.json";
 					
 			# Check if we can initialize a cURL connection
 			$curls[$key] = curl_init();

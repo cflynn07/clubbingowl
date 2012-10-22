@@ -72,7 +72,7 @@
 						
 					jQuery('div#primary_right > div.inner').html(data);
 					
-					var title = 'VibeCompass';
+					var title = 'ClubbingOwl';
 					History.pushState({},title,url);
 
 

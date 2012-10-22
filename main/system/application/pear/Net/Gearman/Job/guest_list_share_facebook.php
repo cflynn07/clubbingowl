@@ -33,12 +33,12 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			$team_venue_id		= $args['team_venue_id'];
 			
 			$params = array(
-				'message' => "$vc_user->users_full_name is on the VibeCompass guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!",
+				'message' => "$vc_user->users_full_name is on the ClubbingOwl guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!",
 				'link' => "www.facebook.com/pages/@/$team_venue_id?sk=app_$facebook_application_id",
 				'picture' => ($image) ? '' : $CI->config->item('global_assets') . 'images/vibecompass_logo.png',
 				'name' => $guest_list_name,
 				'caption' => "Click here to Join '$guest_list_name'",
-				'description' => 'VibeCompass is the best way to connect with your favorite promoters and get on guest lists & reserve tables at hot venues.'
+				'description' => 'ClubbingOwl is the best way to connect with your favorite promoters and get on guest lists & reserve tables at hot venues.'
 			);
 			
 		}else{
@@ -53,9 +53,9 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			//we need the promoter_public_identifier and the pgla_name to form the hyperlink to post on facebook
 			
 			if(DEPLOYMENT_ENV == 'local')
-				$base_url = 'http://www.vibecompass.com/';
+				$base_url = 'http://www.ClubbingOwl.com/';
 			else
-				$base_url = 'http://www.vibecompass.com/';
+				$base_url = 'http://www.ClubbingOwl.com/';
 				
 			$params = array(
 				'message' => "$vc_user->users_full_name is on $promoter_full_name's guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!",
@@ -63,7 +63,7 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 				'picture' => ($image) ? $CI->config->item('s3_uploaded_images_base_url') . 'guest_lists/' . $image . '_t.jpg' : $CI->config->item('global_assets') . 'images/vibecompass_logo.png',
 				'name' => $guest_list_name,
 				'caption' => "Click here to Join '$guest_list_name'",
-				'description' => 'VibeCompass is the best way to connect with your favorite promoters and get on guest lists & reserve tables at hot venues.'
+				'description' => 'ClubbingOwl is the best way to connect with your favorite promoters and get on guest lists & reserve tables at hot venues.'
 			);
 			
 		}

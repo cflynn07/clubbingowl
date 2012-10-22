@@ -189,7 +189,7 @@ jQuery(function(){
 			FB.ui({
 				method: 'apprequests',
 				title: 'Add your friends to your entourage!',
-				message: vc_user.first_name + ' has added you to their entourage for ' + promoter_first_name + '\'s guest list with VibeCompass!',
+				message: vc_user.first_name + ' has added you to their entourage for ' + promoter_first_name + '\'s guest list with ClubbingOwl!',
 				data: JSON.stringify(data),
 				exclude_ids: promoters_guest_list.invitees
 			}, function(request){
@@ -248,7 +248,7 @@ jQuery(function(){
 			
 			var vc_user = jQuery.cookies.get('vc_user');
 			if(!vc_user){
-				alert('Error, you are not logged in to VibeCompass.');
+				alert('Error, you are not logged in to ClubbingOwl.');
 				return false;	
 			}
 			

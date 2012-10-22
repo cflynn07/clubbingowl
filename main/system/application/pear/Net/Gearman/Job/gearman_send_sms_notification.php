@@ -63,7 +63,7 @@ class Net_Gearman_Job_gearman_send_sms_notification extends Net_Gearman_Job_Comm
 			if($table_request){
 				
 				if($manager)
-					$message .= "Table Requests must be approved/declined through www.vibecompass.com\n";
+					$message .= "Table Requests must be approved/declined through www.ClubbingOwl.com\n";
 				else 
 					$message .= "Reply: [yes/no] $glr_id [response message]\n";
 			
