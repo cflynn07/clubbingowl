@@ -1,8 +1,8 @@
 jQuery(function(){
 	var base_path = window.module.Globals.prototype.karma_assets;
 
-	//var image_base_path = 'http://vcweb2.s3.amazonaws.com/vc-images/profile-pics/';
-	var image_base_path = window.location.protocol + '//cdn{-#-}.vibecompass.' + 'com/vc-images/';
+	var image_base_path = 'http://clubbingowl.s3.amazonaws.com/vc-images/profile-pics/';
+	//var image_base_path = window.location.protocol + '//cdn{-#-}.vibecompass.' + 'com/vc-images/';
 	
 	window.app_friends = false;
 	

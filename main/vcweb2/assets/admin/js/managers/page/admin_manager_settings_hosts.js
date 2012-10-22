@@ -78,7 +78,7 @@ jQuery(function(){
 				FB.ui({
 					method: 'apprequests',
 					title: 'Invite friends to host for your team',
-					message: 'Come host for ' + window.page_obj.team.team_name + ' with VibeCompass',
+					message: 'Come host for ' + window.page_obj.team.team_name + ' with ClubbingOwl',
 					data: 'TEST DATA',
 					exclude_ids: hosts_settings_global.invited_users
 				}, function(request){

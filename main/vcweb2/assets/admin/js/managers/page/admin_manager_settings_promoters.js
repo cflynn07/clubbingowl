@@ -72,7 +72,7 @@ jQuery(function(){
 			FB.ui({
 				method: 'apprequests',
 				title: 'Invite friends to promote for your team',
-				message: 'Come promote for ' + window.page_obj.team.team_name + ' with VibeCompass',
+				message: 'Come promote for ' + window.page_obj.team.team_name + ' with ClubbingOwl',
 				data: 'TEST DATA',
 				exclude_ids: promoters_settings_global.invited_users
 			}, function(request){

@@ -134,8 +134,8 @@ class Net_Gearman_Job_gearman_send_sms_mass_text_team_announcements extends Net_
 			    'html' => $email_text,
 			    'text' => strip_tags($email_text),
 			    'subject' => $email_data->message_title,
-			    'from_name' => 'VibeCompass',
-			    'from_email'=> 'no-reply@vibecompass.com',
+			    'from_name' => 'ClubbingOwl',
+			    'from_email'=> 'no-reply@ClubbingOwl.com',
 			    'to_email' => $to_emails,
 			    'to_name' => $to_names
 			);

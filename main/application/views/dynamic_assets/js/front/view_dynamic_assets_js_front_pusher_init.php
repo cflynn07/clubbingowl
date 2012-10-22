@@ -29,7 +29,7 @@ jQuery(function(){
 							icon: '<img src="' + user.pic_square + '" alt="picture" />',
 					   		title: user.name,
 					   		color: '#FFF',
-						    text: user.name + ' has signed into VibeCompass.'
+						    text: user.name + ' has signed into ClubbingOwl.'
 						},{
 						    speed: 1000,
 						    expires: 1000 * 30

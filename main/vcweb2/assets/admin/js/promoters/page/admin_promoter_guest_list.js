@@ -260,7 +260,7 @@ jQuery(function(){
 				
 				FB.ui({
 					method: 'apprequests',
-					message: 'I\'ve added you to my guest list on VibeCompass',
+					message: 'I\'ve added you to my guest list on ClubbingOwl',
 					title: 'Add friends to your Guest List',
 					max_recipients: 20,
 					exclude_ids: manual_add_exclude_ids

@@ -408,7 +408,8 @@ label {
   height: 70px;
   position: relative;
   z-index: 9999;
-  background: #5e5e5e;
+//  background: #5e5e5e;
+  background: #9DC6C6;
 }
 #header h1 {
   margin: 0;
@@ -439,7 +440,8 @@ label {
 	margin-top: 3px;
 }
 .no-touch #navigation li:hover {
-  background: #828282;
+//  background: #828282;
+  background: #82A7A5;
 }
 
 .no-touch #navigation #search-drop-results li:hover{
@@ -503,7 +505,8 @@ label {
   background: #52b0e5;
 }
 #navigation .login {
-  background: #3ca6e2;
+//  background: #3ca6e2;
+  background: #727C7A;
   font-size: 16px;
   line-height: 1.6em;
   cursor: pointer;
@@ -532,7 +535,8 @@ label {
   content: none;
 }
 #navigation .language {
-  background: #828282;
+//  background: #828282;
+  background: #82A7A5;
   line-height: 2em;
   font-size: 12px;
   cursor: pointer;
@@ -590,7 +594,8 @@ label {
 #search {
   height: 70px;
   padding: 0 20px;
-  background: #4d4d4d;
+//  background: #4d4d4d;
+  background: #82A7A5;
 }
 #search input {
   border: none;
@@ -604,7 +609,8 @@ label {
 }
 
 #user {
-  background: #3ca6e2;
+//  background: #3ca6e2;
+  background: #727C7A;
   overflow: hidden;
   color: white;
   padding: 10px 0;
@@ -680,12 +686,16 @@ label {
   .mobile #navigation .menu > li.search, .mobile #navigation .menu > li.login, .mobile #navigation .menu > li.language {
     width: 8.333%;
   }
+  
   .mobile #navigation .menu > li.login {
-    background: #3ca6e2;
+//    background: #3ca6e2;
+	  background: #727C7A;
   }
   .mobile #navigation .menu > li.login:hover {
-    background: #52b0e5;
+//    background: #52b0e5;
+	  background: #727C7A;
   }
+  
   .mobile #navigation .menu > li.login span {
     width: auto;
   }
@@ -750,7 +760,8 @@ div[role=main] {
   height: 275px;
   padding-top: 40px;
   color: white;
-  background: #666666;
+//  background: #666666;
+  background: #9DC6C6;
   position: relative;
   z-index: 1;
 }

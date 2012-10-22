@@ -2,7 +2,7 @@
 	var iframe;
 	
 	iframe = document.createElement('iframe');
-	iframe.src = 'http://www.vibecompass.dev/plugin/' + window.vc_plugin_tfpid;
+	iframe.src = 'http://www.clubbingowl.dev/plugin/' + window.vc_plugin_tfpid;
 	iframe.style.width = '100%';
 	iframe.style.height = '100%';
 	iframe.style.border = '0px';

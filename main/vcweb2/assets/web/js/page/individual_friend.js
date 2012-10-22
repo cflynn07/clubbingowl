@@ -77,7 +77,7 @@ jQuery(function(){
 			//If not friend, display error message
 			if(!data.vc_friend){
 				jQuery('div#loading_indicator').remove();
-				jQuery('p#friend_error').html('You must be Facebook Friends with ' + friend_users_full_name + ' to view their profile on VibeCompass.').css('display', 'block');
+				jQuery('p#friend_error').html('You must be Facebook Friends with ' + friend_users_full_name + ' to view their profile on ClubbingOwl.').css('display', 'block');
 				return;
 			}
 						

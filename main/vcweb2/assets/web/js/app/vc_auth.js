@@ -133,7 +133,7 @@ jQuery(function(){
 						VCAuth.prototype.session_login_locked = false;
 						VCAuth.prototype.update_menu();
 						jQuery('nav#navigation > ul.menu > li.login > div#login-drop').removeAttr('style');
-						//alert('An error has occured while logging you into VibeCompass, please try again in a few minutes.');
+						//alert('An error has occured while logging you into ClubbingOwl, please try again in a few minutes.');
 						return;
 					}
 					

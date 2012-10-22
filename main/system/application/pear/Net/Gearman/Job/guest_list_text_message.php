@@ -42,9 +42,9 @@ class Net_Gearman_Job_guest_list_text_message extends Net_Gearman_Job_Common{
 		$message = array(
 		    'html' => $text_message,
 		    'text' => $text_message,
-		    'subject' => 'VibeCompass',
-		    'from_name' => 'VibeCompass',
-		    'from_email'=> 'no-reply@vibecompass.com',
+		    'subject' => 'ClubbingOwl',
+		    'from_name' => 'ClubbingOwl',
+		    'from_email'=> 'no-reply@clubbingowl.com',
 		    'to_email' => $to_emails,
 		    'to_name' => $to_names
 		);

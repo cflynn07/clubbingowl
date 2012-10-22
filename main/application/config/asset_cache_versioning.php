@@ -4,7 +4,7 @@
 | ASSET CACHE VERSIONING
 | -------------------------------------------------------------------
 | This file provides version-identifiers (unix-timestamps) for
-| different asset groups. VibeCompass uses a CDN (sort of - AWS S3)
+| different asset groups. ClubbingOwl uses a CDN (sort of - AWS S3)
 | for delivering static content. These static-content files are sent
 | with infinite expiry headers, and the only way to force browsers to
 | download the latest version of these files is to alter the filename.
