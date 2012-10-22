@@ -409,7 +409,8 @@ label {
   position: relative;
   z-index: 9999;
 //  background: #5e5e5e;
-  background: #9DC6C6;
+//  background: #9DC6C6;
+  background: #8A8B8F;
 }
 #header h1 {
   margin: 0;
@@ -441,7 +442,8 @@ label {
 }
 .no-touch #navigation li:hover {
 //  background: #828282;
-  background: #82A7A5;
+//  background: #82A7A5;
+  background: #474D6A;
 }
 
 .no-touch #navigation #search-drop-results li:hover{
@@ -473,7 +475,8 @@ label {
   display: none;
   position: absolute;
   top: 70px;
-  background: #828282;
+//  background: #828282;
+  background: #8A8B8F;
 }
 #navigation .drop.right {
   right: 0;
@@ -482,7 +485,8 @@ label {
   width: 50%;
 }
 .no-touch #navigation .drop li:hover {
-  background: #5e5e5e;
+//  background: #5e5e5e;
+  background: #474D6A;
 }
 #navigation .drop a {
   padding: 8px 20px;
@@ -506,19 +510,24 @@ label {
 }
 #navigation .login {
 //  background: #3ca6e2;
-  background: #727C7A;
+//  background: #727C7A;
+  background: #474D6A;
   font-size: 16px;
   line-height: 1.6em;
   cursor: pointer;
 }
 .no-touch #navigation .login:hover {
-  background: #3ca6e2;
+//  background: #3ca6e2;
+  background: #474D6A;
 }
 #navigation .login span {
   width: 75px;
   padding-left: 0;
   padding-right: 0;
   text-align: center;
+}
+#navigation .login img{
+	margin: 0;
 }
 .lt-ie8 #navigation .login span {
   padding: 22px 20px;
@@ -536,7 +545,8 @@ label {
 }
 #navigation .language {
 //  background: #828282;
-  background: #82A7A5;
+//  background: #82A7A5;
+  background: #727381;
   line-height: 2em;
   font-size: 12px;
   cursor: pointer;
@@ -595,7 +605,8 @@ label {
   height: 70px;
   padding: 0 20px;
 //  background: #4d4d4d;
-  background: #82A7A5;
+//  background: #82A7A5;
+  background: #727381;
 }
 #search input {
   border: none;
@@ -610,7 +621,8 @@ label {
 
 #user {
 //  background: #3ca6e2;
-  background: #727C7A;
+//  background: #727C7A;
+  background: #474D6A;
   overflow: hidden;
   color: white;
   padding: 10px 0;
@@ -689,11 +701,13 @@ label {
   
   .mobile #navigation .menu > li.login {
 //    background: #3ca6e2;
-	  background: #727C7A;
+//	  background: #727C7A;
+	  background: #373A58;
   }
   .mobile #navigation .menu > li.login:hover {
 //    background: #52b0e5;
-	  background: #727C7A;
+//	  background: #727C7A;
+	  background: #373A58;
   }
   
   .mobile #navigation .menu > li.login span {
@@ -761,7 +775,8 @@ div[role=main] {
   padding-top: 40px;
   color: white;
 //  background: #666666;
-  background: #9DC6C6;
+//  background: #9DC6C6;
+  background: #8A8B8F;
   position: relative;
   z-index: 1;
 }
