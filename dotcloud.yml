@@ -12,6 +12,8 @@ daemons:
   - libfuse2
   - fuse-utils
  process: php /home/dotcloud/current/index.php worker all
+ stderr_logfile: /var/log/supervisor/daemonname_error.log
+ stdout_logfile: /var/log/supervisor/daemonname.log
 db:
  type: mysql
 data:
