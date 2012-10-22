@@ -476,7 +476,8 @@ label {
   position: absolute;
   top: 70px;
 //  background: #828282;
-  background: #8A8B8F;
+//  background: #8A8B8F;
+  background: #474D6A;
 }
 #navigation .drop.right {
   right: 0;
@@ -486,7 +487,8 @@ label {
 }
 .no-touch #navigation .drop li:hover {
 //  background: #5e5e5e;
-  background: #474D6A;
+//  background: #474D6A;
+  background: #727381;
 }
 #navigation .drop a {
   padding: 8px 20px;
@@ -503,10 +505,12 @@ label {
 }
 #navigation .drop .footer a {
   padding: 10px 0;
-  background: #3ca6e2;
+//  background: #3ca6e2;
+  background: #000;
 }
 .no-touch #navigation .drop .footer a:hover {
-  background: #52b0e5;
+//  background: #52b0e5;
+  background: #727381;
 }
 #navigation .login {
 //  background: #3ca6e2;
@@ -568,7 +572,8 @@ label {
 }
 
 #login-drop .drop {
-  background: #3ca6e2;
+//  background: #3ca6e2;
+  background: #474D6A;
   color: white;
   font-size: 12px;
   padding: 10px 20px;
