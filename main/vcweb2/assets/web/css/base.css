@@ -415,7 +415,7 @@ label {
 #header h1 {
   margin: 0;
   float: left;
-  height: 70px;
+  height: 66px;
 }
 #header a {
   color: white;
@@ -902,8 +902,9 @@ div[role=main] {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
-  background: url('/vcweb2/assets/global/images/ClubbingOwlHeaderLogo.png?1335304750') left center no-repeat;
-  width: 289px;
+  background: url('/vcweb2/assets/global/images/ClubbingOwlLogoHeader.png?1335304750') left center no-repeat;
+  width: 298px;
+  margin-top: 4px;
 }
 
 .notification {

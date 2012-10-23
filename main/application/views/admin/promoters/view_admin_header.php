@@ -34,7 +34,7 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 				<div id="logo">
 					
 					<a href="<?=$central->promoter_admin_link_base?>" title="Dashboard">
-						<img style="width:200px; margin-left:10px; margin-bottom:10px;" src="<?=$central->front_assets?>images/logo.png" alt="" />
+						<img style="width:200px; margin-left:10px; margin-bottom:10px;" src="<?= $central->global_assets ?>images/ClubbingOwlLogoHeader.png" alt="" />
 					</a>
 
 					<span style="margin-left:auto;margin-right:auto;margin-bottom:0px;text-align:center;color:#FFF">
