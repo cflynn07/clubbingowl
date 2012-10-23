@@ -9,7 +9,7 @@
   	<?php endif; ?>
   	
    	<?php if(true): ?>
-  	<div class="fb-like-box" data-href="https://www.facebook.com/clubbingowl" data-width="292" data-colorscheme="dark" data-show-faces="false" data-stream="false" data-header="false"></div> 
+  	<div class="fb-like-box" data-href="https://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="dark" data-show-faces="false" data-stream="false" data-header="false"></div> 
   	
   	<br>
   	

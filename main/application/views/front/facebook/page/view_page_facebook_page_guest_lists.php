@@ -117,7 +117,7 @@
 		</ul>
 		
 		<div style="margin-bottom:15px;margin-left:-10px;">
-			<div class="fb-like-box" data-href="http://www.facebook.com/vibecompass" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div> 
+			<div class="fb-like-box" data-href="http://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div> 
 		</div>
 		
 		<div style="padding-top:0px;border-bottom:1px dashed #CCC;padding-bottom:4px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
