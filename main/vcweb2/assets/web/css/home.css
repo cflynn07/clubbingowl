@@ -14,9 +14,10 @@
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
-  background: url('/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
+//  background: url('/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
+  background: url('/vcweb2/assets/web/images/ClubbingOwl_COlogo_purple_700x132.jpeg?1335304870') left center no-repeat;
   width: 699px;
-  height: 79px;
+  height: 130px;
   margin: 0 auto 100px;
 }
 .home p {

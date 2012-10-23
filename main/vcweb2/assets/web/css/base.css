@@ -777,7 +777,7 @@ div[role=main] {
  */
 #footer {
   height: 275px;
-  padding-top: 40px;
+  padding-top: 20px;
   color: white;
 //  background: #666666;
 //  background: #9DC6C6;
@@ -824,6 +824,36 @@ div[role=main] {
 #footer a{
 	text-decoration: underline !important;
 }
+#footer .footer_msg{
+	position: absolute;
+	bottom: 8px;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+#footer .quarter,.half{
+	display: inline-block;
+	vertical-align: top;
+}
+#footer .quarter{
+	width: 25%;
+}
+#footer .half{
+	width: 49%;
+}
+@media screen and (max-width: 991px){
+
+	#footer .quarter,.half{
+		display: block;
+		width: 100%;
+	}
+
+}
+
+
+
 
 #footer .fb_iframe_widget{
 	margin-top: -10px;
@@ -902,7 +932,7 @@ div[role=main] {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
-  background: url('/vcweb2/assets/global/images/ClubbingOwlLogoHeader.png?1335304750') left center no-repeat;
+  background: url('/vcweb2/assets/web/images/ClubbingOwl_COlogo_white.png?1335304750') left center no-repeat;
   width: 298px;
   margin-top: 4px;
 }
