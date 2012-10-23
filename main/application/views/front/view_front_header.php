@@ -166,8 +166,8 @@ reinvigorate.track("k9096-0e37qc95ai");
 					
 					<div id="language-drop">
 						<ul class="drop right">
-							<li><a class="no-ajaxy" href="<?= $central->scheme . '://' . 'www.vibecompass.' . TLD ?>">English</a></li>
-							<li><a class="no-ajaxy" href="<?= $central->scheme . '://' . 'es.vibecompass.' . TLD ?>">Español</a></li>
+							<li><a class="no-ajaxy" href="<?= $central->scheme . '://' . 'www.' . SITE . '.' . TLD ?>">English</a></li>
+							<li><a class="no-ajaxy" href="<?= $central->scheme . '://' . 'de.' . SITE . '.' . TLD ?>">Deutsch</a></li>
 							<?php if(false): ?>
 							<li><a href="<?= $central->scheme . '://' . 'de.vibecompass.' . TLD . $central->request_uri  ?>">Deutsch (beta)</a></li>
 							<li><a href="<?= $central->scheme . '://' . 'ja.vibecompass.' . TLD . $central->request_uri  ?>">日本語 (beta)</a></li>

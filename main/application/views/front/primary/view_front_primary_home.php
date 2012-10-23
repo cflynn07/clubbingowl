@@ -1,7 +1,7 @@
 <div id="unauth_content_holder" <?= ($this->session->userdata('vc_user')) ? 'style="display:none"' : 'style="display:block"' ?>>
 	<article class="home">
 							
-			<h1>VibeCompass</h1>
+			<h1>ClubbingOwl</h1>
 		
 			<h2><?= $this->lang->line('f-m1') ?></h2>
 			
