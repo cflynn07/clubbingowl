@@ -77,7 +77,8 @@
 	  font: 0/0 a;
 	  text-shadow: none;
 	  color: transparent;
-	  background: url('/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
+	  //background: url('/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
+	  background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png?1335926711') center top no-repeat;
 	  width: 699px;
 	  height: 79px;
 	  margin: 0 auto 100px;	
@@ -86,10 +87,16 @@
 	text-align: center;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	padding-top: 100px;
-	min-height: 826px;
-	background: url('/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
+	padding-top: 280px;
+	min-height: 600px;
+	background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png?1335926711') center top no-repeat;
+	//background: url('/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
 }
 #friends_list div#unauth_content_holder > p.message{
-	font-size: 18px;
+	font-size: 30px;
+	  width: 78%;
+	  margin-left: auto;
+	  margin-right: auto;
+	  color: #000;
+	  text-align: center;
 }

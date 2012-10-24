@@ -9,7 +9,7 @@
 				<p style="margin-left:auto;margin-right:auto;text-align:center;"><?= $this->lang->line('f-m3') ?></p>
 			<?php endif; ?>
 		
-			<p>ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away. <strong>It’s free, try it!</strong></p>
+			<p>Making your night-life even more social! <strong>It’s free, try it!</strong></p>
 			<p><a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a></p>
 			
 			<div style="padding-top:0px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		

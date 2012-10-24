@@ -6,7 +6,7 @@
 .home {
   margin-top: 20px;
   margin-bottom: 20px;
-  padding-top: 300px;
+  padding-top: 280px;
 //  min-height: 826px;
   min-height: 600px;
 //  background: url('/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
@@ -23,8 +23,8 @@
   margin: 0 auto 100px;
 }
 .home p {
-  font-size: 22px;
-  width: 80%;
+  font-size: 30px;
+  width: 78%;
   margin-left: auto;
   margin-right: auto;
   color: #000;

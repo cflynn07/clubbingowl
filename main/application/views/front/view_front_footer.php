@@ -49,6 +49,7 @@
 				<?php if(false): ?>
 				<img src="<?= $central->front_assets . 'images/ClubbingOwl_origLogoEdit_purple_700x80.jpeg' ?>"/>
 				<?php endif; ?>
+				<p style="margin-top:0px;font-size:14px">ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away.</p>
 				<div style="clear:both;"></div>
 			</div>
 			
@@ -63,7 +64,7 @@
 		
 		
 		
-		<div class="footer_msg">(c) Cobar Systems LLC 2012 - <a href="<?= $central->front_link_base ?>corp/tos/"><?= $this->lang->line('f-tos') ?></a></div>
+		<div class="footer_msg">&copy; Cobar Systems LLC 2012 - <a href="<?= $central->front_link_base ?>corp/tos/"><?= $this->lang->line('f-tos') ?></a></div>
 		
 		
 		
