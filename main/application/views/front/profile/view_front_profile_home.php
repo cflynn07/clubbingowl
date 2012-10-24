@@ -4,6 +4,8 @@
     <h1><?= $user->users_full_name ?></h1>
   </header>
   
+  <h2>Your Reservations</h2>
+  
   <div class="history-table">
     <table id="history_table">
 
@@ -68,7 +70,7 @@
     </table>
   </div>
 
-  <section id="promoters" class="column">
+  <section style="width:50%;" id="promoters" class="column">
     
     <h1>Your promoters</h1>
 
@@ -77,7 +79,7 @@
     		
     		 <li>
 		        <img style="margin-bottom: 8px;" src="<?= $central->s3_uploaded_images_base_url ?>profile-pics/<?= $fav_pro->up_profile_image ?>_t.jpg" alt="<?= $fav_pro->u_full_name ?>'s Avatar">
-		        <a class="name" href="<?= $central->front_link_base ?>promoters/<?= $fav_pro->c_url_identifier ?>/<?= $fav_pro->up_public_identifier ?>/"><?= $fav_pro->u_full_name ?></a>
+		        <a style="margin-top:0;width:100%;" class="name" href="<?= $central->front_link_base ?>promoters/<?= $fav_pro->c_url_identifier ?>/<?= $fav_pro->up_public_identifier ?>/"><?= $fav_pro->u_full_name ?></a>
 		     </li>
     		
 		<?php endforeach; ?>
@@ -85,18 +87,24 @@
 
   </section>
 
-  <section id="settings" class="column">
+  <section style="width:49%;" id="settings" class="column">
     <h1>Your settings</h1>
     <form>
       <p>
         <input type="checkbox" id="email-optout" name="email-optout" <?= ($user->users_opt_out_search == 1) ? 'checked="checked"' : ''?>>
-        <label for="email-optout">Opt out of VibeCompass Newsletter emails</label>
+        <label for="email-optout">Opt out of newsletter emails</label>
       </p>
+      
+      
+      <?php if(false): ?>
       <p>
         <input type="checkbox" id="search-optout" name="search-optout" <?= ($user->users_opt_out_email == 1) ? 'checked="checked"' : ''?>>
-        <label for="search-optout">Opt out of being found in search results</label>
+        <label for="search-optout">Don't show me in search-results.</label>
       </p>
+      <?php endif; ?>
     </form>
+    
+    
   </section>
 
 </article>
