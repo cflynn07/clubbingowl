@@ -16,6 +16,23 @@ jQuery(function(){
 			window.all_vc_friends = false;
 		
 		
+		jQuery('article#friends_list a.invite').live('click', function(e){
+			
+			var uid = jQuery(e.currentTarget).attr('data-uid');
+			
+			FB.ui({
+		        method: 'apprequests',
+		        message: 'Come check out ClubbingOwl!',
+		        title: 'Invite friends to ClubbingOwl',
+		        to: uid
+		    },
+		    function (response) {
+		        
+		    });
+		    
+		    return false;
+		});
+		
 		
 		
 		var vc_friends = {
