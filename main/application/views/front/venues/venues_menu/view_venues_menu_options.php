@@ -5,9 +5,13 @@
 	<li <?= ($this->uri->rsegment(5) == 'guest_lists') ? 'class="active"' : '' ?>>
 		<a class="ajaxify_t2" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/"><?= $this->lang->line('v-gl_t') ?></a>
 	</li>
+	
+	<?php if(false): ?>
 	<li <?= ($this->uri->rsegment(5) == 'events') ? 'class="active"' : '' ?>>
 		<a class="ajaxify_t2" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/events/"><?= $this->lang->line('v-events') ?></a>
 	</li>
+	<?php endif; ?>
+	
 </ul>
 
 	<div class="tab-content">

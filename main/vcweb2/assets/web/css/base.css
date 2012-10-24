@@ -932,7 +932,7 @@ div[role=main] {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
-  background: url('/vcweb2/assets/web/images/ClubbingOwl_COlogo_white.png?1335304750') left center no-repeat;
+  background: url('/vcweb2/assets/web/images/ClubbingOwlHeader_rightdimensions.png?1335304750') left center no-repeat;
   width: 298px;
   margin-top: 4px;
 }
@@ -1108,7 +1108,8 @@ div#loading_modal div#loading_modal_inner p{
 
 #navigation div#search-drop-results ul li{
 	width: 100% !important;
-	background: #828282;
+//	background: #828282;
+	background: #474D6A;
 	cursor: pointer;
 	padding: 8px;
 }
@@ -1118,7 +1119,8 @@ div#loading_modal div#loading_modal_inner p{
 	font-size: 18px;
 }
 #navigation div#search-drop-results ul li span.subtext{
-	color: #5E5E5E;
+//	color: #5E5E5E;
+	color: #000;
 	font-size: 14px;
 }
 
@@ -1134,12 +1136,12 @@ div#loading_modal div#loading_modal_inner p{
 
 #navigation div#search-drop-results ul li.no_select:hover{
 	cursor: default;
-	background: #828282 !important;
+	background: #727381 !important;
 }
 
 #navigation div#search-drop-results ul li.search_header{
 	display: none;
-	background: #5E5E5E;
+	background: #727381 !important;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	padding-left: 10px;
