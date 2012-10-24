@@ -125,9 +125,11 @@
 
 	</div><!--content-->
 	
+	<?php if(false): ?>
 	<a href="<?= $central->front_link_base ?>" target="_new">
 		  <img style="margin-top:30px;" class="logo" src="<?= $central->front_assets ?>images/logo_large.png" />
 	</a>
+	<?php endif; ?>
 	
 	<div id="guest_list_content_temp_holder" style="display:none;"></div>
 
