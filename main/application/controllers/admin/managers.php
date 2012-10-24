@@ -75,7 +75,7 @@ class Managers extends MY_Controller {
 	 * @return 	null
 	 * */
 	public function index($arg0 = '', $arg1 = '', $arg2 = ''){
-				
+				ß
 		/* ------------------------- Force new managers into setup ------------------------- */
 	
 	//maybe we want to have first time setup for venue managers?
