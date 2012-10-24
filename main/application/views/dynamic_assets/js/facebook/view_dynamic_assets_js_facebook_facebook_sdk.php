@@ -102,8 +102,8 @@ window.fbAsyncInit = function() {
 	});
   
   	//resize canvas
-  	FB.Canvas.setAutoResize(100);
-  	
+  	FB.Canvas.setAutoResize(1000);
+  //	FB.Canvas.setAutoResize()
   	//indicates facebook has completed loading
   	fbApiInit = true;
 };
