@@ -71,11 +71,11 @@ jQuery(function(){
 		var news_feed_items = {
 			retrieve_feed_lock: false,
 			items_iterator: false,
-			retrieve_feed: function(request_first){
+			retrieve_feed: function(request_first){							
 							
 				if(news_feed_items.retrieve_feed_lock)
 					return;
-				
+								
 				//while loading data, prevent this method from firing again
 				news_feed_items.retrieve_feed_lock = true;
 				
@@ -230,7 +230,24 @@ jQuery(function(){
 			},
 			append_item_html: function(data){
 				
+				//data.message.iterator_position;
+				//data.message.data
+			
 				jQuery('div#notifications_holder section#news div#loading_indicator').remove();
+			
+				if(!data.message.iterator_position && !data.message.data.length){
+					//no friend activity
+					
+					var html = new EJS({
+						text: window.ejs_view_templates.primary_no_friends
+					}).render({});
+					
+					jQuery('section#news').append(html);
+					return;
+				}
+				
+				
+				
 				
 				if(data.message && data.message.user_friends_vc_obj_pop)
 					news_feed_items.generate_pop_charts(data.message.user_friends_vc_obj_pop);
@@ -331,6 +348,13 @@ jQuery(function(){
 
 
 		var vc_login_callback = function(){
+				
+				
+			//temporary		
+			jQuery('a.nav_link[title=Venues]').trigger('click');
+			return;			
+					
+					
 						
 			var notifications_holder 	= jQuery('div#notifications_holder');
 			var unauth_content_holder 	= jQuery('div#unauth_content_holder');

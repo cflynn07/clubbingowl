@@ -221,6 +221,12 @@ jQuery(function(){
 		
 		window.EventHandlerObject.addListener("vc_login", function(){
 			
+			
+			
+			
+			
+			
+			
 			var auth_content = jQuery('.auth_content');
 			var unauth_content = jQuery('.unauth_content');
 			

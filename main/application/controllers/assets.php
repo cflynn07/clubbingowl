@@ -509,6 +509,7 @@ class Assets extends MY_Common_Controller {
 									'primary_join_vibecompass',
 									'primary_pop_guestlist',
 									'primary_pop_guestlist_empty',
+									'primary_no_friends',
 									
 									//friends
 									'friends_nonvc_friend', 

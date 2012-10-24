@@ -10,7 +10,7 @@
 //  min-height: 826px;
   min-height: 600px;
 //  background: url('/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
-  background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png?1335926711') center top no-repeat;
+  background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png') center top no-repeat;
 }
 .home h1 {
   font: 0/0 a;
@@ -67,4 +67,37 @@ div#notifications_holder div#loading_indicator{
 	margin-left:auto;
 	margin-right:auto;
 	text-align:center;
+}
+
+
+
+div#no_friends > *{
+	display: inline-block;
+}
+div#no_friends img#toro{
+	width: 49%;
+}
+div#no_friends > div#message{
+	width: 49%;
+	float: right;
+	height: 300px;
+	border: 5px solid #474D6A;
+	background: #8A8B8F;
+	padding: 10px;
+	color: #FFF;
+	border-radius: 10px;
+	font-size: 24px;
+}
+@media screen and (max-width: 991px) {
+	
+}
+@media screen and (max-width: 751px) {
+	
+ 	img#toro{
+		display: none;
+	}
+	div#no_friends > div#message{
+		width: 100%;
+	}
+	
 }
