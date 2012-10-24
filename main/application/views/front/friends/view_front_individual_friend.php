@@ -22,7 +22,7 @@
 	  		<br><br><br>
 	  		
 	  		<?php if(false): ?>
-	  		<p id="since_date">VibeCompass user since <?= strftime('%B, %G', $friend->users_join_time) ?></p>
+	  		<p id="since_date">ClubbingOwl user since <?= strftime('%B, %G', $friend->users_join_time) ?></p>
 	  		<?php endif; ?>
 	  		
 	  		<p id="since_date"><?= lang_key($this->lang->line('fr-since_date'), array(
@@ -53,7 +53,7 @@
 	<div style="width:100%; text-align:center;" class="unauth_content">
 		
 		<?php if(false): ?>
-		<h2><?= $friend->users_first_name ?> is on VibeCompass!</h2>
+		<h2><?= $friend->users_first_name ?> is on ClubbingOwl!</h2>
 		<?php endif; ?>
 	
 		<h2><?= lang_key($this->lang->line('fr-indiv_friend_title'), array(
@@ -63,7 +63,7 @@
 		<br><br><br>
 		
 		<?php if(false): ?>
-		<p class="message">Log in to VibeCompass with Facebook to see <?= $friend->users_first_name ?>'s favorite clubs, promoters and guest-lists.</p>		
+		<p class="message">Log in to ClubbingOwl with Facebook to see <?= $friend->users_first_name ?>'s favorite clubs, promoters and guest-lists.</p>		
 		<?php endif; ?>
 		
 		<p class="message"><?= lang_key($this->lang->line('fr-login_message_indiv'), array(
