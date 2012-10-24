@@ -17,6 +17,14 @@ window.log = function(){
 
 jQuery(function() {
 
+	jQuery('h1.logo').bind('hover', function(e){
+		if(e.type == 'mouseenter')
+			jQuery('h1.logo').effect('shake', {
+			    times: 2,
+			    distance: 5
+			}, 70);
+	});
+
 		
   /**
    * Tabs

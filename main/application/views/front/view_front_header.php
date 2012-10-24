@@ -91,7 +91,7 @@ reinvigorate.track("k9096-0e37qc95ai");
 <header id="header">
 	<div class="center">
 			
-		<a href="<?= $central->front_link_base ?>"><h1 class="logo">VibeCompass</h1></a>
+		<a href="<?= $central->front_link_base ?>"><h1 class="logo">Clubbing Owl</h1></a>
 		
 		<nav id="navigation">
 			
