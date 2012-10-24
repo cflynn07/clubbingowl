@@ -66,7 +66,7 @@ jQuery(function(){
 							
 							FB.api({
 							    method: 'fql.query',
-							    access_token : token,
+								access_token : token,
 							    query: fql
 							}, function(data) {
 								
@@ -75,7 +75,7 @@ jQuery(function(){
 							    friends_subset_handle();
 							    
 							});
-						}, 2000);
+						}, 1000);
 						
 						
 					});

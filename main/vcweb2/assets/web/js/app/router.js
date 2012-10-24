@@ -310,4 +310,42 @@ jQuery(function(){
 		hashChange: false
 	});
 	
+	
+	var get_friends = function(){
+		console.log('get_friends');
+		
+		fbEnsureInit(function(){
+		
+			vc_user = jQuery.cookies.get('vc_user');
+			
+			if(vc_user)			
+				setTimeout(function(){
+					var token 	= FB.getAccessToken();						
+					var fql 	= "SELECT uid, name, pic, pic_square, is_app_user, third_party_id FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY is_app_user DESC";
+					
+					FB.api({
+					    method: 'fql.query',
+						access_token : token,
+					    query: fql
+					}, function(data) {
+						
+					    window.all_vc_friends = data;
+					    
+					});
+				}, 1000);
+			
+		});
+	}
+	
+	get_friends();
+	
+	var vc_login_callback = function(){
+				
+		get_friends();	
+			
+	};
+	window.EventHandlerObject.addListener("vc_login", vc_login_callback);
+	
+	
+	
 });
