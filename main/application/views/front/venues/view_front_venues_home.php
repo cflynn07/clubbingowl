@@ -34,7 +34,7 @@
 		<?php foreach($venues as $venue): ?>
 		  <li>
 			
-			<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/">
+			<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
 			<?php if($venue->tv_image): ?>
 		  	<img src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
 		  	<?php else: ?>
@@ -42,7 +42,7 @@
 		  	<?php endif; ?>
 		  	</a><br/>
 				  	
-			<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/"><?= $venue->tv_name ?></a>
+			<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/"><?= $venue->tv_name ?></a>
 		    
 		    <p class="friends_holder">
 		    	
@@ -73,7 +73,7 @@
 		<?php if($vc_city->venues): ?>
 			
 			<h1>
-				<a href="<?= $central->front_link_base ?>venues/<?= $vc_city->url_identifier ?>/"><?= $vc_city->name . ', ' . $vc_city->state ?></a>
+				<a href="<?= $central->front_link_base ?>venues/<?= $vc_city->url_identifier ?>/guest_lists/"><?= $vc_city->name . ', ' . $vc_city->state ?></a>
 			</h1>
 			
 			<ul class="venue-list" style="margin-top:20px;">
@@ -82,7 +82,7 @@
 				
 				 <li>
 				 	
-				 	<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/">
+				 	<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
 				 	<?php if($venue->tv_image): ?>
 				  	<img src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
 				  	<?php else: ?>
@@ -90,7 +90,7 @@
 				  	<?php endif; ?>
 				  	</a><br/>
 				  	
-				    <a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/"><?= $venue->tv_name ?></a>
+				    <a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/"><?= $venue->tv_name ?></a>
 				    
 				   	<p class="friends_holder">
 				   		
