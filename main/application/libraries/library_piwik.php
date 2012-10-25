@@ -31,6 +31,8 @@ class Library_piwik
         $this->token = $this->_ci->config->item('token');
         $this->geoip_on = $this->_ci->config->item('geoip_on');
         
+		$this->geoip_on = false;
+		
         if($this->geoip_on)
         {
             $this->_ci->load->helper('geoip');
