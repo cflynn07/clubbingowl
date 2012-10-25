@@ -24,7 +24,10 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 			//first get list of user's friends that are vc users
 			$CI->load->helper('retrieve_vc_user_friends');
 			$result = retrieve_vc_user_friends($user_oauth_uid, $access_token);
-											
+			
+			if(!is_array($result))
+				return;
+										
 			if(isset($result['error_code'])){
 				var_dump($result);
 				
