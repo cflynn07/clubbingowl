@@ -342,7 +342,7 @@ div#unavailable_overlay{
 					
 				<div class="confirmation">
 		          
-		          <p style="font-size:12px;">Check here if you would like VibeCompass to text you when <?= $guest_list->tv_name ?> accepts or declines your reservation request.</p>
+		          <p style="font-size:12px;">Check here if you would like ClubbingOwl to text you when <?= $guest_list->tv_name ?> accepts or declines your reservation request.</p>
 		          <p style="font-size:12px;text-align:center;color:red;">*Phone number required for table reservation requests</p>
 		          <input type="checkbox" id="guestlist-confirmation-text" name="guestlist-confirmation-text">
 		          <label for="guestlist-confirmation-text">Confirmation Text</label>
@@ -401,8 +401,8 @@ div#unavailable_overlay{
 		
 		<br><br><br>
 		
-		<h2>Your reservation request has been successfully submitted, VibeCompass will notify you when <?= $guest_list->tv_name ?> responds.</h2>
-		<div class="fb-like-box" data-href="http://www.facebook.com/vibecompass" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div>
+		<h2>Your reservation request has been successfully submitted, ClubbingOwl will notify you when <?= $guest_list->tv_name ?> responds.</h2>
+		<div class="fb-like-box" data-href="http://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div>
 		
 		<div style="margin-left:auto;margin-right:auto;margin-bottom:20px;"></div>
 		
