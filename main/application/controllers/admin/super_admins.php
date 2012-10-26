@@ -194,7 +194,7 @@ class Super_admins extends MY_Controller {
 		 * 
 		 * */
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != ''){
-			show_error('Invalid url', 404); //<-- there are no sections of the admin panel with 3 url segments
+			show_404('Invalid url', 404); //<-- there are no sections of the admin panel with 3 url segments
 		}
 		# ----------------------------------------------------------------------------------- #
 		#	END CONTROLLER METHOD ROUTING													  #

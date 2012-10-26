@@ -139,7 +139,7 @@ class Profile extends MY_Controller {
 		 * */
 		elseif($arg0 != '' && $arg1 != '' && $arg2 == ''){
 			
-			show_error('invalid url');
+			show_404('invalid url');
 			
 		}
 		

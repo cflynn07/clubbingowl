@@ -15,7 +15,7 @@
 
 if ( ! function_exists('xml_parser_create'))
 {
-	show_error('Your PHP installation does not support XML');
+	show_404('Your PHP installation does not support XML');
 }
 
 

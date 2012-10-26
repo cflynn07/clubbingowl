@@ -162,7 +162,7 @@ class Venues extends MY_Controller {
 					
 					break;
 				default:
-					show_error('invalid url');
+					show_404('invalid url');
 					break;
 			}
 			
@@ -207,7 +207,7 @@ class Venues extends MY_Controller {
 					
 					break;
 				default:
-					show_error('invalid url');
+					show_404('invalid url');
 					break;
 			}
 			
@@ -216,7 +216,7 @@ class Venues extends MY_Controller {
 		* Limiter check
 		*/
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != '' && $arg3 != '' && $arg4 != ''){
-			show_error('Invalid url', 404);
+			show_404('Invalid url', 404);
 		}
 		# ----------------------------------------------------------------------------------- #
 		#	END CONTROLLER METHOD ROUTING													  #
@@ -314,7 +314,7 @@ class Venues extends MY_Controller {
 			//city specified
 			
 			if(!$city = $this->app_data->retrieve_valid_city($arg0)){
-				show_error('unknown city'); //prob better just a reg 404
+				show_404('unknown city'); //prob better just a reg 404
 				die();
 			}
 			
@@ -518,7 +518,7 @@ class Venues extends MY_Controller {
 			$data['guest_list'] = $this->library_venues->retrieve_individual_guest_list($arg3);
 			
 			if(!$data['guest_list']){
-				show_error('Guest List Not Found', 404);
+				show_404('Guest List Not Found', 404);
 			}
 			
 			
@@ -686,7 +686,7 @@ class Venues extends MY_Controller {
 				
 				$CI->load->model('model_app_data', 'app_data', true);
 				if(!$city = $CI->app_data->retrieve_valid_city($arg0)){
-					show_error('unknown city'); //prob better just a reg 404
+					show_404('unknown city'); //prob better just a reg 404
 					die();
 				}
 				

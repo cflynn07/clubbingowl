@@ -98,7 +98,7 @@ class CI_Exceptions {
 			log_message('error', '404 Page Not Found --> '.$page);
 		}
 
-		echo $this->show_error($heading, $message, 'error_404', 404);
+		echo $this->show_404($heading, $message, 'error_404', 404);
 		exit;
 	}
 
@@ -117,7 +117,7 @@ class CI_Exceptions {
 	 * @param	string	the template name
 	 * @return	string
 	 */
-	function show_error($heading, $message, $template = 'error_general', $status_code = 500)
+	function show_404($heading, $message, $template = 'error_general', $status_code = 500)
 	{
 		set_status_header($status_code);
 

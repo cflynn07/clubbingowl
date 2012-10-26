@@ -32,7 +32,7 @@ function &DB($params = '', $active_record_override = NULL)
 		{
 			if ( ! file_exists($file_path = APPPATH.'config/database'.EXT))
 			{
-				show_error('The configuration file database'.EXT.' does not exist.');
+				show_404('The configuration file database'.EXT.' does not exist.');
 			}
 		}
 		
@@ -40,7 +40,7 @@ function &DB($params = '', $active_record_override = NULL)
 
 		if ( ! isset($db) OR count($db) == 0)
 		{
-			show_error('No database connection settings were found in the database config file.');
+			show_404('No database connection settings were found in the database config file.');
 		}
 
 		if ($params != '')
@@ -50,7 +50,7 @@ function &DB($params = '', $active_record_override = NULL)
 
 		if ( ! isset($active_group) OR ! isset($db[$active_group]))
 		{
-			show_error('You have specified an invalid database connection group.');
+			show_404('You have specified an invalid database connection group.');
 		}
 
 		$params = $db[$active_group];
@@ -67,7 +67,7 @@ function &DB($params = '', $active_record_override = NULL)
 
 		if (($dns = @parse_url($params)) === FALSE)
 		{
-			show_error('Invalid DB Connection String');
+			show_404('Invalid DB Connection String');
 		}
 
 		$params = array(
@@ -103,7 +103,7 @@ function &DB($params = '', $active_record_override = NULL)
 	// No DB specified yet?  Beat them senseless...
 	if ( ! isset($params['dbdriver']) OR $params['dbdriver'] == '')
 	{
-		show_error('You have not selected a database type to connect to.');
+		show_404('You have not selected a database type to connect to.');
 	}
 
 	// Load the DB classes.  Note: Since the active record class is optional

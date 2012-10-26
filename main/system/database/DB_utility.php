@@ -112,7 +112,7 @@ class CI_DB_utility extends CI_DB_forge {
 
 		if (is_bool($sql))
 		{
-				show_error('db_must_use_set');
+				show_404('db_must_use_set');
 		}
 
 		$query = $this->db->query($sql);
@@ -202,7 +202,7 @@ class CI_DB_utility extends CI_DB_forge {
 	{
 		if ( ! is_object($query) OR ! method_exists($query, 'list_fields'))
 		{
-			show_error('You must submit a valid result object');
+			show_404('You must submit a valid result object');
 		}
 
 		$out = '';
@@ -244,7 +244,7 @@ class CI_DB_utility extends CI_DB_forge {
 	{
 		if ( ! is_object($query) OR ! method_exists($query, 'list_fields'))
 		{
-			show_error('You must submit a valid result object');
+			show_404('You must submit a valid result object');
 		}
 
 		// Set our default values

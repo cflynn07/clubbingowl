@@ -225,7 +225,7 @@ class Promoters extends MY_Controller {
 					break;
 				default:
 					
-					show_error('invalid_url', 404);
+					show_404('invalid_url', 404);
 					
 					break;
 			}
@@ -250,7 +250,7 @@ class Promoters extends MY_Controller {
 					
 					break;
 				default:
-					show_error('invalid url', 404);
+					show_404('invalid url', 404);
 					break;
 			}
 			
@@ -266,7 +266,7 @@ class Promoters extends MY_Controller {
 					
 					break;
 				default:
-					show_error('Invalid url', 404);
+					show_404('Invalid url', 404);
 			}
 			
 		}
@@ -956,7 +956,7 @@ class Promoters extends MY_Controller {
 							$this->body_html .= $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);
 													
 						}else{
-							show_error('Promoter guest list does not exist', 404);
+							show_404('Promoter guest list does not exist', 404);
 							die();
 						}
 						
@@ -1008,7 +1008,7 @@ class Promoters extends MY_Controller {
 					$this->body_html .= $this->load->view($this->view_dir . 'mobile/view_promoters_mobile_footer', $data, true);					
 					break;
 				default:
-					show_error('Page not found', 404);
+					show_404('Page not found', 404);
 					break;
 					
 			}

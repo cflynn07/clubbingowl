@@ -80,7 +80,7 @@ class Redis {
 		// Display an error message if connection failed
 		if ( ! $this->_connection)
 		{
-			show_error('Could not connect to Redis at ' . $this->_ci->config->item('redis_host') . ':' . $this->_ci->config->item('redis_port'));	
+			show_404('Could not connect to Redis at ' . $this->_ci->config->item('redis_host') . ':' . $this->_ci->config->item('redis_port'));	
 		}
 	
 		// Authenticate when needed
@@ -157,7 +157,7 @@ class Redis {
 			// See if we authenticated successfully
 			if ( ! $this->_write_request($request))
 			{
-				show_error('Could not connect to Redis, invalid password');
+				show_404('Could not connect to Redis, invalid password');
 			}
 			
 		}
