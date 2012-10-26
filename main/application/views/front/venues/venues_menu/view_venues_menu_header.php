@@ -7,7 +7,7 @@
 
   <div class="banner">
   	<?php if($venue->tv_image !== ''): ?>
-  	<img style="height:300;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_p.jpg" alt="Venue Banner">
+  	<img style="height:300px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_p.jpg" alt="Venue Banner">
   	<?php else: ?>
   	<img src="http://placehold.it/1000x300?text=Coming+Soon" alt="Venue Banner">
   	<?php endif; ?>
