@@ -273,7 +273,8 @@ jQuery(function(){
 							//	element: jQuery('div#ejs_home_templates > div#join_promoter_guest_list').get(0)
 								text: ejs_view_templates.primary_join_promoter_gl
 							}).render(news_item);
-															
+							jQuery(news_html).find('a').addClass('ajaxify_t3');
+														
 							break;
 						case 'join_team_guest_list':
 						
@@ -282,7 +283,7 @@ jQuery(function(){
 							//	element: jQuery('div#ejs_home_templates > div#join_team_guest_list').get(0)
 								text: ejs_view_templates.primary_join_team_gl
 							}).render(news_item);
-						
+							jQuery(news_html).find('a').addClass('ajaxify_t3');
 						
 							break;
 						case 'join_vibecompass':
