@@ -13,7 +13,7 @@
 		<div style="width:100%; padding-right:20px;" class="center">
 			
 			<div class="unauth_content" style="display:<?= (($this->session->userdata('vc_user')) ? 'none' : 'block' ) ?>;float:left; max-width:500px;">
-				<p style="margin-left:10px;font-size:12px">Log in to <a target="_new" style="margin-left:0px;" href="http://www.vibecompass.com/">VibeCompass</a> with Facebook</p>
+				<p style="margin-left:10px;font-size:12px">Log in to <a target="_new" style="margin-left:0px;" href="http://www.vibecompass.com/">ClubbingOwl</a> with Facebook</p>
 			</div>
 			
 			<ul></ul>
@@ -125,9 +125,11 @@
 
 	</div><!--content-->
 	
+	<?php if(false): ?>
 	<a href="<?= $central->front_link_base ?>" target="_new">
 		  <img style="margin-top:30px;" class="logo" src="<?= $central->front_assets ?>images/logo_large.png" />
 	</a>
+	<?php endif; ?>
 	
 	<div id="guest_list_content_temp_holder" style="display:none;"></div>
 

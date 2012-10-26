@@ -40,7 +40,7 @@ document.write(unescape("%3Cscript src='<?= $central->global_assets_nocdn . 'js/
 </script>
 <script type="text/javascript">
 try {
-reinvigorate.track("k9096-0e37qc95ai");
+	reinvigorate.track("k9096-0e37qc95ai");
 } catch(err) {}
 </script>
 

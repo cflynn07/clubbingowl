@@ -24,7 +24,7 @@ article.home{
 			</p>
 		</div>	
 		
-		<h2>Your friends have sent you these VibeCompass invitations</h2>
+		<h2 style="color:#000;">Your friends have sent you these ClubbingOwl invitations</h2>
 		
 		<section style="border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC;" id="news">
 							
@@ -38,14 +38,7 @@ article.home{
 		
 		<div>
 			
-			<p>Join guest-lists and reserve tables at your favorite venues.</p>
-									
-			<p>
-				With VibeCompass, there's no hassle to find a promoter and join a guest list. No filling out annoying forms, or crossing your fingers and hoping that your name actually made it to the list or if you actually have a table.
-				Simply click to send a request, and VibeCompass will notify you (via SMS/email) the instant your promoter responds. Your name will automatically appear on the electronic guest list at the venue.<br>
-			</p>
-			
-			<p style="margin-left:auto;margin-right:auto;text-align:center;">Discovering where your friends are partying has never been easier!</p>
+			<p>Making your night-life even more social! <strong>It’s free, try it!</strong></p>
 					
 			<div style="padding-top:0px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
 			
@@ -113,7 +106,7 @@ article.home{
 	        	<a class="link_[%=from.id%]" href="<?= $central->front_link_base ?>friends/">
 	        		<h2>[%=from.name%]</h2>
 	        	</a>
-	        	<p>[%=from.name%] thinks VibeCompass is great and that you should check it out!</p>
+	        	<p>[%=from.name%] thinks ClubbingOwl is great and that you should check it out!</p>
 	      	</div>
 		</li>
 	</div>

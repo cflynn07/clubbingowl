@@ -4,9 +4,9 @@
 		
 		<h1>Promoter Setup</h1>
 	
-		<h2>Welcome to VibeCompass!</h2>
+		<h2>Welcome to ClubbingOwl!</h2>
 		<p>We need to ask you some simple questions to set up your promoter profile. This should only take a few minutes. Once you've completed
-			these steps you will be able to explore your VibeCompass promoter admin panel.</p>
+			these steps you will be able to explore your ClubbingOwl promoter admin panel.</p>
 			
 		<?= form_open('#', array('id' => 'promoter_setup_form')) ?>
 			<fieldset> 
@@ -15,7 +15,7 @@
 					<p>
 						<label>Public Identifier:</label>
 						<input class="sf" id="public_identifier" name="public_identifier" type="text" value="" />
-						<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your profile will be accessible at http://www.vibecompass.com/promoters/<?= $promoter->team->c_url_identifier ?>/YOUR_PUBLIC_IDENTIFIER/ ">
+						<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your profile will be accessible at https://www.ClubbingOwl.com/promoters/<?= $promoter->team->c_url_identifier ?>/YOUR_PUBLIC_IDENTIFIER/ ">
 						
 						<p style="display:none;height:50px;vertical-align:center;" id="public_identifier_error" class="error">
 							Public Identifier cannot contain any special characters such as: %$*!
@@ -26,12 +26,12 @@
 					<p>
 						<label>SMS/Text Number</label>
 						<input class="sf" id="sms_text_number" name="sms_text_number" type="text" value="" />
-						<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="VibeCompass will notify you via SMS when you recieve a new guest-list reservation. You can reply to accept/decline the request.">
+						<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="ClubbingOwl will notify you via SMS when you recieve a new guest-list reservation. You can reply to accept/decline the request.">
 					</p>
 										
 					<p>
 						<label>Tell Us About Yourself:</label><br>
-						<span class="field_desc">This will be featured on your promoter profile, and will be displayed on Facebook when your clients share a link to your VibeCompass profile.</span>
+						<span class="field_desc">This will be featured on your promoter profile, and will be displayed on Facebook when your clients share a link to your ClubbingOwl profile.</span>
 						<span id="biography_char_remaining" style="float:right; color:red;"></span>
 
 						<textarea id="text_biography" style="width:680px; height:200px; border:1px solid #CCC; resize:none; padding: 5px;" name="biography"></textarea>
@@ -105,7 +105,7 @@
 			
 			<h2>You have completed the setup.</h2>
 			
-			<p>Your profile page is now visable to others in VibeCompass, however you haven't set up any guest lists yet. Click continue to get started with adding your guest lists. :)</p>
+			<p>Your profile page is now visable to others in ClubbingOwl, however you haven't set up any guest lists yet. Click continue to get started with adding your guest lists. :)</p>
 			
 			
 			<p>

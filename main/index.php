@@ -31,7 +31,7 @@ unset($dotcloud_environment);
 
 
 //temporary access control
-if(MODE != 'local'){
+if(FALSE && MODE != 'local'){
 	if(isset($_GET['token_value'])){
 		setcookie('token_value', 
 					$_GET['token_value'], 

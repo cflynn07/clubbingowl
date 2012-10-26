@@ -24,11 +24,11 @@
 		<?php foreach($promoters as $pro): ?>
 		
 		<li>
-			<a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/">
+			<a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/guest_lists/">
 		   		<img style="border: 1px solid lightgray; display:inline-block; vertical-align:top;" class="venue-image" src="<?=$central->s3_uploaded_images_base_url?>profile-pics/<?=$pro->up_profile_image?>_t.jpg" alt="" />
 		   	</a>
 		    <div class="name_block" style="display:inline-block;clear:right;">
-			    <a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/"><?= $pro->u_full_name ?></a>
+			    <a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/guest_lists/"><?= $pro->u_full_name ?></a>
 				
 				<?php if(false): ?>   
 			    <p>3 friends have been here</p>
@@ -73,11 +73,11 @@
 			<?php foreach($vc_city->promoters as $pro): ?>
 				
 				<li>
-					<a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/">
+					<a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/guest_lists/">
 			    		<img style="border: 1px solid lightgray; display:inline-block; vertical-align:top;" class="venue-image" src="<?=$central->s3_uploaded_images_base_url?>profile-pics/<?=$pro->up_profile_image?>_t.jpg" alt="" />
 				   	</a>
 				    <div class="name_block" style="display:inline-block;clear:right;">
-					    <a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/"><?= $pro->u_full_name ?></a>
+					    <a href="<?=$central->front_link_base?>promoters/<?= $pro->c_url_identifier ?>/<?= $pro->up_public_identifier ?>/guest_lists/"><?= $pro->u_full_name ?></a>
 						
 						<?php if(false): ?>
 					    <p>3 friends have been here</p>

@@ -26,6 +26,9 @@ class Net_Gearman_Job_gearman_retrieve_friend_venues_activity extends Net_Gearma
 		$this->CI->load->helper('retrieve_vc_user_friends');
 		$result = retrieve_vc_user_friends($user_oauth_uid, $access_token);		
 		
+		if(!is_array($result))
+			return;
+		
 		if(isset($result['error_code'])){
 			var_dump($result);
 			echo 'sending error code' . PHP_EOL;

@@ -1114,14 +1114,14 @@ class Managers extends MY_Controller {
 	 */
 	private function _settings_venues_new($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		if(!$manage_image = $this->session->userdata('manage_image')){
+		if(!$manage_image = $this->session->flashdata('manage_image')){
 			//set this flash data so if user navigates to 'manage_image' it will allow
 			$manage_image = new stdClass;
 			$manage_image->existing = false;
 			$manage_image->type = 'venues/banners';
 			$manage_image->live_image = false;
 			$manage_image->return = 'settings_venues_new';
-			$this->session->set_userdata('manage_image', json_encode($manage_image));
+			$this->session->set_flashdata('manage_image', json_encode($manage_image));
 		}else{
 			$manage_image = json_decode($manage_image);
 			$this->session->keep_flashdata('manage_image');
@@ -1144,26 +1144,24 @@ class Managers extends MY_Controller {
 	private function _settings_venues_edit($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
-		
 		$this->load->model('model_users_managers', 'users_managers', true);
 		if(!$tv = $this->users_managers->retrieve_individual_team_venue($this->vc_user->manager->team_fan_page_id, $arg1)){
 			redirect('/admin/managers/settings_venues/', 'refresh');
 			die();
 		}
 		
-		if(!$manage_image = $this->session->userdata('manage_image')){
+		if(!$manage_image = $this->session->flashdata('manage_image')){
 			//set this flash data so if user navigates to 'manage_image' it will allow
 			$manage_image = new stdClass;
 			$manage_image->existing = false;
 			$manage_image->type = 'venues/banners';
 			$manage_image->live_image = false;
 			$manage_image->return = 'settings_venues_edit/' . $tv->id;
-			$this->session->set_userdata('manage_image', json_encode($manage_image));
+			$this->session->set_flashdata('manage_image', json_encode($manage_image));
 		}else{
 			$manage_image = json_decode($manage_image);
 			$this->session->keep_flashdata('manage_image');
 		}
-		
 		
 	//	Kint::dump($manage_image);
 		
@@ -1258,19 +1256,16 @@ class Managers extends MY_Controller {
 	 */
 	private function _manage_image($arg0 = '', $arg1 = '', $arg2 = ''){
 		//check flashdata to make sure there is a flashdata object either from creating a new event or editing an existing one (this might get a little tricky)
-		if(!$manage_image = $this->session->userdata('manage_image')){
+		if(!$manage_image = $this->session->flashdata('manage_image')){
 			redirect('/admin/managers/', 'refresh');
 			die();
 		}
 		
-		
 		$manage_image = json_decode($manage_image);
 		$this->session->keep_flashdata('manage_image');
-				
+		
 		$data['manage_image'] = $manage_image;		
 		$this->body_html = $this->load->view($this->view_dir . 'manage/view_manage_image', $data, true);
-	
-	
 	}
 	
 	/**
@@ -1300,7 +1295,7 @@ class Managers extends MY_Controller {
 	private function _ocupload_manage_image($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		//check flashdata to make sure there is a flashdata object either from creating a new event or editing an existing one (this might get a little tricky)
-		if(!$manage_image = $this->session->userdata('manage_image'))
+		if(!$manage_image = $this->session->flashdata('manage_image'))
 			die(json_encode(array('success' => false)));
 		
 		$this->session->keep_flashdata('manage_image');
@@ -1319,7 +1314,7 @@ class Managers extends MY_Controller {
 		
 			//add uploaded image data to session
 			$manage_image->image_data = $this->image_upload->image_data;
-			$this->session->set_userdata('manage_image', json_encode($manage_image));
+			$this->session->set_flashdata('manage_image', json_encode($manage_image));
 		
 			die(json_encode(array('success' => true,
 									'image_data' => $this->image_upload->image_data)));
@@ -1375,13 +1370,6 @@ class Managers extends MY_Controller {
 				break;
 			case 'stats_retrieve':
 				
-				
-				$this->load->helper('check_gearman_job_complete');
-				check_gearman_job_complete('admin_manager_piwik_stats');
-				
-				
-				/*
-				
 				if(!$admin_manager_piwik_stats = $this->session->userdata('admin_manager_piwik_stats'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1398,11 +1386,6 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
-				
-				*/
-				
-				
-				
 				
 				break;
 			default:
@@ -1438,12 +1421,6 @@ class Managers extends MY_Controller {
 				break;
 			case 'guest_lists_retrieve':
 				
-				$this->load->helper('check_gearman_job_complete');
-				check_gearman_job_complete('admin_manager_guest_list');
-				
-				
-				/*
-				
 				if(!$admin_manager_guest_list = $this->session->userdata('admin_manager_guest_list'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1460,10 +1437,6 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
-				
-				*/
-				
-				
 				
 				break;
 			case 'team_guest_list_request_accept_deny':
@@ -1490,11 +1463,6 @@ class Managers extends MY_Controller {
 				if($this->input->post('status_check')){
 					//check to see if job complete
 					
-					
-					$this->load->helper('check_gearman_job_complete');
-					check_gearman_job_complete('gearman_manager_manual_add');
-					
-					/*
 					if(!$gearman_manager_manual_add = $this->session->userdata('gearman_manager_manual_add'))
 						die(json_encode(array('success' => false,
 												'message' => 'No request found')));	
@@ -1511,22 +1479,10 @@ class Managers extends MY_Controller {
 					}else{
 						die(json_encode(array('success' => false)));
 					}
-					*/
-					
-					
 					
 				}else{
-					//create new job					
+					//create new job
 					
-					$vc_user = json_decode($this->session->userdata('vc_user'));
-					$this->load->helper('run_gearman_job');
-					run_gearman_job('gearman_manager_manual_add', array('user_oauth_uid' 	=> $vc_user->oauth_uid,
-																		'fan_page_id'		=> $vc_user->manager->team_fan_page_id,
-																		'access_token' 		=> $vc_user->access_token,
-																		'tgla_id'			=> $tgla_id,
-																		'oauth_uids' 		=> json_encode($oauth_uids)));
-					
-					/*
 					if($vc_user = $this->session->userdata('vc_user')){
 						
 						//head user uid is required
@@ -1576,7 +1532,7 @@ class Managers extends MY_Controller {
 						
 						die(json_encode(array('success' => false, 'message' => 'User not authenticated.')));
 						
-					} */
+					}
 				}
 				
 				break;
@@ -1605,11 +1561,6 @@ class Managers extends MY_Controller {
 		switch($vc_method){
 			case 'stats_retrieve':
 				
-				
-				$this->load->helper('check_gearman_job_complete');
-				check_gearman_job_complete('gearman_admin_manager_promoter_piwik_stats');
-				
-				/*
 				if(!$gearman_admin_manager_promoter_piwik_stats = $this->session->userdata('gearman_admin_manager_promoter_piwik_stats'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1626,9 +1577,6 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
-				*/
-				
-				
 				
 				break;
 			default:
@@ -1768,11 +1716,6 @@ class Managers extends MY_Controller {
 		switch($vc_method){
 			case 'client_list_retrieve':
 				
-				
-				$this->load->helper('check_gearman_job_complete');
-				check_gearman_job_complete('admin_manager_client_list');
-				
-				/*
 				if(!$admin_manager_client_list = $this->session->userdata('admin_manager_client_list'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -1789,9 +1732,6 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
-				*/
-				
-				
 				
 				break;
 			default:
@@ -2225,9 +2165,8 @@ class Managers extends MY_Controller {
 		$vc_method = $this->input->post('vc_method');
 		
 		//check flashdata to make sure there is a flashdata object either from creating a new event or editing an existing one (this might get a little tricky)
-		if(!$manage_image = $this->session->userdata('manage_image')){
+		if(!$manage_image = $this->session->flashdata('manage_image'))
 			die(json_encode(array('success' => false)));
-		}
 		
 		$this->session->keep_flashdata('manage_image');
 		$manage_image = json_decode($manage_image);
@@ -2240,12 +2179,12 @@ class Managers extends MY_Controller {
 						
 		switch($vc_method){
 			case 'crop_action':
-								
+				
 				if($this->image_upload->image_crop($manage_image->image_data, $manage_image->type, $manage_image->live_image)){
 					
 					//add uploaded image data to session
 					$manage_image->image_data = $this->image_upload->image_data;
-					$this->session->set_userdata('manage_image', json_encode($manage_image));
+					$this->session->set_flashdata('manage_image', json_encode($manage_image));
 					
 					die(json_encode(array('success' => true,
 							'image_data' => $this->image_upload->image_data)));
