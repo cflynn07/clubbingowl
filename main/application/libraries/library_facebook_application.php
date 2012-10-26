@@ -106,7 +106,7 @@ class Library_facebook_application{
 			if(!$this->CI->input->is_ajax_request()){
 				//improper post request
 				//echo 'improper request, no signed data.';
-				echo '<script type="text/javascript">window.top.location = https://www.' . SITE . '.' . TLD . '</script>';
+				echo '<script type="text/javascript">window.top.location = "https://www.' . SITE . '.' . TLD . '";</script>';
 				die();
 			}
 			
