@@ -37,7 +37,6 @@ function check_gearman_job_complete($job_name){
 										
 		}
 		
-		header('strlen: ' . strlen($job_result));
 		die($job_result); //<-- already json in memcache	
 		
 	}else{
