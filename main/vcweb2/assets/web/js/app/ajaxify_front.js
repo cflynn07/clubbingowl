@@ -114,8 +114,8 @@
 					}else if(type.type == 3){
 						jQuery('html, body').scrollTop(0);
 						jQuery('html, body').animate({
-						    scrollTop: (jQuery('.ajaxify_t2:first').offset().top - 10)
-						}, 500);
+						    scrollTop: (jQuery('.ajaxify_t2:first').offset().top - jQuery('.ajaxify_t2:first').parent().height() - 10)
+						}, 750);
 						
 					}
 					
