@@ -223,7 +223,7 @@ jQuery(function(){
 	       			var cdn_num = (item.gl_id % 10);
 					var mod_base_path = image_base_path.replace('{-#-}', cdn_num);
 									
-					var list_html = "<a href='" + window.module.Globals.prototype.front_link_base +  "promoters/" + item.c_url_identifier + "/" + item.up_public_identifier + "/guest_lists/" + item.gl_name.replace(/ /g, '_') + "' >" + "<img src='" + mod_base_path + 'guest_lists/' + item.gl_image + "_t.jpg' style='vertical-align:text-top; float:left; margin-right:4px;'/><div><span>" + item.gl_name + "</span><br />";
+					var list_html = "<a class=\"ajaxify_t3\" href='" + window.module.Globals.prototype.front_link_base +  "promoters/" + item.c_url_identifier + "/" + item.up_public_identifier + "/guest_lists/" + item.gl_name.replace(/ /g, '_') + "' >" + "<img src='" + mod_base_path + 'guest_lists/' + item.gl_image + "_t.jpg' style='vertical-align:text-top; float:left; margin-right:4px;'/><div><span>" + item.gl_name + "</span><br />";
 				
 					list_html += "<span class='subtext'>@ " + item.tv_name + "</span><br>";
 					list_html += "<span class='subtext'>" + item.c_name + ', ' + item.c_state + "</span><br>";
@@ -243,7 +243,7 @@ jQuery(function(){
 	       			var cdn_num = (item.gl_id % 10);
 					var mod_base_path = image_base_path.replace('{-#-}', cdn_num);
 									
-					var list_html = "<a href='" + window.module.Globals.prototype.front_link_base +  "venues/" + item.c_url_identifier + "/" + item.tv_name.replace(/ /g, '_') + "/guest_lists/" + item.gl_name.replace(/ /g, '_') + "' >" + "<img src='" + mod_base_path + 'guest_lists/' + item.gl_image + "_t.jpg' style='vertical-align:text-top; float:left; margin-right:4px;'/><div><span>" + item.gl_name + "</span><br />";
+					var list_html = "<a class=\"ajaxify_t3\" href='" + window.module.Globals.prototype.front_link_base +  "venues/" + item.c_url_identifier + "/" + item.tv_name.replace(/ /g, '_') + "/guest_lists/" + item.gl_name.replace(/ /g, '_') + "' >" + "<img src='" + mod_base_path + 'guest_lists/' + item.gl_image + "_t.jpg' style='vertical-align:text-top; float:left; margin-right:4px;'/><div><span>" + item.gl_name + "</span><br />";
 				
 					list_html += "<span class='subtext'>@ " + item.tv_name + "</span><br>";
 					list_html += "<span class='subtext'>" + item.c_name + ', ' + item.c_state + "</span><br>";
