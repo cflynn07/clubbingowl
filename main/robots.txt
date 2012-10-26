@@ -4,4 +4,4 @@ Disallow: /requests/
 Disallow: /ajax/
 Disallow: /worker/
 Disallow: /assets/
-Sitemap: http://www.vibecompass.com/sitemap.xml
+Sitemap: https://www.clubbingowl.com/sitemap.xml
