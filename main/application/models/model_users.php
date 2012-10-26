@@ -40,7 +40,9 @@ class Model_users extends CI_Model {
 						'join_time' 					=> time());
 		
 		$this->db->insert('users', $data);
-				
+		if(php_sapi_name() == 'cli')
+			var_dump($data);
+		
 		return true;
 	}
 
