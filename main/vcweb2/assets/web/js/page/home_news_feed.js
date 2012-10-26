@@ -100,6 +100,10 @@ jQuery(function(){
 						},
 						success: function(data){
 							
+							if(data.trigger_refresh){
+								window.location.reload();
+								return;
+							}
 							
 							if(data.success){
 															
@@ -111,6 +115,8 @@ jQuery(function(){
 								//otherwise it stays locked
 								
 							}else{
+								
+								
 								
 								incrementor++;
 								var timeout = setTimeout(retrieve_function, 1000);

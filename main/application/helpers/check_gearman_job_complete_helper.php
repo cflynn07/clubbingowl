@@ -34,7 +34,11 @@ function check_gearman_job_complete($job_name){
 				));
 				$CI->session->unset_userdata('vc_user');
 			}
-										
+			
+			$job_result = json_decode($job_result);
+			$job_result->trigger_refresh = true;
+			$job_result = json_encode($job_result);
+									
 		}
 		
 		die($job_result); //<-- already json in memcache	

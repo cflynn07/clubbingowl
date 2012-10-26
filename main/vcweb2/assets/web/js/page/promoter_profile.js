@@ -48,6 +48,11 @@ jQuery(function(){
 						dataType: 'json',
 						success: function(data, textStatus, jqXHR){
 							
+							if(data.trigger_refresh){
+								window.location.reload();
+								return;
+							}
+							
 							promoter_items.retrieve_lock = false;
 						
 							if(data.success){

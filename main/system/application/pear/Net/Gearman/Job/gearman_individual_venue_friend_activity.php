@@ -21,8 +21,8 @@ class Net_Gearman_Job_gearman_individual_venue_friend_activity extends Net_Gearm
 		
 		//first get list of user's friends that are vc users
 		$CI->load->helper('retrieve_vc_user_friends');
-		$result = retrieve_vc_user_friends($user_oauth_uid, $access_token);
-
+		$result = retrieve_vc_user_friends($user_oauth_uid, $access_token);		
+		
 		if(isset($result['error_code'])){
 			var_dump($result);
 			echo 'sending error code' . PHP_EOL;
