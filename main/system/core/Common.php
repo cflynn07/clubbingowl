@@ -155,7 +155,7 @@
 		// Did we find the class?
 		if ($name === FALSE)
 		{
-			// Note: We use exit() rather then show_404() in order to avoid a
+			// Note: We use exit() rather then show_error() in order to avoid a
 			// self-referencing loop with the Excptions class
 			exit('Unable to locate the specified class: '.$class.EXT);
 		}
@@ -283,10 +283,10 @@
 * @access	public
 * @return	void
 */
-	function show_404($message, $status_code = 500, $heading = 'An Error Was Encountered')
+	function show_error($message, $status_code = 500, $heading = 'An Error Was Encountered')
 	{
 		$_error =& load_class('Exceptions', 'core');
-		echo $_error->show_404($heading, $message, 'error_general', $status_code);
+		echo $_error->show_error($heading, $message, 'error_general', $status_code);
 		exit;
 	}
 
@@ -295,7 +295,7 @@
 /**
 * 404 Page Handler
 *
-* This function is similar to the show_404() function above
+* This function is similar to the show_error() function above
 * However, instead of the standard error template it displays
 * 404 errors.
 *
@@ -389,7 +389,7 @@
 
 		if ($code == '' OR ! is_numeric($code))
 		{
-			show_404('Status codes must be numeric', 500);
+			show_error('Status codes must be numeric', 500);
 		}
 
 		if (isset($stati[$code]) AND $text == '')
@@ -399,7 +399,7 @@
 
 		if ($text == '')
 		{
-			show_404('No status text available.  Please check your status code number or supply your own message text.', 500);
+			show_error('No status text available.  Please check your status code number or supply your own message text.', 500);
 		}
 
 		$server_protocol = (isset($_SERVER['SERVER_PROTOCOL'])) ? $_SERVER['SERVER_PROTOCOL'] : FALSE;

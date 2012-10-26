@@ -34,7 +34,7 @@ class library_venues{
 		if(!$venue = $this->CI->app_data->retrieve_venue($city, $venue_name)){
 			
 			//venue doesn't exist
-			show_404('Venue does not exist', 404);
+			show_error('Venue does not exist', 404);
 			die();
 			
 		}
@@ -60,7 +60,7 @@ class library_venues{
 			var_dump($this->CI->db->last_query()); die();
 			
 			//venue doesn't exist
-			show_404('Venue does not exist', 404);
+			show_error('Venue does not exist', 404);
 			die();
 			
 		}

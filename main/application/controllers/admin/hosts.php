@@ -147,7 +147,7 @@ class Hosts extends MY_Controller {
 			switch($arg0){
 				
 				default:
-					show_404('invalid url', 404);
+					show_error('invalid url', 404);
 					break;
 					
 			}
@@ -167,7 +167,7 @@ class Hosts extends MY_Controller {
 			switch($arg0){
 				
 				default:
-					show_404('invalid url', 404);
+					show_error('invalid url', 404);
 					break;
 					
 			}
@@ -178,7 +178,7 @@ class Hosts extends MY_Controller {
 		 * 
 		 * */
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != ''){
-			show_404('Invalid url', 404); //<-- there are no sections of the admin panel with 3 url segments
+			show_error('Invalid url', 404); //<-- there are no sections of the admin panel with 3 url segments
 		}
 		# ----------------------------------------------------------------------------------- #
 		#	END CONTROLLER METHOD ROUTING													  #

@@ -453,7 +453,7 @@ class Primary extends MY_Controller {
 				$data['guest_list'] = $this->team_guest_lists->retrieve_individual_guest_list_for_plugin($tgla_id);
 				
 				if(!$data['guest_list']){
-					show_404('Guest List Not Found', 404);
+					show_404('Guest List Not Found');
 				}
 				
 				

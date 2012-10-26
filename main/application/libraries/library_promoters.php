@@ -41,7 +41,7 @@ class library_promoters{
 			
 			if(!$admin_panel){
 				//promoter doesn't exist
-				show_404('Promoter does not exist', 404);
+				show_error('Promoter does not exist', 404);
 				die();
 			}
 			
@@ -405,7 +405,7 @@ class library_promoters{
 			case 'sundays':
 				break;
 			default:
-				show_404('Invalid url', 404);
+				show_error('Invalid url', 404);
 				break;
 		}
 		
@@ -439,7 +439,7 @@ class library_promoters{
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		if(!$guest_list = $this->CI->users_promoters->retrieve_promoter_guest_list($this->promoter->up_id, 
 																					$guest_list_name)){
-			show_404('404'); //this guest list doesn't exist for this promoter
+			show_error('404'); //this guest list doesn't exist for this promoter
 		}
 		
 		return $guest_list;

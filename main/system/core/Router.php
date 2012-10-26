@@ -143,7 +143,7 @@ class CI_Router {
 	{
 		if ($this->default_controller === FALSE)
 		{
-			show_404("Unable to determine what should be displayed. A default route has not been specified in the routing file.");
+			show_error("Unable to determine what should be displayed. A default route has not been specified in the routing file.");
 		}
 		// Is the method being specified?
 		if (strpos($this->default_controller, '/') !== FALSE)

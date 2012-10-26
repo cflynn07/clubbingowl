@@ -216,7 +216,7 @@ class Venues extends MY_Controller {
 		* Limiter check
 		*/
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != '' && $arg3 != '' && $arg4 != ''){
-			show_404('Invalid url', 404);
+			show_404('Invalid url');
 		}
 		# ----------------------------------------------------------------------------------- #
 		#	END CONTROLLER METHOD ROUTING													  #
@@ -518,7 +518,7 @@ class Venues extends MY_Controller {
 			$data['guest_list'] = $this->library_venues->retrieve_individual_guest_list($arg3);
 			
 			if(!$data['guest_list']){
-				show_404('Guest List Not Found', 404);
+				show_404('Guest List Not Found');
 			}
 			
 			

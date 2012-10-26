@@ -109,7 +109,7 @@ class CI_DB_forge {
 
 		if ($key == '')
 		{
-			show_404('Key information is required for that operation.');
+			show_error('Key information is required for that operation.');
 		}
 
 		if ($primary === TRUE)
@@ -135,7 +135,7 @@ class CI_DB_forge {
 	{
 		if ($field == '')
 		{
-			show_404('Field information is required.');
+			show_error('Field information is required.');
 		}
 
 		if (is_string($field))
@@ -155,7 +155,7 @@ class CI_DB_forge {
 			{
 				if (strpos($field, ' ') === FALSE)
 				{
-					show_404('Field information is required for that operation.');
+					show_error('Field information is required for that operation.');
 				}
 
 				$this->fields[] = $field;
@@ -182,12 +182,12 @@ class CI_DB_forge {
 	{
 		if ($table == '')
 		{
-			show_404('A table name is required for that operation.');
+			show_error('A table name is required for that operation.');
 		}
 
 		if (count($this->fields) == 0)
 		{
-			show_404('Field information is required.');
+			show_error('Field information is required.');
 		}
 
 		$sql = $this->_create_table($this->db->dbprefix.$table, $this->fields, $this->primary_keys, $this->keys, $if_not_exists);
@@ -231,7 +231,7 @@ class CI_DB_forge {
 	{
 		if ($table_name == '' OR $new_table_name == '')
 		{
-			show_404('A table name is required for that operation.');
+			show_error('A table name is required for that operation.');
 		}
 
 		$sql = $this->_rename_table($table_name, $new_table_name);
@@ -253,7 +253,7 @@ class CI_DB_forge {
 	{
 		if ($table == '')
 		{
-			show_404('A table name is required for that operation.');
+			show_error('A table name is required for that operation.');
 		}
 
 		// add field info into field array, but we can only do one at a time
@@ -265,7 +265,7 @@ class CI_DB_forge {
 
 			if (count($this->fields) == 0)
 			{
-				show_404('Field information is required.');
+				show_error('Field information is required.');
 			}
 
 			$sql = $this->_alter_table('ADD', $this->db->dbprefix.$table, $this->fields, $after_field);
@@ -297,12 +297,12 @@ class CI_DB_forge {
 
 		if ($table == '')
 		{
-			show_404('A table name is required for that operation.');
+			show_error('A table name is required for that operation.');
 		}
 
 		if ($column_name == '')
 		{
-			show_404('A column name is required for that operation.');
+			show_error('A column name is required for that operation.');
 		}
 
 		$sql = $this->_alter_table('DROP', $this->db->dbprefix.$table, $column_name);
@@ -325,7 +325,7 @@ class CI_DB_forge {
 	{
 		if ($table == '')
 		{
-			show_404('A table name is required for that operation.');
+			show_error('A table name is required for that operation.');
 		}
 
 		// add field info into field array, but we can only do one at a time
@@ -343,7 +343,7 @@ class CI_DB_forge {
 
 			if (count($this->fields) == 0)
 			{
-				show_404('Field information is required.');
+				show_error('Field information is required.');
 			}
 
 			$sql = $this->_alter_table('CHANGE', $this->db->dbprefix.$table, $this->fields);

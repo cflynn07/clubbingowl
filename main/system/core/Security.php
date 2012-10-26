@@ -86,13 +86,13 @@ class CI_Security {
 		if ( ! isset($_POST[$this->_csrf_token_name]) OR 
 			 ! isset($_COOKIE[$this->_csrf_cookie_name]))
 		{
-			$this->csrf_show_404();
+			$this->csrf_show_error();
 		}
 
 		// Do the tokens match?
 		if ($_POST[$this->_csrf_token_name] != $_COOKIE[$this->_csrf_cookie_name])
 		{
-			$this->csrf_show_404();
+			$this->csrf_show_error();
 		}
 
 		// We kill this since we're done and we don't want to 
@@ -168,9 +168,9 @@ class CI_Security {
 	 *
 	 * @return	void
 	 */
-	public function csrf_show_404()
+	public function csrf_show_error()
 	{
-		show_404('The action you have requested is not allowed.');
+		show_error('The action you have requested is not allowed.');
 	}
 
 	// --------------------------------------------------------------------

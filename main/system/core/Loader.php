@@ -154,7 +154,7 @@ class CI_Loader {
 		$CI =& get_instance();
 		if (isset($CI->$name))
 		{
-			show_404('The model name you are loading is the name of a resource that is already being used: '.$name);
+			show_error('The model name you are loading is the name of a resource that is already being used: '.$name);
 		}
 
 		$model = strtolower($model);
@@ -192,7 +192,7 @@ class CI_Loader {
 		}
 
 		// couldn't find the model
-		show_404('Unable to locate the model you have specified: '.$model);
+		show_error('Unable to locate the model you have specified: '.$model);
 	}
 
 	// --------------------------------------------------------------------
@@ -384,7 +384,7 @@ class CI_Loader {
 
 				if ( ! file_exists($base_helper))
 				{
-					show_404('Unable to load the requested file: helpers/'.$helper.EXT);
+					show_error('Unable to load the requested file: helpers/'.$helper.EXT);
 				}
 
 				include_once($ext_helper);
@@ -411,7 +411,7 @@ class CI_Loader {
 			// unable to load the helper
 			if ( ! isset($this->_ci_helpers[$helper]))
 			{
-				show_404('Unable to load the requested file: helpers/'.$helper.EXT);
+				show_error('Unable to load the requested file: helpers/'.$helper.EXT);
 			}
 		}
 	}
@@ -627,7 +627,7 @@ class CI_Loader {
 
 		if ( ! file_exists($_ci_path))
 		{
-			show_404('Unable to load the requested file: '.$_ci_file);
+			show_error('Unable to load the requested file: '.$_ci_file);
 		}
 
 		// This allows anything loaded using $this->load (views, files, etc.)
@@ -759,7 +759,7 @@ class CI_Loader {
 				if ( ! file_exists($baseclass))
 				{
 					log_message('error', "Unable to load the requested class: ".$class);
-					show_404("Unable to load the requested class: ".$class);
+					show_error("Unable to load the requested class: ".$class);
 				}
 
 				// Safety:  Was the class already loaded by a previous call?
@@ -840,7 +840,7 @@ class CI_Loader {
 		if ($is_duplicate == FALSE)
 		{
 			log_message('error', "Unable to load the requested class: ".$class);
-			show_404("Unable to load the requested class: ".$class);
+			show_error("Unable to load the requested class: ".$class);
 		}
 	}
 
@@ -920,7 +920,7 @@ class CI_Loader {
 		if ( ! class_exists($name))
 		{
 			log_message('error', "Non-existent class: ".$name);
-			show_404("Non-existent class: ".$class);
+			show_error("Non-existent class: ".$class);
 		}
 
 		// Set the variable name we will assign the class to

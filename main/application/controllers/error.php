@@ -18,7 +18,7 @@ class Error extends MY_Controller {
 	 */
 	function index(){
 		
-		show_404('ERROR->INDEX', 404);
+		show_error('ERROR->INDEX');
 		
 	}
 }

@@ -77,7 +77,7 @@ class CI_Driver_Library {
 				if ( ! class_exists($child_class))
 				{
 					log_message('error', "Unable to load the requested driver: ".$child_class);
-					show_404("Unable to load the requested driver: ".$child_class);
+					show_error("Unable to load the requested driver: ".$child_class);
 				}
 			}
 
@@ -89,7 +89,7 @@ class CI_Driver_Library {
 
 		// The requested driver isn't valid!
 		log_message('error', "Invalid driver requested: ".$child_class);
-		show_404("Invalid driver requested: ".$child_class);
+		show_error("Invalid driver requested: ".$child_class);
 	}
 
 	// --------------------------------------------------------------------

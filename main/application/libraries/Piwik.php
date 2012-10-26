@@ -287,7 +287,7 @@ class Piwik
         }
         else
         {
-            show_404('You must enable GeoIP in the piwik config file to use get_geoip.');
+            show_error('You must enable GeoIP in the piwik config file to use get_geoip.');
         }
     }
     

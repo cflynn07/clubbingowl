@@ -120,7 +120,7 @@ class CI_Config {
 				{
 					return FALSE;
 				}
-				show_404('Your '.$file_path.' file does not appear to contain a valid configuration array.');
+				show_error('Your '.$file_path.' file does not appear to contain a valid configuration array.');
 			}
 
 			if ($use_sections === TRUE)
@@ -152,7 +152,7 @@ class CI_Config {
 			{
 				return FALSE;
 			}
-			show_404('The configuration file '.$file.EXT.' does not exist.');
+			show_error('The configuration file '.$file.EXT.' does not exist.');
 		}
 
 		return TRUE;

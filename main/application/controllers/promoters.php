@@ -252,7 +252,7 @@ class Promoters extends MY_Controller {
 		* Limiter check
 		*/
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != '' && $arg3 != '' && $arg4 != ''){
-			show_404('Invalid url', 404);
+			show_404('Invalid url');
 		}
 		# ----------------------------------------------------------------------------------- #
 		#	END CONTROLLER METHOD ROUTING													  #
