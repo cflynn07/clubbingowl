@@ -351,7 +351,7 @@ class Friends extends MY_Controller {
 			}else{
 				//user is not in vibecompass
 				
-				show_error('User not found');
+				show_404('User not found');
 				die();
 				
 			//	header("HTTP/1.0 404 Not Found");
