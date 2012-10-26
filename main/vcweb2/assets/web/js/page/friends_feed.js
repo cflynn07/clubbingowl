@@ -32,6 +32,11 @@ jQuery(function(){
 		    
 		    return false;
 		});
+		unload_items.push(function(){
+			
+			jQuery('article#friends_list a.invite').die();			
+			
+		});
 		
 		
 		
