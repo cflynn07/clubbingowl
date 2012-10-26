@@ -103,11 +103,21 @@
 						display: 'none'
 					});
 					
-					if(type.type == 1)
+					if(type.type == 1){
 						if(jQuery(window).scrollTop() > 0)			
 							jQuery('html, body').animate({
 							    scrollTop: 0
 							}, 500);
+					}else if(type.type == 2){
+						//do nothing
+						
+					}else if(type.type == 3){
+						jQuery('html, body').scrollTop(0);
+						jQuery('html, body').animate({
+						    scrollTop: (jQuery('.ajaxify_t2:first').offset().top - 10)
+						}, 500);
+						
+					}
 					
 				},
 				error: function(jqXHR, textStatus, errorThrown){
@@ -136,6 +146,8 @@
 				var type = 1;
 				if(jQuery(this).hasClass('ajaxify_t2')){
 					type = 2;
+				}else if(jQuery(this).hasClass('ajaxify_t3')){
+					type = 3;
 				}
 				
 				var type_o = {
