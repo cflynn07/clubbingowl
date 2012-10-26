@@ -10,6 +10,7 @@ jQuery(function(){
 		var timeout_cancels 		= [];
 		var custom_events_unbind	= [];
 		var facebook_callbacks 		= [];
+		var unload_callbacks    	= [];
 		
 		
 		if(typeof window.all_vc_friends === 'undefined')
@@ -32,7 +33,7 @@ jQuery(function(){
 		    
 		    return false;
 		});
-		unload_items.push(function(){
+		unload_callbacks.push(function(){
 			
 			jQuery('article#friends_list a.invite').die();			
 			
@@ -329,6 +330,11 @@ jQuery(function(){
 			console.log(unload_items);
 			console.log(timeout_cancels);
 			console.log(custom_events_unbind);
+			
+			for(var i in unload_callbacks){
+				var f = unload_callbacks[i];
+				f();
+			}
 			
 			for(var i in unload_items){
 				unload_items[i][1].unbind(unload_items[i][0], unload_items[i][2]);
