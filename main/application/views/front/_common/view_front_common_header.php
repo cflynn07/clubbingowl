@@ -27,7 +27,7 @@
 
 
 <link rel="shortcut icon" href="<?= $central->front_assets ?>images/FavIconClubbingOwl16x16.png"/>
-<link rel="canonical" href="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.vibecompass.com/' ?>" />
+<link rel="canonical" href="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.' . SITE . '.' . TLD .  '/' ?>" />
 
 
 <?php if(MODE == 'local'): ?>
