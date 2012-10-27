@@ -17,9 +17,9 @@
 
 <meta property="og:type" 			content="website"/>
 <meta property="og:title" 			content="<?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : '' ?><?= $central->title ?>"/>
-<meta property="og:url" 			content="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.vibecompass.com/' ?>"/>
+<meta property="og:url" 			content="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.' . SITE . '.' . TLD . '/' ?>"/>
 <meta property="og:image" 			content="<?= (isset($header_custom->page_image)) ? $header_custom->page_image : ($central->front_assets . 'images/main_link_image.png') ?>"/>
-<meta property="og:site_name" 		content="VibeCompass"/>
+<meta property="og:site_name" 		content="ClubbingOwl"/>
 <meta property="fb:app_id" 			content="<?= $central->facebook_app_id ?>"/>
 <meta property="og:description"		content="<?= (isset($header_custom->page_description)) ? $header_custom->page_description : $this->lang->line('ad-description') ?>"/>
 <link rel="apple-touch-icon-precomposed" href="<?= $central->front_assets ?>images/square_icon.png" />

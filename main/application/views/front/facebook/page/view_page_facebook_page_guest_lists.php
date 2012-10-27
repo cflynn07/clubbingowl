@@ -13,7 +13,7 @@
 		<div style="width:100%; padding-right:20px;" class="center">
 			
 			<div class="unauth_content" style="display:<?= (($this->session->userdata('vc_user')) ? 'none' : 'block' ) ?>;float:left; max-width:500px;">
-				<p style="margin-left:10px;font-size:12px">Log in to <a target="_new" style="margin-left:0px;" href="http://www.vibecompass.com/">ClubbingOwl</a> with Facebook</p>
+				<p style="margin-left:10px;font-size:12px">Log in to <a target="_new" style="margin-left:0px;" href="http://www.clubbingowl.com/">ClubbingOwl</a> with Facebook</p>
 			</div>
 			
 			<ul></ul>
