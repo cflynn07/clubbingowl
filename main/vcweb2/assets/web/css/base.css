@@ -845,7 +845,11 @@ div[role=main] {
 }
 @media screen and (max-width: 991px){
 
-	#footer .quarter,.half{
+	#footer .half{
+		display: block;
+		width: 100%;
+	}
+	#footer .quarter{
 		display: block;
 		width: 100%;
 	}

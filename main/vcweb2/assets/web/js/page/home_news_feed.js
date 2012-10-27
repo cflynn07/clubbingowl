@@ -100,6 +100,10 @@ jQuery(function(){
 						},
 						success: function(data){
 							
+							if(data.trigger_refresh){
+								window.location.reload();
+								return;
+							}
 							
 							if(data.success){
 															
@@ -111,6 +115,8 @@ jQuery(function(){
 								//otherwise it stays locked
 								
 							}else{
+								
+								
 								
 								incrementor++;
 								var timeout = setTimeout(retrieve_function, 1000);
@@ -273,7 +279,12 @@ jQuery(function(){
 							//	element: jQuery('div#ejs_home_templates > div#join_promoter_guest_list').get(0)
 								text: ejs_view_templates.primary_join_promoter_gl
 							}).render(news_item);
-															
+							news_html = jQuery(news_html);
+							
+							console.log(news_html);
+							
+							news_html.find('a').addClass('ajaxify_t3');
+														
 							break;
 						case 'join_team_guest_list':
 						
@@ -282,7 +293,8 @@ jQuery(function(){
 							//	element: jQuery('div#ejs_home_templates > div#join_team_guest_list').get(0)
 								text: ejs_view_templates.primary_join_team_gl
 							}).render(news_item);
-						
+							news_html = jQuery(news_html);
+							news_html.find('a').addClass('ajaxify_t3');
 						
 							break;
 						case 'join_vibecompass':
@@ -325,6 +337,8 @@ jQuery(function(){
 				//		element: jQuery('div#ejs_home_templates > div#pop_guestlist').get(0)
 						text: ejs_view_templates.primary_pop_guestlist
 					}).render(data[i]);
+					html = jQuery(html);
+					html.find('a').addClass('ajaxify_t3');
 					
 					div.find('#trending_gl > ul').append(html);
 					

@@ -34,7 +34,8 @@
 		<?php foreach($venues as $venue): ?>
 		  <li>
 			
-			<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
+			<a class="ajaxify_t3" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
+
 			<?php if($venue->tv_image): ?>
 		  	<img src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
 		  	<?php else: ?>
@@ -42,7 +43,8 @@
 		  	<?php endif; ?>
 		  	</a><br/>
 				  	
-			<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/"><?= $venue->tv_name ?></a>
+			<a class="ajaxify_t3" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/"><?= $venue->tv_name ?></a>
+
 		    
 		    <p class="friends_holder">
 		    	
@@ -82,7 +84,8 @@
 				
 				 <li>
 				 	
-				 	<a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
+				 	<a class="ajaxify_t3" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
+
 				 	<?php if($venue->tv_image): ?>
 				  	<img src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
 				  	<?php else: ?>
@@ -90,7 +93,7 @@
 				  	<?php endif; ?>
 				  	</a><br/>
 				  	
-				    <a href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/"><?= $venue->tv_name ?></a>
+				    <a class="ajaxify_t3" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/"><?= $venue->tv_name ?></a>
 				    
 				   	<p class="friends_holder">
 				   		

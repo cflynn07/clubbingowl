@@ -198,7 +198,7 @@ class Promoters extends MY_Controller {
 					
 					break;
 				default:
-					show_error('invalid url');
+					show_404('invalid url');
 					break;
 			}
 			
@@ -243,7 +243,7 @@ class Promoters extends MY_Controller {
 					
 					break;
 				default:
-					show_error('invalid url');
+					show_404('invalid url');
 					break;
 			}
 			
@@ -252,7 +252,7 @@ class Promoters extends MY_Controller {
 		* Limiter check
 		*/
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != '' && $arg3 != '' && $arg4 != ''){
-			show_error('Invalid url', 404);
+			show_404('Invalid url');
 		}
 		# ----------------------------------------------------------------------------------- #
 		#	END CONTROLLER METHOD ROUTING													  #
@@ -324,7 +324,7 @@ class Promoters extends MY_Controller {
 			
 			$this->load->model('model_app_data', 'app_data', true);
 			if(!$city = $this->app_data->retrieve_valid_city($arg0)){
-				show_error('unknown city'); //prob better just a reg 404
+				show_404('unknown city'); //prob better just a reg 404
 				die();
 			}
 		
@@ -467,7 +467,7 @@ class Promoters extends MY_Controller {
 			$data['all_guest_lists'] = $this->library_promoters->retrieve_all_guest_lists();
 			$this->body_html .= $this->load->view($this->view_dir . 'guest_lists/view_front_promoters_profile_body_guest_lists', $data, true);				
 			
-			Kint::dump($data);
+			//Kint::dump($data);
 			
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/';

@@ -54,7 +54,7 @@ article.home{
 			<div class="avatar">
 				<a class="link_[%=from.id%]" href="<?= $central->front_link_base ?>friends/">
 					<div class="pic_square_[%=from.id%]">
-						<img src="placehold.it/50" alt="[%from.name%]">
+						<img src="http://placehold.it/50" alt="[%from.name%]">
 					</div>
 				</a>
 			</div>
@@ -77,7 +77,7 @@ article.home{
 			<div class="avatar">
 				<a class="link_[%=from.id%]" href="<?= $central->front_link_base ?>friends/">
 					<div class="pic_square_[%=from.id%]">
-						<img src="placehold.it/50" alt="[%from.name%]">
+						<img src="http://placehold.it/50" alt="[%from.name%]">
 					</div>
 				</a>
 			</div>
@@ -98,7 +98,7 @@ article.home{
 			<div class="avatar">
 				<a class="link_[%=from.id%]" href="<?= $central->front_link_base ?>friends/">
 					<div class="pic_square_[%=from.id%]">
-						<img src="placehold.it/50" alt="[%from.name%]">
+						<img src="http://placehold.it/50" alt="[%from.name%]">
 					</div>
 				</a>
 			</div>

@@ -86,6 +86,7 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 			$CI->users->create_user($fb_user_info, $extend_response_arr['access_token'], $extend_response_arr['expires']);
 			
 			var_dump($CI->db->last_query());
+			echo $CI->db->last_query();
 			
 			//add event to user_notifications table
 			echo 'New user notification created: ' . $fb_user_info['name'] . PHP_EOL;
