@@ -75,7 +75,7 @@
 		<?php if($vc_city->venues): ?>
 			
 			<h1>
-				<a href="<?= $central->front_link_base ?>venues/<?= $vc_city->url_identifier ?>/guest_lists/"><?= $vc_city->name . ', ' . $vc_city->state ?></a>
+				<a href="<?= $central->front_link_base ?>venues/<?= $vc_city->url_identifier ?>/"><?= $vc_city->name . ', ' . $vc_city->state ?></a>
 			</h1>
 			
 			<ul class="venue-list" style="margin-top:20px;">

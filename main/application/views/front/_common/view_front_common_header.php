@@ -17,7 +17,7 @@
 
 <meta property="og:type" 			content="website"/>
 <meta property="og:title" 			content="<?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : '' ?><?= $central->title ?>"/>
-<meta property="og:url" 			content="<?= (isset($header_custom->url)) ? $header_custom->url : 'http://' . $this->config->item('active_subdomain') . '.' . SITE . '.' . TLD . '/' ?>"/>
+<meta property="og:url" 			content="<?= (isset($header_custom->url)) ? $header_custom->url : 'https://' . $this->config->item('active_subdomain') . '.' . SITE . '.' . TLD . '/' ?>"/>
 <meta property="og:image" 			content="<?= (isset($header_custom->page_image)) ? $header_custom->page_image : ($central->front_assets . 'images/main_link_image.png') ?>"/>
 <meta property="og:site_name" 		content="ClubbingOwl"/>
 <meta property="fb:app_id" 			content="<?= $central->facebook_app_id ?>"/>
