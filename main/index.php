@@ -84,17 +84,17 @@ if(MODE == 'staging'){
 //force https globally
 if(php_sapi_name() !== 'cli'){
 	if(strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0 && strpos($_SERVER['REQUEST_URI'], '/plugin') !== 0){
-	if(strtolower($_SERVER['HTTPS']) != 'on'){
-		$base_url = 'https';
-	    $base_url .= '://'. $_SERVER['HTTP_HOST'];
-	// 	$base_url .= '/';
-		
-		header('HTTP/1.1 301 Moved Permanently');
-		header('Location: ' . $base_url . (($_SERVER['REQUEST_URI'] == '/') ? '' : $_SERVER['REQUEST_URI']));
-		die();
+		if(strtolower($_SERVER['HTTPS']) != 'on'){
+			$base_url = 'https';
+		    $base_url .= '://'. $_SERVER['HTTP_HOST'];
+		// 	$base_url .= '/';
+			
+			header('HTTP/1.1 301 Moved Permanently');
+			header('Location: ' . $base_url . (($_SERVER['REQUEST_URI'] == '/') ? '' : $_SERVER['REQUEST_URI']));
+			die();
+		}
 	}
-}
-		
+}	
 
 
 
