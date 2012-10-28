@@ -20,33 +20,34 @@ class MY_Exceptions extends CI_Exceptions{
 		
 	//	die('<script type="text/javascript">window.vc_page_error=true;</script>');
 		
-		$CI =& get_instance();
-		
-		$output = '';
-		$script = '<script>window.vc_page_error=true;</script>';
-		if($CI->input->post('ajaxify')){
-			//ajaxify request, don't reload header/footer
+		$CI = @get_instance();
+		if($CI !== false){	
 			
-			$output .= $script;
-			$output .= $CI->load->view('front/_common/view_front_invite', 	'', true);
-			$output .= $CI->load->view('front/error/view_front_error', 		array('message' => $message), true);
+			$output = '';
+			$script = '<script>window.vc_page_error=true;</script>';
+			if($CI->input->post('ajaxify')){
+				//ajaxify request, don't reload header/footer
+				
+				$output .= $script;
+				$output .= $CI->load->view('front/_common/view_front_invite', 	'', true);
+				$output .= $CI->load->view('front/error/view_front_error', 		array('message' => $message), true);
+				
+			}else{
+				
+				set_status_header($status_code);
+				
+				//load header/footer
+				$output .= $CI->load->view('front/view_front_header', 			'', true);
+				$output .= $script;
+				$output .= $CI->load->view('front/_common/view_front_invite', 	'', true);
+				$output .= $CI->load->view('front/error/view_front_error', 		array('message' => $message), true);
+				$output .= $CI->load->view('front/view_front_footer', 			'', true);
+				
+			}
 			
-		}else{
-			
-			set_status_header($status_code);
-			
-			//load header/footer
-			$output .= $CI->load->view('front/view_front_header', 			'', true);
-			$output .= $script;
-			$output .= $CI->load->view('front/_common/view_front_invite', 	'', true);
-			$output .= $CI->load->view('front/error/view_front_error', 		array('message' => $message), true);
-			$output .= $CI->load->view('front/view_front_footer', 			'', true);
-			
+			@ob_clean();		
+			return $output;
 		}
-		
-		@ob_clean();		
-		return $output;
-		
 		//-----------------------------
 		
 		

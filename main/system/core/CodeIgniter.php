@@ -223,12 +223,14 @@
  * ------------------------------------------------------
  *
  */
-	// Load the base controller class
+	// Load the base controller eclass
 	require BASEPATH.'core/Controller'.EXT;
 
 	function &get_instance()
 	{
-		return CI_Controller::get_instance();
+		if(class_exists('CI_Controller'))
+			return CI_Controller::get_instance();
+		return false;
 	}
 
 
