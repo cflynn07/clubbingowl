@@ -41,7 +41,7 @@ class library_promoters{
 			
 			if(!$admin_panel){
 				//promoter doesn't exist
-				show_error('Promoter does not exist', 404);
+				show_404('Promoter does not exist');
 				die();
 			}
 			
@@ -405,7 +405,7 @@ class library_promoters{
 			case 'sundays':
 				break;
 			default:
-				show_error('Invalid url', 404);
+				show_404('Invalid url');
 				break;
 		}
 		
