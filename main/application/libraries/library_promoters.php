@@ -439,7 +439,7 @@ class library_promoters{
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		if(!$guest_list = $this->CI->users_promoters->retrieve_promoter_guest_list($this->promoter->up_id, 
 																					$guest_list_name)){
-			show_error('404'); //this guest list doesn't exist for this promoter
+			show_404('Guest list not found'); //this guest list doesn't exist for this promoter
 		}
 		
 		return $guest_list;
