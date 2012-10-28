@@ -118,9 +118,9 @@ class CI_Exceptions {
 	 * @return	string
 	 */
 	function show_error($heading, $message, $template = 'error_general', $status_code = 500)
-	{
+	{		
 		set_status_header($status_code);
-
+		
 		$message = '<p>'.implode('</p><p>', ( ! is_array($message)) ? array($message) : $message).'</p>';
 
 		if (ob_get_level() > $this->ob_level + 1)

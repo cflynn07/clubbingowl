@@ -85,7 +85,7 @@ div#no_friends img#toro{
 div#no_friends > div#message{
 	width: 49%;
 	float: right;
-	height: 300px;
+	min-height: 300px;
 	border: 5px solid #474D6A;
 	background: #8A8B8F;
 	padding: 10px;
@@ -98,7 +98,7 @@ div#no_friends > div#message{
 }
 @media screen and (max-width: 751px) {
 	
- 	img#toro{
+ 	div#no_friends img#toro{
 		display: none;
 	}
 	div#no_friends > div#message{

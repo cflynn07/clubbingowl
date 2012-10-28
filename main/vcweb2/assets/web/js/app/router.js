@@ -8,6 +8,12 @@ jQuery(function(){
 	 */
 	var callback_helper = function(callback){
 		
+		if(window.vc_page_error === true){
+			delete window.vc_page_error;
+			return;
+		}
+		
+		
 		var kill_presence_channel = false;
 		
 		if(typeof callback === 'function')
@@ -77,7 +83,6 @@ jQuery(function(){
 			
 			//home page callback
 			'*splat': 																'home'
-			
 			
 		},
 		//---------------------------------------------------------------------------

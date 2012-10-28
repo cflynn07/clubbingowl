@@ -88,6 +88,7 @@ class Assets extends MY_Common_Controller {
 					'venue',
 					'venues',
 					'team',
+					'error',
 					'gl_floorplan_layout'
 				);
 				

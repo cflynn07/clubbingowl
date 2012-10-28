@@ -1,0 +1,53 @@
+#error_wrapper {
+	padding-top: 20px;
+	width: 100%;
+}
+
+div#error_wrapper > *{
+	display: inline-block;
+}
+div#error_wrapper img#toro{
+	width: 49%;
+}
+div#error_wrapper > div#message{
+	width: 49%;
+	float: right;
+	min-height: 300px;
+	border: 5px solid #474D6A;
+	background: #8A8B8F;
+	padding: 10px;
+	color: #FFF;
+	border-radius: 10px;
+	font-size: 24px;
+	text-align: center;
+}
+div#error_wrapper div#message input[type=button]{
+	font-family: 'Mensch',sans-serif;
+	display: inline-block;
+	font-size: 20px;
+	border-radius: 10px;
+	border: 0px;
+	padding: 10px;
+	color: #FFF;
+}
+div#error_wrapper div#message input[type=button].back{
+	background-color: #474D6A;
+}
+div#error_wrapper div#message input[type=button].forward{
+	background-color: #727381;
+}
+@media screen and (max-width: 991px) {
+	#error_container{
+		padding-top: 0;
+	}
+}
+@media screen and (max-width: 751px) {
+	
+ 	div#error_wrapper img#toro{
+		display: none;
+	}
+	div#error_wrapper > div#message{
+		width: 100%;
+	}
+	
+}
