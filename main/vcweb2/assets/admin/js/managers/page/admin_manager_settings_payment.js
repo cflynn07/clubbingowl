@@ -24,7 +24,7 @@ jQuery(function(){
 			this.card_num.mask('9999-9999-9999-9999');
 			this.card_cvc.mask('999?9');
 			this.card_exp_m.mask('99');
-			this.card_exp_y.mask('9999');
+			this.card_exp_y.mask('2099');
 		
 			this.render();
 		},
