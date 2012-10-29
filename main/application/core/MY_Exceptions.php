@@ -21,7 +21,7 @@ class MY_Exceptions extends CI_Exceptions{
 	//	die('<script type="text/javascript">window.vc_page_error=true;</script>');
 		
 		$CI = @get_instance();
-		if($CI !== false){	
+		if($CI !== false && $status_code == 404){	
 			
 			$output = '';
 			$script = '<script>window.vc_page_error=true;</script>';
