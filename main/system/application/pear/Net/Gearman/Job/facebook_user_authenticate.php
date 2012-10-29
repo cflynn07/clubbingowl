@@ -142,7 +142,7 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 				$to_casey 	= "7745734580";
 	
 	
-				$text_message = "new user:\n" . '"' . $fb_user_info['name'] . '"';
+				$text_message = "new user: " . '"' . $fb_user_info['name'] . '"';
 				
 				$CI->load->library('Twilio', '', 'twilio');
 				$CI->twilio->sms('', $to_johann, $text_message);
