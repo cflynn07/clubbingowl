@@ -440,6 +440,7 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('managers/page/admin_manager_promoters_clients',		'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_reports_guest_lists',		'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_promoters',		'admin_js');
+						$group_assets[] = array('managers/page/admin_manager_settings_payment',			'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_hosts',			'admin_js');					
 						$group_assets[] = array('managers/page/admin_manager_settings_venues',			'admin_js');					
 						$group_assets[] = array('managers/page/admin_manager_settings_venues_edit',					'admin_js');					
@@ -582,6 +583,58 @@ class Assets extends MY_Common_Controller {
 									// ---------------- FRONT --------------------
 									
 									'user_thumb'
+																		
+								),
+								'lang' => $language
+							)
+						), 
+						'dynamic'
+					)
+				);
+				
+							
+				break;
+			case 'ejs_templates_admin_managers':
+				
+				/**
+				 * Loads a separate JS file containing a single object of EJS templates for each
+				 * supported language.
+				 * 
+				 */
+				
+				$lang = $subg; //$this->input->get('lang');
+				
+				if(!in_array($lang, array_keys($this->config->item('supported_lang_codes'))))
+					$lang = 'en'; //default
+				
+				
+				$languages = $this->config->item('supported_langs');
+				$language = $languages[$lang];
+				
+				//load all language files needed by the EJS templates
+				
+				//load language files
+				$this->lang->load('menu', 					$language);
+				$this->lang->load('menu_user', 				$language);
+				$this->lang->load('invitations_dialog', 	$language);
+				$this->lang->load('invite', 				$language);
+				$this->lang->load('footer', 				$language);
+				$this->lang->load('app_data', 				$language);
+				$this->lang->load('home_auth', 				$language);
+				$this->lang->load('friends', 				$language);
+				$this->lang->load('venues', 				$language);
+				$this->lang->load('promoters', 				$language);
+								
+				$group_assets = array(
+					array(
+						array(
+							'global/view_dynamic_assets_js_ejs_templates_admin_managers',
+							array(
+								'ejs_templates' => array(
+									
+									// ---------------- FRONT --------------------
+									
+									'on_file_payment'
 																		
 								),
 								'lang' => $language

@@ -139,6 +139,7 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_promoters/">Promoters</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_hosts/">Hosts</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_venues/">Venues & Guest Lists</a></li>
+								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_payment/">Payment Info</a></li>
 							</ul>
 						</li>
 						

@@ -19,7 +19,7 @@ jQuery(function(){
 		'/settings_venues': 											'settings_venues',
 		'/settings_hosts':												'settings_hosts',
 		'/settings_promoters': 											'settings_promoters',
-		
+		'/settings_payment': 											'settings_payment',
 		
 		
 		'/reports_clients':												'reports_clients',
@@ -151,6 +151,14 @@ jQuery(function(){
 			
 		},
 		
+		// --------------------------------------------------------------------------
+		settings_payment: function(segment){
+			
+			window.manager_admin_menu_set_active('settings');
+			callback_helper(window.vc_page_scripts.admin_manager_settings_payment);
+			console.log('--------- manager settings_payment ---------');
+			
+		},
 		// --------------------------------------------------------------------------
 		
 		reports_clients: function(segment){

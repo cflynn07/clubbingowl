@@ -177,6 +177,8 @@ class Managers extends MY_Controller {
 					break;
 				case 'marketing_new':
 					break;
+				case 'settings_payment':
+					break;
 				case 'settings_promoters':
 					break;
 				case 'settings_hosts':
@@ -942,7 +944,16 @@ class Managers extends MY_Controller {
 		
 	}
 	
-	
+	private function _settings_payment($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$this->load->config('stripe');
+		
+		$this->body_html = $this->load->view($this->view_dir . 'settings/view_settings_payment', '', true);
+		
+	}
+	private function _ajax_settings_payment($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+	}
 	
 	/**
 	 * Invite/Review/Delete promoters
