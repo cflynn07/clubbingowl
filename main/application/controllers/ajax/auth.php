@@ -49,7 +49,7 @@ class Auth extends MY_Controller {
 	 */
 	
 	private function _session_login(){		
-		
+				
 		//Is request new job or status check?
 		if($this->input->post('status_check')){
 			//Status check
