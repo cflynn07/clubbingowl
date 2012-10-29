@@ -133,50 +133,26 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 			*/
 			
 			
-			//notify fede & casey if this is a pre-launch user signup
-			if($notify_admins){
-				$to_johann = "@txt.att.net";
-				$to_casey = "7745734580@vtext.com";
-	
-				$text_message = 'VC: New User -> ' . $fb_user_info['name'];	
-	
-				$to_emails = array($to_johann, $to_casey);
-				$to_names = array('Fede', 'Casey');
-				
-				$message = array(
-				    'html' => $text_message,
-				    'text' => $text_message,
-				    'subject' => 'VibeCompass',
-				    'from_name' => 'VibeCompass',
-				    'from_email'=> 'casey_flynn@vibecompass.com',
-				    'to_email' => $to_emails,
-				    'to_name' => $to_names
-				);
-				 
-				$tags = array('');
-				$apikey = 'e89d2f5cf7108bf92b416bebba68c52a-us4';
-				 
-				$params = array(
-				    'apikey' => $apikey,
-				    'message' => $message,
-				    'track_opens' => false,
-				    'track_clicks' => false,
-				    'tags' => $tags
-				);
-				 
-				$url = "http://us4.sts.mailchimp.com/1.0/SendEmail";
-				 
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $url.'?'.http_build_query($params));
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				 
-				$result = curl_exec($ch);
-				curl_close ($ch);
-						
-				$data = json_decode($result);
-				echo "New PRE-launch notification - Status = " . ((isset($data->status)) ? $data->status : 'NO STATUS') . PHP_EOL;
+			
 		
+			
+			//notify johann & casey if this is a pre-launch user signup
+			if($notify_admins && MODE == 'production'){
+				$to_johann 	= "6177948740";
+				$to_casey 	= "7745734580";
+	
+	
+				$text_message = "new user:\n" . '"' . $fb_user_info['name'] . '"';
+				
+				$CI->load->library('Twilio', '', 'twilio');
+				$CI->twilio->sms('', $to_johann, $text_message);
+				$CI->twilio->sms('', $to_casey, $text_message);
+						
 			}
+			
+			
+			
+			
 			
 			
 			
