@@ -248,7 +248,8 @@ section#guestlist{
 	min-height: 680px;
 }
 section#guestlist .ui-accordion .ui-accordion-header {
-	background: #5E5E5E;
+//	background: #5E5E5E;
+	background: #474D6A;
 }
 section#guestlist .ui-accordion .ui-accordion-header a{
 	color: #FFF;
@@ -258,7 +259,8 @@ section#guestlist div#accordion .ui-widget-content{
 	border: 0px; 
 }
 section#guestlist div#accordion .ui-accordion-content{
-	background: #828282;
+//	background: #828282;
+	background: #8A8B8F;
 	width: 100% !important;
 }
 section#guestlist div#accordion{
