@@ -1,7 +1,7 @@
 <?php
 
 define('SITE', 'clubbingowl');
-define('ASSETS_SITE', 'clubbingowl'); //staticowl
+define('ASSETS_SITE', 'staticowl'); //staticowl
 
 $dotcloud_environment = '/home/dotcloud/environment.json';
 define('DOTCLOUD_JSON', $dotcloud_environment);

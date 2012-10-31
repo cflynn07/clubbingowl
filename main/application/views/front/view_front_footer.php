@@ -50,8 +50,25 @@
 				<?php if(false): ?>
 				<img src="<?= $central->front_assets . 'images/ClubbingOwl_origLogoEdit_purple_700x80.jpeg' ?>"/>
 				<?php endif; ?>
+				
 				<p style="margin-top:0px;font-size:14px">ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away.</p>
 				<div style="clear:both;"></div>
+				
+				
+				<div style="border-top:1px dashed #CCC;">
+					<h2><a target="_new" href="http://solutions.clubbingowl.com/">ClubbingOwl Venue Management Solutions</a></h2>
+					<table style="position:relative;top:-10px;">
+						<tr>
+							<td style="width:25%;">
+								<img style="position:relative;top:-15px;" src="<?= $central->front_assets . 'images/clubbingowl_showcaseboarder.png' ?>" />
+							</td>
+							<td style="padding-left:10px; vertical-align:top;">
+								<p style="margin:0;font-size:13px;"><strong>The most advanced venue management and marketing software.</strong> Manage clientelle your database, VIP reservations, floorplan-layouts, email marketing campaigns, promoter performance tracking, and much more!</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
 			</div>
 			
 			<br/>
@@ -132,9 +149,16 @@
 			  
 			    <ul>
 			    	
+			    	
+			    	
+			    	
+			    	
 			    <?php if(false): ?>
 			      <li><a href="<?= $central->front_link_base ?>corp/"><?= $this->lang->line('f-team') ?></a></li>
 			    <?php endif; ?>
+			      
+			      
+			      
 			      
 			      <li><a href="<?= $central->front_link_base ?>corp/tos/"><?= $this->lang->line('f-tos') ?></a></li>
 			    </ul>
