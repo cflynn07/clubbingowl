@@ -56,7 +56,7 @@
 				
 				
 				<div style="border-top:1px dashed #CCC;">
-					<h2><a target="_new" href="http://solutions.clubbingowl.com/">ClubbingOwl Venue Management Solutions</a></h2>
+					<h2 style="margin-top:10px;"><a target="_new" href="http://solutions.clubbingowl.com/">ClubbingOwl Venue Management Solutions</a></h2>
 					<table style="position:relative;top:-10px;">
 						<tr>
 							<td style="width:25%;">
