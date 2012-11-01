@@ -249,6 +249,7 @@ class Assets extends MY_Common_Controller {
 					array('page/team_page',												'front_js'),
 					array('page/friends_feed',											'front_js'),
 					array('page/individual_friend',										'front_js'),
+					array('page/promoter_all',											'front_js'),
 					array('page/promoter_profile',										'front_js'),
 					array('page/promoter_pusher_presence_channels',						'front_js'),
 					array('page/promoter_guest_list_individual',						'front_js'),

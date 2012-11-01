@@ -111,6 +111,9 @@ jQuery(function(){
 			console.log(city);
 			console.log(public_identifier);
 			console.log(event);
+			
+			window.vc_page_scripts.promoter_all();
+			
 			callback_helper(window.vc_page_scripts.promoter_pusher_presence_channels, 'presence');
 			
 		},
@@ -120,6 +123,9 @@ jQuery(function(){
 			console.log('--------- promoters all events ---------');
 			console.log(city);
 			console.log(public_identifier);
+			
+			window.vc_page_scripts.promoter_all();
+			
 			callback_helper(window.vc_page_scripts.promoter_pusher_presence_channels, 'presence');
 			
 		},
@@ -131,6 +137,8 @@ jQuery(function(){
 			console.log(public_identifier);
 			console.log(guest_list);
 			
+			window.vc_page_scripts.promoter_all();
+			
 			callback_helper(window.vc_page_scripts.promoter_guest_list_individual, window.vc_page_scripts.promoter_pusher_presence_channels, 'presence');
 			
 		},
@@ -140,6 +148,9 @@ jQuery(function(){
 			console.log('--------- promoters all guest lists ---------');
 			console.log(city);
 			console.log(public_identifier);
+			
+			window.vc_page_scripts.promoter_all();
+			
 			callback_helper(window.vc_page_scripts.promoter_pusher_presence_channels, 'presence');
 			
 		},		
@@ -149,6 +160,8 @@ jQuery(function(){
 			console.log('--------- promoters profile ---------');
 			console.log(city);
 			console.log(public_identifier);
+			
+			window.vc_page_scripts.promoter_all();
 			
 			callback_helper(window.vc_page_scripts.promoter_profile, window.vc_page_scripts.promoter_pusher_presence_channels, 'presence');
 			
