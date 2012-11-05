@@ -27,7 +27,7 @@
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
-   </url>
+   </url><?php if(false): ?>
    <url>
      <loc><?= $central->karma_link_base ?>corp</loc>
      <lastmod><?= $time ?></lastmod>
@@ -39,7 +39,7 @@
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
-   </url>
+   </url><?php endif; ?>
 <?php // ---------------------------------------------------- promoters ----------------------------------------------------  ?>
 <?php // ---------------------------------------------------- promoters - cities ----------------------------------------------------  ?>
 <?php foreach($all_cities_promoters as $city): ?>
