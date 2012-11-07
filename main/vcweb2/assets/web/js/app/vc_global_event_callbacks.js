@@ -6,6 +6,10 @@ window.VC_Global_Event_Callbacks = {
 		
 		for(var i in sticky_notifications){
 			
+			if(typeof sticky_notifications[i].notif_type === 'undefined')
+				continue;
+			
+			
 			if(sticky_notifications[i].data){
 				
 				console.log('p1');

@@ -140,9 +140,11 @@ jQuery(function(){
 					jQuery.ajax({
 						url: '/ajax/auth/',
 						type: 'post',
-						data: {ci_csrf_token: cct,
-								status_check: true,
-								vc_method: 'session_login'},
+						data: {
+							ci_csrf_token: 	cct,
+							status_check: 	true,
+							vc_method: 		'session_login'
+						},
 						cache: false,
 						dataType: 'json',
 						success: function(data, textStatus, jqXHR){
