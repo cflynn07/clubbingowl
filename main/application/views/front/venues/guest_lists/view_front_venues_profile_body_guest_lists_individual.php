@@ -386,13 +386,30 @@ div#unavailable_overlay{
 	          		<div style="display:none;">
 	          			<a id="back_trigger_link" href="<?= $central->front_link_base . 'venues/' . $guest_list->c_url_identifier . '/' . str_replace(' ', '_', $guest_list->tv_name) . '/guest_lists/' ?>"></a>
 	          		</div>
+
+
+	          		<table>
+	          			<tr>
+	          				<td>
+	          					<input class="guestlist-button cancel" type="button" id="guestlist-form-cancel" value="Cancel">
+	          				</td>
+	          				<td>
+	          					<input class="guestlist-button submit" type="submit" id="guestlist-form-submit" name="guestlist-form-submit" value="Submit">
+	          					<img style="display:none;" id="submit_loading" src="<?= $central->global_assets ?>images/ajax.gif" alt="loading..."/>
+	          				</td>
+	          			</tr>
+	          		</table>
+
+	          		<?php if(false): ?>
 	          		<input class="guestlist-button cancel" type="button" id="guestlist-form-cancel" value="Cancel">
 	          		
 	          		<span style="float:right;">
 	          			<input class="guestlist-button submit" type="submit" id="guestlist-form-submit" name="guestlist-form-submit" value="Submit">
 	          			<img style="display:none;" id="submit_loading" src="<?= $central->global_assets ?>images/ajax.gif" alt="loading..."/>
 	          		</span>
-			       
+			       <?php endif; ?>
+
+
 	          	</p>
 		</div>
 	</div>
