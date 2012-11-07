@@ -100,10 +100,10 @@ class Worker extends CI_Controller {
 			$gearman_worker->addAbility('guest_list_share_facebook');
 			$gearman_worker->addAbility('retrieve_facebook_app_requests');
 			
-			if(MODE == 'local'){
+		//	if(MODE == 'local'){
 				$gearman_worker->addAbility('admin_promoter_piwik_stats');
 				$gearman_worker->addAbility('admin_manager_piwik_stats');
-			}
+		//	}
 			
 			$gearman_worker->addAbility('news_feed_retrieve');
 			$gearman_worker->addAbility('friend_feed_retrieve');
