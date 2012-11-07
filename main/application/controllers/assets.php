@@ -396,7 +396,7 @@ class Assets extends MY_Common_Controller {
 					
 					array('jquery.maskedinput-1.3.min',										'admin_js'),
 					array('admin_team_chat', 												'admin_js'),
-					array('suite_re_init', 													'admin_js')
+				//	array('suite_re_init', 													'admin_js')
 					
 					
 				);
@@ -454,7 +454,7 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('managers/page/admin_manager_support',								'admin_js');				
 						$group_assets[] = array('managers/page/admin_manager_manage_image',							'admin_js');				
 							
-					
+						$group_assets[] = array('managers/admin_managers_backbone_view_wrapper', 					'admin_js');
 						$group_assets[] = array('managers/managers_router', 										'admin_js');
 					
 						break;

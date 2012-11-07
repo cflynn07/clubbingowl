@@ -42,6 +42,10 @@
 				display: 'block',
 				top: (Math.ceil(jQuery(window).height() / 2) - 100)
 			});
+			jQuery('div#primary_right').css({
+				opacity: 0.4
+			});
+			
 			
 			var current_url = window.location.href;
 			var relativeUrl = url.replace(rootUrl,'');
@@ -69,7 +73,10 @@
 					}
 						
 						
-						
+					jQuery('#easyTooltip').remove();
+					jQuery('div#primary_right').css({
+						opacity: 1
+					});
 					jQuery('div#primary_right > div.inner').html(data);
 					
 					var title = 'ClubbingOwl';

@@ -1,9 +1,13 @@
 jQuery(function(){
 		
 	var callback_helper = function(callback){
-		window.vc_page_scripts.suite_re_init();
+//		window.vc_page_scripts.suite_re_init();
+		
 		if(typeof callback === 'function')
 			callback();		
+			
+		window.module.Globals.prototype.global_views.admin_wrapper.ajaxify_change();
+		
 	}
 	
 	
