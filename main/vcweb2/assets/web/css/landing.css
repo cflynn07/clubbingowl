@@ -172,7 +172,8 @@ div.fixed_side{
 }
 
 div#news_feed_side_data p.header{
-	background: #4D4D4D;
+	//background: #4D4D4D;
+	background: #474D6A;
 	color: #FFF;
 	margin: 0px;
 	height: 30px;
