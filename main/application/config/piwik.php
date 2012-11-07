@@ -3,15 +3,9 @@
 
 
 
-
-
-$production_piwik_base_url = 'http://piwik.' . SITE . '.com/piwik/';
-
-$production_piwik_base_url_https = 'https://piwik.' . SITE . '.com/piwik/';
-
-$production_piwik_token = '871f0bc93ac2e069826e654a429af83e';
-
-
+$production_piwik_base_url 			= 'http://piwik.' . SITE . '.com/piwik/';
+$production_piwik_base_url_https 	= 'https://piwik.' . SITE . '.com/piwik/';
+$production_piwik_token 			= '871f0bc93ac2e069826e654a429af83e';
 
 
 

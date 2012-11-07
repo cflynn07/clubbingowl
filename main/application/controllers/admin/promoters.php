@@ -1625,6 +1625,7 @@ class Promoters extends MY_Controller {
 	 * @return	null
 	 */
 	private function _ajax_setup_dashboard($arg0 = '', $arg1 = '', $arg2 = ''){
+		error_reporting(E_ALL);
 		
 		$this->load->library('library_image_upload', '', 'image_upload');
 		
