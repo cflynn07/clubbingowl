@@ -8,7 +8,36 @@
 			path = 'venues/' + c_url_identifier + '/' + tv_name.replace(/ /g, '_') + '/guest_lists/' + gla_name.replace(/ /g, '_');
 		}
 	%>
-		<%= inline_link(path, image, {style: 'display:inline-block;width:auto;float:left;'}) %>
+	
+	<table style="width:100%;">
+		<tr>
+			<td>
+				<%= inline_link(path, image, {style: 'display:inline-block;width:auto;float:left;'}) %>
+				
+				<a href="<%=path%>">
+					<div style="display:inline-block;vertical-align:top;">
+						<span><%= gla_name %></span><br>
+						<span class="subtext">@ <%= tv_name %></span><br>
+						<span class="subtext"><%= c_name + ', ' + c_state %></span>
+					</div>
+				</a>
+				
+			</td>
+			<td>
+				<a href="<%=path%>">
+					<div style="float:right; text-align:right;">
+						<span class="subtext" style="font-weight:500"><%= oauth_uid_count %> <?= $this->lang->line('m-friends') ?></span><br>
+						<span class="subtext"><%= occurance_day %></span><br>
+						<span class="subtext"><%= occurance_date %></span>
+					</div>
+				</a>
+			</td>
+		</tr>
+	</table>
+	<div style="clear:both"></div>
+	
+	<?php if(false): ?>
+	<%= inline_link(path, image, {style: 'display:inline-block;width:auto;float:left;'}) %>
 	<a href="<%=path%>" style="display:inline-block; width:86%">
 		<div style="display:inline-block;padding-left:8px;width:72%;vertical-align:top;">
 			<span><%= gla_name %></span><br>
@@ -22,4 +51,6 @@
 		</div>
 		<div style="clear:both;"></div>
 	</a>
+	<?php endif; ?>
+	
 </li>
