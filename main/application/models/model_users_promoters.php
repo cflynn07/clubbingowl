@@ -1637,7 +1637,7 @@ class Model_users_promoters extends CI_Model {
 		}
 		
 		//make piwik api call
-		$this->load->library('Piwik');
+		$this->load->library('Piwik', '', 'piwik');
 		$query_result = $this->piwik->api_call($query);
 				
 		//update promoter record in database with site_id that was returned by Piwik when
