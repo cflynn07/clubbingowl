@@ -2,7 +2,7 @@
 	
 	<table style="width:100%;">
 		<tr>
-			<td style="vertical-align:top; max-width:50px;">
+			<td style="vertical-align:top; width:50px;">
 				
 				<div class="avatar">
 					<%
