@@ -120,11 +120,11 @@ class Worker extends CI_Controller {
 			$gearman_worker->addAbility('gearman_send_sms_notification');	
 					
 			
-			if($arg1 == 'special_emails'){
+		//	if($arg1 == 'special_emails'){
 				$gearman_worker->addAbility('gearman_email_friends_new_user');	
 				$gearman_worker->addAbility('gearman_send_sms_mass_text_team_announcements');	
 				$gearman_worker->addAbility('gearman_email_friends_gl_join');
-			}
+		//	}
 			
 			
 			
