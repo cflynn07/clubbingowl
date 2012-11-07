@@ -22,12 +22,12 @@
 			  		<table>
 			  			<tr>
 			  				<td>
-			  					<%= inline_link('friends/' + u_third_party_id, '<h2>' + u_full_name + '</h2>', {}) %>
+			  					<%= inline_link('friends/' + u_third_party_id, '<h2 style="margin:0;">' + u_full_name + '</h2>', {}) %>
 			  				</td>
 			  			</tr>
 			  			<tr>
 			  				<td style="min-width:45px;vertical-align:top;">
-    							<p><?= $this->lang->line('ha-jtgl_m') ?></p>
+    							<p style="margin:0;"><?= $this->lang->line('ha-jtgl_m') ?></p>
 			  				</td>
 			  			</tr>
 			  		</table>  		

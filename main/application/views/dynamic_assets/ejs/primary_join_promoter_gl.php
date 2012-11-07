@@ -32,7 +32,7 @@
 						    	<% } %>
 			  				</td>
 			  				<td style="vertical-align:top;">
-			  					<p><?= $this->lang->line('ha-jpgl_m') ?></p>
+			  					<p style="margin:0;"><?= $this->lang->line('ha-jpgl_m') ?></p>
 			  				</td>
 			  			</tr>
 			  		</table>  		
