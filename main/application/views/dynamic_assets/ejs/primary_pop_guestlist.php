@@ -12,15 +12,24 @@
 	<table style="width:100%;">
 		<tr>
 			<td>
-				<%= inline_link(path, image, {style: 'display:inline-block;width:auto;float:left;'}) %>
 				
-				<a href="<%=path%>">
-					<div style="display:inline-block;vertical-align:top;">
-						<span><%= gla_name %></span><br>
-						<span class="subtext">@ <%= tv_name %></span><br>
-						<span class="subtext"><%= c_name + ', ' + c_state %></span>
-					</div>
-				</a>
+				<table>
+					<tr>
+						<td style="min-width:45px;">
+							<%= inline_link(path, image, {style: 'display:inline-block;width:auto;float:left;'}) %>
+						</td>
+						<td>
+							<a href="<%=path%>">
+								<div style="display:inline-block;vertical-align:top;">
+									<span><%= gla_name %></span><br>
+									<span class="subtext">@ <%= tv_name %></span><br>
+									<span class="subtext"><%= c_name + ', ' + c_state %></span>
+								</div>
+							</a>
+						</td>
+					</tr>
+				</table>
+				
 				
 			</td>
 			<td>
