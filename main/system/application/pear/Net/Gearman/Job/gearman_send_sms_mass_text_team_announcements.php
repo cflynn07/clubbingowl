@@ -42,7 +42,7 @@ class Net_Gearman_Job_gearman_send_sms_mass_text_team_announcements extends Net_
 
 
 		
-		$sms = "(VibeCompass) New Announcement from " . $fb_user_info['name'] . ":\n";
+		$sms = "(ClubbingOwl) New Announcement from " . $fb_user_info['name'] . ":\n";
 		$sms .= '"' . $message . '"';
 		
 		

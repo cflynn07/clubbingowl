@@ -23,9 +23,9 @@ class Net_Gearman_Job_gearman_send_emails extends Net_Gearman_Job_Common{
 		$message = array(
 		    'html' => $email_text,
 		    'text' => $email_text,
-		    'subject' => 'VibeCompass - New Reservation Request!',
-		    'from_name' => 'VibeCompass',
-		    'from_email'=> 'no-reply@vibecompass.com',
+		    'subject' => 'ClubbingOwl - New Reservation Request!',
+		    'from_name' => 'ClubbingOwl',
+		    'from_email'=> 'no-reply@clubbingowl.com',
 		    'to_email' => $to_emails,
 		    'to_name' => $to_names
 		);

@@ -60,7 +60,7 @@
 					<table style="position:relative;top:-10px;">
 						<tr>
 							<td style="width:25%;">
-								<img style="position:relative;top:-15px;" src="<?= $central->front_assets . 'images/clubbingowl_showcaseboarder.png' ?>" />
+								<img style="position:relative; top:-15px; max-width:120px;" src="<?= $central->front_assets . 'images/clubbingowl_showcaseboarder.png' ?>" />
 							</td>
 							<td style="padding-left:10px; vertical-align:top;">
 								<p style="margin:0;font-size:13px;"><strong>The most advanced venue management and marketing software.</strong> Manage your clientelle database, VIP reservations, floorplan-layouts, email marketing campaigns, promotional staff, and much more!</p>
