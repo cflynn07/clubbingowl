@@ -24,7 +24,7 @@
 			
 			<td style="vertical-align:top;min-width:60px;">
 				
-			  	<p class="news_item_date"><%= occurance_date %></p>
+			  	<p style="margin:0;" class="news_item_date"><%= occurance_date %></p>
 			  	
 			</td>
 		</tr>
