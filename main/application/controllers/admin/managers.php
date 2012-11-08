@@ -37,13 +37,38 @@ class Managers extends MY_Controller {
 		$this->load->library('library_admin_managers');
 		$this->library_admin_managers->initialize($vc_user->oauth_uid);
 		/* --------------------- End Load manager library ------------------------ */
+		
+			
+			
+			
+			
+		//is manager live?
+		$this->db->select('mt.live_status as mt_live_status')
+			->from('managers_teams mt')
+			->where(array(
+				'mt.id'	=> $vc_user->manager->mt_id
+			));
+		$mt_live_status = $this->db->get()->row()->mt_live_status;
+		
+		$this->load->vars('mt_live_status', $mt_live_status);
+
+		if(!$mt_live_status && strpos($_SERVER['REQUEST_URI'], '/admin/managers/settings_payment') !== 0){
+			redirect('/admin/managers/settings_payment/', 301);
+			die();
+		}
+		
+		
+			
+			
+			
+			
 			
 		if($this->input->post('vc_method') == 'user_stats_retrieve'){
 			$this->_helper_retrieve_user_stats();
 		}
 			
-		$this->load->vars('team_fan_page_id', $vc_user->manager->team_fan_page_id);
-		$this->load->vars('users_oauth_uid', $vc_user->oauth_uid);
+		$this->load->vars('team_fan_page_id', 	$vc_user->manager->team_fan_page_id);
+		$this->load->vars('users_oauth_uid', 	$vc_user->oauth_uid);
 		$this->load->vars('subg', 'managers');
 
 		$this->load->vars(array(
@@ -948,10 +973,42 @@ class Managers extends MY_Controller {
 		
 		$this->load->config('stripe');
 		
+		$this->db->select('mt.last4 as last4, mt.card_type as type')
+			->from('managers_teams mt')
+			->where(array(
+				'mt.id' => $this->vc_user->manager->mt_id
+			));
+		$data = $this->db->get()->row();
+		$this->load->vars('card_data', $data);
+		
 		$this->body_html = $this->load->view($this->view_dir . 'settings/view_settings_payment', '', true);
 		
 	}
 	private function _ajax_settings_payment($arg0 = '', $arg1 = '', $arg2 = ''){
+	
+		switch($this->input->post('vc_method')){
+			case 'update_stripe_token':
+			
+				$this->load->library('library_payments', '', 'payments');
+				$this->payments->update_stripe_token(array(
+					'managers_teams_id'	=> $this->vc_user->manager->mt_id,
+					'token'				=> $this->input->post('token')
+				));
+				
+				$this->payments->bill_manager(array(
+					'managers_teams_id'	=> $this->vc_user->manager->mt_id
+				));
+				
+				
+				
+				die(json_encode(array('success' => true)));
+			
+				break;
+			default:
+				die(json_encode(array('success' => false)));
+		}
+		
+		
 		
 	}
 	

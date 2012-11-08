@@ -14,6 +14,7 @@ jQuery(function(){
 		card_cvc: 	null,
 		card_exp_m: null,
 		card_exp_y: null,
+		submit_busy: false,
 		initialize: function(){
 			
 			this.card_num 	= this.$el.find('input.card-number');
@@ -25,40 +26,122 @@ jQuery(function(){
 			this.card_cvc.mask('999?9');
 			this.card_exp_m.mask('99');
 			this.card_exp_y.mask('2099');
-		
+				
+			
+				
 			this.render();
 		},
 		render: function(){
 			
 			//show on-file payment
-			var html = new EJS({
-				text: templates.on_file_payment
-			}).render({});
-			this.$el.find('#on_file_payment').html(html);
-			
+		//	var html = new EJS({
+		//		text: templates.on_file_payment
+		//	}).render({});
+		//	this.$el.find('#on_file_payment').html(html);
 			
 			return this;
 		},
 		events: {
-			'submit form': 'events_submit_form'
+			'submit form': 				'events_submit_form',
+			'click  #show_pay_info': 	'click_show_pay_info',
+			'click  #submit': 			'events_submit_form'
+		},
+		click_show_pay_info: function(e){
+			
+			e.preventDefault();
+			
+			this.$el.find('#update').slideDown();
+			
+			return false;
+			
 		},
 		events_submit_form: function(e){
 			
 			e.preventDefault();
 			
+			if(this.submit_busy)
+				return;
+		//	this.submit_busy = true;
+			
+			
+						
+			var stripe_pub_key = this.$el.find('#stripe_pub_key').html();			
+			var _this = this;
+			this.$el.find("#payment_errors").hide()
+			this.$el.find("#loading").show()
+			
+			Stripe.setPublishableKey(stripe_pub_key);
+			Stripe.createToken({
+		        number: 		this.card_num.val().replace(/\D/g,''),	
+		        cvc: 			this.card_cvc.val().replace(/\D/g,''),
+		        exp_month: 		this.card_exp_m.val().replace(/\D/g,''),
+		        exp_year: 		this.card_exp_y.val().replace(/\D/g,'')
+		    }, function(status, response){
+		    	
+		    	console.log('stripe response');
+		    	console.log(arguments);
+		    	
+		    	
+		    	 if (response.error) {
+
+			        // show the errors on the form
+			        _this.$el.find("#payment_errors").show().html(response.error.message);
+			        _this.$el.find("#loading").hide()
+					_this.submit_busy = false;
+					
+			    } else {
+			    	
+			    	
+			        var token = response['id'];
+			        jQuery.background_ajax({
+			        	data: {
+			        		vc_method: 	'update_stripe_token',
+			        		token:		token
+			        	},
+			        	success: function(data){
+			        		
+			        		_this.$el.find("#payment_errors").hide();
+					        _this.$el.find("#loading").hide()
+							jQuery('a[href="' + window.location.href + '"]').trigger('click');
+			        		
+			        		if(!jQuery('a[href="' + window.location.href + '"]').length)
+			        			window.location.reload();
+			        		
+			        	}
+			        });
+			        
+			    
+			    }
+		    	
+		    });
+
 			
 			
 			return false;
-			
+
 		}
 	}; _views.wrapper = Backbone.View.extend(_views.wrapper);
 	var wrapper = null;
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	window.vc_page_scripts.admin_manager_settings_payment = function(){
 						
 		var unbind_callbacks = [];		
-				
 				
 		jQuery.getScript('https://js.stripe.com/v1/', function(){
 			wrapper = new _views.wrapper({
@@ -80,5 +163,14 @@ jQuery(function(){
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 });

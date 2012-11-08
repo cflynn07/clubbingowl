@@ -29,6 +29,7 @@ class Model_users_managers extends CI_Model {
 		
 		$sql = "SELECT
 					
+					mt.id 				as mt_id,
 					t.name 				as team_name,
 					t.fan_page_id 		as team_fan_page_id,
 					t.description		as team_description,

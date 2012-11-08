@@ -1202,7 +1202,7 @@ jQuery(function(){
 	
 	<br>
 	
-	<div id="team_chat_wrapper">
+	<div <?php if(isset($mt_live_status) && !$mt_live_status): ?> style="display:none;" <?php endif; ?> id="team_chat_wrapper">
 		<div class="team_chat_users">
 			
 			<p style="color:red; margin:0px;">Managers</p>

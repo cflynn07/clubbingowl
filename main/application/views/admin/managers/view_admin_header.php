@@ -71,6 +71,8 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 				<div id="menu"> <!-- navigation menu -->
 					<ul>
 						
+						<?php if($mt_live_status): ?>
+						
 						<li class="li_dashboard">
 							<a href="<?= $central->manager_admin_link_base ?>" class="ajaxify">
 								<img src="<?=$central->admin_assets?>images/icons/small_icons_3/dashboard.png" alt="" />
@@ -149,6 +151,8 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 								<span>Support</span>
 							</a>
 						</li>
+						
+						<?php endif; ?>
 						
 						<li class="li_logout">
 							<a href="<?=$central->manager_admin_link_base ?>logout/">
