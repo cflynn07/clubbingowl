@@ -120,13 +120,17 @@ class Model_team_guest_lists extends CI_Model {
 						AND
 						tglr.manual_add = 0";
 				
-		$query = $this->db->query($sql, array($guest_list_next_occurance_date, $oauth_uid));
-		if($result = $query->row() && !$date_check_override){
+	//	$query = $this->db->query($sql, array($guest_list_next_occurance_date, $oauth_uid));
+	//	if($result = $query->row() && !$date_check_override){
 			//this user is already on a guest list for this date. return error
-			$message = "You are already on a guest list for $guest_list_next_occurance_date! You cannot join two guest lists on the same night.";
-			return array('success' => false, 'message' => $message);
-		}
+	//		$message = "You are already on a guest list for $guest_list_next_occurance_date! You cannot join two guest lists on the same night.";
+	//		return array('success' => false, 'message' => $message);
+	//	}
 		/* --------------------- end check to make sure user isn't already on guest list for this night --------------------- */
+		
+		
+		
+		
 		
 		//find out if a teams_guest_lists record exists given this next occurance date and team_guest_list_id
 		//if one doesn't exist yet - create it
@@ -293,6 +297,7 @@ class Model_team_guest_lists extends CI_Model {
 																		
 		if(!$approve_override){
 			
+			$this->load->helper('run_gearman_job');
 			//send text message to promoter ------------------------------------
 			run_gearman_job('gearman_send_sms_notification', array(
 				'twilio_number' 	=> $manager_twilio_number,

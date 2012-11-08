@@ -506,7 +506,7 @@ class Model_guest_lists extends CI_Model {
 	 */
 	function retrieve_day_guest_lists($promoter_id, $weekday = false){
 
-		$sql = "SELECT
+		$sql = "SELECT DISTINCT
 		
 					pgla.id						as pgla_id,
 					pgla.team_venue_id			as pgla_team_venue_id,
@@ -523,8 +523,11 @@ class Model_guest_lists extends CI_Model {
 				JOIN	teams t
 				ON 		pt.team_fan_page_id = t.fan_page_id
 
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+
 				JOIN 	team_venues tv
-				ON 		tv.team_fan_page_id = t.fan_page_id
+				ON 		tvp.team_venue_id = tv.id
 
 				JOIN 	promoters_guest_list_authorizations pgla
 				ON 		pgla.team_venue_id = tv.id
@@ -541,6 +544,7 @@ class Model_guest_lists extends CI_Model {
 						AND pt.banned = 0
 						AND pt.quit = 0
 						AND tv.banned = 0
+						AND tvp.deleted = 0
 						AND t.completed_setup = 1 ";
 		$query = $this->db->query($sql, array($promoter_id, $promoter_id, $weekday));
 		$results = $query->result();

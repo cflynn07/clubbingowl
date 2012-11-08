@@ -109,21 +109,20 @@ class Model_users_promoters extends CI_Model {
 				JOIN	teams t
 				ON		t.fan_page_id = pt.team_fan_page_id
 				
-				JOIN	team_venues tv
-				ON 		tv.team_fan_page_id = t.fan_page_id
-				
 				WHERE	up.id = ?
-						AND tv.id = ?
 						AND pt.quit = 0
 						AND pt.banned = 0 
 						AND pt.approved = 1
 						AND t.completed_setup = 1";
+
+	//			JOIN	team_venues tv
+	//			ON 		tv.team_fan_page_id = t.fan_page_id
 		$query = $this->db->query($sql, array($promoter_id, $team_venue_id));		
 		$result = $query->row();
 		
-		if(!$result)
-			return array('success' => false,
-							'message' => 'Promoter not authorized to promote for this venue');
+	//	if(!$result)
+	//		return array('success' => false,
+	//						'message' => 'Promoter not authorized to promote for this venue');
 		/*-------------- END make sure this promoter is authorized with this team_venue --------------*/
 		
 		$team_fan_page_id = $result->t_fan_page_id;
@@ -784,15 +783,19 @@ class Model_users_promoters extends CI_Model {
 				JOIN	teams t
 				ON		t.fan_page_id = pt.team_fan_page_id
 				
+				JOIN 	teams_venues_pairs tvp
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+				
 				JOIN	team_venues tv
-				ON		tv.team_fan_page_id = t.fan_page_id
+				ON		tv.id = tvp.team_venue_id
 				
 				WHERE 	up.id = ?
 						AND t.completed_setup = 1
 						AND tv.banned = 0
 						AND pt.approved = 1
 						AND pt.banned = 0
-						AND pt.quit = 0";
+						AND pt.quit = 0
+						AND tvp.deleted = 0";
 		$query = $this->db->query($sql, array($promoter_id));
 		return $query->result();
 		
@@ -827,8 +830,11 @@ class Model_users_promoters extends CI_Model {
 				JOIN 	teams t 
 				ON		t.fan_page_id = pt.team_fan_page_id
 				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+				
 				JOIN 	team_venues tv 
-				ON		tv.team_fan_page_id = t.fan_page_id
+				ON		tv.id = tvp.team_venue_id
 				
 				JOIN	promoters_guest_list_authorizations pgla
 				ON		tv.id = pgla.team_venue_id
@@ -841,6 +847,7 @@ class Model_users_promoters extends CI_Model {
 						AND pt.approved = 1
 						AND pt.quit = 0
 						AND tv.banned = 0
+						AND tvp.deleted = 0
 						AND up.completed_setup = 1";	
 		$query = $this->db->query($sql);
 		return $query->result();
@@ -945,7 +952,7 @@ class Model_users_promoters extends CI_Model {
 			
 		$guest_list_name = str_replace('_', ' ', $guest_list_name);	
 		
-		$sql = "SELECT
+		$sql = "SELECT DISTINCT
 					
 					pgla.id 			as pgla_id,
 					pgla.team_venue_id	as pgla_team_venue_id,
@@ -985,10 +992,18 @@ class Model_users_promoters extends CI_Model {
 				JOIN 	team_venues tv
 				ON 		pgla.team_venue_id = tv.id
 				
-				WHERE	up.id = $promoter_id
-						AND	pgla.name = '$guest_list_name'
+				JOIN 	teams_venues_pairs tvp
+				ON 		tvp.team_venue_id = tv.id
+				
+				JOIN 	teams t 
+				ON 		t.fan_page_id = tvp.team_fan_page_id
+				
+				WHERE	up.id = ?
+						AND	pgla.name = ?
+						AND tvp.deleted = 0
 						AND pgla.deactivated = 0";
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql, array($promoter_id, $guest_list_name));
+			
 		return $query->row();
 		
 	}

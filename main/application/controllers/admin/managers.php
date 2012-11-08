@@ -338,7 +338,7 @@ class Managers extends MY_Controller {
 			
 			
 			//retrieve all guest list reservations (approved/unapproved) for each team
-			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($venue->tv_id);
+			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
 			foreach($tv_gla as &$gla){
 				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
 				
@@ -454,7 +454,7 @@ class Managers extends MY_Controller {
 		$users = array();
 		foreach($team_venues as &$tv){
 			
-			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($tv->tv_id);
+			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($tv->tv_id, $this->vc_user->manager->team_fan_page_id);
 			foreach($tv_gla as &$gla){
 				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
 				

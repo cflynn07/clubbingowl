@@ -63,6 +63,9 @@ class Model_users_managers extends CI_Model {
 	 * @return 	array
 	 */
 	function retrieve_team_venues($fan_page_id){
+		
+		
+		
 		$sql = "SELECT
 					
 					tv.id 					as tv_id,
@@ -88,16 +91,19 @@ class Model_users_managers extends CI_Model {
 					
 				FROM 	team_venues tv
 				
+				JOIN 	teams_venues_pairs tvp
+				ON 		tvp.team_venue_id = tv.id
+				
 				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id
+				ON 		tvp.team_fan_page_id = t.fan_page_id
 				
 				JOIN 	cities c 
 				ON 		t.city_id = c.id
 				
-				
 				WHERE 	t.fan_page_id = ?
-				AND 	tv.banned = 0";
-		$query = $this->db->query($sql, array($fan_page_id));
+				AND 	tv.banned = 0
+				AND 	tvp.deleted = 0";
+		$query = $this->db->query($sql, array($fan_page_id));		
 		return $query->result();
 	}
 	
@@ -127,10 +133,11 @@ class Model_users_managers extends CI_Model {
 	 * @param	id (team venue id)
 	 * @return	array
 	 */
-	function retrieve_team_venue_guest_list_authorizations($team_venue_id){
+	function retrieve_team_venue_guest_list_authorizations($team_venue_id, $team_fan_page_id){
 		$sql = "SELECT
 					
 					tgla.id 				as tgla_id,
+					tgla.team_fan_page_id	as tgla_team_fan_page_id,
 					tgla.team_venue_id 		as tgla_team_venue_id,
 					tgla.day 				as tgla_day,
 					tgla.name				as tgla_name,
@@ -145,8 +152,9 @@ class Model_users_managers extends CI_Model {
 				JOIN teams_guest_list_authorizations tgla
 				ON tv.id = tgla.team_venue_id
 				
-				WHERE tv.id = $team_venue_id";
-		$query = $this->db->query($sql);
+				WHERE tv.id = ?
+					AND tgla.team_fan_page_id = ?";
+		$query = $this->db->query($sql, array($team_venue_id, $team_fan_page_id));
 		return $query->result();
 	}
 	
