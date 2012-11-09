@@ -21,6 +21,7 @@
   width: 33.333%;
   margin-bottom: 20px;
   float: left;
+  padding-right: 15px;
 }
 .venue-list li .venue-image {
 //  display: block;

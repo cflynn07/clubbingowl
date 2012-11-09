@@ -400,13 +400,7 @@ class Model_app_data extends CI_Model {
 	function retrieve_all_venues($city = false){
 		
 		$sql = "SELECT
-		
-					t.id 				as t_id,
-					t.fan_page_id		as t_fan_page_id,
-					t.name				as t_name,
-					t.description		as t_description,
-					t.completed_setup	as t_completed_setup,
-					t.image				as t_image,
+	
 					tv.id 				as tv_id,
 					tv.name 			as tv_name,
 					tv.description 		as tv_description,
@@ -419,16 +413,12 @@ class Model_app_data extends CI_Model {
 					c.state 			as c_state,
 					c.url_identifier	as c_url_identifier
 										
-				FROM 	teams t 
-				
-				JOIN 	team_venues tv 
-				ON 		tv.team_fan_page_id = t.fan_page_id
-				
+				FROM 	team_venues tv 
+
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 				
-				WHERE 	tv.banned = 0 
-				AND 	t.completed_setup = 1 ";
+				WHERE 	tv.banned = 0 ";
 				
 		if($city)
 			$sql .= "AND c.url_identifier = ? ";		
@@ -559,15 +549,11 @@ class Model_app_data extends CI_Model {
 					
 				FROM 	team_venues tv 
 				
-				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id
-				
 				JOIN 	cities c 
-				ON 		t.city_id = c.id 
+				ON 		tv.city_id = c.id 
 				
 				WHERE  	tv.name = ?
 				AND 	c.url_identifier = ?
-				AND 	t.completed_setup = 1
 				AND 	tv.banned = 0";
 		$query = $this->db->query($sql, array(str_replace('_', ' ', $venue_name), $city));			
 		$result = $query->row();

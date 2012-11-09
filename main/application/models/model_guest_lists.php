@@ -74,8 +74,11 @@ class Model_guest_lists extends CI_Model {
 				JOIN 	teams t 
 				ON 		pt.team_fan_page_id = t.fan_page_id 
 				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+				
 				JOIN 	team_venues tv
-				ON 		tv.team_fan_page_id = t.fan_page_id 
+				ON 		tv.id = tvp.team_venue_id 
 				
 				JOIN 	promoters_guest_list_authorizations pgla
 				ON 		pgla.team_venue_id = tv.id
@@ -142,19 +145,26 @@ class Model_guest_lists extends CI_Model {
 				JOIN	promoters_guest_lists pgl
 				ON		pgl.id = pglr.promoter_guest_lists_id
 				
+				JOIN 	promoters_guest_list_authorizations pgla
+				ON 		pgla.id = pgl.promoters_guest_list_authorizations_id
+				
 				WHERE	pglr.user_oauth_uid = ?
 						AND 	
 						pgl.date = ?
 						AND
+						pgla.id = ?
+						AND
 						pglr.manual_add = 0
 				LIMIT   1";		
 				
-		$query = $this->db->query($sql, array($head, $guest_list_next_occurance_date));
+		$query = $this->db->query($sql, array($head, $guest_list_next_occurance_date, $id));
 		if($result = $query->row() && !$date_check_override){
 			//this user is already on a guest list for this date. return error
-			$message = "You are already on a guest list for $guest_list_next_occurance_date! You can not join two guest lists on the same night.";
+			$message = "You have already requested to join \"$promoter_guest_list_name\" on $guest_list_next_occurance_date.";
 			return array(false, $message);
 		}
+		
+		
 		/* --------------------- end check to make sure user isn't already on guest list for this night --------------------- */
 
 		//find out if a promoters_guest_list record exists given this week range and guest list id
@@ -513,7 +523,12 @@ class Model_guest_lists extends CI_Model {
 					pgla.day 					as pgla_day,
 					pgla.name					as pgla_name,
 					pgla.image 					as pgla_image,
-					tv.name 					as tv_name
+					tv.name 					as tv_name,
+					c.id						as c_id,
+					c.name 						as c_name,
+					c.state 					as c_state,
+					c.timezone_identifier		as c_timezone_identifier,
+					c.url_identifier 			as c_url_identifier
 					
 				FROM	users_promoters up
 				
@@ -528,6 +543,9 @@ class Model_guest_lists extends CI_Model {
 
 				JOIN 	team_venues tv
 				ON 		tvp.team_venue_id = tv.id
+				
+				JOIN 	cities c 
+				ON 		tv.city_id = c.id
 
 				JOIN 	promoters_guest_list_authorizations pgla
 				ON 		pgla.team_venue_id = tv.id

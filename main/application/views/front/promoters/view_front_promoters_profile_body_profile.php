@@ -1,3 +1,4 @@
+<script type="text/javascript">window.ptype_promoter_city='promoter';</script>
 <style type="text/css">
 	.unauth_content{
 		display: <?= (isset($vc_user) && $vc_user) ? 'none' : 'block'?>;

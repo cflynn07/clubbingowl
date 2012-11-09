@@ -41,13 +41,14 @@ jQuery(function(){
 			
 			
 			//promoters callbacks
-			'promoters/:city/:public_identifier/events/:event*splat': 				'promoters_specific_event',
-			'promoters/:city/:public_identifier/events*splat': 						'promoters_all_events',
-			'promoters/:city/:public_identifier/guest_lists/:guest_list*splat': 	'promoters_specific_guest_list',
-			'promoters/:city/:public_identifier/guest_lists*splat': 				'promoters_all_guest_lists',
-			'promoters/:city/:public_identifier*splat': 							'promoters_profile',
-			'promoters/:city*splat':												'promoters_city',
-			'promoters*splat': 														'promoters',
+			'promoters/cities/:city*splat': 										'promoters_city',
+			'promoters/cities*splat': 												'promoters',
+			
+			'promoters/:public_identifier/events/:event*splat': 					'promoters_specific_event',
+			'promoters/:public_identifier/events*splat': 							'promoters_all_events',
+			'promoters/:public_identifier/guest_lists/:guest_list*splat': 			'promoters_specific_guest_list',
+			'promoters/:public_identifier/guest_lists*splat': 						'promoters_all_guest_lists',
+			'promoters/:public_identifier*splat': 									'promoters_profile',
 
 			
 			
@@ -154,7 +155,7 @@ jQuery(function(){
 			callback_helper(window.vc_page_scripts.promoter_pusher_presence_channels, 'presence');
 			
 		},		
-				
+	
 		promoters_profile: function(city, public_identifier){
 			
 			console.log('--------- promoters profile ---------');
