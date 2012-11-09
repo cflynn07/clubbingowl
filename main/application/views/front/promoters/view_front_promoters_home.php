@@ -1,3 +1,13 @@
+<style type="text/css">
+	.unauth_content{
+		display: <?= (isset($vc_user) && $vc_user) ? 'none' : 'block'?>;
+	}
+	.auth_content{
+		display: <?= (isset($vc_user) && $vc_user) ? 'block' : 'none'?>;
+	}
+</style>
+
+
 <?php if($city): // ----------------- specific city ---------------------- ?>
 	<script type="text/javascript">window.ptype_promoter_city='city';</script>
 	<h1><?= $this->lang->line('m-promoters') ?> - <a href="<?= $central->front_link_base ?>promoters/cities/<?= $city->url_identifier ?>/"><?= $city->name . ', ' . $city->state ?></a></h1>
@@ -46,7 +56,10 @@
 						    <a class="ajaxify_t3" href="<?= $pro_gl_link ?>"><?= $pro->u_full_name ?></a>
 						    <p class="sub_details"><?= $pro->t_name ?></p>
 							
-							<div class="friends" style="padding:10px 0 0 0; border-top:1px dashed #CCC; border-bottom:1px dashed #CCC;">
+							<div class="auth_content auth_clear_content" data-up_id="<?= $pro->up_id ?>" class="friends" style="padding:10px 0 0 0; border-top:1px dashed #CCC; border-bottom:1px dashed #CCC;">
+								<img class="loading_indicator" style="margin-left:auto; margin-right:auto;" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+								
+								<?php if(false): ?>
 								<img class="friend_img" src="http://placehold.it/20" />
 								<img class="friend_img" src="http://placehold.it/20" />
 								<img class="friend_img" src="http://placehold.it/20" />
@@ -55,6 +68,8 @@
 								<img class="friend_img" src="http://placehold.it/20" />
 								<img class="friend_img" src="http://placehold.it/20" />
 								<img class="friend_img" src="http://placehold.it/20" />
+								<?php endif; ?>
+								
 							</div>
 														
 		
@@ -63,7 +78,7 @@
 				</tr>
 				<tr>
 					<td style="padding-right:10px;">
-						<p style="margin:0; color:#CCC; float:right;">Promotes @</p>
+						<p style="margin:0; float:right;">Promotes @</p>
 					</td>
 					<td>
 						
@@ -170,7 +185,11 @@
 								    <a class="ajaxify_t3" href="<?= $pro_gl_link ?>"><?= $pro->u_full_name ?></a>
 								    <p class="sub_details"><?= $pro->t_name ?></p>
 									
-									<div class="friends" style="padding:10px 0 0 0; border-top:1px dashed #CCC; border-bottom:1px dashed #CCC;">
+									<div class="auth_clear_content auth_content" data-up_id="<?= $pro->up_id ?>" class="friends" style="padding:10px 0 0 0; border-top:1px dashed #CCC; border-bottom:1px dashed #CCC;">
+										<img class="loading_indicator" style="margin-left:auto; margin-right:auto;" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+										
+										
+										<?php if(false): ?>
 										<img class="friend_img" src="http://placehold.it/20" />
 										<img class="friend_img" src="http://placehold.it/20" />
 										<img class="friend_img" src="http://placehold.it/20" />
@@ -179,6 +198,8 @@
 										<img class="friend_img" src="http://placehold.it/20" />
 										<img class="friend_img" src="http://placehold.it/20" />
 										<img class="friend_img" src="http://placehold.it/20" />
+										<?php endif; ?>									
+										
 									</div>
 																
 				
@@ -187,7 +208,7 @@
 						</tr>
 						<tr>
 							<td style="padding-right:10px;">
-								<p style="margin:0; color:#CCC; float:right;">Promotes @</p>
+								<p style="margin:0; float:right;">Promotes @</p>
 							</td>
 							<td>
 								

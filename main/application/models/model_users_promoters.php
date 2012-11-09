@@ -1134,7 +1134,7 @@ class Model_users_promoters extends CI_Model {
 	 * @param	promoter team fan page id
 	 * @return	array
 	 */
-	function retrieve_promoter_clients_list($promoter_id, $promoter_team_fan_page_id, $options = array()){
+	function retrieve_promoter_clients_list($promoter_id, $promoter_team_fan_page_id = false, $options = array()){
 		
 		/* --------- CONFIGURATION SETTINGS --------- *
 		 * This method will require a lot of optional configuration settings. Passing in a configurable
@@ -1189,10 +1189,22 @@ class Model_users_promoters extends CI_Model {
 				ON 		pgla.team_venue_id = tv.id
 				
 				WHERE
-					pgla.user_promoter_id = ?
-					AND
-					tv.team_fan_page_id = ?";
-		$query = $this->db->query($sql, array($promoter_id, $promoter_team_fan_page_id));
+					pgla.user_promoter_id = ? ";
+				
+			//	if($promoter_team_fan_page_id !== false)
+			//		$sql .= " AND tv.team_fan_page_id = ?";
+				
+				
+				
+				
+	//	if($promoter_team_fan_page_id !== false)
+	//		$query = $this->db->query($sql, array($promoter_id, $promoter_team_fan_page_id));
+	//	else
+			$query = $this->db->query($sql, array($promoter_id));
+		
+		
+		
+		
 		$result = $query->result();
 				
 	//	if($cache)

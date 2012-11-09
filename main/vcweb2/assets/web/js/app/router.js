@@ -172,14 +172,14 @@ jQuery(function(){
 			
 			console.log('--------- promoters city ---------');
 			console.log(city);
-			callback_helper();
+			callback_helper(window.vc_page_scripts.promoters_cities);
 			
 		},
 		
 		promoters: function(){
 			
 			console.log('--------- promoters ---------');
-			callback_helper();
+			callback_helper(window.vc_page_scripts.promoters_cities);
 			
 		},
 		

@@ -3,7 +3,7 @@
 
   <header>
     <h1><?= $promoter->u_full_name ?></h1>
-    <div class="location"><?= $promoter->team->c_name . ', ' . $promoter->team->c_state ?></div>
+    <div class="location"><?= $promoter->team->c_name . ', ' . $promoter->team->c_state ?><br/><p style="font-size:14px; margin:0; float:right;"><?= $promoter->team->t_name ?></p></div>
   </header>
 
   <div class="left">

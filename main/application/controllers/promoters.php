@@ -342,6 +342,22 @@ class Promoters extends MY_Controller {
 	
 		$this->load->model('model_users_promoters', 'users_promoters', true);
 	
+	
+	
+	
+	
+	
+		
+	
+	
+	
+		$promoters_ids = array();
+	
+	
+	
+	
+	
+	
 		//Verify valid city
 		if($arg1 != ''){
 			//city specified
@@ -356,7 +372,11 @@ class Promoters extends MY_Controller {
 			//retrieve all promoters for this city
 			$data['promoters'] = $this->users_promoters->retrieve_multiple_promoters($arg1);
 			
-			Kint::dump($data);
+			foreach($data['promoters'] as $pro){
+				$promoters_ids[] = $pro->up_id;
+			}
+			
+		//	Kint::dump($data);
 			
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/';
@@ -373,6 +393,12 @@ class Promoters extends MY_Controller {
 			foreach($data['all_cities'] as &$vc_city){
 				//retrieve all promoters for this city
 				$vc_city->promoters = $this->users_promoters->retrieve_multiple_promoters($vc_city->url_identifier);
+				
+				foreach($vc_city->promoters as $pro){
+					$promoters_ids[] = $pro->up_id;
+				}
+				
+				
 			}
 			
 		//	Kint::dump($data);
@@ -384,7 +410,32 @@ class Promoters extends MY_Controller {
 			$this->load->vars('header_custom', $header_custom);
 			
 		}
+		
+		
+		$promoters_ids = array_unique($promoters_ids);
+		
+		
+		
+		
+		//additional promoter information specific to this page
+		if($vc_user = $this->session->userdata('vc_user')){
+			$vc_user = json_decode($vc_user);
+						
 			
+			$this->load->helper('run_gearman_job');
+			$arguments = array(
+				'user_oauth_uid' 	=> $vc_user->oauth_uid,
+				'access_token' 		=> $vc_user->access_token,
+				'promoters_ids'		=> $promoters_ids
+			);
+			run_gearman_job('gearman_promoter_friend_activity', $arguments);
+		}
+
+
+
+		
+		
+		
 			
 		$data['city'] = (isset($city)) ? $city : false;
 				
@@ -692,6 +743,112 @@ class Promoters extends MY_Controller {
 	 * 	END CONTROLLER VIEW DISPLAY FUNCTIONS
 	 * 		Below functions are called via AJAX and helpers
 	/ ******************************************************************************************************************/
+	
+	private function _ajax_home($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){
+		
+		if(!$vc_method = $this->input->post('vc_method')){
+			die(json_encode(array('success' => false,
+									'message' => 'Invalid access attempt')));
+		}
+		
+		switch($vc_method){
+			case 'promoter_friends_retrieve':
+				
+				if($this->input->post('status_check')){
+					//check to see if job complete
+					
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('gearman_promoter_friend_activity');
+					
+				}else{
+					
+					
+					
+					
+					
+					
+					
+					if($vc_user = $this->session->userdata('vc_user')){
+						
+						$vc_user = json_decode($vc_user);
+						
+						
+						
+						
+									
+									
+									
+						$promoters_ids = array();		
+					
+						//Verify valid city
+						if($arg1 != ''){
+							//city specified
+							
+							$this->load->model('model_app_data', 'app_data', true);
+							if(!$city = $this->app_data->retrieve_valid_city($arg1)){
+								die(json_encode(array('success' => false)));
+							}
+						
+							//retrieve all promoters for this city
+							$data['promoters'] = $this->users_promoters->retrieve_multiple_promoters($arg1);
+							
+							foreach($data['promoters'] as $pro){
+								$promoters_ids[] = $pro->up_id;
+							}
+							
+								
+						}else{
+							
+							$this->load->model('model_app_data', 'app_data', true);
+							$data['all_cities'] = $this->app_data->retrieve_all_cities();
+							
+							$this->load->model('model_users_promoters', 'users_promoters', true);
+							foreach($data['all_cities'] as &$vc_city){
+								//retrieve all promoters for this city
+								$vc_city->promoters = $this->users_promoters->retrieve_multiple_promoters($vc_city->url_identifier);
+								
+								foreach($vc_city->promoters as $pro){
+									$promoters_ids[] = $pro->up_id;
+								}
+								
+							}
+							
+						}
+						
+						
+						$promoters_ids = array_unique($promoters_ids);			
+										
+										
+							
+							
+							
+							
+						
+						
+						$this->load->helper('run_gearman_job');
+						$arguments = array(
+							'user_oauth_uid' 	=> $vc_user->oauth_uid,
+							'access_token' 		=> $vc_user->access_token,
+							'promoters_ids'		=> $promoters_ids
+						);
+						run_gearman_job('gearman_promoter_friend_activity', $arguments);
+
+						die(json_encode(array('success' => true)));
+						
+					}else{
+						
+						die(json_encode(array('success' => false, 'message' => 'User not authenticated.')));
+						
+					}
+					
+					
+					
+				}
+				
+				break;
+		}
+		
+	}
 	
 	/**
 	 * AJAX calls to promoter's home page, supplies data about promoter's popularity w/ friends
