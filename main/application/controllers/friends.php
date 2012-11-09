@@ -284,7 +284,7 @@ class Friends extends MY_Controller {
 					if($promoter->up_completed_setup == 1){
 					//	redirect('/promoters/' . $promoter->team->c_url_identifier . '/' . $promoter->up_public_identifier . '/', 301);
 					//	die();
-						$this->body_html = '<script type="text/javascript">window.top.location = "/promoters/' . $promoter->team->c_url_identifier . '/' . $promoter->up_public_identifier . '/";</script>';
+						$this->body_html = '<script type="text/javascript">window.top.location = "/promoters/' . $promoter->up_public_identifier . '/";</script>';
 						return;
 					}
 					
