@@ -70,7 +70,7 @@
 						<?php foreach($pro->venues as $venue): ?>
 							
 														
-							<?php if($venue->c_id != $vc_city->id) 
+							<?php if($venue->c_id != $city->id) 
 								continue; 
 								
 								$tv_url = $central->front_link_base . 'venues/' . $venue->c_url_identifier . '/' . str_replace(' ', '_', $venue->tv_name) . '/';
