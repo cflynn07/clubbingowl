@@ -482,26 +482,24 @@ class Promoters extends MY_Controller {
 			}
 			
 			$this->load->helper('run_gearman_job');
-			$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
-								'access_token' => $vc_user->access_token,
+			$arguments = array('user_oauth_uid' 			=> $vc_user->oauth_uid,
+								'access_token' 				=> $vc_user->access_token,
 								'promoter_team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id,
-								'promoter_oauth_uid' => $this->library_promoters->promoter->up_users_oauth_uid,
-								'promoter_id' => $this->library_promoters->promoter->up_id,
-								'promoter_venues_ids' => $promoter_venues_ids);
+								'promoter_oauth_uid' 		=> $this->library_promoters->promoter->up_users_oauth_uid,
+								'promoter_id' 				=> $this->library_promoters->promoter->up_id,
+								'promoter_venues_ids' 		=> $promoter_venues_ids);
 			run_gearman_job('gearman_individual_promoter_friend_activity', $arguments);
 		}
 
 		$this->body_html .= $this->load->view('front/_common/view_front_invite', '', true);		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_header', '', true);
-		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_options', '', true);				
 		$this->body_html .= $this->load->view($this->view_dir . 'view_front_promoters_profile_body_profile', '', true);	
-		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_footer', '', true);
 		
 		
 		$header_custom = new stdClass;
-		$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/';
+		$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/';
 		$header_custom->title_prefix = $this->library_promoters->promoter->u_full_name .  ' | ' . $this->lang->line('ad-promoters_home_title') . ' | ';
 		$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	
 										. 'profile-pics/' 
@@ -549,7 +547,7 @@ class Promoters extends MY_Controller {
 			Kint::dump($data);
 			
 			$header_custom = new stdClass;
-			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/';
+			$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/';
 			
 			
 			$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	
@@ -648,7 +646,7 @@ class Promoters extends MY_Controller {
 			
 			
 			$header_custom = new stdClass;
-			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/' . $arg3 . '/';
+			$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/' . $arg3 . '/';
 			$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	
 										. 'guest_lists/' 
 										. $data['guest_list']->pgla_image
@@ -730,7 +728,7 @@ class Promoters extends MY_Controller {
 		
 		
 		$header_custom = new stdClass;
-		$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/events/';
+		$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/events/';
 		$header_custom->title_prefix = $this->library_promoters->promoter->u_full_name .  's Events | Promoter | ';
 		$this->load->vars('header_custom', $header_custom);
 		
@@ -940,12 +938,12 @@ class Promoters extends MY_Controller {
 							$promoter_venues_ids[] = $ptv->tv_id;
 						}
 						
-						$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
-											'access_token' => $vc_user->access_token,
+						$arguments = array('user_oauth_uid' 			=> $vc_user->oauth_uid,
+											'access_token' 				=> $vc_user->access_token,
 											'promoter_team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id,
-											'promoter_oauth_uid' => $this->library_promoters->promoter->up_users_oauth_uid,
-											'promoter_id' => $this->library_promoters->promoter->up_id,
-											'promoter_venues_ids' => $promoter_venues_ids);
+											'promoter_oauth_uid' 		=> $this->library_promoters->promoter->up_users_oauth_uid,
+											'promoter_id' 				=> $this->library_promoters->promoter->up_id,
+											'promoter_venues_ids' 		=> $promoter_venues_ids);
 						run_gearman_job('gearman_individual_promoter_friend_activity', $arguments);
 
 						die(json_encode(array('success' => true)));
@@ -1171,6 +1169,28 @@ class Promoters extends MY_Controller {
 		$this->input->set_cookie($cookie_data);
 		
 	}
+	
+	
+	private function _helper_pop_retrieve_job(){
+		
+		
+		$this->load->helper('run_gearman_job');
+		$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
+							'access_token' => $vc_user->access_token,
+							'promoter_team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id,
+							'promoter_oauth_uid' => $this->library_promoters->promoter->up_users_oauth_uid,
+							'promoter_id' => $this->library_promoters->promoter->up_id,
+							'promoter_venues_ids' => $promoter_venues_ids);
+		run_gearman_job('gearman_individual_promoter_friend_activity', $arguments);
+		
+		
+		
+	}
+	private function _helper_ajax_pop_retrieve_job(){
+		
+	}
+	
+	
 }
 
 /* End of file promoters.php */

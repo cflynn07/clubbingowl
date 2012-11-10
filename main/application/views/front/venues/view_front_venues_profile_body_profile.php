@@ -35,12 +35,15 @@
   	
   	<ul class="promoters">
 	  	<?php foreach($venue->venue_promoters as $promoter): ?>
+	  		
+	  		<?php $pro_link = $central->front_link_base . 'promoters/' . $promoter->up_public_identifier . '/guest_lists/'; ?>
+	  		
 	  	<li>
-	  		<a href="<?= $central->front_link_base ?>promoters/<?= $promoter->c_url_identifier ?>/<?= $promoter->up_public_identifier ?>/">
+	  		<a class="ajaxify_t3" href="<?= $pro_link ?>">
 				<img class="logo" src="<?=$central->s3_uploaded_images_base_url?>profile-pics/<?= $promoter->up_profile_image ?>_t.jpg" alt="Venue Banner" />
 			</a>
 	  		<div class="name">
-	  			<a href="<?= $central->front_link_base ?>promoters/<?= $promoter->c_url_identifier ?>/<?= $promoter->up_public_identifier ?>/">
+	  			<a class="ajaxify_t3" href="<?= $pro_link ?>">
 	  				<?= $promoter->u_full_name ?>
 	  			</a>
 	  		</div>
