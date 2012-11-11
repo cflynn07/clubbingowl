@@ -398,7 +398,7 @@
 					</div>
 	          		
 	          		<div style="display:none;">
-	          			<a id="back_trigger_link" href="<?= $central->front_link_base . 'promoters/' . $promoter->team->c_name . '/' . $promoter->up_public_identifier . '/guest_lists/' ?>"></a>
+	          			<a id="back_trigger_link" href="<?= $central->front_link_base . 'promoters/' . $promoter->up_public_identifier . '/guest_lists/' ?>"></a>
 	          		</div>
 	          		<input class="guestlist-button cancel" type="button" id="guestlist-form-cancel" value="Cancel">
 	          		

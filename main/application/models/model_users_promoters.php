@@ -314,6 +314,7 @@ class Model_users_promoters extends CI_Model {
 	 * */
 	function retrieve_multiple_promoters($city = false){
 		
+		/*
 		$sql = "SELECT
 				
 					u.oauth_uid 			as u_oauth_uid,
@@ -355,13 +356,125 @@ class Model_users_promoters extends CI_Model {
 						AND pt.quit = 0
 						AND t.completed_setup = 1 ";
 				
-				if($city && $city != ''){
+				if($city){
 					$sql .= "AND c.url_identifier = ? ";
 				}
 				
 		$sql .=	"ORDER BY 	c.id, u.full_name ASC";
+		*/
+		
+		
+		$sql = "SELECT DISTINCT
+					
+					u.oauth_uid 			as u_oauth_uid,
+					u.first_name 			as u_first_name,
+					u.last_name 			as u_last_name,
+					u.full_name 			as u_full_name,
+					u.gender 				as u_gender,
+					up.id 					as up_id,
+					up.public_identifier	as up_public_identifier,
+					up.piwik_id_site 		as up_piwik_id_site,
+					up.biography 			as up_biography,
+					up.profile_image		as up_profile_image,
+					t.name					as t_name,
+					t.fan_page_id 			as t_fan_page_id,
+					t.description 			as t_description,
+					c.id 					as c_id,
+					c.name 					as c_name,
+					c.state 				as c_state,
+					c.url_identifier		as c_url_identifier
+
+				FROM	team_venues tv 
+				
+				JOIN 	cities c 
+				ON 		tv.city_id = c.id
+				
+				JOIN 	promoters_guest_list_authorizations pgla
+				ON 		pgla.team_venue_id = tv.id 
+				
+				JOIN 	users_promoters up
+				ON 		pgla.user_promoter_id = up.id
+				
+				JOIN 	users u 
+				ON 		up.users_oauth_uid = u.oauth_uid
+				
+				JOIN 	promoters_teams pt
+				ON 		pt.promoter_id = up.id
+				
+				JOIN 	teams t
+				ON		pt.team_fan_page_id = t.fan_page_id
+								
+				WHERE 	pt.approved = 1
+						AND up.completed_setup = 1
+						AND up.banned = 0
+						AND pt.approved = 1
+						AND pt.banned = 0
+						AND pt.quit = 0
+						AND t.completed_setup = 1 ";
+						
+				if($city){
+					$sql .= "AND c.url_identifier = ? ";
+				}
+				
+		
+			
 		$query = $this->db->query($sql, array($city));
-		return $query->result();
+		$result = $query->result();
+		
+		
+		//attach team venues
+		foreach($result as &$res){
+					
+			//find and attach team venues to this promoter
+			$sql = "SELECT DISTINCT
+						
+						tv.id 					as tv_id,
+						tv.team_fan_page_id 	as tv_team_fan_page_id,
+						tv.name 				as tv_name,
+						tv.description 			as tv_description,
+						tv.street_address		as tv_street_address,
+						tv.city 				as tv_city,
+						tv.state 				as tv_state,
+						tv.image 				as tv_image,
+						c.id 					as c_id,
+						c.name 					as c_name,
+						c.url_identifier 		as c_url_identifier,
+						t.fan_page_id			as t_fan_page_id,
+						t.name 					as t_name,
+						t.description			as t_description,
+						t.completed_setup 		as t_completed_setup
+					
+					FROM 	users_promoters up 
+					
+					JOIN 	promoters_teams pt 
+					ON 		pt.promoter_id = up.id 
+					
+					JOIN 	teams t 
+					ON 		pt.team_fan_page_id = t.fan_page_id
+					
+					JOIN 	team_venues tv
+					ON 		tv.team_fan_page_id = t.fan_page_id
+					
+					JOIN 	cities c 
+					ON 		tv.city_id = c.id
+					
+					JOIN 	promoters_guest_list_authorizations pgla
+					ON 		pgla.team_venue_id = tv.id
+					
+					WHERE	pgla.deactivated = 0
+							AND		pt.approved = 1
+							AND 	pt.banned = 0
+							AND 	pt.quit = 0
+							AND 	tv.banned = 0
+							AND 	pgla.user_promoter_id = ?
+					
+					ORDER BY	tv.id DESC";
+			$query = $this->db->query($sql, array($res->up_id));
+			$res->venues = $query->result();	
+				
+		}
+		
+		return $result;
 		
 	}
 
@@ -379,13 +492,12 @@ class Model_users_promoters extends CI_Model {
 		 * array of key/value pairs will work better than a method with 20 optional arguments.
 		 */
 		$default_options = array(
-								'completed_setup' => 'AND t.completed_setup = 1',
-								'quit' => 'AND 	pt.quit = 0',
-								'banned' => 'AND pt.banned = 0',
-								'up_banned' => 'AND up.banned = 0',
-								'id_only' => false,
-								'city' => false
-								);
+								'completed_setup' 	=> 'AND t.completed_setup = 1',
+								'quit' 				=> 'AND pt.quit = 0',
+								'banned' 			=> 'AND pt.banned = 0',
+								'up_banned' 		=> 'AND up.banned = 0',
+								'id_only' 			=> false
+							);
 		foreach($query_options as $key => $value){
 			//is this a recognized configuration setting?
 			if(!array_key_exists($key, $default_options))
@@ -474,29 +586,28 @@ class Model_users_promoters extends CI_Model {
 				
 				JOIN	teams t 
 				ON		mt.fan_page_id = t.fan_page_id
-				
-				JOIN 	cities c 
-				ON 		t.city_id = c.id	
-				
+								
 				WHERE 	
-						pt.approved = 1 " . $banned . " " . $completed_setup . " " . $quit . " " . $up_banned . " AND ";
+						pt.approved = 1 " . $banned . " " . $completed_setup . " " . $quit . " " . $up_banned . " ";
 				
 		if($promoter_id){
-			$sql .= "up.id = $promoter_id ";
+			$sql .= "AND up.id = $promoter_id ";
 		}elseif($promoter_public_identifier){
-			$sql .= "up.public_identifier = '$promoter_public_identifier' ";
+			$sql .= "AND up.public_identifier = '$promoter_public_identifier' ";
 		}elseif($users_oauth_uid){
-			$sql .= "up.users_oauth_uid = $users_oauth_uid ";
+			$sql .= "AND up.users_oauth_uid = $users_oauth_uid ";
 		}
 		
 		//attach city if specified
-		if($city && $city !== ''){
-			$sql .= "AND c.url_identifier = ? ";
-		}
+	//	if($city && $city !== ''){
+	//		$sql .= "AND c.url_identifier = ? ";
+	//	}
 		
 		$sql .= "ORDER BY pt.approved_time DESC"; //<---- retrieve most recent association
 		
-		$query = $this->db->query($sql, array($city));		
+		$query = $this->db->query($sql, array());		
+	//	Kint::dump($this->db->last_query()); die();
+		
 		$result = $query->row();
 					
 		if(!$result || $id_only)
@@ -545,6 +656,9 @@ class Model_users_promoters extends CI_Model {
 					tv.city 				as tv_city,
 					tv.state 				as tv_state,
 					tv.image 				as tv_image,
+					c.id 					as c_id,
+					c.name 					as c_name,
+					c.url_identifier 		as c_url_identifier,
 					t.fan_page_id			as t_fan_page_id,
 					t.name 					as t_name,
 					t.description			as t_description,
@@ -561,6 +675,9 @@ class Model_users_promoters extends CI_Model {
 				JOIN 	team_venues tv
 				ON 		tv.team_fan_page_id = t.fan_page_id
 				
+				JOIN 	cities c 
+				ON 		c.id = tv.city_id
+				
 				JOIN 	promoters_guest_list_authorizations pgla
 				ON 		pgla.team_venue_id = tv.id
 				
@@ -569,11 +686,10 @@ class Model_users_promoters extends CI_Model {
 						AND 	pt.banned = 0
 						AND 	pt.quit = 0
 						AND 	tv.banned = 0
-						AND 	t.fan_page_id = ?
 						AND 	pgla.user_promoter_id = ?
 				
 				ORDER BY	tv.id DESC";
-		$query = $this->db->query($sql, array($result->team->t_fan_page_id, $result->up_id));
+		$query = $this->db->query($sql, array($result->up_id));
 		$result->promoter_team_venues = $query->result();
 		
 		return $result;
@@ -762,18 +878,19 @@ class Model_users_promoters extends CI_Model {
 
 		$sql = "SELECT
 					
-					tv.id 				tv_id,
-					tv.team_fan_page_id	tv_team_fan_page_id,
-					tv.name 			tv_name,
-					tv.description		tv_description,
-					tv.street_address	tv_street_address,
-					tv.monday 			tv_monday,
-					tv.tuesday			tv_tuesday,
-					tv.wednesday 		tv_wednesday,
-					tv.thursday 		tv_thursday,
-					tv.friday 			tv_friday,
-					tv.saturday 		tv_saturday,
-					tv.sunday 			tv_sunday
+					tv.id 				as tv_id,
+					tv.team_fan_page_id	as tv_team_fan_page_id,
+					tv.name 			as tv_name,
+					tv.image 			as tv_image,
+					tv.description		as tv_description,
+					tv.street_address	as tv_street_address,
+					tv.monday 			as tv_monday,
+					tv.tuesday			as tv_tuesday,
+					tv.wednesday 		as tv_wednesday,
+					tv.thursday 		as tv_thursday,
+					tv.friday 			as tv_friday,
+					tv.saturday 		as tv_saturday,
+					tv.sunday 			as tv_sunday
 					
 				FROM 	users_promoters up
 				
@@ -796,6 +913,7 @@ class Model_users_promoters extends CI_Model {
 						AND pt.banned = 0
 						AND pt.quit = 0
 						AND tvp.deleted = 0";
+						
 		$query = $this->db->query($sql, array($promoter_id));
 		return $query->result();
 		
@@ -1016,7 +1134,7 @@ class Model_users_promoters extends CI_Model {
 	 * @param	promoter team fan page id
 	 * @return	array
 	 */
-	function retrieve_promoter_clients_list($promoter_id, $promoter_team_fan_page_id, $options = array()){
+	function retrieve_promoter_clients_list($promoter_id, $promoter_team_fan_page_id = false, $options = array()){
 		
 		/* --------- CONFIGURATION SETTINGS --------- *
 		 * This method will require a lot of optional configuration settings. Passing in a configurable
@@ -1071,10 +1189,22 @@ class Model_users_promoters extends CI_Model {
 				ON 		pgla.team_venue_id = tv.id
 				
 				WHERE
-					pgla.user_promoter_id = ?
-					AND
-					tv.team_fan_page_id = ?";
-		$query = $this->db->query($sql, array($promoter_id, $promoter_team_fan_page_id));
+					pgla.user_promoter_id = ? ";
+				
+			//	if($promoter_team_fan_page_id !== false)
+			//		$sql .= " AND tv.team_fan_page_id = ?";
+				
+				
+				
+				
+	//	if($promoter_team_fan_page_id !== false)
+	//		$query = $this->db->query($sql, array($promoter_id, $promoter_team_fan_page_id));
+	//	else
+			$query = $this->db->query($sql, array($promoter_id));
+		
+		
+		
+		
 		$result = $query->result();
 				
 	//	if($cache)

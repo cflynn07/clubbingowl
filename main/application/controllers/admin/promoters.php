@@ -1625,7 +1625,7 @@ class Promoters extends MY_Controller {
 	 * @return	null
 	 */
 	private function _ajax_setup_dashboard($arg0 = '', $arg1 = '', $arg2 = ''){
-		error_reporting(E_ALL);
+	//	error_reporting(E_ALL);
 		
 		$this->load->library('library_image_upload', '', 'image_upload');
 		
@@ -1719,6 +1719,33 @@ class Promoters extends MY_Controller {
 				if($this->users_promoters->retrieve_promoter(array('promoter_public_identifier' => $public_identifier)))
 					die(json_encode(array('success' => false,
 											'message' => 'Public identifier is already taken')));
+				
+				
+				
+				
+				
+				//public id can't match a city url_identifier
+				$this->db->select('id')
+					->from('cities')
+					->where(array(
+						'url_identifier'	=> $public_identifier
+					));
+				$tres = $this->db->get()->row();
+				if($tres){
+					die(json_encode(array('success' => false,
+											'message' => 'Invalid public identifier, please choose another name.')));
+				}
+				unset($tres);
+				
+				
+				//reserved names
+				if($public_identifier == 'cities' || $public_identifier == 'city'){
+					die(json_encode(array('success' => false,
+											'message' => 'Invalid public identifier, please choose another name.')));
+				}
+				
+				
+				
 					
 				if(strlen($sms_text_number) < 10)
 					die(json_encode(array('success' => false,

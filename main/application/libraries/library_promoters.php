@@ -27,13 +27,13 @@ class library_promoters{
 	 * @param	bool (is this being initalized from the admin panel)
 	 * @return	null
 	 */
-	public function initialize($options, $admin_panel = false, $city = false){
+	public function initialize($options, $admin_panel = false){
 		
 		//remove requirement to have completed setup if this is being loaded via the admin panel
 		if($admin_panel)
 			$data = array('completed_setup' => ''); // 'banned' => '', 'quit' => '', up_banned => ''
 		else
-			$data = array('city' => $city);
+			$data = array();
 		
 		//Look up promoter information based on public identifier, if promoter does not exist throw 404
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);

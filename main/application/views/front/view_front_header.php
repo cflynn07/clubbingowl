@@ -97,14 +97,14 @@ reinvigorate.track("k9096-0e37qc95ai");
 			
 			<ul class="menu">
 				<li><a class="nav_link" href="<?= $central->front_link_base ?>friends/" title="<?= $this->lang->line('m-friends') ?>"><?= $this->lang->line('m-friends') ?></a></li>
-				<li><a class="nav_link" href="<?= $central->front_link_base ?>promoters/" title="<?= $this->lang->line('m-promoters') ?>"><?= $this->lang->line('m-promoters') ?></a>
+				<li><a class="nav_link" href="<?= $central->front_link_base ?>promoters/cities/" title="<?= $this->lang->line('m-promoters') ?>"><?= $this->lang->line('m-promoters') ?></a>
 					<ul class="drop">
 						
 						<?php foreach($active_promoter_cities as $city): ?>
-							<li><a href="<?= $central->front_link_base ?>promoters/<?= $city->c_url_identifier ?>/"><?= $city->c_name . ', ' . $city->c_state ?></a></li>
+							<li><a href="<?= $central->front_link_base ?>promoters/cities/<?= $city->c_url_identifier ?>/"><?= $city->c_name . ', ' . $city->c_state ?></a></li>
 						<?php endforeach; ?>
 						
-						<li class="footer"><a href="<?= $central->front_link_base ?>promoters/"><?= $this->lang->line('m-all_cities') ?></a></li>
+						<li class="footer"><a href="<?= $central->front_link_base ?>promoters/cities/"><?= $this->lang->line('m-all_cities') ?></a></li>
 					</ul>
 				</li>
 				<li><a class="nav_link" href="<?= $central->front_link_base ?>venues/" title="<?= $this->lang->line('m-venues') ?>"><?= $this->lang->line('m-venues') ?></a>

@@ -40,14 +40,18 @@ class Promoters extends MY_Controller {
 	 */
 	public function index($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){
 
-		/* --------------------- Load promoter library ------------------------ */
-		//load the promoter library if a promoter public identifier is available
-		if($arg0 != '' && $arg1 != ''){
-			$this->load->library('library_promoters');
-			$this->library_promoters->initialize(array('promoter_public_identifier' => $arg1), false, $arg0);
+		$this->load->library('library_promoters');
+		
+		if($arg0 == ''){
+			show_404('Invalid URL');
 		}
-		/* --------------------- End Load promoter library ------------------------ */
-
+		
+		if($arg0 != 'cities'){
+			
+			$this->library_promoters->initialize(array('promoter_public_identifier' => $arg0), false);
+			
+		}
+		
 		/*--------------------- AJAX Request Bypass Handler ---------------------*/
 		//The idea here is to avoid loading the static assets, header, body, etc if
 		//this is a valid ajax request to this controller. Simply go directly to the
@@ -59,10 +63,14 @@ class Promoters extends MY_Controller {
 			
 			//SPECIAL CASES:
 			//we want these methods to fire but we don't want to force users to supply extra url segment
-			if($arg1 == ''){
+			if($arg0 == 'cities'){
+				
 				$method = 'home';
-			}elseif($arg2 == ''){
+				
+			}elseif($arg0 != 'cities' && $arg1 == ''){
+				
 				$method = 'primary';
+				
 			}
 						
 			if(!isset($method)){
@@ -80,23 +88,8 @@ class Promoters extends MY_Controller {
 		/*--------------------- End AJAX Request Bypass Handler ---------------------*/
 			
 			
-		/* ------------------------------- Prepare static asset urls ------------------------------- */	
-		//Set in 'CONTROLLER METHOD ROUTING,' passed to the header view. Loads additional
-		//javascript/css files+properties that are unique to specific pages loaded from this
-		//controller
-//		$header_data['additional_karma_javascripts'] = array();
-//		$header_data['additional_karma_css'] = array();
-		$header_data['additional_front_javascripts'] = array();
-		$header_data['additional_front_css'] = array();
-		$header_data['additional_global_javascripts'] = array();
-		$header_data['additional_global_css'] = array();
-		//additional_js_properties are javascript variables defined in the global namespace, making them
-			//available to code in included js files
-		$header_data['additional_js_properties'] = array();
-		/* ------------------------------- End prepare static asset urls ------------------------------- */
 
-		
-		# ----------------------------------------------------------------------------------- #
+					# ----------------------------------------------------------------------------------- #
 		#	BEGIN CONTROLLER METHOD ROUTING													  #
 		# ----------------------------------------------------------------------------------- #	
 		/*
@@ -113,10 +106,8 @@ class Promoters extends MY_Controller {
 			//no promoter is specified, showcase all promoters in system
 			
 			//display preview of all promoters
-			$method = 'home';
-			$header_data['additional_front_css'] = array(
-//				'locations.css'
-			);
+		//	$method = 'home';
+			show_404('Invalid URL');
 			
 		}
 		/*
@@ -131,11 +122,43 @@ class Promoters extends MY_Controller {
 		 * */
 		elseif($arg0 != '' && $arg1 == ''){
 			
-			//showcase all promoters in system for a given city
-			$method = 'home';
-			$header_data['additional_front_css'] = array(
-//				'locations.css'
-			);
+			//UPDATE: Either will be a *city* or a *promoter_id*
+			
+			if($arg0 == 'cities'){
+				
+				//showcase all promoters in all cities
+				$method = 'home';
+				
+			}else{
+				
+				//This is not a city... might be a promoter
+				$method = 'primary';
+				
+			}
+			
+			/*
+			
+			$this->db->select('id')
+				->from('cities')
+				->where(array(
+					'url_identifier'	=> $arg0
+				));
+			$result = $this->db->get()->row();
+			
+			if($result){
+				//This is a city
+				//showcase all promoters in system for a given city
+				$method = 'home';
+				
+			}else{
+				//This is not a city... might be a promoter
+				$method = 'primary';
+				
+				$this->load->library('library_promoters');
+				$this->library_promoters->initialize(array('promoter_public_identifier' => $arg0), false);
+				
+			}
+			*/
 					
 		}
 		/**
@@ -149,21 +172,67 @@ class Promoters extends MY_Controller {
 			//showcase a specific promoter
 			
 			
+			
+			if($arg0 == 'cities'){
+				
+				//showcase all promoters in all cities
+				$method = 'home';
+				
+			}else{
+				
+				//This is not a city... might be a promoter
+			//	$method = 'primary';
+				
+				switch($arg1){
+					case 'guest_lists':
+						$method = 'guest_lists';
+						
+						
+						break;
+					case 'events':
+						$method = 'events';
+						
+						break;
+					default:
+						show_404('Invalid URL');
+						break;
+				}
+				
+			}
+
+
+
+
+/*
+			
+			
+			
 			$method = 'primary';
 			//This method will cover what was formerly 'primary' && 'all_guest_lists' && 'events'
 			
-			$header_data['additional_front_css'] = array(
-//				'promoter.css',
-//				'venue.css'
-			);
-	/*		
-			$header_data['additional_global_javascripts'] = array(
-														'charts/highcharts.js',
-														'charts/themes/gray.js'
-														);
-			$header_data['additional_global_css'] = array(
-														);
-	*/
+			$this->load->library('library_promoters');
+			$this->library_promoters->initialize(array('promoter_public_identifier' => $arg0), false);
+			
+			
+			
+			//showcase all events and guest lists for promoter
+			switch($arg1){
+				case 'guest_lists':
+					$method = 'guest_lists';
+					
+					
+					break;
+				case 'events':
+					$method = 'events';
+					
+					break;
+				default:
+					show_404('Invalid URL');
+					break;
+			}
+			*/
+			
+			
 			
 		}
 		/*
@@ -178,30 +247,20 @@ class Promoters extends MY_Controller {
 		 */
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != '' && $arg3 == ''){
 			
-			
-			//showcase all events and guest lists for promoter
-			switch($arg2){
+			//showcase specific event or guest list for promoter
+			switch($arg1){
 				case 'guest_lists':
 					$method = 'guest_lists';
-					$header_data['additional_front_css'] = array(
-//						'promoter.css',
-//						'venue.css'
-					);
 					
 					break;
 				case 'events':
 					$method = 'events';
-					$header_data['additional_front_css'] = array(
-//						'promoter.css',
-//						'venue.css'
-					);
-					
+								
 					break;
 				default:
-					show_404('invalid url');
+					show_404('Invalid URL');
 					break;
 			}
-			
 			
 		}
 		/*
@@ -216,36 +275,7 @@ class Promoters extends MY_Controller {
 		 */
 		elseif($arg0 != '' && $arg1 != '' && $arg2 != '' && $arg3 != ''){
 			
-			
-			//showcase specific event or guest list for promoter
-			switch($arg2){
-				case 'guest_lists':
-					$method = 'guest_lists';
-					$header_data['additional_front_css'] = array(
-//						'promoter.css',
-//						'venue.css'
-					);
-					
-					$header_data['additional_front_javascripts'] = array(
-	//					'page/promoter.js'
-					);
-					
-					$header_data['additional_global_javascripts'] = array(
-	//					'jquery.maskedinput-1.3.min.js'
-					);
-					
-					break;
-				case 'events':
-					$method = 'events';
-					$header_data['additional_front_css'] = array(
-//						'promoter.css'
-					);
-					
-					break;
-				default:
-					show_404('invalid url');
-					break;
-			}
+			show_404('Invalid URL');
 			
 		}
 		/**
@@ -258,13 +288,7 @@ class Promoters extends MY_Controller {
 		#	END CONTROLLER METHOD ROUTING													  #
 		# ----------------------------------------------------------------------------------- #	
 		
-		/**
-		 * 'header_data' is made globally available to all views so that the 'view_common_header'
-		 * view can be included from the header files of all themes to properly include
-		 * external css/js files and define global-namespace js variables
-		 */
-		$this->load->vars('header_data', $header_data);
-		
+
 		$vc_user = $this->session->userdata('vc_user');
 		if($vc_user !== false){
 			$this->load->vars('vc_user', json_decode($vc_user));
@@ -318,19 +342,41 @@ class Promoters extends MY_Controller {
 	
 		$this->load->model('model_users_promoters', 'users_promoters', true);
 	
+	
+	
+	
+	
+	
+		
+	
+	
+	
+		$promoters_ids = array();
+	
+	
+	
+	
+	
+	
 		//Verify valid city
-		if($arg0 != ''){
+		if($arg1 != ''){
 			//city specified
 			
 			$this->load->model('model_app_data', 'app_data', true);
-			if(!$city = $this->app_data->retrieve_valid_city($arg0)){
+			if(!$city = $this->app_data->retrieve_valid_city($arg1)){
 				show_404('unknown city'); //prob better just a reg 404
 				die();
 			}
 		
 			
 			//retrieve all promoters for this city
-			$data['promoters'] = $this->users_promoters->retrieve_multiple_promoters($arg0);
+			$data['promoters'] = $this->users_promoters->retrieve_multiple_promoters($arg1);
+			
+			foreach($data['promoters'] as $pro){
+				$promoters_ids[] = $pro->up_id;
+			}
+			
+		//	Kint::dump($data);
 			
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/';
@@ -347,7 +393,15 @@ class Promoters extends MY_Controller {
 			foreach($data['all_cities'] as &$vc_city){
 				//retrieve all promoters for this city
 				$vc_city->promoters = $this->users_promoters->retrieve_multiple_promoters($vc_city->url_identifier);
+				
+				foreach($vc_city->promoters as $pro){
+					$promoters_ids[] = $pro->up_id;
+				}
+				
+				
 			}
+			
+		//	Kint::dump($data);
 			
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/';
@@ -356,7 +410,32 @@ class Promoters extends MY_Controller {
 			$this->load->vars('header_custom', $header_custom);
 			
 		}
+		
+		
+		$promoters_ids = array_unique($promoters_ids);
+		
+		
+		
+		
+		//additional promoter information specific to this page
+		if($vc_user = $this->session->userdata('vc_user')){
+			$vc_user = json_decode($vc_user);
+						
 			
+			$this->load->helper('run_gearman_job');
+			$arguments = array(
+				'user_oauth_uid' 	=> $vc_user->oauth_uid,
+				'access_token' 		=> $vc_user->access_token,
+				'promoters_ids'		=> $promoters_ids
+			);
+			run_gearman_job('gearman_promoter_friend_activity', $arguments);
+		}
+
+
+
+		
+		
+		
 			
 		$data['city'] = (isset($city)) ? $city : false;
 				
@@ -403,26 +482,24 @@ class Promoters extends MY_Controller {
 			}
 			
 			$this->load->helper('run_gearman_job');
-			$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
-								'access_token' => $vc_user->access_token,
+			$arguments = array('user_oauth_uid' 			=> $vc_user->oauth_uid,
+								'access_token' 				=> $vc_user->access_token,
 								'promoter_team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id,
-								'promoter_oauth_uid' => $this->library_promoters->promoter->up_users_oauth_uid,
-								'promoter_id' => $this->library_promoters->promoter->up_id,
-								'promoter_venues_ids' => $promoter_venues_ids);
+								'promoter_oauth_uid' 		=> $this->library_promoters->promoter->up_users_oauth_uid,
+								'promoter_id' 				=> $this->library_promoters->promoter->up_id,
+								'promoter_venues_ids' 		=> $promoter_venues_ids);
 			run_gearman_job('gearman_individual_promoter_friend_activity', $arguments);
 		}
 
 		$this->body_html .= $this->load->view('front/_common/view_front_invite', '', true);		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_header', '', true);
-		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_options', '', true);				
 		$this->body_html .= $this->load->view($this->view_dir . 'view_front_promoters_profile_body_profile', '', true);	
-		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_footer', '', true);
 		
 		
 		$header_custom = new stdClass;
-		$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/';
+		$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/';
 		$header_custom->title_prefix = $this->library_promoters->promoter->u_full_name .  ' | ' . $this->lang->line('ad-promoters_home_title') . ' | ';
 		$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	
 										. 'profile-pics/' 
@@ -459,7 +536,7 @@ class Promoters extends MY_Controller {
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_header', '', true);
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_options', '', true);				
 		
-		if($arg3 === ''){
+		if($arg2 === ''){
 			
 			//All Guest Lists
 			
@@ -467,10 +544,10 @@ class Promoters extends MY_Controller {
 			$data['all_guest_lists'] = $this->library_promoters->retrieve_all_guest_lists();
 			$this->body_html .= $this->load->view($this->view_dir . 'guest_lists/view_front_promoters_profile_body_guest_lists', $data, true);				
 			
-			//Kint::dump($data);
+			Kint::dump($data);
 			
 			$header_custom = new stdClass;
-			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/';
+			$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/';
 			
 			
 			$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	
@@ -508,8 +585,8 @@ class Promoters extends MY_Controller {
 			
 			$this->_helper_record_reference_code();
 			//get this guest list, if guest list isn't found - throw 404
-			
-			$data['guest_list'] = $this->library_promoters->retrieve_promoter_guest_list($arg3);
+
+			$data['guest_list'] = $this->library_promoters->retrieve_promoter_guest_list($arg2);
 			
 			
 			
@@ -569,7 +646,7 @@ class Promoters extends MY_Controller {
 			
 			
 			$header_custom = new stdClass;
-			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/' . $arg3 . '/';
+			$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/' . $arg3 . '/';
 			$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	
 										. 'guest_lists/' 
 										. $data['guest_list']->pgla_image
@@ -651,7 +728,7 @@ class Promoters extends MY_Controller {
 		
 		
 		$header_custom = new stdClass;
-		$header_custom->url = base_url() . 'promoters/' . $arg0 . '/' . $this->library_promoters->promoter->up_public_identifier . '/events/';
+		$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/events/';
 		$header_custom->title_prefix = $this->library_promoters->promoter->u_full_name .  's Events | Promoter | ';
 		$this->load->vars('header_custom', $header_custom);
 		
@@ -664,6 +741,112 @@ class Promoters extends MY_Controller {
 	 * 	END CONTROLLER VIEW DISPLAY FUNCTIONS
 	 * 		Below functions are called via AJAX and helpers
 	/ ******************************************************************************************************************/
+	
+	private function _ajax_home($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){
+		
+		if(!$vc_method = $this->input->post('vc_method')){
+			die(json_encode(array('success' => false,
+									'message' => 'Invalid access attempt')));
+		}
+		
+		switch($vc_method){
+			case 'promoter_friends_retrieve':
+				
+				if($this->input->post('status_check')){
+					//check to see if job complete
+					
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('gearman_promoter_friend_activity');
+					
+				}else{
+					
+					
+					
+					
+					
+					
+					
+					if($vc_user = $this->session->userdata('vc_user')){
+						
+						$vc_user = json_decode($vc_user);
+						
+						
+						
+						
+									
+									
+									
+						$promoters_ids = array();		
+					
+						//Verify valid city
+						if($arg1 != ''){
+							//city specified
+							
+							$this->load->model('model_app_data', 'app_data', true);
+							if(!$city = $this->app_data->retrieve_valid_city($arg1)){
+								die(json_encode(array('success' => false)));
+							}
+						
+							//retrieve all promoters for this city
+							$data['promoters'] = $this->users_promoters->retrieve_multiple_promoters($arg1);
+							
+							foreach($data['promoters'] as $pro){
+								$promoters_ids[] = $pro->up_id;
+							}
+							
+								
+						}else{
+							
+							$this->load->model('model_app_data', 'app_data', true);
+							$data['all_cities'] = $this->app_data->retrieve_all_cities();
+							
+							$this->load->model('model_users_promoters', 'users_promoters', true);
+							foreach($data['all_cities'] as &$vc_city){
+								//retrieve all promoters for this city
+								$vc_city->promoters = $this->users_promoters->retrieve_multiple_promoters($vc_city->url_identifier);
+								
+								foreach($vc_city->promoters as $pro){
+									$promoters_ids[] = $pro->up_id;
+								}
+								
+							}
+							
+						}
+						
+						
+						$promoters_ids = array_unique($promoters_ids);			
+										
+										
+							
+							
+							
+							
+						
+						
+						$this->load->helper('run_gearman_job');
+						$arguments = array(
+							'user_oauth_uid' 	=> $vc_user->oauth_uid,
+							'access_token' 		=> $vc_user->access_token,
+							'promoters_ids'		=> $promoters_ids
+						);
+						run_gearman_job('gearman_promoter_friend_activity', $arguments);
+
+						die(json_encode(array('success' => true)));
+						
+					}else{
+						
+						die(json_encode(array('success' => false, 'message' => 'User not authenticated.')));
+						
+					}
+					
+					
+					
+				}
+				
+				break;
+		}
+		
+	}
 	
 	/**
 	 * AJAX calls to promoter's home page, supplies data about promoter's popularity w/ friends
@@ -755,12 +938,12 @@ class Promoters extends MY_Controller {
 							$promoter_venues_ids[] = $ptv->tv_id;
 						}
 						
-						$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
-											'access_token' => $vc_user->access_token,
+						$arguments = array('user_oauth_uid' 			=> $vc_user->oauth_uid,
+											'access_token' 				=> $vc_user->access_token,
 											'promoter_team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id,
-											'promoter_oauth_uid' => $this->library_promoters->promoter->up_users_oauth_uid,
-											'promoter_id' => $this->library_promoters->promoter->up_id,
-											'promoter_venues_ids' => $promoter_venues_ids);
+											'promoter_oauth_uid' 		=> $this->library_promoters->promoter->up_users_oauth_uid,
+											'promoter_id' 				=> $this->library_promoters->promoter->up_id,
+											'promoter_venues_ids' 		=> $promoter_venues_ids);
 						run_gearman_job('gearman_individual_promoter_friend_activity', $arguments);
 
 						die(json_encode(array('success' => true)));
@@ -883,7 +1066,7 @@ class Promoters extends MY_Controller {
 	 * @return	null
 	 */
 	private function _helper_record_view(){
-		
+				
 		if($vc_user = $this->session->userdata('vc_user')){
 			$vc_user = json_decode($vc_user);
 			
@@ -986,6 +1169,28 @@ class Promoters extends MY_Controller {
 		$this->input->set_cookie($cookie_data);
 		
 	}
+	
+	
+	private function _helper_pop_retrieve_job(){
+		
+		
+		$this->load->helper('run_gearman_job');
+		$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
+							'access_token' => $vc_user->access_token,
+							'promoter_team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id,
+							'promoter_oauth_uid' => $this->library_promoters->promoter->up_users_oauth_uid,
+							'promoter_id' => $this->library_promoters->promoter->up_id,
+							'promoter_venues_ids' => $promoter_venues_ids);
+		run_gearman_job('gearman_individual_promoter_friend_activity', $arguments);
+		
+		
+		
+	}
+	private function _helper_ajax_pop_retrieve_job(){
+		
+	}
+	
+	
 }
 
 /* End of file promoters.php */

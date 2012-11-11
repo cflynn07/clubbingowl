@@ -118,6 +118,10 @@ class Worker extends CI_Controller {
 			$gearman_worker->addAbility('gearman_individual_venue_friend_activity');	
 			$gearman_worker->addAbility('gearman_send_emails');	
 			$gearman_worker->addAbility('gearman_send_sms_notification');	
+			
+			
+			
+			$gearman_worker->addAbility('gearman_promoter_friend_activity');	
 					
 			
 		//	if($arg1 == 'special_emails'){

@@ -206,6 +206,7 @@ class Assets extends MY_Common_Controller {
 					array('jquery/jquery-ui-1.8.18.min',								'global_js'),
 					array('pusher/pusher-1.11',											'global_js'),
 					array('pusher/pusher_extend',										'global_js'),
+					array('jStorage/jStorage',											'global_js'),
 					
 					
 					array('jquery.cookies.2.2.0.min',									'global_js'),					
@@ -249,6 +250,7 @@ class Assets extends MY_Common_Controller {
 					array('page/team_page',												'front_js'),
 					array('page/friends_feed',											'front_js'),
 					array('page/individual_friend',										'front_js'),
+					array('page/promoters_cities',										'front_js'),
 					array('page/promoter_all',											'front_js'),
 					array('page/promoter_profile',										'front_js'),
 					array('page/promoter_pusher_presence_channels',						'front_js'),

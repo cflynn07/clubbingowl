@@ -5,7 +5,7 @@
  * that a new user has joined VibeCompass
  * 
  */
-class Net_Gearman_Job_gearman_individual_promoter_friend_activity extends Net_Gearman_Job_Common{
+class Net_Gearman_Job_gearman_promoter_friend_activity extends Net_Gearman_Job_Common{
 	
     public function run($args){
     			
@@ -15,12 +15,16 @@ class Net_Gearman_Job_gearman_individual_promoter_friend_activity extends Net_Ge
 		$CI->load->library('library_facebook', '', 'facebook');
 		$handle = $this->handle;
 		
-		$user_oauth_uid = $args['user_oauth_uid'];
-		$access_token = $args['access_token'];
-		$promoter_oauth_uid = $args['promoter_oauth_uid'];
-		$promoter_id = $args['promoter_id'];
-		$promoter_venues_ids = $args['promoter_venues_ids'];
-		$promoter_team_fan_page_id = $args['promoter_team_fan_page_id'];
+		
+		
+		$user_oauth_uid 			= $args['user_oauth_uid'];
+		$access_token 				= $args['access_token'];
+		$promoters_ids 				= $args['promoters_ids'];
+		
+		
+		var_dump($promoters_ids);
+		
+		
 		
 		//CACHE SHARED WITH news_feed_retrieve gearman job ------ 
 		
@@ -31,8 +35,6 @@ class Net_Gearman_Job_gearman_individual_promoter_friend_activity extends Net_Ge
 	//		$CI->memcached->add('cache_user_friends_' . $user_oauth_uid, $result, (60 * 15));
 	//		echo 'IPFA cached user '  . $user_oauth_uid . ' friends' . PHP_EOL;
 	//	}
-		
-		
 		
 		
 		//first get list of user's friends that are vc users
@@ -68,25 +70,16 @@ class Net_Gearman_Job_gearman_individual_promoter_friend_activity extends Net_Ge
 
 
 
-
 		//Retrieve friends that have been to this promoter's venues
-		$CI->load->helper('friends_venues_correlate');
-		$promoter_venues_user_friends = friends_venues_correlate($user_friends_ids, $promoter_venues_ids);
+		$CI->load->helper('friends_promoters_correlate');
+	//	$promoter_venues_user_friends = friends_venues_correlate($user_friends_ids, $promoter_venues_ids);
+		$promoters_users_friends = friends_promoters_correlate($user_friends_ids, $promoters_ids);
 		
-		
-		
-		
-		
-		$CI->load->model('model_users_promoters', 'users_promoters', true);
-		$promoter_notifications = $CI->users_promoters->retrieve_promoter_client_newsfeed($promoter_oauth_uid, $user_friends_ids);
-		$weeks_popularity = $CI->users_promoters->retrieve_promoter_client_trend_activity($promoter_id, $user_friends_ids);	
+				
 		
 		$result = new stdClass;
-		$result->promoter_notifications = $promoter_notifications;
-		$result->promoter_popularity_trend = $weeks_popularity;
-		$result->user_friends = $user_friends;
-		$result->user_friends_ids = $user_friends_ids;
-		$result->promoter_venues_user_friends = $promoter_venues_user_friends;
+		$result->promoters_users_friends = $promoters_users_friends;
+
 		
 		$data = json_encode(array('success' => true,
 									'message' => $result));
@@ -98,7 +91,7 @@ class Net_Gearman_Job_gearman_individual_promoter_friend_activity extends Net_Ge
 		$CI->redis->expire($handle, 120);	
 			
 			
-		echo "Retrieved individual promoter $promoter_oauth_uid popularity for user $user_oauth_uid." . PHP_EOL;
+		echo "Retrieved promoters_friends for $user_oauth_uid." . PHP_EOL;
 
 	}
 }

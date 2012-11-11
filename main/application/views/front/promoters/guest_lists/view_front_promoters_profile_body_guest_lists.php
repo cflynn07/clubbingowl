@@ -15,13 +15,17 @@
           		<?php if(strtolower($gl->pgla_day) == strtolower(date('l', $time) . 's')): ?>
                     <li>
                     	
+                    	<?php 
+                    		$gl_link = $central->front_link_base . 'promoters/' . str_replace(' ', '_', $promoter->up_public_identifier) . '/guest_lists/' . str_replace(' ', '_', $gl->pgla_name) . '/';
+                    	?>
+                    	
                       <div class="info">
                       	<div class="gl_image">
                       		<img src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $gl->pgla_image . '_t.jpg' ?>" style="width:33px;height:44px;" alt="" />
                       	</div>
                       	<div class="gl_text">
                       		<div class="name"><?= $gl->pgla_name ?></div> 
-                       	 	<div class="location">@ <a href="<?= $central->front_link_base ?>venues/<?= $promoter->team->c_url_identifier ?>/<?= str_replace(' ', '_', $gl->tv_name) ?>/"><?= $gl->tv_name ?></a></div>
+                       	 	<div class="location">@ <a href="<?= $central->front_link_base ?>venues/<?= $gl->c_url_identifier ?>/<?= str_replace(' ', '_', $gl->tv_name) ?>/"><?= $gl->tv_name ?></a></div>
                       	</div>
                       </div>
                       
@@ -31,7 +35,7 @@
                     <?php endif; ?>
                       </div>
                       <div class="action">
-                      	<a class="ajaxify_t2" href="<?= $central->front_link_base ?>promoters/<?= $promoter->team->c_url_identifier ?>/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?>/guest_lists/<?= str_replace(' ', '_', $gl->pgla_name) ?>/"><?= $this->lang->line('p-info_join') ?></a>
+                      	<a class="ajaxify_t2" href="<?= $gl_link ?>"><?= $this->lang->line('p-info_join') ?></a>
                       </div>
                     </li>
             	<?php endif; ?>

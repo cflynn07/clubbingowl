@@ -580,6 +580,48 @@
   }
 }
 
+table.pro_overview {
+	color: #5E5E5E;
+}
+
+table.pro_overview td{
+	vertical-align: top;
+}
+
+.overview_pic_td {
+	min-width: 80px;
+}
+
+.name_block p.sub_details {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.friend_img {
+	margin-right: 5px;
+	margin-bottom: 2px;
+	width: 25px;
+}
+
+.promoter_venue_list_a {
+	font-size: 12px !important;
+	margin: 0; 
+	float: right;
+}
+
+
+
+.promoter_venue_box {
+	width: 48%;
+	display: inline-block;
+}
+.promoter_venue_box:odd {
+	float: left;
+}
+.promoter_venue_box:even {
+	float: right;
+}
+
 /*
 #profile p.tv_friends a img{
 	width: 20px;
