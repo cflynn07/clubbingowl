@@ -21,12 +21,12 @@
       	<?php foreach($promoter->promoter_team_venues as $key => $ptv): ?>
 			<li>
 				
-				<a href="<?= $central->front_link_base ?>venues/<?= $promoter->team->c_url_identifier ?>/<?= str_replace(' ', '_', $ptv->tv_name) ?>/">
-					<?php if($ptv->tv_image): ?>
+				<?php
+					$venue_link = $central->front_link_base . 'venues/' . $ptv->c_url_identifier . '/' . str_replace(' ', '_', $ptv->tv_name) . '/';
+				?>
+				
+				<a href="<?= $venue_link ?>">
 				  	<img class="logo" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $ptv->tv_image ?>_t.jpg" alt="<?= $this->lang->line('p-venue_banner') ?>">
-				  	<?php else: ?>
-				  	<img class="logo" src="http://placehold.it/286x86?text=Coming+Soon" alt="<?= $this->lang->line('p-venue_banner') ?>">
-				  	<?php endif; ?>
 			  	</a>
 			  	
               <?php if(false): ?>
@@ -34,7 +34,7 @@
               <?php endif; ?>
               
               <div class="name">
-              	<a href="<?= $central->front_link_base ?>venues/<?= $promoter->team->c_url_identifier ?>/<?= str_replace(' ', '_', $ptv->tv_name) ?>/"><?= $ptv->tv_name ?></a></div>
+              	<a href="<?= $venue_link ?>"><?= $ptv->tv_name ?></a></div>
                 <p class="auth_content tv_friends" id="user_friends_<?= $ptv->tv_id ?>">
               	  <img style="margin-left:auto; margin-right:auto;" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
            	    </p>
