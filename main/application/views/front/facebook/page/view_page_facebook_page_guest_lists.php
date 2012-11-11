@@ -63,7 +63,7 @@
 					                      <div class="action">
 					                      	<span class="tgla_id" style="display:none;"><?= $gl->tgla_id ?></span>
 					                      	<span class="tv_id" style="display:none;"><?= $gl->tv_id ?></span>
-					                      	<a class="gl_join" href="#">Info/Join</a>
+					                      	<a class="gl_join join_btn" href="#">Info/Join</a>
 					                      </div>
 					                    </li>
 					            	<?php endif; ?>

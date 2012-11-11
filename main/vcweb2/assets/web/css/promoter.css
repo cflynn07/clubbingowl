@@ -622,6 +622,34 @@ table.pro_overview td{
 	float: right;
 }
 
+
+
+
+
+#pro_user_reviews table {
+	margin-bottom: 10px;
+	text-align: left;
+	border-top: 1px dashed #CCC;
+}
+
+#pro_user_reviews td.user_pic {
+	min-width: 50px;
+	vertical-align: top;
+	padding-top: 5px;
+}
+
+#pro_user_reviews td.user_name {
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+#pro_user_reviews td.user_comment {
+	padding-left: 10px;
+	font-size: 12px;
+}
+
+
+
 /*
 #profile p.tv_friends a img{
 	width: 20px;

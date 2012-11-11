@@ -27,27 +27,10 @@ jQuery(function(){
 		
 		
 		
+		jQuery('.star').rating();
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		var vc_user = jQuery.cookies.get('vc_user');
-		//store it...
-		var promoter_user_key = 'pro_' + window.vc_promoter_oauth + '_user_' + vc_user.vc_oauth_uid + '_popularity';
-		
-		
-		
-		
+
 		
 		
 					
@@ -151,19 +134,24 @@ jQuery(function(){
 
 		};
 				
+				
+				
+				
+		if(false)
 		if(window.vc_server_auth_session){
 			
-			var pop = jQuery.jStorage.get(promoter_user_key);
-			
-			if(pop){
-				//we have it on file...
-				page_items.display(pop);
+			if(window.u_up_pop !== false){
+				
+				page_items.display(window.u_up_pop);
 				
 			}else{
-				//need to go get it...
+				
+				//go fetch...
 				page_items.retrieve_feed(false);
 				
 			}
+			
+		
 					
 		}
 	
@@ -191,8 +179,8 @@ jQuery(function(){
 			
 			console.log('vc_login');
 			
-			unauth_content.css('display', 'none');
-			auth_content.css('display', 'block');
+			unauth_content.hide();
+			auth_content.show();
 			
 			page_items.retrieve_feed(true);
 			
@@ -204,17 +192,17 @@ jQuery(function(){
 
 		var vc_logout_callback = function(){
 			
+			delete window.u_up_pop;
+			
 			var auth_content = jQuery('.auth_content');
 			var unauth_content = jQuery('.unauth_content');
 			
 			console.log('vc_logout');
 	
-			unauth_content.css('display', 'block');
-			auth_content.css('display', 'none');
+			unauth_content.show();
+			auth_content.hide();
 	
-			//clean up previously inserted content
-			var auth_content = jQuery('div.auth_content');
-			
+			//clean up previously inserted content			
 			auth_content.find('img.loading_indicator').show();
 			jQuery('.auth_clear_content').find('*').not('img.loading_indicator').contents().remove();
 			
@@ -254,6 +242,7 @@ jQuery(function(){
 			window.EventHandlerObject.removeListener('vc_logout', vc_logout_callback);
 			window.EventHandlerObject.removeListener('vc_login', vc_login_callback);
 			
+			delete window.u_up_pop;
 			
 		}
 			
