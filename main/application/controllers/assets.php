@@ -76,6 +76,7 @@ class Assets extends MY_Common_Controller {
 				
 				$front_css_include = array(
 					'jquery_ui/redmond/jquery-ui-1.8.20.custom',
+					'jquery_star_rating/jquery.rating',
 					'base',
 					'invite',
 					'friends',
@@ -207,6 +208,7 @@ class Assets extends MY_Common_Controller {
 					array('pusher/pusher-1.11',											'global_js'),
 					array('pusher/pusher_extend',										'global_js'),
 					array('jStorage/jStorage',											'global_js'),
+					array('jquery_star_rating/jquery.rating.pack',											'front_js'),
 					
 					
 					array('jquery.cookies.2.2.0.min',									'global_js'),					

@@ -18,14 +18,42 @@
     	</table>
     </div>
     
-    <div class="rating" data-stars="1">
-      <div class="stars">
-        <div class="stars-on" style="width:0px;"></div>
-        <div class="stars-off" style="width:100%;"></div>
-      </div>
-    </div>
-    <p><?= lang_key($this->lang->line('p-ranking_msg'), array('promoter_full_name' => $promoter->u_full_name)) ?></p>
-  
+	    <div class="rating" data-stars="1">
+	      <div class="stars">
+	        <div class="stars-on" style="width:90%"></div>
+	        <div class="stars-off" style="width:100%;"></div>
+	      </div>
+	    </div>
+	    
+	    <a href="#">What's This?</a>
+	    <p><?= lang_key($this->lang->line('p-ranking_msg'), array('promoter_full_name' => $promoter->u_full_name)) ?></p>
+	  
+	  	<div id="pro_user_reviews">
+	  		
+	  		<?php for($i=0; $i < 3; $i++): ?>
+	  		<table>
+	  			<tr>
+	  				<td class="user_pic" rowspan="2">
+	  					<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/369458_504405294_1222184447_q.jpg" />
+	  				</td>
+	  				<td class="user_name">
+	  					<a href="#">Casey Flynn</a>
+	  					<span>
+	  						<input name="star3" type="radio" class="star" disabled="disabled"/>
+							<input name="star3" type="radio" class="star" disabled="disabled"/>
+							<input name="star3" type="radio" class="star" disabled="disabled" checked="checked"/>
+							<input name="star3" type="radio" class="star" disabled="disabled"/>
+							<input name="star3" type="radio" class="star" disabled="disabled"/>
+	  					</span>
+	  				</td>
+	  			</tr>
+	  			<tr>
+	  				<td class="user_comment">Dude is the shizzle. Helped me out for nizzle.</td>
+	  			</tr>
+	  		</table>
+	  		<?php endfor; ?>
+	  		
+	  	</div>
   
   	<?= '<script type="text/javascript">window.u_up_pop=' . ((isset($u_up_pop)) ? json_encode($u_up_pop) : 'false') . ';</script>' ?>
   	

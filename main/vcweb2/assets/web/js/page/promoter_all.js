@@ -25,29 +25,7 @@ jQuery(function(){
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		var vc_user = jQuery.cookies.get('vc_user');
-		//store it...
-		var promoter_user_key = 'pro_' + window.vc_promoter_oauth + '_user_' + vc_user.vc_oauth_uid + '_popularity';
-		
-		
-		
-		
+
 		
 		
 					
@@ -151,19 +129,24 @@ jQuery(function(){
 
 		};
 				
+				
+				
+				
+		if(false)
 		if(window.vc_server_auth_session){
 			
-			var pop = jQuery.jStorage.get(promoter_user_key);
-			
-			if(pop){
-				//we have it on file...
-				page_items.display(pop);
+			if(window.u_up_pop !== false){
+				
+				page_items.display(window.u_up_pop);
 				
 			}else{
-				//need to go get it...
+				
+				//go fetch...
 				page_items.retrieve_feed(false);
 				
 			}
+			
+		
 					
 		}
 	
@@ -203,6 +186,8 @@ jQuery(function(){
 
 
 		var vc_logout_callback = function(){
+			
+			delete window.u_up_pop;
 			
 			var auth_content = jQuery('.auth_content');
 			var unauth_content = jQuery('.unauth_content');
@@ -254,6 +239,7 @@ jQuery(function(){
 			window.EventHandlerObject.removeListener('vc_logout', vc_logout_callback);
 			window.EventHandlerObject.removeListener('vc_login', vc_login_callback);
 			
+			delete window.u_up_pop;
 			
 		}
 			
