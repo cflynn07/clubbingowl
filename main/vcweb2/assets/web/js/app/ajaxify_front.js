@@ -73,8 +73,8 @@
 						delete window.module.Globals.prototype.unbind_callback;
 					}
 						
-						
-						
+					data = jQuery(data);
+											
 					jQuery('div[role=main]').html(data);
 					var title = jQuery('div[role=main] > div#ajaxify_page_title').html();
 					History.pushState({
