@@ -61,7 +61,7 @@
 	  				</td>
 	  			</tr>
 	  			<tr>
-	  				<td class="user_comment">Dude is the shizzle. Helped me out for nizzle.</td>
+	  				<td class="user_comment">This guy is great, totally helped me out.</td>
 	  			</tr>
 	  		</table>
 	  		<?php endfor; ?>
