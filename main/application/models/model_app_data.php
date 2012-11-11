@@ -338,28 +338,35 @@ class Model_app_data extends CI_Model {
 		
 		FROM 	cities c
 		
-		JOIN 	teams t 
-		ON 		t.city_id = c.id		
+		JOIN 	team_venues tv 
+		ON 		tv.city_id = c.id
 		
-		WHERE 	t.completed_setup = 1 ";
+		WHERE 	tv.banned = 0 ";
 		
 		if($promoters)
 		//searches for teams that are active and have at least one active promoter in them
 		$sql .= "
 		AND
-				t.fan_page_id IN 
+				tv.id IN 
 		(SELECT DISTINCT
 		
-			t.fan_page_id
+			tv.id
 		
-		FROM 	teams t
+		FROM 	promoters_guest_list_authorizations pgla
 		
-		JOIN	promoters_teams pt
-		ON 		pt.team_fan_page_id = t.fan_page_id
+		JOIN	team_venues tv
+		ON 		pgla.team_venue_id = tv.id
 		
+		JOIN 	users_promoters up
+		ON 		up.id = pgla.user_promoter_id
+		
+		JOIN 	promoters_teams pt 
+		ON 		pt.promoter_id = up.id
+				
 		WHERE 	pt.banned = 0
 		AND 	pt.quit = 0
-		AND 	pt.approved = 1)";
+		AND 	pt.approved = 1
+		AND 	pgla.deactivated = 0)";
 		
 		$query = $this->db->query($sql);
 		$result = $query->result();
