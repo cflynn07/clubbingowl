@@ -30,7 +30,7 @@
 	  
 	  	<div id="pro_user_reviews">
 	  		
-	  		<?php for($i=0; $i < 3; $i++): ?>
+	  		<?php for($i=0; $i < 1; $i++): ?>
 	  		<table>
 	  			<tr>
 	  				<td class="user_pic" rowspan="2">
@@ -38,13 +38,13 @@
 	  				</td>
 	  				<td class="user_name">
 	  					<a href="#">Casey Flynn</a>
-	  					<span>
+	  					<div>
 	  						<input name="star3" type="radio" class="star" disabled="disabled"/>
 							<input name="star3" type="radio" class="star" disabled="disabled"/>
 							<input name="star3" type="radio" class="star" disabled="disabled" checked="checked"/>
 							<input name="star3" type="radio" class="star" disabled="disabled"/>
 							<input name="star3" type="radio" class="star" disabled="disabled"/>
-	  					</span>
+	  					</div>
 	  				</td>
 	  			</tr>
 	  			<tr>

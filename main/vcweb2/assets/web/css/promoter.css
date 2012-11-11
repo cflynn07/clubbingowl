@@ -623,6 +623,9 @@ table.pro_overview td{
 }
 
 
+
+
+
 #pro_user_reviews table {
 	margin-bottom: 10px;
 	text-align: left;
@@ -632,7 +635,7 @@ table.pro_overview td{
 #pro_user_reviews td.user_pic {
 	min-width: 50px;
 	vertical-align: top;
-	padding-top: 5xpx;
+	padding-top: 5px;
 }
 
 #pro_user_reviews td.user_name {
