@@ -31,7 +31,7 @@
 		                      	<?php endif; ?>
 		                      </div>
 		                      <div class="action">
-		                      	<a class="ajaxify_t2" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/<?= str_replace(' ', '_', $gl->tgla_name) ?>/">Info/Join</a>
+		                      	<a class="ajaxify_t2 join_btn" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/<?= str_replace(' ', '_', $gl->tgla_name) ?>/">Info/Join</a>
 		                      </div>
 		                    </li>
                     	<?php endif; ?>

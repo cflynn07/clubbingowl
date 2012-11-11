@@ -25,6 +25,11 @@ jQuery(function(){
 		
 		
 		
+		
+		
+		jQuery('.star').rating();
+		
+		
 
 		
 		
@@ -174,8 +179,8 @@ jQuery(function(){
 			
 			console.log('vc_login');
 			
-			unauth_content.css('display', 'none');
-			auth_content.css('display', 'block');
+			unauth_content.hide();
+			auth_content.show();
 			
 			page_items.retrieve_feed(true);
 			
@@ -194,12 +199,10 @@ jQuery(function(){
 			
 			console.log('vc_logout');
 	
-			unauth_content.css('display', 'block');
-			auth_content.css('display', 'none');
+			unauth_content.show();
+			auth_content.hide();
 	
-			//clean up previously inserted content
-			var auth_content = jQuery('div.auth_content');
-			
+			//clean up previously inserted content			
 			auth_content.find('img.loading_indicator').show();
 			jQuery('.auth_clear_content').find('*').not('img.loading_indicator').contents().remove();
 			

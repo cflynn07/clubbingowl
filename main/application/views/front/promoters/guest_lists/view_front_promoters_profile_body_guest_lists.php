@@ -35,7 +35,7 @@
                     <?php endif; ?>
                       </div>
                       <div class="action">
-                      	<a class="ajaxify_t2" href="<?= $gl_link ?>"><?= $this->lang->line('p-info_join') ?></a>
+                      	<a class="ajaxify_t2 join_btn" href="<?= $gl_link ?>"><?= $this->lang->line('p-info_join') ?></a>
                       </div>
                     </li>
             	<?php endif; ?>

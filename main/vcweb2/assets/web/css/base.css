@@ -1160,3 +1160,7 @@ div#loading_modal div#loading_modal_inner p{
 		display: none;
 	}
 }
+
+a.join_btn {
+	border-radius: 5px;
+}
