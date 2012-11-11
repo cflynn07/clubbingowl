@@ -25,6 +25,11 @@
       </div>
     </div>
     <p><?= lang_key($this->lang->line('p-ranking_msg'), array('promoter_full_name' => $promoter->u_full_name)) ?></p>
+  
+  
+  	<?= '<script type="text/javascript">window.u_up_pop=' . ((isset($u_up_pop)) ? json_encode($u_up_pop) : 'false') . ';</script>' ?>
+  	
+  	
   </div>
 
   <div class="right non_fb_plugin">

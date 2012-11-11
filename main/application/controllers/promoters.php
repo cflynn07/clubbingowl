@@ -463,6 +463,7 @@ class Promoters extends MY_Controller {
 		
 		
 		
+		$this->_helper_pop_retrieve_job();
 		$this->_helper_send_pusher_presence();
 		
 		
@@ -529,6 +530,8 @@ class Promoters extends MY_Controller {
 	 * @return	null
 	 */
 	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){	
+		
+		$this->_helper_pop_retrieve_job();
 		
 		setlocale(LC_ALL, $this->config->item('current_lang_locale'));
 		
@@ -687,6 +690,8 @@ class Promoters extends MY_Controller {
 		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_footer', '', true);
 		$this->_helper_record_view();
+		
+		
 	}
 
 	
@@ -700,7 +705,9 @@ class Promoters extends MY_Controller {
 	 * @return	null
 	 */
 	private function _events($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){
-
+		
+		$this->_helper_pop_retrieve_job();
+		
 //		$this->body_html  = $this->load->view($this->view_dir . 'view_front_promoter_pusher_presence', '', true);
 		$this->body_html .= $this->load->view('front/_common/view_front_invite', '', true);
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_header', '', true);
@@ -1172,6 +1179,35 @@ class Promoters extends MY_Controller {
 	
 	
 	private function _helper_pop_retrieve_job(){
+		
+		$server_vc_user = json_decode($this->session->userdata('vc_user'));
+		
+		if($server_vc_user){
+			//user logged in
+			
+			$up_id = $this->library_promoters->promoter->up_id;
+
+			$this->load->library('Redis', '', 'redis');
+			$u_up_pop = $this->redis->get('up_pop-' . $server_vc_user->oauth_uid . '_' . $up_id);
+						
+			$this->load->vars('u_up_pop', $u_up_pop);
+			
+			if($u_up_pop){
+				//display...
+				
+				
+				
+			}else{
+				//go fetch...
+				
+				
+			}
+									
+		}
+		
+		
+		return;
+		
 		
 		
 		$this->load->helper('run_gearman_job');
