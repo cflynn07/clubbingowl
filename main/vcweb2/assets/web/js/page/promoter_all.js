@@ -24,19 +24,20 @@ jQuery(function(){
 		});
 		
 		
-		
+		jQuery('div#modal_reviews_explain').dialog({
+				modal: true,
+				width: 400,
+				height: 400,
+				resizable: false,
+				autoOpen: false
+			});
 		
 		
 		jQuery('.star').rating();
 		jQuery('a#reviews_explain').bind('click', function(e){
 			e.preventDefault();
 			
-			jQuery('div#modal_reviews_explain').dialog({
-				modal: true,
-				width: 400,
-				height: 400,
-				resizable: false
-			});
+			jQuery('div#modal_reviews_explain').dialog('open');
 			
 			return false;
 		});
@@ -258,7 +259,7 @@ jQuery(function(){
 			
 			delete window.u_up_pop;
 			
-			jQuery('div#modal_reviews_explain').dialog('close').remove();
+			jQuery('div#modal_reviews_explain').dialog('option', 'close', null).remove();
 			
 		}
 			
