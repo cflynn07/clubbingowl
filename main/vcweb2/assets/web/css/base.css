@@ -1164,3 +1164,13 @@ div#loading_modal div#loading_modal_inner p{
 a.join_btn {
 	border-radius: 5px;
 }
+
+
+p.gl_sec_header_info {
+	width:100%; 
+	text-align:left; 
+	background:#474D6A; 
+	color:#FFF; 
+	font-weight:300; 
+	padding-left:5px;
+}

@@ -9,9 +9,19 @@
     		<tr>
             <th><strong><?= strftime('%A', $time) ?></strong><br><?= strftime('%D', $time) ?></th>
             <td>
+            	
+            	
+            	 <?php if($i === 0): ?>
+	        		<p class="gl_sec_header_info">Tonight</p>
+	        		<br/><br/>
+	        	<?php elseif($i === 1): ?>
+	        		<p class="gl_sec_header_info">Tomorrow</p>
+	        		<br/><br/>
+	        	<?php endif; ?>
+            	
+            	
             	<ul class="tables">
-                   
-                   
+                                     
                   	<?php foreach($all_guest_lists as $gl): ?>
                   		<?php if(strtolower($gl->tgla_day) == strtolower(date('l', $time) . 's')): ?>
 		                    <li>
