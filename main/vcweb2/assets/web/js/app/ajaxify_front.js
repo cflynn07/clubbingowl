@@ -74,11 +74,7 @@
 					}
 						
 					data = jQuery(data);
-<<<<<<< HEAD
-											
-=======
-						
->>>>>>> c648266b40741e4a5e0ff2ea0c52967f4542e85b
+
 					jQuery('div[role=main]').html(data);
 					var title = jQuery('div[role=main] > div#ajaxify_page_title').html();
 					History.pushState({

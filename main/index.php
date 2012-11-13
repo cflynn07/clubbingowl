@@ -307,6 +307,7 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'development':
 			error_reporting(E_ALL);
+			ini_set('display_errors', '1');
 		break;
 	
 		case 'staging':
@@ -472,6 +473,8 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+ 
+
 require_once BASEPATH.'core/CodeIgniter'.EXT;
 
 /* End of file index.php */
