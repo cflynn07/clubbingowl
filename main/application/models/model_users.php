@@ -713,9 +713,13 @@ class Model_users extends CI_Model {
 							pr.users_oauth_uid 		as pr_users_oauth_uid,
 							pr.users_promoters_id 	as pr_users_promoters_id,
 							pr.review 				as pr_review,
+							up.public_identifier 	as up_public_identifier,
+							uup.first_name			as uup_first_name,
 							pr.score 				as pr_score')
 			->from('promoter_reviews pr')
 			->join('users u', 'pr.users_oauth_uid = u.oauth_uid')
+			->join('users_promoters up', 'pr.users_promoters_id = up.id')
+			->join('users uup', 'up.users_oauth_uid = uup.oauth_uid')
 			->where('pr.users_promoters_id', $options['users_promoters_id']);
 			
 			

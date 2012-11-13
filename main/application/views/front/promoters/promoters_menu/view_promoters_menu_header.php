@@ -43,8 +43,12 @@
 		  		<a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a>
 		  	</div>
 		  
+		  	
 		  	<div class="auth_content" id="pro_user_reviews">
+		  	
 		  		<img style="margin-left:auto; margin-right:auto;" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+		  		<div id="up_public_identifier" style="display:none;"><?= $promoter->up_public_identifier ?></div>
+		  		<div id="up_first_name" style="display:none;"><?= $promoter->u_first_name ?></div>
 		  	</div>
   		</div>
   	<?= '<script type="text/javascript">window.u_up_pop=' . ((isset($u_up_pop)) ? json_encode($u_up_pop) : 'false') . ';</script>' ?>
