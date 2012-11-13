@@ -16,15 +16,14 @@ jQuery(function(){
 		switch(data.notification_type){
 			case 'friend_online':
 				fbEnsureInit(function(){
-					
-					var fql = 'SELECT uid, name, pic_square FROM user WHERE uid = ' + data.friend;
-					var query = FB.Data.query(fql);
-					query.wait(function(rows){
-					
+										
+					jQuery.fbUserLookup([data.friend], 'uid, name, pic_square, third_party_id', function(rows){
 						if(!(rows.length > 0))
 							return;
 							
 						var user = rows[0];
+						var user_link = window.module.Globals.prototype.front_link_base + 'friends/' + user.third_party_id + '/';
+						
 						jQuery("div#notification_container").notify("create", {
 							icon: '<img src="' + user.pic_square + '" alt="picture" />',
 					   		title: user.name,
@@ -32,10 +31,18 @@ jQuery(function(){
 						    text: user.name + ' has signed into ClubbingOwl.'
 						},{
 						    speed: 1000,
-						    expires: 1000 * 30
+						    expires: 1000 * 30,
+						    click: function(){
+						    	
+						    	jQuery('body').find('a#background_link').remove();
+						    	jQuery('body').append('<a id="demo_link" style="display:none;" href="' + user_link + '">demo_link</a>');
+						    	jQuery('a#demo_link').trigger('click');
+						    	
+						    }
 						});
-						
 					});
+					
+					
 					
 				});
 				break;
