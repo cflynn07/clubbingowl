@@ -5,7 +5,9 @@ jQuery(function(){
 	
 	window.vc_page_scripts.promoter_all = function(){
 
-
+		
+		
+		
 		jQuery('#add_as_friend').css({
 			cursor: 'pointer'
 		}).bind('click', function(){
@@ -22,6 +24,44 @@ jQuery(function(){
 			});
 			
 		});
+		
+
+
+
+
+		var vc_user = jQuery.cookies.get('vc_user');
+		if(vc_user){
+			
+			var friend_key = 'u_friends-' + window.vc_promoter_oauth + '-' + vc_user.vc_oauth_uid;
+			
+			if(vc_user.vc_oauth_uid == window.vc_promoter_oauth){
+				jQuery('#add_as_friend').hide();
+			}
+			
+			
+			if(!jQuery.jStorage.get(friend_key)){
+				FB.api({
+					method: 'fql.query', 
+					query: 'SELECT uid2 FROM friend WHERE uid1=' + vc_user.vc_oauth_uid + ' AND uid2=' + window.vc_promoter_oauth
+				}, function(rows){
+									
+					if(rows.length > 0){
+						jQuery.jStorage.set(friend_key, true);
+						jQuery('#add_as_friend').hide();
+					}else{
+						jQuery.jStorage.set(friend_key, false);
+					}
+					jQuery.jStorage.setTTL(friend_key, 1000 * 60 * 120)
+				});
+			}else{
+				jQuery('#add_as_friend').hide();
+			}
+		}
+		
+		
+		
+		
+		
 		
 		
 		jQuery('div#modal_reviews_explain').dialog({
