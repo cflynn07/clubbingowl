@@ -17,7 +17,7 @@
      <priority>0.5</priority>
    </url> 
     <url>
-     <loc><?= $central->karma_link_base ?>promoters</loc>
+     <loc><?= $central->karma_link_base ?>promoters/cities</loc>
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
@@ -27,24 +27,12 @@
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
-   </url><?php if(false): ?>
-   <url>
-     <loc><?= $central->karma_link_base ?>corp</loc>
-     <lastmod><?= $time ?></lastmod>
-     <changefreq>monthly</changefreq>
-     <priority>0.5</priority>
    </url>
-   <url>
-     <loc><?= $central->karma_link_base ?>corp/team</loc>
-     <lastmod><?= $time ?></lastmod>
-     <changefreq>monthly</changefreq>
-     <priority>0.5</priority>
-   </url><?php endif; ?>
 <?php // ---------------------------------------------------- promoters ----------------------------------------------------  ?>
 <?php // ---------------------------------------------------- promoters - cities ----------------------------------------------------  ?>
 <?php foreach($all_cities_promoters as $city): ?>
     <url>
-     <loc><?= $central->karma_link_base ?>promoters/<?= $city->url_identifier ?></loc>
+     <loc><?= $central->karma_link_base ?>promoters/cities/<?= $city->url_identifier ?></loc>
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
@@ -53,13 +41,13 @@
 <?php // ---------------------------------------------------- promoters - individuals ----------------------------------------------------  ?>
 <?php foreach($all_promoters as $promoter): ?>
     <url>
-     <loc><?= $central->karma_link_base ?>promoters/<?= $promoter->c_url_identifier ?>/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?></loc>
+     <loc><?= $central->karma_link_base ?>promoters/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?></loc>
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
    </url>
    <url>
-     <loc><?= $central->karma_link_base ?>promoters/<?= $promoter->c_url_identifier ?>/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?>/guest_lists</loc>
+     <loc><?= $central->karma_link_base ?>promoters/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?>/guest_lists</loc>
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
@@ -67,18 +55,20 @@
 <?php // ---------------------------------------------------- promoters - guest_lists ----------------------------------------------------  ?>
    <?php foreach($promoter->guest_lists as $gl): ?>
    <url>
-     <loc><?= $central->karma_link_base ?>promoters/<?= $promoter->c_url_identifier ?>/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?>/guest_lists/<?= str_replace(' ', '_', $gl->pgla_name) ?></loc>
+     <loc><?= $central->karma_link_base ?>promoters/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?>/guest_lists/<?= str_replace(' ', '_', $gl->pgla_name) ?></loc>
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
    </url>
    <?php endforeach; ?>
+   <?php if(false): ?>
    <url>
-     <loc><?= $central->karma_link_base ?>promoters/<?= $promoter->c_url_identifier ?>/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?>/events</loc>
+     <loc><?= $central->karma_link_base ?>promoters/<?= str_replace(' ', '_', $promoter->up_public_identifier) ?>/events</loc>
      <lastmod><?= $time ?></lastmod>
      <changefreq>monthly</changefreq>
      <priority>0.5</priority>
    </url>
+   <?php endif; ?>
 <?php endforeach; ?>
 <?php // ---------------------------------------------------- venues ----------------------------------------------------  ?>
 <?php // ---------------------------------------------------- venues - cities ----------------------------------------------------  ?>
