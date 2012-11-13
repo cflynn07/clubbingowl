@@ -15,10 +15,8 @@
         	
         	<?php if($i === 0): ?>
         		<p class="gl_sec_header_info">Tonight</p>
-        		<br/><br/>
         	<?php elseif($i === 1): ?>
         		<p class="gl_sec_header_info">Tomorrow</p>
-        		<br/><br/>
         	<?php endif; ?>
         	
         	
@@ -34,7 +32,7 @@
                     	
                       <div class="info">
                       	<div class="gl_image">
-                      		<img src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $gl->pgla_image . '_t.jpg' ?>" style="width:33px;height:44px;" alt="" />
+                      		<img src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $gl->pgla_image . '_t.jpg' ?>" style="width:33px; height:44px; border:1px solid #CCC;" alt="" />
                       	</div>
                       	<div class="gl_text">
                       		<div class="name"><?= $gl->pgla_name ?></div> 

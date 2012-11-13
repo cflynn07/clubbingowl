@@ -1167,11 +1167,12 @@ a.join_btn {
 
 
 p.gl_sec_header_info {
-	width:100%; 
-	background:#474D6A; 
-	color:#FFF; 
-	font-weight:300; 
-	padding-left:5px;
-	margin-top:0;
-	text-align:center;
+	width: 100%; 
+	background: #474D6A; 
+	color: #FFF; 
+	font-weight: 300; 
+	padding-left: 5px;
+	margin-top: 0;
+	text-align: center;
+	border-radius: 5px;
 }
