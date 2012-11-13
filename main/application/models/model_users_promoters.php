@@ -1100,7 +1100,10 @@ class Model_users_promoters extends CI_Model {
 					tv.street_address 	as tv_street_address,
 					tv.city 			as tv_city,
 					tv.state 			as tv_state,
-					tv.zip 				as tv_zip
+					tv.zip 				as tv_zip,
+					tv.city_id 			as tv_city_id,
+					
+					c.url_identifier 	as c_url_identifier
 				
 				FROM 	users_promoters up
 				
@@ -1115,6 +1118,9 @@ class Model_users_promoters extends CI_Model {
 				
 				JOIN 	teams t 
 				ON 		t.fan_page_id = tvp.team_fan_page_id
+				
+				JOIN 	cities c 
+				ON	 	tv.city_id = c.id
 				
 				WHERE	up.id = ?
 						AND	pgla.name = ?

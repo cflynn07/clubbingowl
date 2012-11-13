@@ -8,13 +8,13 @@
   <h1><?= $this->lang->line('p-gl_t') ?></h1>
  
   <div class="guestlist-form" style="display: block; opacity: 1; ">
-
+	<?php Kint::dump($guest_list); ?>
     <p id="gl_title_header">
     	<?= lang_key($this->lang->line('p-gl_join_msg'), array(
 			'promoter_u_full_name' 				=> $promoter->u_full_name,
 			'guest_list_pgla_name' 				=> $guest_list->pgla_name,
 			'central_front_link_base'			=> $central->front_link_base,
-			'promoter_team_c_url_identifier' 	=> $promoter->team->c_url_identifier,
+			'promoter_team_c_url_identifier' 	=> $guest_list->c_url_identifier,
 			'guest_list_tv_name_l'				=> str_replace(' ', '_', $guest_list->tv_name),
 			'guest_list_tv_name' 				=> $guest_list->tv_name
 		)) ?>
