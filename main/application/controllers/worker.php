@@ -120,8 +120,13 @@ class Worker extends CI_Controller {
 			$gearman_worker->addAbility('gearman_send_sms_notification');	
 			
 			
-			
+			//finds friends that are associated with a group of promoters
 			$gearman_worker->addAbility('gearman_promoter_friend_activity');	
+			
+			
+			//finds reviews of a user's friends for a given promoter
+			$gearman_worker->addAbility('gearman_individual_promoter_friend_reviews');	
+					
 					
 			
 		//	if($arg1 == 'special_emails'){

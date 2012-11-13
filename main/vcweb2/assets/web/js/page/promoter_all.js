@@ -126,32 +126,34 @@ jQuery(function(){
 				
 			},
 			display: function(data){
+								
+				var template = window.ejs_view_templates.promoters_profile_friend_reviews;
+				var html = new EJS({
+					text: template
+				}).render(data);
 				
-				jQuery.jStorage.set(promoter_user_key, data);
-				jQuery.jStorage.setTTL(promoter_user_key, (1000 * 60 * 10)); //10 minutes...
-			
+				
+				jQuery('div#pro_user_reviews').html(html);
+				jQuery('.star').rating();
+				
+				jQuery('div.rating > div.stars > div.stars-on').css({
+					width: ((data.average / 5) * 100) + '%'
+				});
+				
 			}
 
 		};
 				
 				
 				
-				
-		if(false)
 		if(window.vc_server_auth_session){
-			
 			if(window.u_up_pop !== false){
-				
-				page_items.display(window.u_up_pop);
-				
+				page_items.display(jQuery.parseJSON(window.u_up_pop));
+				delete window.u_up_pop;
 			}else{
-				
 				//go fetch...
 				page_items.retrieve_feed(false);
-				
-			}
-			
-		
+			}	
 					
 		}
 	

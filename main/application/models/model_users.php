@@ -699,6 +699,80 @@ class Model_users extends CI_Model {
 	}
 	
 	/**
+	 * Retrieve a user's friends reviews of a promoter
+	 * 
+	 */
+	function retrieve_user_promoter_friend_reviews($options = array()){
+
+			
+		$this->db->select('pr.id 					as pr_id,
+							u.first_name   			as u_first_name,
+							u.last_name 			as u_last_name,
+							u.full_name 			as u_full_name,
+							u.third_party_id		as u_third_party_id,
+							pr.users_oauth_uid 		as pr_users_oauth_uid,
+							pr.users_promoters_id 	as pr_users_promoters_id,
+							pr.review 				as pr_review,
+							pr.score 				as pr_score')
+			->from('promoter_reviews pr')
+			->join('users u', 'pr.users_oauth_uid = u.oauth_uid')
+			->where('pr.users_promoters_id', $options['users_promoters_id']);
+			
+			
+		$where = '';
+		if(count($options['user_friends_oauth_uids']) > 0){
+				
+			$c = 0;		
+			foreach($options['user_friends_oauth_uids'] as $uid){
+			
+				if($c == 0){
+					//start
+					$where .= '( ';	
+				}
+				
+				$where .= 'pr.users_oauth_uid = ' . $uid;
+
+				if(($c + 1) == count($options['user_friends_oauth_uids'])){
+					//end
+					$where .= ') ';
+				}else{
+					$where .= ' OR ';
+				}
+			
+				$c++;
+			}
+			
+			$this->db->where($where);
+			
+			
+		}else{
+					
+			$this->db->where('FALSE');	
+			
+		}
+		
+			
+		$query = $this->db->get();
+		
+		
+		$result = new stdClass;
+		$result->results = $query->result();
+		
+		$average = 0;
+		foreach($result->results as $res){
+			$average += intval($res->pr_score);
+		}
+		if(count($result->results) > 0){
+			$average = (float)$average / count($result->results);
+		}
+		$result->average = $average;
+		
+			
+		return $result;
+		
+	}
+	
+	/**
 	 * Checks the user_invitations table to see if this user was invited
 	 * to the VibeCompass platform to be a promoter
 	 * 

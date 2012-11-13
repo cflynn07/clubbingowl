@@ -872,6 +872,11 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'promoter_friend_popularity_retrieve':
+			
+				$this->_helper_ajax_pop_retrieve_job();
+			
+				break;
 			case 'feed_retrieve':
 				
 				if($this->input->post('status_check')){
@@ -992,6 +997,11 @@ class Promoters extends MY_Controller {
 		//route execution to appropriate helper function based on what operation the user
 		//is trying to perform
 		switch($vc_method){
+			case 'promoter_friend_popularity_retrieve':
+			
+				$this->_helper_ajax_pop_retrieve_job();
+			
+				break;
 			case 'promoter_guest_list_join_request': //second step
 				$result = $this->library_promoters->_ajax_guest_list_submit_helper();
 				break;
@@ -1180,49 +1190,34 @@ class Promoters extends MY_Controller {
 	
 	private function _helper_pop_retrieve_job(){
 		
-		$server_vc_user = json_decode($this->session->userdata('vc_user'));
+		$vc_user = json_decode($this->session->userdata('vc_user'));
 		
-		if($server_vc_user){
+		if($vc_user){
 			//user logged in
 			
 			$up_id = $this->library_promoters->promoter->up_id;
-
 			$this->load->library('Redis', '', 'redis');
-			$u_up_pop = $this->redis->get('up_pop-' . $server_vc_user->oauth_uid . '_' . $up_id);
-						
+			$u_up_pop = $this->redis->get('up_pop-' . $vc_user->oauth_uid . '_' . $up_id);
 			$this->load->vars('u_up_pop', $u_up_pop);
 			
-			if($u_up_pop){
-				//display...
-				
-				
-				
-			}else{
+			if(!$u_up_pop){
 				//go fetch...
 				
+				$this->load->helper('run_gearman_job');
+				$arguments = array('user_oauth_uid' 			=> $vc_user->oauth_uid,
+									'access_token'				=> $vc_user->access_token,
+									'promoter_id' 				=> $this->library_promoters->promoter->up_id);
+				run_gearman_job('gearman_individual_promoter_friend_reviews', $arguments);
 				
 			}
 									
 		}
-		
-		
-		return;
-		
-		
-		
-		$this->load->helper('run_gearman_job');
-		$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
-							'access_token' => $vc_user->access_token,
-							'promoter_team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id,
-							'promoter_oauth_uid' => $this->library_promoters->promoter->up_users_oauth_uid,
-							'promoter_id' => $this->library_promoters->promoter->up_id,
-							'promoter_venues_ids' => $promoter_venues_ids);
-		run_gearman_job('gearman_individual_promoter_friend_activity', $arguments);
-		
-		
-		
+				
 	}
 	private function _helper_ajax_pop_retrieve_job(){
+		
+		$this->load->helper('check_gearman_job_complete');
+		check_gearman_job_complete('gearman_individual_promoter_friend_reviews');
 		
 	}
 	
