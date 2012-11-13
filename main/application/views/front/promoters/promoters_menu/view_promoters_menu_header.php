@@ -34,7 +34,15 @@
 	      </div>
 	    </div>
 	    
-	    <a href="#">What's This?</a>
+	    <a id="reviews_explain" href="#">What's This?</a>
+	    <div style="display:none;" id="modal_reviews_explain">
+	    	<h2 style="color:#474D6A;">Trusted Promoters</h2>
+	    	<p>Did your promoter help you at the door? Answer your questions? And just plain help you have a great night?</p>
+	    	<p><strong>Let your friends know!</strong> Join a guest-list, and after your night out, ClubbingOwl will let you review your promoter. Your review will be shared with all your ClubbingOwl friends.</p>
+	   		<br/>
+	   		<p style="width:100%;text-align:center;">Making nightlife easier with Facebook!</p>
+	    </div>
+	    
 	    
 	    <div id="reviews_holder">
 		    <p><?= lang_key($this->lang->line('p-ranking_msg'), array('promoter_full_name' => $promoter->u_full_name)) ?></p>
@@ -49,6 +57,7 @@
 		  		<img style="margin-left:auto; margin-right:auto;" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 		  		<div id="up_public_identifier" style="display:none;"><?= $promoter->up_public_identifier ?></div>
 		  		<div id="up_first_name" style="display:none;"><?= $promoter->u_first_name ?></div>
+		  		
 		  	</div>
   		</div>
   	<?= '<script type="text/javascript">window.u_up_pop=' . ((isset($u_up_pop)) ? json_encode($u_up_pop) : 'false') . ';</script>' ?>

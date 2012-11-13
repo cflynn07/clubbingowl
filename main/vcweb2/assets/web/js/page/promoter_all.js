@@ -28,6 +28,18 @@ jQuery(function(){
 		
 		
 		jQuery('.star').rating();
+		jQuery('a#reviews_explain').bind('click', function(e){
+			e.preventDefault();
+			
+			jQuery('div#modal_reviews_explain').dialog({
+				modal: true,
+				width: 400,
+				height: 400,
+				resizable: false
+			});
+			
+			return false;
+		});
 		
 		
 
@@ -245,6 +257,8 @@ jQuery(function(){
 			window.EventHandlerObject.removeListener('vc_login', vc_login_callback);
 			
 			delete window.u_up_pop;
+			
+			jQuery('div#modal_reviews_explain').dialog('close').remove();
 			
 		}
 			
