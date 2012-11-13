@@ -37,12 +37,19 @@
 				    	<tr>
 				        	<th><strong><?= strftime('%A', $time) ?></strong><br><?= strftime('%D', $time) ?></th>
 				       		<td>
+				       			
+				       			<?php if($i === 0): ?>
+					        		<p class="gl_sec_header_info">Tonight</p>
+					        	<?php elseif($i === 1): ?>
+					        		<p class="gl_sec_header_info">Tomorrow</p>
+					        	<?php endif; ?>
+				       			
 					          <ul class="tables">
 					                      	
 					          	<?php foreach($guest_lists as $gl): ?>
 					          		<?php if(strtolower($gl->tgla_day) == strtolower(date('l', $time) . 's')): ?>
 					                    <li>
-					                     
+					
 					                      <div class="info">
 					                      	<div class="gl_image">
 					                      		<img src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $gl->tgla_image . '_t.jpg' ?>" style="width:33px;height:44px;" alt="" />
@@ -89,11 +96,7 @@
 			<?php foreach($team_venues as $venue): ?>
 			  <li>
 				
-				<?php if($venue->tv_image): ?>
-			  	<img style="max-width:254px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
-			  	<?php else: ?>
-			  	<img style="max-width:254px;" src="http://placehold.it/286x86?text=Coming+Soon" alt="Venue Banner">
-			  	<?php endif; ?>
+			  	<img style="max-width:254px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">			  	
 			  	
 			  	<br>
 					  	
