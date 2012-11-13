@@ -443,7 +443,7 @@ jQuery(function(){
 		
 		
 		
-		
+		/*
 		
 		var vc_fql_users = [];
 				
@@ -497,7 +497,7 @@ jQuery(function(){
 			
 		});
 			
-		
+		*/
 		
 		// --------------------------------------------------------------------------------------------
 		Models.PendingRequest = {
@@ -517,18 +517,21 @@ jQuery(function(){
 			initialize: function(){
 				
 			}
-		}; Collections.PendingRequests = Backbone.Model.extend(Collections.PendingRequests);
+		}; Collections.PendingRequests = Backbone.Collection.extend(Collections.PendingRequests);
 		
 		
 		
 		
 		
 		Views.PendingRequestsTR = {
+			tagName: 'tr',
 			initialize: function(){
 				
 			},
 			render: function(){
 				
+				this.$el.html('fizzle!');
+				return this;
 			},
 			events: {
 				
@@ -538,10 +541,23 @@ jQuery(function(){
 			el: '#pending_reservations table',
 			initialize: function(){
 				
-				
+				jQuery.fbUserLookup(window.page_obj.users, '', function(rows){
+					console.log('rows');
+					console.log(rows);
+				});
 				
 			},
-			render: function(){
+			render: function(users){
+								
+				var tbody = this.$el.find('tbody');
+				tbody.empty();
+				_this = this;
+								
+				this.collection.each(function(m){
+					tbody.append(new Views.PendingRequestsTR({
+						model: m
+					}).render().el);
+				});
 				
 			},
 			events: {
@@ -549,13 +565,19 @@ jQuery(function(){
 			}
 		}; Views.PendingRequests = Backbone.View.extend(Views.PendingRequests);
 		
-		var pending_requests 		= new Collection.PendingRequests(window.promoter_dashboard_pending_requests);
+		
+		
+		
+		var pending_requests 		= new Collections.PendingRequests(window.page_obj.backbone_pending_reservations);		
 		var view_pending_requests	= new Views.PendingRequests({
 			collection: pending_requests
 		});
+		
+		view_pending_requests.render();
+		
 		// --------------------------------------------------------------------------------------------
 		
-		
+		window.foo_pending_requests = pending_requests;
 		
 		
 		

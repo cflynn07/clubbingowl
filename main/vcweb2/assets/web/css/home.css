@@ -76,6 +76,12 @@ div#notifications_holder div#loading_indicator{
 
 
 
+section#news ul.updates a h1,h2,h3,h4,h5{
+	color: #3CA6E2 !important;
+}
+
+
+
 div#no_friends > *{
 	display: inline-block;
 }

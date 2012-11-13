@@ -364,6 +364,13 @@ class Promoters extends MY_Controller {
 		
 		
 		
+		
+		
+		/*
+		 * ----------------------------------
+		 * TEMPLATE FOR GETTING PENDING RESERVATION REQUESTS
+		 * */
+		
 		//------- retrieve promoter guest list reservations -------
 		//retrieve a list of all the guest lists a promoter has set up 
 		$this->load->model('model_users_promoters', 'users_promoters', true);
@@ -378,7 +385,7 @@ class Promoters extends MY_Controller {
 			$gla = $weekly_guest_lists[$i];
 			$groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
 			
-			foreach($groups as $g){			
+			foreach($groups as $g){
 				$backbone_pending_reservations[] = (object)array_merge((array)$gla, (array)$g);
 			}unset($g);
 			
@@ -401,6 +408,16 @@ class Promoters extends MY_Controller {
 		$users = array_values($users);
 		
 		$statistics->backbone_pending_reservations = $backbone_pending_reservations;
+		$statistics->pending_reservations_users = $users;
+		
+		/*
+		 * ----------------------------------
+		 * END TEMPLATE FOR GETTING PENDING RESERVATION REQUESTS
+		 * */
+		
+		
+		
+		
 		
 		
 		
@@ -1153,38 +1170,53 @@ class Promoters extends MY_Controller {
 		switch($vc_method){
 			case 'update_pending_requests':
 				
+				break;
+			case 'retrieve_pending_requests':
+			
+				//------- retrieve promoter guest list reservations -------
+				//retrieve a list of all the guest lists a promoter has set up 
+				$this->load->model('model_users_promoters', 'users_promoters', true);
+				$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
+						
+				$backbone_pending_reservations = array();		
+				$this->load->model('model_guest_lists', 'guest_lists', true);
+				//for each guest list, find all groups associated with it
+				for($i=0; $i < count($weekly_guest_lists); $i++){
+						
+					$gla = $weekly_guest_lists[$i];
+					$groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
+					
+					foreach($groups as $g){
+						$backbone_pending_reservations[] = (object)array_merge((array)$gla, (array)$g);
+					}unset($g);
+									
+				}		
+						
+				//Need simple array of all FBID's of users for javascript client-side FQL query
+				$users = array();
+				foreach($weekly_guest_lists as $wgl){
+					foreach($wgl->groups as $group){
+						
+						$users[] = $group->head_user;
+						$users = array_merge($users, $group->entourage_users);
+						
+					}
+				}
+				$users = array_unique($users);
+				$users = array_values($users);
 				
-				
+				$return = new stdClass;
+				$return->reservatiosn = backbone_pending_reservations;
+				$return->users = $users;
+			
+				die(json_encode(array('success' => true, 'message' => $return)));
 				
 				break;
 			case 'stats_retrieve':
 				
-				
 				$this->load->helper('check_gearman_job_complete');
 				check_gearman_job_complete('admin_promoter_piwik_stats');
-				
-				/*
-				if(!$admin_promoter_piwik_stats = $this->session->userdata('admin_promoter_piwik_stats'))
-					die(json_encode(array('success' => false,
-											'message' => 'No guest list retrieve request found')));	
-													
-				$admin_promoter_piwik_stats = json_decode($admin_promoter_piwik_stats);
-				
-				//check job status to see if it's completed
-				$this->load->library('library_memcached', '', 'memcached');
-				if($stats = $this->memcached->get($admin_promoter_piwik_stats->handle)){
-					//free memory from memcached
-					$this->memcached->delete($admin_promoter_piwik_stats->handle);
-					$this->session->unset_userdata('admin_promoter_piwik_stats');
-					die($stats); //<-- already json in memcache
-				}else{
-					die(json_encode(array('success' => false)));
-				}
-				*/
-				
-				
-				
-				
+								
 				break;
 			default:
 				die(json_encode(array('success' => false,

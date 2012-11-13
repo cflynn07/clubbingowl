@@ -1,10 +1,12 @@
 <?php 
 	$page_obj = new stdClass;
-	$page_obj->statistics = $statistics;
-	$page_obj->team_chat_members = $team_chat_members;
+	$page_obj->statistics 			= $statistics;
+	$page_obj->team_chat_members 	= $team_chat_members;
 	
-	$page_obj->trailing_req_chart_categories = array_keys($statistics->trailing_weekly_guest_list_reservation_requests);
-	$page_obj->trailing_req_chart_values = array_values($statistics->trailing_weekly_guest_list_reservation_requests);
+	$page_obj->trailing_req_chart_categories 	= array_keys($statistics->trailing_weekly_guest_list_reservation_requests);
+	$page_obj->trailing_req_chart_values 		= array_values($statistics->trailing_weekly_guest_list_reservation_requests);
+	$page_obj->backbone_pending_reservations 	= $statistics->backbone_pending_reservations;
+	$page_obj->pending_reservations_users 		= $statistics->pending_reservations_users;
 ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 

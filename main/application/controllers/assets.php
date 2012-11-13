@@ -589,7 +589,7 @@ class Assets extends MY_Common_Controller {
 									// ---------------- FRONT --------------------
 									
 									'user_thumb',
-									'pending_reservation_requests_dashboard'
+									'pending_reservation_request_dashboard'
 																		
 								),
 								'lang' => $language
