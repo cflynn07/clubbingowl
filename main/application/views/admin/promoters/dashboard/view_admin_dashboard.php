@@ -16,12 +16,21 @@
 		
 		<h1 style="display:inline-block;">Promoter Dashboard</h1> - (<span class="page_video_tutorial"><img src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
 		
+		
+		
+		
+		
+		<?php Kint::dump($statistics); ?>
+		
+		
+		
+		
 		<h3>
 			Pending Reservation Requests
-			<img class="info_icon tooltip" title="Outstanding guest list and table reservation requests." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+			<img class="info_icon tooltip" title="Pending guest list and table reservation requests." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 		</h3>
 		<div id="pending_reservations" class="full_width last reservations" style="width: 1050px;">
-			<table class="normal" style="width:100%;vertical-align:text-top !important;">
+			<table class="normal" style="width:100%; vertical-align:text-top !important;">
 				<thead>
 					<tr>
 						<th>Head User</th>
@@ -38,6 +47,10 @@
 					</tr>
 				</thead>
 				<tbody>
+					
+					
+					
+					
 					
 					<?php $no_groups = true; ?>
 					<?php foreach($statistics->weekly_guest_lists as $wgl): ?>
@@ -113,6 +126,21 @@
 				</tbody>
 			</table>
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		<hr>
 		

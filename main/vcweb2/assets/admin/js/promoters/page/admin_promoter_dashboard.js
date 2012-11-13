@@ -17,9 +17,19 @@ jQuery(function(){
 		
 		
 		
+		
+		
+		
+		
+		
 		//how ghetto....
 		if(typeof window.page_obj.first_time_setup !== 'undefined')
 			return; //this isn't the normal dashboard...
+
+
+
+
+
 
 		var Models = {};
 		var Collections = {};
@@ -283,6 +293,10 @@ jQuery(function(){
 			}
 		}; Views.RecentVisitors = Backbone.View.extend(Views.RecentVisitors);
 		
+		
+		
+		
+		
 		Views.LiveVisitors = {
 			el: '#live_visitors_wrapper',
 			users: [],
@@ -342,9 +356,7 @@ jQuery(function(){
 				
 				
 				
-				
-				
-				
+						
 				
 				
 				
@@ -404,16 +416,27 @@ jQuery(function(){
 			}
 		}; Views.LiveVisitors = Backbone.View.extend(Views.LiveVisitors);
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		var team_announcements 	= new Views.TeamAnnouncements({});
 		var stats 				= new Views.Stats({});
 		var top_visitors 		= new Views.TopVisitors({});
 		var recent_visitors 	= new Views.RecentVisitors({});
 		var live_visitors 		= new Views.LiveVisitors({});
 		
-		
-		
-		
-		
+
 		
 		
 		
@@ -473,6 +496,65 @@ jQuery(function(){
 			}
 			
 		});
+			
+		
+		
+		// --------------------------------------------------------------------------------------------
+		Models.PendingRequest = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				
+			}
+		}; Models.PendingRequest = Backbone.Model.extend(Models.PendingRequest);
+		
+		
+		
+		
+		Collections.PendingRequests = {
+			model: Models.PendingRequest,
+			initialize: function(){
+				
+			}
+		}; Collections.PendingRequests = Backbone.Model.extend(Collections.PendingRequests);
+		
+		
+		
+		
+		
+		Views.PendingRequestsTR = {
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		}; Views.PendingRequestsTR = Backbone.View.extend(Views.PendingRequestsTR);
+		Views.PendingRequests = {
+			el: '#pending_reservations table',
+			initialize: function(){
+				
+				
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		}; Views.PendingRequests = Backbone.View.extend(Views.PendingRequests);
+		
+		var pending_requests 		= new Collection.PendingRequests(window.promoter_dashboard_pending_requests);
+		var view_pending_requests	= new Views.PendingRequests({
+			collection: pending_requests
+		});
+		// --------------------------------------------------------------------------------------------
+		
 		
 		
 		

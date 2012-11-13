@@ -331,11 +331,14 @@ class Promoters extends MY_Controller {
 		run_gearman_job('admin_promoter_piwik_stats', $arguments);
 		
 		
+		
 		$statistics = new stdClass;
 		$statistics->num_clients = $this->library_promoters->retrieve_num_clients();
 		$statistics->num_total_guest_list_reservations = $this->library_promoters->retrieve_num_guest_list_reservation_requests(false);
 		$statistics->num_upcoming_guest_list_reservations = $this->library_promoters->retrieve_num_guest_list_reservation_requests();
 		$statistics->trailing_weekly_guest_list_reservation_requests =$this->library_promoters->retrieve_trailing_weekly_guest_list_reservation_requests();
+		
+		
 		
 		//------- retrieve top profile visitors ---------
 		$top_profile_views = $this->library_promoters->retrieve_top_profile_visitors();
@@ -356,16 +359,33 @@ class Promoters extends MY_Controller {
 		$statistics->recent_visitors = $recent_profile_views_uids;
 		// ------ end retrieve recent profile visitors -------
 		
+		
+		
+		
+		
+		
 		//------- retrieve promoter guest list reservations -------
-		//retrieve a list of all the guest lists a promoter has set up
+		//retrieve a list of all the guest lists a promoter has set up 
 		$this->load->model('model_users_promoters', 'users_promoters', true);
 		$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
-		
+				
+		$backbone_pending_reservations = array();		
 		$this->load->model('model_guest_lists', 'guest_lists', true);
 		//for each guest list, find all groups associated with it
-		foreach($weekly_guest_lists as &$gla){
-			$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
-		}
+//		foreach($weekly_guest_lists as &$gla){
+		for($i=0; $i < count($weekly_guest_lists); $i++){
+				
+			$gla = $weekly_guest_lists[$i];
+			$groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
+			
+			foreach($groups as $g){			
+				$backbone_pending_reservations[] = (object)array_merge((array)$gla, (array)$g);
+			}unset($g);
+			
+			$weekly_guest_lists[$i]->groups = $groups;
+			
+		}		
+
 				
 		//Need simple array of all FBID's of users for javascript client-side FQL query
 		$users = array();
@@ -379,6 +399,12 @@ class Promoters extends MY_Controller {
 		}
 		$users = array_unique($users);
 		$users = array_values($users);
+		
+		$statistics->backbone_pending_reservations = $backbone_pending_reservations;
+		
+		
+		
+		
 		
 		$statistics->weekly_guest_lists = $weekly_guest_lists;
 		$statistics->weekly_guest_lists_users = json_encode($users);
@@ -1125,6 +1151,12 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'update_pending_requests':
+				
+				
+				
+				
+				break;
 			case 'stats_retrieve':
 				
 				
