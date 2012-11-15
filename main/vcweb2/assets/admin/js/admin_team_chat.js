@@ -502,7 +502,7 @@ jQuery(function() {(function(exports) {
 				
 				team_chat_object.pusher = new Pusher(window.module.Globals.prototype.pusher_api_key);
 				team_chat_object.team_chat_channel 		= team_chat_object.pusher.subscribe('presence-' + window.vc_tc_obj.team_fan_page_id);
-				team_chat_object.individual_channel 	= team_chat_object.pusher.subscribe('presence-' + window.module.Globals.prototype.user_oauth_uid);
+				team_chat_object.individual_channel 	= team_chat_object.pusher.subscribe('private-' + window.module.Globals.prototype.user_oauth_uid);
 				
 				team_chat_object.team_chat_channel.bind('pusher:subscription_succeeded', function(members) {
 					

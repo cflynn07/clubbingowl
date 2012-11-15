@@ -227,7 +227,7 @@ class Model_guest_lists extends CI_Model {
 		//send PUSHER notification to team channel (only if NOT a manual add)
 		if($promoters_guest_lists_reservations_id){
 			
-			$this->pusher->trigger('presence-' . $promoter_oauth_uid, 'pending-requests-change', $payload);
+			$this->pusher->trigger('private-' . $promoter_oauth_uid, 'pending-requests-change', null);
 			
 			$this->load->library('pusher');
 			$this->pusher->trigger('presence-' . $teams_fan_page_id, 'promoter_guest_list_reservation', array('pgl_id' 					=> $promoters_guest_list_id,
@@ -1090,7 +1090,7 @@ class Model_guest_lists extends CI_Model {
 			$this->pusher->trigger($pusher_channel, 'notification', $payload);
 			
 			//tell admin dashboard that requests have changed
-			$this->pusher->trigger('presence-' . $result->up_users_oauth_uid, 'pending-requests-change', $payload);
+			$this->pusher->trigger('private-' . $result->up_users_oauth_uid, 'pending-requests-change', null);
 			
 		}
 		
