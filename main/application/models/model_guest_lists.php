@@ -914,6 +914,7 @@ class Model_guest_lists extends CI_Model {
 					tv.name 				as tv_name,
 					tv.image 				as tv_image,
 					tv.id					as tv_id,
+					up.users_oauth_uid		as up_users_oauth_uid,
 					up.public_identifier 	as up_public_identifier,
 					up.id					as up_id,
 					up.profile_image 		as up_profile_image,
@@ -1044,15 +1045,15 @@ class Model_guest_lists extends CI_Model {
 						
 			/* ---------- notify all VC friends of this user that they have joined VibeCompass --------- */
 			$gearman_task = $this->pearloader->load('Net', 'Gearman', 'Task', array('func' => 'guest_list_share_facebook',
-																					'arg'  => array('team_guest_list' => false,
-																									'user_oauth_uid' => $result->pglr_user_oauth_uid,
-																									'user_third_party_id' => $head_user_third_party_id,
-																									'venue_name' => $result->tv_name,
-																									'date' => $result->pgl_date,
-																									'guest_list_name' => $result->pgla_name,
-																									'image' => $result->pgla_image,
-																									'promoter_full_name' => $result->u_full_name,
-																									'promoter_public_identifier' => $result->up_public_identifier)));
+																					'arg'  => array('team_guest_list' 		=> false,
+																									'user_oauth_uid' 		=> $result->pglr_user_oauth_uid,
+																									'user_third_party_id' 	=> $head_user_third_party_id,
+																									'venue_name' 			=> $result->tv_name,
+																									'date' 					=> $result->pgl_date,
+																									'guest_list_name'		=> $result->pgla_name,
+																									'image' 				=> $result->pgla_image,
+																									'promoter_full_name' 			=> $result->u_full_name,
+																									'promoter_public_identifier' 	=> $result->up_public_identifier)));
 			$gearman_task->type = Net_Gearman_Task::JOB_BACKGROUND;
 			
 			//add test to a set
@@ -1086,6 +1087,8 @@ class Model_guest_lists extends CI_Model {
 			$pusher_channel = 'private-vc-' . $result->pglr_user_oauth_uid;
 			$this->pusher->trigger($pusher_channel, 'notification', $payload);
 			
+			//tell admin dashboard that requests have changed
+			$this->pusher->trigger('presence-' . $result->up_users_oauth_uid, 'pending-requests-change', $payload);
 			
 		}
 		

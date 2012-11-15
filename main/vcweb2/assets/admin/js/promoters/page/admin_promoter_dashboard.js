@@ -540,6 +540,15 @@ jQuery(function(){
 			events: {
 				'click *[data-action]': 'click_data_action'
 			},
+			event_request_responded: function(obj){
+				
+				var el 		= obj.el;
+				var action 	= obj.action;
+				
+				
+				
+				
+			},
 			click_data_action: function(e){
 				
 				e.preventDefault();
@@ -581,7 +590,7 @@ jQuery(function(){
 									_this.$el.animate({
 										opacity: 0
 									}, 500, 'linear', function(){
-										_this.$el.trigger('request-responded');
+										//_this.$el.trigger('request-responded');
 										_this.$el.remove();
 									});
 									
@@ -644,9 +653,16 @@ jQuery(function(){
 		Views.PendingRequests = {
 			el: '#pending_reservations table',
 			initialize: function(){
+
+				this.collection.on('reset', this.pre_render, this);
+				this.pre_render();
+				
+			},
+			pre_render: function(){
 				
 				var _this = this;
 				var html;
+				
 				if(this.collection.where({pglr_approved: '0'}).length){
 					html = new EJS({
 						text: EVT.tr_loading
@@ -671,10 +687,10 @@ jQuery(function(){
 					});
 				}
 				
-				this.$el.find('tbody').append(jQuery('<tr></tr>').html(html));
+				this.$el.find('tbody').empty().append(jQuery('<tr></tr>').html(html));
 				
 			},
-			render: function(users){
+			render: function(){
 								
 				var tbody = this.$el.find('tbody');
 				tbody.empty();
@@ -706,7 +722,6 @@ jQuery(function(){
 						
 						window.page_obj.pending_reservations_users = data.users;
 						_this.collection.reset(data.reservations);
-						_this.initialize();
 						
 					}
 				})
@@ -718,14 +733,15 @@ jQuery(function(){
 		var view_pending_requests	= new Views.PendingRequests({
 			collection: pending_requests
 		});
-						
+		
+		window.foo_pending_requests = view_pending_requests;
+		
 		// --------------------------------------------------------------------------------------------
-		
-		window.foo_pending_requests = pending_requests;
-		
-		
-		
-		
+		team_chat_object.individual_channel.bind('pending-requests-change', function(data){
+			console.log('data');
+			console.log(data);
+			view_pending_requests.update_collection();
+		});
 		
 		
 		
@@ -896,6 +912,13 @@ jQuery(function(){
 
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
+			
+			
+			
+			team_chat_object.individual_channel.unbind('pending-requests-change')
+			
+			
+			
 			
 			console.log('unbind_callback');
 			console.log(unload_items);

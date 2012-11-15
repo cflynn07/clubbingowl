@@ -499,26 +499,32 @@ jQuery(function() {(function(exports) {
 					xhr.send('socket_id=' + encodeURIComponent(pusher.connection.socket_id) + '&channel_name=' + encodeURIComponent(self.name) + '&ci_csrf_token=' + csrf_token + '&admin_panel=' + admin_panel);
 				};
 				//--------------------------------------- OVERRIDE PUSHER AUTH AJAX REQUEST FOR CI_CSRF_TOKEN -----------------------------------------------
-
-				var users = eval(window.vc_tc_obj.users);
-				jQuery.fbUserLookup(users, 'uid, name, first_name, pic_square, pic_big', function(rows) {
-
-					team_chat_object.vc_team_chat_users = rows;
-
-					//populate divs with FB data
-					for(var i = 0; i < rows.length; i++) {
-						jQuery('div#team_chat div.chat_pic_square_' + rows[i].uid).html('<img src="' + rows[i].pic_square + '" alt="picture" />');
-						jQuery('div#team_chat span.chat_name_' + rows[i].uid).html('<div class="vc_name"><span style="display: none;">' + rows[i].uid + '</span>' + rows[i].name + '</div>');
-					}
-					team_chat_object.pusher = new Pusher(window.module.Globals.prototype.pusher_api_key);
-					team_chat_object.team_chat_channel = team_chat_object.pusher.subscribe('presence-' + window.vc_tc_obj.team_fan_page_id);
-					team_chat_object.team_chat_channel.bind('pusher:subscription_succeeded', function(members) {
-
+				
+				team_chat_object.pusher = new Pusher(window.module.Globals.prototype.pusher_api_key);
+				team_chat_object.team_chat_channel 		= team_chat_object.pusher.subscribe('presence-' + window.vc_tc_obj.team_fan_page_id);
+				team_chat_object.individual_channel 	= team_chat_object.pusher.subscribe('presence-' + window.module.Globals.prototype.user_oauth_uid);
+				
+				team_chat_object.team_chat_channel.bind('pusher:subscription_succeeded', function(members) {
+					
+					var users = eval(window.vc_tc_obj.users);
+					jQuery.fbUserLookup(users, 'uid, name, first_name, pic_square, pic_big', function(rows) {
+	
+						team_chat_object.vc_team_chat_users = rows;
+	
+						//populate divs with FB data
+						for(var i = 0; i < rows.length; i++) {
+							jQuery('div#team_chat div.chat_pic_square_' + rows[i].uid).html('<img src="' + rows[i].pic_square + '" alt="picture" />');
+							jQuery('div#team_chat span.chat_name_' + rows[i].uid).html('<div class="vc_name"><span style="display: none;">' + rows[i].uid + '</span>' + rows[i].name + '</div>');
+						}
+						
 						team_chat_object.subscription_success_init_chat(members);
 						EventHandlerObject.fire('team_chat_init');
-
-					});
+					
+					});	
+					
 				});
+				
+				
 			}
 			// --------------------------------------------------------------------------------------------------------------
 

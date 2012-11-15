@@ -54,11 +54,11 @@ class Pusher_presence extends MY_Controller {
 	 * @return	null
 	 */
 	private function _pusher_auth_request(){
-		$socket_id = $this->input->post('socket_id');
-		$channel_name = $this->input->post('channel_name');
-		$promoter_id = $this->input->post('promoter_id');
+		$socket_id 		= $this->input->post('socket_id');
+		$channel_name 	= $this->input->post('channel_name');
+		$promoter_id 	= $this->input->post('promoter_id');
 		
-		$vc_channel = $this->input->post('vc_channel');		
+		$vc_channel 	= $this->input->post('vc_channel');		
 		
 		if($this->vc_user){
 			
