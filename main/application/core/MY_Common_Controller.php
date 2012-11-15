@@ -61,6 +61,19 @@ class MY_Common_Controller extends CI_Controller{
 		if($vc_user){
 			$vc_user = json_decode($vc_user);
 			
+			
+			//retrieve this users notifications
+			if(!$this->input->is_ajax_request()){
+				$this->load->model('model_users', 'users', true);
+				$user_sticky_notifications = $this->users->retrieve_user_sticky_notifications($vc_user->oauth_uid);
+				//Kint::dump($this->db->last_query());
+				
+				$this->load->vars('user_sticky_notifications', $user_sticky_notifications);
+			//	Kint::dump($user_sticky_notifications);
+			}
+			
+			
+			
 			if(isset($vc_user->last_activity)){
 				
 				if($vc_user->last_activity < (time() - (60 * 5))){
@@ -86,21 +99,17 @@ class MY_Common_Controller extends CI_Controller{
 			$vc_user->last_activity = time();
 			$this->session->set_userdata('vc_user', json_encode($vc_user));
 			
-			//retrieve this users notifications
-			$this->load->model('model_users', 'users', true);
-			$user_sticky_notifications = $this->users->retrieve_user_sticky_notifications($vc_user->oauth_uid);
-			$this->load->vars('user_sticky_notifications', $user_sticky_notifications);
 			
 		}
 		unset($vc_user);
 		
-		if(!isset($user_sticky_notifications)){
+	//	if(!isset($user_sticky_notifications)){
 			
-			$user_sticky_notifications = array();
-			$this->load->vars('user_sticky_notifications', $user_sticky_notifications);
+	//		$user_sticky_notifications = array();
+	//		$this->load->vars('user_sticky_notifications', $user_sticky_notifications);
 			
-		}
-		unset($user_sticky_notifications);
+	//	}
+		//unset($user_sticky_notifications);
 		
 		
 		

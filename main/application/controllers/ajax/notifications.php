@@ -53,12 +53,6 @@ class Notifications extends MY_Controller {
 		$this->load->model('model_users', 'users', true);
 		$result = $this->users->retrieve_user_sticky_notifications($vc_user->oauth_uid);
 		
-		$sql = "SELECT * FROM users WHERE oauth_uid = ?";
-				$query = $this->db->query($sql, array('100003793147753'));
-				$result = $query->result();
-				var_dump($result);
-				die();
-		
 		die(json_encode($result));
 		
 	}

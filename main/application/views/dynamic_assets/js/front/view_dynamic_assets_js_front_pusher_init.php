@@ -56,9 +56,8 @@ jQuery(function(){
 			
 			case 'request_response':
 				
-				var pass_data = [];
-				pass_data.push(data);
-				window.VC_Global_Event_Callbacks.request_response(pass_data);
+				
+				window.vc_fetch_sticky_notifications();
 
 				break;
 
@@ -101,8 +100,8 @@ jQuery(function(){
 		
 	}
 	
-	var pusher = new Pusher('<?= $this->config->item('pusher_api_key') ?>');
-	var global_channel = pusher.subscribe('vc_global');
+	var pusher 			= new Pusher('<?= $this->config->item('pusher_api_key') ?>');
+	var global_channel 	= pusher.subscribe('vc_global');
 	channel_subscribe_callbacks(global_channel);
 	
 	var individual_channel;
@@ -110,8 +109,10 @@ jQuery(function(){
 
 	var vc_user = jQuery.cookies.get('vc_user');
 	if(vc_user){
-		individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
-		individual_channel_subscribe_callbacks(individual_channel);
+		window.individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
+		individual_channel = window.individual_channel;
+		
+		individual_channel_subscribe_callbacks(window.individual_channel);
 	}
 	
 	window.EventHandlerObject.addListener("vc_login", function(){
@@ -126,7 +127,7 @@ jQuery(function(){
 		console.log(vc_user);
 		
 		if(vc_user){
-			individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
+			window.individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
 			individual_channel_subscribe_callbacks(individual_channel);
 		}
 			
