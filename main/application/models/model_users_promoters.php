@@ -938,7 +938,8 @@ class Model_users_promoters extends CI_Model {
 					t.name 				as t_name,
 					t.fan_page_id		as t_fan_page_id,
 					tv.name 			as tv_name,
-					tv.id 				as tv_id
+					tv.id 				as tv_id,
+					tv.image 			as tv_image
 					
 				FROM	users_promoters up
 				

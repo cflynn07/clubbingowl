@@ -1,0 +1,1 @@
+<td colspan="<%= colspan %>">No Pending Reservation Requests</td>

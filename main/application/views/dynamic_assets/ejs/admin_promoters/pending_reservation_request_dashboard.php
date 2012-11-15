@@ -1,39 +1,59 @@
-<tr style="display:none;">
+<td>
+	<img src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
+	<p data-name="<%= head_user %>"></p>
+	<span><%= u_phone_number %></span>
+</td>
+<td>
+	<img style="width:100px;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url %>venues/banners/<%= tv_image %>_t.jpg" />
+	<p><%= tv_name %></p>
+</td>
+<td>
+	<table>
+		<tr>
+			<td style="padding:0;"><img style="width:40px;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url %>guest_lists/<%= pgla_image %>_t.jpg" /></td>
+			<td style="padding:0 0 0 5px;"><p><%= pgla_name %></p></td>
+		</tr>
+	</table>
+</td>
+<td>
+	<%= human_date %>
+</td>
+<td>
+	<%= (pglr_request_msg.length) ? pglr_request_msg : ' - ' %>
+</td>
+<td>
 	
-	<td class="pglr_id hidden hidden" style="display:none"><?= $group->id ?></td>
-	<td class="pglr_head_user hidden" style="display:none"><?= $group->head_user ?></td>
-	
-	<td><div class="name_<?= $group->head_user ?>"></div></td>
-	<td><div class="pic_square_<?= $group->head_user ?>"></div></td>
-	<td><?= $wgl->tv_name ?></td>
-	<td><?= $wgl->pgla_name ?></td>
-	<td><?= date('l m/d/y', strtotime(rtrim($wgl->pgla_day, 's'))) ?></td>
-	<td><?= (strlen($group->pglr_request_msg)) ? $group->pglr_request_msg : ' - ' ?></td>
-	<td style="white-space:nowrap; width:244px;">
-		<?php if(!count($group->entourage_users)): ?>
-			<p>No Entourage</p>
-		<?php else: ?>
+	<% if(entourage_users && entourage_users.length > 0){ %>
 		<table>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Picture</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($group->entourage_users as $key2 => $ent_user): ?>
-					<tr <?= ($key2 % 2) ? 'class="odd"' : '' ?>>
-						<td><div class="name_<?= $ent_user ?>"></div></td>
-						<td><div class="pic_square_<?= $ent_user ?>"></div></td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
+			
+			<% for(var i=0; i < entourage_users.length; i++){ %>
+				<% var ent_user = entourage_users[i]; %>
+			<tr>
+				<td style="padding:0;">
+					<img src="https://graph.facebook.com/<%= ent_user %>/picture?width=25&height=25" />
+				</td>
+				<td style="padding:0 0 0 5px;">
+					<p data-name="<%= ent_user %>"></p>
+				</td>
+			</tr>
+			
+			<% } %>
+			
 		</table>
-		<?php endif; ?>
-	</td>
+	<% }else{ %>
 	
-	<td><?= ($group->pglr_table_request == '1') ? '<span style="color:green;">Yes</span>' : '<span style="color:red;">No</span>' ?></td>
-	<td>$<?= $group->table_min_spend ?></td>
-	<td style="white-space:nowrap;"><?= preg_replace('~(\d{3})[^\d]*(\d{3})[^\d]*(\d{4})$~', '$1-$2-$3', $group->u_phone_number) ?></td>
-	<td><span style="color:blue;text-decoration:underline;">Respond</span></td>	
-</tr>
+		<p> - </p>
+	
+	<% } %>
+</td>
+<td>
+	<% if(pglr_table_request == 1){ %>
+		<span style="color:green;">Yes</span>
+		<p><%= table_min_spend %></p>
+	<% }else{ %>
+		<span style="color:red;">No</span>
+	<% } %>
+</td>
+<td style="vertical-align:top;padding-top:15px;">
+	<a href="#" style="margin:0; background:blue; border-color:blue;" data-action="request-respond" class="button_link">Respond</a><br/><br/>
+</td>

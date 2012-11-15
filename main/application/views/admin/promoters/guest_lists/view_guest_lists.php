@@ -9,30 +9,7 @@
 
 
 
-<div id="dialog_actions" style="display: none;">
 
-	<span>
-		<img src="" class="pic_square" style="float: left; margin-right: 5px;" alt="picture" />
-		<span class="name"></span>'s reservation request.
-	</span>
-	
-	<div style="clear: both;"></div>
-	<br>
-
-	<form>
-		<fieldset>
-			<label for="message">Send <span class="name"></span> a message: (optional)</label>
-			<textarea rows="5" style="resize:none; width:100%; border:1px solid #333;" name="message"></textarea>
-			<br><br>
-			<span id="dialog_actions_message_remaining"></span>
-		</fieldset>
-	</form>
-	
-	<div id="dialog_actions_loading_indicator" style="text-align: center; display: none;">
-		<img src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
-	</div>
-
-</div>
 
 
 
