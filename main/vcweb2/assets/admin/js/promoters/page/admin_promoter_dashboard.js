@@ -720,8 +720,11 @@ jQuery(function(){
 					},
 					success: function(data){
 						
-						window.page_obj.pending_reservations_users = data.users;
-						_this.collection.reset(data.reservations);
+						console.log('retrieve_pending_requests');
+						console.log(data);
+						
+						window.page_obj.pending_reservations_users = data.message.users;
+						_this.collection.reset(data.message.reservations);
 						
 					}
 				})
