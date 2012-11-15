@@ -590,6 +590,10 @@ class Assets extends MY_Common_Controller {
 									
 									'user_thumb',
 									'pending_reservation_request_dashboard',
+									
+									'reservation_tr_guest_lists',
+									'reservation_tr_guest_lists_side_menu',
+									
 									'tr_loading', 
 									'pending_reservation_none'
 																		

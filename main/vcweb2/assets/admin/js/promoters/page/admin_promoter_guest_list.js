@@ -7,8 +7,89 @@ jQuery(function(){
 	window.vc_page_scripts.admin_promoter_guest_list = function(){
 						
 		var unbind_callbacks = [];
+
+		var Models = {};
+		var Collections = {};
+		var Views = {};
+		
+		Models.Reservation = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				
+			}
+		};
+		
+		Collections.Reservations = {
+			model: Models.Reservation,
+			initialize: function(){
+				
+			}
+		};
+
+		Views.LeftMenu = {
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		};
+		
+		Views.Status = {
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		};
+		
+		Views.Reservation = {
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		};
+		
+		Views.Reservations_Table = {
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		};
 		
 		
+		Models.Reservation 			= Backbone.Model.extend(Models.Reservation);
+		Collections.Reservations 	= Backbone.Collection.extend(Collections.Reservations);
+		Views.LeftMenu 				= Backbone.View.extend(Views.LeftMenu);
+		Views.Status 				= Backbone.View.extend(Views.Status);
+		Views.Reservation 			= Backbone.View.extend(Views.Reservation);
+		Views.Reservations_Table 	= Backbone.View.extend(Views.Reservations_Table);
+		
+
+
+
+
+
+
 
 
 
@@ -588,6 +669,11 @@ jQuery(function(){
 
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
+			
+			
+			
+			
+			
 			
 			for(var i in unbind_callbacks){
 				
