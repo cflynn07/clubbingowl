@@ -3,9 +3,20 @@ if(typeof window.vc_page_scripts === 'undefined')
 
 jQuery(function(){
 	
-	window.vc_page_scripts.global_promoter_pusher_notifications = function(oauth_uid){	
+	window.vc_page_scripts.global_promoter_pusher_notifications = function(oauth_uid){
+		
+		var oauth_uid = window.module.Globals.prototype.user_oauth_uid;
+		
+		var vc_team_chat_users = team_chat_object.vc_team_chat_users;
+		var team_chat_channel = team_chat_object.team_chat_channel;
+				
+		console.log('team_chat_channel');
+		console.log(team_chat_channel);
 				
 		team_chat_channel.bind('promoter_guest_list_reservation', function(data){
+			
+			console.log('promoter_guest_list_reservation');
+			console.log(data);
 			
 			if(data.promoter_oauth_uid != oauth_uid)
 				return;		//Event is not for THIS promoter on the team
@@ -21,6 +32,10 @@ jQuery(function(){
 			
 			users.push(data.head_oauth_uid);
 			// ------------- Assemble all UIDS of all users in request ------------
+			
+			
+			
+			
 			
 			jQuery.fbUserLookup(users, '', function(rows){
 				
@@ -45,15 +60,21 @@ jQuery(function(){
 					}
 				}
 				
+				
+				
+				
 				//TODO ----- look into improving this mess
-				if(!window.vc_fql_users)
-					window.vc_fql_users = [];
+		//		if(!window.vc_fql_users)
+		//			window.vc_fql_users = [];
 				
 				//add users to window.vc_fql_users
-				for(var i=0; i < rows.length; i++){
-					window.vc_fql_users.push(rows[i]);
-				}
+		//		for(var i=0; i < rows.length; i++){
+		//			window.vc_fql_users.push(rows[i]);
+		//		}
 				//TODO ----- look into improving this mess
+				
+				
+				
 				
 				//Growl notification of new guest list request
 				var text = '<span style="font-weight:bold;">' + fb_head_user.name + '</span> has requested to join ';
@@ -95,6 +116,9 @@ jQuery(function(){
 		});
 		
 		
+		
+		
+		
 		team_chat_channel.bind('team_guest_list_reservation', function(data){
 			
 			
@@ -106,5 +130,7 @@ jQuery(function(){
 		
 		
 	};
+	
+	window.vc_page_scripts.global_promoter_pusher_notifications();
 	
 });

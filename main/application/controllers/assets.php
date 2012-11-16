@@ -411,7 +411,8 @@ class Assets extends MY_Common_Controller {
 					case 'promoters':
 					
 					//	$group .= '-promoters';
-						
+						$group_assets[] = array('promoters/global_promoter_pusher_notifications', 			'admin_js');
+
 						$group_assets[] = array('promoters/promoters_ajaxify_front', 						'admin_js');
 						
 						$group_assets[] = array('promoters/page/admin_promoter_setup_dashboard', 			'admin_js');

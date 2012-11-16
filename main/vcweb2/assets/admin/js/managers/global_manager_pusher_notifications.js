@@ -4,7 +4,9 @@ if(typeof window.vc_page_scripts === 'undefined')
 jQuery(function(){
 	
 	window.vc_page_scripts.global_manager_pusher_notifications = function(){	
-	
+		
+		var team_chat_channel = team_chat_object.team_chat_channel;
+		
 		team_chat_channel.bind('promoter_guest_list_reservation', function(data){
 			
 			// ------------- Assemble all UIDS of all users in request ------------

@@ -12,6 +12,11 @@ jQuery(function(){
 		var Collections = {};
 		var Views = {};
 		
+		
+		
+		
+		
+		
 		Models.Reservation = {
 			initialize: function(){
 				
@@ -27,6 +32,13 @@ jQuery(function(){
 				
 			}
 		};
+
+
+
+
+
+
+
 
 		Views.LeftMenu = {
 			initialize: function(){
@@ -75,6 +87,10 @@ jQuery(function(){
 				
 			}
 		};
+		
+		
+		
+		
 		
 		
 		Models.Reservation 			= Backbone.Model.extend(Models.Reservation);

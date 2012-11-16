@@ -739,6 +739,9 @@ jQuery(function(){
 		
 		window.foo_pending_requests = view_pending_requests;
 		
+		
+		
+		
 		// --------------------------------------------------------------------------------------------
 		team_chat_object.individual_channel.bind('pending-requests-change', function(data){
 			console.log('data');
