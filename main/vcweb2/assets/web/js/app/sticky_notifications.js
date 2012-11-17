@@ -77,7 +77,8 @@
 				return;
 		
 	
-		
+			jQuery('div#user_notifications').empty();
+			
 			for(var i in sticky_notifications){
 				
 				console.log(sticky_notifications[i]);

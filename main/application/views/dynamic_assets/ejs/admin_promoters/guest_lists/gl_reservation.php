@@ -33,9 +33,10 @@
 						<textarea></textarea>
 						<br>
 						<span class="message_remaining"></span>
+						<a href="#" style="position:relative; top:10px; background:blue; border-color:blue;" data-action="update-notes" class="button_link">Update</a><br/><br/>
 					</div>
 					<span class="original">
-						<%= (pglr_host_message.length) ? pglr_host_message : '<span style="font-weight: bold;">Edit Message</span>' %>
+						<%= (pglr_host_message.length) ? pglr_host_message : '<span style="font-weight: bold;">Edit Notes</span>' %>
 					</span>
 					<img class="message_loading_indicator" style="display:none;" src="<%= window.module.Globals.prototype.global_assets + 'images/ajax.gif' %>" alt="loading..." />
 				</td>

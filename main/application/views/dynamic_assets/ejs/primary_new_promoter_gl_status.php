@@ -15,7 +15,6 @@
 			</td>
 			<td style="vertical-align:top;">
 				
-				
 				<div class="info">
 			  	
 			  		<table>
@@ -33,7 +32,6 @@
 			  		</table>  		
 			  	
 			  	</div>
-			  	
 			  	
 			</td>
 			

@@ -1176,9 +1176,7 @@ class Promoters extends MY_Controller {
 				break;
 			case 'update_pending_requests':
 				
-				
 				$this->_helper_respond_pending_request();
-				
 				
 				break;
 			case 'client_stats':

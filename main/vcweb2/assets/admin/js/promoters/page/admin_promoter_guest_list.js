@@ -439,7 +439,131 @@ jQuery(function(){
 				
 			},
 			events: {
+				'click span.original': 					'events_click_host_notes',
+				'click a[data-action=update-notes]': 	'events_update_host_notes',
+				'click a[data-action=request-respond]': 'events_click_request_respond',
+			},
+			events_click_request_respond: function(e){
+				e.preventDefault();
 				
+				var _this = this;
+				var head_user = this.model.get('head_user');
+				
+				var respond_callback = function(resp){
+							
+					jQuery('div#dialog_actions').find('textarea[name=message]').val('');
+											
+					jQuery.background_ajax({
+						data: {
+							vc_method: 	'update_pending_requests',
+							pglr_id: 	_this.model.get('id'),
+							action: 	resp.action,
+							message: 	resp.message
+						},
+						success: function(data){
+							
+							////uhhhhhhhhh
+							if(data.success)
+								_this.model.set({
+									pglr_response_msg: 	resp.message,
+									pglr_approved:		(resp.action == 'approve') ? '1' : '-1'
+								});
+														
+						}
+					});
+					
+				};
+				
+				jQuery('div#dialog_actions').dialog({
+					title: 		'Approve or Decline Request',
+					height: 	420,
+					width: 		320,
+					modal: 		true,
+					resizable: 	false,
+					draggable: 	false,
+					buttons: [{
+						text: 'Approve',
+						id: 'ui-approve-button',
+						click: function(){
+							respond_callback({
+								action: 'approve',
+								message: jQuery(this).find('textarea[name=message]').val()
+							});
+							jQuery(this).dialog('close');
+						}
+					},{
+						text: 'Decline',
+						click: function(){
+							respond_callback({
+								action: 'decline',
+								message: jQuery(this).find('textarea[name=message]').val()
+							});
+							jQuery(this).dialog('close');
+						}
+					}]
+				});
+				
+				jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
+				jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
+				
+				jQuery.fbUserLookup(window.page_obj.users, 'name, uid, third_party_id', function(rows){							
+					
+					for(var i in rows){
+						var user = rows[i];
+						if(user.uid != head_user)
+							continue;
+						
+						jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
+						jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
+					
+					}
+					
+				});
+				
+				return false;
+			},
+			events_update_host_notes: function(e){
+				
+				e.preventDefault();
+				
+				var new_notes = jQuery.trim(this.$el.find('td.host_notes div.edit textarea').val());
+				this.$el.find('td.host_notes div.edit').hide();
+				this.$el.find('img.message_loading_indicator').show();
+				
+				var _this = this;
+				jQuery.background_ajax({
+					data: {
+						vc_method: 		'update_promoter_reservation_host_notes',
+						pglr_id: 		_this.model.get('id'),
+						host_message:	new_notes
+					},
+					success: function(data){
+						
+						//_this.$el.find('img.message_loading_indicator').hide();
+						
+						if(data.success){
+							
+							_this.model.set({
+								pglr_host_message: new_notes
+							});
+							
+						}
+						
+					}
+				});			
+				
+				return false
+				
+			},
+			events_click_host_notes: function(e){
+				e.preventDefault();
+								
+				var el = jQuery(e.currentTarget);
+				el.hide();
+				this.$el.find('td.host_notes div.edit').show();
+				this.$el.find('td.host_notes div.edit textarea').focus();
+				
+				return false;
 			}
 		};
 		Views.Reservation 			= Backbone.View.extend(Views.Reservation);
