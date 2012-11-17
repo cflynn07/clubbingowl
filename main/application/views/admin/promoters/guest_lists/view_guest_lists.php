@@ -63,7 +63,14 @@
 			<?php endif; ?>		
 		
 	</div>
-
+	
+	<div id="list_status" class="three_fourth last">foooo</div>
+	
+	<br/>
+	<br/>
+	<br/>
+	
+	<div class="one_fourth"></div>
 	<div id="lists_container" class="three_fourth last">
 		
 		

@@ -1135,6 +1135,26 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'update_list_status':
+				
+				$pgla_id = $this->input->post('pgla_id');
+				$status = $this->input->post('status');
+				$status = strip_tags($status);
+				
+				//should be checking if guest-list belongs to this promoter... too lazy
+				$this->db->insert('guest_list_authorizations_statuses', array(
+					'promoter_guest_list_authorizations_id'	=> $pgla_id,
+					'status'								=> $status,
+					'create_time'							=> time(),
+					'users_oauth_uid'						=> $this->vc_user->oauth_uid
+				));
+				
+				$return_obj = new stdClass;
+				$return_obj->status = $status;
+				$return_obj->human_date = date('l m/d/y h:i:s A', time());
+				die(json_encode(array('success' => true, 'message' => $return_obj)));
+				
+				break;
 			case 'retrieve_guest_lists':
 				
 				list($weekly_guest_lists, $users) = $this->_helper_promoter_guest_lists_and_members();

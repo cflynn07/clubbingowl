@@ -957,7 +957,7 @@ class Model_users_promoters extends CI_Model {
 				
 				JOIN	promoters_guest_list_authorizations pgla
 				ON		tv.id = pgla.team_venue_id
-				
+								
 				WHERE	up.id = $promoter_id
 						AND pgla.user_promoter_id = $promoter_id
 						AND pgla.deactivated = 0
@@ -969,7 +969,31 @@ class Model_users_promoters extends CI_Model {
 						AND tvp.deleted = 0
 						AND up.completed_setup = 1";	
 		$query = $this->db->query($sql);
-		return $query->result();
+		$result = $query->result();
+		
+		//get latest status
+		foreach($result as &$res){
+			
+			$this->db->select('
+					glas.id 				as glas_id,
+					glas.status 			as glas_status,
+					glas.create_time 		as glas_create_time,
+					glas.users_oauth_uid 	as glas_users_oauth_uid')
+				->from('guest_list_authorizations_statuses glas')	
+				->where(array(
+					'glas.promoter_guest_list_authorizations_id' => $res->pgla_id
+				))
+				->order_by('glas_id', 'desc')
+				->limit(1, 0);
+			$query = $this->db->get();
+			$res->status = $query->row();
+			
+			if($res->status)
+				$res->status->glas_human_date = date('l m/d/y h:i:s A', $res->status->glas_create_time);
+			
+		}
+		
+		return $result;
 	}
 	
 	/**
@@ -1128,8 +1152,29 @@ class Model_users_promoters extends CI_Model {
 						AND tvp.deleted = 0
 						AND pgla.deactivated = 0";
 		$query = $this->db->query($sql, array($promoter_id, $guest_list_name));
-			
-		return $query->row();
+		$result = $query->row();
+		
+		//attach latest status
+		$this->db->select('
+				glas.id 				as glas_id,
+				glas.status 			as glas_status,
+				glas.create_time 		as glas_create_time,
+				glas.users_oauth_uid 	as glas_users_oauth_uid')
+			->from('guest_list_authorizations_statuses glas')	
+			->where(array(
+				'glas.promoter_guest_list_authorizations_id' => $result->pgla_id
+			))
+			->order_by('glas_id', 'desc')
+			->limit(1, 0);
+		$query = $this->db->get();
+		$result->status = $query->row();
+		
+		if($result->status)
+			$result->status->glas_human_date = date('l m/d/y h:i:s A', $result->status->glas_create_time);
+		
+		Kint::dump($result);
+		
+		return $result;
 		
 	}
 	

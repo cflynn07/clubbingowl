@@ -99,6 +99,25 @@
     </div>
     
 
+<div style="position:relative; margin-bottom:0; margin-top:0; position:relative; top:-20px; left:4px; padding:5px;" class="guestlist-form-right">
+	<div style="background-color:#474D6A; border-radius:5px; color:#FFF;">
+		<h3 style="padding-top:5px; padding-left:5px; margin-bottom:5px;"><?= $promoter->u_first_name ?>'s List Status Update</h3>
+		<?php if($guest_list->status && $guest_list->status->glas_status): ?>
+			<p style="margin-top:0px; padding-left:5px;"><?= $guest_list->status->glas_status ?></p>
+			<span style="float:right; padding-right:5px; padding-bottom:5px; color:#FFF; font-size:11px;">Last Updated: <?= $guest_list->status->glas_human_date ?></span>
+		<?php else: ?>
+			
+			<p style="padding-left:5px; text-align:center; padding-bottom:10px;"><?= $promoter->u_first_name ?> hasn't updated the status of "<?= $guest_list->pgla_name ?>" yet.</p>
+			<span>&nbsp;</span>	
+			
+		<?php endif; ?>
+		
+		<div style="clear:both;"></div>
+	</div>
+</div>
+
+
+
 <div style="position:relative;" class="guestlist-form-right">
 	
     

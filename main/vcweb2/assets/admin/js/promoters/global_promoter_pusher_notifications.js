@@ -105,7 +105,7 @@ jQuery(function(){
 				    ent6: (6 < entourage.length) ? image_gen(entourage[6].pic_square) : '',
 				    ent8: (7 < entourage.length) ? '...' : ''
 				},{
-					expires: false,
+					expires: true,
 				    speed: 1000
 				});
 				

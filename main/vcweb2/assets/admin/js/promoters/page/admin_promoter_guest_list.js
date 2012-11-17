@@ -194,19 +194,76 @@ jQuery(function(){
 
 		
 		
+		
+		
 		Views.Status = {
+			el: '#list_status',
 			initialize: function(){
 				
+				this.render();
 			},
 			render: function(){
+				
+				var _this = this;
+				var template = EVT['guest_lists/gl_status'];
+				this.$el.unbind();
+				
+				var html = new EJS({
+					text: template
+				}).render(jQuery.extend(this.model.toJSON(), this.model.get('status')));
+				
+				this.$el.html(html);
 				
 				return this;
 			},
 			events: {
+				'click a[data-action]': 'events_click_data_action'
+			},
+			events_click_data_action: function(e){
 				
+				e.preventDefault();
+				
+				var el = jQuery(e.currentTarget);
+				var action = el.attr('data-action');
+				switch(action){
+					case 'update-status':
+					
+						var _this = this;
+						var textarea 	= this.$el.find('textarea#insert_new_status');
+						var status		= this.$el.find('#current_status');
+						var new_status 	= jQuery.trim(textarea.val());
+						textarea.val('');
+						
+						//show loading indicator
+						status.html('<img src="' + window.module.Globals.prototype.global_assets + 'images/ajax.gif" alt="loading..." />');
+						
+						jQuery.background_ajax({
+							data: {
+								vc_method: 	'update_list_status',
+								status: 	new_status,
+								pgla_id: 	_this.model.get('pgla_id')
+							},
+							success: function(data){
+								
+								if(data.success){
+									status.html('<span style="color:blue;">' + data.message.status + '</span>');
+									_this.$el.find('span#glas_last_updated').html(data.message.human_date);
+								}
+							}
+						})
+							
+						break;
+				}
+				
+				return false;
 			}
 		};
 		Views.Status 				= Backbone.View.extend(Views.Status);
+		
+		
+		
+		
+		
 		
 		
 		Views.GuestList = {
@@ -230,7 +287,15 @@ jQuery(function(){
 					return;
 					
 				active_list = active_list[0];
-		
+				
+				
+				//insert list status
+				var view_status = new Views.Status({
+					model: active_list
+				});
+				
+				
+				
 				var html = new EJS({
 					text: template
 				}).render(active_list.toJSON());
@@ -345,7 +410,7 @@ jQuery(function(){
 			initialize: function(){
 				
 				this.model.on('change', this.render, this);
-				
+				 
 			},
 			render: function(){
 				
