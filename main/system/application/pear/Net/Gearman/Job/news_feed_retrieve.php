@@ -60,7 +60,7 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 			$user_friends->user_friends_pics = $user_friends_pics;
 			$user_friends->user_friends_ids = $user_friends_ids;
 							
-			$notifications = $CI->users->retrieve_user_notifications($user_friends->user_friends_ids, $iterator_position, array('lang_locale' => $lang_locale));
+			$notifications = $CI->users->retrieve_user_notifications($user_friends->user_friends_ids, $iterator_position, array('lang_locale' => $lang_locale), $user_oauth_uid);
 			
 			
 			if($iterator_position === false || $iterator_position == 'false'){

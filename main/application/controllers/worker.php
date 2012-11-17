@@ -121,7 +121,11 @@ class Worker extends CI_Controller {
 			
 			
 			//finds friends that are associated with a group of promoters
-			$gearman_worker->addAbility('gearman_promoter_friend_activity');	
+			$gearman_worker->addAbility('gearman_promoter_friend_activity');
+			
+			
+			//promoter guest list status	
+			$gearman_worker->addAbility('gearman_new_promoter_gl_status');	
 			
 			
 			//finds reviews of a user's friends for a given promoter

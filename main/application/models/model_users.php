@@ -54,7 +54,7 @@ class Model_users extends CI_Model {
 	 * @param	text (notification data)
 	 * @return	bool
 	 */
-	function create_user_notifications($vibecompass_id, $notification_type, $notification_data){
+	function create_user_notifications($vibecompass_id, $notification_type, $notification_data, $for_user = false){
 		
 		//'join_vibecompass','join_team_guest_list','join_promoter_guest_list','join_event','promoter_new_event'
 		$data = array(
@@ -82,6 +82,9 @@ class Model_users extends CI_Model {
 		}
 		
 		$data['join_date'] = date('Y-m-d', time());
+		
+		if($for_user)
+			$data['for_user'] = $for_user;
 				
 		$this->db->insert('user_notifications', $data);
 				
@@ -824,7 +827,7 @@ class Model_users extends CI_Model {
 	 * @param	int (id of record to begin looking after)
 	 * @return	array
 	 */
-	function retrieve_user_notifications($user_friends, $iterator_position, $options = array()){
+	function retrieve_user_notifications($user_friends, $iterator_position, $options = array(), $for_user){
 		/* --------- CONFIGURATION SETTINGS --------- *
 		 * This method will require a lot of optional configuration settings. Passing in a configurable
 		 * array of key/value pairs will work better than a method with 20 optional arguments.
@@ -868,9 +871,9 @@ class Model_users extends CI_Model {
 				WHERE ";
 				
 		if($iterator_position === false || $iterator_position == 'false'){
-			$sql .= "(";
+			$sql .= "un.for_user = $for_user OR ( ";
 		}else{
-			$sql .= "un.id < $iterator_position AND (";
+			$sql .= "(un.for_user = $for_user AND un.id < $iterator_position) OR (un.id < $iterator_position AND (";
 		}
 		
 		foreach($user_friends as $key => $uf){
@@ -879,6 +882,10 @@ class Model_users extends CI_Model {
 			else 
 				$sql .= "un.vibecompass_id = $uf OR ";
 		}
+		
+		if($iterator_position !== false && $iterator_position !== 'false')
+			$sql .= ') ';
+		
 			
 		$sql .=	"ORDER BY	un.id DESC ";
 		
@@ -896,7 +903,7 @@ class Model_users extends CI_Model {
 			if(php_sapi_name() == 'cli'){
 			
 			//	echo 'DIAGNOSTIC OUTPUT ------ ';					
-			//	var_dump($sql);						
+				var_dump($sql);						
 			}
 							
 							

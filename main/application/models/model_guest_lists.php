@@ -370,6 +370,7 @@ class Model_guest_lists extends CI_Model {
 					c.state 				as c_state,
 					c.url_identifier 		as c_url_identifier,
 					up.public_identifier 	as up_public_identifier,
+					up.profile_image		as up_profile_image,
 					c.id 					as c_id,
 					c.name 					as c_name,
 					c.state 				as c_state,

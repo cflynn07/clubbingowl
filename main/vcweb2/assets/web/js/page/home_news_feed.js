@@ -271,7 +271,7 @@ jQuery(function(){
 						guest_list_data: guest_list_data,
 						pic_square: pic_square
 					});
-					
+									
 					switch(news_item.un_notification_type){
 						case 'join_promoter_guest_list':
 												
@@ -308,10 +308,27 @@ jQuery(function(){
 							var pic_square = data.message.user_friends_pics[news_item.un_vibecompass_id];
 						
 							break;
+						case 'promoter_new_gl_status':
+							
+							console.log('promoter_new_gl_status ====== ');
+							
+							news_item.un_notification_data = jQuery.parseJSON(news_item.un_notification_data);
+														console.log(news_item);
+
+							news_html = new EJS({
+								text: ejs_view_templates.primary_new_promoter_gl_status
+							}).render(news_item);
+						//	news_html = jQuery(news_html);
+						//	news_html.find('a').addClass('ajaxify_t3');
+							
+							
+							
+							
+							break;
 						default:
 							break;
 					}
-					
+
 					jQuery('div#notifications_holder ul.updates').append(news_html);
 					
 				}

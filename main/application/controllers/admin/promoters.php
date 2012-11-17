@@ -1152,6 +1152,15 @@ class Promoters extends MY_Controller {
 				$return_obj = new stdClass;
 				$return_obj->status = $status;
 				$return_obj->human_date = date('l m/d/y h:i:s A', time());
+				
+				$this->load->helper('run_gearman_job');
+				run_gearman_job('gearman_new_promoter_gl_status', array(
+					'up_id'			=> $this->vc_user->promoter->up_id,
+					'pgla_id'		=> $pgla_id,
+					'status'		=> $status,
+					'human_time'	=> $return_obj->human_date
+				), false);
+				
 				die(json_encode(array('success' => true, 'message' => $return_obj)));
 				
 				break;
