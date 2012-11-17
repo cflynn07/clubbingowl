@@ -904,7 +904,7 @@ class Model_users extends CI_Model {
 							
 			$query = $this->db->query($sql);
 			$result = $query->result();	
-			
+						
 		}else{
 					
 			$result = array();	
