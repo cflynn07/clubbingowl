@@ -90,8 +90,10 @@
 
 			if ($this->mode == 'sandbox')
 				$data['From'] = $this->number;
-
-
+			
+			if(MODE == 'local')
+				return;
+			
 			return $this->_twilio->request($url, 'POST', $data);
 			
 		}

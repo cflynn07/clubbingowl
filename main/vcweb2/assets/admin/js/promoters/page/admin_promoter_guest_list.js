@@ -6,7 +6,13 @@ jQuery(function(){
 	
 	window.vc_page_scripts.admin_promoter_guest_list = function(){
 						
+						
+		var EVT = window.ejs_view_templates_admin_promoters;
+		
+						
 		var unbind_callbacks = [];
+
+
 
 		var Models = {};
 		var Collections = {};
@@ -14,10 +20,7 @@ jQuery(function(){
 		
 		
 		
-		
-		
-		
-		Models.Reservation = {
+		Models.Status = {
 			initialize: function(){
 				
 			},
@@ -25,6 +28,33 @@ jQuery(function(){
 				
 			}
 		};
+		Models.Status				= Backbone.Model.extend(Models.Status);
+		
+		Models.Reservation = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				collapsed: false,
+				show_pictures: true
+			}
+		};
+		Models.Reservation 			= Backbone.Model.extend(Models.Reservation);
+		
+		Models.GuestList = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				active: false
+			}
+		};
+		Models.GuestList			= Backbone.Model.extend(Models.GuestList);
+		
+		
+		
+		
+		
 		
 		Collections.Reservations = {
 			model: Models.Reservation,
@@ -32,25 +62,137 @@ jQuery(function(){
 				
 			}
 		};
-
-
-
-
+		Collections.Reservations 	= Backbone.Collection.extend(Collections.Reservations);
+		
+		Collections.GuestLists = {
+			model: Models.GuestList,
+			initialize: function(args){
+								
+			}
+		};
+		Collections.GuestLists		= Backbone.Collection.extend(Collections.GuestLists);
 
 
 
 
 		Views.LeftMenu = {
+			
+			//cached DOM references
+			gl_img: 	null,
+			venue_img: 	null,
+			ul: 		null,
+			
 			initialize: function(){
 				
+				this.ul  		= this.$el.find('ul:first');
+				this.gl_img 	= this.$el.find('#left_menu_gl_img');
+				this.venue_img 	= this.$el.find('#left_menu_venue_img');
+				
+				this.collection.on('change', this.change_collection, this);
+								
+				this.render();
+
 			},
 			render: function(){
 				
+				var template 	= EVT['guest_lists/gl_left_menu'];
+				var _this 		= this;
+				var weekdays 	= [
+					'mondays',
+					'tuesdays',
+					'wednesdays',
+					'thursdays',
+					'fridays',
+					'saturdays',
+					'sundays'
+				];
+						
+				this.ul.empty();
+				_.each(weekdays, function(day){
+										
+					var day_title = day;
+					
+					var day_lists = _this.collection.where({
+						pgla_day: day
+					});
+					for(var i in day_lists){
+						day_lists[i] = day_lists[i].toJSON();
+					}
+					
+					var html = new EJS({
+						text: template
+					}).render({
+						day_title: day_title,
+						day_lists: day_lists
+					});
+										
+					_this.ul.append(html);
+										
+				});
+
+				var first = this.collection.first(1);
+				if(first.length)
+					first[0].set({
+						active: true
+					});				
+				
+				return this;
 			},
 			events: {
+				'click span[data-pgla_id]': 'events_click_active'
+			},
+			events_click_active: function(e){
 				
+				var el = jQuery(e.currentTarget);
+				var pgla_id = el.attr('data-pgla_id');
+				var res = this.collection.where({
+					pgla_id: pgla_id
+				});
+				
+				if(res.length){
+					this.collection.each(function(m){
+						m.set({
+							active: false
+						});
+					});
+					
+					res[0].set({
+						active: true
+					});
+				}
+				
+			},
+			change_collection: function(model, event){
+				
+				if(event.changes && event.changes.active === true){
+					
+					this.ul.find('span[data-pgla_id]').css({
+						'font-weight': 'normal',
+						color: 'black'
+					});
+					
+					this.ul.find('span[data-pgla_id=' + model.get('pgla_id') + ']').css({
+						'font-weight': 'bold',
+						color: 'blue'
+					});
+					
+					var img_style = {
+						'max-width': '200px',
+						border: '1px solid #CCC'
+					};
+					var img_base = window.module.Globals.prototype.s3_uploaded_images_base_url;
+					this.gl_img.attr('src', 	img_base + 'guest_lists/' 		+ model.get('pgla_image') 	+ '_p.jpg').css(img_style);
+					this.venue_img.attr('src', 	img_base + 'venues/banners/' 	+ model.get('tv_image') 	+ '_t.jpg').css(img_style);
+															
+				}
+												
 			}
 		};
+		Views.LeftMenu 				= Backbone.View.extend(Views.LeftMenu);
+		
+		
+
+		
 		
 		Views.Status = {
 			initialize: function(){
@@ -58,58 +200,261 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				return this;
 			},
 			events: {
 				
 			}
 		};
+		Views.Status 				= Backbone.View.extend(Views.Status);
+		
+		
+		Views.GuestList = {
+			users: null,
+			collection_reservations: null,
+			className: 'list tabs',
+			initialize: function(){
+				
+				this.collection.on('change', this.render, this);
+				this.render();
+				
+			},
+			render: function(){
+				
+				var _this = this;
+				var template = EVT['guest_lists/gl_reservations_table'];
+				var active_list = this.collection.where({
+					active: true
+				});
+				if(!active_list.length)
+					return;
+					
+				active_list = active_list[0];
+		
+				var html = new EJS({
+					text: template
+				}).render(active_list.toJSON());
+				this.$el.html(html);
+				
+				
+				//this.$el.tabs();
+				this.$el.find('input.guest_list_datepicker').datepicker({
+					dateFormat: 'DD MM d, yy',
+					maxDate: '+6d',
+					minDate: '-3y',
+					onSelect: function(dateText, inst){
+						
+						var dateObj = {
+				        	currentYear: inst.selectedYear,
+				        	currentMonth: inst.selectedMonth,
+				        	currentDay: inst.selectedDay
+				        }
+				        console.log(dateObj);
+				        
+					}
+				});
+						
+				var tbody 	= this.$el.find('tbody');
+				var groups = active_list.get('groups');
+				if(!groups.length){
+					
+					var html = new EJS({
+						text: EVT['guest_lists/gl_tr_no_reservations']
+					}).render({});
+					tbody.html(html);
+					return this;
+					
+				}
+
+				this.collection_reservations = new Collections.Reservations(groups);
+				this.collection_reservations.each(function(m){
+					
+					var view_reservation = new Views.Reservation({
+						model: m
+					});
+					tbody.append(view_reservation.el);
+					view_reservation.render();
+					
+				});
+				
+				this.custom_events_add_fb_data();
+				
+				return this;		
+				
+			},
+			events: {
+				'click a[data-action]': 'events_click_data_action'
+			},
+			custom_events_add_fb_data: function(e){
+				
+				var _this = this;
+				
+				var fb_names = function(rows){
+					for(var i in rows){
+						var user = rows[i];
+						_this.$el.find('*[data-name=' + user.uid + ']').html(user.name);
+					}
+				}				
+				
+				if(this.users === null){
+					
+					//add fb queried names
+					jQuery.fbUserLookup(window.page_obj.users, '', function(rows){
+						_this.users = rows;
+						fb_names(rows);
+					});
+					
+				}else{
+					fb_names(this.users);
+				}
+						
+						
+			},
+			events_click_data_action: function(e){
+				
+				e.preventDefault();
+				var el = jQuery(e.currentTarget);
+				var action = el.attr('data-action');
+				
+				switch(action){
+					case 'expand-collapse-all':
+					
+						if(this.collection_reservations)
+							this.collection_reservations.each(function(m){
+								
+								console.log(m);
+								m.set({
+									collapsed: !m.get('collapsed')
+								});
+								
+							});
+						
+						this.custom_events_add_fb_data();
+						
+						break;
+				}
+				
+				return false;
+			}
+		};
+		Views.GuestList 	= Backbone.View.extend(Views.GuestList);
+		
 		
 		Views.Reservation = {
+			tagName: 'tr',
 			initialize: function(){
+				
+				this.model.on('change', this.render, this);
 				
 			},
 			render: function(){
+				
+				console.log('Views.Reservation.render()');
+				
+				var template = EVT['guest_lists/gl_reservation'];
+				var html = new EJS({
+					text: template
+				}).render(this.model.toJSON());
+				
+				html = jQuery(html);
+				
+				html.find('td:not(table.user_messages td)').css({
+					'font-size': '12px'
+				});
+				
+				this.$el.html(html);
+				
+				var timestamp = Math.floor(new Date().getTime() / 1000);
+				if(Math.abs(timestamp - parseInt(this.model.get('time'))) < 10)
+					this.$el.effect('highlight', {}, 2000, function(){
+						
+					});
+					
+				return this;
 				
 			},
 			events: {
 				
 			}
 		};
-		
-		Views.Reservations_Table = {
-			initialize: function(){
-				
-			},
-			render: function(){
-				
-			},
-			events: {
-				
-			}
-		};
-		
-		
-		
-		
-		
-		
-		Models.Reservation 			= Backbone.Model.extend(Models.Reservation);
-		Collections.Reservations 	= Backbone.Collection.extend(Collections.Reservations);
-		Views.LeftMenu 				= Backbone.View.extend(Views.LeftMenu);
-		Views.Status 				= Backbone.View.extend(Views.Status);
 		Views.Reservation 			= Backbone.View.extend(Views.Reservation);
-		Views.Reservations_Table 	= Backbone.View.extend(Views.Reservations_Table);
 		
+		
+	
+				
+		var collection_guest_lists = new Collections.GuestLists(window.page_obj.weekly_guest_lists);
+		var view_left_menu = new Views.LeftMenu({
+			collection: collection_guest_lists,
+			el: '#left_menu'
+		});
+		var view_guest_list = new Views.GuestList({
+			collection: collection_guest_lists,
+			el: '#lists_container'
+		});
+
+		var pending_requests_change = function(data){
+			console.log('pending-requests-change');
+			
+			var pgla_id_active = collection_guest_lists.where({
+				active: true
+			});
+			if(!pgla_id_active.length)
+				return;
+			pgla_id_active = pgla_id_active[0].get('pgla_id')
+			
+			jQuery.background_ajax({
+				data: {
+					vc_method: 'retrieve_guest_lists'
+				},
+				success: function(data){
+					
+					if(data.success){
+						view_guest_list.users = null;
+						collection_guest_lists.reset(data.message.weekly_guest_lists, {
+							silent: true
+						});
+						window.page_obj.users = data.message.users;
+						
+						var active_gl = collection_guest_lists.where({
+							pgla_id: pgla_id_active
+						});
+						if(active_gl.length){
+							
+							collection_guest_lists.each(function(m){
+								m.set({
+									active: false
+								});
+							})
+							
+							active_gl[0].set({
+								active: true
+							});
+							
+						}
+						
+						view_guest_list.render();
+						view_left_menu.render();
+												
+					}
+										
+				}
+			});
+		};
+		team_chat_object.individual_channel.bind('pending-requests-change', pending_requests_change);
+		
+		
+		
+		//triggered when page is unloaded
+		window.module.Globals.prototype.unbind_callback = function(){
+			
+			team_chat_object.individual_channel.unbind('pending-requests-change', pending_requests_change);
+
+		}
 
 
+		return;
 
-
-
-
-
-
-
-
+/*
 
 
 
@@ -132,7 +477,7 @@ jQuery(function(){
 		});
 		
 		
-		
+*/
 		
 		
 		
@@ -683,22 +1028,7 @@ jQuery(function(){
 
 
 
-		//triggered when page is unloaded
-		window.module.Globals.prototype.unbind_callback = function(){
-			
-			
-			
-			
-			
-			
-			for(var i in unbind_callbacks){
-				
-				var callback = unbind_callbacks[i];
-				callback();
-				
-			}
-			
-		}
+	
 		
 	}
 	

@@ -560,7 +560,7 @@ jQuery(function(){
 								
 				switch(action){
 					case 'request-respond':
-
+										
 
 						var respond_callback = function(resp){
 							
@@ -737,17 +737,21 @@ jQuery(function(){
 			collection: pending_requests
 		});
 		
-		window.foo_pending_requests = view_pending_requests;
+		//window.foo_pending_requests = view_pending_requests;
 		
 		
 		
 		
 		// --------------------------------------------------------------------------------------------
-		team_chat_object.individual_channel.bind('pending-requests-change', function(data){
+		var pending_requests_change = function(data){
+			console.log('pending-requests-change');
+			
+			
 			console.log('data');
 			console.log(data);
 			view_pending_requests.update_collection();
-		});
+		}
+		team_chat_object.individual_channel.bind('pending-requests-change', pending_requests_change);
 		
 		
 		
@@ -921,7 +925,7 @@ jQuery(function(){
 			
 			
 			
-			team_chat_object.individual_channel.unbind('pending-requests-change')
+			team_chat_object.individual_channel.unbind('pending-requests-change', pending_requests_change);
 			
 			
 			
@@ -954,7 +958,7 @@ jQuery(function(){
 			}
 			
 			for(var i in pusher_disconnect_channel){
-				pusher_disconnect_channel[i].disconnect();
+			//	pusher_disconnect_channel[i].disconnect();
 			}
 			
 		}

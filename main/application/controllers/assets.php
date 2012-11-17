@@ -595,6 +595,13 @@ class Assets extends MY_Common_Controller {
 									'reservation_tr_guest_lists',
 									'reservation_tr_guest_lists_side_menu',
 									
+									
+									'guest_lists/gl_left_menu',
+									'guest_lists/gl_status',
+									'guest_lists/gl_reservations_table',
+									'guest_lists/gl_reservation',
+									'guest_lists/gl_tr_no_reservations',
+									
 									'tr_loading', 
 									'pending_reservation_none'
 																		

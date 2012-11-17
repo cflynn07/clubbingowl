@@ -425,38 +425,12 @@ class Promoters extends MY_Controller {
 	 */
 	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		//retrieve a list of all the guest lists a promoter has set up
-		$this->load->model('model_users_promoters', 'users_promoters', true);
-		$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
-		
-		$this->load->model('model_guest_lists', 'guest_lists', true);
-		//for each guest list, find all groups associated with it
-		foreach($weekly_guest_lists as &$gla){
-			$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
-		}
-		
-		//Need simple array of all FBID's of users for javascript client-side FQL query
-		$users = array();
-		foreach($weekly_guest_lists as $wgl){
-			foreach($wgl->groups as $group){
 				
-				$users[] = $group->head_user;
-				$users = array_merge($users, $group->entourage_users);
-				
-			}
-		}
-		$users = array_unique($users);
-		$users = array_values($users);
-		
-		
-		
+		list($weekly_guest_lists, $users) = $this->_helper_promoter_guest_lists_and_members();
 		
 		$data['weekly_guest_lists'] = $weekly_guest_lists;
 		$data['users'] = json_encode($users);
-		
-		
-		
-		
+				
 		$this->body_html = $this->load->view('admin/promoters/guest_lists/view_guest_lists', $data, true);
 		
 	}
@@ -1161,6 +1135,16 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'retrieve_guest_lists':
+				
+				list($weekly_guest_lists, $users) = $this->_helper_promoter_guest_lists_and_members();
+				$return = new stdClass;
+				$return->weekly_guest_lists = $weekly_guest_lists;
+				$return->users 				= $users;
+				
+				die(json_encode(array('success' => true, 'message' => $return)));
+				
+				break;
 			case 'update_pending_requests':
 				
 				
@@ -1795,6 +1779,44 @@ class Promoters extends MY_Controller {
 				'goo' => 'doll'
 			))));
 	}
+	
+	
+	
+	
+	private function _helper_promoter_guest_lists_and_members(){
+		
+		//retrieve a list of all the guest lists a promoter has set up
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
+		
+		$this->load->model('model_guest_lists', 'guest_lists', true);
+		//for each guest list, find all groups associated with it
+		foreach($weekly_guest_lists as &$gla){
+			
+			$gla->human_date = $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->pgla_day, 's')));
+			
+			$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
+		}
+		
+		//Need simple array of all FBID's of users for javascript client-side FQL query
+		$users = array();
+		foreach($weekly_guest_lists as $wgl){
+			foreach($wgl->groups as $group){
+				
+				$users[] = $group->head_user;
+				$users = array_merge($users, $group->entourage_users);
+				
+			}
+		}
+		$users = array_unique($users);
+		$users = array_values($users);
+		
+		return array($weekly_guest_lists, $users);
+		
+	}
+	
+	
+	
 	
 	private function _helper_backbone_weekly_guest_lists(){
 		
