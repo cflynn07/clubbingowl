@@ -115,15 +115,27 @@ class Model_users_managers extends CI_Model {
 	 * @return 	object || false
 	 */
 	function retrieve_individual_team_venue($team_fan_page_id, $tv_id){
-		
-		$query = $this->db->get_where('team_venues', array('team_fan_page_id' => $team_fan_page_id, 'id' => $tv_id));
+				
+		$this->db->select('tvp.id')
+			->from('teams_venues_pairs tvp')
+			->where(array(
+				'tvp.team_fan_page_id'	=> $team_fan_page_id,
+				'tvp.team_venue_id'		=> $tv_id,
+				'tvp.deleted'			=> 0
+			));
+		$query = $this->db->get();
+		$result = $query->row();
+		if(!$result)
+			return $result;
+			
+		$query = $this->db->get_where('team_venues', array('id' => $tv_id));
 		$result = $query->row();
 		
 		if(!$result)
 			return $result;
 			
 		//attach guest lists
-		$result->tgla = $this->retrieve_team_venue_guest_list_authorizations($result->id);
+		$result->tgla = $this->retrieve_team_venue_guest_list_authorizations($result->id, $team_fan_page_id);
 		return $result;
 	}
 	

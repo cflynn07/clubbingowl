@@ -665,6 +665,22 @@ class Model_teams extends CI_Model {
 	 */
 	function retrieve_venue_floorplan($venue_id, $team_fan_page_id){
 		
+		
+		
+		//check for team-venue association
+		$this->db->select('tvp.id')
+			->from('teams_venues_pairs tvp')
+			->where(array(
+				'tvp.team_fan_page_id'	=> $team_fan_page_id,
+				'tvp.team_venue_id'		=> $venue_id,
+				'tvp.deleted'			=> 0
+			));
+		$query = $this->db->get();
+		$result = $query->row();
+		if(!$result)
+			return $result;		
+		
+		
 		$sql = "SELECT
 					
 					tv.id 				as tv_id,
@@ -703,9 +719,9 @@ class Model_teams extends CI_Model {
 				LEFT JOIN	venues_layout_floors_items_tables vlfit
 				ON 			vlfit.venues_layout_floors_items_id = vlfi.id
 				
-				WHERE 	tv.id = ?
-						AND
-						tv.team_fan_page_id = ?";
+				WHERE 	tv.id = ?";
+						//AND
+						//tv.team_fan_page_id = ?";
 			//			AND
 			//			(vlf.deleted = 0 || ISNULL(vlf.deleted)) 
 			//			AND 

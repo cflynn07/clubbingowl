@@ -1259,7 +1259,9 @@ class Managers extends MY_Controller {
 				
 		if(count($venue_floorplan) === 0){
 			//venue does not exist or belong to this team
-			redirect('/admin/managers/', 'location', 302);
+			//redirect('/admin/managers/', 'location', 302);
+			//echo '<script type="text/javascript">window.location = "/admin/managers/";</script>';
+			die();
 			return;
 		}
 		
