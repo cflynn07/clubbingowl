@@ -14,6 +14,8 @@
 <meta http-equiv="Content-Language" content="<?= $this->config->item('current_lang_code') ?>">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" 	content="IE=edge,chrome=1">
+<meta name="keywords" content="clubbing, owl, clubbing owl, clubs, venues, guestlists, guest-lists, guest lists, night life, nightlife, promoters" />
+
 
 <meta property="og:type" 			content="website"/>
 <meta property="og:title" 			content="<?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : '' ?><?= $central->title ?>"/>
