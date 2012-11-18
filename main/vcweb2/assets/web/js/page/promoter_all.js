@@ -67,14 +67,14 @@ jQuery(function(){
 		
 		
 		
-		
-		jQuery('div#modal_reviews_explain').dialog({
-				modal: true,
-				width: 400,
-				height: 400,
-				resizable: false,
-				autoOpen: false
-			});
+		if(!jQuery('div#modal_reviews_explain').hasClass('ui-dialog-content'))
+			jQuery('div#modal_reviews_explain').dialog({
+					modal: true,
+					width: 400,
+					height: 400,
+					resizable: false,
+					autoOpen: false
+				});
 		
 		var view = Backbone.View.extend({
 			initialize: function(){
