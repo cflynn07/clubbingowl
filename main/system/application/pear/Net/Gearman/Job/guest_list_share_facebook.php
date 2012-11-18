@@ -56,9 +56,9 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			//we need the promoter_public_identifier and the pgla_name to form the hyperlink to post on facebook
 			
 			if(MODE == 'local')
-				$base_url = 'http://www.clubbingowl.com/';
+				$base_url = 'https://www.clubbingowl.com/';
 			else
-				$base_url = 'http://www.clubbingowl.com/';
+				$base_url = 'https://www.clubbingowl.com/';
 				
 			$params = array(
 				'message' 		=> "I'm on $promoter_full_name's guest list \"$guest_list_name\" at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "! Click here to join\"$guest_list_name\"",
