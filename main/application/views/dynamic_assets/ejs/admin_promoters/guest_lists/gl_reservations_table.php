@@ -7,6 +7,7 @@
 
 <br/>
 <a href="#" style="background:blue; border-color:blue;" data-action="expand-collapse-all" class="button_link">Expand/Collapse All</a>
+<a href="#" style="background:blue; border-color:blue;" data-action="manually-add" class="button_link">Manually Add</a>
 <br/><br/>
 
 <table class="normal tablesorter guestlists" style="width: 770px;">

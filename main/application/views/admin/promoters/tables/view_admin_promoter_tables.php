@@ -8,6 +8,14 @@
 ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
+
+
+
+
+
+
+
+
 <style type="text/css">
 div#tabs.venues_layout_visualization div.vlf{
 	width: <?= ceil(800 * $factor) ?>px;
@@ -49,6 +57,7 @@ div#tabs.venues_layout_visualization div.vlf{
 	</div>
 
 	<?php foreach($team_venues as $key => $venue): ?>
+
 	<div class="top_lvl" id="tabs-<?= $key ?>">
 		
 		<div>
@@ -73,15 +82,35 @@ div#tabs.venues_layout_visualization div.vlf{
 						</ul>
 					</div>
 					
-					<div id="tabs-<?= $venue->tv_id ?>-0">
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<div class="ui2" id="tabs-<?= $venue->tv_id ?>-0">
+								
 						
-						<h3>Floorplan</h3>
 						
-						<div class="vl" style="margin-left:auto; margin-right:auto; display:inline-block; width:980px; text-align:center;">
+												
+						
+						
+					<?php if(false): ?>	
+						
+						<div class="vl">
 						<?php foreach($venue->venue_floorplan as $key => $vf): ?>
 							<div class="vlf" style="position:relative; display:inline-block; width:<?= ceil(800 * $factor) ?>px; height:<?= ceil(600 * $factor) ?>px;">
 								
 								<div class="vlf_title">Floor <?= $key ?></div>
+								
+								
+								
 								
 								<div class="vlf_id" style="display:none;"><?= $key ?></div>
 								
@@ -104,18 +133,18 @@ div#tabs.venues_layout_visualization div.vlf{
 										
 									?>
 									
-									<div class="item <?= $item-> vlfi_item_type ?><?= ($reserved == 'reserved') ? ' reserved' : '' ?>" style="top:<?= ceil($item->vlfi_pos_y * $factor) ?>px; left:<?= ceil($item->vlfi_pos_x * $factor) ?>px; width:<?= ceil($item->vlfi_width * $factor) ?>px; height:<?= ceil($item->vlfi_height * $factor) ?>px;">
+									<div class="item <?= $item->vlfi_item_type ?><?= ($reserved == 'reserved') ? ' reserved' : '' ?>" style="top:<?= ceil($item->vlfi_pos_y * $factor) ?>px; left:<?= ceil($item->vlfi_pos_x * $factor) ?>px; width:<?= ceil($item->vlfi_width * $factor) ?>px; height:<?= ceil($item->vlfi_height * $factor) ?>px;">
 
 										<?php if($item->vlfi_item_type == 'table'): ?>
 											
 											<span class="title">T-<?= $table_count ?></span>
-											<div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 0, '', ',') ?></div>
-											<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 0, '', ',') ?></div>
-											<div class="day_price wednesday">US$ <?= number_format($item->vlfit_wednesday_min, 0, '', ',') ?></div>
-											<div class="day_price thursday">US$ <?= number_format($item->vlfit_thursday_min, 0, '', ',') ?></div>
-											<div class="day_price friday">US$ <?= number_format($item->vlfit_friday_min, 0, '', ',') ?></div>
-											<div class="day_price saturday">US$ <?= number_format($item->vlfit_saturday_min, 0, '', ',') ?></div>
-											<div class="day_price sunday">US$ <?= number_format($item->vlfit_sunday_min, 0, '', ',') ?></div>
+											<div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 		0, '', ',') ?></div>
+											<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 		0, '', ',') ?></div>
+											<div class="day_price wednesday">US$ <?= number_format($item->vlfit_wednesday_min, 	0, '', ',') ?></div>
+											<div class="day_price thursday">US$ <?= number_format($item->vlfit_thursday_min, 	0, '', ',') ?></div>
+											<div class="day_price friday">US$ <?= number_format($item->vlfit_friday_min, 		0, '', ',') ?></div>
+											<div class="day_price saturday">US$ <?= number_format($item->vlfit_saturday_min, 	0, '', ',') ?></div>
+											<div class="day_price sunday">US$ <?= number_format($item->vlfit_sunday_min, 		0, '', ',') ?></div>
 											<div class="max_capacity"><?= $item->vlfit_capacity ?></div>
 											
 											<?php $table_count++; ?>
@@ -151,8 +180,23 @@ div#tabs.venues_layout_visualization div.vlf{
 							</div>
 						<?php endforeach; ?>
 						</div>
-												
+													
+					<?php endif; ?>	
+													
 					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					
 					<div id="tabs-<?= $venue->tv_id ?>-1">
 						

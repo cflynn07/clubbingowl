@@ -449,10 +449,22 @@ class Promoters extends MY_Controller {
 		$this->load->model('model_teams', 'teams', true);
 		
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->promoter->t_fan_page_id);
+		$this->load->helper('retrieve_venue_floorplan');
 		
 		$init_users = array();
 		foreach($team_venues as &$venue){
 			
+			
+			$venue_floorplan = retrieve_venue_floorplan(array(
+				'tv_id' 							=> $venue->tv_id,
+				'team_fan_page_id' 					=> $this->vc_user->promoter->t_fan_page_id,
+				'retrieve_approved_reservations'	=> false
+			));
+			$venue = (object)array_merge((array)$venue, (array)$venue_floorplan);
+			$venue->venue_floorplan = (array)$venue->venue_floorplan;
+			
+
+			/*
 			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
 
 			$venue_floorplan = $this->teams->retrieve_venue_floorplan($venue->tv_id, $this->vc_user->promoter->t_fan_page_id);
@@ -520,10 +532,12 @@ class Promoters extends MY_Controller {
 				
 			}unset($vr);
 			$venue->venue_reservations = $venue_reservations;
+			*/
+			
 			
 			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																						$this->vc_user->promoter->t_fan_page_id,
-																						false);
+																								$this->vc_user->promoter->t_fan_page_id,
+																								false);
 			foreach($all_upcoming_reservations as $vr){
 				
 				if(isset($vr->tglr_user_oauth_uid))
@@ -532,7 +546,6 @@ class Promoters extends MY_Controller {
 					$init_users[] = $vr->pglr_user_oauth_uid;
 					$init_users[] = $vr->up_users_oauth_uid;
 				}
-					
 				
 				if($vr->entourage)
 					foreach($vr->entourage as $ent){
@@ -545,6 +558,9 @@ class Promoters extends MY_Controller {
 			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
 			
 			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
+		
+			
+			
 		}
 		unset($venue);
 		
@@ -1135,6 +1151,13 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'manual_add_find_tables':
+				
+				die(json_encode($this->input->post()));
+				
+				//find tables that are approved by this manager at this venue on this night
+				
+				break;
 			case 'update_list_status':
 				
 				$pgla_id = $this->input->post('pgla_id');
@@ -1233,6 +1256,7 @@ class Promoters extends MY_Controller {
 
 		$this->load->model('model_users_managers', 'users_managers', true);
 		$this->load->model('model_teams', 'teams', true);
+		$this->load->helper('retrieve_venue_floorplan');
 		
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->promoter->t_fan_page_id);
 		$init_users = array();
@@ -1243,6 +1267,8 @@ class Promoters extends MY_Controller {
 				continue;
 			}
 			
+			
+			/*
 			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
 			$venue_floorplan = $this->teams->retrieve_venue_floorplan($venue->tv_id, $this->vc_user->promoter->t_fan_page_id);
 			$venue_floors = new stdClass;
@@ -1310,14 +1336,26 @@ class Promoters extends MY_Controller {
 			
 			$venue->venue_reservations = $venue_reservations;			
 			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		}
-		unset($venue);
+		
+			 * */
+			$venue_floorplan = retrieve_venue_floorplan(array(
+				'tv_id' 							=> $venue->tv_id,
+				'team_fan_page_id' 					=> $this->vc_user->promoter->t_fan_page_id,
+				'retrieve_approved_reservations'	=> false
+			));
+			$venue = (object)array_merge((array)$venue, (array)$venue_floorplan);
+			
+			//Kint::dump($venue);
+			
+		}unset($venue);
 		
 		$init_users = array_unique($init_users);
 		$init_users = array_values($init_users);
 		
 		if($team_venues)
 			die(json_encode(array('success' => true, 'message' => $team_venues, 'init_users' => $init_users)));
+		
+		
 		die(json_encode(array('success' => false, 'message' => 'Invalid tv_id')));
 				
 	}

@@ -49,7 +49,7 @@ class Managers extends MY_Controller {
 				'mt.id'	=> $vc_user->manager->mt_id
 			));
 		$mt_live_status = $this->db->get()->row()->mt_live_status;
-		
+					
 		$this->load->vars('mt_live_status', $mt_live_status);
 
 		if(!$mt_live_status && strpos($_SERVER['REQUEST_URI'], '/admin/managers/settings_payment') !== 0){

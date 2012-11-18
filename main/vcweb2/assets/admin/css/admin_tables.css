@@ -1,0 +1,21 @@
+div.vl {
+	margin-left: auto; 
+	margin-right: auto; 
+	display: inline-block; 
+	width: 980px; 
+	text-align: center;
+}
+
+div.vl div.vlf {
+	position: relative; 
+	display: inline-block;
+	margin-top: 20px;
+}
+
+div.vl div.vlf span.vlf_title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: red;
+	padding: 2px;
+}

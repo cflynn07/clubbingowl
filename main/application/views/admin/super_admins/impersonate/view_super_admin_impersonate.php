@@ -25,8 +25,9 @@ jQuery(function(){
 			
 				break;
 			case 'manager':
-			
+				
 				data.team_fan_page_id = jQuery(this).parents('tr').find('td.team_fan_page_id').html();
+				data.mt_id = jQuery(this).parents('tr').find('td.mt_id').html();
 				data.team_name = jQuery(this).parents('tr').find('td.team_name').html();
 				data.team_description = jQuery(this).parents('tr').find('td.team_description').html();
 				data.team_piwik_id_site = jQuery(this).parents('tr').find('td.team_piwik_id_site').html();
@@ -90,6 +91,7 @@ jQuery(function(){
 			
 			
 			
+			<td class="mt_id" style="display:none;"><?= $manager->mt_id ?></td>
 			<td class="team_name" style="display:none;"><?= $manager->t_name ?></td>
 			<td class="team_fan_page_id" style="display:none;"><?= $manager->t_fan_page_id ?></td>
 			<td class="team_description" style="display:none;"><?= $manager->t_description ?></td>

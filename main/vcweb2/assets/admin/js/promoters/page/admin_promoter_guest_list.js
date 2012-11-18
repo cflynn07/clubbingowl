@@ -73,7 +73,102 @@ jQuery(function(){
 		Collections.GuestLists		= Backbone.Collection.extend(Collections.GuestLists);
 
 
-
+		
+		Views.ManualAddModal = {
+			modal_view: null,
+			el: '#manual_add_modal',
+			initialize: function(){
+				
+				this.$el.empty();
+				
+				this.modal_view = this.$el.dialog({
+					modal: 		true,
+					width: 		500,
+					height: 	'auto',
+					title: 		(this.model !== null) ? this.model.get('pgla_name') : '',
+					resizable: 	false,
+					close: function(){
+						//updates the guest-lists from server
+						pending_requests_change();
+					}
+				});
+				
+				this.render();
+			},
+			render: function(){
+				
+				var template = EVT['guest_lists/gl_manual_add_base'];
+				var _this = this;
+				
+				var html = new EJS({
+					text: template
+				}).render({});
+				
+				this.$el.html(html);
+				
+			},
+			render_loading: function(){
+				var template = EVT['guest_lists/gl_manual_add_loading'];
+				
+				var html = new EJS({
+					text: template
+				}).render({});
+				this.$el.html(html);
+			},
+			render_table_flow_1: function(){
+				
+				this.render_loading();
+				jQuery.background_ajax({
+					data: {
+						vc_method: 	'manual_add_find_tables',
+						pgla_id: 	this.model.get('id'),
+						tv_id:		this.model.get('tv_id')
+					},
+					success: function(data){
+						console.log(data);
+					}
+				});
+								
+			},
+			events: {
+				'click a[data-action]': 'events_click_data_action'
+			},
+			events_click_data_action: function(e){
+				
+				e.preventDefault();
+				
+				var el = jQuery(e.currentTarget);
+				var action = el.attr('data-action');
+				switch(action){
+					case 'init-table-flow':
+					
+						//find available tables (have user select price group)
+						this.render_table_flow_1();
+						
+					
+						//add friends
+						
+						//confirm w/ manager approval indication
+						
+						//ajax push to server & refresh
+					
+						break;
+					case 'init-gl-flow':
+					
+						//add friends
+						
+						//simple confirm
+						
+						//ajax push to server & refresh
+						
+						break;
+				}
+				
+				return false;				
+			}
+		}; Views.ManualAddModal = Backbone.View.extend(Views.ManualAddModal);
+		
+		
 
 		Views.LeftMenu = {
 			
@@ -267,8 +362,9 @@ jQuery(function(){
 		
 		
 		Views.GuestList = {
-			users: null,
-			collection_reservations: null,
+			users: 						null,
+			collection_reservations: 	null,
+			active_list: 				null,
 			className: 'list tabs',
 			initialize: function(){
 				
@@ -280,20 +376,21 @@ jQuery(function(){
 				
 				var _this = this;
 				var template = EVT['guest_lists/gl_reservations_table'];
+				
+				
 				var active_list = this.collection.where({
 					active: true
 				});
 				if(!active_list.length)
-					return;
+					return false;
 					
 				active_list = active_list[0];
-				
-				
+				this.active_list = active_list;
+
 				//insert list status
 				var view_status = new Views.Status({
 					model: active_list
-				});
-				
+				});		
 				
 				
 				var html = new EJS({
@@ -382,6 +479,14 @@ jQuery(function(){
 				var action = el.attr('data-action');
 				
 				switch(action){
+					case 'manually-add':
+					
+						var manual_add_modal = new Views.ManualAddModal({
+							model:		this.active_list,
+							collection: this.collection_reservations
+						});
+					
+						break;
 					case 'expand-collapse-all':
 					
 						if(this.collection_reservations)
@@ -476,11 +581,11 @@ jQuery(function(){
 				
 				jQuery('div#dialog_actions').dialog({
 					title: 		'Approve or Decline Request',
-					height: 	420,
+					height: 	'auto',
 					width: 		320,
 					modal: 		true,
 					resizable: 	false,
-					draggable: 	false,
+					//draggable: 	false,
 					buttons: [{
 						text: 'Approve',
 						id: 'ui-approve-button',
@@ -583,6 +688,7 @@ jQuery(function(){
 
 		var pending_requests_change = function(data){
 			console.log('pending-requests-change');
+			console.log('update-guest-lists');
 			
 			var pgla_id_active = collection_guest_lists.where({
 				active: true

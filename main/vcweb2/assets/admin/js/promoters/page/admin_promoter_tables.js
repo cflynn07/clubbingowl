@@ -6,11 +6,10 @@ jQuery(function(){
 	
 	window.vc_page_scripts.admin_promoter_tables = function(){
 						
-		var unbind_callbacks = [];
+		var globals = window.module.Globals.prototype;
 		
 		
 		
-
 		
 		
 		jQuery('div#tabs').tabs().css('display', 'block');
@@ -26,6 +25,38 @@ jQuery(function(){
 		
 		
 		
+		globals
+			.module_tables_display
+			.initialize({
+				display_target: '#tabs-2-0',
+				team_venue: window.page_obj.team_venues[1],
+				factor: 0.6
+			});
+		
+		
+		jQuery('#slider_2').slider({
+			value: 50,
+            slide: function( event, ui ) {
+            	var val = ui.value / 100;
+            	globals.module_tables_display.display_settings.set({
+            		factor: val
+            	});            	
+            }
+		});
+		
+		
+		//triggered when page is unloaded
+		window.module.Globals.prototype.unbind_callback = function(){
+			
+
+		}
+		
+		return;
+
+
+
+
+
 		
 		
 		

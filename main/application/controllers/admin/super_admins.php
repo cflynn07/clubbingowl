@@ -284,6 +284,8 @@ class Super_admins extends MY_Controller {
 	 */
 	private function _impersonate($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		Kint::dump($this->vc_user);
+		
 		$this->load->model('model_app_data', 'app_data', true);
 		$data['managers'] = $this->app_data->retrieve_all_managers();
 		$data['promoters'] = $this->app_data->retrieve_all_promoters();
@@ -409,6 +411,7 @@ class Super_admins extends MY_Controller {
 				
 				}elseif($type == 'manager'){
 					
+					$mt_id = $this->input->post('mt_id');
 					$team_name = $this->input->post('team_name');
 					$team_fan_page_id = $this->input->post('team_fan_page_id');
 					$team_description = $this->input->post('team_description');
@@ -419,6 +422,7 @@ class Super_admins extends MY_Controller {
 					$c_state = $this->input->post('c_state');
 					
 					$manager = new stdClass;
+					$manager->mt_id		= $mt_id;
 					$manager->team_name = $team_name;
 					$manager->team_fan_page_id = $team_fan_page_id;
 					$manager->team_description = $team_description;

@@ -113,7 +113,11 @@ class Assets extends MY_Common_Controller {
 					'iPhoneCheckboxes',
 					'visualize',
 					'style',
+					'admin_tables',
 					'jquery.cleditor',
+					
+					//added for ui-slider
+					'ui2/jquery-ui-1.9.1.custom.min',
 					
 					//pages
 					'page/admin_team_chat',
@@ -412,6 +416,7 @@ class Assets extends MY_Common_Controller {
 					
 					//	$group .= '-promoters';
 						$group_assets[] = array('promoters/global_promoter_pusher_notifications', 			'admin_js');
+						$group_assets[] = array('promoters/module_tables_display', 							'admin_js');
 
 						$group_assets[] = array('promoters/promoters_ajaxify_front', 						'admin_js');
 						
@@ -602,6 +607,12 @@ class Assets extends MY_Common_Controller {
 									'guest_lists/gl_reservations_table',
 									'guest_lists/gl_reservation',
 									'guest_lists/gl_tr_no_reservations',
+									'guest_lists/gl_manual_add_base',
+									'guest_lists/gl_manual_add_loading',
+									
+									'tables/t_wrapper',
+									'tables/t_vlf',
+									'tables/t_vlf_item',
 									
 									'tr_loading', 
 									'pending_reservation_none'
