@@ -76,15 +76,34 @@ jQuery(function(){
 				autoOpen: false
 			});
 		
+		var view = Backbone.View.extend({
+			initialize: function(){
+				
+			},
+			events: {
+				'click': 'events_click'
+			},
+			events_click: function(e){
+				e.preventDefault();
+			
+				jQuery('div#modal_reviews_explain').dialog('open');
+				
+				return false;
+			}
+		});
+		var view_instance = new view({
+			el: '#reviews_explain'
+		});
+		
 		
 		jQuery('.star').rating();
-		jQuery('a#reviews_explain').bind('click', function(e){
+		/*jQuery('a#reviews_explain').bind('click', function(e){
 			e.preventDefault();
 			
 			jQuery('div#modal_reviews_explain').dialog('open');
 			
 			return false;
-		});
+		});*/
 		
 		
 
