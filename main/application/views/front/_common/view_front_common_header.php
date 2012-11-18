@@ -10,11 +10,12 @@
 <?php # ------------------------ Begin META tags ------------------------ # ?>
 <meta http-equiv="Content-Type" 	content="text/html; charset=UTF-8" />
 <meta name="description" 			content="<?= (isset($header_custom->page_description)) ? $header_custom->page_description : $this->lang->line('ad-description') ?>">
+<meta name="keywords" content="clubbing, owl, clubbing owl, clubs, venues, guestlists, guest-lists, guest lists, night life, nightlife, promoters" />
+
 <meta name="viewport" 				content="width=device-width">
 <meta http-equiv="Content-Language" content="<?= $this->config->item('current_lang_code') ?>">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" 	content="IE=edge,chrome=1">
-<meta name="keywords" content="clubbing, owl, clubbing owl, clubs, venues, guestlists, guest-lists, guest lists, night life, nightlife, promoters" />
 
 
 <meta property="og:type" 			content="website"/>
