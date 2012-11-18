@@ -408,7 +408,7 @@
 	          	
 	          	
 	          	
-	          	<p id="messages" style="color:red;"></p>
+	          	<p id="messages" style="color:red;background:#000;"></p>
 	          	
 	          	
 	          	
@@ -424,13 +424,20 @@
 	          		<div style="display:none;">
 	          			<a id="back_trigger_link" href="<?= $central->front_link_base . 'promoters/' . $promoter->up_public_identifier . '/guest_lists/' ?>"></a>
 	          		</div>
-	          		<input class="guestlist-button cancel" type="button" id="guestlist-form-cancel" value="Cancel">
+	          		          		
 	          		
-	          		<span style="float:right;">
-	          			<input class="guestlist-button submit" type="submit" id="guestlist-form-submit" name="guestlist-form-submit" value="Submit">
-	          			<img style="display:none;" id="submit_loading" src="<?= $central->global_assets ?>images/ajax.gif" alt="loading..."/>
-	          		</span>
-			       
+	          		<table style="float:right;">
+	          			<tr>
+	          				<td>
+	          					<input class="guestlist-button cancel" type="button" id="guestlist-form-cancel" value="Cancel">
+	          				</td>
+	          				<td>
+	          					<input class="guestlist-button submit" type="submit" id="guestlist-form-submit" name="guestlist-form-submit" value="Submit">
+	          					<img style="display:none;" id="submit_loading" src="<?= $central->global_assets ?>images/ajax.gif" alt="loading..."/>
+	          				</td>
+	          			</tr>
+	          		</table>
+	          					       
 	          	</p>
 		</div>
 	</div>
@@ -439,7 +446,7 @@
 		
 		<br><br><br>
 		
-		<h2>Your reservation request has been successfully submitted, ClubbingOwl will notify you when <?= $promoter->u_first_name ?> responds.</h2>
+		<h2>Your reservation request has been successfully submitted, ClubbingOwl will notify you via email/sms when <?= $promoter->u_first_name ?> responds.</h2>
 		<div class="fb-like-box" data-href="http://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div>
 		
 		<div style="margin-left:auto;margin-right:auto;margin-bottom:20px;"></div>
