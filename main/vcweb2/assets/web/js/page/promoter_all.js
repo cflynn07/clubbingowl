@@ -40,18 +40,22 @@ jQuery(function(){
 			
 			
 			if(!jQuery.jStorage.get(friend_key)){
-				FB.api({
-					method: 'fql.query', 
-					query: 'SELECT uid2 FROM friend WHERE uid1=' + vc_user.vc_oauth_uid + ' AND uid2=' + window.vc_promoter_oauth
-				}, function(rows){
-									
-					if(rows.length > 0){
-						jQuery.jStorage.set(friend_key, true);
-						jQuery('#add_as_friend').hide();
-					}else{
-						jQuery.jStorage.set(friend_key, false);
-					}
-					jQuery.jStorage.setTTL(friend_key, 1000 * 60 * 120)
+				fbEnsureInit(function(){
+					
+					FB.api({
+						method: 'fql.query', 
+						query: 'SELECT uid2 FROM friend WHERE uid1=' + vc_user.vc_oauth_uid + ' AND uid2=' + window.vc_promoter_oauth
+					}, function(rows){
+										
+						if(rows.length > 0){
+							jQuery.jStorage.set(friend_key, true);
+							jQuery('#add_as_friend').hide();
+						}else{
+							jQuery.jStorage.set(friend_key, false);
+						}
+						jQuery.jStorage.setTTL(friend_key, 1000 * 60 * 120)
+					});
+					
 				});
 			}else{
 				jQuery('#add_as_friend').hide();
