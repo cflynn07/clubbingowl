@@ -28,7 +28,7 @@
 						    	%>
 						    		<% var path = window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + data.pgla_image + '_t.jpg'; %>
 						    		<% var image =  image_insert(path, {}) %>
-						    		<%= inline_link('promoters/' + data.c_url_identifier + '/' + guest_list_data.up_public_identifier + '/guest_lists/' + pi_link_convert(guest_list_data.pgla_name), image, {class: 'list'}) %>
+						    		<%= inline_link('promoters/' + guest_list_data.up_public_identifier + '/guest_lists/' + pi_link_convert(guest_list_data.pgla_name), image, {class: 'list'}) %>
 						    	<% } %>
 			  				</td>
 			  				<td style="vertical-align:top;">

@@ -3,7 +3,7 @@
 		var image = image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + gla_image + '_t.jpg', {});
 		var path;
 		if(gl_type == 'promoter'){
-			path = 'promoters/' + c_url_identifier + '/' + up_public_identifier + '/guest_lists/' + gla_name.replace(/ /g, '_');
+			path = 'promoters/' + up_public_identifier + '/guest_lists/' + gla_name.replace(/ /g, '_');
 		}else{
 			path = 'venues/' + c_url_identifier + '/' + tv_name.replace(/ /g, '_') + '/guest_lists/' + gla_name.replace(/ /g, '_');
 		}
