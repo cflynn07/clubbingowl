@@ -27,7 +27,7 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 
 		$CI->load->library('library_facebook', '', 'facebook');
 		
-		$app_description = 'ClubbingOwl is the best way to join guest lists & reserve tables at your favorite venues.';
+		$app_description = 'ClubbingOwl is the best way to join guest lists and reserve tables at your favorite venues.';
 		
 		if($team_guest_list){
 			//team guest list
