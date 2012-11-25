@@ -2052,3 +2052,29 @@ input.hasDatepicker{
 div#primary_right hr{
 	border-top: 1px solid black;
 }
+
+
+
+
+
+.btn-action {
+	background: 	#474D6A !important;
+	border-color: 	#474D6A !important;
+}
+
+.btn-confirm {
+	background: 	#459E00 !important;
+	border-color:	#327E04 !important;
+}
+.btn-confirm:hover {
+	background: 	#67B021 !important;
+	border-color:	#327E04 !important;
+}
+
+
+
+
+
+.btn-cancel {
+	
+}

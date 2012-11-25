@@ -33,7 +33,7 @@
 						<textarea></textarea>
 						<br>
 						<span class="message_remaining"></span>
-						<a href="#" style="position:relative; top:10px; background:blue; border-color:blue;" data-action="update-notes" class="button_link">Update</a><br/><br/>
+						<a href="#" style="position:relative; top:10px; text-decoration:none;" data-action="update-notes" class="button_link btn-action">Update</a><br/><br/>
 					</div>
 					<span class="original">
 						<%= (pglr_host_message.length) ? pglr_host_message : '<span style="font-weight: bold;">Edit Notes</span>' %>
@@ -57,7 +57,7 @@
 	<% }else if(pglr_approved == '-1'){ %>
 		<span style="color: red;">Declined</span>
 	<% }else{ %>
-		<a href="#" style="position:relative; top:10px; background:blue; border-color:blue;" data-action="request-respond" class="button_link">Respond</a><br/><br/>
+		<a href="#" style="position:relative; top:10px;" data-action="request-respond" class="button_link btn-action">Respond</a><br/><br/>
 	<% } %>
 </td>
 

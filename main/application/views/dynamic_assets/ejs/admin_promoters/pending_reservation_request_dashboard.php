@@ -55,5 +55,5 @@
 	<% } %>
 </td>
 <td style="vertical-align:top;padding-top:15px;">
-	<a href="#" style="margin:0; background:blue; border-color:blue;" data-action="request-respond" class="button_link">Respond</a><br/><br/>
+	<a href="#" style="margin:0;" data-action="request-respond" class="button_link btn-action">Respond</a><br/><br/>
 </td>

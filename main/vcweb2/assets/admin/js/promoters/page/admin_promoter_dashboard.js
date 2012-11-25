@@ -607,20 +607,21 @@ jQuery(function(){
 							resizable: 	false,
 							draggable: 	false,
 							buttons: [{
-								text: 'Approve',
-								id: 'ui-approve-button',
+								text: 'Decline',
 								click: function(){
 									respond_callback({
-										action: 'approve',
+										action: 'decline',
 										message: jQuery(this).find('textarea[name=message]').val()
 									});
 									jQuery(this).dialog('close');
 								}
 							},{
-								text: 'Decline',
+								text: 'Approve',
+								id: 'ui-approve-button',
+								'class': 'btn-confirm',
 								click: function(){
 									respond_callback({
-										action: 'decline',
+										action: 'approve',
 										message: jQuery(this).find('textarea[name=message]').val()
 									});
 									jQuery(this).dialog('close');

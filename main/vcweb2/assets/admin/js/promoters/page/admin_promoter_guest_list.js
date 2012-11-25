@@ -407,9 +407,9 @@ jQuery(function(){
 					onSelect: function(dateText, inst){
 						
 						var dateObj = {
-				        	currentYear: inst.selectedYear,
-				        	currentMonth: inst.selectedMonth,
-				        	currentDay: inst.selectedDay
+				        	currentYear: 	inst.selectedYear,
+				        	currentMonth: 	inst.selectedMonth,
+				        	currentDay: 	inst.selectedDay
 				        }
 				        console.log(dateObj);
 				        
@@ -445,7 +445,8 @@ jQuery(function(){
 				
 			},
 			events: {
-				'click a[data-action]': 'events_click_data_action'
+				'click a[data-action]': 	'events_click_data_action',
+				'custom-event-add-fb-data': 'custom_events_add_fb_data'
 			},
 			custom_events_add_fb_data: function(e){
 				
@@ -587,20 +588,21 @@ jQuery(function(){
 					resizable: 	false,
 					//draggable: 	false,
 					buttons: [{
-						text: 'Approve',
-						id: 'ui-approve-button',
+						text: 'Decline',
 						click: function(){
 							respond_callback({
-								action: 'approve',
+								action: 'decline',
 								message: jQuery(this).find('textarea[name=message]').val()
 							});
 							jQuery(this).dialog('close');
 						}
 					},{
-						text: 'Decline',
+						text: 'Approve',
+						id: 'ui-approve-button',
+						'class': 'btn-confirm',
 						click: function(){
 							respond_callback({
-								action: 'decline',
+								action: 'approve',
 								message: jQuery(this).find('textarea[name=message]').val()
 							});
 							jQuery(this).dialog('close');
@@ -648,9 +650,16 @@ jQuery(function(){
 						
 						if(data.success){
 							
+							if(new_notes == _this.model.get('pglr_host_message')){
+								_this.model.trigger('change');
+								_this.$el.trigger('custom-event-add-fb-data');
+								return;
+							}
+							
 							_this.model.set({
 								pglr_host_message: new_notes
 							});
+							_this.$el.trigger('custom-event-add-fb-data');
 							
 						}
 						
@@ -685,6 +694,10 @@ jQuery(function(){
 			collection: collection_guest_lists,
 			el: '#lists_container'
 		});
+
+
+
+
 
 		var pending_requests_change = function(data){
 			console.log('pending-requests-change');
@@ -741,9 +754,7 @@ jQuery(function(){
 		
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
-			
 			team_chat_object.individual_channel.unbind('pending-requests-change', pending_requests_change);
-
 		}
 
 
