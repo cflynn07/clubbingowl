@@ -90,7 +90,7 @@ jQuery(function(){
 	
 	var individual_channel_subscribe_callbacks = function(ic){
 		
-		if(typeof ic !== 'undefined')
+		if(typeof ic !== 'undefined' && ic.bind)
 			ic.bind('notification', indiv_notification_callback);
 		
 	}
