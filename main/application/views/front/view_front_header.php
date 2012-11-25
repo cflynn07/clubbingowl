@@ -11,8 +11,8 @@
 	<?php //Verify that the expiration time of the user's access_token is at least +24 in the future from the current time, if not re-login to refresh access token ?>
 	<script type="text/javascript">
 	window.vc_server_auth_session=<?= ($central->vc_user && isset($central->vc_user->access_token_expiration_time) && ($central->vc_user->access_token_expiration_time > (time() + 300))) ? 'true' : 'false'  ?>;
-	window.vc_user_invitations=<?= json_encode($invitations) ?>;
-	window.vc_sticky_notifications=<?= json_encode($user_sticky_notifications) ?>;
+	window.vc_user_invitations=<?= 		(isset($invitations)) 				? json_encode($invitations) 				: '[]'	?>;
+	window.vc_sticky_notifications=<?= 	(isset($user_sticky_notifications)) ? json_encode($user_sticky_notifications) 	: '[]'	?>;
 	</script>
 	
 	<?=
