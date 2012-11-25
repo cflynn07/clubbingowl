@@ -200,6 +200,7 @@ jQuery(function(){
 	
 	//Begin route monitoring
 	Backbone.history.start({
+		root: '/',
 		pushState: true,
 		hashChange: false
 	});

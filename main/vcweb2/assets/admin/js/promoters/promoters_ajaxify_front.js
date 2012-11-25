@@ -46,7 +46,7 @@
 				opacity: 0.4
 			});
 			
-			var current_url = window.location.href;
+			var current_url = window.location.href.split('#')[0];
 			var relativeUrl = url.replace(rootUrl,'');
 			
 			
@@ -83,7 +83,7 @@
 					});
 					jQuery('div#primary_right > div.inner').html(data);
 					
-					var title = 'ClubbingOwl';
+					var title = 'ClubbingOwl';									
 					History.pushState({},title,url);
 
 

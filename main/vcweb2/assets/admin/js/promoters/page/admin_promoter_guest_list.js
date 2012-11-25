@@ -89,9 +89,11 @@ jQuery(function(){
 					title: 		(this.model !== null) ? this.model.get('pgla_name') : '',
 					resizable: 	false,
 					close: function(){
+						
 						//updates the guest-lists from server
 						pending_requests_change();
 						_this.destroy_view();
+						
 					}
 				});
 				
@@ -145,13 +147,15 @@ jQuery(function(){
 						console.log('complete---');
 						console.log(data);
 						
-						
-						var venue 				= data.message.team_venues[0];
+						var venue;
+						for(var i in data.message.team_venues){
+							venue = data.message.team_venues[i];
+						}
 						var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
 						
 						tv_display_module
 							.initialize({
-								display_target: 	'#' + _this.$el.attr('id'),
+								display_target: 	'#manual_add_modal', //'#' + _this.$el.attr('id'),
 								team_venue: 		venue,
 								factor: 			0.5,
 								options: {
@@ -265,11 +269,30 @@ jQuery(function(){
 										
 				});
 
-				var first = this.collection.first(1);
-				if(first.length)
-					first[0].set({
-						active: true
-					});				
+
+
+
+
+
+
+				if(!window.location.hash.length){
+					var first = this.collection.first(1);
+					if(first.length){
+						first[0].set({
+							active: true
+						});
+					
+						window.location.hash = first[0].get('pgla_name').replace(' ', '_');
+						
+					}
+				}else{
+					jQuery(window).trigger('hashchange');
+				}
+				
+				
+				
+				
+				
 				
 				return this;
 			},
@@ -294,6 +317,9 @@ jQuery(function(){
 					res[0].set({
 						active: true
 					});
+					
+					window.location.hash = res[0].get('pgla_name').replace(' ', '_');
+					
 				}
 				
 			},
@@ -739,6 +765,38 @@ jQuery(function(){
 
 
 
+		var hash_change_callback = function(){
+			//window.location.hash;
+			
+			if(window.location.hash.length > 0)
+			var pgla_name = window.location.hash.replace('_', ' ').replace('#', '');
+
+			var res = collection_guest_lists.where({
+				pgla_name: pgla_name
+			});
+						
+			if(res.length){
+
+				collection_guest_lists.each(function(m){
+					m.set({
+						active: false
+					});
+				});
+				
+				res[0].set({
+					active: true
+				});
+				
+			}
+			
+		}
+		jQuery(window).bind('hashchange', hash_change_callback)
+		jQuery(window).trigger('hashchange');
+
+
+
+
+
 		var pending_requests_change = function(data){
 			console.log('pending-requests-change');
 			console.log('update-guest-lists');
@@ -774,9 +832,11 @@ jQuery(function(){
 								});
 							})
 							
-							active_gl[0].set({
-								active: true
-							});
+						//	active_gl[0].set({
+						//		active: true
+						//	});
+							
+							
 							
 						}
 						
@@ -794,7 +854,10 @@ jQuery(function(){
 		
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
+			
 			team_chat_object.individual_channel.unbind('pending-requests-change', pending_requests_change);
+			jQuery(window).unbind('hashchange', hash_change_callback)
+			
 		}
 
 
