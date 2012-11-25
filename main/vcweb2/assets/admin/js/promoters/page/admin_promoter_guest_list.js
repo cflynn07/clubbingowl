@@ -8,7 +8,7 @@ jQuery(function(){
 						
 						
 		var EVT = window.ejs_view_templates_admin_promoters;
-		
+		var globals = window.module.Globals.prototype;
 						
 		var unbind_callbacks = [];
 
@@ -80,6 +80,7 @@ jQuery(function(){
 			initialize: function(){
 				
 				this.$el.empty();
+				var _this = this;
 				
 				this.modal_view = this.$el.dialog({
 					modal: 		true,
@@ -90,11 +91,24 @@ jQuery(function(){
 					close: function(){
 						//updates the guest-lists from server
 						pending_requests_change();
+						_this.destroy_view();
 					}
 				});
 				
 				this.render();
 			},
+			destroy_view: function() {
+
+			    //COMPLETELY UNBIND THE VIEW
+			    this.undelegateEvents();
+			
+			    //jQuery(this.el).removeData().unbind(); 
+			
+			    //Remove view from DOM
+			    //this.remove();  
+			    //Backbone.View.prototype.remove.call(this);
+			
+		  	},
 			render: function(){
 				
 				var template = EVT['guest_lists/gl_manual_add_base'];
@@ -117,6 +131,8 @@ jQuery(function(){
 			},
 			render_table_flow_1: function(){
 				
+				var _this = this;
+				
 				this.render_loading();
 				jQuery.background_ajax({
 					data: {
@@ -125,7 +141,31 @@ jQuery(function(){
 						tv_id:		this.model.get('tv_id')
 					},
 					success: function(data){
+						
+						console.log('complete---');
 						console.log(data);
+						
+						
+						var venue 				= data.message.team_venues[0];
+						var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
+						
+						tv_display_module
+							.initialize({
+								display_target: 	'#' + _this.$el.attr('id'),
+								team_venue: 		venue,
+								factor: 			0.5,
+								options: {
+									display_slider: true
+								}
+							});
+						
+						_this.modal_view.dialog('option', {
+							width: 	900						
+						});
+						_this.modal_view.dialog('option', {
+							position: 'center center'
+						});
+						
 					}
 				});
 								

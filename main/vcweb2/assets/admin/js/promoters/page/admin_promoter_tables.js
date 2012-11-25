@@ -16,7 +16,11 @@ jQuery(function(){
 		jQuery('div#tabs div.tabs_tables').tabs();
 		
 		jQuery('div#tabs > div.ui-widget-header select.venue_select').bind('change', function(){
+		
+		
 			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));
+			
+			
 		});
 		
 		
@@ -25,31 +29,39 @@ jQuery(function(){
 		
 		
 		
-		globals
-			.module_tables_display
-			.initialize({
-				display_target: '#tabs-2-0',
-				team_venue: window.page_obj.team_venues[1],
-				factor: 0.6
-			});
+		if(window.page_obj.team_venues)
+			for(var i in window.page_obj.team_venues){
+		
+				var venue 				= window.page_obj.team_venues[i];
+				var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
+				
+				tv_display_module
+					.initialize({
+						display_target: 	'#tabs-' + venue.tv_id + '-0',
+						team_venue: 		venue,
+						factor: 			0.5,
+						options: {
+							display_slider: true
+						}
+					});
+				
+			}
 		
 		
-		jQuery('#slider_2').slider({
-			value: 50,
-            slide: function( event, ui ) {
-            	var val = ui.value / 100;
-            	globals.module_tables_display.display_settings.set({
-            		factor: val
-            	});            	
-            }
-		});
 		
 		
+		
+		
+		
+		
+				
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
 			
 
 		}
+		
+		
 		
 		return;
 

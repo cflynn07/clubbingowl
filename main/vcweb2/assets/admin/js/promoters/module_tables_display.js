@@ -232,22 +232,30 @@
 			
 			var html = new EJS({
 				text: template
-			}).render(this.model.toJSON());
+			}).render(jQuery.extend(
+				this.model.toJSON(), ui_tables_options
+			));
 			
 			this.$el.html(html);
 			
 			
 			
-			
-			this.$el.find('#slider').slider({
-				value: 50,
-	            slide: function( event, ui ) {
-	            	var val = ui.value / 100;
-	            	model_display_settings.set({
-	            		factor: val
-	            	});            	
-	            }
-			});
+			if(ui_tables_options.display_slider)
+				this.$el.find('#slider-' + this.model.get('tv_id')).slider({
+					value: 	Math.floor(model_display_settings.get('factor') * 100),
+					min: 	30,
+		            slide: 	function(event, ui){
+		            	
+		            	var val = ui.value / 100;
+		            	model_display_settings.set({
+		            		factor: val
+		            	});
+		            	
+		            	//set all other sliders on page?
+		            	jQuery('div[data-function=tv_size_slider]').slider('value', ui.value);
+		            	
+		            }
+				});
 			
 			
 			
@@ -288,6 +296,11 @@
 	var views_venue_layout_wrapper;
 	
 	
+	var ui_tables_options = {
+		display_slider: true
+	};
+	
+	
 	//public api	
 	var module_tables_display = {
 		display_settings: model_display_settings,
@@ -301,6 +314,9 @@
 			//opts.team_venue
 			//opts.team_venue.venue_floorplan			
 			
+			if(opts.options){
+				jQuery.extend(ui_tables_options, opts.options);
+			}
 			
 			if(opts.team_venue){
 				
@@ -314,6 +330,12 @@
 				}
 				
 				
+				if(opts.factor)
+					model_display_settings.set({
+						factor: opts.factor
+					});
+					
+				
 				//collection_floors = new Collections.Floors(opts.floors);
 				model_team_venue			= new Models.TeamVenue(opts.team_venue);				
 				views_venue_layout_wrapper 	= new Views.VenueLayoutWrapper({
@@ -321,11 +343,23 @@
 					model:				model_team_venue
 				});
 				
+				
+				
+				
 			}else{
 				//pull from server
+				
+				if(!opts.tv_id){
+					return false;
+				}
+				
+				//use opts.tv_id...
+				
+				
+				
 			}			
 			
-		}	
+		}
 	};
 	
 	globals.module_tables_display = module_tables_display;
