@@ -25,7 +25,7 @@
 				<td class="response_message"><%= (pglr_response_msg.length) ? pglr_response_msg : ' - ' %></td>
 			</tr>
 			<tr>
-				<td class="message_header">Host Notes:</td>
+				<td class="message_header">Host/Manager Notes:</td>
 			</tr>
 			<tr style="max-width:122px;">
 				<td class="host_notes" style="max-width:122px;">

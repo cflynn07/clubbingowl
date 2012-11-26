@@ -369,6 +369,8 @@ jQuery(function(){
 					
 					window.location.hash = res[0].get('pgla_name').replace(' ', '_');
 					
+					pending_requests_change();
+					
 				}
 				
 			},
@@ -790,7 +792,7 @@ jQuery(function(){
 				var el = jQuery(e.currentTarget);
 				el.hide();
 				this.$el.find('td.host_notes div.edit').show();
-				this.$el.find('td.host_notes div.edit textarea').focus();
+				this.$el.find('td.host_notes div.edit textarea').val(this.model.get('pglr_host_message')).focus();
 				
 				return false;
 			}
