@@ -174,6 +174,54 @@ jQuery(function(){
 				});
 								
 			},
+			render_guestlist_flow_1: function(){
+				
+				this.render_loading();
+				var user_friends = [];
+				var _this = this;
+				
+				fbEnsureInit(function(){
+					
+					FB.api('/me/friends', function(result){
+						
+						if(result.data){
+							
+							
+							for(var i in result.data){
+								
+								user_friends.push({
+									label: 	result.data[i].name,
+									value:	result.data[i].id
+								});
+								
+							}
+							
+							var template = EVT['guest_lists/gl_manual_add_guestlist_friendspick'];
+							var html = new EJS({
+								text: template
+							}).render({});
+							
+							_this.$el.html(html);
+							
+							_this.$el.find('input').autocomplete({
+								source: user_friends,
+								delay: 20
+							}).data( "autocomplete" )._renderItem = function(ul, item){
+																
+					            return jQuery("<li>")
+					                .data( "item.autocomplete", item )
+					                .append( "<span>" + item.label + "</span><br/><img src=\"https://graph.facebook.com/" + item.value + "/picture?width=50&height=50\" />" )
+					                .appendTo( ul );
+					                
+					        };
+							
+						}
+						
+					});
+					
+				});
+				
+			},
 			events: {
 				'click a[data-action]': 'events_click_data_action'
 			},
@@ -200,6 +248,7 @@ jQuery(function(){
 					case 'init-gl-flow':
 					
 						//add friends
+						this.render_guestlist_flow_1();
 						
 						//simple confirm
 						

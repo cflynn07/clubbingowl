@@ -118,6 +118,7 @@ class Assets extends MY_Common_Controller {
 					
 					//added for ui-slider
 					'ui2/jquery-ui-1.9.1.custom.min',
+					'ui3/jquery-ui-1.9.2.custom.min',
 					
 					//pages
 					'page/admin_team_chat',
@@ -609,6 +610,7 @@ class Assets extends MY_Common_Controller {
 									'guest_lists/gl_tr_no_reservations',
 									'guest_lists/gl_manual_add_base',
 									'guest_lists/gl_manual_add_loading',
+									'guest_lists/gl_manual_add_guestlist_friendspick',
 									
 									'tables/t_wrapper',
 									'tables/t_vlf',

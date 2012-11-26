@@ -2061,11 +2061,16 @@ div#primary_right hr{
 	background: 	#474D6A !important;
 	border-color: 	#474D6A !important;
 }
+.btn-action.active {
+	background: 	#474D6A !important;
+	border-color: 	#474D6A !important;
+}
 
 .btn-confirm {
 	background: 	#459E00 !important;
 	border-color:	#327E04 !important;
 }
+
 .btn-confirm:hover {
 	background: 	#67B021 !important;
 	border-color:	#327E04 !important;
