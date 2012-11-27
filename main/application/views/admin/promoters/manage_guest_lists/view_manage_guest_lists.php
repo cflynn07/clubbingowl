@@ -29,7 +29,7 @@
 				<td><?= $guest_list->tv_name ?></td>
 				<td><?= ucfirst($guest_list->pgla_day) ?></td>
 				<td><?= $guest_list->pgla_name ?></td>
-				<td><?= date("F j, Y, g:i a", $guest_list->pgla_create_time) ?></td>
+				<td><?= date("F j, Y, g:ia", $guest_list->pgla_create_time) ?></td>
 				<td><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($guest_list->pgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
 				<td class="pgla_id" style="display:none"><?= $guest_list->pgla_id ?></td>
 				<td>
