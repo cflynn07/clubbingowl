@@ -1,7 +1,9 @@
 <?php 
 	$page_obj = new stdClass;
-	$page_obj->users = json_decode($users);
-	$page_obj->weekly_guest_lists = $weekly_guest_lists;
+	$page_obj->users 				= json_decode($users);
+	$page_obj->weekly_guest_lists 	= $weekly_guest_lists;
+	$page_obj->clients 				= $clients;
+	$page_obj->promoter				= $this->library_promoters->promoter;
 ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 

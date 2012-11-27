@@ -25,7 +25,7 @@ class Model_guest_lists extends CI_Model {
 	 * @param	entourage fbid's
 	 * 
 	 */
-	function create_new_promoter_guest_list_reservation($id,
+	function create_new_promoter_guest_list_reservation($id,	//pgla_id
 														$head, 
 														$entourage,
 														$promoter_id,
@@ -290,8 +290,21 @@ class Model_guest_lists extends CI_Model {
 		if($entourage){
 
 			foreach($entourage as $member){
-				$insert_data[] = array('promoters_guest_lists_reservations_id' => $promoters_guest_lists_reservations_id,
-										'oauth_uid' => $member);
+				
+				if(is_array($member)){
+					
+					$insert_data[] = array('promoters_guest_lists_reservations_id' 	=> $promoters_guest_lists_reservations_id,
+											'oauth_uid' 							=> $member['oauth_uid'],
+											'supplied_name'							=> $member['name']);
+											
+					
+				}else{
+					
+					$insert_data[] = array('promoters_guest_lists_reservations_id' 	=> $promoters_guest_lists_reservations_id,
+											'oauth_uid' 							=> $member);
+					
+				}
+				
 			}
 			$this->db->insert_batch('promoters_guest_lists_reservations_entourages', $insert_data);
 			
@@ -692,7 +705,9 @@ class Model_guest_lists extends CI_Model {
 					pglr.request_msg 		as pglr_request_msg,
 					pglr.response_msg		as pglr_response_msg,
 					pglr.host_message		as pglr_host_message,
-					pglr.table_min_spend	as table_min_spend
+					pglr.table_min_spend	as table_min_spend,
+					pglr.manual_add			as pglr_manual_add,
+					pglr.supplied_name		as pglr_supplied_name
  						
 				FROM 	promoters_guest_lists pgl
 				
@@ -735,19 +750,29 @@ class Model_guest_lists extends CI_Model {
 
 			
 			
+			if(isset($res->head_user) && $res->head_user !== NULL){
+				//ALSO ATTACH PHONE NUMBER FOR HEAD USER
+				$sql = "SELECT
+				
+							u.phone_number as u_phone_number
 						
-			//ALSO ATTACH PHONE NUMBER FOR HEAD USER
-			$sql = "SELECT
-			
-						u.phone_number as u_phone_number
-					
-					FROM 	users u 
-					
-					WHERE 	u.oauth_uid = ?";
-			$query2 = $this->db->query($sql, array($res->head_user));
-			$result2 = $query2->row();
-			$res->u_phone_number = $result2->u_phone_number;
+						FROM 	users u 
+						
+						WHERE 	u.oauth_uid = ?";
+				$query2 = $this->db->query($sql, array($res->head_user));
+				$result2 = $query2->row();
+				
+				if(isset($result2->u_phone_number)){
+					$res->u_phone_number = $result2->u_phone_number;
+				}else{
+					$res->u_phone_number = '';
+				}
 
+			}else{
+				
+				$res->u_phone_number = '';
+				
+			}
 			
 			
 		}		
@@ -962,12 +987,30 @@ class Model_guest_lists extends CI_Model {
 		if($result->pglr_approved == 1 || $result->pglr_approved == -1)
 			return false; //this guest list reservation request has already been approved, don't continue
 		
+		
+		
+		
+		
+		
 		//find third_party_id of head user on this guest list
-		$this->db->select('third_party_id');
-		$query = $this->db->get_where('users', array('oauth_uid' => $result->pglr_user_oauth_uid));
-		$temp = $query->row();
-		$head_user_third_party_id = $temp->third_party_id;
-		unset($temp);
+		
+		if($result->pglr_user_oauth_uid !== NULL){
+			$this->db->select('third_party_id');
+			$query = $this->db->get_where('users', array('oauth_uid' => $result->pglr_user_oauth_uid));
+			$temp = $query->row();
+			
+			if(isset($temp->third_party_id)){
+				$head_user_third_party_id = $temp->third_party_id;
+			}else{
+				$head_user_third_party_id = NULL;
+			}
+			
+			unset($temp);
+		}else{
+			$head_user_third_party_id = NULL;
+		}
+		
+		
 		
 		//update record, after we recieve original data (necessary for this to work...)
 		$this->db->where('id', $pglr_id);

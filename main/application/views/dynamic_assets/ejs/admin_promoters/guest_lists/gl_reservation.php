@@ -59,6 +59,12 @@
 	<% }else{ %>
 		<a href="#" style="position:relative; top:10px;" data-action="request-respond" class="button_link btn-action">Respond</a><br/><br/>
 	<% } %>
+	
+	<% if(pglr_manual_add == '1'){ %>
+		<br/>
+		<span style="">Manually Added</span>
+	<% } %>
+	
 </td>
 
 

@@ -7,7 +7,7 @@
 
 <br/>
 <a href="#" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
-<a href="#" data-action="manually-add" class="button_link btn-action">Manually Add</a>
+<a href="#" data-action="manually-add" class="button_link btn-action">Manually Add Clients</a>
 <br/><br/>
 
 <table class="normal tablesorter guestlists" style="width: 770px;">

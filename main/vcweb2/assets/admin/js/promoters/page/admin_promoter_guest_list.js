@@ -75,8 +75,19 @@ jQuery(function(){
 
 		
 		Views.ManualAddModal = {
-			modal_view: null,
-			el: '#manual_add_modal',
+			
+			modal_view: 		null,
+			selected_head_user: null,
+			exclude_ids: 		[],
+			
+			//backbone used within sub-views
+			Models: 		{},
+			Collections: 	{},
+			Views: 			{},
+			collections_group: 	null,
+						
+			
+			el: 			'#manual_add_modal',
 			initialize: function(){
 				
 				this.$el.empty();
@@ -177,49 +188,203 @@ jQuery(function(){
 			render_guestlist_flow_1: function(){
 				
 				this.render_loading();
-				var user_friends = [];
 				var _this = this;
 				
-				fbEnsureInit(function(){
-					
-					FB.api('/me/friends', function(result){
+				
+				var step1_complete = false;
+				var step2_complete = false;
+				var clients;
+				var friends;
+							
 						
-						if(result.data){
-							
-							
-							for(var i in result.data){
+						
+						
+														
+				this.Models.User = {
+					initialize: function(){
+						
+					},
+					defaults: {
+						head_user: 	false,
+						oauth_uid:	null,
+						name: 		''
+					}
+				}; this.Models.User = Backbone.Model.extend(this.Models.User);
+				
+				this.Collections.Group = {
+					model: this.Models.User,
+					initialize: function(){
+						
+					}
+				}; this.Collections.Group = Backbone.Collection.extend(this.Collections.Group);
 								
+				this.Views.User = {
+					tagName: 'tr',
+					initialize: function(){
+						
+						//this.render();
+					},
+					render: function(){
+						
+						var template = EVT['guest_lists/gl_manual_add_guestlist_friendspick_tr'];											
+						var html = new EJS({
+							text: template
+						}).render(this.model.toJSON());
+						
+						this.$el.html(html);
+						
+						return this;
+					},
+					events: {
+						'click *[data-action]': 'click_data_action'
+					},
+					click_data_action: function(e){
+						
+						var el = jQuery(e.currentTarget);
+						var action = el.attr('data-action');
+						switch(action){
+							case 'delete-entourage-user':
+								
+								_this.collections_group.remove(this.model);
+								this.unbind();
+								this.remove();
+								
+								break;
+						}
+						
+					}
+				}; this.Views.User = Backbone.View.extend(this.Views.User);
+				
+				this.collections_group = new this.Collections.Group();
+			
+			
+							
+				// -------------------------------------------------------------------------
+				var sync_complete_callback = function(){
+					
+					if(!(step1_complete && step2_complete))
+						return;
+					
+					//merge friends & clients arrays w/ no duplicates
+					console.log(clients);
+					for(var i in clients){
+						var client_found = false;
+						for(var k in friends){
+							if(clients[i].uid == friends[k].value){
+								client_found = true;
+								break;
+							}
+						}
+						if(!client_found){
+							friends.push({
+								label: 	clients[i].name,
+								value:	clients[i].uid
+							});
+						}
+						
+					}
+					
+					var template = EVT['guest_lists/gl_manual_add_guestlist_friendspick'];
+					var html = new EJS({
+						text: template
+					}).render({});
+					
+					_this.$el.html(html);
+					
+					_this.$el.find('input').autocomplete({
+						source: 	friends,
+						delay: 		20,
+						focus: 		function(event, ui){
+							
+							//jQuery(this).val(ui.item.label);
+							return false;
+							
+						},
+						select: 	function(event, ui){
+							
+							console.log('select');
+							console.log(_this.selected_head_user);
+							
+							
+							//ui.item.value
+							jQuery(this).val(ui.item.label);						
+							_this.$el.find('#selected_pic').attr({
+								src: 'https://graph.facebook.com/' + ui.item.value + '/picture?width=50&height=50'
+							}).show();
+							
+							console.log('_this.collections_group.where({head_user: true}).length');
+							console.log(_this.collections_group.where({head_user: true}).length);
+							
+							if(_this.collections_group.where({head_user: true}).length){
+								_this.selected_head_user = {
+									oauth_uid: 	ui.item.value,
+									name: 		ui.item.label,
+									head_user: 	false
+								};
+							}else{
+								_this.selected_head_user = {
+									oauth_uid: 	ui.item.value,
+									name: 		ui.item.label,
+									head_user: 	true
+								};
+							}
+							
+							console.log(_this.selected_head_user);
+							
+							return false;
+															
+						}
+					}).data( "autocomplete" )._renderItem = function(ul, item){
+						
+						var html = '<a><table style="margin:0;"><tr>';
+						html += '<td>';
+						html += '<img src="https://graph.facebook.com/' + item.value + '/picture?width=50&height=50" />';								
+						html += '</td>';
+						html += '<td>';
+						html += item.label;								
+						html += '</td>';
+						html += '</tr></table></a>';
+													
+			            return jQuery("<li></li>")
+			                .data( "ui-autocomplete-item", item )
+			                .append( html )
+			                .appendTo( ul );
+			                
+			        };
+				};
+				// -------------------------------------------------------------------------
+				
+				
+				
+				
+				
+				
+				jQuery.fbUserLookup(window.page_obj.clients, '', function(rows){
+					
+					clients 		= rows;
+					step2_complete 	= true;
+					sync_complete_callback();
+					
+				});
+				fbEnsureInit(function(){
+
+					FB.api('/me/friends', function(result){
+						var user_friends = [];
+						if(result.data){
+							for(var i in result.data){
 								user_friends.push({
 									label: 	result.data[i].name,
 									value:	result.data[i].id
 								});
-								
 							}
-							
-							var template = EVT['guest_lists/gl_manual_add_guestlist_friendspick'];
-							var html = new EJS({
-								text: template
-							}).render({});
-							
-							_this.$el.html(html);
-							
-							_this.$el.find('input').autocomplete({
-								source: user_friends,
-								delay: 20
-							}).data( "autocomplete" )._renderItem = function(ul, item){
-																
-					            return jQuery("<li>")
-					                .data( "item.autocomplete", item )
-					                .append( "<span>" + item.label + "</span><br/><img src=\"https://graph.facebook.com/" + item.value + "/picture?width=50&height=50\" />" )
-					                .appendTo( ul );
-					                
-					        };
-							
 						}
-						
+						friends 		= user_friends;
+						step1_complete 	= true;
+						sync_complete_callback();
 					});
 					
 				});
+				
 				
 			},
 			events: {
@@ -228,6 +393,8 @@ jQuery(function(){
 			events_click_data_action: function(e){
 				
 				e.preventDefault();
+				
+				this.$el.find('#message').html('');
 				
 				var el = jQuery(e.currentTarget);
 				var action = el.attr('data-action');
@@ -253,6 +420,171 @@ jQuery(function(){
 						//simple confirm
 						
 						//ajax push to server & refresh
+						
+						break;
+					case 'gl-flow-add-head':
+						/**
+						 * Add the head user to a guest-list group
+						 */
+						console.log('gl-flow-add-head');
+						console.log(this.selected_head_user);
+						
+						
+						//check for selected user
+						if(!this.selected_head_user){
+							
+							//non FB client
+							console.log('non-fb');
+							var name = this.$el.find('input').val();
+							console.log(name);
+							if(!name.length){
+								this.$el.find('#message').html('Please enter a name.');
+								return false;
+							}
+							this.selected_head_user = {
+								oauth_uid: 	null,
+								name: 		name,
+								head_user: 	true
+							};
+														
+						}else{
+							
+							//FB client
+							console.log('fb');
+														
+						}
+						
+						
+						this.collections_group.reset([this.selected_head_user]);
+						console.log(this.collections_group);
+						this.selected_head_user = null;
+						
+													
+						this.$el.find('#reservations_holder').show();
+						this.$el.find('#reservations_holder_entourage').show();
+						this.$el.find('#reservations_holder tbody').empty();
+						this.$el.find('#reservations_holder_entourage tbody').empty();
+						this.$el.find('#head_user_message').hide();
+						this.$el.find('#ent_user_message').show();
+						this.$el.find('a[data-action="gl-flow-add-final"]').show();
+						
+						this.$el.find('#selected_pic').hide();
+						this.$el.find('input[type=text].sf').val('');
+						
+						var _this = this;				
+						//display view w/ selected user and ask for entourage
+						this.collections_group.each(function(m){
+							
+							var view = new _this.Views.User({
+								model: m
+							}).render().el;
+							_this.$el.find('#reservations_holder tbody').append(view);
+							
+							_this.$el.find('*[data-role="head_user_name"]').html(m.get('name'));
+														
+																						
+						});
+						
+						this.modal_view.dialog('option', {
+							position: 'center center'
+						});
+						
+						this.$el.find('a[data-action="gl-flow-add-head"]').attr({
+							'data-action': 'gl-flow-add-entourage'
+						});
+						
+						break;
+					case 'gl-flow-add-entourage':
+						/**
+						 * Add an optional entourage user to a guest-list group
+						 */
+						
+						console.log('gl-flow-add-entourage');					
+						console.log(this.selected_head_user);
+						
+						
+						//check for selected user
+						if(!this.selected_head_user){
+							
+							//non FB client
+							console.log('non-fb');
+							var name = this.$el.find('input[type="text"].sf').val();
+
+							if(!name.length){
+								this.$el.find('#message').html('Please enter a name.');
+								return false;
+							}
+							this.selected_head_user = {
+								oauth_uid: 	null,
+								name: 		name,
+								head_user: 	false
+							};
+														
+						}else{
+							
+							//FB client
+							console.log('fb');
+							
+						}
+						
+						this.collections_group.add([this.selected_head_user]);
+						console.log(this.collections_group);
+						this.selected_head_user = null;
+						
+						
+						this.$el.find('#selected_pic').hide();
+						this.$el.find('input[type="text"].sf').val('');
+						
+						var _this = this;
+						_this.$el.find('#reservations_holder_entourage tbody').empty();			
+						//display view w/ selected user and ask for entourage
+						this.collections_group.each(function(m){
+							
+							if(m.get('head_user'))
+								return;
+							
+							var view = new _this.Views.User({
+								model: m
+							}).render().el;
+							_this.$el.find('#reservations_holder_entourage tbody').append(view);
+																			
+						});
+						
+						this.modal_view.dialog('option', {
+							position: 'center center'
+						});
+						
+												
+						//-----
+						
+						break;
+					case 'gl-flow-add-final':
+						/**
+						 * Add the group to the guest-list
+						 */
+						
+						//execute ajax call to add to 
+						
+				//		if(el.attr('disabled'))
+				//			return;
+				//		el.attr('disabled', 'disabled');
+						
+						var _this = this;
+						
+						jQuery.background_ajax({
+							data: {
+								vc_method: 'manual_add_final',
+								pgla_id:	_this.model.get('pgla_id'),
+								up_id: 		window.page_obj.promoter.up_id,
+								group: 		_this.collections_group.toJSON()
+							},
+							success: function(data){
+								
+								console.log('data');
+								console.log(data);
+								
+							}
+						})
 						
 						break;
 				}
@@ -325,6 +657,7 @@ jQuery(function(){
 
 
 				if(!window.location.hash.length){
+					
 					var first = this.collection.first(1);
 					if(first.length){
 						first[0].set({
@@ -334,14 +667,10 @@ jQuery(function(){
 						window.location.hash = first[0].get('pgla_name').replace(' ', '_');
 						
 					}
+					
 				}else{
 					jQuery(window).trigger('hashchange');
 				}
-				
-				
-				
-				
-				
 				
 				return this;
 			},
@@ -847,10 +1176,14 @@ jQuery(function(){
 
 
 
-
+		var prc_fetching = false;
 		var pending_requests_change = function(data){
 			console.log('pending-requests-change');
 			console.log('update-guest-lists');
+			
+			if(prc_fetching)
+				return;
+			prc_fetching = true;
 			
 			var pgla_id_active = collection_guest_lists.where({
 				active: true
@@ -864,6 +1197,8 @@ jQuery(function(){
 					vc_method: 'retrieve_guest_lists'
 				},
 				success: function(data){
+					
+					prc_fetching = false;
 					
 					if(data.success){
 						view_guest_list.users = null;

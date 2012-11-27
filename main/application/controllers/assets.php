@@ -118,7 +118,7 @@ class Assets extends MY_Common_Controller {
 					
 					//added for ui-slider
 					'ui2/jquery-ui-1.9.1.custom.min',
-					'ui3/jquery-ui-1.9.2.custom.min',
+					'ui3/jquery-ui-1.9.2.custom',
 					
 					//pages
 					'page/admin_team_chat',
@@ -342,7 +342,7 @@ class Assets extends MY_Common_Controller {
 				$group_assets = array(
 
 					array('jquery/jquery1.7.2.min',											'global_js'),
-					array('jquery/jquery-ui-1.8.18.min',									'global_js'),
+					array('jquery-ui-1.9.1.min',											'admin_js'),
 					array('pusher/pusher-1.11',												'global_js'),
 					array('pusher/pusher_extend',											'global_js'),
 					
@@ -611,6 +611,7 @@ class Assets extends MY_Common_Controller {
 									'guest_lists/gl_manual_add_base',
 									'guest_lists/gl_manual_add_loading',
 									'guest_lists/gl_manual_add_guestlist_friendspick',
+									'guest_lists/gl_manual_add_guestlist_friendspick_tr',
 									
 									'tables/t_wrapper',
 									'tables/t_vlf',

@@ -430,7 +430,8 @@ class Promoters extends MY_Controller {
 		list($weekly_guest_lists, $users) = $this->_helper_promoter_guest_lists_and_members();
 		$data['weekly_guest_lists'] = $weekly_guest_lists;
 		$data['users'] 				= json_encode($users);
-				
+		$data['clients'] = $this->library_promoters->retrieve_promoter_clients_list();
+		
 		$this->body_html = $this->load->view('admin/promoters/guest_lists/view_guest_lists', $data, true);
 		
 	}
@@ -1031,6 +1032,62 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'manual_add_final':
+
+
+		
+				$group = $this->input->post('group');
+				if(!$group || !is_array($group))	
+					die(json_encode(array('success' => false, 'message' => 'Missing group')));
+				
+				
+				$head_user = false;
+				$entourage = array();
+				
+				foreach($group as $client){
+
+					if(!isset($client['head_user']))					
+						die(json_encode(array('success' => false, 'message' => 'Incorrectly formatted data')));
+					
+					
+					if($client['head_user'] == 'true'){
+						
+						if($head_user !== false){
+							die(json_encode(array('success' => false, 'message' => 'Group can not have more than one head user.')));
+						}
+						
+						$head_user = $client;
+						
+					}else{
+						
+						$entourage[] = $client;
+						
+					}
+					
+				}
+				
+				$this->load->model('model_guest_lists', 'guest_lists', true);
+				$result = $this->guest_lists->create_new_promoter_guest_list_reservation(
+					$this->input->post('pgla_id'),
+					((isset($head_user['oauth_uid']) && $head_user['oauth_uid'] != 'null') ? $head_user['oauth_uid'] : NULL),
+					$entourage,
+					$this->input->post('up_id'),
+					(($this->input->post('table_request') == 'true') ? 1 : 0),
+					false,
+					'',
+					'',
+					'',
+					'',
+					0, 	//table-min-spend,
+					false,
+					true
+				);
+				die(json_encode($result));
+				
+
+
+
+				break;
 			case 'manual_add_find_tables':
 					
 				
@@ -1106,7 +1163,7 @@ class Promoters extends MY_Controller {
 				break;
 			case 'update_promoter_reservation_host_notes':
 				
-				$host_message = $this->input->post('host_message');
+				$host_message = strip_tags($this->input->post('host_message'));
 				if(!$host_message)
 					$host_message = '';
 				
@@ -1747,10 +1804,10 @@ class Promoters extends MY_Controller {
 		$this->load->model('model_guest_lists', 'guest_lists', true);
 		//for each guest list, find all groups associated with it
 		foreach($weekly_guest_lists as &$gla){
-			
+	
 			$gla->human_date = $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->pgla_day, 's')));
-			
 			$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
+	
 		}
 		
 		//Need simple array of all FBID's of users for javascript client-side FQL query
