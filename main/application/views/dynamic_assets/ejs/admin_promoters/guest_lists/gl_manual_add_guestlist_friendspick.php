@@ -1,5 +1,13 @@
 <div class="ui3">
 	
+	<% if(table_request == 1){ %>
+		<div style="border-radius:10px; background-color:#CCC; padding:5px; margin-bottom:10px;">
+			<h2 style="margin-bottom:5px;">Table Request</h2>
+			<p style="margin-bottom:0px;">Min Spend: <span style="color:green;">$<%= table_min_spend %></span></p>			
+		</div>
+	<% } %>
+	
+	
 	<h3>Choose from your Facebook friends & Clubbing Owl clients</h3>
 	
 	

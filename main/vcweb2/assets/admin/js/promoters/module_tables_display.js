@@ -100,10 +100,10 @@
 			var item_type	= this.model.get('vlfi_item_type');
 			
 			this.$el.css({
-				left: 	Math.floor(vlfi_pos_x * factor) + 'px',
-				top: 	Math.floor(vlfi_pos_y * factor) + 'px',
-				width: 	Math.floor(vlfi_width * factor) + 'px',
-				height: Math.floor(vlfi_height * factor) + 'px'
+				left: 	Math.floor(vlfi_pos_x * factor) 	+ 'px',
+				top: 	Math.floor(vlfi_pos_y * factor) 	+ 'px',
+				width: 	Math.floor(vlfi_width * factor) 	+ 'px',
+				height: Math.floor(vlfi_height * factor) 	+ 'px'
 			});
 			this.$el.addClass(item_type);
 			
@@ -116,6 +116,35 @@
 			}).render(this.model.toJSON());
 			
 			this.$el.html(html);
+			/*
+			 <div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 		0, '', ',') ?></div>
+			<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 		0, '', ',') ?></div>
+			<div class="day_price wednesday">US$ <?= number_format($item->vlfit_wednesday_min, 	0, '', ',') ?></div>
+			<div class="day_price thursday">US$ <?= number_format($item->vlfit_thursday_min, 	0, '', ',') ?></div>
+			<div class="day_price friday">US$ <?= number_format($item->vlfit_friday_min, 		0, '', ',') ?></div>
+			<div class="day_price saturday">US$ <?= number_format($item->vlfit_saturday_min, 	0, '', ',') ?></div>
+			<div class="day_price sunday">US$ <?= number_format($item->vlfit_sunday_min, 		0, '', ',') ?></div>
+			<div class="max_capacity"><?= $item->vlfit_capacity ?></div>
+			 * */
+			
+			var days = [
+				'monday',
+				'tuesday',
+				'wednesday',
+				'thursday',
+				'friday',
+				'saturday',
+				'sunday'
+			];
+			
+			for(var i in days){
+				
+				var key = 'day-price-' + days[i];
+				var value = this.model.get('vlfit_' + days[i] + '_min');
+				this.$el.attr(key, value);
+				
+			}
+			
 						
 			return this;
 		},

@@ -21,3 +21,7 @@ div.vl div.vlf span.vlf_title {
 	color: red;
 	padding: 2px;
 }
+
+div.vl div.vlf div.table.highlighted {
+	background: red !important;
+}

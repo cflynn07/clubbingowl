@@ -80,6 +80,9 @@ jQuery(function(){
 			selected_head_user: null,
 			exclude_ids: 		[],
 			
+			table_request: 		0,
+			table_min_spend:	0,
+			
 			//backbone used within sub-views
 			Models: 		{},
 			Collections: 	{},
@@ -162,11 +165,67 @@ jQuery(function(){
 						for(var i in data.message.team_venues){
 							venue = data.message.team_venues[i];
 						}
+						
+						
+					//	console.log('venue');
+					//	console.log(venue);
+					//	console.log(_this.model.toJSON());
+						
+						
+						
+						// Find the prices of tables for the day
+						// --------------------------------------------------------------------
+						//array of unique day prices
+						var day_prices = [];
+						
+						var pgla_day = _this.model.get('pgla_day');
+						pgla_day = pgla_day.slice(0, -1);
+						
+						for(var i in venue.venue_floorplan){
+							var floor = venue.venue_floorplan[i]
+							
+							for(var k in floor.items){
+								var item = floor.items[k];
+								
+								if(item.vlfi_item_type == 'table'){
+
+									//what day do we care about?
+									var table_day_price = item['vlfit_' + pgla_day + '_min'];
+									console.log(table_day_price);
+									
+									if(jQuery.inArray(table_day_price, day_prices) === -1){
+										day_prices.push(table_day_price);
+									}
+									
+								}	
+							}
+						}
+						
+						day_prices = day_prices.sort();
+						console.log(day_prices);
+						// --------------------------------------------------------------------
+						
+						
+						
+						
+						var template = EVT['guest_lists/gl_manual_add_table'];
+						var html = new EJS({
+							text: template
+						}).render({
+							day_prices: day_prices,
+							venue: 		venue,
+							pgla_day: 	pgla_day
+						});
+						_this.$el.html(html);
+						
+						
+						
+						
 						var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
 						
 						tv_display_module
 							.initialize({
-								display_target: 	'#manual_add_modal', //'#' + _this.$el.attr('id'),
+								display_target: 	'#floorplan_holder', //'#' + _this.$el.attr('id'),
 								team_venue: 		venue,
 								factor: 			0.5,
 								options: {
@@ -181,16 +240,25 @@ jQuery(function(){
 							position: 'center center'
 						});
 						
+						_this.$el.find('select#table_min_price').trigger('change');
+											
 					}
 				});
+							
 								
 			},
 			render_guestlist_flow_1: function(){
-				
+
 				this.render_loading();
 				var _this = this;
 				
-				
+				this.modal_view.dialog('option', {
+					width: 	500						
+				});
+				this.modal_view.dialog('option', {
+					position: 'center center'
+				});
+										
 				var step1_complete = false;
 				var step2_complete = false;
 				var clients;
@@ -284,10 +352,19 @@ jQuery(function(){
 						
 					}
 					
+					
+					
+					
 					var template = EVT['guest_lists/gl_manual_add_guestlist_friendspick'];
 					var html = new EJS({
 						text: template
-					}).render({});
+					}).render({
+						table_request: 		_this.table_request,
+						table_min_spend: 	_this.table_min_spend
+					});
+					
+					
+					
 					
 					_this.$el.html(html);
 					
@@ -388,7 +465,24 @@ jQuery(function(){
 				
 			},
 			events: {
-				'click a[data-action]': 'events_click_data_action'
+				'click a[data-action]': 'events_click_data_action',
+				'change select#table_min_price': 'events_change_select_min_price'
+			},
+			events_change_select_min_price: function(e){
+				
+				
+				
+				var el 		= jQuery(e.currentTarget);
+				var value 	= el.val();
+				
+				this.table_min_spend = value;
+				
+				var pgla_day 	= this.model.get('pgla_day');
+				pgla_day 		= pgla_day.slice(0, -1);
+				
+				this.$el.find('div.item.table.highlighted').removeClass('highlighted');
+				this.$el.find('div.item.table[day-price-' + pgla_day + '=' + value + ']').addClass('highlighted')
+						
 			},
 			events_click_data_action: function(e){
 				
@@ -401,11 +495,13 @@ jQuery(function(){
 				switch(action){
 					case 'init-table-flow':
 					
+						this.table_request = 1;
+						
 						//find available tables (have user select price group)
 						this.render_table_flow_1();
 						
-					
 						//add friends
+						
 						
 						//confirm w/ manager approval indication
 						
@@ -413,7 +509,7 @@ jQuery(function(){
 					
 						break;
 					case 'init-gl-flow':
-					
+												
 						//add friends
 						this.render_guestlist_flow_1();
 						
@@ -575,17 +671,18 @@ jQuery(function(){
 						
 						jQuery.background_ajax({
 							data: {
-								vc_method: 'manual_add_final',
-								pgla_id:	_this.model.get('pgla_id'),
-								up_id: 		window.page_obj.promoter.up_id,
-								group: 		_this.collections_group.toJSON()
+								vc_method: 			'manual_add_final',
+								pgla_id:			_this.model.get('pgla_id'),
+								up_id: 				window.page_obj.promoter.up_id,
+								group: 				_this.collections_group.toJSON(),
+								table_request: 		_this.table_request,
+								table_min_spend: 	_this.table_min_spend
 							},
 							success: function(data){
 								
 								console.log('data');
 								console.log(data);
 
-								_
 								_this.modal_view.dialog('close');
 								
 							}

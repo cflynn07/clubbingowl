@@ -612,6 +612,7 @@ class Assets extends MY_Common_Controller {
 									'guest_lists/gl_manual_add_loading',
 									'guest_lists/gl_manual_add_guestlist_friendspick',
 									'guest_lists/gl_manual_add_guestlist_friendspick_tr',
+									'guest_lists/gl_manual_add_table',
 									
 									'tables/t_wrapper',
 									'tables/t_vlf',

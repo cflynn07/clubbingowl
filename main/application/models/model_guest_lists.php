@@ -114,7 +114,7 @@ class Model_guest_lists extends CI_Model {
 		$auto_approve_requests = $result->auto_approve;
 		
 		//if this is a table request, no-auto approve (unless it's a manual table request -- next line)
-		if($table_request == 1 || $table_request == '1')
+		if($table_request == 1 || $table_request == '1' || $table_request == 'true')
 			$auto_approve_requests = false;
 		
 		if($approve_override)
