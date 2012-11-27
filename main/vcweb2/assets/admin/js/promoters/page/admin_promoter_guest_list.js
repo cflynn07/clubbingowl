@@ -565,9 +565,11 @@ jQuery(function(){
 						
 						//execute ajax call to add to 
 						
-				//		if(el.attr('disabled'))
-				//			return;
-				//		el.attr('disabled', 'disabled');
+						if(el.attr('disabled'))
+							return;
+						el.attr('disabled', 'disabled');
+						el.hide();
+						this.$el.find('#loading_img').show();
 						
 						var _this = this;
 						
@@ -582,6 +584,9 @@ jQuery(function(){
 								
 								console.log('data');
 								console.log(data);
+
+								_
+								_this.modal_view.dialog('close');
 								
 							}
 						})
@@ -884,6 +889,10 @@ jQuery(function(){
 					view_reservation.render();
 					
 				});
+				
+				
+				tbody.find('> tr:odd').addClass('odd');
+				
 				
 				this.custom_events_add_fb_data();
 				

@@ -1,8 +1,24 @@
 <td>
+	
 	<% if(!collapsed){ %>
-		<img src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" /><br/>
+		
+		<% if(head_user == null){ %>
+			<img src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />
+		<% }else{ %>
+			<img src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
+		<% } %>
+		
+		<br/>
+		
 	<% } %>
-	<span data-name="<%= head_user %>"></span>
+	
+		
+	<% if(head_user == null){ %>
+		<span><%= pglr_supplied_name %></span>
+	<% }else{ %>
+		<span data-name="<%= head_user %>"></span>
+	<% } %>
+	
 </td>
 <td>
 	<% if(collapsed){ %>
@@ -70,7 +86,11 @@
 
 <td style="white-space:nowrap; <% if(!collapsed){ %> width:244px; <% } %>">
 	<% if(!entourage_users.length){ %>
-		<p>No Entourage</p>
+		
+		
+		<span> --- </span>
+		
+		
 	<% }else{ %>
 		
 		<% if(!collapsed){ %>
@@ -86,9 +106,23 @@
 					
 					<% for(var i in entourage_users){ %>
 						<tr class="<%= (i % 2) ? 'odd' : '' %>">
-							<td><span data-name="<%= entourage_users[i] %>"></span></td>
 							<td>
-								<img src="https://graph.facebook.com/<%= entourage_users[i] %>/picture?width=50&height=50" />
+								
+								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
+									<span><%= entourage_users[i].pglre_supplied_name %></span>
+								<% }else{ %>
+									<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+								<% } %>
+								
+							</td>
+							<td>
+
+								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
+									<img src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />
+								<% }else{ %>
+									<img src="https://graph.facebook.com/<%= entourage_users[i].pglre_oauth_uid %>/picture?width=50&height=50" />
+								<% } %>
+								
 							</td>
 						</tr>
 					<% } %>
@@ -102,9 +136,17 @@
 				<tbody>
 					
 					<% for(var i in entourage_users){ %>
+						
 						<tr class="<%= (i % 2) ? 'odd' : '' %>">
-							<td><span data-name="<%= entourage_users[i] %>"></span></td>
+							<td>
+								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
+									<span><%= entourage_users[i].pglre_supplied_name %></span>
+								<% }else{ %>
+									<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+								<% } %>
+							</td>
 						</tr>
+						
 					<% } %>
 					
 				</tbody>

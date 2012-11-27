@@ -56,7 +56,7 @@
 	<br/>
 	
 	<a href="#" style="display:none; float:right;" data-action="gl-flow-add-final" class="button_link btn-action">Create Reservation</a>	
-	
+	<img style="display:none; float:right;" id="loading_img" src="<?= $central->global_assets . 'images/ajax.gif' ?>" alt="loading..." />
 	
 	<style>
     .ui-autocomplete {

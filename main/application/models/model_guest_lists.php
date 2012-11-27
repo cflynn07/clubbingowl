@@ -37,7 +37,8 @@ class Model_guest_lists extends CI_Model {
 														$phone_carrier,
 														$table_min_spend = 0,
 														$date_check_override = false,
-														$approve_override = false){
+														$approve_override = false,
+														$pglr_supplied_name = ''){
 
 		$phone_number = preg_replace('/\D/', '', $phone_number);
 
@@ -221,6 +222,7 @@ class Model_guest_lists extends CI_Model {
 																		'table_request' 	=> ($table_request == 'true') ? 1 : 0,
 																		'manual_add'		=> ($approve_override) ? 1 : 0,
 																		'table_min_spend'	=> $table_min_spend,
+																		'supplied_name'		=> $pglr_supplied_name,
 																		'create_time' => time()));
 		$promoters_guest_lists_reservations_id = $this->db->insert_id();
 		
@@ -293,12 +295,19 @@ class Model_guest_lists extends CI_Model {
 				
 				if(is_array($member)){
 					
+					if($member['oauth_uid'] == '0' || strtolower($member['oauth_uid']) == 'null')
+						$member['oauth_uid'] = NULL;
+					
 					$insert_data[] = array('promoters_guest_lists_reservations_id' 	=> $promoters_guest_lists_reservations_id,
 											'oauth_uid' 							=> $member['oauth_uid'],
 											'supplied_name'							=> $member['name']);
 											
 					
 				}else{
+					
+					if($member == '0' || strtolower($member) == 'null'){
+						$member = NULL;
+					}
 					
 					$insert_data[] = array('promoters_guest_lists_reservations_id' 	=> $promoters_guest_lists_reservations_id,
 											'oauth_uid' 							=> $member);
@@ -506,7 +515,7 @@ class Model_guest_lists extends CI_Model {
 					
 					WHERE	pgl.id = $guest_list_id)
 				
-				UNION
+				UNION 
 				
 				(SELECT	pglre.oauth_uid 	as users_oauth_uid
 					FROM	promoters_guest_lists pgl
@@ -584,8 +593,8 @@ class Model_guest_lists extends CI_Model {
 		$query = $this->db->query($sql, array($promoter_id, $promoter_id, $weekday));
 		$results = $query->result();
 		
-		Kint::dump($this->db->last_query());
-		Kint::dump($results);
+	//	Kint::dump($this->db->last_query());
+	//	Kint::dump($results);
 		
 		//TODO: Check to see if there's an event that over-rides it on this day
 		#
@@ -735,7 +744,8 @@ class Model_guest_lists extends CI_Model {
 			
 			$sql = "SELECT 	
 			
-						pglre.oauth_uid 	as entourage_user
+						pglre.oauth_uid 	as pglre_oauth_uid,
+						pglre.supplied_name	as pglre_supplied_name
 						
 					FROM 	promoters_guest_lists_reservations_entourages pglre
 					
@@ -744,7 +754,16 @@ class Model_guest_lists extends CI_Model {
 			
 			$entourage_users = array();
 			foreach($query->result() as $entourage_user_object){
-				$entourage_users[] = $entourage_user_object->entourage_user; 
+							
+				$entourage_users[] = $entourage_user_object;
+					
+			//	if($entourage_user_object->entourage_user !== NULL && $entourage_user_object->entourage_user != 0)
+			//		$entourage_users[] = $entourage_user_object->entourage_user;
+			//	else 
+			//		$entourage_users[] = $entourage_user_object->pglr_supplied_name;
+				
+				
+				
 			}
 			$res->entourage_users = $entourage_users;
 

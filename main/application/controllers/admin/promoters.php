@@ -1080,7 +1080,8 @@ class Promoters extends MY_Controller {
 					'',
 					0, 	//table-min-spend,
 					false,
-					true
+					true,
+					$head_user['name']
 				);
 				die(json_encode($result));
 				
@@ -1815,13 +1816,36 @@ class Promoters extends MY_Controller {
 		foreach($weekly_guest_lists as $wgl){
 			foreach($wgl->groups as $group){
 				
-				$users[] = $group->head_user;
-				$users = array_merge($users, $group->entourage_users);
+			//	$users[] = $group->head_user;
+			//	$users = array_merge($users, $group->entourage_users);
+				
+				if($group->head_user !== null)
+					$users[] = $group->head_user;
+				
+				
+				foreach($group->entourage_users as $ent_user){
+					if($ent_user->pglre_oauth_uid !== null)
+						$users[] = $ent_user->pglre_oauth_uid;
+				}
+				
+				
 				
 			}
 		}
 		$users = array_unique($users);
 		$users = array_values($users);
+		
+		foreach($users as $key => $val){
+			if(!is_numeric($val)){
+				unset($users[$key]);
+			}
+		}
+		
+		
+		if(($key = array_search(null, $users)) !== false) {
+		    unset($users[$key]);
+		}
+		
 		
 		return array($weekly_guest_lists, $users);
 		
