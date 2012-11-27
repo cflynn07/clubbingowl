@@ -11,12 +11,15 @@
 		<br/>
 		
 	<% } %>
-	
-		
+			
 	<% if(head_user == null){ %>
 		<span><%= pglr_supplied_name %></span>
 	<% }else{ %>
 		<span data-name="<%= head_user %>"></span>
+	<% } %>
+	
+	<% if(u_phone_number){ %>
+		<br/><span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 	<% } %>
 	
 </td>

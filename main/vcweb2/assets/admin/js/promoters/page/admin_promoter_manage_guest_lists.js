@@ -26,7 +26,7 @@ jQuery(function(){
 				buttons: {
 					"Delete": function() {
 						
-						var pgla_id = button.parent().parent().find('td.pgla_id').html();
+						var pgla_id = button.parents('tr').find('td.pgla_id').html();
 						
 						var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
 						
@@ -68,7 +68,7 @@ jQuery(function(){
 		
 		var update_auto_approve_function = function(button){
 			
-			var pgla_id = button.parent().parent().parent().find('td.pgla_id').html();
+			var pgla_id = button.parents('tr').find('td.pgla_id').html();
 			var auto_approve = (button.attr('checked') == undefined) ? false : true;
 			
 			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';

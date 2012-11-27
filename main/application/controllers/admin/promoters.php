@@ -557,6 +557,8 @@ class Promoters extends MY_Controller {
 		//retrieve promoter's guest lists
 		$data['promoters_guest_lists'] = $this->library_promoters->retrieve_promoter_guest_list_authorizations();
 		
+		Kint::dump($data);
+		
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists', $data, true);
 	}
 	
@@ -1892,13 +1894,35 @@ class Promoters extends MY_Controller {
 		foreach($weekly_guest_lists as $wgl){
 			foreach($wgl->groups as $group){
 				
-				$users[] = $group->head_user;
-				$users = array_merge($users, $group->entourage_users);
+			//	$users[] = $group->head_user;
+			//	$users = array_merge($users, $group->entourage_users);
+				
+				if($group->head_user !== null)
+					$users[] = $group->head_user;
+				
+				
+				foreach($group->entourage_users as $ent_user){
+					if($ent_user->pglre_oauth_uid !== null)
+						$users[] = $ent_user->pglre_oauth_uid;
+				}
+				
+				
 				
 			}
 		}
 		$users = array_unique($users);
 		$users = array_values($users);
+		
+		foreach($users as $key => $val){
+			if(!is_numeric($val)){
+				unset($users[$key]);
+			}
+		}
+		
+		
+		if(($key = array_search(null, $users)) !== false) {
+		    unset($users[$key]);
+		}
 		
 				
 		/*

@@ -1,7 +1,7 @@
 <td>
 	<img src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
-	<p data-name="<%= head_user %>"></p>
-	<span><%= u_phone_number %></span>
+	<p style="margin-bottom:0;" data-name="<%= head_user %>"></p>
+	<span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 </td>
 <td>
 	<img style="width:100px;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url %>venues/banners/<%= tv_image %>_t.jpg" />
@@ -30,10 +30,10 @@
 				<% var ent_user = entourage_users[i]; %>
 			<tr>
 				<td style="padding:0;">
-					<img src="https://graph.facebook.com/<%= ent_user %>/picture?width=25&height=25" />
+					<img src="https://graph.facebook.com/<%= ent_user.pglre_oauth_uid %>/picture?width=25&height=25" />
 				</td>
 				<td style="padding:0 0 0 5px;">
-					<p data-name="<%= ent_user %>"></p>
+					<p data-name="<%= ent_user.pglre_oauth_uid %>"></p>
 				</td>
 			</tr>
 			
