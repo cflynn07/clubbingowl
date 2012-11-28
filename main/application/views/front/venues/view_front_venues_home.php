@@ -1,3 +1,12 @@
+<style type="text/css">
+	.unauth_content{
+		display: <?= (isset($vc_user) && $vc_user) ? 'none' : 'block'?>;
+	}
+	.auth_content{
+		display: <?= (isset($vc_user) && $vc_user) ? 'block' : 'none'?>;
+	}
+</style>
+
 <div id="venues_overview">
 
 <?php if($city): // ----------------- specific city ---------------------- ?>
