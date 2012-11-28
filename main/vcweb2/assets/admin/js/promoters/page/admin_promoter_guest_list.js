@@ -30,12 +30,14 @@ jQuery(function(){
 		};
 		Models.Status				= Backbone.Model.extend(Models.Status);
 		
+		
+		var page_collapsed = false;
 		Models.Reservation = {
 			initialize: function(){
 				
 			},
 			defaults: {
-				collapsed: false,
+				collapsed: page_collapsed,
 				show_pictures: true
 			}
 		};
@@ -1168,15 +1170,17 @@ jQuery(function(){
 					
 						break;
 					case 'expand-collapse-all':
+						
+						page_collapsed = !page_collapsed;
 					
 						if(this.collection_reservations)
 							this.collection_reservations.each(function(m){
 								
 								console.log(m);
 								m.set({
-									collapsed: !m.get('collapsed')
+									collapsed: page_collapsed //!m.get('collapsed')
 								});
-																
+																								
 							});
 						
 						this.custom_events_add_fb_data();
@@ -1194,8 +1198,11 @@ jQuery(function(){
 			tagName: 'tr',
 			initialize: function(){
 				
+				this.model.set({
+					collapsed: page_collapsed
+				});
 				this.model.on('change', this.render, this);
-				 
+				
 			},
 			render: function(){
 				
