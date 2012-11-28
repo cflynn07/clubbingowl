@@ -144,6 +144,7 @@ jQuery(function(){
 					text: template
 				}).render({});
 				this.$el.html(html);
+				
 			},
 			render_table_flow_1: function(){
 				
