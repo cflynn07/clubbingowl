@@ -710,7 +710,7 @@ jQuery(function(){
 				this.ul  		= this.$el.find('ul:first');
 				this.gl_img 	= this.$el.find('#left_menu_gl_img');
 				this.venue_img 	= this.$el.find('#left_menu_venue_img');
-				
+							
 				this.collection.on('change', this.change_collection, this);
 								
 				this.render();
@@ -825,7 +825,12 @@ jQuery(function(){
 						border: '1px solid #CCC'
 					};
 					var img_base = window.module.Globals.prototype.s3_uploaded_images_base_url;
-					this.gl_img.attr('src', 	img_base + 'guest_lists/' 		+ model.get('pgla_image') 	+ '_p.jpg').css(img_style);
+				
+					this.gl_img.attr('src', 	img_base + 'guest_lists/' 		+ model.get('pgla_image') 	+ '_p.jpg').css({
+						'max-width': 	'188px',
+						'max-height': 	'266px',
+						border: 		'1px solid #CCC'
+					});
 					this.venue_img.attr('src', 	img_base + 'venues/banners/' 	+ model.get('tv_image') 	+ '_t.jpg').css(img_style);
 															
 				}

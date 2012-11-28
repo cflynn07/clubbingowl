@@ -1,4 +1,4 @@
-<span data-foo="hi" style="color: red; font-weight: bold;"><%= day_title %></span><br>
+<span style="color: red; font-weight: bold;"><%= day_title %></span><br>
 
 <% for(var i=0; i < day_lists.length; i++){ %>
 	
