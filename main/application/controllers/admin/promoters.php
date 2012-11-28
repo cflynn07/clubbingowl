@@ -1139,12 +1139,18 @@ class Promoters extends MY_Controller {
 				break;
 			case 'retrieve_guest_lists':
 				
-				list($weekly_guest_lists, $users) = $this->_helper_promoter_guest_lists_and_members();
-				$return = new stdClass;
-				$return->weekly_guest_lists = $weekly_guest_lists;
-				$return->users 				= $users;
+				
+				
+				
+				list($weekly_guest_lists, $users) 	= $this->_helper_promoter_guest_lists_and_members($this->input->post('pgla_id'), $this->input->post('weeks_offset'));
+				$return 							= new stdClass;
+				$return->weekly_guest_lists 		= $weekly_guest_lists;
+				$return->users 						= $users;
 				
 				die(json_encode(array('success' => true, 'message' => $return)));
+				
+				
+				
 				
 				break;
 			case 'update_pending_requests':
@@ -1152,6 +1158,7 @@ class Promoters extends MY_Controller {
 				$this->_helper_respond_pending_request();
 				
 				break;
+			/*
 			case 'client_stats':
 				$result = $this->library_promoters->retrieve_client_stats();
 				die(json_encode($result));
@@ -1164,6 +1171,7 @@ class Promoters extends MY_Controller {
 				$result = $this->library_promoters->manual_list_add();
 				die(json_encode($result));
 				break;
+			 * */
 			case 'update_promoter_reservation_host_notes':
 				
 				$host_message = strip_tags($this->input->post('host_message'));
@@ -1798,7 +1806,7 @@ class Promoters extends MY_Controller {
 	
 	
 	
-	private function _helper_promoter_guest_lists_and_members(){
+	private function _helper_promoter_guest_lists_and_members($pgla_id = false, $offset = false){
 		
 		//retrieve a list of all the guest lists a promoter has set up
 		$this->load->model('model_users_promoters', 'users_promoters', true);
@@ -1806,10 +1814,32 @@ class Promoters extends MY_Controller {
 		
 		$this->load->model('model_guest_lists', 'guest_lists', true);
 		//for each guest list, find all groups associated with it
-		foreach($weekly_guest_lists as &$gla){
+		foreach($weekly_guest_lists as $key => &$gla){
 	
-			$gla->human_date = $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->pgla_day, 's')));
-			$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
+	
+	
+			//only grab the specific pgla_id we care about
+			if($pgla_id){
+				if($gla->pgla_id != $pgla_id){
+					unset($weekly_guest_lists[$key]);
+					continue;
+				}
+			}
+			
+			
+	
+			if(!$offset){
+				$gla->human_date = $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->pgla_day, 's')));
+				$gla->current_week = true;
+			}else{
+				$gla->human_date = $gla->human_date = date('l m/d/y', strtotime('next ' . rtrim($gla->pgla_day, 's') . '-' . $offset . ' weeks'));	
+				$gla->current_week = false;
+			}
+			
+			if($offset == 0)
+				$offset = false;
+			
+			$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day, $offset);
 	
 		}
 		

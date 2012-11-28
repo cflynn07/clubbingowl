@@ -933,12 +933,14 @@ jQuery(function(){
 				if(!active_list.length)
 					return false;
 					
+					
+					
 				active_list = active_list[0];
 				this.active_list = active_list;
 
 				//insert list status
 				var view_status = new Views.Status({
-					model: active_list
+					model: this.active_list
 				});		
 				
 				
@@ -950,23 +952,99 @@ jQuery(function(){
 				
 				//this.$el.tabs();
 				this.$el.find('input.guest_list_datepicker').datepicker({
-					dateFormat: 'DD MM d, yy',
-					maxDate: '+6d',
-					minDate: '-3y',
-					onSelect: function(dateText, inst){
+					dateFormat: 	'DD m/d/y',
+					maxDate: 		'+6d',
+				//	minDate: 		'-3y',
+					beforeShowDay: 	function(date){
 						
-						var dateObj = {
-				        	currentYear: 	inst.selectedYear,
-				        	currentMonth: 	inst.selectedMonth,
-				        	currentDay: 	inst.selectedDay
-				        }
-				        console.log(dateObj);
-				        
+						var cal_day, pgla_day, pgla_day_int;
+						
+						cal_day = date.getDay();
+    					pgla_day = _this.active_list.get('pgla_day');
+    											
+						switch(pgla_day){
+							case 'sundays':
+								pgla_day_int = 0;
+								break;
+							case 'mondays':
+								pgla_day_int = 1;
+								break;
+							case 'tuesdays':
+								pgla_day_int = 2;
+								break;
+							case 'wednesdays':
+								pgla_day_int = 3;
+								break;
+							case 'thursdays':
+								pgla_day_int = 4;
+								break;
+							case 'fridays':
+								pgla_day_int = 5;
+								break;
+							case 'saturdays':
+								pgla_day_int = 6;
+								break;
+						}
+						
+						if(cal_day != pgla_day_int){
+							return [false, 'co-datepicker-unselectable'];
+						}else{
+							return [true, ''];
+						}
+						
+					},
+					onSelect: 		function(dateText, inst){
+
+						//http://stackoverflow.com/questions/11339884/php-form-checking-2-dates-arent-too-far-apart
+						//http://stackoverflow.com/questions/1579010/get-next-date-from-weekday-in-javascript
+						var nextDay = function(x){
+						    var now = new Date();    
+						    now.setDate(now.getDate() + (x+(7-now.getDay())) % 7);
+						    return now;
+						}
+						
+												
+						//var next_occurance_date = new Date(this.active_list.get('human_date'));
+						var pgla_day, pgla_day_int, pgla_next_occurance_date, datepicker_selected_date, weeks_apart;
+						
+						pgla_day = _this.active_list.get('pgla_day');
+    											
+						switch(pgla_day){
+							case 'sundays':
+								pgla_day_int = 0;
+								break;
+							case 'mondays':
+								pgla_day_int = 1;
+								break;
+							case 'tuesdays':
+								pgla_day_int = 2;
+								break;
+							case 'wednesdays':
+								pgla_day_int = 3;
+								break;
+							case 'thursdays':
+								pgla_day_int = 4;
+								break;
+							case 'fridays':
+								pgla_day_int = 5;
+								break;
+							case 'saturdays':
+								pgla_day_int = 6;
+								break;
+						}
+						
+						pgla_next_occurance_date = nextDay(pgla_day_int);
+						datepicker_selected_date = jQuery(this).datepicker('getDate');
+
+						//number of weeks apart
+						weeks_apart = Math.abs(Math.round((datepicker_selected_date - pgla_next_occurance_date) / 1000 / 60 / 60 / 168));
+						_this.fetch_week(weeks_apart);
+								        
 					}
 				});
 						
-				var tbody 	= this.$el.find('tbody');
-				var groups = active_list.get('groups');
+				var tbody  = this.$el.find('tbody');
+				var groups = this.active_list.get('groups');
 				if(!groups.length){
 					
 					var html = new EJS({
@@ -1001,6 +1079,44 @@ jQuery(function(){
 				'click a[data-action]': 	'events_click_data_action',
 				'custom-event-add-fb-data': 'custom_events_add_fb_data'
 			},
+			fetch_week: function(weeks_apart){
+				
+				var _this 	= this;
+				var pgla_id = this.active_list.get('pgla_id');				
+				
+				jQuery.background_ajax({
+					data: {
+						vc_method: 		'retrieve_guest_lists',
+						pgla_id: 		pgla_id,
+						weeks_offset: 	weeks_apart
+					},
+					success: function(data){
+														
+						if(data.success){
+							
+							var weekly_guest_list = data.message.weekly_guest_lists;
+							for(var i in weekly_guest_list){
+								weekly_guest_list = weekly_guest_list[i];
+								break;
+							}
+							
+							console.log(data);
+							_this.active_list.set(weekly_guest_list);
+							
+							window.page_obj.users = data.message.users;
+							_this.users = null;
+								
+							_this.render();			
+							_this.custom_events_add_fb_data();
+							
+						}else{
+							
+						}
+												
+					}
+				});
+						    
+			},
 			custom_events_add_fb_data: function(e){
 				
 				var _this = this;
@@ -1033,6 +1149,11 @@ jQuery(function(){
 				var action = el.attr('data-action');
 				
 				switch(action){
+					case 'return-current-week':
+					
+						this.fetch_week(0);
+					
+						break;
 					case 'manually-add':
 					
 						var manual_add_modal = new Views.ManualAddModal({
@@ -1050,7 +1171,7 @@ jQuery(function(){
 								m.set({
 									collapsed: !m.get('collapsed')
 								});
-								
+																
 							});
 						
 						this.custom_events_add_fb_data();

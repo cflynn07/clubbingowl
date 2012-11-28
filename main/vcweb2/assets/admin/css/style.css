@@ -1120,15 +1120,15 @@ div#guest_list_content li.ui-tabs-selected{
 	font-weight: 600;
 }
 
-div#guest_list_content td.ui-datepicker-today{
-	background-color: red;
-}
-
 div#guest_list_content div.datepicker{
 	margin-left: 20px;
 }
 div#guest_list_content .hidden{
 	display:none !important;
+}
+div#guest_list_content img {
+	max-width: 50px;
+	max-height: 50px;
 }
 
 
@@ -1701,9 +1701,7 @@ div#admin_managers_promoters_guest_list_wrapper ul.sitemap{
 div#admin_managers_promoters_guest_list_wrapper li.ui-tabs-selected{
 	font-weight: 600;
 }
-div#admin_managers_promoters_guest_list_wrapper td.ui-datepicker-today{
-	background-color: red;
-}
+
 div#admin_managers_promoters_guest_list_wrapper table.user_messages td.message_header{
 	background:#333 !important;
 	color:#FFF;
@@ -2032,18 +2030,6 @@ a.vc_name > span.uid{
 a.vc_name{
 	text-decoration: underline;
 }	
-td.ui-datepicker-today{
-	font-weight: bold;
-}
-td.ui-datepicker-unselectable{
-	opacity: 0.35;
-}
-td.ui-datepicker-current-day{
-	background: red !important;
-}
-.ui-datepicker td a:hover{
-	background: red;
-}
 input.hasDatepicker{
 	min-width: 180px;
 	text-align: center;
@@ -2082,6 +2068,27 @@ div#primary_right hr{
 }
 
 
-.btn-cancel {
-	
+
+
+
+
+
+
+
+
+
+.co-datepicker-unselectable {
+	background: gray;
+}
+.ui-datepicker-today{
+	//background-color: #474D6A !important;
+}
+.ui-datepicker-unselectable{
+	opacity: 0.35;
+}
+.ui-datepicker-current-day{
+	background: #474D6A !important;
+}
+.ui-datepicker-current-day a{
+	color: #FFF !important;
 }
