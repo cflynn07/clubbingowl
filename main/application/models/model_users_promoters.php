@@ -1179,6 +1179,51 @@ class Model_users_promoters extends CI_Model {
 	}
 	
 	
+	function retrieve_promoter_clients_list_detailed($promoter_id){
+				
+					
+		$clients_uids = $this->retrieve_promoter_clients_list($promoter_id);
+			
+				
+		$this->db->select('u.full_name 		as u_full_name,
+							u.first_name	as u_first_name,
+							u.last_name		as u_last_name,
+							u.email 		as u_email,
+							u.oauth_uid		as u_oauth_uid,
+							u.phone_number	as u_phone_number,
+							u.opt_out_email	as u_opt_out_email')
+			->from('users u');
+			
+		foreach($clients_uids as $c_uid){
+			$this->db->or_where('u.oauth_uid', $c_uid->pglr_user_oauth_uid);
+		}
+		
+		$query = $this->db->get();
+		$result = $query->result();
+		
+		
+		//attach gl bookings
+		foreach($result as &$user){
+			
+			$this->db->select('*')
+				->from('promoters_guest_list_authorizations pgla')
+				->join('promoters_guest_lists pgl', 				'pgl.promoters_guest_list_authorizations_id = pgla.id')
+				->join('promoters_guest_lists_reservations pglr', 	'pglr.promoter_guest_lists_id = pgl.id')
+				->where(array(
+					'pgla.user_promoter_id' => $promoter_id,
+					'pglr.user_oauth_uid'	=> $user->u_oauth_uid
+				));
+			
+			$query = $this->db->get();
+			$user->pgl_history = $query->result();
+			
+		}
+		
+				
+		return $result;
+		
+	}
+	
 	/**
 	 * Retrieves a list of all the FBID's that are a promoter's 'clients'
 	 * 
@@ -1241,7 +1286,7 @@ class Model_users_promoters extends CI_Model {
 				ON 		pgla.team_venue_id = tv.id
 				
 				WHERE
-					pgla.user_promoter_id = ? ";
+					pgla.user_promoter_id = ? AND pglr.manual_add = 0 ";
 				
 			//	if($promoter_team_fan_page_id !== false)
 			//		$sql .= " AND tv.team_fan_page_id = ?";

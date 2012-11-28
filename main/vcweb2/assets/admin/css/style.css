@@ -2092,3 +2092,34 @@ div#primary_right hr{
 .ui-datepicker-current-day a{
 	color: #FFF !important;
 }
+
+
+
+
+.dataTables_wrapper table.normal thead th {
+	padding-left: 10px;
+}
+.DataTables_sort_wrapper {
+	display: inline-block;
+}
+.DataTables_sort_wrapper .ui-icon{
+	display: inline-block;
+	float: left;
+}
+.dataTables_info {
+	float: left;
+	min-width: 40%;
+}
+.dataTables_paginate {
+	float: right;
+}
+.ui-widget-header select {
+	margin-right: 0px !important;
+}
+.dataTables_length {
+	float: left;
+}
+.dataTables_filter {
+	float: right;
+	margin-right: -15px;
+}

@@ -481,10 +481,17 @@ class library_promoters{
 		
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		$clients = $this->CI->users_promoters->retrieve_promoter_clients_list($this->promoter->up_id, $this->promoter->team->t_fan_page_id);
-		foreach($clients as &$client){
+		foreach($clients as $key => &$client){
+			
+			if($client->pglr_user_oauth_uid === null){
+				unset($clients[$key]);
+				continue;
+			}
+			
 			$client = $client->pglr_user_oauth_uid;
 		}
 		return $clients;
+		
 	}
 	
 	/**

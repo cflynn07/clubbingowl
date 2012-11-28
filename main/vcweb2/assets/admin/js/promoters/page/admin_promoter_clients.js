@@ -4,8 +4,123 @@ if(typeof window.vc_page_scripts === 'undefined')
 jQuery(function(){
 	
 	window.vc_page_scripts.admin_promoter_clients = function(){
-						
-		var unbind_callbacks = [];
+
+		var users;
+		
+		
+		var Models 		= {};
+		var Collections = {};
+		var Views 		= {};
+		
+		
+		Models.User = {
+			initialize: function(){
+				
+			}
+		}; Models.User = Backbone.Model.extend(Models.User);
+		
+		Collections.Users = {
+			model: Models.User,
+			initialize: function(){
+				
+			}
+		}; Collections.Users = Backbone.Collection.extend(Collections.Users);
+		
+		Views.UsersTable = {
+			data_table: null,
+			tagName: 'div',
+			initialize: function(){
+				
+				this.render();
+			},
+			render: function(){
+				
+				if(this.data_table !== null){
+					this.data_table.fnDestroy;
+					this.data_table = null;
+				}
+				
+				this.data_table = this.$el.find('table').dataTable({
+					"bJQueryUI": true,
+				});
+				
+				var _this = this;
+				this.collection.each(function(m){
+					
+					console.log(m.toJSON());
+					
+					var data = [
+						m.get('u_full_name'),
+						m.get('facebook_data').sex,
+						'',
+					//	m.get('u_full_name'),
+						m.get('u_phone_number').replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3'),
+						m.get('u_email')
+					];
+					
+					console.log(data);
+					
+					_this.data_table.fnAddData(data);
+					
+				});
+				
+				
+				this.$el.find('table').show();
+				
+			},
+			events: {
+				
+			}
+		}; Views.UsersTable = Backbone.View.extend(Views.UsersTable);
+		
+		
+		
+		var collection_users;
+		var views_users;
+		
+		var clients_uids = [];
+		for(var i in window.page_obj.clients){
+			clients_uids.push(window.page_obj.clients[i].u_oauth_uid);
+		}
+		
+		jQuery.fbUserLookup(clients_uids, 'uid, name, pic_square, pic_big, sex, third_party_id', function(rows){
+	
+			
+			//combine fb and co data
+			for(var i in rows){
+				for(var k in window.page_obj.clients){
+					if(rows[i].uid == window.page_obj.clients[k].u_oauth_uid){
+						window.page_obj.clients[k].facebook_data = rows[i];
+					}
+				}
+			}
+			
+			
+			collection_users = new Collections.Users(window.page_obj.clients);
+			views_users = new Views.UsersTable({
+				el: '#all_clients',
+				collection: collection_users
+			});
+			
+		});
+
+
+		
+		
+		
+
+
+
+
+
+		
+		//triggered when page is unloaded
+		window.module.Globals.prototype.unbind_callback = function(){
+			
+
+		}
+		
+		return;
 		
 		
 		
@@ -101,17 +216,7 @@ jQuery(function(){
 
 
 
-		//triggered when page is unloaded
-		window.module.Globals.prototype.unbind_callback = function(){
-			
-			for(var i in unbind_callbacks){
-				
-				var callback = unbind_callbacks[i];
-				callback();
-				
-			}
-			
-		}
+		
 		
 	}
 	

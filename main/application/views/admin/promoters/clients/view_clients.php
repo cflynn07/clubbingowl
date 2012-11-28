@@ -6,11 +6,57 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
 
+<h1>ClubbingOwl Clients</h1>
+<p>View & Manage your ClubbingOwl Client Database</p>
 
 
-<h1>Clients</h1>
 
 <div class="full_width last" style="width:1050px;">
+	
+	
+	
+	
+	<div id="all_clients" class="full_width last">
+		
+		<h3>All Clients</h3>
+		
+		<table style="width:100%; display:none; margin-bottom:5px;" class="normal">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Friend Status</th>
+					<th>Phone Number</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+		</table>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<?php if(false): ?>
 		
 	<div class="one_half">
 		
@@ -148,5 +194,7 @@
 		</div>
 		
 	</div>	
+	
+	<?php endif; ?>
 	
 </div>

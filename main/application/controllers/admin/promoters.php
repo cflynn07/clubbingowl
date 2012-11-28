@@ -468,9 +468,20 @@ class Promoters extends MY_Controller {
 	 */
 	private function _clients($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		$data['clients'] = $this->library_promoters->retrieve_promoter_clients_list();
+		
+		
+		
+//		$data['clients'] = $this->library_promoters->retrieve_promoter_clients_list();
 //		Kint::dump($data);
+
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$data['clients'] = $this->users_promoters->retrieve_promoter_clients_list_detailed($this->library_promoters->promoter->up_id);
+
+
 		$this->body_html = $this->load->view('admin/promoters/clients/view_clients', $data, true);
+		
+		
+		
 		
 	}
 	
