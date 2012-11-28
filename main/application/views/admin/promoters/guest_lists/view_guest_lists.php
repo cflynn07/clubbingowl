@@ -19,6 +19,8 @@
 	
 	<div id="left_menu" class="one_fourth">
 		
+		<a href="<?= $central->promoter_admin_link_base . 'manage_guest_lists/' ?>" class="ajaxify button_link btn-action">Edit Guest Lists</a>	
+		
 		<div style="width:100%; text-align:center; margin-bottom:10px; border-bottom:1px solid #000;">
 			<img id="left_menu_gl_img" 		src="" alt="" /><br/>
 			<img id="left_menu_venue_img" 	src="" alt="" />

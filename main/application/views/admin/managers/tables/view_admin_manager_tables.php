@@ -27,7 +27,7 @@
 	</div>
 	
 	<h1>Table & Guest List Reservations</h1>
-	
+		
 	<h3>
 		Venue Reservations
 		<img class="info_icon tooltip" title="Requests organized by venue" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
@@ -62,6 +62,9 @@
 				<div class="full_width last">
 					
 					<h3 style="color:red;"><?= $venue->tv_name ?></h3>
+					
+					<a href="<?= $central->manager_admin_link_base . 'settings_venues_edit_floorplan/' . $venue->tv_id . '/' ?>" class="ajaxify button_link btn-action">Edit Floorplan</a>	
+					<br/><br/>
 					
 					<div class="tabs_tables tabs_tables_tv_id_<?= $venue->tv_id ?>">
 						<div style="display:none;" class="tv_id tv_id_<?= $venue->tv_id ?>"><?= $venue->tv_id ?></div>
