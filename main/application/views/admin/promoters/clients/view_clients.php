@@ -20,6 +20,11 @@
 		
 		<h3>All Clients</h3>
 		
+		<img style="vertical-align:middle;margin-right:5px;" src="<?= $central->admin_assets ?>images/icons/small_icons_3/Box_Download.png" alt="" /><span><a href="">Export Clients</a></span>
+		
+		<br/>
+		<br/>
+		
 		<table style="width:100%; display:none; margin-bottom:5px;" class="normal">
 			<thead>
 				<tr>
