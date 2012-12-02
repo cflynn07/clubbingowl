@@ -83,6 +83,7 @@ if(MODE == 'staging'){
 
 //force https globally
 if(php_sapi_name() !== 'cli'){
+	/*	
 	if(strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0 && strpos($_SERVER['REQUEST_URI'], '/plugin') !== 0){
 		if(strtolower($_SERVER['HTTPS']) != 'on'){
 			$base_url = 'https';
@@ -94,6 +95,7 @@ if(php_sapi_name() !== 'cli'){
 			die();
 		}
 	}
+	 * */
 }	
 
 
@@ -273,7 +275,7 @@ date_default_timezone_set('America/New_York');
 
 $local_mode = 'development';
 $staging_mode = 'development';
-//$production_mode = 'development';
+$production_mode = 'development';
 
 switch(MODE){
 	case 'local':
