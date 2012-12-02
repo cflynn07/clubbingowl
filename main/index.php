@@ -32,13 +32,12 @@ unset($dotcloud_environment);
 
 //temporary access control
 if(FALSE && MODE != 'local'){
-	
 	if(isset($_GET['token_value'])){
 		setcookie('token_value', 
-					$_GET['token_value'],
-					time()+60*60*24*30,
-					'/',
-					(SITE . '.' . TLD),
+					$_GET['token_value'], 
+					time()+60*60*24*30, 
+					'/', 
+					(SITE . '.' . TLD), 
 					false,
 					false);
 		
@@ -84,7 +83,6 @@ if(MODE == 'staging'){
 
 //force https globally
 if(php_sapi_name() !== 'cli'){
-	/*	
 	if(strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0 && strpos($_SERVER['REQUEST_URI'], '/plugin') !== 0){
 		if(strtolower($_SERVER['HTTPS']) != 'on'){
 			$base_url = 'https';
@@ -96,7 +94,6 @@ if(php_sapi_name() !== 'cli'){
 			die();
 		}
 	}
-	 * */
 }	
 
 
@@ -170,7 +167,7 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 	
 	//http://www.staticowl.dev/assets/js?g=base&cache=20_1321057554_1349920359
 	//one exception, www.staticowl.com/assets/
-	if($_SERVER['HTTP_HOST'] == 'www.' . ASSETS_SITE . '.' . TLD){
+/*	if($_SERVER['HTTP_HOST'] == 'www.' . ASSETS_SITE . '.' . TLD){
 		if(strpos($_SERVER['REQUEST_URI'], '/assets') === 0)
 			$perform_redirect = false;
 		else
@@ -184,7 +181,7 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		}
 		
 	}
-
+*/
 
 
 	if($perform_redirect){		
