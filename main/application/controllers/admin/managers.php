@@ -1348,6 +1348,9 @@ class Managers extends MY_Controller {
 	 */
 	private function _support($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		$data = array();
+		
+		$this->body_html = $this->load->view('admin/promoters/' . 'support/view_admin_promoter_support', $data, true);
 		
 		
 	}

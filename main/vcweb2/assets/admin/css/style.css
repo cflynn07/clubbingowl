@@ -2123,3 +2123,25 @@ div#primary_right hr{
 	float: right;
 	margin-right: -15px;
 }
+
+
+
+#support_table {
+	border: 5px solid #FFF;
+	width: 100%;
+	background: 	lightgray;
+	border-radius: 	10px;
+	padding: 		10px;
+}
+
+#support_table td.pic {
+	width: 150px;
+	text-align: center;
+}
+#support_table td.body {
+	padding-left: 10px;
+	padding-top: 10px;
+}
+#support_table td {
+	vertical-align: top;
+}
