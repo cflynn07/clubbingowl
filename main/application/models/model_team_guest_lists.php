@@ -205,7 +205,7 @@ class Model_team_guest_lists extends CI_Model {
 				
 		/* --------------------------------- */
 		//add phone number to users table if set
-		if($text_message && !$approve_override){
+		if($text_message && !$approve_override && $phone_number){
 			
 			$this->db->where('oauth_uid', $oauth_uid);
 			$this->db->update('users', array('phone_number' => preg_replace('/\D/', '', $phone_number),
