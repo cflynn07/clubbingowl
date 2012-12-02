@@ -20,11 +20,18 @@
 		
 		<h3>All Clients</h3>
 		
-		<img style="vertical-align:middle;margin-right:5px;" src="<?= $central->admin_assets ?>images/icons/small_icons_3/Box_Download.png" alt="" /><span><a href="">Export Clients</a></span>
+		<div style="display:none;" id="clients_export_hidden">
+			<img style="vertical-align:middle;margin-right:5px;" src="<?= $central->admin_assets ?>images/icons/small_icons_3/Box_Download.png" alt="" /><span><a data-action="clients_export" href="#">Export Clients</a></span>
+		</div>
 		
 		<br/>
+		
+		<p id="p_clients_export" style="display:none; margin-top:10px; margin-bottom:0px;">Copy & Paste CSV-formatted Client Database</p>
+		<textarea id="clients_export" style="display:none; min-width:600px; min-height:200px; margin-top:10px; margin-bottom:10px;"></textarea>
+		
 		<br/>
 		
+		<img id="loading_indicator" src="<?= $central->global_assets ?>images/ajax.gif" alt="loading..." />
 		<table style="width:100%; display:none; margin-bottom:5px;" class="normal">
 			<thead>
 				<tr>
