@@ -13,7 +13,57 @@ class Model_teams extends CI_Model {
 	/*-------------------------------------------------------------------------
 	 |	Create Methods (create)
 	 | ------------------------------------------------------------------------ */
-
+	
+	 function retrieve_client_notes($options){
+	 	
+		$this->db->select('*')
+			->from('clients_notes')
+			->where($options);
+		$query = $this->db->get();
+		return $query->result();
+		
+	 }
+	 function update_client_notes($options = array()){
+	 	
+		//find out if notes exist
+		$query = $this->db->get_where('clients_notes', array(
+			'user_oauth_uid'		=> $options['users_oauth_uid'],
+			'client_oauth_uid'		=> $options['client_oauth_uid'],
+			'team_fan_page_id'		=> $options['team_fan_page_id']
+		));
+		$result = $query->row();
+		
+		
+		if(!$result){
+			//notes don't exist yet
+			
+			$this->db->insert('clients_notes', array(
+				'public_notes'		=> $options['public_notes'],
+				'private_notes'		=> $options['private_notes'],
+				'client_oauth_uid'	=> $options['client_oauth_uid'],
+				'user_oauth_uid'	=> $options['users_oauth_uid'],
+				'team_fan_page_id'	=> $options['team_fan_page_id']
+			));
+			
+					
+		}else{
+			//notes exist -- update
+			$this->db->where(array(
+				'client_oauth_uid'	=> $options['client_oauth_uid'],
+				'user_oauth_uid'	=> $options['users_oauth_uid'],
+				'team_fan_page_id'	=> $options['team_fan_page_id']
+			));
+			$this->db->update('clients_notes', array(
+				'public_notes'		=> $options['public_notes'],
+				'private_notes'		=> $options['private_notes'],
+				'team_fan_page_id'	=> $options['team_fan_page_id']
+			));
+			
+		}
+		
+		
+	 }
+	
 	 function edit_team_venue($fan_page_id, $tv_id, $venue_data){
 	 	
 		$this->db->where(array(

@@ -483,12 +483,43 @@ class Promoters extends MY_Controller {
 				if($cl->u_oauth_uid == $arg1)
 					$client = $cl;
 			}
-			if(!$client){
-				redirect('/admin/promoters/clients/', 302);
-				die();
+			
+			$this->load->model('model_teams', 'teams', true);
+			//retrieve client notes
+			$client_notes_team = $this->teams->retrieve_client_notes(array(
+				'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
+				'client_oauth_uid'	=> $arg1
+			));
+			
+			
+			$users = array();
+			foreach($client_notes_team as $cnt){
+				$users[] = $cnt->user_oauth_uid;
+			}
+			$users = array_values($users);
+			$users = array_unique($users);
+			
+			
+			
+			$my_client_notes = false;
+			foreach($client_notes_team as $key => $cnt){
+				if($cnt->user_oauth_uid == $this->vc_user->oauth_uid){
+					$my_client_notes = $cnt;
+					unset($client_notes_team[$key]);
+					break;
+				}
 			}
 			
+			$page_data = new stdClass;
+			$page_data->my_client_notes = $my_client_notes;
+			$page_data->users = $users;
+			$page_data->client_notes_team = $client_notes_team;
 			
+			
+			
+			
+	
+			$data['data']	= $page_data;
 			$data['client'] = $client;
 			$this->body_html = $this->load->view('admin/promoters/clients/view_clients_individual', $data, true);;
 			
@@ -498,9 +529,7 @@ class Promoters extends MY_Controller {
 
 
 		$this->body_html = $this->load->view('admin/promoters/clients/view_clients', $data, true);
-		
-		
-		
+
 		
 	}
 	
@@ -1369,6 +1398,32 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'update_client_notes':
+				
+				$this->load->model('model_teams', 'teams', true);
+				$this->teams->update_client_notes(array(
+					'users_oauth_uid'	=> $this->vc_user->oauth_uid,
+					'client_oauth_uid'	=> $arg1,
+					'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
+					'public_notes'		=> $this->input->post('public_notes'),
+					'private_notes'		=> $this->input->post('private_notes')
+				));
+				
+				$this->teams->create_team_announcement(array(
+					'type'				=> 'json',
+					'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
+					'message'			=> json_encode(array(
+					
+						'subtype'		=> 'new_client_notes',
+						'public_notes'	=> $this->input->post('public_notes')
+						
+					)),
+					'manager_oauth_uid'	=> $this->vc_user->oauth_uid
+				));
+				
+				die(json_encode(array('success' => true)));
+				
+				break;
 			case 'client_list_retrieve':
 				
 				$this->load->helper('check_gearman_job_complete');

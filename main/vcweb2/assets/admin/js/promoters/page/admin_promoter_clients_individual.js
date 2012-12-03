@@ -24,7 +24,10 @@ jQuery(function(){
 			el: '#clients_individual_wrapper',
 			initialize: function(){
 				
-				this.render();
+				if(window.page_obj.client)
+					this.render();
+				else
+					null;
 			},
 			render: function(){
 				
@@ -39,10 +42,55 @@ jQuery(function(){
 					width: 1025,
 					height: 200
 				});
-					
 				
+				var _this = this;
+				jQuery.fbUserLookup(window.page_obj.users, '', function(rows){
+					
+					console.log('rows');
+					console.log(rows);
+					
+					for(var i=0; i<rows.length; i++){
+						_this.$el.find('*[data-name="' + rows[i].uid + '"]').html(rows[i].name);
+					}
+					
+				});
+									
 			},
 			events: {
+				'click *[data-action]': 'click_data_action'
+			},
+			click_data_action: function(e){
+				
+				e.preventDefault();
+				var el = jQuery(e.currentTarget);
+				var action = el.attr('data-action');
+				switch(action){
+					case 'save':
+					
+						this.$el.find('*[data-action="save"]').hide();
+						this.$el.find('img.loading_indicator').show();
+						var _this = this;
+						
+						jQuery.background_ajax({
+							data: {
+								vc_method: 		'update_client_notes',
+								private_notes: 	_this.$el.find('#private_notes').val(),
+								public_notes: 	_this.$el.find('#public_notes').val()
+							},
+							success: function(data){
+								
+								console.log(data);
+								_this.$el.find('*[data-action="save"]').show();
+								_this.$el.find('img.loading_indicator').hide();
+								
+							}
+						})
+					
+						break;
+				}
+				
+				
+				return false;
 				
 			}
 		}; Views.Client = Backbone.View.extend(Views.Client);
@@ -52,7 +100,6 @@ jQuery(function(){
 		var view_client = new Views.Client({
 			model: model_client
 		});
-
 
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
