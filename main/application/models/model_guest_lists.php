@@ -204,7 +204,7 @@ class Model_guest_lists extends CI_Model {
 		if($text_message && $phone_number){
 			
 			$this->db->where('oauth_uid', $head);
-			$this->db->update('users', array('phone_number' => preg_replace('/\D/', '', $phone_number),
+			$this->db->update('users', array('phone_number' 	=> preg_replace('/\D/', '', $phone_number),
 												'phone_carrier' => $phone_carrier));
 			
 		}

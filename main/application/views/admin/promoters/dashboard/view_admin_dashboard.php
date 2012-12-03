@@ -79,9 +79,10 @@
 			
 			<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 						
-			<div id="team_announcements" class="tabs" style="display:none;height:320px;">
+			<div id="team_announcements" style="display:none;height:320px; overflow-y: scroll;">
 				<?php //Kint::dump($announcements); ?>
-								
+				
+				
 				<?php foreach($announcements as $an): ?>
 					<div>
 						
@@ -90,10 +91,17 @@
 								<tr>
 									<td style="width:50px; border-right:1px solid #CCC;">
 										<div class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
-										<p><?= date('m.d.y g:i a', $an->created) ?></p>
+										<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
+										<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
 									</td>
 									<td style="padding-top:10px;">
-										<div class="announcement_message"><?= $an->message ?></div>
+										
+										<?php if($an->type == 'regular'): ?>
+											<div class="announcement_message"><?= $an->message ?></div>
+										<?php else: ?>
+											
+										<?php endif; ?>
+									
 									</td>
 								</tr>
 							</tbody>

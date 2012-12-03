@@ -1017,7 +1017,8 @@ div#loading_modal div#loading_modal_inner p{
 
 
 div#s_admin_promoter_dashboard div#team_announcements{
-	min-height:200px;
+//	min-height:200px;
+	min-height:500px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 10px;
@@ -2144,4 +2145,26 @@ div#primary_right hr{
 }
 #support_table td {
 	vertical-align: top;
+}
+
+#clients_individual_wrapper p.subnote {
+	margin: 0 0 5px 5px;
+}
+#clients_individual_wrapper > div.ui-widget > div {
+	padding: 10px;
+}
+#clients_individual_wrapper img#client_pic {
+	
+}
+#clients_individual_wrapper h2 {
+	margin-bottom: 5px;
+	padding-top: 10px;
+}
+#clients_individual_wrapper textarea.notes {
+	min-width: 1025px;
+	max-width: 1025px;
+	min-height: 200px;
+	border: 1px dashed #CCC;
+	margin-left: auto;
+	margin-right: auto;
 }

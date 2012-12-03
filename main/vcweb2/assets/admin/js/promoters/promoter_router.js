@@ -24,6 +24,7 @@ jQuery(function(){
 		'/reports_sales': 												'reports_sales',
 		'/reports_guest_lists': 										'reports_guest_lists',
 		
+		'/clients/:oauth_uid': 											'clients_individual',
 		'/clients': 													'clients',
 		
 		'/tables':														'tables',
@@ -149,6 +150,16 @@ jQuery(function(){
 			
 			window.promoter_admin_menu_set_active('reports');
 			console.log('--------- promoter reports_guest_lists ---------');
+			
+		},
+		
+		// --------------------------------------------------------------------------
+		
+		clients_individual: function(){
+			
+			window.promoter_admin_menu_set_active('clients');
+			callback_helper(window.vc_page_scripts.admin_promoter_clients_individual);
+			console.log('--------- promoter clients individual ---------');
 			
 		},
 		

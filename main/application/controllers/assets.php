@@ -426,6 +426,7 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('promoters/page/admin_promoter_guest_list', 				'admin_js');
 						$group_assets[] = array('promoters/page/admin_promoter_tables', 					'admin_js');
 						$group_assets[] = array('promoters/page/admin_promoter_clients', 					'admin_js');
+						$group_assets[] = array('promoters/page/admin_promoter_clients_individual', 		'admin_js');
 						$group_assets[] = array('promoters/page/admin_promoter_my_profile', 				'admin_js');
 						$group_assets[] = array('promoters/page/admin_promoter_my_profile_img', 			'admin_js');
 						$group_assets[] = array('promoters/page/admin_promoter_manage_guest_lists', 		'admin_js');

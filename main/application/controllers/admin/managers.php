@@ -1427,7 +1427,8 @@ class Managers extends MY_Controller {
 				$this->teams->create_team_announcement(array(
 					'manager_oauth_uid' 	=> $this->vc_user->oauth_uid,
 					'message'				=> $this->input->post('message'),
-					'team_fan_page_id'		=> $this->vc_user->manager->team_fan_page_id
+					'team_fan_page_id'		=> $this->vc_user->manager->team_fan_page_id,
+					'type'					=> 'regular'
 				));
 				die(json_encode(array('success' => true, 'message' => '')));
 				

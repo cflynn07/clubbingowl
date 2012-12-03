@@ -242,6 +242,9 @@ class Promoters extends MY_Controller {
 		elseif($arg0 != '' && $arg1 != '' && $arg2 == ''){
 			
 			switch($arg0){
+				case 'clients':
+					
+					break;
 				case 'manage_guest_lists_edit':
 					
 					break;
@@ -333,10 +336,10 @@ class Promoters extends MY_Controller {
 		
 		
 		$statistics = new stdClass;
-		$statistics->num_clients = $this->library_promoters->retrieve_num_clients();
-		$statistics->num_total_guest_list_reservations = $this->library_promoters->retrieve_num_guest_list_reservation_requests(false);
-		$statistics->num_upcoming_guest_list_reservations = $this->library_promoters->retrieve_num_guest_list_reservation_requests();
-		$statistics->trailing_weekly_guest_list_reservation_requests = $this->library_promoters->retrieve_trailing_weekly_guest_list_reservation_requests();
+		$statistics->num_clients 										= $this->library_promoters->retrieve_num_clients();
+		$statistics->num_total_guest_list_reservations 					= $this->library_promoters->retrieve_num_guest_list_reservation_requests(false);
+		$statistics->num_upcoming_guest_list_reservations 				= $this->library_promoters->retrieve_num_guest_list_reservation_requests();
+		$statistics->trailing_weekly_guest_list_reservation_requests 	= $this->library_promoters->retrieve_trailing_weekly_guest_list_reservation_requests();
 		
 		
 		
@@ -469,13 +472,29 @@ class Promoters extends MY_Controller {
 	private function _clients($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
-		
-		
-//		$data['clients'] = $this->library_promoters->retrieve_promoter_clients_list();
-//		Kint::dump($data);
-
 		$this->load->model('model_users_promoters', 'users_promoters', true);
 		$data['clients'] = $this->users_promoters->retrieve_promoter_clients_list_detailed($this->library_promoters->promoter->up_id);
+		
+		
+		if($arg1){
+			
+			$client = false;
+			foreach($data['clients'] as $cl){
+				if($cl->u_oauth_uid == $arg1)
+					$client = $cl;
+			}
+			if(!$client){
+				redirect('/admin/promoters/clients/', 302);
+				die();
+			}
+			
+			
+			$data['client'] = $client;
+			$this->body_html = $this->load->view('admin/promoters/clients/view_clients_individual', $data, true);;
+			
+			return;
+		}
+		
 
 
 		$this->body_html = $this->load->view('admin/promoters/clients/view_clients', $data, true);

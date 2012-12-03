@@ -38,6 +38,7 @@
 					<th>Friend Status</th>
 					<th>Phone Number</th>
 					<th>Email</th>
+					<th>Facebook Profile</th>
 				</tr>
 			</thead>
 		</table>

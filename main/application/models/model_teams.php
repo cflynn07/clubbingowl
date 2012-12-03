@@ -49,7 +49,9 @@ class Model_teams extends CI_Model {
 		$this->db->insert('manager_announcements', array(
 			'manager_oauth_uid' 	=> $data['manager_oauth_uid'],
 			'message' 				=> $data['message'],
-			'created' 				=> time()
+			'created' 				=> time(),
+			'team_fan_page_id'		=> $data['team_fan_page_id'],
+			'type'					=> $data['type']
 		));
 		
 		
@@ -82,16 +84,32 @@ class Model_teams extends CI_Model {
 		// -------------------------------
 		
 		//first look up all managers
-		$query = $this->db->get_where('managers_teams', array('fan_page_id' => $data['team_fan_page_id'], 'banned' => 0));
-		$result = $query->result();
+	//	$query = $this->db->get_where('managers_teams', array('fan_page_id' => $data['team_fan_page_id'], 'banned' => 0));
+	//	$result = $query->result();
 		
-		$manager_oauth_uids = array();
-		foreach($result as $res){
-			$manager_oauth_uids[] = $res->user_oauth_uid;
-		}
+	//	$manager_oauth_uids = array();
+	//	foreach($result as $res){
+	//		$manager_oauth_uids[] = $res->user_oauth_uid;
+	//	}
 		
-		if(!$manager_oauth_uids)
-			return array();
+		
+		
+		//add promoters to mix
+	//	$this->db->select('up.users_oauth_uid as user_oauth_uid')
+	//		->from('users_promoters up')
+	//		->join('promoters_teams pt', 'pt.promoter_id = up.id')
+	//		->where(array(
+	//			'pt.team_fan_page_id' => $data['team_fan_page_id']
+	//		));
+	//	$query = $this->db->get();
+	//	$result = $query->result();
+	//	foreach($result as $res){
+	//		$manager_oauth_uids[] = $res->user_oauth_uid;
+	//	}
+		
+		
+	//	if(!$manager_oauth_uids)
+	//		return array();
 		
 		
 		//now retrieve all messages with these managers
@@ -101,15 +119,15 @@ class Model_teams extends CI_Model {
 				
 				FROM 	manager_announcements ma 
 				
-				WHERE 	";
-		foreach($manager_oauth_uids as $ma){
-			$sql .= "ma.manager_oauth_uid = ? || ";
-		}
-		$sql = rtrim($sql, ' || ');
+				WHERE 	team_fan_page_id = " . $data['team_fan_page_id'];
+	//	foreach($manager_oauth_uids as $ma){
+	//		$sql .= "ma.manager_oauth_uid = ? || ";
+	//	}
+	//	$sql = rtrim($sql, ' || ');
 		
 		$sql .= " ORDER BY ma.created DESC";
 		
-		$query = $this->db->query($sql, $manager_oauth_uids);
+		$query = $this->db->query($sql);
 		
 		
 		return $query->result();
