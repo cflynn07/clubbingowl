@@ -104,14 +104,14 @@ class Model_teams extends CI_Model {
 			'type'					=> $data['type']
 		));
 		
-		
-		$this->load->helper('run_gearman_job');
-		run_gearman_job('gearman_send_sms_mass_text_team_announcements', array(
-			'message'			=> $data['message'],
-			'manager_oauth_uid' => $data['manager_oauth_uid'],
-			'team_fan_page_id' 	=> $data['team_fan_page_id']
-		), false);
-		
+		if($data['type'] == 'regular'){
+			$this->load->helper('run_gearman_job');
+			run_gearman_job('gearman_send_sms_mass_text_team_announcements', array(
+				'message'			=> $data['message'],
+				'manager_oauth_uid' => $data['manager_oauth_uid'],
+				'team_fan_page_id' 	=> $data['team_fan_page_id']
+			), false);
+		}
 		
 		return true;
 	 }
