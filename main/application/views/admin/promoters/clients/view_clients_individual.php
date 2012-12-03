@@ -83,11 +83,13 @@
 			
 		</div>
 
-		
+		<?php if(false): ?>
 		
 		<div class="full_width last" style="clear:both;">
 			<h2>History</h2>
 		</div>
+		
+		<?php endif; ?>
 		
 	</div>
 	

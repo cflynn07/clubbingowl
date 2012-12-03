@@ -54,6 +54,9 @@ jQuery(function(){
 				for(var i in window.page_obj.team_chat_members.promoters){
 					team_managers.push(window.page_obj.team_chat_members.promoters[i].oauth_uid);
 				}
+				for(var i in window.page_obj.users){
+					team_managers.push(window.page_obj.users[i]);
+				}
 				
 				_this = this;
 				if(team_managers.length > 0){
@@ -72,7 +75,7 @@ jQuery(function(){
 				
 				for(var i in this.team_managers){
 					this.$el.find('div.pic_square_' + this.team_managers[i].uid).html('<img src="' + this.team_managers[i].pic_square + '">');
-					this.$el.find('p.name_' + this.team_managers[i].uid).html(this.team_managers[i].name);
+					this.$el.find('.name_' + this.team_managers[i].uid).html(this.team_managers[i].name);
 				}
 				
 				jQuery('img#messages_loading_indicator').remove();

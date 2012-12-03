@@ -2147,6 +2147,18 @@ div#primary_right hr{
 	vertical-align: top;
 }
 
+
+
+
+
+
+
+
+#clients_individual_wrapper td.key {
+	width: 100px;
+	font-weight: bold;
+	text-decoration: underline;
+}
 #clients_individual_wrapper p.subnote {
 	margin: 0 0 5px 5px;
 }
@@ -2167,4 +2179,10 @@ div#primary_right hr{
 	border: 1px dashed #CCC;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+
+img.info_icon {
+	float: left;
+	padding-right:5px;
 }

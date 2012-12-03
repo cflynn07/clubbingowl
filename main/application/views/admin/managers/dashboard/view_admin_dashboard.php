@@ -254,6 +254,14 @@
 										<div class="announcement_message"><?= $an->message ?></div>
 									<?php else: ?>
 										
+										<?php $message = json_decode($an->message); 
+											if($message->subtype == 'new_client_notes'):
+										?>
+										
+											<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"</span> has updated their notes on <a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+										
+										<?php endif; ?>
+										
 									<?php endif; ?>
 									
 								</td>

@@ -2,6 +2,8 @@
 	$page_obj = new stdClass;
 	$page_obj->statistics 			= $statistics;
 	$page_obj->team_chat_members 	= $team_chat_members;
+	$page_obj->users 				= $users;
+	
 	
 	$page_obj->trailing_req_chart_categories 	= array_keys($statistics->trailing_weekly_guest_list_reservation_requests);
 	$page_obj->trailing_req_chart_values 		= array_values($statistics->trailing_weekly_guest_list_reservation_requests);
@@ -16,8 +18,10 @@
 		<?php // $this->load->view('admin/_common/view_promoter_dialog_reservation_respond'); ?>
 		<?php $this->load->view('admin/_common/view_page_video_tutorial'); ?>
 		
-		<h1 style="display:inline-block;">Promoter Dashboard</h1> - (<span class="page_video_tutorial"><img src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
-		
+		<h1 style="display:inline-block;">Promoter Dashboard</h1>
+		<?php if(false): ?>
+		 - (<span class="page_video_tutorial"><img src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
+		<?php endif; ?>
 		
 		
 		
@@ -99,6 +103,14 @@
 										<?php if($an->type == 'regular'): ?>
 											<div class="announcement_message"><?= $an->message ?></div>
 										<?php else: ?>
+											
+											<?php $message = json_decode($an->message); 
+												if($message->subtype == 'new_client_notes'):
+											?>
+											
+												<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a class="ajaxify" href="<?= $central->promoter_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+											
+											<?php endif; ?>
 											
 										<?php endif; ?>
 									

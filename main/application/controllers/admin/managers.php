@@ -328,6 +328,19 @@ class Managers extends MY_Controller {
 		$total_clients = 0;
 		
 		$users = array();
+		
+		foreach($announcements as $an){
+			if($an->type == 'json'){
+				$message = json_decode($an->message);
+				if(isset($message->client_oauth_uid)){
+					$users[] = $message->client_oauth_uid;
+				}
+			}
+		}
+		$users = array_values($users);
+		$users = array_unique($users);
+	
+		
 		foreach($team_venues as &$venue){
 			
 			$venue->clients = $this->users_managers->retrieve_venue_clients($venue->tv_id);
@@ -784,6 +797,69 @@ class Managers extends MY_Controller {
 	 */
 	private function _clients($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		return;
+		
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$data['clients'] = $this->users_promoters->retrieve_promoter_clients_list_detailed($this->library_promoters->promoter->up_id);
+		
+		
+		if($arg1){
+			
+			$client = false;
+			foreach($data['clients'] as $cl){
+				if($cl->u_oauth_uid == $arg1)
+					$client = $cl;
+			}
+			
+			$this->load->model('model_teams', 'teams', true);
+			//retrieve client notes
+			$client_notes_team = $this->teams->retrieve_client_notes(array(
+				'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
+				'client_oauth_uid'	=> $arg1
+			));
+			
+			
+			$users = array();
+			foreach($client_notes_team as $cnt){
+				$users[] = $cnt->user_oauth_uid;
+			}
+			$users = array_values($users);
+			$users = array_unique($users);
+			
+			
+			
+			$my_client_notes = false;
+			foreach($client_notes_team as $key => $cnt){
+				if($cnt->user_oauth_uid == $this->vc_user->oauth_uid){
+					$my_client_notes = $cnt;
+					unset($client_notes_team[$key]);
+					break;
+				}
+			}
+			
+			$page_data = new stdClass;
+			$page_data->my_client_notes = $my_client_notes;
+			$page_data->users = $users;
+			$page_data->client_notes_team = $client_notes_team;
+			
+			
+			
+			
+	
+			$data['data']	= $page_data;
+			$data['client'] = $client;
+			$this->body_html = $this->load->view('admin/promoters/clients/view_clients_individual', $data, true);;
+			
+			return;
+		}
+		
+
+
+		$this->body_html = $this->load->view('admin/promoters/clients/view_clients', $data, true);
+		
+		
+		
+		/*
 		$this->load->model('model_users_managers', 'users_managers', true);
 		
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
@@ -804,7 +880,7 @@ class Managers extends MY_Controller {
 		$data['users'] = $users;
 		
 		$this->body_html = $this->load->view($this->view_dir . 'clients/view_manager_clients', $data, true);
-		
+		*/
 	}
 	
 	/**

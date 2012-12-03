@@ -375,6 +375,8 @@ class Promoters extends MY_Controller {
 		//------- end retrieve promoter guest list reservations -------
 		
 		
+		
+		
 		$data['statistics'] = $statistics;
 		
 		$this->load->model('model_teams', 'teams', true);
@@ -383,6 +385,25 @@ class Promoters extends MY_Controller {
 			'team_fan_page_id' => $this->library_promoters->promoter->team->t_fan_page_id
 		));
 		$data['announcements'] = $announcements;
+		
+		
+		
+		
+		$users = array();
+		foreach($announcements as $an){
+			if($an->type == 'json'){
+				$message = json_decode($an->message);
+				if(isset($message->client_oauth_uid)){
+					$users[] = $message->client_oauth_uid;
+				}
+			}
+		}
+		$users = array_values($users);
+		$users = array_unique($users);
+		$data['users'] = $users;
+		
+		
+		
 		
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_admin_dashboard', $data, true);
 		
@@ -1414,8 +1435,9 @@ class Promoters extends MY_Controller {
 					'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
 					'message'			=> json_encode(array(
 					
-						'subtype'		=> 'new_client_notes',
-						'public_notes'	=> $this->input->post('public_notes')
+						'subtype'			=> 'new_client_notes',
+						'client_oauth_uid'	=> $arg1,
+						'public_notes'		=> $this->input->post('public_notes')
 						
 					)),
 					'manager_oauth_uid'	=> $this->vc_user->oauth_uid
