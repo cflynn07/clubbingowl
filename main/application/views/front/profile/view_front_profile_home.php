@@ -27,8 +27,8 @@
 		    
 		      	 <tr>
 		          <td><?= strftime('%x', strtotime($res->pgl_date)) ?></td>
-		          <td><a href="<?= $central->front_link_base ?>promoters/<?= $res->c_url_identifier ?>/<?= $res->up_public_identifier ?>/"><?= $res->u_full_name ?></a></td>
-		          <td><a href="<?= $central->front_link_base ?>promoters/<?= $res->c_url_identifier ?>/<?= $res->up_public_identifier ?>/guest_lists/<?= str_replace(' ', '_', $res->pgla_name) ?>/"><?= $res->pgla_name ?></a></td>
+		          <td><a href="<?= $central->front_link_base ?>promoters/<?= $res->up_public_identifier ?>/"><?= $res->u_full_name ?></a></td>
+		          <td><a href="<?= $central->front_link_base ?>promoters/<?= $res->up_public_identifier ?>/guest_lists/<?= str_replace(' ', '_', $res->pgla_name) ?>/"><?= $res->pgla_name ?></a></td>
 		          <td class="request_msg">"<?= $res->pglr_request_msg ?>"</td>
 		          <td class="response_msg">"<?= $res->pglr_response_msg ?>"</td>
 		          
@@ -79,7 +79,7 @@
     		
     		 <li>
 		        <img style="margin-bottom: 8px;" src="<?= $central->s3_uploaded_images_base_url ?>profile-pics/<?= $fav_pro->up_profile_image ?>_t.jpg" alt="<?= $fav_pro->u_full_name ?>'s Avatar">
-		        <a style="margin-top:0;width:100%;" class="name" href="<?= $central->front_link_base ?>promoters/<?= $fav_pro->c_url_identifier ?>/<?= $fav_pro->up_public_identifier ?>/"><?= $fav_pro->u_full_name ?></a>
+		        <a style="margin-top:0;width:100%;" class="name" href="<?= $central->front_link_base ?>promoters/<?= $fav_pro->up_public_identifier ?>/"><?= $fav_pro->u_full_name ?></a>
 		     </li>
     		
 		<?php endforeach; ?>
