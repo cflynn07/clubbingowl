@@ -899,6 +899,8 @@ jQuery(function(){
 								if(data.success){
 									status.html('<span style="color:blue;">' + data.message.status + '</span>');
 									_this.$el.find('span#glas_last_updated').html(data.message.human_date);
+								}else{
+									status.html('');
 								}
 							}
 						})

@@ -1196,6 +1196,10 @@ class Promoters extends MY_Controller {
 				$status = $this->input->post('status');
 				$status = strip_tags($status);
 				
+				if(!$status){
+					die(json_encode(array('success' => false, 'message' => '')));
+				}
+				
 				//should be checking if guest-list belongs to this promoter... too lazy
 				$this->db->insert('guest_list_authorizations_statuses', array(
 					'promoter_guest_list_authorizations_id'	=> $pgla_id,
