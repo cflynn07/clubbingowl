@@ -313,7 +313,7 @@ jQuery(function(){
 			el: '#live_visitors_wrapper',
 			users: [],
 			initialize: function(){
-				
+				 return;
 				/*---------------- team presence channels ---------------------------*/
 						
 				Pusher.channel_auth_endpoint = '/ajax/pusher_presence/';
@@ -796,12 +796,48 @@ jQuery(function(){
 		/*---------------- team presence channels ---------------------------*/
 				
 		Pusher.channel_auth_endpoint = '/ajax/pusher_presence/';
+		Pusher.authorizers.ajax = function(pusher, callback){
+			var self = this, xhr;
+	
+		    if (Pusher.XHR) {
+		      xhr = new Pusher.XHR();
+		    } else {
+		      xhr = (window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"));
+		    }
+		
+		    xhr.open("POST", Pusher.channel_auth_endpoint, true);
+		    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+		    xhr.onreadystatechange = function() {
+		      if (xhr.readyState == 4) {
+		        if (xhr.status == 200) {
+		          var data, parsed = false;
+		
+		          try {
+		            data = JSON.parse(xhr.responseText);
+		            parsed = true;
+		          } catch (e) {
+		            callback(true, 'JSON returned from webapp was invalid, yet status code was 200. Data was: ' + xhr.responseText);
+		          }
+		
+		          if (parsed) { // prevents double execution.
+		            callback(false, data);
+		          }
+		        } else {
+		          Pusher.warn("Couldn't get auth info from your webapp", status);
+		          callback(true, xhr.status);
+		        }
+		      }
+		    };
+		    
+		    var csrf_token = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
+		    
+		    xhr.send('socket_id=' + encodeURIComponent(pusher.connection.socket_id) + '&channel_name=' + encodeURIComponent(self.name) + '&ci_csrf_token=' + csrf_token);
+		};
 		
 		var pusher = new Pusher(window.module.Globals.prototype.pusher_api_key);
 		var team_user_presence = pusher.subscribe('presence-promotervisitors-' + window.module.Globals.prototype.user_oauth_uid);
-		pusher_disconnect_channel.push(team_user_presence);
-		
-		
+
+
 		var subscription_succeeded = function(members){
 			var live_visitor_timeout_remove_queue = {};
 			
@@ -814,119 +850,83 @@ jQuery(function(){
 				users.push(member.id);
 			});
 			
+			
 			if(users.length == 0)
 				return;
 			
-			var fql = "SELECT uid, name, first_name, pic_square, pic_big, third_party_id FROM user WHERE ";
-			for(var i = 0; i < users.length; i++){
-				if(i == (users.length - 1)){
-					fql += "uid = " + users[i];
-				}else{
-					fql += "uid = " + users[i] + " OR ";
-				}
-			}
-			
-			var query = FB.Data.query(fql);
-			query.wait(function(rows){
+			jQuery.fbUserLookup(users, '', function(rows){
+				
+				var vc_user = jQuery.cookies.get('vc_user');
+				
 				console.log(rows);
 				
 				for(var i = 0; i < rows.length; i++){
-												
-					var html = '<div class="live_visitor ' + rows[i].uid + '">';
-					html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
-					html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+				
+					var user = rows[i];
+				
+					if(user.uid == vc_user.vc_oauth_uid)
+						continue;
+					
+					if(jQuery('div#live_visitors').find('div[data-user_oauth_uid="' + rows[i].uid + '"]').length != 0)
+						continue;
+						
+								
+		//			var html = '<div data-user_oauth_uid="' + rows[i].uid + '" class="live_visitor ' + rows[i].uid + '">';
+		//			html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" /><br/>';
+		//			html += '<a href="#" class="vc_name">' + rows[i].first_name + '</a>';
+		//			html += '</div>';
+		//			jQuery('div#live_visitors').append(html);
+					
+					
+					var html = '<div data-user_oauth_uid="' + rows[i].uid + '" class="visitor ' + rows[i].uid + '">';
+					html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" /><br/>';
+					html += '<a href="javascript:void(0);" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
 					html += '</div>';
 					jQuery('div#live_visitors').append(html);
+					
 				}
 				
 			});
 		}
 		team_user_presence.bind('pusher:subscription_succeeded', subscription_succeeded);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		var live_visitor_timeout_remove_queue = {};
 		team_user_presence.bind('pusher:member_added', function(member){
 		  	
-		  	if(live_visitor_timeout_remove_queue[member.id]){
-		  		clearTimeout(live_visitor_timeout_remove_queue[member.id]);
+		  	
+		  	var vc_user = jQuery.cookies.get('vc_user');
+		  	
+		  	if(jQuery('div#live_visitors').find('div[data-user_oauth_uid="' + member.id + '"]').length == 0){
+		  		
+		  		jQuery.fbUserLookup([member.id], '', function(rows){
+		  			
+		  			for(var i in rows){
+						
+						var user = rows[i];
+						
+						if(user.uid == vc_user.vc_oauth_uid)
+							continue;
+							
+						if(jQuery('div#live_visitors').find('div[data-user_oauth_uid="' + rows[i].uid + '"]').length != 0)
+							continue;
+						
+						var html = '<div data-user_oauth_uid="' + rows[i].uid + '" class="visitor ' + rows[i].uid + '">';
+						html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" /><br/>';
+						html += '<a href="javascript:void(0);" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+						html += '</div>';
+						jQuery('div#live_visitors').append(html);
+						
+					}
+		  			
+		  		});
+		  		
 		  	}
 		  	
-		  	//make sure not already in list
-		  	if(jQuery('div#live_visitors').find('div.' + member.id).length > 0)
-		  		return;
-		  	
-		  	var fql = "SELECT uid, name, first_name, pic_square, pic_big, third_party_id FROM user WHERE uid = " + member.id;
-		  	console.log(fql);
-		  	var query = FB.Data.query(fql);
-			query.wait(function(rows){
-				console.log(rows);
-				
-				for(var i = 0; i < rows.length; i++){
-					var html = '<div class="live_visitor ' + rows[i].uid + '">';
-					html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
-					html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
-					html += '</div>';
-					jQuery('div#live_visitors').append(html);
-				}
-				
-			});
-			
-		  	console.log('promotervisitors member_added');
-			console.log(member)
-							  					  	
+			  	
 		});
 		
-		team_user_presence.bind('pusher:member_removed', function(member){
-		  	
-		  	live_visitor_timeout_remove_queue[member.id] = setTimeout(function(){
-		  		jQuery('div#live_visitors').find('div.' + member.id).remove();
-		  	}, 1000 * 5);
-		  	
-		  	console.log('promotervisitors member_removed');
-		  	console.log(member);
-		  	
-		});
 		/*---------------- END team presence channels ---------------------------*/
 	
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -936,7 +936,7 @@ jQuery(function(){
 			
 			
 			
-			team_chat_object.individual_channel.unbind('pending-requests-change', pending_requests_change);
+		//	team_chat_object.individual_channel.unbind('pending-requests-change', pending_requests_change);
 			
 			
 			

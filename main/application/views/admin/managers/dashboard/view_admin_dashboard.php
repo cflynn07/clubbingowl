@@ -226,7 +226,7 @@
 
 
 
-	<div class="full_width" style="width:1050px;">
+	<div id="team_announcements" class="full_width" style="width:1050px; padding:0;">
 		<h3>
 			Team Announcements
 			<img class="info_icon tooltip" title="Announcements for team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
@@ -234,8 +234,12 @@
 		
 		<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..."  />
 		
-		<div id="team_announcements" style="display:none;height:500px;">
-			<?php //Kint::dump($announcements); ?>
+		<div id="team_announcements_content" style="display:none;height:320px; min-height: 200px; overflow-y: scroll; overflow-x: hidden; padding: 10px;">
+			
+			
+			
+			
+			
 			
 			<?php foreach($announcements as $an): ?>
 				<div>
@@ -244,7 +248,7 @@
 						<tbody>
 							<tr>
 								<td style="width:50px; border-right:1px solid #CCC;">
-									<div class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
+									<div data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
 									<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
 									<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
 								</td>
@@ -258,7 +262,7 @@
 											if($message->subtype == 'new_client_notes'):
 										?>
 										
-											<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"</span> has updated their notes on <a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+											<div class="announcement_message"><span data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="name_<?= $an->manager_oauth_uid ?>"</span> has updated their notes on <a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span data-oauth_uid="<?= $message->client_oauth_uid ?>" class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
 										
 										<?php endif; ?>
 										
@@ -273,11 +277,10 @@
 					<?php endif; ?>						
 				</div>
 			<?php endforeach; ?>
-				
+								
+			<a data-action="create-announcement" id="create_announcement_btn" class="button_link" style="float:right;" href="#">Create Announcement</a>
 		</div>
-		
-		<a id="create_announcement_btn" class="button_link" style="float:right;" href="javascript:void(0);">Create Announcement</a>
-		
+
 		<div id="announcement_dialog" style="display:none;">
 			<p>New Staff Announcement</p>
 			<textarea id="manager_announcement_textarea"></textarea>
@@ -290,10 +293,6 @@
 	</div>
 	
 	
-	
-	
-	
-	
 	<hr>
 	
 	
@@ -302,7 +301,9 @@
 	
 	
 	
-		<div class="full_width" style="width:1050px;">
+	
+	
+	<div id="team_statistics" class="full_width" style="width:1050px;">
 		<h3>
 			Team Statistics 
 			<img class="info_icon tooltip" title="Basic statistics related to your team." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
@@ -327,6 +328,13 @@
 		jQuery('div.tabs').tabs().css('display', 'block');
 	</script>
 	
+	
+	
+	
+	
+	
+	
+	
 	<div style="clear:both"></div>
 	
 	<hr>
@@ -336,7 +344,7 @@
 			
 			<h3>
 				Live Team Visitors 
-				<img class="info_icon tooltip" title="VibeCompass users that are currently viewing your team's promoters, venue pages, and widgets" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				<img class="info_icon tooltip" title="ClubbingOwl users that are currently viewing your team's promoters, venue pages, and widgets" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 			</h3>
 			<div class="ui-widget" style="width:100%;">
 				<div class="ui-widget-header">
@@ -359,7 +367,7 @@
 			
 			<h3>
 				Top Team Visitors 
-				<img class="info_icon tooltip" title="VibeCompass users frequently visit your team's promoter profiles, venue pages, and widgets" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				<img class="info_icon tooltip" title="ClubbingOwl users frequently visit your team's promoter profiles, venue pages, and widgets" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 			</h3>
 			<div class="ui-widget" style="width:100%;">
 				<div class="ui-widget-header">
@@ -377,7 +385,7 @@
 			
 			<h3>
 				Recent Team Visitors 
-				<img class="info_icon tooltip" title="The 100 most recent VibeCompass users to visit your promoter profiles, venue pages, and widgets." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				<img class="info_icon tooltip" title="The 100 most recent ClubbingOwl users to visit your promoter profiles, venue pages, and widgets." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 			</h3>
 			
 			<div class="ui-widget" style="width:100%;">

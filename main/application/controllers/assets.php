@@ -441,7 +441,7 @@ class Assets extends MY_Common_Controller {
 					case 'managers':
 					
 					//	$group .= '-managers';
-					
+						$group_assets[] = array('managers/global_manager_pusher_notifications', 			'admin_js');
 						$group_assets[] = array('managers/managers_ajaxify_front', 						'admin_js');
 					
 						$group_assets[] = array('managers/page/admin_manager_dashboard',				'admin_js');

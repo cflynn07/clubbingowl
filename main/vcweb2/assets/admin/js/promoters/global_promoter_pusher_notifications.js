@@ -114,20 +114,48 @@ jQuery(function(){
 			});
 
 		});
-		
-		
-		
-		
+				
 		
 		team_chat_channel.bind('team_guest_list_reservation', function(data){
 			
 			
-			
-			
-			
-			
 		});
 		
+		
+		
+		var team_user_presence = team_chat_object.pusher.subscribe('presence-promotervisitors-' + window.module.Globals.prototype.user_oauth_uid);
+
+		team_user_presence.bind('pusher:member_added', function(member){
+		  	
+		  	console.log('puser:member_added');
+		  	console.log(member);
+		  	var vc_user = jQuery.cookies.get('vc_user');
+		  	
+	  		jQuery.fbUserLookup([member.id], '', function(rows){
+	  			
+	  			for(var i in rows){
+					
+					var user = rows[i];				
+					
+					if(user.uid == vc_user.vc_oauth_uid)
+						continue;
+					
+					jQuery("div#notification_container").notify("create", {
+						icon: '<img src="' + user.pic_square + '" alt="" />',
+				   		title: '<span style="color:blue;">' + user.name + '</span>',
+				   		color: '#FFF',
+				   		text: user.name + ' is viewing your promoter profile.'
+					},{
+						expires: true,
+					    speed: 1000
+					});
+					
+				}
+				
+	  			
+	  		});
+			  	
+		});	
 		
 	};
 	

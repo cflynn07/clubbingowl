@@ -27,7 +27,9 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 <?php $this->load->view('admin/_common/view_common_admin_chat'); ?>
 
 
-
+<script type="text/javascript">
+	window.team_fan_page_id = '<?= $team_fan_page_id ?>';
+</script>
 
 
 

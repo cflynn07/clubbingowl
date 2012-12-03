@@ -16,13 +16,6 @@
 
 
 
-<?php if(false): ?>
-<script>
-window.EventHandlerObject.addListener('pusher_init', function(){
-	window.vc_page_scripts.global_manager_pusher_notifications();
-});
-</script>
-<?php endif; ?>
 
 
 
@@ -37,7 +30,9 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 <?php $this->load->view('admin/_common/view_common_manager_admin_user_stats'); ?>
 <?php $this->load->view('admin/_common/view_common_admin_chat'); ?>
 
-
+<script type="text/javascript">
+	window.team_fan_page_id = '<?= $team_fan_page_id ?>';
+</script>
 
 	
 	<div id="container">

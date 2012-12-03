@@ -53,27 +53,8 @@
 				</tbody>
 			</table>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		<hr>
-		
-		
-		
-		
 		
 		<div class="full_width" style="width:1050px;">
 			<h3>
@@ -83,9 +64,7 @@
 			
 			<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 						
-			<div id="team_announcements" style="display:none;height:320px; overflow-y: scroll;">
-				<?php //Kint::dump($announcements); ?>
-				
+			<div id="team_announcements" style="display:none;height:320px; overflow-y: scroll;">		
 				
 				<?php foreach($announcements as $an): ?>
 					<div>

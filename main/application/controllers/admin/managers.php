@@ -306,6 +306,10 @@ class Managers extends MY_Controller {
 	 */
 	private function _dashboard($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		
+		
+		
+		
 		if($this->library_admin_managers->team->team_completed_setup == '1'){
 		
 			$this->load->helper('run_gearman_job');
@@ -313,6 +317,9 @@ class Managers extends MY_Controller {
 			run_gearman_job('admin_manager_piwik_stats', $arguments);
 			
 		}
+		
+		
+		
 
 		$this->load->model('model_users_managers', 'users_managers', true);
 		$this->load->model('model_teams', 'teams', true);
@@ -407,8 +414,20 @@ class Managers extends MY_Controller {
 			
 		}
 		
+//		Kint::dump($users);
+//		Kint::dump($users2);
+		
+
+		
 		$users = array_merge($users, $users2);
-		$users = array_unique($users);
+//		Kint::dump($users);
+
+		
+//		$users = array_unique($users);
+		
+		
+		
+		
 		$users = array_values($users);
 		$data['users'] = $users;
 		//------------------------------- end promoter table requests -----------------------------------
@@ -1520,23 +1539,10 @@ class Managers extends MY_Controller {
 				break;
 			case 'stats_retrieve':
 				
-				if(!$admin_manager_piwik_stats = $this->session->userdata('admin_manager_piwik_stats'))
-					die(json_encode(array('success' => false,
-											'message' => 'No guest list retrieve request found')));	
-													
-				$admin_manager_piwik_stats = json_decode($admin_manager_piwik_stats);
-				
-				//check job status to see if it's completed
-				$this->load->library('library_memcached', '', 'memcached');
-				if($stats = $this->memcached->get($admin_manager_piwik_stats->handle)){
-					//free memory from memcached
-					$this->memcached->delete($admin_manager_piwik_stats->handle);
-					$this->session->unset_userdata('admin_manager_piwik_stats');
-					die($stats); //<-- already json in memcache
-				}else{
-					die(json_encode(array('success' => false)));
-				}
-				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('admin_manager_piwik_stats');
+							
+				 				
 				break;
 			default:
 				die(json_encode(array('success' => false,
