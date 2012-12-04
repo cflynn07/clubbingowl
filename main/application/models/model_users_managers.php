@@ -165,6 +165,7 @@ class Model_users_managers extends CI_Model {
 				ON tv.id = tgla.team_venue_id
 				
 				WHERE tv.id = ?
+					AND tgla.deactivated = 0 
 					AND tgla.team_fan_page_id = ?";
 		$query = $this->db->query($sql, array($team_venue_id, $team_fan_page_id));
 		return $query->result();
