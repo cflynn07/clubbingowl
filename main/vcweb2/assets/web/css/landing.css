@@ -104,7 +104,7 @@ div#news_feed_side_data{
 section#news ul.updates{
 	float: left;
 	width: 63%;
-	border-right: 1px dashed #CCC;
+	//border-right: 1px dashed #CCC;
 }
 
 
