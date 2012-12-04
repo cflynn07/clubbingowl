@@ -19,6 +19,7 @@
 		<?php $this->load->view('admin/_common/view_page_video_tutorial'); ?>
 		
 		<h1 style="display:inline-block;">Promoter Dashboard</h1>
+		
 		<?php if(false): ?>
 		 - (<span class="page_video_tutorial"><img src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
 		<?php endif; ?>

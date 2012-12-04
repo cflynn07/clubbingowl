@@ -1,13 +1,13 @@
 <?php if($team->team_completed_setup == '1'): ?>
 <?php
 	$page_obj = new stdClass;
-	$page_obj->team = $team;
-	$page_obj->users = $users;
-	$page_obj->statistics = $statistics;
-	$page_obj->trailing_gl_requests_categories = array_keys($statistics->trailing_gl_requests);
-	$page_obj->trailing_gl_requests_values = array_values($statistics->trailing_gl_requests);
-	$page_obj->users_oauth_uid = $users_oauth_uid;
-	$page_obj->team_chat_members = $team_chat_members;
+	$page_obj->team 							= $team;
+	$page_obj->users 							= $users;
+	$page_obj->statistics 						= $statistics;
+	$page_obj->trailing_gl_requests_categories 	= array_keys($statistics->trailing_gl_requests);
+	$page_obj->trailing_gl_requests_values 		= array_values($statistics->trailing_gl_requests);
+	$page_obj->users_oauth_uid 					= $users_oauth_uid;
+	$page_obj->team_chat_members 				= $team_chat_members;
 ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
@@ -25,7 +25,11 @@
 
 
 <div id="manager_dashboard_wrapper">
-	<h1 style="display:inline-block;">Manager Dashboard</h1> - (<span class="page_video_tutorial"><img class="page_video_tutorial" src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
+	<h1 style="display:inline-block;">Manager Dashboard</h1>
+	<?php if(false): ?>
+	 - (<span class="page_video_tutorial"><img class="page_video_tutorial" src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
+	<?php endif; ?>
+	
 	
 	<h3>
 		Pending Reservation Requests 
@@ -36,19 +40,37 @@
 			<thead>
 				<tr>
 					<th>Head User</th>
-					<th>Picture</th>
-					<th>Venue</th>
 					<th>Promoter</th>
+					<th>Venue</th>
+					<th>Guest List</th>
 					<th>Date</th>
+					<th>Request Message</th>
 					<th>Entourage</th>
-					<th>Request Msg</th>
 					<th>Table Request</th>
-					<th>Minimum Spend</th>
-					<th>Contact Number</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<?php if(false): ?>
+				
+				
+				
 				<?php $no_groups = true; ?>
 				<?php foreach($statistics->team_venues as $team_venue): ?>
 					<?php foreach($team_venue->tv_gla as $tv_gla): ?>
@@ -215,7 +237,22 @@
 				
 				<?php endif; ?>
 				
-								
+				<?php endif; ?>			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			</tbody>
 		</table>
 	</div>
@@ -278,8 +315,10 @@
 				</div>
 			<?php endforeach; ?>
 								
-			<a data-action="create-announcement" id="create_announcement_btn" class="button_link" style="float:right;" href="#">Create Announcement</a>
+			
 		</div>
+		<br/>
+		<a data-action="create-announcement" id="create_announcement_btn" class="button_link" style="float:right;" href="#">Create Announcement</a>
 
 		<div id="announcement_dialog" style="display:none;">
 			<p>New Staff Announcement</p>

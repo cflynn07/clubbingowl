@@ -706,17 +706,18 @@ class Model_guest_lists extends CI_Model {
 			
 		$sql = "SELECT 
 		
-					pglr.user_oauth_uid 	as head_user,
-					pglr.create_time 		as time,
-					pglr.id					as id,
-					pglr.approved			as pglr_approved,
-					pglr.table_request 		as pglr_table_request,
-					pglr.request_msg 		as pglr_request_msg,
-					pglr.response_msg		as pglr_response_msg,
-					pglr.host_message		as pglr_host_message,
-					pglr.table_min_spend	as table_min_spend,
-					pglr.manual_add			as pglr_manual_add,
-					pglr.supplied_name		as pglr_supplied_name
+					pglr.user_oauth_uid 			as head_user,
+					pglr.create_time 				as time,
+					pglr.id							as id,
+					pglr.approved					as pglr_approved,
+					pglr.table_request 				as pglr_table_request,
+					pglr.request_msg 				as pglr_request_msg,
+					pglr.response_msg				as pglr_response_msg,
+					pglr.host_message				as pglr_host_message,
+					pglr.table_min_spend			as table_min_spend,
+					pglr.manual_add					as pglr_manual_add,
+					pglr.manager_table_approved 	as pglr_manager_table_approved,
+					pglr.supplied_name				as pglr_supplied_name
  						
 				FROM 	promoters_guest_lists pgl
 				

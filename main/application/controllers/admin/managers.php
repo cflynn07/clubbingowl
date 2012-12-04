@@ -202,6 +202,10 @@ class Managers extends MY_Controller {
 					break;
 				case 'marketing_new':
 					break;
+				case 'settings_guest_lists':
+					break;
+				case 'settings_guest_lists_new':
+					break;
 				case 'settings_payment':
 					break;
 				case 'settings_promoters':
@@ -236,6 +240,8 @@ class Managers extends MY_Controller {
 		elseif($arg0 != '' && $arg1 != '' && $arg2 == ''){
 			
 			switch($arg0){
+				case 'settings_guest_lists':
+					break;
 				case 'clients':
 					break;
 				case 'settings_venues_edit':
@@ -310,8 +316,6 @@ class Managers extends MY_Controller {
 		
 		
 		
-		
-		
 		if($this->library_admin_managers->team->team_completed_setup == '1'){
 		
 			$this->load->helper('run_gearman_job');
@@ -320,154 +324,8 @@ class Managers extends MY_Controller {
 			
 		}
 		
-		
-		
+		$data = $this->_helper_retrieve_pending_requests();
 
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_teams', 'teams', true);
-		
-		$announcements = $this->teams->retrieve_team_announcements(array(
-			'team_fan_page_id' => $this->vc_user->manager->team_fan_page_id
-		));
-		$data['announcements'] = $announcements;
-		
-		$trailing_gl_requests = $this->users_managers->retrieve_trailing_weekly_guest_list_reservation_requests($this->vc_user->manager->team_fan_page_id);
-		
-		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
-		$total_clients = 0;
-		
-		$users = array();
-		
-		foreach($announcements as $an){
-			if($an->type == 'json'){
-				$message = json_decode($an->message);
-				if(isset($message->client_oauth_uid)){
-					$users[] = $message->client_oauth_uid;
-				}
-			}
-		}
-		$users = array_values($users);
-		$users = array_unique($users);
-	
-		
-		foreach($team_venues as &$venue){
-			
-			$venue->clients = $this->users_managers->retrieve_venue_clients($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
-			$total_clients += count($venue->clients);
-			
-			$venue->upcoming_guest_list_reservations = $this->users_managers->retrieve_team_venue_guest_list_reservations($venue->tv_id, true);
-			$venue->all_time_guest_list_reservations = $this->users_managers->retrieve_team_venue_guest_list_reservations($venue->tv_id);
-			
-			
-			//retrieve all guest list reservations (approved/unapproved) for each team
-			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
-			foreach($tv_gla as &$gla){
-				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
-				
-				if($gla->current_list){
-					$gla->current_list->groups = $this->users_managers->retrieve_teams_guest_list_members($gla->current_list->tgl_id);
-					
-					//add users to users array
-					foreach($gla->current_list->groups as $group){
-						$users[] = $group->tglr_user_oauth_uid;
-
-						foreach($group->entourage as $ent_user){
-							$users[] = $ent_user->tglre_oauth_uid;
-						}
-					}
-					
-				}
-			}
-			
-			$venue->tv_gla = $tv_gla;
-		}
-		
-		//------------------------------- promoter table requests -----------------------------------
-		$promoters = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
-		
-		$this->load->model('model_users_promoters', 'users_promoters', true);
-		$this->load->model('model_guest_lists', 'guest_lists', true);
-		
-		$users2 = array();
-		//attach current guest list data to each promoter object
-		foreach($promoters as &$promoter){
-			
-			//retrieve a list of all the guest lists a promoter has set up
-			$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($promoter->up_id);
-			
-			$this->load->model('model_guest_lists', 'guest_lists', true);
-			//for each guest list, find all groups associated with it
-			foreach($weekly_guest_lists as &$gla){
-				$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
-			}
-		
-			//attach to promoter object
-			$promoter->weekly_guest_lists = $weekly_guest_lists;
-			
-			//record FBIDs of all users for later use
-			foreach($weekly_guest_lists as $wgl){
-				foreach($wgl->groups as $group){
-					
-					$users2[] = $group->head_user;
-					$users2 = array_merge($users2, $group->entourage_users);
-					
-				}
-			}
-			
-		}
-		
-//		Kint::dump($users);
-//		Kint::dump($users2);
-		
-
-		
-		$users = array_merge($users, $users2);
-//		Kint::dump($users);
-
-		
-//		$users = array_unique($users);
-		
-		
-		
-		
-		$users = array_values($users);
-		$data['users'] = $users;
-		//------------------------------- end promoter table requests -----------------------------------
-		
-		$statistics = new stdClass;
-		$statistics->team_venues = $team_venues;
-		$statistics->total_clients = $total_clients;
-		$statistics->trailing_gl_requests = $trailing_gl_requests;
-		
-		$this->load->model('model_teams', 'teams', true);
-		$statistics->active_promoters = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id, array('completed_setup' => false));
-		$statistics->promoters = $promoters;
-		
-		//------ retrieve top visitors -------
-		$promoters_pt_ids = array();
-		foreach($promoters as $pro){
-			$promoters_pt_ids[] = $pro->pt_id;
-		}
-		$top_visitors = $this->users_managers->retrieve_top_team_visitors($promoters_pt_ids, $this->vc_user->manager->team_fan_page_id);
-		$top_visitors_uids = array();
-		foreach($top_visitors as $tv){
-			$top_visitors_uids[] = $tv->users_oauth_uid;
-		}
-		$statistics->top_visitors = $top_visitors_uids;
-		//------ end retrieve top visitors -------
-		
-		//------ retrieve recent visitors --------
-		$recent_visitors = $this->users_managers->retrieve_recent_team_visitors($promoters_pt_ids);
-		$recent_visitors_uids = array();
-		foreach($recent_visitors as $rv){
-			$recent_visitors_uids[] = $rv->uv_users_oauth_uid;
-		}
-		$statistics->recent_visitors = $recent_visitors_uids;
-		//------ end retrieve recent visitors -------
-		
-		//------ retrieve team 
-		
-		$data['statistics'] = $statistics;
 
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_admin_dashboard', $data, true);
 	}
@@ -1317,6 +1175,41 @@ class Managers extends MY_Controller {
 		$this->body_html = $this->load->view($this->view_dir . 'settings/view_settings_hosts', $data, true);
 		
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	private function _settings_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+	}
+	private function _settings_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Manage venues for your team
@@ -1581,7 +1474,14 @@ class Managers extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'retrieve_pending_requests':
 			
+				$data = $this->_helper_retrieve_pending_requests();
+			
+				die(json_encode(array('success' => true, 'message' => $data)));		
+				
+				
+				break;
 			case 'announcement_create':
 				
 				if(!$this->input->post('message')){
@@ -2528,6 +2428,226 @@ class Managers extends MY_Controller {
 		$response->table_reservations = $table_reservations;
 		
 		return $response;
+	}
+
+
+	private function _helper_retrieve_pending_requests(){
+		
+		
+			
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$this->load->model('model_guest_lists', 'guest_lists', true);
+		$this->load->model('model_users_managers', 'users_managers', true);
+		$this->load->model('model_teams', 'teams', true);
+		
+		
+		
+		
+		$announcements = $this->teams->retrieve_team_announcements(array(
+			'team_fan_page_id' => $this->vc_user->manager->team_fan_page_id
+		));
+		
+			
+		$trailing_gl_requests = $this->users_managers->retrieve_trailing_weekly_guest_list_reservation_requests($this->vc_user->manager->team_fan_page_id);
+				
+		
+		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
+		$total_clients = 0;
+		
+		$users = array();
+		
+		foreach($announcements as $an){
+			if($an->type == 'json'){
+				$message = json_decode($an->message);
+				if(isset($message->client_oauth_uid)){
+					$users[] = $message->client_oauth_uid;
+				}
+			}
+		}
+		$users = array_values($users);
+		$users = array_unique($users);
+	
+		
+		foreach($team_venues as &$venue){
+			
+			$venue->clients = $this->users_managers->retrieve_venue_clients($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
+			$total_clients += count($venue->clients);
+			
+			$venue->upcoming_guest_list_reservations = $this->users_managers->retrieve_team_venue_guest_list_reservations($venue->tv_id, true);
+			$venue->all_time_guest_list_reservations = $this->users_managers->retrieve_team_venue_guest_list_reservations($venue->tv_id);
+			
+			
+			//retrieve all guest list reservations (approved/unapproved) for each team
+			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
+			foreach($tv_gla as &$gla){
+				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
+				
+				if($gla->current_list){
+					$gla->current_list->groups = $this->users_managers->retrieve_teams_guest_list_members($gla->current_list->tgl_id);
+					
+					//add users to users array
+					foreach($gla->current_list->groups as $group){
+						$users[] = $group->tglr_user_oauth_uid;
+
+						foreach($group->entourage as $ent_user){
+							$users[] = $ent_user->tglre_oauth_uid;
+						}
+					}
+					
+				}
+			}
+			
+			$venue->tv_gla = $tv_gla;
+		}
+		
+		//------------------------------- promoter table requests -----------------------------------
+		$promoters = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
+		
+		
+		
+		$users2 = array();
+		//attach current guest list data to each promoter object
+		foreach($promoters as &$promoter){
+			
+			//retrieve a list of all the guest lists a promoter has set up
+			$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($promoter->up_id);
+			
+			//for each guest list, find all groups associated with it
+			foreach($weekly_guest_lists as &$gla){
+				$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
+			}
+		
+			//attach to promoter object
+			$promoter->weekly_guest_lists = $weekly_guest_lists;
+			
+			//record FBIDs of all users for later use
+			foreach($weekly_guest_lists as $wgl){
+				foreach($wgl->groups as $group){
+					
+					$users2[] = $group->head_user;
+					$users2 = array_merge($users2, $group->entourage_users);
+					
+				}
+			}
+			
+		}
+		
+//		Kint::dump($users);
+//		Kint::dump($users2);
+		
+
+		
+		$users = array_merge($users, $users2);
+//		$users = array_unique($users);
+		$users = array_values($users);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		$data['users'] = $users;
+		$data['announcements'] = $announcements;
+		//------------------------------- end promoter table requests -----------------------------------
+		
+		$statistics 						= new stdClass;
+		$statistics->team_venues 			= $team_venues;
+		$statistics->total_clients 			= $total_clients;
+		$statistics->trailing_gl_requests 	= $trailing_gl_requests;
+		$statistics->active_promoters 		= $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id, array('completed_setup' => false));
+		$statistics->promoters 				= $promoters;
+		
+		//------ retrieve top visitors -------
+		$promoters_pt_ids = array();
+		foreach($promoters as $pro){
+			$promoters_pt_ids[] = $pro->pt_id;
+		}
+		$top_visitors = $this->users_managers->retrieve_top_team_visitors($promoters_pt_ids, $this->vc_user->manager->team_fan_page_id);
+		$top_visitors_uids = array();
+		foreach($top_visitors as $tv){
+			$top_visitors_uids[] = $tv->users_oauth_uid;
+		}
+		$statistics->top_visitors = $top_visitors_uids;
+		//------ end retrieve top visitors -------
+		
+		//------ retrieve recent visitors --------
+		$recent_visitors = $this->users_managers->retrieve_recent_team_visitors($promoters_pt_ids);
+		$recent_visitors_uids = array();
+		foreach($recent_visitors as $rv){
+			$recent_visitors_uids[] = $rv->uv_users_oauth_uid;
+		}
+		$statistics->recent_visitors = $recent_visitors_uids;
+		//------ end retrieve recent visitors -------
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		$pending_requests = array();
+		
+		foreach($statistics->team_venues as $team_venue){
+			foreach($team_venue->tv_gla as $tv_gla){
+				
+				if($tv_gla->current_list){
+					
+					foreach($tv_gla->current_list->groups as $group){
+						
+						$group->request_type = 'team';
+						
+						if($group->tglr_approved === '0' || $group->tglr_approved === 0)
+							$pending_requests[] = $group;
+						
+					}
+					
+				}
+				
+			}
+		}
+		foreach($statistics->promoters as $promoter){
+			foreach($promoter->weekly_guest_lists as $wgl){
+				if($wgl->groups){
+					foreach($wgl->groups as $group){
+						
+						$group->request_type = 'promoter';
+						
+						if($group->pglr_approved == '1' && $group->pglr_table_request == '1' && $group->pglr_manager_table_approved === '0')
+							$pending_requests[] = $group;
+							
+					}
+				}
+			}
+		}
+		
+		$statistics->pending_requests = $pending_requests;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		$data['statistics'] = $statistics;
+		
+		
+		return $data;
+		
+		
 	}
 
 	/**

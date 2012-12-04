@@ -268,8 +268,338 @@ jQuery(function(){
 
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		Models.PendingRequest = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				
+			}
+		}; Models.PendingRequest = Backbone.Model.extend(Models.PendingRequest);
+		
+		
+		
+		
+		Collections.PendingRequests = {
+			model: Models.PendingRequest,
+			initialize: function(){
+				
+			}
+		}; Collections.PendingRequests = Backbone.Collection.extend(Collections.PendingRequests);
+
+
+
+		Views.PendingRequestsTR = {
+			tagName: 'tr',
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+				var html = new EJS({
+					text: EVT.pending_reservation_request_dashboard
+				}).render(this.model.toJSON());
+				
+				this.$el.html(html);
+				return this;
+			},
+			events: {
+				'click *[data-action]': 'click_data_action'
+			},
+			event_request_responded: function(obj){
+				
+				var el 		= obj.el;
+				var action 	= obj.action;
+				
+				
+				
+				
+			},
+			click_data_action: function(e){
+				
+				e.preventDefault();
+				
+				var el 		= jQuery(e.currentTarget);
+				var action 	= el.attr('data-action');
+				var head_user = this.model.get('head_user');
+				var _this 	= this;
+								
+				switch(action){
+					case 'request-respond':
+										
+
+						var respond_callback = function(resp){
+							
+							jQuery('div#dialog_actions').find('textarea[name=message]').val('');
+							
+							if(resp.action == 'approve'){
+								_this.$el.css({
+									background: 'green'
+								});
+							}else{
+								_this.$el.css({
+									background: 'red'
+								});
+							}
+							
+							jQuery.background_ajax({
+								data: {
+									vc_method: 	'update_pending_requests',
+									pglr_id: 	_this.model.get('id'),
+									action: 	resp.action,
+									message: 	resp.message
+								},
+								success: function(data){
+									
+									console.log(data);
+																	
+									_this.$el.animate({
+										opacity: 0
+									}, 500, 'linear', function(){
+										//_this.$el.trigger('request-responded');
+										_this.$el.remove();
+									});
+									
+								}
+							});
+							
+						};
+						
+						jQuery('div#dialog_actions').dialog({
+							title: 		'Approve or Decline Request',
+							height: 	420,
+							width: 		320,
+							modal: 		true,
+							resizable: 	false,
+							draggable: 	false,
+							buttons: [{
+								text: 'Decline',
+								click: function(){
+									respond_callback({
+										action: 'decline',
+										message: jQuery(this).find('textarea[name=message]').val()
+									});
+									jQuery(this).dialog('close');
+								}
+							},{
+								text: 'Approve',
+								id: 'ui-approve-button',
+								'class': 'btn-confirm',
+								click: function(){
+									respond_callback({
+										action: 'approve',
+										message: jQuery(this).find('textarea[name=message]').val()
+									});
+									jQuery(this).dialog('close');
+								}
+							}]
+						});
+						
+						jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
+						jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
+						
+						jQuery.fbUserLookup(window.page_obj.pending_reservations_users, 'name, uid, third_party_id', function(rows){							
+							for(var i in rows){
+								var user = rows[i];
+								if(user.uid != head_user)
+									continue;
+								
+								jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
+								jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
+							
+							}
+						});
+						
+						
+					
+						break;
+				}
+	
+			}
+		}; Views.PendingRequestsTR = Backbone.View.extend(Views.PendingRequestsTR);
+		Views.PendingRequests = {
+			el: '#pending_reservations table',
+			initialize: function(){
+
+				this.collection.on('reset', this.pre_render, this);
+				this.pre_render();
+				
+			},
+			pre_render: function(){
+				
+				var _this = this;
+				var html;
+				
+				if(this.collection.where({pglr_approved: '0'}).length){
+					html = new EJS({
+						text: EVT.tr_loading
+					}).render({
+						colspan: 12
+					});			
+					
+					jQuery.fbUserLookup(window.page_obj.pending_reservations_users, 'name, uid, third_party_id', function(rows){
+						_this.render();
+						
+						for(var i in rows){
+							var user = rows[i];
+							_this.$el.find('*[data-name=' + user.uid + ']').html(user.name);
+						}
+					});
+					
+				}else{
+					html = new EJS({ 
+						text: EVT.pending_reservation_none
+					}).render({
+						colspan: 12
+					});
+				}
+				
+				this.$el.find('tbody').empty().append(jQuery('<tr></tr>').html(html));
+				
+			},
+			render: function(){
+								
+				var tbody = this.$el.find('tbody');
+				tbody.empty();
+				_this = this;
+				
+				this.collection.each(function(m){
+					
+					if(m.get('pglr_approved') !== '0')
+						return;
+					
+					tbody.append(new Views.PendingRequestsTR({
+						model: m
+					}).render().el);
+				});
+												
+								
+			},
+			events:{
+				'request-responded': 'update_collection'
+			},
+			update_collection: function(e){
+				
+				var _this = this;
+				jQuery.background_ajax({
+					data: {
+						vc_method: 'retrieve_pending_requests'
+					},
+					success: function(data){
+						
+						console.log('retrieve_pending_requests');
+						console.log(data);
+						
+						window.page_obj.pending_reservations_users = data.message.users;
+						_this.collection.reset(data.message.reservations);
+						
+					}
+				})
+				
+			}
+		}; Views.PendingRequests = Backbone.View.extend(Views.PendingRequests);
+		
+		var pending_requests 		= new Collections.PendingRequests(window.page_obj.statistics.pending_reservations);		
+	//	var view_pending_requests	= new Views.PendingRequests({
+	//		collection: pending_requests
+	//	});
+		
+		//window.foo_pending_requests = view_pending_requests;
+		
+		
+		
+		
+		// --------------------------------------------------------------------------------------------
+		var pending_requests_change = function(data){
+			console.log('pending-requests-change');
+			
+			
+			console.log('data');
+			console.log(data);
+			view_pending_requests.update_collection();
+		}
+		team_chat_object.individual_channel.bind('pending-requests-change', pending_requests_change);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		var views_team_announcements = new Views.TeamAnnoucements({});
 		var views_team_statistics	 = new Views.TeamStatistics({});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

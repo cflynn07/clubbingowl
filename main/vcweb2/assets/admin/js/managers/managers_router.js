@@ -24,6 +24,9 @@ jQuery(function(){
 		'/settings_hosts':												'settings_hosts',
 		'/settings_promoters': 											'settings_promoters',
 		'/settings_payment': 											'settings_payment',
+		'/settings_guest_lists/:id': 									'settings_guest_lists_individual',
+		'/settings_guest_lists': 										'settings_guest_lists',
+
 		
 		
 		'/reports_clients':												'reports_clients',
@@ -164,6 +167,26 @@ jQuery(function(){
 			console.log('--------- manager settings_payment ---------');
 			
 		},
+		// --------------------------------------------------------------------------
+
+		settings_guest_lists: function(segment){
+			
+			window.manager_admin_menu_set_active('settings');
+		//	callback_helper(window.vc_page_scripts.admin_manager_settings_payment);
+			console.log('--------- manager settings_guest_lists ---------');
+			
+		},
+
+		// --------------------------------------------------------------------------
+
+		settings_guest_lists_individual: function(segment){
+			
+			window.manager_admin_menu_set_active('settings');
+		//	callback_helper(window.vc_page_scripts.admin_manager_settings_payment);
+			console.log('--------- manager settings_guest_lists_individual ---------');
+			
+		},
+
 		// --------------------------------------------------------------------------
 		
 		reports_clients: function(segment){
