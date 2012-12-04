@@ -105,7 +105,7 @@ jQuery(function(){
 					    ent6: (6 < entourage.length) ? image_gen(entourage[6].pic_square) : '',
 					    ent8: (7 < entourage.length) ? '...' : ''
 					},{
-						expires: false,
+						expires: 10000,
 					    speed: 1000
 					});
 				}
@@ -145,7 +145,7 @@ jQuery(function(){
 				   		color: '#FFF',
 				   		text: user.name + ' is viewing your team\'s promoters, venues or widgets.'
 					},{
-						expires: true,
+						expires: 10000,
 					    speed: 1000
 					});
 					
