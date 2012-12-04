@@ -404,14 +404,14 @@ class Model_users_promoters extends CI_Model {
 				JOIN 	teams t
 				ON		pt.team_fan_page_id = t.fan_page_id
 								
-				WHERE 	pt.approved = 1
-						AND up.completed_setup = 1
-						AND up.banned = 0
-						AND pt.approved = 1
-						AND pt.banned = 0
-						AND pt.quit = 0
-						AND tv.banned = 0
-						AND t.completed_setup = 1 ";
+				WHERE 	pt.approved 			= 1
+						AND up.completed_setup 	= 1
+						AND up.banned 			= 0
+						AND pt.approved 		= 1
+						AND pt.banned 			= 0
+						AND pt.quit 			= 0
+						AND tv.banned 			= 0
+						AND t.completed_setup 	= 1 ";
 						
 				if($city){
 					$sql .= "AND c.url_identifier = ? ";
@@ -426,10 +426,10 @@ class Model_users_promoters extends CI_Model {
 		//attach team venues
 		foreach($result as &$res){
 					
-			//find and attach team venues to this promoter
-			$sql = "SELECT DISTINCT
+					
+			$sql = "SELECT 
 						
-						tv.id 					as tv_id,
+						DISTINCT(tv.id)			as tv_id,
 						tv.team_fan_page_id 	as tv_team_fan_page_id,
 						tv.name 				as tv_name,
 						tv.description 			as tv_description,
@@ -453,8 +453,11 @@ class Model_users_promoters extends CI_Model {
 					JOIN 	teams t 
 					ON 		pt.team_fan_page_id = t.fan_page_id
 					
+					JOIN 	teams_venues_pairs tvp 
+					ON 		tvp.team_fan_page_id = t.fan_page_id
+					
 					JOIN 	team_venues tv
-					ON 		tv.team_fan_page_id = t.fan_page_id
+					ON 		tv.id = tvp.team_venue_id
 					
 					JOIN 	cities c 
 					ON 		tv.city_id = c.id
@@ -462,16 +465,35 @@ class Model_users_promoters extends CI_Model {
 					JOIN 	promoters_guest_list_authorizations pgla
 					ON 		pgla.team_venue_id = tv.id
 					
-					WHERE	pgla.deactivated = 0
-							AND		pt.approved = 1
-							AND 	pt.banned = 0
-							AND 	pt.quit = 0
-							AND 	tv.banned = 0
-							AND 	pgla.user_promoter_id = ?
+					WHERE	pgla.deactivated 				= 0
+							AND		pt.approved 			= 1
+							AND 	pt.banned 				= 0
+							AND 	pt.quit 				= 0
+							AND 	tv.banned 				= 0
+							AND 	pgla.user_promoter_id 	= ?
 					
+					GROUP BY 	tv.id
 					ORDER BY	tv.id DESC";
 			$query = $this->db->query($sql, array($res->up_id));
-			$res->venues = $query->result();	
+			$res->venues = $query->result();
+			
+			/*
+			
+			//ghetto filtering hack
+			$known_tv_ids = array();
+			foreach($res->venues as $key => $val){
+					
+				if(!in_array($val->tv_id, $known_tv_ids)){
+					$known_tv_ids[] = $val->tv_id;
+				}else{
+					unset($res->venues[$key]);
+				}
+				
+			}
+			
+			*/
+			
+			
 				
 		}
 		
@@ -646,6 +668,8 @@ class Model_users_promoters extends CI_Model {
 		$query = $this->db->query($sql);
 		$result->team = $query->row();
 		
+		
+		/*
 		//find and attach team venues to this promoter
 		$sql = "SELECT DISTINCT
 					
@@ -673,8 +697,11 @@ class Model_users_promoters extends CI_Model {
 				JOIN 	teams t 
 				ON 		pt.team_fan_page_id = t.fan_page_id
 				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+				
 				JOIN 	team_venues tv
-				ON 		tv.team_fan_page_id = t.fan_page_id
+				ON 		tvp.team_venue_id = t.id
 				
 				JOIN 	cities c 
 				ON 		c.id = tv.city_id
@@ -689,8 +716,62 @@ class Model_users_promoters extends CI_Model {
 						AND 	tv.banned = 0
 						AND 	pgla.user_promoter_id = ?
 				
+				GROUP BY 	tv.id 
 				ORDER BY	tv.id DESC";
-		$query = $this->db->query($sql, array($result->up_id));
+		*/
+		
+		
+		
+		$sql = "SELECT 
+						
+						DISTINCT(tv.id)			as tv_id,
+						tv.team_fan_page_id 	as tv_team_fan_page_id,
+						tv.name 				as tv_name,
+						tv.description 			as tv_description,
+						tv.street_address		as tv_street_address,
+						tv.city 				as tv_city,
+						tv.state 				as tv_state,
+						tv.image 				as tv_image,
+						c.id 					as c_id,
+						c.name 					as c_name,
+						c.url_identifier 		as c_url_identifier,
+						t.fan_page_id			as t_fan_page_id,
+						t.name 					as t_name,
+						t.description			as t_description,
+						t.completed_setup 		as t_completed_setup
+					
+					FROM 	users_promoters up 
+					
+					JOIN 	promoters_teams pt 
+					ON 		pt.promoter_id = up.id 
+					
+					JOIN 	teams t 
+					ON 		pt.team_fan_page_id = t.fan_page_id
+					
+					JOIN 	teams_venues_pairs tvp 
+					ON 		tvp.team_fan_page_id = t.fan_page_id
+					
+					JOIN 	team_venues tv
+					ON 		tv.id = tvp.team_venue_id
+					
+					JOIN 	cities c 
+					ON 		tv.city_id = c.id
+					
+					JOIN 	promoters_guest_list_authorizations pgla
+					ON 		pgla.team_venue_id = tv.id
+					
+					WHERE	pgla.deactivated 				= 0
+							AND		pt.approved 			= 1
+							AND 	pt.banned 				= 0
+							AND 	pt.quit 				= 0
+							AND 	tv.banned 				= 0
+							AND 	pgla.user_promoter_id 	= ?
+					
+					GROUP BY 	tv.id
+					ORDER BY	tv.id DESC";		
+		
+		
+		$query = $this->db->query($sql, array($result->up_id));		
 		$result->promoter_team_venues = $query->result();
 		
 		return $result;
