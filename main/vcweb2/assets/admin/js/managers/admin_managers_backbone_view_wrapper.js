@@ -39,12 +39,34 @@ jQuery(function(){
 		},
 		events_click_menu_item: function(e){
 					
-			var el = jQuery(e.currentTarget);
+		/*	var el = jQuery(e.currentTarget);
 			el.parent().find('ul').slideUp('fast');
 			el.parent().find("li").removeClass("current");
 			el.find("ul").slideToggle('fast');
 			el.toggleClass("current");
-			
+		*/
+			var el = jQuery(e.currentTarget);
+			if(el.hasClass('current')){
+				if(el.find('ul')){
+					el.find('ul').slideToggle('fast');
+				}
+				return;
+			}else{
+				
+				if(el.find('ul')){
+					
+					this.$el.find('#primary_left .current').removeClass('current');
+					el.toggleClass('current');
+					el.find('ul').slideToggle('fast');
+					
+				}else{
+					
+					
+				//	el.find('ul').slideToggle('fast');
+				
+				}
+				
+			}	
 		},
 		events_hover_notification: function(e){
 			
