@@ -118,6 +118,7 @@ class Hosts extends MY_Controller {
 		 * */
 		if($arg0 == ''){
 			
+			
 			$arg0 = 'dashboard';	
 			$header_data['additional_global_javascripts'] = array(
 				'jquery_notify/jquery.notify.js',
@@ -131,6 +132,7 @@ class Hosts extends MY_Controller {
 		//		'jquery_notify/jquery.notify.css'
 		//		'iphone_checkboxes/style.css'
 			);		
+			
 			
 		}
 		/*

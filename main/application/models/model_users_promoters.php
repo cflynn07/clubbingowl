@@ -410,6 +410,7 @@ class Model_users_promoters extends CI_Model {
 						AND pt.approved = 1
 						AND pt.banned = 0
 						AND pt.quit = 0
+						AND tv.banned = 0
 						AND t.completed_setup = 1 ";
 						
 				if($city){
