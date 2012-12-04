@@ -44,7 +44,7 @@
 					<th>Venue</th>
 					<th>Guest List</th>
 					<th>Date</th>
-					<th>Request Message</th>
+					<th>Messages</th>
 					<th>Entourage</th>
 					<th>Table Request</th>
 					<th>Actions</th>

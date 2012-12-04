@@ -407,7 +407,7 @@ class Assets extends MY_Common_Controller {
 					array('admin_team_chat', 												'admin_js'),
 				//	array('suite_re_init', 													'admin_js')
 					
-					
+					array('module_tables_display', 											'admin_js')
 				);
 				
 				
@@ -417,7 +417,6 @@ class Assets extends MY_Common_Controller {
 					
 					//	$group .= '-promoters';
 						$group_assets[] = array('promoters/global_promoter_pusher_notifications', 			'admin_js');
-						$group_assets[] = array('promoters/module_tables_display', 							'admin_js');
 
 						$group_assets[] = array('promoters/promoters_ajaxify_front', 						'admin_js');
 						
@@ -674,6 +673,13 @@ class Assets extends MY_Common_Controller {
 								'ejs_templates' => array(
 									
 									// ---------------- FRONT --------------------
+									'pending_reservation_request_dashboard',
+									'pending_reservation_none',
+									'tr_loading',
+									
+									
+									'reservation_tr_guest_lists',
+									'reservation_tr_guest_lists_side_menu',
 									
 									'on_file_payment'
 																		

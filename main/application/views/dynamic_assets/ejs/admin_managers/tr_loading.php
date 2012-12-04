@@ -1,0 +1,1 @@
+<td colspan="<%= colspan %>"><img src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." /></td>

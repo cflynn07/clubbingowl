@@ -150,8 +150,8 @@
 		
 		<div class="full_width last">
 			<h3>Non-Friend Invite</h3>
-			<p>If you're not Facebook friends with the people you want to add to add to your team, you can still invite them manually by copying and pasting their Facebook Profile page URL into the input box below. VibeCompass will then determine 
-				their Facebook ID and create an invitation. You must tell the team member to visit vibecompass.com to recieve their invitation.</p>
+			<p>If you're not Facebook friends with the people you want to add to add to your team, you can still invite them manually by copying and pasting their Facebook Profile page URL into the input box below. ClubbingOwl will then determine 
+				their Facebook ID and create an invitation. You must tell the team member to visit clubbingowl.com to recieve their invitation.</p>
 			
 			<h5>Examples:</h5>
 			<div style="margin-left:auto; margin-right:auto; width:1006px;">

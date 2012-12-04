@@ -9,7 +9,7 @@
 			</td>
 			<td class="body">
 				<h3 style="color:#000; padding-left:10px;">Hi, I'm Casey.</h3>
-				<p style="padding-left: 10px; font-size:14px;">I'm the lead software developer behind Clubbing Owl. I can answer all your questions about the platform. Please feel free to contact me anytime if you have any questions, ideas or suggestions!</p>
+				<p style="padding-left: 10px; font-size:14px;">I'm the lead software developer behind ClubbingOwl. I can answer all your questions about the platform. Please feel free to contact me anytime if you have any questions, ideas or suggestions!</p>
 			
 				<ul style="padding-left: 20px; list-style:none;">
 					<li>1-(774)-573-4580</li>

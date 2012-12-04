@@ -169,12 +169,13 @@ jQuery(function(){
 							venue = data.message.team_venues[i];
 						}
 						
+
 						
 					//	console.log('venue');
 					//	console.log(venue);
 					//	console.log(_this.model.toJSON());
 						
-						
+
 						
 						// Find the prices of tables for the day
 						// --------------------------------------------------------------------

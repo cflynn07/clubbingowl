@@ -288,7 +288,7 @@ jQuery(function(){
 		
 		
 		
-		
+		var EVT = window.ejs_view_templates_admin_managers;
 		
 		Models.PendingRequest = {
 			initialize: function(){
@@ -318,6 +318,8 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				console.log(this.model.toJSON());
+				
 				var html = new EJS({
 					text: EVT.pending_reservation_request_dashboard
 				}).render(this.model.toJSON());
@@ -333,9 +335,6 @@ jQuery(function(){
 				var el 		= obj.el;
 				var action 	= obj.action;
 				
-				
-				
-				
 			},
 			click_data_action: function(e){
 				
@@ -343,12 +342,122 @@ jQuery(function(){
 				
 				var el 		= jQuery(e.currentTarget);
 				var action 	= el.attr('data-action');
+				
 				var head_user = this.model.get('head_user');
+				
 				var _this 	= this;
 								
 				switch(action){
 					case 'request-respond':
 										
+
+						var display_tables_helper = function(){
+							jQuery.background_ajax({
+								data: {
+									vc_method: 	'find_tables',
+									tv_id:		this.model.get('tv_id'),
+									
+								},
+								success: function(data){
+									
+									console.log('complete---');
+									console.log(data);
+									
+									var venue;
+									for(var i in data.message.team_venues){
+										venue = data.message.team_venues[i];
+									}
+									
+			
+									
+								//	console.log('venue');
+								//	console.log(venue);
+								//	console.log(_this.model.toJSON());
+									
+			
+									
+									// Find the prices of tables for the day
+									// --------------------------------------------------------------------
+							/*		//array of unique day prices
+									var day_prices = [];
+									
+									var pgla_day = _this.model.get('pgla_day');
+									pgla_day = pgla_day.slice(0, -1);
+									
+									for(var i in venue.venue_floorplan){
+										var floor = venue.venue_floorplan[i]
+										
+										for(var k in floor.items){
+											var item = floor.items[k];
+											
+											if(item.vlfi_item_type == 'table'){
+			
+												//what day do we care about?
+												var table_day_price = item['vlfit_' + pgla_day + '_min'];
+												console.log(table_day_price);
+												
+												if(jQuery.inArray(table_day_price, day_prices) === -1){
+													day_prices.push(table_day_price);
+												}
+												
+											}	
+										}
+									}
+									
+									day_prices = day_prices.sort();
+									console.log(day_prices);
+									// --------------------------------------------------------------------
+							*/		
+							
+									var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
+									
+									tv_display_module
+										.initialize({
+											display_target: 	'#dialog_actions_floorplan', //'#' + _this.$el.attr('id'),
+											team_venue: 		venue,
+											factor: 			0.5,
+											options: {
+												display_slider: true
+											}
+										});
+									
+									_this.modal_view.dialog('option', {
+										width: 	900						
+									});
+									_this.modal_view.dialog('option', {
+										position: 'center center'
+									});
+									
+									_this.$el.find('select#table_min_price').trigger('change');
+														
+								}
+							});
+						}
+
+
+						if(this.model.get('request_type') == 'promoter'){
+							display_tables_helper();
+							
+							
+						}else{
+							
+							if(this.model.get('tglr_table_request') == '1'){
+								display_tables_helper();
+								
+								
+								
+							}else{
+
+
+							}
+							
+						}
+
+
+
+	
+
+
 
 						var respond_callback = function(resp){
 							
@@ -417,20 +526,45 @@ jQuery(function(){
 							}]
 						});
 						
-						jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
-						jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
 						
-						jQuery.fbUserLookup(window.page_obj.pending_reservations_users, 'name, uid, third_party_id', function(rows){							
-							for(var i in rows){
-								var user = rows[i];
-								if(user.uid != head_user)
-									continue;
-								
-								jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
-								jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
+												
+						
+						if(head_user){
+						
+							jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
+							jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
 							
-							}
-						});
+							jQuery.fbUserLookup([head_user], 'name, uid, third_party_id', function(rows){							
+								for(var i in rows){
+									
+									var user = rows[i];
+									if(user.uid != head_user)
+										continue;
+									
+									jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
+									jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
+								
+								}
+							});
+							
+						}else{
+														
+							jQuery('div#dialog_actions').find('*[data-name]').html(_this.model.get('pglr_supplied_name'));				
+							jQuery('div#dialog_actions').find('*[data-pic]').attr('src', window.module.Globals.prototype.admin_assets + 'images/unknown_user.jpeg');	
+							
+						}
+										
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						
 						
 					
@@ -448,36 +582,31 @@ jQuery(function(){
 				
 			},
 			pre_render: function(){
+								
 				
 				var _this = this;
 				var html;
 				
-				if(this.collection.where({pglr_approved: '0'}).length){
+				if(this.collection.length){
 					html = new EJS({
 						text: EVT.tr_loading
 					}).render({
 						colspan: 12
 					});			
 					
-					jQuery.fbUserLookup(window.page_obj.pending_reservations_users, 'name, uid, third_party_id', function(rows){
-						_this.render();
-						
-						for(var i in rows){
-							var user = rows[i];
-							_this.$el.find('*[data-name=' + user.uid + ']').html(user.name);
-						}
-					});
-					
 				}else{
+					
 					html = new EJS({ 
-						text: EVT.pending_reservation_none
+						text: EVT['pending_reservation_none']
 					}).render({
 						colspan: 12
 					});
+					
 				}
 				
 				this.$el.find('tbody').empty().append(jQuery('<tr></tr>').html(html));
 				
+				this.render();
 			},
 			render: function(){
 								
@@ -486,15 +615,33 @@ jQuery(function(){
 				_this = this;
 				
 				this.collection.each(function(m){
-					
-					if(m.get('pglr_approved') !== '0')
-						return;
-					
+				
 					tbody.append(new Views.PendingRequestsTR({
 						model: m
 					}).render().el);
+				
 				});
-												
+				
+				var oauth_uids = [];
+				this.$el.find('*[data-oauth_uid]').each(function(){
+					
+					var oauth_uid = jQuery(this).attr('data-oauth_uid');
+					if(_.indexOf(oauth_uids, oauth_uid) == -1){
+						
+						if(oauth_uid != 'null' && oauth_uid != '')
+							oauth_uids.push(oauth_uid);
+						
+					}
+						
+					
+				});
+				jQuery.fbUserLookup(oauth_uids, '', function(rows){
+					for(var i in rows){
+						var user = rows[i];
+						_this.$el.find('*[data-name="' + user.uid + '"]').html(user.name);
+					}
+				});
+										
 								
 			},
 			events:{
@@ -521,10 +668,10 @@ jQuery(function(){
 			}
 		}; Views.PendingRequests = Backbone.View.extend(Views.PendingRequests);
 		
-		var pending_requests 		= new Collections.PendingRequests(window.page_obj.statistics.pending_reservations);		
-	//	var view_pending_requests	= new Views.PendingRequests({
-	//		collection: pending_requests
-	//	});
+		var pending_requests 		= new Collections.PendingRequests(window.page_obj.statistics.pending_requests);		
+		var view_pending_requests	= new Views.PendingRequests({
+			collection: pending_requests
+		});
 		
 		//window.foo_pending_requests = view_pending_requests;
 		

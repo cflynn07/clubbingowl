@@ -34,7 +34,36 @@
 	window.team_fan_page_id = '<?= $team_fan_page_id ?>';
 </script>
 
+
+<div id="dialog_actions" style="display: none;">
+
+	<div style="display:none; width:100%;" id="dialog_actions_floorplan"></div>
+
+	<span>
+		<img data-pic="" src="" class="pic_square" style="float: left; margin-right: 5px;" alt="picture" />
+		<span data-name="" class="name"></span>'s reservation request.
+	</span>
 	
+	<div style="clear: both;"></div>
+	<br>
+
+	<form>
+		<fieldset>
+			<label for="message">Send <span data-name="" class="name"></span> a message: (optional)</label>
+			<textarea rows="5" style="resize:none; width:100%; border:1px solid #333;" name="message"></textarea>
+			<br><br>
+			<span id="dialog_actions_message_remaining"></span>
+		</fieldset>
+	</form>
+	
+	<div id="dialog_actions_loading_indicator" style="text-align: center; display: none;">
+		<img src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+	</div>
+
+</div>
+
+
+
 	<div id="container">
 		<div id="bgwrap">
 			<div id="primary_left" style="position: fixed; top: 0px;">

@@ -1193,8 +1193,13 @@ class Managers extends MY_Controller {
 
 	private function _settings_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		
+		
 	}
 	private function _settings_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		
+		
 		
 	}
 	

@@ -717,12 +717,31 @@ class Model_guest_lists extends CI_Model {
 					pglr.table_min_spend			as table_min_spend,
 					pglr.manual_add					as pglr_manual_add,
 					pglr.manager_table_approved 	as pglr_manager_table_approved,
-					pglr.supplied_name				as pglr_supplied_name
- 						
+					pglr.supplied_name				as pglr_supplied_name,
+					pgla.name 						as pgla_name,
+					pgla.image 						as pgla_image,					
+ 					tv.name 						as tv_name,
+ 					tv.image 						as tv_image,
+ 					up.public_identifier 			as up_public_identifier,
+ 					up.profile_image 				as up_profile_image,
+ 					u.full_name 					as u_full_name
+ 					
 				FROM 	promoters_guest_lists pgl
 				
 				JOIN 	promoters_guest_lists_reservations pglr
 				ON 		pgl.id = pglr.promoter_guest_lists_id
+				
+				JOIN 	promoters_guest_list_authorizations pgla
+				ON 		pgl.promoters_guest_list_authorizations_id = pgla.id
+				
+				JOIN 	team_venues tv
+				ON 		pgla.team_venue_id = tv.id
+				
+				JOIN 	users_promoters up 
+				ON 		pgla.user_promoter_id = up.id
+				
+				JOIN 	users u 
+				ON 		u.oauth_uid = up.users_oauth_uid
 				
 				WHERE 	pgl.promoters_guest_list_authorizations_id = $promoters_guest_list_authorizations_id ";
 		if($index === false){
@@ -737,11 +756,14 @@ class Model_guest_lists extends CI_Model {
 		
 		$sql .= " ORDER BY pglr.create_time ASC";
 				
+				
 		$query = $this->db->query($sql);
 		$result = $query->result();
 		//this gives us all of the head users, for every head user find all the entourage users
 				
 		foreach($result as &$res){
+					
+			$res->human_date = date('m/d/y h:iA', $res->time);
 			
 			$sql = "SELECT 	
 			
