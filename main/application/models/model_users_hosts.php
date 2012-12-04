@@ -95,7 +95,7 @@ class Model_users_hosts extends CI_Model {
 	 */
 	function retrieve_venue_guest_lists($tv_id, $date, $team_fan_page_id){
 		
-		$date = '2012-05-18';
+		$date = '2012-012-05';
 		
 		$sql = "SELECT
 		

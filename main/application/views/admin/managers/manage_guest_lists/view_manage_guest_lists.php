@@ -11,7 +11,6 @@
 <table class="normal tablesorter fullwidth">
 	<thead>
 		<tr>
-			<th>Team</th>
 			<th>Venue</th>
 			<th>Weekday</th>
 			<th>Guest List Name</th>
@@ -21,42 +20,43 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php 	$count = 0;
-			foreach($promoters_guest_lists as $guest_list): ?>
-			<tr <?= ($count % 2) ? '' : 'class="odd"' ?> name=<?=$guest_list->pgla_id?>>
-				<?php $count++; ?>
-				<td><?= $guest_list->t_name ?></td>
-				<td><?= $guest_list->tv_name ?></td>
-				<td><?= ucfirst($guest_list->pgla_day) ?></td>
-				<td><?= $guest_list->pgla_name ?></td>
-				<td><?= date("F j, Y, g:ia", $guest_list->pgla_create_time) ?></td>
-				<td><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($guest_list->pgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
-				<td class="pgla_id" style="display:none"><?= $guest_list->pgla_id ?></td>
+		
+		<?php $count = 0; ?>
+		<?php foreach($team_venues as $key => $tv): ?>
+			
+			<?php foreach($tv->tv_gla as $gla): ?>
+			<tr <?= ($count % 2) ? '' : 'class="odd"' ?>>
+				<?php $count++ ?>
+				<td><?= $tv->tv_name ?></td>
+				<td><?= ucfirst($gla->tgla_day) ?></td>
+				<td><?= $gla->tgla_name ?></td>
+				<td><?= date("F j, Y, g:ia", $gla->tgla_create_time) ?></td>
+				<td><input data-tgla_id="<?= $gla->tgla_id ?>" type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($gla->tgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
 				<td>
 					
-					<a style="display:inline-block;" class="tooltip guest_list_delete delete_guest_list_button ajaxify" title="Delete this Guest List" href="#">
-						<img src="<?=$central->admin_assets?>images/icons/actions_small/Trash.png" />
+					<a data-action="delete" data-tgla_id="<?= $gla->tgla_id ?>" style="display:inline-block;" class="tooltip guest_list_delete delete_guest_list_button ajaxify" title="Delete this Guest List" href="#">
+						<img src="<?= $central->admin_assets ?>images/icons/actions_small/Trash.png" />
 					</a>
 					
-					<a style="display:inline-block;" class="tooltip edit_guest_list ajaxify" title="Edit Guest List" href="<?= $central->promoter_admin_link_base ?>manage_guest_lists_edit/<?= $guest_list->pgla_id ?>/">
+					<a style="display:inline-block;" class="tooltip edit_guest_list ajaxify" title="Edit Guest List" href="<?= $central->manager_admin_link_base ?>settings_guest_lists/<?= $gla->tgla_id ?>/">
 						<img src="<?= $central->admin_assets ?>images/icons/actions_small/Pencil.png" />
 					</a>
+										
 					
 				</td>
+				
 			</tr>
+			<?php endforeach; ?>
+			
 		<?php endforeach; ?>
-		<?php if(!count($promoters_guest_lists)): ?>
-			<tr>
-				<td>You do not have any guest lists.</td>
-			</tr>
-		<?php endif; ?>
+				
 	</tbody>
 </table>
 
 <table>
 	<tr>
 		<td>
-			<a href="<?=$central->promoter_admin_link_base?>manage_guest_lists_new/" class="ajaxify" style="text-decoration:none">
+			<a href="<?=$central->manager_admin_link_base?>settings_guest_lists_new/" class="ajaxify" style="text-decoration:none">
 				<input class="button" type="submit" value="New Guest List" id="new_guest_list" />
 			</a>
 		</td>

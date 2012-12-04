@@ -1193,15 +1193,84 @@ class Managers extends MY_Controller {
 
 	private function _settings_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		if($arg1){
+			//edit a specific guest-list
+			
+			
+			
+			return;
+		}
+				
+		$this->load->model('model_users_managers', 'users_managers', true);
+		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
+		
+		foreach($team_venues as &$tv){
+			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($tv->tv_id, $this->vc_user->manager->team_fan_page_id);
+			$tv->tv_gla = $tv_gla;
+		}
+
+		$data['team_venues'] = $team_venues;
+		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists', $data, true);
+
+	}
+	private function _ajax_settings_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$vc_method = $this->input->post('vc_method');
+		switch($vc_method){
+			case 'set_deleted':
+				
+				$tgla_id		= $this->input->post('tgla_id');
+				
+				$this->db->where(array(
+					'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
+					'id'				=> $tgla_id
+				));
+				$this->db->update('teams_guest_list_authorizations', array(
+					'deactivated'	=> '1'
+				));
+				
+				die(json_encode(array('success' => true)));
+				
+				
+				break;
+			case 'set_auto_approve':
+				
+				$auto_approve 	= ($this->input->post('auto_approve') == '1') ? '1' : '0';
+				$tgla_id		= $this->input->post('tgla_id');
+				
+				$this->db->where(array(
+					'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
+					'id'				=> $tgla_id
+				));
+				$this->db->update('teams_guest_list_authorizations', array(
+					'auto_approve'	=> $auto_approve
+				));
+				
+				die(json_encode(array('success' => true)));
+				
+				break;
+		}
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+
 	private function _settings_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
 		
 		
 	}
+	private function _ajax_settings_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+	}
+	
+	
 	
 	
 	

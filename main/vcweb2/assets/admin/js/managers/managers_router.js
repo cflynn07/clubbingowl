@@ -172,7 +172,7 @@ jQuery(function(){
 		settings_guest_lists: function(segment){
 			
 			window.manager_admin_menu_set_active('settings');
-		//	callback_helper(window.vc_page_scripts.admin_manager_settings_payment);
+			callback_helper(window.vc_page_scripts.admin_manager_settings_guest_lists);
 			console.log('--------- manager settings_guest_lists ---------');
 			
 		},
@@ -182,7 +182,7 @@ jQuery(function(){
 		settings_guest_lists_individual: function(segment){
 			
 			window.manager_admin_menu_set_active('settings');
-		//	callback_helper(window.vc_page_scripts.admin_manager_settings_payment);
+			callback_helper(window.vc_page_scripts.admin_manager_settings_guest_lists_individual);
 			console.log('--------- manager settings_guest_lists_individual ---------');
 			
 		},
