@@ -236,6 +236,8 @@ class Managers extends MY_Controller {
 		elseif($arg0 != '' && $arg1 != '' && $arg2 == ''){
 			
 			switch($arg0){
+				case 'clients':
+					break;
 				case 'settings_venues_edit':
 					$header_data['additional_global_javascripts'] = array(
 																		'jquery.dumbformstate-1.01.js'
@@ -350,7 +352,7 @@ class Managers extends MY_Controller {
 		
 		foreach($team_venues as &$venue){
 			
-			$venue->clients = $this->users_managers->retrieve_venue_clients($venue->tv_id);
+			$venue->clients = $this->users_managers->retrieve_venue_clients($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
 			$total_clients += count($venue->clients);
 			
 			$venue->upcoming_guest_list_reservations = $this->users_managers->retrieve_team_venue_guest_list_reservations($venue->tv_id, true);
@@ -816,10 +818,78 @@ class Managers extends MY_Controller {
 	 */
 	private function _clients($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		return;
+		$this->load->model('model_teams', 			'teams', 			true);
+		$this->load->model('model_users_promoters', 'users_promoters', 	true);
+		$this->load->model('model_users_managers', 	'users_managers', 	true);
 		
-		$this->load->model('model_users_promoters', 'users_promoters', true);
-		$data['clients'] = $this->users_promoters->retrieve_promoter_clients_list_detailed($this->library_promoters->promoter->up_id);
+		
+		
+		$promoters 	= $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
+		$clients 	= array();
+		
+		
+		
+		//get a unique set of all promoter clients
+		foreach($promoters as $pro){
+			$pro_clients = $this->users_promoters->retrieve_promoter_clients_list_detailed($pro->up_id);
+			
+			foreach($pro_clients as $pc){
+				
+				$found = false;
+				
+				foreach($clients as $c){
+				
+					if($c->u_oauth_uid == $pc->u_oauth_uid){
+						$found = true;
+						break;
+					}
+					
+				}
+				
+				if(!$found)
+					$clients[] = $pc;
+				
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
+		foreach($team_venues as $venue){
+			
+			$venue_clients = $this->users_managers->retrieve_venue_clients_detailed($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
+		
+			foreach($venue_clients as $tc){
+				
+				$found = false;
+				
+				foreach($clients as $c){
+				
+					if($c->u_oauth_uid == $tc->u_oauth_uid){
+						$found = true;
+						break;
+					}
+					
+				}
+				
+				if(!$found)
+					$clients[] = $tc;
+				
+			}
+		
+		}
+				
+		
+		
+		
+		//-------------------
+		
+		
+		$data['clients'] = $clients;
 		
 		
 		if($arg1){

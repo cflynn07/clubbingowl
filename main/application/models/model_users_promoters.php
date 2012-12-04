@@ -1215,7 +1215,7 @@ class Model_users_promoters extends CI_Model {
 				));
 			
 			$query = $this->db->get();
-			$user->pgl_history = $query->result();
+			$user->gl_history = $query->result();
 			
 		}
 		

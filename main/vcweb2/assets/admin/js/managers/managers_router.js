@@ -40,6 +40,7 @@ jQuery(function(){
 		'/marketing_new': 												'marketing_new',
 		'/marketing':													'marketing',	
 		
+		'/clients/:oauth_uid': 											'clients_individual',
 		'/clients': 													'clients',
 		
 		'/tables':														'tables',
@@ -241,6 +242,16 @@ jQuery(function(){
 			
 		},
 		
+		// --------------------------------------------------------------------------
+		
+		clients_individual: function(segment){
+			
+			window.manager_admin_menu_set_active('clients');
+			callback_helper(window.vc_page_scripts.admin_manager_clients_individual);
+			console.log('--------- manager clients individual ---------');
+			
+		},
+
 		// --------------------------------------------------------------------------
 		
 		clients: function(segment){

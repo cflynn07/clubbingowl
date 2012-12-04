@@ -289,20 +289,65 @@ class Model_users_managers extends CI_Model {
 		return $query->result();
 	}
 	
+	function retrieve_venue_clients_detailed($venue_id, $team_fan_page_id){
+		
+		$clients_oauth_uids = $this->retrieve_venue_clients($venue_id, $team_fan_page_id);
+		
+		$this->db->select('u.full_name 		as u_full_name,
+							u.first_name	as u_first_name,
+							u.last_name		as u_last_name,
+							u.email 		as u_email,
+							u.oauth_uid		as u_oauth_uid,
+							u.phone_number	as u_phone_number,
+							u.opt_out_email	as u_opt_out_email')
+			->from('users u');
+			
+		foreach($clients_oauth_uids as $c_uid){
+			$this->db->or_where('u.oauth_uid', $c_uid->tglr_user_oauth_uid);
+		}
+		
+		$query = $this->db->get();
+		$result = $query->result();
+		
+		//attach gl bookings
+		foreach($result as &$user){
+			
+			$this->db->select('*')
+				->from('teams_guest_list_authorizations tgla')
+				->join('teams_guest_lists tgl', 					'tgl.team_guest_list_authorization_id = tgla.id')
+				->join('teams_guest_lists_reservations tglr', 		'tglr.team_guest_list_id = tgl.id')
+				->where(array(
+					'tgla.team_venue_id' 	=> $venue_id,
+					'tglr.user_oauth_uid'	=> $user->u_oauth_uid
+				));
+			
+			$query = $this->db->get();
+			$user->gl_history = $query->result();
+			
+		}
+		
+				
+		return $result;
+		
+	}
+	
 	/**
 	 * Retrieve all clients that have reserved guest lists and tables at a venue
 	 * 
 	 * @param	int (venue_id)
 	 * @return 	array
 	 */
-	function retrieve_venue_clients($venue_id){
+	function retrieve_venue_clients($venue_id, $team_fan_page_id = false){
 		
 		$sql = "SELECT
 		
 					DISTINCT 	tglr.user_oauth_uid 	as tglr_user_oauth_uid
 					
-				FROM 	team_venues tv
+				FROM 	teams_venues_pairs tvp
 				
+				JOIN 	team_venues tv
+				ON 		tvp.team_venue_id = tv.id	
+								
 				JOIN	teams_guest_list_authorizations tgla
 				ON 		tgla.team_venue_id = tv.id
 				
@@ -312,7 +357,7 @@ class Model_users_managers extends CI_Model {
 				JOIN 	teams_guest_lists_reservations tglr
 				ON 		tglr.team_guest_list_id = tgl.id
 				
-				WHERE 	tv.id = $venue_id";
+				WHERE 	tvp.team_fan_page_id = $team_fan_page_id AND tv.id = $venue_id";
 		$query = $this->db->query($sql);
 		return $query->result();
 		
