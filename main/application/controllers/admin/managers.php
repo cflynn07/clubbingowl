@@ -1193,14 +1193,7 @@ class Managers extends MY_Controller {
 
 	private function _settings_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		if($arg1){
-			//edit a specific guest-list
-			
-			
-			
-			return;
-		}
-				
+		
 		$this->load->model('model_users_managers', 'users_managers', true);
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 		
@@ -1209,7 +1202,59 @@ class Managers extends MY_Controller {
 			$tv->tv_gla = $tv_gla;
 		}
 
-		$data['team_venues'] = $team_venues;
+		$data['team_venues'] = $team_venues;		
+		
+		
+		
+		
+		
+		
+		if($arg1){
+			//edit a specific guest-list
+			
+			//do I own zis guest list
+			
+			$guest_list = false;
+			foreach($team_venues as $tv){
+				foreach($tv->tv_gla as $gla){
+					if($gla->tgla_id == $arg1){
+						
+					}
+				}
+			}
+			
+			$this->session->delete_flashdata('manage_image');
+			
+			
+			if(!$manage_image = $this->session->flashdata('manage_image')){
+				//set this flash data so if user navigates to 'manage_image' it will allow 
+				$manage_image = new stdClass;
+				$manage_image->existing 	= false;
+				$manage_image->type 		= 'guest_lists';
+				$manage_image->live_image 	= false;
+				$manage_image->return 		= 'settings_guest_lists_edit';
+				$this->session->set_flashdata('manage_image', json_encode($manage_image));
+			}else{
+				$manage_image = json_decode($manage_image);
+				$this->session->keep_flashdata('manage_image');
+			}
+						
+			$data['manage_image'] = $manage_image;
+			
+			
+			
+			
+			$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists_edit', $data, true);
+			
+			
+			return;
+		}
+				
+				
+				
+				
+				
+		
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists', $data, true);
 
 	}
@@ -1250,8 +1295,7 @@ class Managers extends MY_Controller {
 				
 				break;
 		}
-		
-		
+	
 	}
 	
 	
@@ -1263,7 +1307,36 @@ class Managers extends MY_Controller {
 	private function _settings_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
+		/*
+		$manage_image = new stdClass;
+		$manage_image->existing 	= false;
+		$manage_image->type 		= 'guest_lists';
+		$manage_image->live_image 	= false;
+		$manage_image->return 		= 'settings_guest_lists_new';
+		$this->session->set_flashdata('manage_image', json_encode($manage_image));
+		*/
 		
+		
+		
+		
+		if(!$manage_image = $this->session->flashdata('manage_image')){
+			//set this flash data so if user navigates to 'manage_image' it will allow 
+			$manage_image = new stdClass;
+			$manage_image->existing 	= false;
+			$manage_image->type 		= 'guest_lists';
+			$manage_image->live_image 	= false;
+			$manage_image->return 		= 'settings_guest_lists_new';
+			$this->session->set_flashdata('manage_image', json_encode($manage_image));
+		}else{
+			$manage_image = json_decode($manage_image);
+			$this->session->keep_flashdata('manage_image');
+		}
+					
+		$data['manage_image'] = $manage_image;
+			
+		
+		$data = array();
+		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists_new', $data, true);
 		
 	}
 	private function _ajax_settings_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){

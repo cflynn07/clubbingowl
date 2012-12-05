@@ -59,6 +59,8 @@ jQuery(function(){
 		
 	});
 	
+	jQuery('input').iphoneStyle();
+	
 });
 </script>
 <style type="text/css">

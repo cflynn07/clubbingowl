@@ -21,6 +21,9 @@
 	</thead>
 	<tbody>
 		
+		
+		
+		
 		<?php $count = 0; ?>
 		<?php foreach($team_venues as $key => $tv): ?>
 			
@@ -49,6 +52,10 @@
 			<?php endforeach; ?>
 			
 		<?php endforeach; ?>
+				
+				
+				
+				
 				
 	</tbody>
 </table>
