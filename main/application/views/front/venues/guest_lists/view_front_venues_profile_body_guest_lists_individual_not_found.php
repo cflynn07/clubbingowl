@@ -20,6 +20,8 @@
 				<a style="text-decoration:none;" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
 					<input  onclick="javascript:void(0);" class="back" type="button" value="Other Guest Lists at <?= $venue->tv_name ?>">
 				</a>
+				<br/>
+				<br/>
 				
 				<input onclick="javascripot:window.location='/';" class="forward" type="button" value="Return to Home">
 			</div>
