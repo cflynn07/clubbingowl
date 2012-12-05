@@ -939,7 +939,8 @@ class Model_users_promoters extends CI_Model {
 					t.fan_page_id		as t_fan_page_id,
 					tv.name 			as tv_name,
 					tv.id 				as tv_id,
-					tv.image 			as tv_image
+					tv.image 			as tv_image,
+					tv.banned			as tv_banned
 					
 				FROM	users_promoters up
 				
@@ -1127,6 +1128,7 @@ class Model_users_promoters extends CI_Model {
 					tv.state 			as tv_state,
 					tv.zip 				as tv_zip,
 					tv.city_id 			as tv_city_id,
+					tv.banned 			as tv_banned,
 					
 					c.url_identifier 	as c_url_identifier
 				
@@ -1153,6 +1155,14 @@ class Model_users_promoters extends CI_Model {
 						AND pgla.deactivated = 0";
 		$query = $this->db->query($sql, array($promoter_id, $guest_list_name));
 		$result = $query->row();
+		
+		
+		if(!$result){
+					
+			return $result;	
+			
+		}
+		
 		
 		//attach latest status
 		$this->db->select('
@@ -1198,9 +1208,12 @@ class Model_users_promoters extends CI_Model {
 			$this->db->or_where('u.oauth_uid', $c_uid->pglr_user_oauth_uid);
 		}
 		
-		$query = $this->db->get();
-		$result = $query->result();
-		
+		if($clients_uids){
+			$query = $this->db->get();
+			$result = $query->result();
+		}else{
+			$result = array();
+		}
 		
 		//attach gl bookings
 		foreach($result as &$user){

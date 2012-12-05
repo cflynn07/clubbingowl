@@ -676,6 +676,10 @@ class Managers extends MY_Controller {
 	 */
 	private function _clients($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		
+		
+		
+		
 		$this->load->model('model_teams', 			'teams', 			true);
 		$this->load->model('model_users_promoters', 'users_promoters', 	true);
 		$this->load->model('model_users_managers', 	'users_managers', 	true);
@@ -711,15 +715,11 @@ class Managers extends MY_Controller {
 			
 		}
 		
-		
-		
-		
-		
-		
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 		foreach($team_venues as $venue){
 			
 			$venue_clients = $this->users_managers->retrieve_venue_clients_detailed($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
+		
 		
 			foreach($venue_clients as $tc){
 				
@@ -743,12 +743,10 @@ class Managers extends MY_Controller {
 				
 		
 		
-		
 		//-------------------
 		
 		
 		$data['clients'] = $clients;
-		
 		
 		if($arg1){
 			
@@ -792,7 +790,7 @@ class Managers extends MY_Controller {
 			
 			
 			
-	
+		
 			$data['data']	= $page_data;
 			$data['client'] = $client;
 			$this->body_html = $this->load->view('admin/promoters/clients/view_clients_individual', $data, true);;

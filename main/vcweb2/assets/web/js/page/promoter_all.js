@@ -5,8 +5,12 @@ jQuery(function(){
 	
 	window.vc_page_scripts.promoter_all = function(){
 
+
 		
-		
+	//	if(window.page_obj && window.page_obj.four_oh_four)
+	//		return false;
+
+
 		
 		jQuery('#add_as_friend').css({
 			cursor: 'pointer'

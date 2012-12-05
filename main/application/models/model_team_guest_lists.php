@@ -490,7 +490,8 @@ class Model_team_guest_lists extends CI_Model {
 	  				tgla.deactivated_time	as tgla_deactivated_time,
 	  				tgla.auto_approve 		as tgla_auto_approve,
 	  				tgla.description 		as tgla_description,
-	  				tgla.image 				as tgla_image
+	  				tgla.image 				as tgla_image,
+	  				tv.banned 				as tv_banned
 	  				
 	  			FROM 	teams_guest_list_authorizations tgla 
 	  			

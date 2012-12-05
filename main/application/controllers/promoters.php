@@ -589,7 +589,36 @@ class Promoters extends MY_Controller {
 			$this->_helper_record_reference_code();
 			//get this guest list, if guest list isn't found - throw 404
 
+
+
+
+
+
+
+
+
+
+
 			$data['guest_list'] = $this->library_promoters->retrieve_promoter_guest_list($arg2);
+			
+			if(!$data['guest_list'] 
+				|| 
+				((isset($data['guest_list']->tv_banned)) && $data['guest_list']->tv_banned == '1')){
+
+				if(!$this->input->post('ajaxify'))
+					header('HTTP/1.0 404 Not Found');
+								
+				$this->body_html .= $this->load->view($this->view_dir . 'guest_lists/view_front_promoters_profile_body_guest_lists_individual_not_found', $data, true);				
+				$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_footer', '', true);
+				return;
+				
+			}
+			
+			
+			
+			
+			
+			
 			
 			
 			
@@ -690,7 +719,6 @@ class Promoters extends MY_Controller {
 		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_footer', '', true);
 		$this->_helper_record_view();
-		
 		
 	}
 

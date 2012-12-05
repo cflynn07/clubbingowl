@@ -65,7 +65,7 @@
 	<fieldset>
 			<legend>Upload Profile Picture</legend> 
 						
-			<img id="profile_pic" src="<?= $central->admin_assets ?>images/outline_face.png" alt="profile picture" />
+			<img id="profile_pic" src="http://placehold.it/200x200?text=" alt="profile picture" />
 				
 						<?= ''//form_open('#', array('id' => 'promoter_pic_crop_form', 'style' => 'display:none;')) ?>
 				<form id="my_profile_pic_form" action="#" style="display:none;">	
