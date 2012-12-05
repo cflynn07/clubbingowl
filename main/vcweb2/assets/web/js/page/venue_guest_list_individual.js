@@ -5,7 +5,9 @@ jQuery(function(){
 	
 	window.vc_page_scripts.venue_guest_list_individual = function(){
 		
-		
+		if(window.page_obj && window.page_obj.four_oh_four)
+			return false;
+			
 		var publish_stream = false;
 		
 		fbEnsureInit(function(){

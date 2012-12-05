@@ -1,8 +1,8 @@
-<style type="text/css">
-div#unavailable_overlay{
-	display:<?= (isset($vc_user) && $vc_user) ? 'none' : 'block'?>;
-}
-</style>
+<script type="text/javascript">
+	window.page_obj= {}; window.page_obj.four_oh_four = true;
+</script>
+
+
 
 <section id="guestlist">
   
@@ -10,15 +10,44 @@ div#unavailable_overlay{
 
   <div class="guestlist-form" style="display: block; opacity: 1; ">
 
-    <p id="gl_title_header" style="font-size:18px;">You are joining <?= $venue->tv_name ?>'s guest list "<strong><?= $guest_list->tgla_name ?></strong>"</p>
+    <p id="gl_title_header" style="font-size:18px; text-align:center;">Guest List Not Found</p>
 	
 	
-    <?php if(false): ?>
-    <?= Kint::dump($venue_floorplan) ?>
-    <?= Kint::dump($guest_list) ?>
-    <?= Kint::dump($central) ?>
-    <?php endif; ?>
-    
+		<div id="error_wrapper">
+			<div style="width:100%;" id="message">
+				<p>Sorry! Toro says,<br>The guest list you're looking for could not be found.<br/>It may have been deleted.</p>
+				
+				<a style="text-decoration:none;" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
+					<input  onclick="javascript:void(0);" class="back" type="button" value="Other Guest Lists at <?= $venue->tv_name ?>">
+				</a>
+				
+				<input onclick="javascripot:window.location='/';" class="forward" type="button" value="Return to Home">
+			</div>
+			
+			<img style="width:100%; margin-top:20px;" id="toro" src="<?= $central->front_assets ?>/images/ClubbingOwlBackgroundWeb.png">
+			<div style="clear:both"></div>
+		</div>
+
+  </div>
+  
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php if(false): ?>
+
     <h2>List Desctiption</h2>
     <p><?= $guest_list->tgla_description ?></p>
 
@@ -439,17 +468,4 @@ div#unavailable_overlay{
 
 
 
-
-
-<script type="text/javascript">
-(function(window){
-	<?php 
-		$obj = new stdClass;
-		$obj->tgla_id 	= $guest_list->tgla_id;
-		$obj->tv_id		= $venue->tv_id;
-		$obj->tgla_name	= $guest_list->tgla_name;
-		$obj->tv_name	= $venue->tv_name;
-	?>
-	window.gl_obj = <?= json_encode($obj) ?>;
-})(window);
-</script>
+<?php endif; ?>

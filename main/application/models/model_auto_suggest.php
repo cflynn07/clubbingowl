@@ -97,15 +97,11 @@ class Model_auto_suggest extends CI_Model {
 				
 				FROM 	team_venues tv 
 				
-				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id
-				
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 				
 				WHERE	tv.name LIKE ?
-				AND 	tv.banned = 0
-				AND		t.completed_setup = 1";		
+				AND 	tv.banned = 0";		
 		$query = $this->db->query($sql, array('%' . $search_pattern . '%'));
 		$result = array_merge($result, $query->result());
 		
@@ -113,7 +109,7 @@ class Model_auto_suggest extends CI_Model {
 		
 		
 		//slap in guest lists
-		$sql = "(SELECT
+		$sql = "(SELECT DISTINCT
 		
 					'promoter' 				as gl_type,
 					'Guestlist' 			as value,
@@ -138,19 +134,23 @@ class Model_auto_suggest extends CI_Model {
 				
 				JOIN 	team_venues tv 
 				ON 		pgla.team_venue_id = tv.id 
-				
+
+				JOIN 	teams_venues_pairs tvp
+				ON 		tvp.team_venue_id = tv.id
+
 				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id
+				ON 		tvp.team_fan_page_id = t.fan_page_id
 				
 				JOIN	cities c 
 				ON 		t.city_id = c.id
 					
 				WHERE	t.completed_setup = 1
 				AND 	tv.banned = 0
+				AND 	tvp.deleted = 0
 				AND 	pgla.deactivated = 0
 				AND 	pgla.name LIKE ?)
 			UNION
-				(SELECT
+				(SELECT DISTINCT
 					
 					'venue'					as gl_type,
 					'Guestlist' 			as value,
@@ -168,19 +168,24 @@ class Model_auto_suggest extends CI_Model {
 				FROM 	teams_guest_list_authorizations tgla
 				
 				JOIN 	team_venues tv 
-				ON 		tgla.team_venue_id 	= tv.id 
-				
+				ON 		tgla.team_venue_id = tv.id 
+
+				JOIN 	teams_venues_pairs tvp
+				ON 		tvp.team_venue_id = tv.id
+
 				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id 
-				
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+
 				JOIN 	cities c 
 				ON 		t.city_id = c.id 
 				
 				WHERE	t.completed_setup = 1 
 				AND 	tv.banned = 0 
+				AND 	tvp.deleted = 0
 				AND 	tgla.deactivated = 0
 				AND 	tgla.name LIKE ?)";
 		$query = $this->db->query($sql, array('%' . $search_pattern . '%', '%' . $search_pattern . '%'));		
+	
 		$result_temp = $query->result();
 		
 		setlocale(LC_ALL, $this->config->item('current_lang_locale'));

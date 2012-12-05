@@ -3,50 +3,35 @@
 </script>
 
 
-
-
-
-
-
-
-
-
-
 <section id="guestlist">
 	
   <h1><?= $this->lang->line('p-gl_t') ?></h1>
  
   <div class="guestlist-form" style="display: block; opacity: 1; ">
   	
-
+	    <p id="gl_title_header" style="text-align:center;">Guest List Not Found</p>
 		
-    <p id="gl_title_header" style="text-align:center;">
-    	    	
-    	   Guest List Not Found
-		
-	</p>
-	
-	
-	<div id="error_wrapper">
-		<div style="width:100%;" id="message">
-			<p>Sorry! Toro says,<br>The guest list you're looking for could not be found.<br/><?= $promoter->u_first_name ?> may have deleted it.</p>
+		<div id="error_wrapper">
+			<div style="width:100%;" id="message">
+				<p>Sorry! Toro says,<br>The guest list you're looking for could not be found.<br/><?= $promoter->u_first_name ?> may have deleted it.</p>
+				
+				<a style="text-decoration:none;" href="<?= $central->front_link_base ?>promoters/<?= $promoter->up_public_identifier ?>/guest_lists/">
+					<input  onclick="javascript:void(0);" class="back" type="button" value="<?= $promoter->u_first_name ?>'s other Guest Lists">
+				</a>
+				
+				<input onclick="javascripot:window.location='/';" class="forward" type="button" value="Return to Home">
+			</div>
 			
-			<a style="text-decoration:none;" href="<?= $central->front_link_base ?>promoters/<?= $promoter->up_public_identifier ?>/guest_lists/">
-				<input onclick="javascript:void(0);" class="back" type="button" value="<?= $promoter->u_first_name ?>'s other Guest Lists">
-			</a>
-			
-			<input onclick="javascripot:window.location='/';" class="forward" type="button" value="Return to Home">
+			<img style="width:100%; margin-top:20px;" id="toro" src="<?= $central->front_assets ?>/images/ClubbingOwlBackgroundWeb.png">
+			<div style="clear:both"></div>
 		</div>
 		
-		<img style="width:100%; margin-top:20px;" id="toro" src="<?= $central->front_assets ?>/images/ClubbingOwlBackgroundWeb.png">
-		<div style="clear:both"></div>
-	</div>
-	
 	
 	
 	</div>
 	
 </section>
+	
 	
 	
 	<?php if(false): ?>
@@ -473,21 +458,6 @@
 	</div>
     	
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   </div>
