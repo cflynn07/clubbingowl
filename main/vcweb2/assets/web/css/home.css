@@ -113,6 +113,11 @@ div#no_friends > div#message{
 	
 }
 
+
+
+
+
+
 div#trending_gl ul li {
 	border-bottom: 1px dashed #CCC;
 }
@@ -123,6 +128,13 @@ div#trending_gl ul li img {
 div#trending_gl td > div span:not(.subtext) {
 	text-decoration: underline;
 }
+div#news_feed_side_data li:hover{
+	background: #CCC !important;
+}
+
+
+
+
 
 
 section#news ul.updates p.news_item_date {

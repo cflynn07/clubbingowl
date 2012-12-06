@@ -18,6 +18,8 @@
 				<a style="text-decoration:none;" href="<?= $central->front_link_base ?>promoters/<?= $promoter->up_public_identifier ?>/guest_lists/">
 					<input  onclick="javascript:void(0);" class="back" type="button" value="<?= $promoter->u_first_name ?>'s other Guest Lists">
 				</a>
+				<br/>
+				<br/>
 				
 				<input onclick="javascripot:window.location='/';" class="forward" type="button" value="Return to Home">
 			</div>
@@ -31,6 +33,20 @@
 	</div>
 	
 </section>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

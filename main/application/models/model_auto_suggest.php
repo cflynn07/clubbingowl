@@ -63,7 +63,7 @@ class Model_auto_suggest extends CI_Model {
 		$result = $query->result();
 		
 		//slap in all the venues this promoter is associated with
-		foreach($result as &$res){
+		foreach($result as $key => &$res){
 			
 			$sql = "SELECT DISTINCT
 						
@@ -72,15 +72,28 @@ class Model_auto_suggest extends CI_Model {
 						
 					FROM 	team_venues tv 
 					
+					JOIN 	teams_venues_pairs tvp
+					ON 		tvp.team_venue_id = tv.id
+					
+					JOIN 	teams t 
+					ON 		tvp.team_fan_page_id = t.fan_page_id
+					
 					JOIN 	promoters_guest_list_authorizations pgla
 					ON		pgla.team_venue_id = tv.id
 					
-					WHERE 	pgla.user_promoter_id = ?
-					AND 	pgla.deactivated = 0
+					WHERE 	
+						pgla.user_promoter_id = ?
+						AND 	pgla.deactivated = 0
+						AND 	tvp.deleted = 0
 					
 					ORDER BY 	tv.id DESC";
 			$query = $this->db->query($sql, array($res->up_id));
 			$res->p_venues = $query->result();
+			
+			//ghetto hack
+			if(!$res->p_venues)
+				unset($result[$key]);
+			
 		}
 		
 		

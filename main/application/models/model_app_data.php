@@ -352,24 +352,35 @@ class Model_app_data extends CI_Model {
 		
 			tv.id
 		
-		FROM 	promoters_guest_list_authorizations pgla
+		FROM	team_venues tv
 		
-		JOIN	team_venues tv
+		JOIN 	promoters_guest_list_authorizations pgla
 		ON 		pgla.team_venue_id = tv.id
+		
+		JOIN 	teams_venues_pairs tvp 
+		ON 		tvp.team_venue_id = tv.id
+		
+		JOIN 	teams t 
+		ON 		tvp.team_fan_page_id = t.fan_page_id
+		
+		JOIN 	promoters_teams pt 
+		ON 		pt.team_fan_page_id = t.fan_page_id
 		
 		JOIN 	users_promoters up
 		ON 		up.id = pgla.user_promoter_id
 		
-		JOIN 	promoters_teams pt 
-		ON 		pt.promoter_id = up.id
-				
 		WHERE 	pt.banned = 0
 		AND 	pt.quit = 0
 		AND 	pt.approved = 1
+		AND 	up.banned = 0
+		AND 	tvp.deleted = 0
 		AND 	pgla.deactivated = 0)";
 		
 		$query = $this->db->query($sql);
 		$result = $query->result();
+				
+	//	Kint::dump($this->db->last_query());
+	//	Kint::dump($result);		
 				
 		return $result;
 		
