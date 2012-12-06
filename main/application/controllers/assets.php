@@ -457,7 +457,8 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('managers/page/admin_manager_reports_guest_lists',					'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_promoters',					'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists',					'admin_js');
-						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists_individual',		'admin_js');
+						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists_edit',		'admin_js');
+						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists_new',		'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_payment',						'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_hosts',						'admin_js');					
 						$group_assets[] = array('managers/page/admin_manager_settings_venues',						'admin_js');					

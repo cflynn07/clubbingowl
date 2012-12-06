@@ -206,6 +206,8 @@ class Managers extends MY_Controller {
 					break;
 				case 'settings_guest_lists_new':
 					break;
+				case 'settings_guest_lists_edit':
+					break;
 				case 'settings_payment':
 					break;
 				case 'settings_promoters':
@@ -240,7 +242,7 @@ class Managers extends MY_Controller {
 		elseif($arg0 != '' && $arg1 != '' && $arg2 == ''){
 			
 			switch($arg0){
-				case 'settings_guest_lists':
+				case 'settings_guest_lists_edit':
 					break;
 				case 'clients':
 					break;
@@ -1298,7 +1300,12 @@ class Managers extends MY_Controller {
 	
 	
 	
-	
+	private function _settings_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+	}
+	private function _ajax_settings_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+	}
 	
 	
 

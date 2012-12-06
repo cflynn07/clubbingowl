@@ -24,7 +24,8 @@ jQuery(function(){
 		'/settings_hosts':												'settings_hosts',
 		'/settings_promoters': 											'settings_promoters',
 		'/settings_payment': 											'settings_payment',
-		'/settings_guest_lists/:id': 									'settings_guest_lists_individual',
+		'/settings_guest_lists_new': 									'settings_guest_lists_new',
+		'/settings_guest_lists_edit': 									'settings_guest_lists_edit',
 		'/settings_guest_lists': 										'settings_guest_lists',
 
 		
@@ -179,11 +180,21 @@ jQuery(function(){
 
 		// --------------------------------------------------------------------------
 
-		settings_guest_lists_individual: function(segment){
+		settings_guest_lists_edit: function(segment){
 			
 			window.manager_admin_menu_set_active('settings');
-			callback_helper(window.vc_page_scripts.admin_manager_settings_guest_lists_individual);
-			console.log('--------- manager settings_guest_lists_individual ---------');
+			callback_helper(window.vc_page_scripts.admin_manager_settings_guest_lists_edit);
+			console.log('--------- manager settings_guest_lists_edit ---------');
+			
+		},
+
+		// --------------------------------------------------------------------------
+		
+		settings_guest_lists_new: function(segment){
+			
+			window.manager_admin_menu_set_active('settings');
+			callback_helper(window.vc_page_scripts.admin_manager_settings_guest_lists_new);
+			console.log('--------- manager settings_guest_lists_new ---------');
 			
 		},
 
