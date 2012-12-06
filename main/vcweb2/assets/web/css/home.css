@@ -116,6 +116,13 @@ div#no_friends > div#message{
 div#trending_gl ul li {
 	border-bottom: 1px dashed #CCC;
 }
+div#trending_gl ul li img {
+	width: 43px !important;
+	border: 1px solid #474D6A;
+}
+div#trending_gl td > div span:not(.subtext) {
+	text-decoration: underline;
+}
 
 
 section#news ul.updates p.news_item_date {
