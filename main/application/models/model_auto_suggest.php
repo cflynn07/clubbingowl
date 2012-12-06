@@ -85,6 +85,7 @@ class Model_auto_suggest extends CI_Model {
 						pgla.user_promoter_id = ?
 						AND 	pgla.deactivated = 0
 						AND 	tvp.deleted = 0
+						AND 	tv.banned = 0
 					
 					ORDER BY 	tv.id DESC";
 			$query = $this->db->query($sql, array($res->up_id));
