@@ -90,10 +90,13 @@ class library_venues{
 	  * @param	string (guest list name)
 	  * @return	object || false
 	  */
-	  public function retrieve_individual_guest_list($guest_list_name){
+	  public function retrieve_individual_guest_list($guest_list_name, $tv_id = false){
 	  	
 		$this->CI->load->model('model_team_guest_lists', 'team_guest_lists', true);
-		return $this->CI->team_guest_lists->retrieve_individual_guest_list($this->venue->tv_id, $guest_list_name);
+		if($tv_id)
+			return $this->CI->team_guest_lists->retrieve_individual_guest_list($tv_id, $guest_list_name);
+		else
+			return $this->CI->team_guest_lists->retrieve_individual_guest_list($this->venue->tv_id, $guest_list_name);
 		
 	  }
 	

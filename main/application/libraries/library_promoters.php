@@ -207,19 +207,19 @@ class library_promoters{
 			
 		}
 		
-		$team_venue_id 		= $this->CI->input->post('venue');
-		$auto_approve 		= $this->CI->input->post('auto_approve');
-		$gl_name 			= $this->CI->input->post('gl_name');
-		$gl_description 	= $this->CI->input->post('gl_description');
-		$weekday 			= $this->CI->input->post('weekday');
-		$auto_promote 		= $this->CI->input->post('auto_promote');
+		$team_venue_id 		= strip_tags($this->CI->input->post('venue'));
+		$auto_approve 		= strip_tags($this->CI->input->post('auto_approve'));
+		$gl_name 			= strip_tags($this->CI->input->post('gl_name'));
+		$gl_description 	= strip_tags($this->CI->input->post('gl_description'));
+		$weekday 			= strip_tags($this->CI->input->post('weekday'));
+		$auto_promote 		= strip_tags($this->CI->input->post('auto_promote'));
 		
 		
-		$gl_cover			= $this->CI->input->post('gl_cover');
-		$regular_cover		= $this->CI->input->post('regular_cover');
-		$door_opens			= $this->CI->input->post('door_opens');
-		$door_closes		= $this->CI->input->post('door_closes');
-		$min_age			= $this->CI->input->post('min_age');
+		$gl_cover			= strip_tags($this->CI->input->post('gl_cover'));
+		$regular_cover		= strip_tags($this->CI->input->post('regular_cover'));
+		$door_opens			= strip_tags($this->CI->input->post('door_opens'));
+		$door_closes		= strip_tags($this->CI->input->post('door_closes'));
+		$min_age			= strip_tags($this->CI->input->post('min_age'));
 		$additional_info_1	= strip_tags($this->CI->input->post('additional_info_1'));
 		$additional_info_2	= strip_tags($this->CI->input->post('additional_info_2'));
 		$additional_info_3	= strip_tags($this->CI->input->post('additional_info_3'));
@@ -269,6 +269,10 @@ class library_promoters{
 		if(strlen($gl_description) > 2000)
 			return array('success' => false,
 							'message' => 'List description must not exceed 2000 characters');
+			
+		if(strlen($gl_description) < 10)
+			return array('success' => false,
+							'message' => 'List description must be greater than 10 characters');
 			
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		return $this->CI->users_promoters->create_promoter_guest_list_authorization($this->promoter->up_id, $team_venue_id, $weekday, $gl_name, $gl_description, $auto_approve, $gl_cover, $regular_cover, $door_opens, $door_closes, $min_age, $additional_info_1, $additional_info_2, $additional_info_3, $auto_promote);

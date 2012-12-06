@@ -18,7 +18,7 @@
 								<p> 
 			<label>Venue:</label> 
 			<select name="guest_list_venue" class="dropdown">
-				<?php foreach($promoter_team_venues as $venue): ?>
+				<?php foreach($team_venues as $venue): ?>
 				<option value="<?=$venue->tv_id?>"><?=$venue->tv_name?></option>
 				<?php endforeach; ?>
 			</select> 
@@ -43,8 +43,21 @@
 			<p id="guest_list_name_error" class="error" style="min-height:50px; display:none;">Guest List name can not contain special characters (such as: #*$&%).</p>
 		</p>
 		
-							<p> 
+		
+		
+		
+		
+							<p style="margin-bottom:0;"> 
 			<label>Guest List Image:</label> 
+			
+			<div style="display:inline-block; margin-left: 155px;">
+				<div id="image_holder"></div>
+				<input id="upload_new_image" class="button" type="submit" value="Upload Image" />
+				<img id="ajax_loading_image" src="<?=$central->global_assets?>images/ajax.gif" alt="loading" style="display:none;" />
+			</div>
+			
+			
+			<?php if(false): ?>
 			<a class="ajaxify" href="<?= $central->manager_admin_link_base ?>manage_image/">
 				<?php if(isset($manage_image->image_data)): ?>
 					<img src="<?= $central->s3_uploaded_images_base_url . $manage_image->type . '/originals/temp/' . $manage_image->image_data->image . '_t.jpg'?>" alt="upload image" />
@@ -52,7 +65,12 @@
 					<img src="http://www.placehold.it/66x93/CCC/000/&text=Upload" alt="upload image" />
 				<?php endif; ?>	
 			</a>
+			<?php endif; ?>
+		
 		</p>
+		
+		
+		
 		
 		<div style="clear:both;"></div>
 	
@@ -171,9 +189,9 @@
 				<tr>
 					<td><input id="submit_new_guest_list" class="button" type="submit" value="Submit" /></td>
 					<td>
-						<img id="ajax_loading" src="<?=$central->global_assets?>images/ajax.gif" alt="loading" style="display:none;"/>
+						<img id="ajax_loading" 			src="<?=$central->global_assets?>images/ajax.gif" alt="loading" style="display:none;"/>
 						<img id="ajax_complete_success" src="<?=$central->admin_assets?>images/icons/notifications/success.png" alt="complete" style="display:none;"/>
-						<img id="ajax_complete_error" src="<?=$central->admin_assets?>images/icons/notifications/error.png" alt="error" style="display:none;"/>	
+						<img id="ajax_complete_error" 	src="<?=$central->admin_assets?>images/icons/notifications/error.png" alt="error" style="display:none;"/>	
 					</td>
 				</tr>
 			</table>
@@ -186,7 +204,7 @@
 </div>
 
 <div style="display:none;">
-	<a class="ajaxify" id="back" href="<?= $central->front_link_base . 'admin/promoters/manage_guest_lists/' ?>">Back</a>
+	<a class="ajaxify" id="back" href="<?= $central->front_link_base . 'admin/managers/settings_guest_lists/' ?>">Back</a>
 </div>
 
 <div style="height:50px;"></div>
