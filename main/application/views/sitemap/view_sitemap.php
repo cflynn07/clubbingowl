@@ -95,7 +95,7 @@
      <priority>0.5</priority>
    </url>
 <?php // ---------------------------------------------------- promoters - guest_lists ----------------------------------------------------  ?>
-   <?php foreach($venue->guest_lists as $gl): ?>
+   <?php foreach($venue->guest_lists as $gl): if($gl->tv_banned == '1') continue; ?>
    <url>
      <loc><?= $central->karma_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/<?= str_replace(' ', '_', $gl->tgla_name) ?></loc>
      <lastmod><?= $time ?></lastmod>

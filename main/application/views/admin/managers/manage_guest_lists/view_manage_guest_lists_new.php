@@ -45,7 +45,7 @@
 		
 							<p> 
 			<label>Guest List Image:</label> 
-			<a class="ajaxify" href="<?= $central->promoter_admin_link_base ?>manage_image/">
+			<a class="ajaxify" href="<?= $central->manager_admin_link_base ?>manage_image/">
 				<?php if(isset($manage_image->image_data)): ?>
 					<img src="<?= $central->s3_uploaded_images_base_url . $manage_image->type . '/originals/temp/' . $manage_image->image_data->image . '_t.jpg'?>" alt="upload image" />
 				<?php else: ?>

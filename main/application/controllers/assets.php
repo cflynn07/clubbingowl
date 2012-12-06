@@ -403,11 +403,10 @@ class Assets extends MY_Common_Controller {
 					
 					
 					
-					array('jquery.maskedinput-1.3.min',										'admin_js'),
-					array('admin_team_chat', 												'admin_js'),
+					array('jquery.maskedinput-1.3.min',										'admin_js')
+					
 				//	array('suite_re_init', 													'admin_js')
 					
-					array('module_tables_display', 											'admin_js')
 				);
 				
 				
@@ -416,6 +415,8 @@ class Assets extends MY_Common_Controller {
 					case 'promoters':
 					
 					//	$group .= '-promoters';
+						$group_assets[] = array('admin_team_chat', 											'admin_js');
+						$group_assets[] = array('module_tables_display', 									'admin_js');
 						$group_assets[] = array('promoters/global_promoter_pusher_notifications', 			'admin_js');
 
 						$group_assets[] = array('promoters/promoters_ajaxify_front', 						'admin_js');
@@ -440,7 +441,9 @@ class Assets extends MY_Common_Controller {
 					case 'managers':
 					
 					//	$group .= '-managers';
-						$group_assets[] = array('managers/global_manager_pusher_notifications', 			'admin_js');
+						$group_assets[] = array('admin_team_chat', 										'admin_js');
+						$group_assets[] = array('module_tables_display', 								'admin_js');
+						$group_assets[] = array('managers/global_manager_pusher_notifications', 		'admin_js');
 						$group_assets[] = array('managers/managers_ajaxify_front', 						'admin_js');
 					
 						$group_assets[] = array('managers/page/admin_manager_dashboard',				'admin_js');
@@ -558,6 +561,13 @@ class Assets extends MY_Common_Controller {
 				);
 				
 							
+				break;
+			case 'ejs_templates_admin_super_admins':
+				
+				$lang = $subg; 
+				
+				$group_assets = array();
+				
 				break;
 			case 'ejs_templates_admin_promoters':
 				

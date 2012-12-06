@@ -517,12 +517,22 @@ class Venues extends MY_Controller {
 			
 			$data['guest_list'] = $this->library_venues->retrieve_individual_guest_list($arg3);
 			
+			
+			
 			if(!$data['guest_list']){
-				show_404('Guest List Not Found');
+
+				if(!$this->input->post('ajaxify'))
+					header('HTTP/1.0 404 Not Found');
+								
+				$this->body_html .= $this->load->view($this->view_dir . 'guest_lists/view_front_venues_profile_body_guest_lists_individual_not_found', $data, true);				
+				$this->body_html .= $this->load->view($this->view_dir . 'venues_menu/view_venues_menu_footer', '', true);
+				return;
+				
 			}
 			
 			
-			Kint::dump($data['guest_list']);
+			
+			
 			
 			
 			// --------- retrieve floorplans for venue

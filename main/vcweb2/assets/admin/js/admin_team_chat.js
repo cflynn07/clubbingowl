@@ -706,7 +706,7 @@ jQuery(function() {(function(exports) {
 					if(count_cycle % 2) {
 
 						jQuery('div#team_chatbox_header div#team_chatbox_header_tab span.new').css('color', 'white');
-						document.title = admin_title_base + ' (' + vc_admin_user.unread + ')';
+						document.title = team_chat_object.admin_title_base + ' (' + vc_admin_user.unread + ')';
 
 					} else {
 

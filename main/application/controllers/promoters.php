@@ -341,33 +341,72 @@ class Promoters extends MY_Controller {
 	private function _home($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){
 	
 		$this->load->model('model_users_promoters', 'users_promoters', true);
-	
-	
-	
-	
-	
-	
+		$this->load->model('model_app_data', 'app_data', true);
 		
-	
-	
-	
+		
 		$promoters_ids = array();
-	
-	
-	
-	
-	
+		
 	
 		//Verify valid city
 		if($arg1 != ''){
 			//city specified
 			
-			$this->load->model('model_app_data', 'app_data', true);
 			if(!$city = $this->app_data->retrieve_valid_city($arg1)){
-				show_404('unknown city'); //prob better just a reg 404
+				show_404('Unknown City'); //prob better just a reg 404
 				die();
 			}
 		
+		
+		
+			$data['all_cities'] 	= $this->app_data->retrieve_all_cities();
+			$data['all_promoters'] 	= $this->users_promoters->retrieve_multiple_promoters();
+			
+			$data['promoters'] = array();
+			
+			foreach($data['all_promoters'] as $pro){
+				foreach($pro->venues as $venue){
+					if($venue->c_id == $city->id){
+						
+						$data['promoters'][] = $pro;
+						break;
+						
+					}
+				}
+			}	
+			
+			foreach($data['promoters'] as $pro){
+				$promoters_ids[] = $pro->up_id;
+			}
+			
+			/*
+			
+			
+	
+			foreach($data['all_cities'] as &$sub_city){
+				
+				$vc_city_promoters = array();
+				foreach($data['all_promoters'] as $promoter){					
+
+					foreach($promoter->venues as $venue){
+						if($venue->c_id == $sub_city->id){
+							$vc_city_promoters[] = $promoter;
+							break;
+						}
+					}
+				
+				}
+				
+				$sub_city->promoters = $vc_city_promoters;
+				
+			}unset($sub_city);
+		
+		
+		
+			
+			
+			
+			
+			
 			
 			//retrieve all promoters for this city
 			$data['promoters'] = $this->users_promoters->retrieve_multiple_promoters($arg1);
@@ -376,33 +415,50 @@ class Promoters extends MY_Controller {
 				$promoters_ids[] = $pro->up_id;
 			}
 			
+			
+			
+			*/
+			
+			
+			
+			
 		//	Kint::dump($data);
 			
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/' . $arg0 . '/';
-			$header_custom->title_prefix = lang_key($this->lang->line('ad-promoters_home_title_city'), array('location' => $city->name . ', ' . $city->state)) . ' | ';
-			$header_custom->page_description = lang_key($this->lang->line('ad-promoters_home_desc_city'), array('location' => $city->name . ', ' . $city->state));
+			$header_custom->title_prefix = lang_key($this->lang->line('ad-promoters_home_title_city'), array('location' 	=> $city->name . ', ' . $city->state)) . ' | ';
+			$header_custom->page_description = lang_key($this->lang->line('ad-promoters_home_desc_city'), array('location' 	=> $city->name . ', ' . $city->state));
 			$this->load->vars('header_custom', $header_custom);
 			
 		}else{
 			
-			$this->load->model('model_app_data', 'app_data', true);
-			$data['all_cities'] = $this->app_data->retrieve_all_cities();
+						
+			$data['all_cities'] 	= $this->app_data->retrieve_all_cities();
+			$data['all_promoters'] 	= $this->users_promoters->retrieve_multiple_promoters();
 			
-			$this->load->model('model_users_promoters', 'users_promoters', true);
-			foreach($data['all_cities'] as &$vc_city){
-				//retrieve all promoters for this city
-				$vc_city->promoters = $this->users_promoters->retrieve_multiple_promoters($vc_city->url_identifier);
+			foreach($data['all_promoters'] as $pro){
+				$promoters_ids[] = $pro->up_id;
+			}
+						
+			foreach($data['all_cities'] as &$sub_city){
 				
-				foreach($vc_city->promoters as $pro){
-					$promoters_ids[] = $pro->up_id;
+				$vc_city_promoters = array();
+				foreach($data['all_promoters'] as $promoter){					
+
+					foreach($promoter->venues as $venue){
+						if($venue->c_id == $sub_city->id){
+							$vc_city_promoters[] = $promoter;
+							break;
+						}
+					}
+				
 				}
 				
+				$sub_city->promoters = $vc_city_promoters;
 				
-			}
+			}unset($sub_city);
 			
-		//	Kint::dump($data);
-			
+						
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/';
 			$header_custom->title_prefix = $this->lang->line('ad-promoters_home_title') . ' | ';
@@ -416,11 +472,9 @@ class Promoters extends MY_Controller {
 		
 		
 		
-		
 		//additional promoter information specific to this page
 		if($vc_user = $this->session->userdata('vc_user')){
 			$vc_user = json_decode($vc_user);
-						
 			
 			$this->load->helper('run_gearman_job');
 			$arguments = array(
@@ -432,11 +486,6 @@ class Promoters extends MY_Controller {
 		}
 
 
-
-		
-		
-		
-			
 		$data['city'] = (isset($city)) ? $city : false;
 				
 		$this->body_html = $this->load->view('front/_common/view_front_invite', '', true);
@@ -589,7 +638,36 @@ class Promoters extends MY_Controller {
 			$this->_helper_record_reference_code();
 			//get this guest list, if guest list isn't found - throw 404
 
+
+
+
+
+
+
+
+
+
+
 			$data['guest_list'] = $this->library_promoters->retrieve_promoter_guest_list($arg2);
+			
+			if(!$data['guest_list'] 
+				|| 
+				((isset($data['guest_list']->tv_banned)) && $data['guest_list']->tv_banned == '1')){
+
+				if(!$this->input->post('ajaxify'))
+					header('HTTP/1.0 404 Not Found');
+								
+				$this->body_html .= $this->load->view($this->view_dir . 'guest_lists/view_front_promoters_profile_body_guest_lists_individual_not_found', $data, true);				
+				$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_footer', '', true);
+				return;
+				
+			}
+			
+			
+			
+			
+			
+			
 			
 			
 			
@@ -690,7 +768,6 @@ class Promoters extends MY_Controller {
 		
 		$this->body_html .= $this->load->view($this->view_dir . 'promoters_menu/view_promoters_menu_footer', '', true);
 		$this->_helper_record_view();
-		
 		
 	}
 

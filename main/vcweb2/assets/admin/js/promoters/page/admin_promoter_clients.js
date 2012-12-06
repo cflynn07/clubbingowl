@@ -35,14 +35,13 @@ jQuery(function(){
 			},
 			render: function(){
 				
-				if(this.data_table !== null){
-					this.data_table.fnDestroy;
-					this.data_table = null;
-				}
-				
-				this.data_table = this.$el.find('table').dataTable({
-					"bJQueryUI": true,
+								
+				this.data_table = this.$el.find('table:first').dataTable({
+					bJQueryUI: true,
+					bDestroy: true
 				});
+				
+				this.data_table.fnClearTable();
 				
 				var _this = this;
 				this.collection.each(function(m){

@@ -479,7 +479,7 @@ class Model_team_guest_lists extends CI_Model {
 	  */
 	 function retrieve_all_guest_lists($venue_id){
 	  						  			
-	  	$sql = "SELECT
+	  	$sql = "SELECT DISTINCT
 	  	
 	  				tgla.id					as tgla_id,
 	  				tgla.team_venue_id		as tgla_team_venue_id,
@@ -490,17 +490,27 @@ class Model_team_guest_lists extends CI_Model {
 	  				tgla.deactivated_time	as tgla_deactivated_time,
 	  				tgla.auto_approve 		as tgla_auto_approve,
 	  				tgla.description 		as tgla_description,
-	  				tgla.image 				as tgla_image
+	  				tgla.image 				as tgla_image,
+	  				tv.banned 				as tv_banned
 	  				
-	  			FROM 	teams_guest_list_authorizations tgla 
+	  			FROM 	teams_guest_list_authorizations tgla
 	  			
 	  			JOIN 	team_venues tv
 	  			ON 		tgla.team_venue_id = tv.id
-	  			
-	  			WHERE	tgla.deactivated = 0
-	  			AND 	tgla.team_venue_id = ? ";
-	  	$query = $this->db->query($sql, array($venue_id));
-	  	return $query->result();
+	  				  							
+				JOIN 	teams_venues_pairs tvp
+				ON 		tvp.team_venue_id = tv.id
+												
+				JOIN 	teams t
+				ON 		tv.team_fan_page_id = t.fan_page_id
+													  			
+	  			WHERE		tgla.deactivated 	= 0
+	  			AND 		tgla.team_venue_id 	= ? 
+	  			AND 		tvp.deleted 		= 0";
+	  	$query 	= $this->db->query($sql, array($venue_id));
+	  	$result = $query->result();
+		
+		return $result;
 	  	
 	  	//NOTE: might be a need to attach this week's guest list reservations for friends lookup
 	 }
@@ -517,7 +527,7 @@ class Model_team_guest_lists extends CI_Model {
 	 	$guest_list_name = str_replace('_', ' ', $guest_list_name);				
 	 				
 	 			
-	 	$sql = "SELECT
+	 	$sql = "SELECT DISTINCT
 	  	
 	  				tgla.id					as tgla_id,
 	  				tgla.team_venue_id		as tgla_team_venue_id,
@@ -553,18 +563,29 @@ class Model_team_guest_lists extends CI_Model {
 	  				
 	  			FROM 	teams_guest_list_authorizations tgla 
 	  			
+				
+				
+				
 	  			JOIN 	team_venues tv
 	  			ON 		tgla.team_venue_id = tv.id
+	  				  							
+				JOIN 	teams_venues_pairs tvp
+				ON 		tvp.team_venue_id = tv.id
+												
+				JOIN 	teams t
+				ON 		tv.team_fan_page_id = t.fan_page_id
 	  			
-	  			JOIN 	teams t 
-	  			ON 		tv.team_fan_page_id	= t.fan_page_id
-	  			
+				
+				
+				
+				
 				JOIN 	cities c 
 				ON 		t.city_id = c.id
 	  			
 	  			WHERE	tgla.deactivated = 0
 	  			AND 	tgla.team_venue_id = ? 
 	  			AND 	tgla.name = ?
+	  			AND 	tvp.deleted = 0
 	  			AND 	t.completed_setup = 1
 	  			AND 	tv.banned = 0";
 	  	$query = $this->db->query($sql, array($venue_id, $guest_list_name));

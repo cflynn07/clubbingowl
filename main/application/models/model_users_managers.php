@@ -293,7 +293,7 @@ class Model_users_managers extends CI_Model {
 	function retrieve_venue_clients_detailed($venue_id, $team_fan_page_id){
 		
 		$clients_oauth_uids = $this->retrieve_venue_clients($venue_id, $team_fan_page_id);
-		
+				
 		$this->db->select('u.full_name 		as u_full_name,
 							u.first_name	as u_first_name,
 							u.last_name		as u_last_name,
@@ -307,8 +307,12 @@ class Model_users_managers extends CI_Model {
 			$this->db->or_where('u.oauth_uid', $c_uid->tglr_user_oauth_uid);
 		}
 		
-		$query = $this->db->get();
-		$result = $query->result();
+		if($clients_oauth_uids){
+			$query = $this->db->get();
+			$result = $query->result();
+		}else{
+			$result = array();
+		}
 		
 		//attach gl bookings
 		foreach($result as &$user){
@@ -319,7 +323,8 @@ class Model_users_managers extends CI_Model {
 				->join('teams_guest_lists_reservations tglr', 		'tglr.team_guest_list_id = tgl.id')
 				->where(array(
 					'tgla.team_venue_id' 	=> $venue_id,
-					'tglr.user_oauth_uid'	=> $user->u_oauth_uid
+					'tglr.user_oauth_uid'	=> $user->u_oauth_uid,
+					'tgla.team_fan_page_id' => $team_fan_page_id
 				));
 			
 			$query = $this->db->get();
@@ -327,7 +332,6 @@ class Model_users_managers extends CI_Model {
 			
 		}
 		
-				
 		return $result;
 		
 	}
@@ -358,10 +362,14 @@ class Model_users_managers extends CI_Model {
 				JOIN 	teams_guest_lists_reservations tglr
 				ON 		tglr.team_guest_list_id = tgl.id
 				
-				WHERE 	tvp.team_fan_page_id = $team_fan_page_id AND tv.id = $venue_id";
-		$query = $this->db->query($sql);
-		return $query->result();
-		
+				WHERE 	tvp.team_fan_page_id = ? 
+				AND tv.id = ? 
+				AND tgla.team_fan_page_id = ?";
+		$query = $this->db->query($sql, array($team_fan_page_id, $venue_id, $team_fan_page_id));
+				
+		$result = $query->result();
+				
+		return $result;
 	}
 	
 	/**
