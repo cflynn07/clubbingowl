@@ -108,6 +108,15 @@
 			    		<img class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 			    	</div>
 				    
+				    <style type="text/css">
+				    	div.auth_content.tv_friends img{
+				    		margin-right: 	3px !important;
+				    		margin-bottom: 	3px !important;
+				    		width: 25px 	!important;
+				    		height: 25px 	!important;
+				    	}
+				    </style>
+				    
 			    </p>
 			    
 			  </li>
