@@ -37,7 +37,7 @@
 			<a class="ajaxify_t3" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
 
 			<?php if($venue->tv_image): ?>
-		  	<img src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
+		  	<img class="venue-image" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
 		  	<?php else: ?>
 		  	<img src="http://placehold.it/286x86?text=Coming+Soon" alt="Venue Banner">
 		  	<?php endif; ?>
@@ -87,7 +87,7 @@
 				 	<a class="ajaxify_t3" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
 
 				 	<?php if($venue->tv_image): ?>
-				  	<img src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
+				  	<img class="venue-image" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">
 				  	<?php else: ?>
 				  	<img src="http://placehold.it/286x86?text=Coming+Soon" alt="Venue Banner">
 				  	<?php endif; ?>
