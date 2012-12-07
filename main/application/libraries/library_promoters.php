@@ -90,15 +90,18 @@ class library_promoters{
 							'message' => 'Please fill out all fields.');
 		}
 		
-		$venue = $this->CI->input->post('venue');
-		$event_name = $this->CI->input->post('event_name');
-		$event_date = $this->CI->input->post('event_date');
-		$event_description = $this->CI->input->post('event_description');
-		$auto_approve = $this->CI->input->post('auto_approve');
-		$guest_list_override = $this->CI->input->post('guest_list_override');
+		$venue 					= $this->CI->input->post('venue');
+		$event_name 			= $this->CI->input->post('event_name');
+		$event_date 			= $this->CI->input->post('event_date');
+		$event_description 		= $this->CI->input->post('event_description');
+		$auto_approve 			= $this->CI->input->post('auto_approve');
+		$guest_list_override 	= $this->CI->input->post('guest_list_override');
 		
-		$guest_list_override = ($guest_list_override == 'true') ? 1 : 0;
-		$auto_approve = ($auto_approve == 'true') ? 1 : 0;
+		$guest_list_override 	= ($guest_list_override == 'true') ? 1 : 0;
+		$auto_approve 			= ($auto_approve == 'true') ? 1 : 0;
+		
+		
+		$image_data				= $this->CI->input->post('image_data');
 		
 		//make sure gl_name is > 5 characters && < 30 && no special characters
 		$event_name = trim(preg_replace('/\s\s+/', ' ', $event_name));
@@ -134,6 +137,8 @@ class library_promoters{
 							
 		$image_name = null;
 		
+		
+		
 		//IMAGE Handling
 		if($manage_image = $this->CI->session->flashdata('manage_image')){			
 			$manage_image = json_decode($manage_image);
@@ -147,6 +152,9 @@ class library_promoters{
 			}
 			
 		}
+	
+	
+	
 	
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		return $this->CI->users_promoters->create_promoter_event($this->promoter->up_id, $venue, $event_name, $event_date, $event_description, $auto_approve, $guest_list_override);
@@ -223,7 +231,9 @@ class library_promoters{
 		$additional_info_1	= strip_tags($this->CI->input->post('additional_info_1'));
 		$additional_info_2	= strip_tags($this->CI->input->post('additional_info_2'));
 		$additional_info_3	= strip_tags($this->CI->input->post('additional_info_3'));
+		$image_data			= $this->CI->input->post('image_data');
 		
+	
 		switch($weekday){
 			case 0:
 				$weekday = 'mondays';
@@ -273,9 +283,54 @@ class library_promoters{
 		if(strlen($gl_description) < 10)
 			return array('success' => false,
 							'message' => 'List description must be greater than 10 characters');
-			
+		
+		
+		
+		
+		if($image_data == 'false'){
+			return array('success' => false, 
+							'message' => 'Please provide an image for your guest list');
+							
+		}
+		
+		
+
+		
+		
+		$this->CI->load->library('library_image_upload', '', 'image_upload');
+		
+		//make image live			
+		$new_image_name = $this->CI->image_upload->make_image_live('guest_lists', $image_data['image']);
+		
+		//crop image
+		$image_obj 			= new stdClass;
+		$image_obj->image 	= $new_image_name;
+		$this->CI->image_upload->image_crop($image_obj, 'guest_lists', true, $image_data, true);
+		$new_image_name 	= $this->CI->image_upload->image_data['image'];
+		$image_data['image']		= $new_image_name;
+		
+		
+		
+		
+		
+		
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
-		return $this->CI->users_promoters->create_promoter_guest_list_authorization($this->promoter->up_id, $team_venue_id, $weekday, $gl_name, $gl_description, $auto_approve, $gl_cover, $regular_cover, $door_opens, $door_closes, $min_age, $additional_info_1, $additional_info_2, $additional_info_3, $auto_promote);
+		return $this->CI->users_promoters->create_promoter_guest_list_authorization($this->promoter->up_id, 
+				$team_venue_id, 
+				$weekday, 
+				$gl_name, 
+				$gl_description, 
+				$auto_approve, 
+				$gl_cover,
+				$regular_cover, 
+				$door_opens, 
+				$door_closes, 
+				$min_age, 
+				$additional_info_1, 
+				$additional_info_2, 
+				$additional_info_3, 
+				$auto_promote,
+				$image_data);
 		
 	}
 
@@ -335,12 +390,12 @@ class library_promoters{
 		$auto_approve 		= $this->CI->input->post('auto_approve');
 		$auto_promote		= $this->CI->input->post('auto_promote');
 		
-		$gl_description 	= $this->CI->input->post('gl_description');		
-		$gl_cover			= $this->CI->input->post('gl_cover');
-		$regular_cover		= $this->CI->input->post('regular_cover');
-		$door_opens			= $this->CI->input->post('door_opens');
-		$door_closes		= $this->CI->input->post('door_closes');
-		$min_age			= $this->CI->input->post('min_age');
+		$gl_description 	= strip_tags($this->CI->input->post('gl_description'));		
+		$gl_cover			= strip_tags($this->CI->input->post('gl_cover'));
+		$regular_cover		= strip_tags($this->CI->input->post('regular_cover'));
+		$door_opens			= strip_tags($this->CI->input->post('door_opens'));
+		$door_closes		= strip_tags($this->CI->input->post('door_closes'));
+		$min_age			= strip_tags($this->CI->input->post('min_age'));
 		$additional_info_1	= strip_tags($this->CI->input->post('additional_info_1'));
 		$additional_info_2	= strip_tags($this->CI->input->post('additional_info_2'));
 		$additional_info_3	= strip_tags($this->CI->input->post('additional_info_3'));
@@ -362,7 +417,40 @@ class library_promoters{
 		if(strlen($gl_description) > 2000)
 			return array('success' => false,
 							'message' => 'List description must not exceed 2000 characters');
+		
+		
+		
+		
+		$this->CI->load->library('library_image_upload', '', 'image_upload');
+		$image_upload_data = $this->CI->input->post('image_data');	
+		
+		//make image live			
+		if($image_upload_data['new_image'] == 'true'){
+			$new_image_name = $this->CI->image_upload->make_image_live('guest_lists', $image_upload_data['image']);
+		
+			//crop image
+			$image_data 		= new stdClass;
+			$image_data->image 	= $new_image_name;
+			$this->CI->image_upload->image_crop($image_data, 'guest_lists', true, $image_upload_data, true);
+			$new_image_name 	= $this->CI->image_upload->image_data['image'];
+	
+		}else{
 			
+			//crop image
+			$image_data 		= new stdClass;
+			$image_data->image 	= $image_upload_data['image'];
+			$this->CI->image_upload->image_crop($image_data, 'guest_lists', true, $image_upload_data, true);
+			$new_image_name 	= $this->CI->image_upload->image_data['image'];
+			
+		}
+		
+		$image_upload_data['image'] = $new_image_name;		
+		
+		
+		
+		
+		
+		
 			
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		$this->CI->users_promoters->update_pgla($pgla_id, $this->promoter->up_id, array(
@@ -376,7 +464,12 @@ class library_promoters{
 			'additional_info_3' => $additional_info_3,
 			'auto_approve' 		=> $auto_approve,
 			'description' 		=> $gl_description,
-			'auto_promote'		=> $auto_promote
+			'auto_promote'		=> $auto_promote,
+			'image'				=> $image_upload_data['image'],
+			'x0'				=> $image_upload_data['x0'],
+			'x1'				=> $image_upload_data['x1'],
+			'y0'				=> $image_upload_data['y0'],
+			'y1'				=> $image_upload_data['y1']
 		));
 		
 		return array('success' => true);

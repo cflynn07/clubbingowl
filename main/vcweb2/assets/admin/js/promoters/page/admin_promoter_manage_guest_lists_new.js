@@ -56,6 +56,7 @@ jQuery(function(){
 
 
 		var image_data = false;
+		var crop_object;
 		
 		var initialize_crop = function(response){
 		
@@ -82,9 +83,7 @@ jQuery(function(){
 					imageHeight: 	jQuery(this).height(),
 					imageWidth: 	jQuery(this).width(),
 					onSelectChange: function(img, selection){
-						
-						
-						
+					
 						image_data.x0 = selection.x1;
 						image_data.y0 = selection.y1;
 						image_data.x1 = selection.x2;
@@ -217,6 +216,11 @@ jQuery(function(){
 
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
+			
+			
+			if(crop_object && crop_object.remove)
+				crop_object.remove();
+			
 			
 			for(var i in unbind_callbacks){
 				

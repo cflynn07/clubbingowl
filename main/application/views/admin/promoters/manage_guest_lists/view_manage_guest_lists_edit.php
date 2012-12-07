@@ -1,6 +1,7 @@
 <?php
 	$page_obj = new stdClass;
 	$page_obj->pgla_id = $guest_list->pgla_id;
+	$page_obj->guest_list = $guest_list;
 ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
@@ -41,6 +42,15 @@
 								
 								
 			<label>Guest List Image:</label> 
+			
+			<div style="display:inline-block; margin-left: 155px;">
+				<div id="image_holder"></div>
+				<input id="upload_new_image" class="button" type="submit" value="Upload Image" />
+				<img id="ajax_loading_image" src="<?=$central->global_assets?>images/ajax.gif" alt="loading" style="display:none;" />
+			</div>
+			
+			
+			<?php if(false): ?>
 			<a href="<?= $central->promoter_admin_link_base ?>manage_image/">
 				<?php if(isset($manage_image->image_data)): ?>
 					<img src="<?= $central->s3_uploaded_images_base_url . $manage_image->type . (($manage_image->live_image) ? '/' : '/originals/temp/') . $manage_image->image_data->image . '_t.jpg'?>" alt="upload image" style="width:66px; height:88px;" />
@@ -48,9 +58,9 @@
 					<img src="http://www.placehold.it/66x93/CCC/000/&text=Upload" alt="upload image" />
 				<?php endif; ?>	
 			</a>
+			<?php endif; ?>
 			
-			
-			
+						
 		</p>
 		
 		<div style="clear:both;"></div>

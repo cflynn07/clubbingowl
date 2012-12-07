@@ -642,6 +642,18 @@ class Promoters extends MY_Controller {
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists', $data, true);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Edit the settings of an existing guest list
 	 * 
@@ -669,11 +681,36 @@ class Promoters extends MY_Controller {
 	/**
 	 * 
 	 */
-	private function _ocupload_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
+	private function _ocupload_manage_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		
-		
+		$this->load->library('library_image_upload', '', 'image_upload');
+			
+		//verifies image upload is acceptable, 
+		//saves original + cropped versions to amazon s3, 
+		//and updates promoter database
+		if($this->image_upload->image_upload(array('type' 			=> 'promoter', 
+													'upload_type' 	=> 'guest_lists',
+													'live_image' 	=> false,
+													'image_data' 	=> false))){
+				
+			die(json_encode(array('success' => true,
+									'image_data' => $this->image_upload->image_data)));
+									
+		}else{
+			
+			die(json_encode(array('success' => false,
+									'message' => $this->image_upload->image_upload_error)));
+									
+		}
+				
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -686,6 +723,8 @@ class Promoters extends MY_Controller {
 	 */
 	private function _manage_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		
+		/*
 		if(!$manage_image = $this->session->flashdata('manage_image')){
 			//set this flash data so if user navigates to 'manage_image' it will allow 
 			$manage_image = new stdClass;
@@ -702,7 +741,8 @@ class Promoters extends MY_Controller {
 		Kint::dump($manage_image);	
 				
 		$data['manage_image'] = $manage_image;
-		
+		*/
+				
 		//retrieve venues promoter is authorized to represent
 		$data['promoter_team_venues'] = $this->library_promoters->retrieve_promoter_team_venues();
 		
@@ -718,7 +758,7 @@ class Promoters extends MY_Controller {
 		//verifies image upload is acceptable, 
 		//saves original + cropped versions to amazon s3, 
 		//and updates promoter database
-		if($this->image_upload->image_upload(array('type' => 'venue', 
+		if($this->image_upload->image_upload(array('type' 			=> 'promoter', 
 													'upload_type' 	=> 'guest_lists',
 													'live_image' 	=> false,
 													'image_data' 	=> false))){
@@ -734,6 +774,16 @@ class Promoters extends MY_Controller {
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

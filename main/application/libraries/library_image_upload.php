@@ -290,9 +290,8 @@ class Library_image_upload{
 			
 			
 	
-			
 			//create cropped image
-			imagecopyresized($cropped_image, 
+			imagecopyresampled($cropped_image, 
 					$temp_image, 
 					0,
 					0,

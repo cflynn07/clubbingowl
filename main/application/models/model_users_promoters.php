@@ -90,7 +90,7 @@ class Model_users_promoters extends CI_Model {
 	 * @param	bool (auto-approve)
 	 * @return	array
 	 * */
-	function create_promoter_guest_list_authorization($promoter_id, $team_venue_id, $weekday, $gl_name, $gl_description, $auto_approve, $gl_cover, $regular_cover, $door_opens, $door_closes, $min_age, $additional_info_1, $additional_info_2, $additional_info_3, $auto_promote){
+	function create_promoter_guest_list_authorization($promoter_id, $team_venue_id, $weekday, $gl_name, $gl_description, $auto_approve, $gl_cover, $regular_cover, $door_opens, $door_closes, $min_age, $additional_info_1, $additional_info_2, $additional_info_3, $auto_promote, $image_data = false){
 		
 		$gl_name = strip_tags($gl_name);
 		$gl_description = strip_tags($gl_description);
@@ -180,14 +180,23 @@ class Model_users_promoters extends CI_Model {
 		else 
 			$auto_promote = 0;
 		
+		
+		
+		
+		
+		
 		$image_name = null;
 		$x0 = 0;
 		$y0 = 0;
 		$x1 = 0;
 		$y1 = 0;
 		
+		
+		
+		
+		
 		//IMAGE Handling
-		if($manage_image = $this->session->flashdata('manage_image')){
+		if(false && $manage_image = $this->session->flashdata('manage_image')){
 						
 			$manage_image = json_decode($manage_image);
 			$x0 = $manage_image->image_data->x0;
@@ -204,6 +213,9 @@ class Model_users_promoters extends CI_Model {
 			}
 			
 		}
+
+
+
 						
 		$data = array(
 						'team_venue_id' 	=> $team_venue_id,
@@ -212,13 +224,14 @@ class Model_users_promoters extends CI_Model {
 						'name' 				=> $gl_name,
 						'description' 		=> $gl_description,
 						'create_time' 		=> time(),
-						'image'				=> $image_name,
-						'auto_approve' 		=> $auto_approve,
-						'x0'				=> $x0,
-						'y0'				=> $y0,
-						'x1'				=> $x1,
-						'y1' 				=> $y1,
 						
+					//	'image'				=> $image_name,
+						'auto_approve' 		=> $auto_approve,
+					//	'x0'				=> $x0,
+					//	'y0'				=> $y0,
+					//	'x1'				=> $x1,
+					//	'y1' 				=> $y1,
+											
 						'auto_promote'		=> $auto_promote,
 						'min_age'			=> $min_age,
 						'door_open'			=> $door_opens,
@@ -229,6 +242,16 @@ class Model_users_promoters extends CI_Model {
 						'additional_info_2' => $additional_info_2,
 						'additional_info_3' => $additional_info_3
 					);
+		
+		if($image_data){
+			
+			$data['image']	= $image_data['image'];
+			$data['x0']		= $image_data['x0'];
+			$data['y0']		= $image_data['y0'];
+			$data['x1']		= $image_data['x1'];
+			$data['y1']		= $image_data['y1'];
+			
+		}
 		
 		$this->db->insert('promoters_guest_list_authorizations', $data);	
 		return array('success' => true);
