@@ -15,7 +15,9 @@ jQuery(function(){
 		return false;
 	});
 	
-	jQuery('a.vc_fb_login').live('click', function(){
+	jQuery('.vc_fb_login').live('click', function(){
+		
+		console.log('click .vc_fb_login');
 		
 		FB.login(function(){
 			

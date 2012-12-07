@@ -57,6 +57,7 @@
 			</div>
 			
 			
+			
 			<?php if(false): ?>
 			<a class="ajaxify" href="<?= $central->manager_admin_link_base ?>manage_image/">
 				<?php if(isset($manage_image->image_data)): ?>

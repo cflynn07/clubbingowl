@@ -661,41 +661,22 @@ class Promoters extends MY_Controller {
 			die();
 		}
 		
-			
 		
-		$image_data = new stdClass;
-		$image_data->image = $guest_list->pgla_image;
-		$image_data->x0 = $guest_list->pgla_x0;
-		$image_data->y0 = $guest_list->pgla_y0;
-		$image_data->x1 = (abs(intval($guest_list->pgla_x0) - intval($guest_list->pgla_x1)) >= 188) ? $guest_list->pgla_x1 : (intval($image_data->x0) + 188);
-		$image_data->y1 = (abs(intval($guest_list->pgla_y0) - intval($guest_list->pgla_y1)) >= 266) ? $guest_list->pgla_y1 : (intval($image_data->y0) + 266);
-		
-		if(!$manage_image = $this->session->flashdata('manage_image')){
-			
-			//set this flash data so if user navigates to 'manage_image' it will allow 
-			$manage_image = new stdClass;
-			$manage_image->existing = true;
-			$manage_image->type = 'guest_lists';
-			$manage_image->live_image = true;
-			$manage_image->return = 'manage_guest_lists_edit/' . $guest_list->pgla_id . '/';
-			$manage_image->image_data = $image_data;
-			$manage_image->pgla_id = $guest_list->pgla_id;
-			$manage_image->up_id = $this->library_promoters->promoter->up_id;
-			$this->session->set_flashdata('manage_image', json_encode($manage_image));
-			
-		}else{
-			
-			$manage_image = json_decode($manage_image);
-			$this->session->keep_flashdata('manage_image');
-			
-		}
-		
-		
-		$data['manage_image'] = $manage_image;
 		$data['guest_list'] = $guest_list;
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists_edit', $data, true);
 				
 	}
+	/**
+	 * 
+	 */
+	private function _ocupload_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		
+		
+	}
+	
+	
+	
 	
 	/**
 	 * Guest list management page
@@ -729,6 +710,38 @@ class Promoters extends MY_Controller {
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists_new', $data, true);
 		
 	}
+	
+	private function _ocupload_manage_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$this->load->library('library_image_upload', '', 'image_upload');
+		
+		//verifies image upload is acceptable, 
+		//saves original + cropped versions to amazon s3, 
+		//and updates promoter database
+		if($this->image_upload->image_upload(array('type' => 'venue', 
+													'upload_type' 	=> 'guest_lists',
+													'live_image' 	=> false,
+													'image_data' 	=> false))){
+				
+			die(json_encode(array('success' => true,
+									'image_data' => $this->image_upload->image_data)));
+									
+		}else{
+			
+			die(json_encode(array('success' => false,
+									'message' => $this->image_upload->image_upload_error)));
+									
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Handles image uploading and cropping for either a new or existing image

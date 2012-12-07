@@ -120,15 +120,22 @@
 
 <div style="position:relative;" class="guestlist-form-right">
 	
-    
-    <div id="unavailable_overlay" style="position:absolute; top:0; left:0; width:100%; height:101%; background:rgba(0,0,0,.85); z-index:999999; vertical-align:middle; text-align:center; color:#FFF;">
-    	<p style="position:relative; top:30%; width:85%; font-size:14px; text-align:center; margin-left:auto; margin-right:auto;">
-    		<?= $this->lang->line('p-login_msg2_overlay') ?>
-    		<br><br>
-    		<a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a>
-    	</p>
+	
+	
+	
+    <div id="unavailable_overlay" style="position:absolute; top:0; left:0; width:100%; height:101%; background:rgba(0,0,0,.70); z-index:9999; vertical-align:middle; text-align:center; color:#FFF; margin-left:10px;">
+	    	<p style="position:relative; top:30%; width:85%; font-size:20px; text-align:center; margin-left:auto; margin-right:auto;">
+	    		
+	    		<?= '' //$this->lang->line('p-login_msg2_overlay') ?>
+	    		Connect with Facebook to join <?= $promoter->u_first_name ?>'s guest list.<br/><strong>It's that easy!</strong>
+	    		<br><br>
+	    		<a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a>
+	    		
+	    	</p>
     </div>    
-    
+    	
+    	
+    	
     	
 	<div id="accordion">
 		<h3><a class="no-ajaxy" href="javascript: void(0);">1: Add Your Friends</a></h3>

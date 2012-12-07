@@ -10,14 +10,7 @@ jQuery(function(){
 		jQuery('input.iphone').iphoneStyle();
 		
 		
-		
-		
-		
-		
-		console.log('hello 1');
-		
-		jQuery('form#guest_list_new_form').dumbFormState();
-		
+	//	jQuery('form#guest_list_new_form').dumbFormState();
 		
 		
 		var prevent_func = function(event){
@@ -56,6 +49,107 @@ jQuery(function(){
 			}
 		});
 		
+		
+
+
+
+
+
+		var image_data = false;
+		
+		var initialize_crop = function(response){
+		
+		  	image_data = response;
+	        	
+        	var src = window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/originals/temp/' + response.image + '.jpg';
+        	var img = jQuery('<img></img>').attr('src', src).bind('load', function(){ 
+        		console.log('image_loaded'); 
+        		
+        		
+        		crop_object = jQuery(this).imgAreaSelect({
+        			instance: 		true,
+        			handles:		true,
+        			aspectRatio:	'3:4',
+        			show:			true,
+        			persistent:		true,
+        			minWidth: 		188,
+					minHeight: 		266,
+					aspectRatio: 	'188:266',
+					x1: 			response.x0,
+					y1:				response.y0,
+					x2:				response.x1,
+					y2: 			response.y1,
+					imageHeight: 	jQuery(this).height(),
+					imageWidth: 	jQuery(this).width(),
+					onSelectChange: function(img, selection){
+						
+						
+						
+						image_data.x0 = selection.x1;
+						image_data.y0 = selection.y1;
+						image_data.x1 = selection.x2;
+						image_data.y1 = selection.y2;
+						
+					}
+        		});
+        		
+        		
+        	});
+        	jQuery('div#image_holder').html(img);
+			
+		}
+		
+		
+		
+		
+		
+		var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
+		//initialize one-click upload for profile picture
+        window.ocupload_instance = jQuery('#upload_new_image').upload({
+	        name: 'file',
+	        action: window.location.href,
+	        enctype: 'multipart/form-data',
+	        params: {
+	        	ocupload: 		true,
+	        	ci_csrf_token: 	cct
+	        },
+	        autoSubmit: true,
+	        onSubmit: function(){
+	        	
+	        	console.log('onSubmit');
+	        	jQuery('#upload_new_image').hide();
+	        	jQuery('#ajax_loading_image').show();
+	        	
+	        },
+	        onComplete: function(response){
+	        	
+	        	console.log('onComplete');
+	        	jQuery('#ajax_loading_image').hide();
+	         	  	
+	        	response = jQuery.parseJSON(response);
+	        	
+	        	if(!response.success){
+	        		alert(response.message);
+	        		return;
+	        	}
+	        	
+	      		initialize_crop(response.image_data);
+	        		       
+	        },
+	        onSelect: function(){
+	        	
+	        }
+	    });
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		jQuery('input#submit_new_guest_list').bind('click', function(){
 			
 			jQuery('#ajax_loading').css('display', 'inline-block');
@@ -83,12 +177,11 @@ jQuery(function(){
 				additional_info_1: jQuery('form#guest_list_new_form input[name = guest_list_additional_info_1]').val(),
 				additional_info_2: jQuery('form#guest_list_new_form input[name = guest_list_additional_info_2]').val(),
 				additional_info_3: jQuery('form#guest_list_new_form input[name = guest_list_additional_info_3]').val(),
-				auto_promote: ((jQuery('form#guest_list_new_form input[name = guest_list_auto_promote]').attr('checked') == undefined) ? false : true)
+				auto_promote: ((jQuery('form#guest_list_new_form input[name = guest_list_auto_promote]').attr('checked') == undefined) ? false : true),
 				
+				image_data: image_data
 			}
-			
-			console.log(data);
-			
+						
 			jQuery.ajax({
 				url: 		window.location,
 				type: 		'post',
@@ -120,13 +213,6 @@ jQuery(function(){
 		});
 		
 		
-		
-		
-		
-
-
-
-
 
 
 		//triggered when page is unloaded
