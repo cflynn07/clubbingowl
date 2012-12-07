@@ -2,7 +2,10 @@ jQuery(function(){
 		
 	var callback_helper = function(callback){
 //		window.vc_page_scripts.suite_re_init();
-		
+	
+		if(window.module.Globals.prototype.unbind_callback && typeof window.module.Globals.prototype.unbind_callback === 'function')
+			window.module.Globals.prototype.unbind_callback();
+			
 		if(typeof callback === 'function')
 			callback();		
 			

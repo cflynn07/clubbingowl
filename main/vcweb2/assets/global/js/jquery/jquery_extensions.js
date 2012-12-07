@@ -91,4 +91,44 @@
 	};
 	jQuery.extend(jQueryExtensions);
 	
+	
+	
+	/**
+	 * http://stackoverflow.com/questions/1184624/convert-form-data-to-js-object-with-jquery
+	 * Takes a form and serializes it into an object with name: value pairs
+	 */
+	jQuery.fn.serializeObjectPHP = function(){
+	    var o = {};
+	    var re = /^(.+)\[(.*)\]$/;
+	    var a = this.serializeArray();
+	    var n;
+	    jQuery.each(a, function() {
+	        var name = this.name;
+	        if((n = re.exec(this.name)) && n[2]) {
+	            if (o[n[1]] === undefined) {
+	                o[n[1]] = {}; 
+	                o[n[1]][n[2]] = this.value || '';
+	            } else if (o[n[1]][n[2]] === undefined) {
+	                o[n[1]][n[2]] = this.value || '';
+	            } else {
+	                if(!o[n[1]][n[2]].push) {
+	                    o[n[1]][n[2]] = [ o[n[1]][n[2]] ];
+	                }
+	                o[n[1]][n[2]].push(this.value || '');
+	            }
+	        } else {
+	            if(n && !n[2]) { name = n[1]; }
+	            if (o[name] !== undefined) {
+	                if (!o[name].push) {
+	                    o[name] = [o[name]];
+	                }
+	                o[name].push(this.value || '');
+	            } else {
+	                o[name] = this.value || '';
+	            }
+	        }
+	    });
+	    return o;
+	};
+	
 })(jQuery);

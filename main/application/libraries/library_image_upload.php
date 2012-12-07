@@ -221,20 +221,24 @@ class Library_image_upload{
 	 * @return 	null
 	 */
 	private function _event_guest_list_upload($upload_type, $image_data, $live_image){
-				
+		
 		if(!$upload_type){
 			$this->image_upload_error = 'Unknown error';
 			return false;
 		}
 			
 		/* ---------------------- verify size & type are allowed ----------------------*/
-		$config['upload_path'] = $this->TMP_CC_WORKING_DIR;
-		$config['allowed_types'] = 'gif|jpg|jpeg|png';
-		$config['max_size']	= '10000';
-		$config['max_width'] = '8000';
-		$config['max_height'] = '8000';
-		$min_width = 188;
-		$min_height = 266;
+		$config['upload_path'] 		= $this->TMP_CC_WORKING_DIR;
+		$config['allowed_types'] 	= 'gif|jpg|jpeg|png';
+		$config['max_size']			= '10000';
+		$config['max_width']		= '8000';
+		$config['max_height'] 		= '8000';
+		$min_width 					= 188;
+		$min_height 				= 266;
+		
+		
+		$max_resize_width = 700;
+
 
 		$this->CI->load->library('upload', $config);
 
@@ -265,6 +269,56 @@ class Library_image_upload{
 		$this->_convert_to_jpeg($image_upload_data['full_path']);
 		/* ---------------------- end convert to jpg ----------------------*/	
 
+		
+		
+		//if image exceeds a certain height/width -- resize to max
+		
+			
+			
+			
+		if($image_width > $max_resize_width){
+			
+			$resize_pct = ((float)$max_resize_width / $image_width);
+			
+			$new_image_width = ceil($resize_pct * $image_width);
+			$new_image_height = ceil($resize_pct * $image_height);
+			
+			
+			//load necessary images into memory for manipulation
+			$temp_image = imagecreatefromjpeg($image_upload_data['full_path']);
+			$cropped_image = imagecreatetruecolor($new_image_width, $new_image_height);
+			
+			
+	
+			
+			//create cropped image
+			imagecopyresized($cropped_image, 
+					$temp_image, 
+					0,
+					0,
+					0,
+					0,
+					$new_image_width,
+					$new_image_height,
+					$image_width,
+					$image_height);
+									
+			//save image temporarily on server filesystem
+			imagejpeg($cropped_image, $image_upload_data['full_path']);
+			$image_width = $new_image_width;
+			$image_height = $new_image_height;
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 				
 		/* ---------------------- rename and save base version to S3 ----------------------*/
 		
@@ -293,6 +347,11 @@ class Library_image_upload{
 		$ACL = S3::ACL_PUBLIC_READ;
 		$this->CI->s3->putObjectFile($sourceFile, $bucket, $newFileName, $ACL, array(), $this->cache_settings);		
 		/* ---------------------- end rename and save base version to S3 ----------------------*/
+		
+		
+		
+		
+		
 		
 		/* ---------------------- initial crop to aspect ratio for display & thumbnail ----------------------*/
 		
@@ -326,7 +385,7 @@ class Library_image_upload{
 		//we just uploaded an image, this version is not live.
 		$manage_image = $this->CI->session->flashdata('manage_image');
 		
-		if($live_image){
+		if($live_image && $manage_image){
 			
 			if($manage_image !== false){
 				$manage_image = json_decode($manage_image);
@@ -348,9 +407,10 @@ class Library_image_upload{
 											);
 			$manage_image->image_data = $data;
 	
+			$this->CI->session->set_flashdata('manage_image', json_encode($manage_image));
 		}
 
-		$this->CI->session->set_flashdata('manage_image', json_encode($manage_image));
+		
 
 		return true;
 	}
@@ -760,7 +820,7 @@ class Library_image_upload{
 	 * 
 	 * @return	bool
 	 * */
-	function image_crop($image_data, $image_type, $live_image = true){
+	function image_crop($image_data, $image_type, $live_image = true, $crop_coordinates = false, $update_override = false){
 		
 	//	var_dump($image_data);
 	//	var_dump($image_type);
@@ -797,7 +857,15 @@ class Library_image_upload{
 		//Is post properly formatted with required data for image crop?
 		$required_crop_keys = array('height', 'width', 'x0', 'x1', 'y0', 'y1');
 		//For easier access...
-		$crop_array = $this->CI->input->post();
+		
+		if(!$crop_coordinates)
+			$crop_array = $this->CI->input->post();
+		else{
+			$crop_array = $crop_coordinates;
+			$crop_array['width'] 	= abs($crop_array['x0'] - $crop_array['x1']);
+			$crop_array['height'] 	= abs($crop_array['y0'] - $crop_array['y1']);
+		}
+		
 		
 		foreach($required_crop_keys as $key)
 			if(!array_key_exists($key, $crop_array)){
@@ -914,35 +982,38 @@ class Library_image_upload{
 		
 		if($live_image){
 			
-			//update database with new image name and crop data
-			$data = array(
-				'image' => $this->image_data['image'],
-				'x0' 	=> $this->image_data['x0'],
-				'y0' 	=> $this->image_data['y0'],
-				'x1' 	=> $this->image_data['x1'],
-				'y1' 	=> $this->image_data['y1']
-			);
-
-			//doing this just for pgla_id
-			$manage_image = $this->CI->session->flashdata('manage_image');
-			$manage_image = json_decode($manage_image);
-						
-			switch($image_type){
-				case 'guest_lists':
-					$this->CI->users_promoters->update_guest_list(
-															((isset($manage_image->up_id)) ? $manage_image->up_id : false),
-															((isset($manage_image->pgla_id)) ? $manage_image->pgla_id : false),
-															$data
-															);
-					$manage_image->image_data = $data;
-					break;
-				case 'events':
-			//		$this->CI->users_promoters->update_event(array('promoter_id' => $current_promoter->up_id),
-			//											$event_id,
-			//											$data);
-					break;
-			}
+			if(!$update_override){
+				
+				//update database with new image name and crop data
+				$data = array(
+					'image' => $this->image_data['image'],
+					'x0' 	=> $this->image_data['x0'],
+					'y0' 	=> $this->image_data['y0'],
+					'x1' 	=> $this->image_data['x1'],
+					'y1' 	=> $this->image_data['y1']
+				);
 	
+				//doing this just for pgla_id
+				$manage_image = $this->CI->session->flashdata('manage_image');
+				$manage_image = json_decode($manage_image);
+							
+				switch($image_type){
+					case 'guest_lists':
+						$this->CI->users_promoters->update_guest_list(
+																((isset($manage_image->up_id)) ? $manage_image->up_id : false),
+																((isset($manage_image->pgla_id)) ? $manage_image->pgla_id : false),
+																$data
+																);
+						$manage_image->image_data = $data;
+						break;
+					case 'events':
+				//		$this->CI->users_promoters->update_event(array('promoter_id' => $current_promoter->up_id),
+				//											$event_id,
+				//											$data);
+						break;
+				}
+			}
+
 		}
 					
 		//delete old images from s3 associated with this user

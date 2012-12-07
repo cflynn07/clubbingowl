@@ -1019,7 +1019,7 @@ div#loading_modal div#loading_modal_inner p{
 div#s_admin_promoter_dashboard div#team_announcements{
 //	min-height:200px;
 	min-height:500px;
-	overflow-y: scroll;
+	//overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 10px;
 }
@@ -1526,7 +1526,7 @@ div#manager_dashboard_wrapper div#recent_visitors div.recent_visitor img{
 
 div#manager_dashboard_wrapper div#team_announcements{
 	min-height:200px;
-	overflow-y: scroll;
+	//overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 10px;
 }

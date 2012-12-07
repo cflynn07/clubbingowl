@@ -8,20 +8,10 @@ jQuery(function(){
 		var unbind_callbacks = [];		
 			
 		
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
+		
+		
+		
+		
 		var fb_operation_complete = false;
 		
 		jQuery('ul.sitemap li').bind('click', function(){

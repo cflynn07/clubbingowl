@@ -24,6 +24,7 @@
 		
 		
 		
+				
 		<?php $count = 0; ?>
 		<?php foreach($team_venues as $key => $tv): ?>
 			
@@ -36,15 +37,14 @@
 				<td><?= date("F j, Y, g:ia", $gla->tgla_create_time) ?></td>
 				<td><input data-tgla_id="<?= $gla->tgla_id ?>" type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($gla->tgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
 				<td>
-					
+										
 					<a data-action="delete" data-tgla_id="<?= $gla->tgla_id ?>" style="display:inline-block;" class="tooltip guest_list_delete delete_guest_list_button ajaxify" title="Delete this Guest List" href="#">
 						<img src="<?= $central->admin_assets ?>images/icons/actions_small/Trash.png" />
 					</a>
-					
-					<a style="display:inline-block;" class="tooltip edit_guest_list ajaxify" title="Edit Guest List" href="<?= $central->manager_admin_link_base ?>settings_guest_lists/<?= $gla->tgla_id ?>/">
+														
+					<a style="display:inline-block;" class="tooltip edit_guest_list ajaxify" title="Edit Guest List" href="<?= $central->manager_admin_link_base ?>settings_guest_lists_edit/<?= $gla->tgla_id ?>/">
 						<img src="<?= $central->admin_assets ?>images/icons/actions_small/Pencil.png" />
 					</a>
-										
 					
 				</td>
 				
@@ -52,6 +52,8 @@
 			<?php endforeach; ?>
 			
 		<?php endforeach; ?>
+				
+				
 				
 				
 				
