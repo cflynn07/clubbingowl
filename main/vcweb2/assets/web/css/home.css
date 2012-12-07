@@ -136,7 +136,9 @@ div#news_feed_side_data li:hover{
 
 
 
-
+section#news ul.updates div.info img {
+	border: 1px solid #000;
+}
 section#news ul.updates p.news_item_date {
 	font-size: 12px;
 	color: #8A8B8F;
