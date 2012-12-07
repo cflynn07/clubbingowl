@@ -14,7 +14,7 @@ jQuery(function(){
 		}
 		
 		
-		var kill_presence_channel = false;
+		var kill_presence_channel = true;
 		
 		if(typeof callback === 'function')
 			callback();
