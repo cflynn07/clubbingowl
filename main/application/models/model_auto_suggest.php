@@ -156,13 +156,14 @@ class Model_auto_suggest extends CI_Model {
 				ON 		tvp.team_fan_page_id = t.fan_page_id
 				
 				JOIN	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 					
 				WHERE	t.completed_setup = 1
 				AND 	tv.banned = 0
 				AND 	tvp.deleted = 0
 				AND 	pgla.deactivated = 0
-				AND 	pgla.name LIKE ?)
+				AND 	pgla.name LIKE ?
+				GROUP BY pgla.id)
 			UNION
 				(SELECT DISTINCT
 					
@@ -191,15 +192,15 @@ class Model_auto_suggest extends CI_Model {
 				ON 		tvp.team_fan_page_id = t.fan_page_id
 
 				JOIN 	cities c 
-				ON 		t.city_id = c.id 
+				ON 		tv.city_id = c.id 
 				
 				WHERE	t.completed_setup = 1 
 				AND 	tv.banned = 0 
 				AND 	tvp.deleted = 0
 				AND 	tgla.deactivated = 0
-				AND 	tgla.name LIKE ?)";
+				AND 	tgla.name LIKE ?
+				GROUP BY tgla.id)";
 		$query = $this->db->query($sql, array('%' . $search_pattern . '%', '%' . $search_pattern . '%'));		
-	
 		$result_temp = $query->result();
 		
 		setlocale(LC_ALL, $this->config->item('current_lang_locale'));
