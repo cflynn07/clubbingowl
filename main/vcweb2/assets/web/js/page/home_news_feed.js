@@ -288,7 +288,9 @@ jQuery(function(){
 							break;
 						case 'join_team_guest_list':
 						
-						
+							console.log('join_team_guest_list');
+							console.log(news_item);
+							
 							news_html = new EJS({
 							//	element: jQuery('div#ejs_home_templates > div#join_team_guest_list').get(0)
 								text: ejs_view_templates.primary_join_team_gl

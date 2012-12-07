@@ -26,7 +26,7 @@
 			  			<tr>
 			  				<td style="min-width:45px;vertical-align:top;">
     							<p style="margin:0; padding:0;"><%= un_notification_data.pgla.u_full_name %> updated the status of "<%= un_notification_data.pgla.pgla_name %>"</p>
-    							<p style="margin:0; font-weight: 400; font-size: 19px; padding-left: 10px;"><%= un_notification_data.status %></p>
+    							<p style="margin:0; font-weight: 400; font-size: 19px; padding-left:0; padding-bottom:0; color:#474D6A; border-bottom:1px solid #CCC;"><%= un_notification_data.status %></p>
 			  				</td>
 			  			</tr>
 			  		</table>  		

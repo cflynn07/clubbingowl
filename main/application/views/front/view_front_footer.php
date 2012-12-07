@@ -41,7 +41,9 @@
 			
 			
 			<div class="quarter">
+				<?php if(true): ?>
 				<div class="fb-like-box" data-href="https://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="dark" data-show-faces="false" data-stream="false" data-header="false"></div>
+				<?php endif; ?>
 				<div style="clear:both;"></div>
 			</div>
 			
