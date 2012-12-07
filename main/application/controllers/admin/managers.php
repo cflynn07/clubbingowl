@@ -1302,8 +1302,213 @@ class Managers extends MY_Controller {
 	
 	private function _settings_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		//retrieve this guest list
+		if(!$arg1){
+			redirect('/admin/managers/settings_guest_lists/', 302);
+			die();
+		}
+		
+		//find out if this guest list belongs to this team.
+		
+		$this->db->select('tgla.id					as tgla_id,
+							tgla.team_venue_id		as tgla_team_venue_id,
+							tgla.day				as tgla_day,
+							tgla.description		as tgla_description,
+							tgla.min_age			as tgla_min_age,
+							tgla.door_open			as tgla_door_open,
+							tgla.door_close 		as tgla_door_close,
+							tgla.regular_cover		as tgla_regular_cover,
+							tgla.gl_cover			as tgla_gl_cover,
+							tgla.name				as tgla_name,
+							tgla.create_time		as tgla_create_time,
+							tgla.deactivated		as tgla_deactivated,
+							tgla.deactivated_time	as tgla_deactivated_time,
+							tgla.additional_info_1 	as tgla_additional_info_1,
+							tgla.additional_info_2 	as tgla_additional_info_2,
+							tgla.additional_info_3 	as tgla_additional_info_3,
+							tgla.auto_approve 		as tgla_auto_approve,
+							
+							tgla.image 				as tgla_image,
+							tgla.x0					as tgla_x0,
+							tgla.x1					as tgla_x1,
+							tgla.y0					as tgla_y0,
+							tgla.y1					as tgla_y1,
+							
+							tv.name 				as tv_name,
+							tv.id					as tv_id,
+							tv.description 			as tv_description,
+							tv.street_address		as tv_street_address')
+			->from('teams_guest_list_authorizations tgla')
+			->join('team_venues tv', 'tgla.team_venue_id = tv.id')
+			->where(array(
+				'tgla.id'				=> $arg1,
+				'tgla.deactivated'		=> 0,
+				'tgla.team_fan_page_id' => $this->vc_user->manager->team_fan_page_id
+			));
+		$query = $this->db->get();
+		$result = $query->row();
+			
+		if(!$result){
+			redirect('/admin/managers/settings_guest_lists/', 302);
+			die();
+		}
+						
+		$data = array();
+		$data['guest_list'] = $result;
+		
+		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists_edit', $data, true);
+		
 	}
 	private function _ajax_settings_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		//find out if this guest list belongs to this team.
+		
+		$this->db->select('tgla.id					as tgla_id,
+							tgla.team_venue_id		as tgla_team_venue_id,
+							tgla.day				as tgla_day,
+							tgla.description		as tgla_description,
+							tgla.min_age			as tgla_min_age,
+							tgla.door_open			as tgla_door_open,
+							tgla.door_close 		as tgla_door_close,
+							tgla.regular_cover		as tgla_regular_cover,
+							tgla.gl_cover			as tgla_gl_cover,
+							tgla.name				as tgla_name,
+							tgla.create_time		as tgla_create_time,
+							tgla.deactivated		as tgla_deactivated,
+							tgla.deactivated_time	as tgla_deactivated_time,
+							tgla.additional_info_1 	as tgla_additional_info_1,
+							tgla.additional_info_2 	as tgla_additional_info_2,
+							tgla.additional_info_3 	as tgla_additional_info_3,
+							tgla.auto_approve 		as tgla_auto_approve,
+							
+							tgla.image 				as tgla_image,
+							tgla.x0					as tgla_x0,
+							tgla.x1					as tgla_x1,
+							tgla.y0					as tgla_y0,
+							tgla.y1					as tgla_y1,
+							
+							tv.name 				as tv_name,
+							tv.id					as tv_id,
+							tv.description 			as tv_description,
+							tv.street_address		as tv_street_address')
+			->from('teams_guest_list_authorizations tgla')
+			->join('team_venues tv', 'tgla.team_venue_id = tv.id')
+			->where(array(
+				'tgla.id'				=> $arg1,
+				'tgla.deactivated'		=> 0,
+				'tgla.team_fan_page_id' => $this->vc_user->manager->team_fan_page_id
+			));
+		$query = $this->db->get();
+		$result = $query->row();
+			
+		if(!$result){
+			die(json_encode(array('success' => false)));
+		}
+		
+		
+		
+		
+		
+		$this->load->library('library_venues', '', 'library_venues');
+		$this->load->library('library_image_upload', '', 'image_upload');
+		$this->load->model('model_users_managers', 'users_managers', true);
+		
+		$gl_object = $this->input->post('gl_form');
+		
+		
+		
+		
+		if(!isset($gl_object['guest_list_description']) || strlen($gl_object['guest_list_description']) < 10){
+			die(json_encode(array('success' => false, 'message' => 'Please supply a guest list description')));
+		}
+		
+		if(!isset($gl_object['guest_list_reg_cover']) || strlen($gl_object['guest_list_reg_cover']) == 0){
+			die(json_encode(array('success' => false, 'message' => 'Please supply a regular cover charge')));
+		}
+		
+		if(!isset($gl_object['guest_list_gl_cover']) || strlen($gl_object['guest_list_gl_cover']) == 0){
+			die(json_encode(array('success' => false, 'message' => 'Please supply a guest list cover charge')));
+		}
+		
+				
+		
+		foreach($gl_object as $key => $val){
+			if(is_string($val)){
+				$gl_object[$key] = strip_tags($val);
+			}
+		}
+		
+		
+		
+		//make image live			
+		if($gl_object['image_data']['image'] != $result->tgla_image){
+			$new_image_name = $this->image_upload->make_image_live('guest_lists', $gl_object['image_data']['image']);
+		
+			//crop image
+			$image_data 		= new stdClass;
+			$image_data->image 	= $new_image_name;
+			$this->image_upload->image_crop($image_data, 'guest_lists', true, $gl_object['image_data'], true);
+			$new_image_name 	= $this->image_upload->image_data['image'];
+	
+		}else{
+			
+			//crop image
+			$image_data 		= new stdClass;
+			$image_data->image 	= $result->tgla_image;
+			$this->image_upload->image_crop($image_data, 'guest_lists', true, $gl_object['image_data'], true);
+			$new_image_name 	= $this->image_upload->image_data['image'];
+			
+		}
+		
+		$this->db->where(array(
+			'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
+			'id'				=> $arg1
+		));
+		$this->db->update('teams_guest_list_authorizations', array(
+			'auto_approve'		=> isset($gl_object['guest_list_auto_approve']) ? 1 : 0,
+			'description'		=> trim($gl_object['guest_list_description']),			
+			'image'				=> $new_image_name,
+			'x0'				=> $gl_object['image_data']['x0'],
+			'y0'				=> $gl_object['image_data']['y0'],
+			'x1'				=> $gl_object['image_data']['x1'],
+			'y1'				=> $gl_object['image_data']['y1'],
+			'min_age'			=> $gl_object['guest_list_min_age'],
+			'door_open'			=> $gl_object['guest_list_open'],
+			'door_close'		=> $gl_object['guest_list_close'],
+			'regular_cover'		=> trim($gl_object['guest_list_reg_cover']),
+			'gl_cover'			=> trim($gl_object['guest_list_gl_cover']),
+			'additional_info_1'	=> trim($gl_object['guest_list_additional_info_1']),
+			'additional_info_2'	=> trim($gl_object['guest_list_additional_info_2']),
+			'additional_info_3'	=> trim($gl_object['guest_list_additional_info_3'])
+		));
+				
+		die(json_encode(array('success' => true)));
+				
+	}
+	private function _ocupload_settings_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$this->load->library('library_image_upload', '', 'image_upload');
+		
+		
+		//verifies image upload is acceptable, 
+		//saves original + cropped versions to amazon s3, 
+		//and updates promoter database
+		if($this->image_upload->image_upload(array('type' 			=> 'venue', 
+													'upload_type' 	=> 'guest_lists',
+													'live_image' 	=> false,
+													'image_data' 	=> false))){
+				
+			die(json_encode(array('success' => true,
+									'image_data' => $this->image_upload->image_data)));
+									
+		}else{
+			
+			die(json_encode(array('success' => false,
+									'message' => $this->image_upload->image_upload_error)));
+									
+		}
+		
+		
 		
 	}
 	

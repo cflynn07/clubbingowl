@@ -17,6 +17,7 @@ jQuery(function(){
 				
 				this.$el.find('input.iphone').iphoneStyle();
 				this.initialize_ocupload();
+			
 				
 			},
 			initialize_ocupload: function(){
@@ -54,45 +55,7 @@ jQuery(function(){
 			        		return;
 			        	}
 			        	
-			        	_this.image_data = response.image_data;
-			        	
-			        	var src = window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/originals/temp/' + response.image_data.image + '.jpg';
-			        	var img = jQuery('<img></img>').attr('src', src).bind('load', function(){ 
-			        		console.log('image_loaded'); 
-			        		
-			        		var _this = this;
-			        		
-			        		crop_object = jQuery(this).imgAreaSelect({
-			        			instance: 		true,
-			        			handles:		true,
-			        			aspectRatio:	'3:4',
-			        			show:			true,
-			        			persistent:		true,
-			        			minWidth: 		188,
-								minHeight: 		266,
-								aspectRatio: 	'188:266',
-								x1: 			response.image_data.x0,
-								y1:				response.image_data.y0,
-								x2:				response.image_data.x1,
-								y2: 			response.image_data.y1,
-								imageHeight: 	response.image_data.original_height,
-								imageWidth: 	response.image_data.original_width,
-								onSelectChange: function(img, selection){
-									
-									console.log(selection);
-									console.log(_this_view.image_data);
-									
-									_this_view.image_data.x0 = selection.x1;
-									_this_view.image_data.y0 = selection.y1;
-									_this_view.image_data.x1 = selection.x2;
-									_this_view.image_data.y1 = selection.y2;
-									
-								}
-			        		});
-			        		
-			        		
-			        	});
-			        	jQuery('div#image_holder').html(img);
+			      		_this_view.initialize_crop(response.image_data);
 			        	
 			       
 			        },
@@ -100,6 +63,50 @@ jQuery(function(){
 			        	
 			        }
 			    });
+				
+			},
+			initialize_crop: function(response){
+				
+					var _this = this;
+					var _this_view = this;
+				  	_this.image_data = response;
+			        	
+		        	var src = window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/originals/temp/' + response.image + '.jpg';
+		        	var img = jQuery('<img></img>').attr('src', src).bind('load', function(){ 
+		        		console.log('image_loaded'); 
+		        		
+		        		var _this = this;
+		        		
+		        		crop_object = jQuery(this).imgAreaSelect({
+		        			instance: 		true,
+		        			handles:		true,
+		        			aspectRatio:	'3:4',
+		        			show:			true,
+		        			persistent:		true,
+		        			minWidth: 		188,
+							minHeight: 		266,
+							aspectRatio: 	'188:266',
+							x1: 			response.x0,
+							y1:				response.y0,
+							x2:				response.x1,
+							y2: 			response.y1,
+							imageHeight: 	jQuery(this).height(),
+							imageWidth: 	jQuery(this).width(),
+							onSelectChange: function(img, selection){
+								
+								
+								
+								_this_view.image_data.x0 = selection.x1;
+								_this_view.image_data.y0 = selection.y1;
+								_this_view.image_data.x1 = selection.x2;
+								_this_view.image_data.y1 = selection.y2;
+								
+							}
+		        		});
+		        		
+		        		
+		        	});
+		        	jQuery('div#image_holder').html(img);
 				
 			},
 			render: function(){
@@ -189,9 +196,15 @@ jQuery(function(){
 						
 						if(data.success){
 							
+							jQuery('#back').trigger('click');
+							
 						}else{
+							
+							_this.display_error(data.message);
+							
 							_this.$el.find('input#submit_new_guest_list').show();
 							_this.$el.find('#ajax_loading').hide();
+							
 						}
 						
 						console.log('data');

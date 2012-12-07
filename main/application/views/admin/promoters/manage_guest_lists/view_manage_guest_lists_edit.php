@@ -5,12 +5,10 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
 
-<div class="ui-widget" style="width:1050px;">
+<div class="ui-widget" style="width:1050px; margin-bottom:40px;">
 		
 	<h1>Edit Guest List</h1>
-	<p>
-		Edit your guest lists
-	</p>
+
 	
 	<!-- modal window contents -->
 	<div id="guest_lists_new_modal_window" style="display:none">
@@ -32,11 +30,16 @@
 		
 							<p> 
 			<label>Guest List Name:</label> <span><?= $guest_list->pgla_name ?></span>
-			<span style="margin-left:15px; color:red;">Why can't I change my guest list name? </span><img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your guest list name is a part of it's URL (ex: www.vibecompass.com/promoters/boston/Fede/guest_lists/estate_fridays/ ). If you changed it, all of the links pointing to your guest list on Facebook and your client's bookmarks would break.">
+			
+			<br/><img style="vertical-align:middle;" src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your guest list name is a part of it's URL (ex: www.clubbingowl.com/promoters/rocko/guest_lists/estate_fridays/ ). If you changed it, all of the links pointing to your guest list on Facebook and your client's bookmarks would break.">
+			<span style="margin-left:15px; color:red;">Why can't I change my guest list name? </span>
 			
 		</p>
 		
 							<p> 
+								
+								
+								
 			<label>Guest List Image:</label> 
 			<a href="<?= $central->promoter_admin_link_base ?>manage_image/">
 				<?php if(isset($manage_image->image_data)): ?>
@@ -45,6 +48,9 @@
 					<img src="http://www.placehold.it/66x93/CCC/000/&text=Upload" alt="upload image" />
 				<?php endif; ?>	
 			</a>
+			
+			
+			
 		</p>
 		
 		<div style="clear:both;"></div>
