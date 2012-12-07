@@ -66,9 +66,9 @@
 #friends .people .name {
   color: #777777;
   display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  //white-space: nowrap;
+  //overflow: hidden;
+  //text-overflow: ellipsis;
 }
 #friends .people a.name {
   text-decoration: underline;
@@ -142,9 +142,9 @@ article.profile p#since_date{
 #promoters .people .name {
   color: #777777;
   display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  //white-space: nowrap;
+  //overflow: hidden;
+  //text-overflow: ellipsis;
 }
 #promoters .people a.name {
   text-decoration: underline;
@@ -196,9 +196,9 @@ article.profile p#since_date{
 #history .people .name {
   color: #777777;
   display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  //white-space: nowrap;
+  //overflow: hidden;
+  //text-overflow: ellipsis;
 }
 #history .people a.name {
   text-decoration: underline;

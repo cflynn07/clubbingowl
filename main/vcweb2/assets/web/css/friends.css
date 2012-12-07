@@ -22,9 +22,9 @@
 .people .name {
   color: #777777;
   display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  //white-space: nowrap;
+  //overflow: hidden;
+  //text-overflow: ellipsis;
 }
 .people a.name {
   text-decoration: underline;
