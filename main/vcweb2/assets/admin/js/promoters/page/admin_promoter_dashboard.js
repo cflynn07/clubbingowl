@@ -73,6 +73,8 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				
+				
 				for(var i in this.team_managers){
 					this.$el.find('div.pic_square_' + this.team_managers[i].uid).html('<img src="' + this.team_managers[i].pic_square + '">');
 					this.$el.find('.name_' + this.team_managers[i].uid).html(this.team_managers[i].name);
@@ -80,6 +82,12 @@ jQuery(function(){
 				
 				jQuery('img#messages_loading_indicator').remove();
 				this.$el.show();
+				
+				this.$el.resizable({
+				  maxWidth:1025,
+				  minWidth:1025
+				});
+				
 				return this;
 			},
 			events: {

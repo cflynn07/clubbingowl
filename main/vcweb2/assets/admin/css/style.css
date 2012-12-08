@@ -2186,3 +2186,15 @@ img.info_icon {
 	float: left;
 	padding-right:5px;
 }
+
+
+
+.resizable_container_parent div.ui-resizable-handle {
+	min-height:0 !important;
+	height: 16px !important;
+	width: 16px !important;
+}
+
+div#resize_box div.ui-resizable-handle {
+	bottom: -20px;
+}

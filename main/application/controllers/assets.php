@@ -119,6 +119,7 @@ class Assets extends MY_Common_Controller {
 					//added for ui-slider
 					'ui2/jquery-ui-1.9.1.custom.min',
 					'ui3/jquery-ui-1.9.2.custom',
+					'resizable_container_parent/jquery-ui-1.9.2.custom',
 					
 					//pages
 					'page/admin_team_chat',

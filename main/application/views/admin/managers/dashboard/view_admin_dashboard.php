@@ -263,7 +263,7 @@
 
 
 
-	<div id="team_announcements" class="full_width" style="width:1050px; padding:0;">
+	<div class="resizable_container_parent full_width" id="team_announcements"  style="width:1050px; padding:0; overflow:visible;">
 		<h3>
 			Team Announcements
 			<img class="info_icon tooltip" title="Announcements for team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
@@ -271,52 +271,56 @@
 		
 		<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..."  />
 		
-		<div id="team_announcements_content" style="display:none;height:320px; min-height: 200px; overflow-y: scroll; overflow-x: hidden; padding: 10px;">
-			
-			
-			
-			
-			
-			
-			<?php foreach($announcements as $an): ?>
-				<div>
-					
-					<table class="normal" style="width:100%;">
-						<tbody>
-							<tr>
-								<td style="width:50px; border-right:1px solid #CCC;">
-									<div data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
-									<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
-									<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
-								</td>
-								<td style="padding-top:10px;">
-									
-									<?php if($an->type == 'regular'): ?>
-										<div class="announcement_message"><?= $an->message ?></div>
-									<?php else: ?>
+		<div id="resize_box" style="height:320px; min-height: 200px; margin-bottom:10px;">
+			<div id="team_announcements_content" style="display:none; height:100%; overflow-y: scroll; overflow-x: hidden; padding: 10px; border-bottom:1px dashed #CCC;">
+				
+				
+				
+				
+				
+				
+				<?php foreach($announcements as $an): ?>
+					<div>
+						
+						<table class="normal" style="width:100%;">
+							<tbody>
+								<tr>
+									<td style="width:50px; border-right:1px solid #CCC;">
+										<div data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
+										<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
+										<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
+									</td>
+									<td style="padding-top:10px;">
 										
-										<?php $message = json_decode($an->message); 
-											if($message->subtype == 'new_client_notes'):
-										?>
-										
-											<div class="announcement_message"><span data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="name_<?= $an->manager_oauth_uid ?>"</span> has updated their notes on <a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span data-oauth_uid="<?= $message->client_oauth_uid ?>" class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
-										
+										<?php if($an->type == 'regular'): ?>
+											<div class="announcement_message"><?= $an->message ?></div>
+										<?php else: ?>
+											
+											<?php $message = json_decode($an->message); 
+												if($message->subtype == 'new_client_notes'):
+											?>
+											
+												<div class="announcement_message"><span data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="name_<?= $an->manager_oauth_uid ?>"</span> has updated their notes on <a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span data-oauth_uid="<?= $message->client_oauth_uid ?>" class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+											
+											<?php endif; ?>
+											
 										<?php endif; ?>
 										
-									<?php endif; ?>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<?php if(!$announcements): ?>
+							<div style="text-align:center;">No Announcements</div>
+						<?php endif; ?>						
+					</div>
+				<?php endforeach; ?>
 									
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<?php if(!$announcements): ?>
-						<div style="text-align:center;">No Announcements</div>
-					<?php endif; ?>						
-				</div>
-			<?php endforeach; ?>
-								
-			
+				
+			</div>
 		</div>
+		
+		
 		<br/>
 		<a data-action="create-announcement" id="create_announcement_btn" class="button_link" style="float:right;" href="#">Create Announcement</a>
 

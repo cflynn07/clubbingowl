@@ -43,6 +43,10 @@ jQuery(function(){
 					_this.$el.find('#team_announcements_content').show();
 					
 				});
+				jQuery('#resize_box').resizable({
+				  maxWidth:1050,
+				  minWidth:1050
+				});
 				
 				
 			},

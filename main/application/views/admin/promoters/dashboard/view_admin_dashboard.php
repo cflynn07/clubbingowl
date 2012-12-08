@@ -57,7 +57,7 @@
 
 		<hr>
 		
-		<div class="full_width" style="width:1050px;">
+		<div id="team_announcements_parent" class="resizable_container_parent full_width" style="width:1050px; padding:0; overflow:visible;">
 			<h3>
 				Team Announcements
 				<img class="info_icon tooltip" title="Send announcements to your team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
@@ -65,7 +65,7 @@
 			
 			<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 						
-			<div id="team_announcements" style="display:none;height:320px; overflow-y: scroll;">		
+			<div id="team_announcements" style="display:none; height:320px; min-height:0; overflow-y: scroll; padding:0; overflow-x: hidden; padding: 10px; border-bottom:1px dashed #CCC;">		
 				
 				<?php foreach($announcements as $an): ?>
 					<div>
