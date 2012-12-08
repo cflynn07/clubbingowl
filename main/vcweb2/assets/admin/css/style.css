@@ -2197,4 +2197,10 @@ img.info_icon {
 
 div#resize_box div.ui-resizable-handle {
 	bottom: -20px;
+	margin-right: 12px;
+}
+
+div.tabs .ui-state-active a {
+	text-decoration: underline;
+	color: red;
 }

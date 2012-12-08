@@ -657,7 +657,9 @@ div#reviews_holder {
 	font-size: 12px;
 }
 
-
+#profile img.logo {
+	border: 1px solid #474D6A;
+}
 
 /*
 #profile p.tv_friends a img{
