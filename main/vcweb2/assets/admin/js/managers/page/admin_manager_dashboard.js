@@ -428,7 +428,7 @@ jQuery(function(){
 										.initialize({
 											display_target: 	target, //'#' + _this.$el.attr('id'),
 											team_venue: 		venue,
-											factor: 			0.3,
+											factor: 			0.45,
 											options: {
 												display_slider: true
 											}
@@ -553,7 +553,7 @@ jQuery(function(){
 						var dialog_options = {
 							title: 		'Approve or Decline Request',
 							modal: 		true,
-							resizable: 	false,
+							resizable: 	true,
 							draggable: 	true,
 							open: 		function(){
 								
