@@ -15,7 +15,7 @@
 					<p>
 						<label>Public Identifier:</label>
 						<input class="sf" id="public_identifier" name="public_identifier" type="text" value="" />
-						<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your profile will be accessible at https://www.ClubbingOwl.com/promoters/<?= $promoter->team->c_url_identifier ?>/YOUR_PUBLIC_IDENTIFIER/ ">
+						<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your profile will be accessible at https://www.clubbingowl.com/promoters/YOUR_PUBLIC_IDENTIFIER/ ">
 						
 						<p style="display:none;height:50px;vertical-align:center;" id="public_identifier_error" class="error">
 							Public Identifier cannot contain any special characters such as: %$*!
@@ -30,11 +30,13 @@
 					</p>
 										
 					<p>
-						<label>Tell Us About Yourself:</label><br>
-						<span class="field_desc">This will be featured on your promoter profile, and will be displayed on Facebook when your clients share a link to your ClubbingOwl profile.</span>
-						<span id="biography_char_remaining" style="float:right; color:red;"></span>
+						
+						<label><strong>Tell Us About Yourself:</strong></label><br>
+						
+						<span class="">This will be featured on your promoter profile, and will be displayed on Facebook when your clients share a link to your ClubbingOwl profile. <br /><br />A good description will bring more clientelle from Google and other search engines to your profile. Write about why you're a good promoter and how you'll help your clients should party with you. You can always edit this later in your settings panel.</span><br/><br/>
+						<span id="biography_char_remaining" style="float:left; color:red; font-size:16px;"></span>
 
-						<textarea id="text_biography" style="width:680px; height:200px; border:1px solid #CCC; resize:none; padding: 5px;" name="biography"></textarea>
+						<textarea id="text_biography" style="width:680px; height:70px; border:1px solid #CCC; resize:none; padding: 5px;" name="biography"></textarea>
 												
 					</p>
 					
@@ -105,13 +107,18 @@
 			
 			<h2>You have completed the setup.</h2>
 			
-			<p>Your profile page is now visable to others in ClubbingOwl, however you haven't set up any guest lists yet. Click continue to get started with adding your guest lists. :)</p>
+			<p>
+				Your profile page is now visable to others in ClubbingOwl, however <strong>you haven't set up any guest lists yet.</strong>
+				
+				
+				
+			</p>
 			
 			
 			<p>
 				<table>
 					<tr>
-						<td><input class="button" type="submit" value="Continue" id="continue_completed_setup" /></td>
+						<td><input onclick="javascript:window.location = '/admin/promoters/manage_guest_lists/';return;" class="button" type="submit" value="Setup Guest Lists" id="" /></td>
 					</tr>
 				</table>
 			</p> 
