@@ -213,22 +213,46 @@ class Model_users_managers extends CI_Model {
 					tglr.host_message		as tglr_host_message,
 					tglr.approved			as tglr_approved,
 					tglr.create_time 		as tglr_create_time,
-					tglr.table_min_spend	as table_min_spend
+					tglr.table_min_spend	as table_min_spend,
+					tglr.checked_in			as tglr_checked_in,
+					tglr.checked_in_time	as tglr_checked_in_time,
+					tglr.checked_in_by_host	as tglr_checked_in_by_host,
+					tglr.supplied_name		as tglr_supplied_name,
+					tv.id					as tv_id,
+					tv.name 				as tv_name,
+					tv.description 			as tv_description,
+					tv.image				as tv_image,
+					tgla.id					as tgla_id,
+					tgla.day				as tgla_day,
+					tgla.name				as tgla_name,
+					tgla.image 				as tgla_image
 				
 				FROM 	teams_guest_lists_reservations tglr
 				
-				WHERE 	tglr.team_guest_list_id = $teams_guest_lists_id
+				JOIN 	teams_guest_lists tgl
+				ON 		tglr.team_guest_list_id = tgl.id
+				
+				JOIN 	teams_guest_list_authorizations tgla
+				ON		tgl.team_guest_list_authorization_id = tgla.id
+				
+				JOIN 	team_venues tv 
+				ON 		tgla.team_venue_id = tv.id
+				
+				WHERE 	tglr.team_guest_list_id = ?
 				
 				ORDER BY 	tglr.create_time ASC";
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql, array($teams_guest_lists_id));
 		$result = $query->result();
 		
 		//loop over the head users and attach their entourages
 		foreach($result as &$res){
 					
+			$res->human_date = date('m/d/y h:iA', $res->tglr_create_time);	
+			
 			$sql = "SELECT
 					
-						tglre.oauth_uid		as tglre_oauth_uid
+						tglre.oauth_uid		as tglre_oauth_uid,
+						tglre.supplied_name	as tglre_supplied_name
 					
 					FROM teams_guest_lists_reservations_entourages tglre
 					

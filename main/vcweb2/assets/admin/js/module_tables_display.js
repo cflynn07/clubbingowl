@@ -1,6 +1,6 @@
 (function(globals){
 	
-	var EVT = window.ejs_view_templates_admin_promoters;
+	var EVT = window.ejs_view_templates_admin_promoters || window.ejs_view_templates_admin_managers;
 	
 	var Factor 			= 0.5;
 	var BaseFloorWidth 	= 800;
@@ -85,9 +85,12 @@
 	
 	
 	Views.FloorItem = {
+		initialized: false,
 		display_settings: null,
 		className: 'item',
 		initialize: function(){
+			
+			model_display_settings.on('change', this.render, this);
 			
 		},
 		render: function(){
@@ -107,7 +110,8 @@
 			});
 			this.$el.addClass(item_type);
 			
-			
+			if(this.model.get('highlighted'))
+				this.$el.addClass('highlighted');
 			
 			var template = EVT['tables/t_vlf_item'];
 			
@@ -127,21 +131,26 @@
 			<div class="max_capacity"><?= $item->vlfit_capacity ?></div>
 			 * */
 			
-			var days = [
-				'monday',
-				'tuesday',
-				'wednesday',
-				'thursday',
-				'friday',
-				'saturday',
-				'sunday'
-			];
 			
-			for(var i in days){
+			
+			if(!this.initialized){
 				
-				var key = 'day-price-' + days[i];
-				var value = this.model.get('vlfit_' + days[i] + '_min');
-				this.$el.attr(key, value);
+				var days = [
+					'monday',
+					'tuesday',
+					'wednesday',
+					'thursday',
+					'friday',
+					'saturday',
+					'sunday'
+				];
+				
+				for(var i in days){
+					var key 	= 'day-price-' + days[i];
+					var value 	= this.model.get('vlfit_' + days[i] + '_min');
+					this.$el.attr(key, value);
+				}
+				this.initialized = true;
 				
 			}
 			
@@ -149,16 +158,36 @@
 			return this;
 		},
 		events: {
+			'highlighted': 'highlighted',
+			'de-highlighted': 'de_highlighted'
+		},
+		highlighted: function(){
 			
+			console.log('highlighted');
+			
+			this.model.set({
+				highlighted: true
+			});
+			this.render();
+		},
+		de_highlighted: function(){
+			
+			console.log('de-highlighted');
+			
+		//	this.model.set({
+		//		highlighted: false
+		//	});
+		//	this.render();
 		}
 	}; Views.FloorItem = Backbone.View.extend(Views.FloorItem);
 	
 	Views.Floor = {
+		initialized: false,
 		items_collection: null,
 		className: 'vlf',
 		initialize: function(){
 			
-		
+			model_display_settings.on('change', this.render, this);
 			
 		},
 		render: function(){
@@ -167,37 +196,47 @@
 			var factor 				= model_display_settings.get('factor');
 			var base_floor_height 	= model_display_settings.get('baseFloorHeight');
 			var base_floor_width 	= model_display_settings.get('baseFloorWidth');
+			var _this = this;
+			var floor_items 		= this.model.get('items');
+			var template 			= EVT['tables/t_vlf'];
+			
 			
 			this.$el.css({
 				width: 	Math.floor(base_floor_width  * factor) + 'px',
 				height: Math.floor(base_floor_height * factor) + 'px',
 			});
 			
-			var template = EVT['tables/t_vlf'];
-			var html = new EJS({
-				text: template
-			}).render(this.model.toJSON());
+			if(!this.initialized){
 			
-			this.$el.html(html);
-			
-			//insert the items into the floor
-			var _this = this;
-			var floor_items = this.model.get('items');
-			if(floor_items && floor_items.length){
+				var template = EVT['tables/t_vlf'];
+				var html = new EJS({
+					text: template
+				}).render(this.model.toJSON());
 				
-				var items_collection  = new Collections.FloorItems(floor_items);
-				this.items_collection = items_collection;
-				items_collection.each(function(m){
+				this.$el.html(html);
+				
+				//insert the items into the floor
+				
+				if(floor_items && floor_items.length){
 					
-					var view_item = new Views.FloorItem({
-						model: m
+					var items_collection  = new Collections.FloorItems(floor_items);
+					this.items_collection = items_collection;
+					items_collection.each(function(m){
+						
+						var view_item = new Views.FloorItem({
+							model: m
+						});
+						_this.$el.append(view_item.el);
+						view_item.render();
+						
 					});
-					_this.$el.append(view_item.el);
-					view_item.render();
-					
-				});
+				
+				}
 			
+				this.initialized = true;
 			}
+			
+			
 			
 			return this;
 			
@@ -208,6 +247,7 @@
 	}; Views.Floor = Backbone.View.extend(Views.Floor);
 	
 	Views.VenueLayout = {
+		initialized: false,
 		attributes: function(){
 			return {
 				'class': 'vl'
@@ -223,18 +263,28 @@
 		},
 		render: function(){
 			
-			this.$el.empty();
-			var _this = this;
+			if(!this.initialized){
+				
+				var _this = this;
 			
-			//add each floor into this area
-			this.collection.each(function(m){
-				var view_floor = new Views.Floor({
-					model: 				m,
-					display_settings: 	this.display_settings
+				//add each floor into this area
+				this.collection.each(function(m){
+					
+					var view_floor = new Views.Floor({
+						model: 				m,
+						display_settings: 	this.display_settings
+					});
+					_this.$el.append(view_floor.el);
+					view_floor.render();
+					
 				});
-				_this.$el.append(view_floor.el);
-				view_floor.render();
-			});
+				
+				this.initialized = true;
+				
+			}else{
+				//do nothing...
+			}
+			
 			
 			return this;			
 		},
@@ -292,15 +342,28 @@
 			var venue_floorplan = this.model.get('venue_floorplan');
 			if(venue_floorplan && venue_floorplan.length){
 				
-				var _this = this;
-				var collection_floors = new Collections.Floors(venue_floorplan);
-				this.collection_floors = collection_floors;
+				var _this 				= this;
 				
-				var venue_layout = new Views.VenueLayout({
-					el: this.$el.find('#layout').get(0),
-					collection: collection_floors
-				});
+				if(!this.collection_floors){
+					
+					var collection_floors 	= new Collections.Floors(venue_floorplan);
+					this.collection_floors 	= collection_floors;
+					
+					var venue_layout = new Views.VenueLayout({
+						el: this.$el.find('#layout').get(0),
+						collection: collection_floors
+					});
+					
+				}else{
+					
+					var venue_layout = new Views.VenueLayout({
+						el: this.$el.find('#layout').get(0),
+						collection: collection_floors
+					});
+					
+				}
 				
+								
 			}			
 			
 			

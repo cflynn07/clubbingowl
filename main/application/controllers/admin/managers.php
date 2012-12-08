@@ -554,111 +554,7 @@ class Managers extends MY_Controller {
 	private function _tables($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_teams', 'teams', true);
-		
-		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
-		
-		$init_users = array();
-		foreach($team_venues as &$venue){
-			
-			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
-
-			$venue_floorplan = $this->teams->retrieve_venue_floorplan($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
-			$venue_floors = new stdClass;
-			
-			//iterate over all items to extract floors
-			foreach($venue_floorplan as $key => $vlf){
-				if(!isset($vlf->vlf_id))
-					continue;
-				
-				if($vlf->vlf_deleted == 1)
-					continue;
-				
-				if(!array_key_exists($vlf->vlf_id, $venue_floors)){
-					
-					$floor_object = new stdClass;
-					$floor_object->items = array();
-					$floor_object->name = $vlf->vlf_floor_name;
-					
-					$floor_id = $vlf->vlf_id;
-					$venue_floors->$floor_id = $floor_object;
-					
-				}
-			}
-			
-			//for each floor, extract the items
-			foreach($venue_floors as $key => &$vf){
-							
-				foreach($venue_floorplan as $vlf){
-					if($key == $vlf->vlf_id){
-						//item is on THIS floor
-						
-						if($vlf->vlfi_id == NULL)
-							continue;
-						
-						if($vlf->vlfi_deleted == 1)
-							continue;
-											
-						$vf->items[] = $vlf;
-						
-					}
-				}
-				
-			}
-			
-			$venue->venue_floorplan = $venue_floors;
-			
-			$venue_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																						$this->vc_user->manager->team_fan_page_id,
-																						date('Y-m-d', time()));
-			foreach($venue_reservations as $vr){
-				
-				if(isset($vr->tglr_user_oauth_uid))
-					$init_users[] = $vr->tglr_user_oauth_uid;
-				elseif(isset($vr->pglr_user_oauth_uid)){
-					$init_users[] = $vr->pglr_user_oauth_uid;
-					$init_users[] = $vr->up_users_oauth_uid;
-				}
-					
-				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
-				
-			}unset($vr);
-			$venue->venue_reservations = $venue_reservations;
-			
-			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																						$this->vc_user->manager->team_fan_page_id,
-																						false);
-			foreach($all_upcoming_reservations as $vr){
-				
-				if(isset($vr->tglr_user_oauth_uid))
-					$init_users[] = $vr->tglr_user_oauth_uid;
-				elseif(isset($vr->pglr_user_oauth_uid)){
-					$init_users[] = $vr->pglr_user_oauth_uid;
-					$init_users[] = $vr->up_users_oauth_uid;
-				}
-					
-				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
-				
-			}unset($vr);																	
-																						
-			
-			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
-			
-			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		}
-		unset($venue);
-		
-		$init_users = array_unique($init_users);
-		$init_users = array_values($init_users);
+		list($init_users, $team_venues) = $this->_helper_venue_floorplan_retrieve_v2();
 		
 		$data['init_users'] = $init_users;
 		$data['team_venues'] = $team_venues;
@@ -1977,12 +1873,19 @@ class Managers extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'find_tables':
+				
+				$data = $this->_helper_venue_floorplan_retrieve_v2();
+				die(json_encode(array('success' => true, 'message' => array(
+					'init_users' 	=> $data[0],
+					'team_venues' 	=> $data[1]
+				))));
+				
+				break;
 			case 'retrieve_pending_requests':
 			
 				$data = $this->_helper_retrieve_pending_requests();
-			
 				die(json_encode(array('success' => true, 'message' => $data)));		
-				
 				
 				break;
 			case 'announcement_create':
@@ -2849,6 +2752,128 @@ class Managers extends MY_Controller {
 		die(json_encode(array('success' => false)));
 		
 	}
+
+
+
+	private function _helper_venue_floorplan_retrieve_v2(){	
+		
+		
+		$this->load->model('model_users_managers', 'users_managers', true);
+		$this->load->model('model_teams', 'teams', true);
+		
+		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
+		
+		$init_users = array();
+		foreach($team_venues as &$venue){
+			
+			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
+
+			$venue_floorplan = $this->teams->retrieve_venue_floorplan($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
+			$venue_floors = new stdClass;
+			
+			//iterate over all items to extract floors
+			foreach($venue_floorplan as $key => $vlf){
+				if(!isset($vlf->vlf_id))
+					continue;
+				
+				if($vlf->vlf_deleted == 1)
+					continue;
+				
+				if(!array_key_exists($vlf->vlf_id, $venue_floors)){
+					
+					$floor_object = new stdClass;
+					$floor_object->items = array();
+					$floor_object->name = $vlf->vlf_floor_name;
+					
+					$floor_id = $vlf->vlf_id;
+					$venue_floors->$floor_id = $floor_object;
+					
+				}
+			}
+			
+			//for each floor, extract the items
+			foreach($venue_floors as $key => &$vf){
+							
+				foreach($venue_floorplan as $vlf){
+					if($key == $vlf->vlf_id){
+						//item is on THIS floor
+						
+						if($vlf->vlfi_id == NULL)
+							continue;
+						
+						if($vlf->vlfi_deleted == 1)
+							continue;
+											
+						$vf->items[] = $vlf;
+						
+					}
+				}
+				
+			}
+			
+			$venue->venue_floorplan = $venue_floors;
+			
+			$venue_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
+																						$this->vc_user->manager->team_fan_page_id,
+																						date('Y-m-d', time()));
+			foreach($venue_reservations as $vr){
+				
+				if(isset($vr->tglr_user_oauth_uid))
+					$init_users[] = $vr->tglr_user_oauth_uid;
+				elseif(isset($vr->pglr_user_oauth_uid)){
+					$init_users[] = $vr->pglr_user_oauth_uid;
+					$init_users[] = $vr->up_users_oauth_uid;
+				}
+					
+				
+				if($vr->entourage)
+					foreach($vr->entourage as $ent){
+						$init_users[] = $ent;
+					}
+				
+			}unset($vr);
+			$venue->venue_reservations = $venue_reservations;
+			
+			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
+																						$this->vc_user->manager->team_fan_page_id,
+																						false);
+			foreach($all_upcoming_reservations as $vr){
+				
+				if(isset($vr->tglr_user_oauth_uid))
+					$init_users[] = $vr->tglr_user_oauth_uid;
+				elseif(isset($vr->pglr_user_oauth_uid)){
+					$init_users[] = $vr->pglr_user_oauth_uid;
+					$init_users[] = $vr->up_users_oauth_uid;
+				}
+					
+				
+				if($vr->entourage)
+					foreach($vr->entourage as $ent){
+						$init_users[] = $ent;
+					}
+				
+			}unset($vr);																	
+																						
+			
+			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
+			
+			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
+		}
+		unset($venue);
+		
+		
+		$init_users = array_unique($init_users);
+		$init_users = array_values($init_users);
+		
+		//$data['init_users'] = $init_users;
+		//$data['team_venues'] = $team_venues;
+		
+		return array($init_users, $team_venues);
+		
+	}
+
+
+
 
 	/**
 	 * Helper function to retrieve the floorplan and table reservations on specific nights, 

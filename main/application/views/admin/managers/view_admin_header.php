@@ -35,6 +35,13 @@
 </script>
 
 
+
+
+
+
+
+
+
 <div id="dialog_actions" style="display: none;">
 
 	<div style="display:none; width:100%;" id="dialog_actions_floorplan"></div>
@@ -61,6 +68,12 @@
 	</div>
 
 </div>
+
+
+
+
+
+
 
 
 

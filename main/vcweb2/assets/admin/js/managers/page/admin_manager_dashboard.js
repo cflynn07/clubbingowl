@@ -6,6 +6,7 @@ jQuery(function(){
 	window.vc_page_scripts.admin_manager_dashboard = function(){
 						
 
+		var EVT = window.ejs_view_templates_admin_managers;
 			
 		var Models 		= {};
 		var Collections = {};
@@ -289,11 +290,6 @@ jQuery(function(){
 		
 		
 		
-		
-		
-		
-		var EVT = window.ejs_view_templates_admin_managers;
-		
 		Models.PendingRequest = {
 			initialize: function(){
 				
@@ -322,6 +318,7 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				console.log(this.model.get('request_type'));
 				console.log(this.model.toJSON());
 				
 				var html = new EJS({
@@ -332,7 +329,7 @@ jQuery(function(){
 				return this;
 			},
 			events: {
-				'click *[data-action]': 'click_data_action'
+				'click *[data-action]': 'click_data_action'				
 			},
 			event_request_responded: function(obj){
 				
@@ -344,41 +341,53 @@ jQuery(function(){
 				
 				e.preventDefault();
 				
-				var el 		= jQuery(e.currentTarget);
-				var action 	= el.attr('data-action');
-				
-				var head_user = this.model.get('head_user');
-				
-				var _this 	= this;
-								
+				var el 				= jQuery(e.currentTarget);
+				var action 			= el.attr('data-action');
+				var head_user 		= this.model.get('head_user') || this.model.get('tglr_user_oauth_uid');
+				var globals 		= window.module.Globals.prototype;
+				var _this 			= this;
+				var table_display 	= (this.model.get('request_type') == 'promoter' || this.model.get('tglr_table_request') == '1');
+				var Views = {};
+
+
+
+
 				switch(action){
 					case 'request-respond':
-										
+
+
+						
+
+
 
 						var display_tables_helper = function(){
+							
+							var target = '#dialog_actions_floorplan';
+							jQuery(target).hide();
+							
 							jQuery.background_ajax({
 								data: {
 									vc_method: 	'find_tables',
-									tv_id:		this.model.get('tv_id'),
+									tv_id:		_this.model.get('tv_id'),
 									
 								},
 								success: function(data){
-									
-									console.log('complete---');
-									console.log(data);
-									
-									var venue;
+																		
+									var venue = false;
 									for(var i in data.message.team_venues){
-										venue = data.message.team_venues[i];
+										
+										console.log(_this.model.get('tv_id'));
+										console.log(data.message.team_venues[i]);
+										
+										if(data.message.team_venues[i].tv_id == _this.model.get('tv_id')){
+											venue = data.message.team_venues[i];
+											break;
+										}
 									}
-									
-			
-									
-								//	console.log('venue');
-								//	console.log(venue);
-								//	console.log(_this.model.toJSON());
-									
-			
+									if(!venue)
+										return false;
+								
+																					
 									
 									// Find the prices of tables for the day
 									// --------------------------------------------------------------------
@@ -414,52 +423,35 @@ jQuery(function(){
 							*/		
 							
 									var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
-									
+									var target = '#dialog_actions_floorplan';
 									tv_display_module
 										.initialize({
-											display_target: 	'#dialog_actions_floorplan', //'#' + _this.$el.attr('id'),
+											display_target: 	target, //'#' + _this.$el.attr('id'),
 											team_venue: 		venue,
-											factor: 			0.5,
+											factor: 			0.3,
 											options: {
 												display_slider: true
 											}
 										});
+									jQuery(target).show();	
 									
-									_this.modal_view.dialog('option', {
-										width: 	900						
-									});
-									_this.modal_view.dialog('option', {
-										position: 'center center'
-									});
 									
-									_this.$el.find('select#table_min_price').trigger('change');
+									//_this.modal_view.dialog('option', {
+									//	width: 	900						
+									//});
+									//_this.modal_view.dialog('option', {
+									//	position: 'center center'
+									//});
+									
+									//_this.$el.find('select#table_min_price').trigger('change');
 														
 								}
 							});
 						}
-
-
-						if(this.model.get('request_type') == 'promoter'){
-							display_tables_helper();
-							
-							
-						}else{
-							
-							if(this.model.get('tglr_table_request') == '1'){
-								display_tables_helper();
-								
-								
-								
-							}else{
-
-
-							}
-							
-						}
-
-
-
 	
+			
+
+
 
 
 
@@ -500,13 +492,83 @@ jQuery(function(){
 							
 						};
 						
-						jQuery('div#dialog_actions').dialog({
+						
+						
+						
+						
+						
+															
+									
+												
+						Views.DialogActions = {
+							initialize: function(){
+								//insert user name into dialog				
+								if(head_user){
+									jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
+									jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
+									jQuery.fbUserLookup([head_user], 'name, uid, third_party_id', function(rows){							
+										for(var i in rows){
+											
+											var user = rows[i];
+											if(user.uid != head_user)
+												continue;
+												
+											jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
+											jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
+										}
+									});
+								}else{
+									jQuery('div#dialog_actions').find('*[data-name]').html(_this.model.get('pglr_supplied_name'));				
+									jQuery('div#dialog_actions').find('*[data-pic]').attr('src', window.module.Globals.prototype.admin_assets + 'images/unknown_user.jpeg');	
+								}		
+							},
+							events: {
+								'click .item.table': 'click_item_table'
+							},
+							click_item_table: function(e){
+								
+								var el = jQuery(e.currentTarget);
+								el.trigger('highlighted');
+								
+								this.$el.find('.table').each(function(){
+									jQuery(this).trigger('de-highlighted');
+								})
+																
+							},
+							close: function(){
+								
+								console.log('view close');
+								this.$el.unbind();
+								
+							}
+						}; Views.DialogActions = Backbone.View.extend(Views.DialogActions);
+						
+						
+						
+						
+						
+						
+						
+						
+						var dialog_options = {
 							title: 		'Approve or Decline Request',
-							height: 	420,
-							width: 		320,
 							modal: 		true,
 							resizable: 	false,
-							draggable: 	false,
+							draggable: 	true,
+							open: 		function(){
+								
+								display_tables_helper();
+								
+							},
+							close: 		function(){
+								
+								if(view_dialog_actions && view_dialog_actions.close)
+									view_dialog_actions.close();
+								
+								if(tv_display_module && tv_display_module.destroy)
+									tv_display_module.destroy();
+								
+							},
 							buttons: [{
 								text: 'Decline',
 								click: function(){
@@ -528,50 +590,30 @@ jQuery(function(){
 									jQuery(this).dialog('close');
 								}
 							}]
-						});
+						};
 						
 						
-												
 						
-						if(head_user){
-						
-							jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
-							jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
-							
-							jQuery.fbUserLookup([head_user], 'name, uid, third_party_id', function(rows){							
-								for(var i in rows){
-									
-									var user = rows[i];
-									if(user.uid != head_user)
-										continue;
-									
-									jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
-									jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
-								
-								}
-							});
-							
+						if(!table_display){
+							dialog_options.height 	= 420;
+							dialog_options.width 	= 320;
 						}else{
-														
-							jQuery('div#dialog_actions').find('*[data-name]').html(_this.model.get('pglr_supplied_name'));				
-							jQuery('div#dialog_actions').find('*[data-pic]').attr('src', window.module.Globals.prototype.admin_assets + 'images/unknown_user.jpeg');	
-							
+							dialog_options.height 	= 540;
+							dialog_options.width 	= 720;
 						}
-										
 						
 						
 						
 						
 						
-						
-						
-						
-						
-						
-						
-						
-						
-					
+						jQuery('div#dialog_actions').dialog(dialog_options);
+						var view_dialog_actions = new Views.DialogActions({
+							el: '#dialog_actions'
+						});
+							
+							
+							
+															
 						break;
 				}
 	
@@ -613,10 +655,12 @@ jQuery(function(){
 				this.render();
 			},
 			render: function(){
-								
+				
+				var _this = this;
+				var oauth_uids = [];
 				var tbody = this.$el.find('tbody');
+				
 				tbody.empty();
-				_this = this;
 				
 				this.collection.each(function(m){
 				
@@ -626,7 +670,10 @@ jQuery(function(){
 				
 				});
 				
-				var oauth_uids = [];
+				
+				
+				
+				//hunt down all the oauth-uids and supply user names'
 				this.$el.find('*[data-oauth_uid]').each(function(){
 					
 					var oauth_uid = jQuery(this).attr('data-oauth_uid');
@@ -636,7 +683,6 @@ jQuery(function(){
 							oauth_uids.push(oauth_uid);
 						
 					}
-						
 					
 				});
 				jQuery.fbUserLookup(oauth_uids, '', function(rows){

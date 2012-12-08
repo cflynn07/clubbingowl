@@ -484,8 +484,16 @@ jQuery(function(){
 				var pgla_day 	= this.model.get('pgla_day');
 				pgla_day 		= pgla_day.slice(0, -1);
 				
-				this.$el.find('div.item.table.highlighted').removeClass('highlighted');
-				this.$el.find('div.item.table[day-price-' + pgla_day + '=' + value + ']').addClass('highlighted')
+				
+				
+				this.$el.find('div.item.table').each(function(){
+					jQuery(this).trigger('de-highlighted');
+				});
+				this.$el.find('div.item.table[day-price-' + pgla_day + '=' + value + ']').each(function(){
+					jQuery(this).addClass('highlighted');
+				});
+				
+				
 						
 			},
 			events_click_data_action: function(e){

@@ -1,0 +1,1 @@
+<tr class="no_reservations"><td colspan=7>This week's guest list does not have any reservations yet.</td></tr>

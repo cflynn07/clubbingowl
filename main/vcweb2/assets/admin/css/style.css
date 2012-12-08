@@ -1214,7 +1214,7 @@ div.vlf{
 	background: rgb(38, 38, 38);
 	margin-top: 20px;
 	margin-right: 20px;
-	cursor: pointer;
+	//cursor: pointer;
 	overflow: hidden;
 }
 
@@ -1250,6 +1250,7 @@ div.item > div.day_price{
 
 div.table{
 	border: 1px solid red !important;
+	cursor: pointer;
 }
 
 div.table > div.max_capacity{
