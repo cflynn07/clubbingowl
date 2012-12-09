@@ -9,6 +9,11 @@ window.fbAsyncInit = function() {
 		
 		console.log('getLoginStatus');
 		console.log(response);
+		console.log(window);
+		console.log(window.module);
+		console.log(window.module.Globals);
+		console.log(window.module.Globals.prototype);
+		console.log(window.module.Globals.prototype.session_login);
 				
 		if(response.authResponse){
 			
