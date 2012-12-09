@@ -424,6 +424,19 @@ jQuery(function(){
 					if(!show){
 						jQuery('a#user_invitations_href').parents('li').remove();
 						delete vc_user.invitations;
+					}else{
+						//show flashing indicator
+						
+						var timeout_callback = function(){
+							if(jQuery('a#user_invitations_href').css('color') == 'rgb(255, 0, 0)'){
+								jQuery('a#user_invitations_href').css('color', 'white');
+							}else{
+								jQuery('a#user_invitations_href').css('color', 'red');
+							}
+							setTimeout(timeout_callback, 1000);
+						}
+						timeout_callback();
+						
 					}
 				}
 			}
