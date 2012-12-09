@@ -11,9 +11,9 @@ window.fbAsyncInit = function() {
 		console.log(response);
 		console.log(window);
 		console.log(window.module);
-		console.log(window.module.Globals);
-		console.log(window.module.Globals.prototype);
-		console.log(window.module.Globals.prototype.session_login);
+		console.log(window.module.VCAuth);
+		console.log(window.module.VCAuth.prototype);
+		console.log(window.module.VCAuth.prototype.session_login);
 				
 		if(response.authResponse){
 			
