@@ -2,7 +2,7 @@
 
 class Twilio extends MY_Controller {
 	
-	public $msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] [Reservation ID] [response message]";
+	public $msg_invalid_response_format = "";
 	public $unknown_id = "Error, unknown request id";
 	
 	/**
@@ -65,7 +65,7 @@ class Twilio extends MY_Controller {
 	 */
 	private function _promoters($promoter, $from_number){
 				
-		$msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] p[Reservation ID] [response message] --> EXAMPLE: yes p15 Sure John, see you tonight!";		
+		$this->msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] p[Reservation ID] [response message] --> EXAMPLE: yes p15 Sure John, see you tonight!";		
 				
 		$body = strtolower($this->input->post('Body'));
 		
@@ -114,7 +114,7 @@ class Twilio extends MY_Controller {
 	 */
 	private function _managers($manager, $from_number){
 		
-		$msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] m[Reservation ID] [response message] --> EXAMPLE: yes m15 Sure John, see you tonight!";
+		$this->msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] m[Reservation ID] [response message] --> EXAMPLE: yes m15 Sure John, see you tonight!";
 		
 		$body = strtolower($this->input->post('Body'));
 		$body = ltrim($body, 'm');
