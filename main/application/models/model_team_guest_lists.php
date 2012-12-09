@@ -420,7 +420,7 @@ class Model_team_guest_lists extends CI_Model {
 		}
 		/* --------- END FILTER SETTINGS --------- */
 		
-		$sql = "SELECT
+		$sql = "SELECT DISTINCT
 					tgla.id					as tgla_id,
 					tgla.team_venue_id		as tgla_team_venue_id,
 					tgla.day				as tgla_day,
@@ -459,10 +459,11 @@ class Model_team_guest_lists extends CI_Model {
 				WHERE	
 						tv.banned = 0
 						AND tvp.deleted = 0
-						AND t.completed_setup = 1 ";
+						AND t.completed_setup = 1 
+						AND tgla.deactivated = 0 ";
 		
 		if($filter_fan_page_id)
-			$sql .= "AND tgla.team_fan_page_id = $filter_fan_page_id ";
+			$sql .= "AND tgla.team_fan_page_id = $filter_fan_page_id AND tvp.team_fan_page_id = $filter_fan_page_id AND t.fan_page_id = $filter_fan_page_id ";
 		
 		if($filter_team_venue_id)
 			$sql .= "AND tgla.team_venue_id = $filter_team_venue_id ";
@@ -470,8 +471,8 @@ class Model_team_guest_lists extends CI_Model {
 		if($filter_weekday)
 			$sql .= "AND tgla.day = '$filter_weekday' ";
 		
-		if($filter_deactivated)
-			$sql .= "AND tgla.deactivated = 0 ";
+	//	if($filter_deactivated)
+	//		$sql .= "AND tgla.deactivated = 0 ";
 		
 		$sql .= "GROUP BY tgla.id";
 		
