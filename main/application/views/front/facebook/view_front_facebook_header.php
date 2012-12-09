@@ -8,7 +8,7 @@
 	<?= $central->title ?>
 </title>
 
-<?php if(ENVIRONMENT == 'production'): ?>
+<?php if(FALSE && ENVIRONMENT == 'production'): ?>
 <?php //quick, easy, dirty way of disabling all javascript console debugging if this is production code ?>
 <script type="text/javascript">console={};console.log = function(){};</script>
 <?php endif; ?>
