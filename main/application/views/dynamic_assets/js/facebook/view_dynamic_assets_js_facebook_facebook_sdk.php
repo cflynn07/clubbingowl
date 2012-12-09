@@ -9,11 +9,6 @@ window.fbAsyncInit = function() {
 		
 		console.log('getLoginStatus');
 		console.log(response);
-		console.log(window);
-		console.log(window.module);
-		console.log(window.module.VCAuth);
-		console.log(window.module.VCAuth.prototype);
-		console.log(window.module.VCAuth.prototype.session_login);
 				
 		if(response.authResponse){
 			
