@@ -27,26 +27,36 @@ class Twilio extends MY_Controller {
 		$from_number = ltrim($from_number, '+1');
 
 
-		$this->load->model('model_users', 'users', true);
-		$promoter = $this->users->retrieve_promoter_by_twilio($from_number);
-		if($promoter){
-			$this->_promoters($promoter, $from_number);
-			return;
-		}
+		$body = strtolower($this->input->post('Body'));
 		
-		$manager  = $this->users->retrieve_manager_by_twilio($from_number);
-		if($manager){
-			$this->_managers($manager, $from_number);
-			return;
+		if(strpos($body, 'm') === 0){
+			
+			
+		}else if(strpos($body, 'p') === 0){
+			
+			$this->load->model('model_users', 'users', true);
+			$promoter = $this->users->retrieve_promoter_by_twilio($from_number);
+			if($promoter){
+				$this->_promoters($promoter, $from_number);
+				return;
+			}
+			
+		}else{
+			
+			
+			$manager  = $this->users->retrieve_manager_by_twilio($from_number);
+			if($manager){
+				$this->_managers($manager, $from_number);
+				return;
+				
+			}
+					
 			
 		}
+
 				
 		$this->_set_response($msg_no_recognize);
 		return;
-		
-		
-		
-		
 		
 	}
 
@@ -55,11 +65,13 @@ class Twilio extends MY_Controller {
 	 */
 	private function _promoters($promoter, $from_number){
 				
-		$body = $this->input->post('Body');
+		$msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] p[Reservation ID] [response message] --> EXAMPLE: yes p15 Sure John, see you tonight!";		
+				
+		$body = strtolower($this->input->post('Body'));
 		
 		//remove extra white space
 		$body = trim(preg_replace('/\s\s+/', ' ', $body));
-		
+		$body = ltrim($body, 'p');
 		
 		$body = explode(' ', $body, 3);
 		
@@ -102,13 +114,10 @@ class Twilio extends MY_Controller {
 	 */
 	private function _managers($manager, $from_number){
 		
+		$msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] m[Reservation ID] [response message] --> EXAMPLE: yes m15 Sure John, see you tonight!";
 		
-		
-		
-		
-		$msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] [Reservation ID] [response message]";
-		
-		$body = $this->input->post('Body');
+		$body = strtolower($this->input->post('Body'));
+		$body = ltrim($body, 'm');
 		
 		//remove extra white space
 		$body = trim(preg_replace('/\s\s+/', ' ', $body));
