@@ -447,14 +447,18 @@ class Model_team_guest_lists extends CI_Model {
 				JOIN	team_venues tv
 				ON		tgla.team_venue_id = tv.id 
 				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_venue_id = tv.id
+				
 				JOIN	teams t
-				ON 		tv.team_fan_page_id = t.fan_page_id
+				ON 		tvp.team_fan_page_id = t.fan_page_id
 				
 				JOIN 	cities c 
 				ON 		t.city_id = c.id
 				
 				WHERE	
 						tv.banned = 0
+						tvp.deleted = 0
 						AND t.completed_setup = 1 ";
 		
 		if($filter_fan_page_id)
@@ -468,7 +472,9 @@ class Model_team_guest_lists extends CI_Model {
 		
 		if($filter_deactivated)
 			$sql .= "AND tgla.deactivated = 0 ";
-				
+		
+		$sql .= "GROUP BY tgla.id";
+		
 		$query = $this->db->query($sql);
 		return $query->result();
 	 }
