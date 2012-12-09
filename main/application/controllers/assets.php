@@ -444,6 +444,9 @@ class Assets extends MY_Common_Controller {
 					//	$group .= '-managers';
 						$group_assets[] = array('admin_team_chat', 										'admin_js');
 						$group_assets[] = array('module_tables_display', 								'admin_js');
+
+						$group_assets[] = array('managers/module_manager_accept_guest_list_display', 	'admin_js');
+						
 						$group_assets[] = array('managers/global_manager_pusher_notifications', 		'admin_js');
 						$group_assets[] = array('managers/managers_ajaxify_front', 						'admin_js');
 					

@@ -57,7 +57,7 @@
 	<form>
 		<fieldset>
 			<label for="message">Send <span data-name="" class="name"></span> a message: (optional)</label>
-			<textarea rows="5" style="resize:none; width:100%; border:1px solid #333;" name="message"></textarea>
+			<textarea rows="2" style="resize:none; width:100%; border:1px solid #333;" name="message"></textarea>
 			<br><br>
 			<span id="dialog_actions_message_remaining"></span>
 		</fieldset>

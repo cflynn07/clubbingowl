@@ -234,7 +234,7 @@ class Primary extends MY_Controller {
 			
 			
 			$data['lang'] 		= $lang;
-			setlocale(LC_ALL, $lang . '_' . strtoupper($lang) . ((DEPLOYMENT_ENV == 'cloudcontrol') ? '.utf8' : ''));
+		//	setlocale(LC_ALL, $lang . '_' . strtoupper($lang) . ((DEPLOYMENT_ENV == 'cloudcontrol') ? '.utf8' : ''));
 			
 			
 			//retrieve page authorized guest lists and display?

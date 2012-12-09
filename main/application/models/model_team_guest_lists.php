@@ -454,10 +454,12 @@ class Model_team_guest_lists extends CI_Model {
 				ON 		t.city_id = c.id
 				
 				WHERE	
-						tv.banned = 0 ";
+						tv.banned = 0
+						AND t.completed_setup = 1
+						AND tgla.team_fan_page_id = ? ";
 		
 		if($filter_fan_page_id)
-			$sql .= "AND t.fan_page_id = $filter_fan_page_id ";
+			$sql .= "AND tgla.team_fan_page_id = $filter_fan_page_id ";
 		
 		if($filter_team_venue_id)
 			$sql .= "AND tgla.team_venue_id = $filter_team_venue_id ";

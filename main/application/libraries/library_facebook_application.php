@@ -671,6 +671,9 @@ class Library_facebook_application{
 	 */
 	function retrieve_page_guest_lists($retrieve_members = false){
 		
+		
+		
+		
 		$this->CI->load->model('model_team_guest_lists', 'team_guest_lists', true);
 		$team_guest_lists = $this->CI->team_guest_lists->retrieve_team_guest_lists_authorizations(array(), 
 																array('fan_page_id' => $this->page_data->team->team_fan_page_id));
@@ -681,7 +684,13 @@ class Library_facebook_application{
 		}
 		
 		return $team_guest_lists;
+		
+		
+		
+		
+		
 	}
+	
 	
 	/**
 	 * Retrieve all the venues that are associated with this team

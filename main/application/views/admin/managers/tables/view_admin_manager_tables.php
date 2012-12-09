@@ -12,15 +12,6 @@
 <div id="admin_managers_tables_wrapper">
 
 	
-	<style type="text/css">
-		div.vlf{
-			width: <?= ceil(800 * $page_obj->factor) ?>px;
-			height:<?= ceil(600 * $page_obj->factor) ?>px;
-		}
-	</style>
-	
-	<?php //$this->load->view('admin/_common/view_venue_layout_css'); ?>
-	
 	<div id="vlf_dialog" style="display:none;">
 		<div id="vlf_dialog_floor">
 		</div>
@@ -84,88 +75,110 @@
 						
 						<div id="tabs-<?= $venue->tv_id ?>-0">
 							
+							
 							<h3>Floorplan</h3>
 							
-							<div class="vl" style="margin-left:auto; margin-right:auto; display:inline-block; width:980px; text-align:center;">
-							<?php foreach($venue->venue_floorplan as $key => $vf): ?>
-								<div class="vlf" style="position:relative; display:inline-block; width:<?= ceil(800 * $page_obj->factor) ?>px; height:<?= ceil(600 * $page_obj->factor) ?>px;">
-									
-									<div class="vlf_title">Floor <?= $key ?></div>
-									
-									<div class="vlf_id" style="display:none;"><?= $key ?></div>
-									
-									<?php $table_count = 0; ?>
-									<?php foreach($vf->items as $item): ?>
-										
-										<?php
+							<div id="venue_layout_<?= $venue->tv_id ?>"></div>
+							
+							
+														
+						<?php if(false): ?>	
+									<div class="vl" style="margin-left:auto; margin-right:auto; display:inline-block; width:980px; text-align:center;">
+									<?php foreach($venue->venue_floorplan as $key => $vf): ?>
+										<div class="vlf" style="position:relative; display:inline-block; width:<?= ceil(800 * $page_obj->factor) ?>px; height:<?= ceil(600 * $page_obj->factor) ?>px;">
 											
-											$reserved = '';
+											<div class="vlf_title">Floor <?= $key ?></div>
 											
-											if($item->vlfi_item_type == 'table')
-											foreach($venue->venue_reservations as $key => $res){
-												
-												if($item->vlfi_id == $res->vlfit_vlfi_id){
-													$reserved = 'reserved';
-													break;
-												}
-												
-											}
+											<div class="vlf_id" style="display:none;"><?= $key ?></div>
 											
-										?>
-										
-										<div class="item <?= $item-> vlfi_item_type ?><?= ($reserved == 'reserved') ? ' reserved' : '' ?>" style="top:<?= ceil($item->vlfi_pos_y * $page_obj->factor) ?>px; left:<?= ceil($item->vlfi_pos_x * $page_obj->factor) ?>px; width:<?= ceil($item->vlfi_width * $page_obj->factor) ?>px; height:<?= ceil($item->vlfi_height * $page_obj->factor) ?>px;">
-	
-											<?php if($item->vlfi_item_type == 'table'): ?>
+											<?php $table_count = 0; ?>
+											<?php foreach($vf->items as $item): ?>
 												
-												<span class="title">T-<?= $table_count ?></span>
-												<div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 0, '', ',') ?></div>
-												<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 0, '', ',') ?></div>
-												<div class="day_price wednesday">US$ <?= number_format($item->vlfit_wednesday_min, 0, '', ',') ?></div>
-												<div class="day_price thursday">US$ <?= number_format($item->vlfit_thursday_min, 0, '', ',') ?></div>
-												<div class="day_price friday">US$ <?= number_format($item->vlfit_friday_min, 0, '', ',') ?></div>
-												<div class="day_price saturday">US$ <?= number_format($item->vlfit_saturday_min, 0, '', ',') ?></div>
-												<div class="day_price sunday">US$ <?= number_format($item->vlfit_sunday_min, 0, '', ',') ?></div>
-												<div class="max_capacity"><?= $item->vlfit_capacity ?></div>
+												<?php
+													
+													$reserved = '';
+													
+													if($item->vlfi_item_type == 'table')
+													foreach($venue->venue_reservations as $key => $res){
+														
+														if($item->vlfi_id == $res->vlfit_vlfi_id){
+															$reserved = 'reserved';
+															break;
+														}
+														
+													}
+													
+												?>
 												
-												<?php $table_count++; ?>
+												<div class="item <?= $item-> vlfi_item_type ?><?= ($reserved == 'reserved') ? ' reserved' : '' ?>" style="top:<?= ceil($item->vlfi_pos_y * $page_obj->factor) ?>px; left:<?= ceil($item->vlfi_pos_x * $page_obj->factor) ?>px; width:<?= ceil($item->vlfi_width * $page_obj->factor) ?>px; height:<?= ceil($item->vlfi_height * $page_obj->factor) ?>px;">
+			
+													<?php if($item->vlfi_item_type == 'table'): ?>
+														
+														<span class="title">T-<?= $table_count ?></span>
+														<div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 0, '', ',') ?></div>
+														<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 0, '', ',') ?></div>
+														<div class="day_price wednesday">US$ <?= number_format($item->vlfit_wednesday_min, 0, '', ',') ?></div>
+														<div class="day_price thursday">US$ <?= number_format($item->vlfit_thursday_min, 0, '', ',') ?></div>
+														<div class="day_price friday">US$ <?= number_format($item->vlfit_friday_min, 0, '', ',') ?></div>
+														<div class="day_price saturday">US$ <?= number_format($item->vlfit_saturday_min, 0, '', ',') ?></div>
+														<div class="day_price sunday">US$ <?= number_format($item->vlfit_sunday_min, 0, '', ',') ?></div>
+														<div class="max_capacity"><?= $item->vlfit_capacity ?></div>
+														
+														<?php $table_count++; ?>
+														
+													<?php elseif($item->vlfi_item_type == 'bar'): ?>
+														<span class="title">(B)</span>
+													<?php elseif($item->vlfi_item_type == 'stage'): ?>
+														<span class="title">(S)</span>
+													<?php elseif($item->vlfi_item_type == 'dancefloor'): ?>
+														<span class="title">(D)</span>
+													<?php elseif($item->vlfi_item_type == 'djbooth'): ?>
+														<span class="title">(DJ)</span>
+													<?php elseif($item->vlfi_item_type == 'bathroom'): ?>
+														<span class="title">(Br)</span>
+													<?php elseif($item->vlfi_item_type == 'entrance'): ?>
+														<span class="title">(E)</span>
+													<?php elseif($item->vlfi_item_type == 'stairs'): ?>
+														<span class="title">(St)</span>
+													<?php endif; ?>
+			
+													<div class="vlfi_id" style="display:none;"><?= $item->vlfi_id ?></div>
+													<div class="vlfi_id_<?= $item->vlfi_id ?>" style="display:none;"><?= $item->vlfi_id ?></div>
+													<div class="pos_x" style="display:none;"><?= $item->vlfi_pos_x ?></div>
+													<div class="pos_y" style="display:none;"><?= $item->vlfi_pos_y ?></div>
+													<div class="width" style="display:none;"><?= $item->vlfi_width ?></div>
+													<div class="height" style="display:none;"><?= $item->vlfi_height ?></div>
+													<div class="itmCls" style="display:none;"><?= $item->vlfi_item_type ?></div>
 												
-											<?php elseif($item->vlfi_item_type == 'bar'): ?>
-												<span class="title">(B)</span>
-											<?php elseif($item->vlfi_item_type == 'stage'): ?>
-												<span class="title">(S)</span>
-											<?php elseif($item->vlfi_item_type == 'dancefloor'): ?>
-												<span class="title">(D)</span>
-											<?php elseif($item->vlfi_item_type == 'djbooth'): ?>
-												<span class="title">(DJ)</span>
-											<?php elseif($item->vlfi_item_type == 'bathroom'): ?>
-												<span class="title">(Br)</span>
-											<?php elseif($item->vlfi_item_type == 'entrance'): ?>
-												<span class="title">(E)</span>
-											<?php elseif($item->vlfi_item_type == 'stairs'): ?>
-												<span class="title">(St)</span>
-											<?php endif; ?>
-	
-											<div class="vlfi_id" style="display:none;"><?= $item->vlfi_id ?></div>
-											<div class="vlfi_id_<?= $item->vlfi_id ?>" style="display:none;"><?= $item->vlfi_id ?></div>
-											<div class="pos_x" style="display:none;"><?= $item->vlfi_pos_x ?></div>
-											<div class="pos_y" style="display:none;"><?= $item->vlfi_pos_y ?></div>
-											<div class="width" style="display:none;"><?= $item->vlfi_width ?></div>
-											<div class="height" style="display:none;"><?= $item->vlfi_height ?></div>
-											<div class="itmCls" style="display:none;"><?= $item->vlfi_item_type ?></div>
-										
+												</div>
+											<?php endforeach; ?>
+											<?php unset($table_count); ?>
+											
 										</div>
 									<?php endforeach; ?>
-									<?php unset($table_count); ?>
-									
-								</div>
-							<?php endforeach; ?>
-							</div>
+									</div>
+						<?php endif; ?>						
+												
+												
+												
+												
+												
+												
+												
+												
+												
 													
 						</div>
 						
 						<div id="tabs-<?= $venue->tv_id ?>-1">
 							
 							<h3>Table Reservations</h3>
+							
+							
+							
+							
+							
+							
 							
 							<div class="full_width last table_reservations">
 								<table class="normal" style="width:100%;">
@@ -284,11 +297,18 @@
 							</div>
 							
 							
+							
+							
+							
+							
+							
+							
+							
 						</div>
 						
 						<div id="tabs-<?= $venue->tv_id ?>-2">
 							
-							<h3>Guest List & Table Reservations</h3>
+							<h3>All Guest List & Table Reservations</h3>
 							
 							<div class="full_width last all_reservations">
 								<table class="normal" style="width:100%;">
