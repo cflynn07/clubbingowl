@@ -458,7 +458,7 @@ class Model_team_guest_lists extends CI_Model {
 				
 				WHERE	
 						tv.banned = 0
-						tvp.deleted = 0
+						AND tvp.deleted = 0
 						AND t.completed_setup = 1 ";
 		
 		if($filter_fan_page_id)
