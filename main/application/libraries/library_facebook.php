@@ -116,6 +116,10 @@ class Library_facebook{
 		
 		$fql_request = $fql_api_endpoint . urlencode($fql_string) . '&format=json';
 		
+		if(php_sapi_name() !== 'cli'){
+			var_dump($access_token);
+		}
+		
 		if($access_token)
 			$fql_request .= '&access_token=' . $access_token;
 		else
