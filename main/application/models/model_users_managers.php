@@ -317,7 +317,8 @@ class Model_users_managers extends CI_Model {
 	function retrieve_venue_clients_detailed($venue_id, $team_fan_page_id){
 		
 		$clients_oauth_uids = $this->retrieve_venue_clients($venue_id, $team_fan_page_id);
-				
+		
+		$this->db->_reset_write();
 		$this->db->select('u.full_name 		as u_full_name,
 							u.first_name	as u_first_name,
 							u.last_name		as u_last_name,

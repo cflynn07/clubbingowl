@@ -37,7 +37,8 @@ class Sitemap extends MY_Controller {
 		//retrieve all promoters
 		$data['all_promoters'] = $this->app_data->retrieve_all_promoters();	
 		foreach($data['all_promoters'] as &$promoter){
-			$promoter->guest_lists = $this->guest_lists->retrieve_day_guest_lists($promoter->up_id);
+			var_dump($promoter);
+			$promoter->guest_lists = $this->guest_lists->retrieve_day_guest_lists($promoter->up_id, false, $promoter->t_fan_page_id);
 		}
 		
 		$data['all_venues'] = $this->app_data->retrieve_all_venues();

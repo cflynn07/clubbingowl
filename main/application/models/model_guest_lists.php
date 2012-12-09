@@ -540,7 +540,7 @@ class Model_guest_lists extends CI_Model {
 	 * @param	string (current day of the week)
 	 * @return	array (results)
 	 */
-	function retrieve_day_guest_lists($promoter_id, $weekday = false){
+	function retrieve_day_guest_lists($promoter_id, $weekday = false, $team_fan_page_id = false){
 
 		$sql = "SELECT DISTINCT
 		
@@ -577,21 +577,30 @@ class Model_guest_lists extends CI_Model {
 				ON 		pgla.team_venue_id = tv.id
 				
 				WHERE	pgla.user_promoter_id = ? ";
-				//		AND up.id = ? ";
 				
 				if($weekday)
 					$sql .= "AND pgla.day = ? ";
 				
-				$sql .=	"AND pgla.deactivated = 0
-						AND pgla.event = 0
-						AND pt.approved = 1
-						AND pt.banned = 0
-						AND pt.quit = 0
-						AND tv.banned = 0
-						AND tvp.deleted = 0
-						AND t.completed_setup = 1 ";
-		$query = $this->db->query($sql, array($promoter_id, $promoter_id, $weekday));
+				$sql .=	"AND pgla.deactivated 		= 0
+						AND pgla.event 				= 0
+						AND pt.approved 			= 1
+						AND pt.banned 				= 0
+						AND pt.quit 				= 0
+						AND tv.banned 				= 0
+						AND tvp.deleted 			= 0
+						AND t.fan_page_id 			= ?
+						AND tvp.team_fan_page_id 	= ?
+						AND t.completed_setup 		= 1 ";
+		if($weekday)			
+			$data = array($promoter_id, $weekday, $team_fan_page_id, $team_fan_page_id);
+		else 
+			$data = array($promoter_id, $team_fan_page_id, $team_fan_page_id);
+		
+						
+		$query = $this->db->query($sql, $data);
 		$results = $query->result();
+		
+		Kint::dump($this->db->last_query());
 		
 	//	Kint::dump($this->db->last_query());
 	//	Kint::dump($results);

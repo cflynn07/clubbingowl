@@ -1179,7 +1179,7 @@ class Model_users_promoters extends CI_Model {
 	 * @param	guest list id
 	 * @return	array (matches)
 	 */
-	function retrieve_promoter_guest_list($promoter_id, $guest_list_name){
+	function retrieve_promoter_guest_list($promoter_id, $guest_list_name, $team_fan_page_id = false){
 			
 		$guest_list_name = str_replace('_', ' ', $guest_list_name);	
 		
@@ -1239,8 +1239,22 @@ class Model_users_promoters extends CI_Model {
 				WHERE	up.id = ?
 						AND	pgla.name = ?
 						AND tvp.deleted = 0
-						AND pgla.deactivated = 0";
-		$query = $this->db->query($sql, array($promoter_id, $guest_list_name));
+						AND pgla.deactivated = 0 ";
+		
+		
+		if($team_fan_page_id)
+			$sql .= "AND tvp.team_fan_page_id = ? AND t.fan_page_id = ?";
+						
+						
+						
+						
+		if($team_fan_page_id){
+			$data = array($promoter_id, $guest_list_name, $team_fan_page_id, $team_fan_page_id);
+		}else{
+			$data = array($promoter_id, $guest_list_name);
+		}			
+						
+		$query = $this->db->query($sql, $data);
 		$result = $query->row();
 		
 		

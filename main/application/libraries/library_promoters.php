@@ -507,7 +507,7 @@ class library_promoters{
 		}
 		
 		$this->CI->load->model('model_guest_lists', 'guest_lists', true);
-		return $this->CI->guest_lists->retrieve_day_guest_lists($this->promoter->up_id, $weekday);
+		return $this->CI->guest_lists->retrieve_day_guest_lists($this->promoter->up_id, $weekday, $this->promoter->t_fan_page_id);
 		
 	}
 
@@ -520,7 +520,7 @@ class library_promoters{
 	function retrieve_all_guest_lists(){
 		
 		$this->CI->load->model('model_guest_lists', 'guest_lists', true);
-		return $this->CI->guest_lists->retrieve_day_guest_lists($this->promoter->up_id);
+		return $this->CI->guest_lists->retrieve_day_guest_lists($this->promoter->up_id, false, $this->promoter->t_fan_page_id);
 		
 	}
 	
@@ -535,7 +535,8 @@ class library_promoters{
 		
 		$this->CI->load->model('model_users_promoters', 'users_promoters', true);
 		if(!$guest_list = $this->CI->users_promoters->retrieve_promoter_guest_list($this->promoter->up_id, 
-																					$guest_list_name)){
+																					$guest_list_name,
+																					$this->promoter->t_fan_page_id)){
 			//show_404('Guest list not found'); //this guest list doesn't exist for this promoter
 		}
 		
