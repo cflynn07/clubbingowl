@@ -11,7 +11,7 @@
 		var head_user 		= _this.model.get('head_user') || _this.model.get('tglr_user_oauth_uid');
 		var table_display 	= (_this.model.get('request_type') == 'promoter' || _this.model.get('tglr_table_request') == '1');
 		var Views 			= {};
-		
+		var vlfit_id		= false;
 		
 		
 		
@@ -113,9 +113,17 @@
 	
 		var respond_callback = function(resp){
 			
+			
+			if(resp.action == 'approve' && table_display && !vlfit_id){
+				jQuery('div#dialog_actions p#dialog_actions_message').html('Please select a table.');
+				jQuery('#dialog_actions').scrollTop(9999999);
+				return;
+			}
+			
+			
 			jQuery('div#dialog_actions').find('textarea[name=message]').val('');
 			
-			if(resp.action == 'approve'){
+			if(resp.action == 'approve'){				
 				_this.$el.css({
 					background: 'green'
 				});
@@ -125,12 +133,15 @@
 				});
 			}
 			
+			
 			jQuery.background_ajax({
 				data: {
-					vc_method: 	'update_pending_requests',
-					pglr_id: 	_this.model.get('id'),
-					action: 	resp.action,
-					message: 	resp.message
+					vc_method: 		'update_pending_requests',
+					request_type:	_this.model.get('request_type'),
+					glr_id:			(_this.model.get('request_type') == 'promoter') ? _this.model.get('id') : _this.model.get('tglr_id'),
+					vlfit_id:		vlfit_id,
+					action: 		resp.action,
+					message: 		resp.message
 				},
 				success: function(data){
 					
@@ -146,8 +157,14 @@
 				}
 			});
 			
+			
+			vlfit_id = false;
+			jQuery('div#dialog_actions p#dialog_actions_message').empty();
+			
+			jQuery(resp.scope).dialog('close');
+			
 		};
-		
+	
 		
 		
 		
@@ -184,6 +201,8 @@
 			click_item_table: function(e){
 				
 				var el = jQuery(e.currentTarget);
+				vlfit_id = el.data('vlfit_id');
+				
 				el.trigger('highlighted');
 				
 				this.$el.find('.table').each(function(){
@@ -199,13 +218,6 @@
 			}
 		}; Views.DialogActions = Backbone.View.extend(Views.DialogActions);
 		
-		
-		
-		
-		
-		
-		
-		
 		var dialog_options = {
 			title: 		'Approve or Decline Request',
 			modal: 		true,
@@ -213,37 +225,50 @@
 			draggable: 	true,
 			open: 		function(){
 				
-				display_tables_helper();
+				
+				
+				
+				if(table_display)
+					display_tables_helper();
+				else 
+					jQuery('#dialog_actions_floorplan').hide();
+				
+				
+				if(_this.model.get('request_type') == 'promoter'){
+					jQuery('#dialog_actions_message_wrapper').hide();
+				}else{
+					jQuery('#dialog_actions_message_wrapper').show();
+				}
 				
 			},
 			close: 		function(){
-				
-				if(view_dialog_actions && view_dialog_actions.close)
-					view_dialog_actions.close();
-				
-				if(tv_display_module && tv_display_module.destroy)
-					tv_display_module.destroy();
 				
 			},
 			buttons: [{
 				text: 'Decline',
 				click: function(){
+					
 					respond_callback({
 						action: 'decline',
-						message: jQuery(this).find('textarea[name=message]').val()
+						message: jQuery(this).find('textarea[name=message]').val(),
+						scope: this
 					});
-					jQuery(this).dialog('close');
+					
+				
 				}
 			},{
 				text: 'Approve',
 				id: 'ui-approve-button',
 				'class': 'btn-confirm',
 				click: function(){
+					
 					respond_callback({
 						action: 'approve',
-						message: jQuery(this).find('textarea[name=message]').val()
+						message: jQuery(this).find('textarea[name=message]').val(),
+						scope: this
 					});
-					jQuery(this).dialog('close');
+					
+
 				}
 			}]
 		};
@@ -251,11 +276,14 @@
 		
 		
 		if(!table_display){
-			dialog_options.height 	= 420;
+			dialog_options.height 	= 330;
 			dialog_options.width 	= 320;
 		}else{
 			dialog_options.height 	= 690;
 			dialog_options.width 	= 800;
+			
+			
+			
 		}
 		
 		

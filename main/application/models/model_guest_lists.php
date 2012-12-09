@@ -1007,11 +1007,8 @@ class Model_guest_lists extends CI_Model {
 				JOIN	team_venues tv
 				ON		pgla.team_venue_id = tv.id
 				
-				JOIN	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id
-				
 				JOIN	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 				
 				JOIN 	users_promoters up 
 				ON  	up.id = pgla.user_promoter_id
@@ -1057,8 +1054,8 @@ class Model_guest_lists extends CI_Model {
 		
 		//update record, after we recieve original data (necessary for this to work...)
 		$this->db->where('id', $pglr_id);
-		$this->db->update('promoters_guest_lists_reservations', array('approved' => (($approved) ? 1 : -1),
-																		'response_msg' => $message));	
+		$this->db->update('promoters_guest_lists_reservations', array('approved' 		=> (($approved) ? 1 : -1),
+																		'response_msg' 	=> $message));	
 		
 		//get entourage count
 		$sql = "SELECT

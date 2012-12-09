@@ -343,7 +343,6 @@ jQuery(function(){
 				
 				var el 				= jQuery(e.currentTarget);
 				var action 			= el.attr('data-action');
-				
 				var globals 		= window.module.Globals.prototype;
 				var _this 			= this;
 				
@@ -351,11 +350,8 @@ jQuery(function(){
 				switch(action){
 					case 'request-respond':
 
-			
-						
 						globals.module_manager_accept_guest_list_display.initialize(this);
-
-															
+					
 						break;
 				}
 	
@@ -412,7 +408,14 @@ jQuery(function(){
 				
 				});
 				
-				
+				if(tbody.html().length == 0){
+					html = new EJS({ 
+						text: EVT['pending_reservation_none']
+					}).render({
+						colspan: 12
+					});
+					tbody.html(html);
+				}
 				
 				
 				//hunt down all the oauth-uids and supply user names'

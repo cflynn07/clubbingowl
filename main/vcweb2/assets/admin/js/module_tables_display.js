@@ -120,6 +120,10 @@
 			}).render(this.model.toJSON());
 			
 			this.$el.html(html);
+			this.$el.data('vlfit_id', this.model.get('vlfit_id'));
+			
+			
+			
 			/*
 			 <div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 		0, '', ',') ?></div>
 			<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 		0, '', ',') ?></div>

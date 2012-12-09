@@ -1873,6 +1873,12 @@ class Managers extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'update_pending_requests':
+			
+				$result = $this->_helper_guest_list_approve_deny();
+				die(json_encode($result));
+				break;
+				
 			case 'find_tables':
 				
 				$data = $this->_helper_venue_floorplan_retrieve_v2();
@@ -1947,6 +1953,13 @@ class Managers extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'update_pending_requests':
+			
+				$result = $this->_helper_guest_list_approve_deny();
+				die(json_encode($result));
+				break;
+				
+				
 			case 'venue_floorplan_retrieve':
 				$result = $this->_helper_venue_floorplan_retrieve();
 				die(json_encode($result));
@@ -1971,10 +1984,9 @@ class Managers extends MY_Controller {
 				}
 				
 				break;
-			case 'team_guest_list_request_accept_deny':
-				$result = $this->_helper_guest_list_approve_deny();
-				die(json_encode($result));
-				break;
+			
+			
+							
 			case 'update_reservation_host_notes':
 				
 				$host_message = strip_tags($this->input->post('host_message'));
@@ -3185,6 +3197,7 @@ class Managers extends MY_Controller {
 	 */
 	private function _helper_guest_list_approve_deny(){
 		
+
 	//	return $this->input->post();
 		
 		//accept_deny
@@ -3194,21 +3207,28 @@ class Managers extends MY_Controller {
 		//table_request
 		//vlfit_id
 		
-		$accept_deny = $this->input->post('accept_deny');
-		$glr_id = $this->input->post('glr_id');
-		$message = strip_tags($this->input->post('message'));
-		$request_type = $this->input->post('request_type');
-		$table_request = $this->input->post('table_request');
-		$vlfit_id = $this->input->post('vlfit_id');
+		$accept_deny 	= $this->input->post('action');
+		$glr_id 		= $this->input->post('glr_id');
+		$message 		= strip_tags($this->input->post('message'));
+		$request_type 	= $this->input->post('request_type');
+		$table_request 	= $this->input->post('table_request');
+		$vlfit_id 		= $this->input->post('vlfit_id');
+		
+		
 		
 		if($vlfit_id == 'false')
 			$vlfit_id = false;
 		
-		if($accept_deny == 'true'){
+		
+		
+		if($accept_deny == 'approve'){
 			$approve = true;
 		}else{
 			$approve = false;
 		}
+		
+		
+		
 		
 		if($table_request == '1'){
 			$table_request = true;
@@ -3216,12 +3236,17 @@ class Managers extends MY_Controller {
 			$table_request = false;
 		}
 		
+		
+		
+		
 		if(!$message)
 			$message = '';
 		
+		
+		
 		//Make sure submitted team_venue matches this manager's team_venues
 		//TODO: This needs to be secured against spoofing
-		if($request_type == 'manager'){
+		if($request_type == 'team'){
 			$this->load->model('model_team_guest_lists', 'team_guest_lists', true);
 			$result = $this->team_guest_lists->update_team_guest_list_reservation_reject_or_approve($approve,
 																							$message,
@@ -3229,15 +3254,52 @@ class Managers extends MY_Controller {
 																							$glr_id,
 																							false,
 																							$table_request,
-																							$vlfit_id);
+																							$vlfit_id,
+																							$this->vc_user->manager->team_fan_page_id);
 		}else{
+			
+			
+			$this->db->where(array(
+				'id'						=> $glr_id,
+				'approved' 					=> 1,
+				'manager_table_approved' 	=> 0
+			));
+			if($approve){
+				
+				$this->db->update('promoters_guest_lists_reservations', array(
+					'manager_table_approved' 				=> 1,
+					'venues_layout_floors_items_table_id'	=> $vlfit_id
+				));	
+				
+			}else{
+				
+				$this->db->update('promoters_guest_lists_reservations', array(
+					'manager_table_approved' 				=> -1
+				));
+				
+			}
+			
+			
+			$result = true;
+			
+			
+		/*	
 			//promoter
 			$this->load->model('model_guest_lists', 'guest_lists', true);
 			$result = $this->guest_lists->update_promoter_guest_list_reservation_reject_or_approve($approve,
 																							$message,
 																							null,
-																							$this->input->post('tglr_id'));
+					
+		 * 			
+		 * 																$this->input->post('tglr_id'));
+		 */
+		
+		
 		}
+
+
+
+
 
 		return array('success' => $result,
 								'message' => '');

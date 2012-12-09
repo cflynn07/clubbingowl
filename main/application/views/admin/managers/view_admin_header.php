@@ -54,7 +54,7 @@
 	<div style="clear: both;"></div>
 	<br>
 
-	<form>
+	<form id="dialog_actions_message_wrapper">
 		<fieldset>
 			<label for="message">Send <span data-name="" class="name"></span> a message: (optional)</label>
 			<textarea rows="2" style="resize:none; width:100%; border:1px solid #333;" name="message"></textarea>
@@ -63,6 +63,7 @@
 		</fieldset>
 	</form>
 	
+	<p style="background:#000; color:red; text-align:center; font-size:14px;" id="dialog_actions_message"></p>
 	<div id="dialog_actions_loading_indicator" style="text-align: center; display: none;">
 		<img src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 	</div>
