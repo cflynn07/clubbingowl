@@ -16,9 +16,7 @@ jQuery(function(){
 								
 				
 		fbEnsureInit(function(){
-			
-		//	var users = eval('<?= json_encode($users) ?>');
-			
+						
 			var users = window.page_obj.users;
 			
 			if(users.length > 0){
@@ -63,8 +61,7 @@ jQuery(function(){
 				method: 'apprequests',
 				title: 'Invite friends to promote for your team',
 				message: 'Come promote for ' + window.page_obj.team.team_name + ' with ClubbingOwl',
-				data: 'TEST DATA',
-				exclude_ids: promoters_settings_global.invited_users
+				data: 'TEST DATA'
 			}, function(request){
 				
 				if(!request)
@@ -136,7 +133,7 @@ jQuery(function(){
 			
 			jQuery('div#promoter_delete_dialog').dialog({
 				resizable: false,
-				height:140,
+				height: 180,
 				modal: true,
 				buttons: {
 					"Delete": function(){

@@ -413,6 +413,14 @@ class Assets extends MY_Common_Controller {
 				
 				//switch($this->input->get('subg')){
 				switch($subg){
+					case 'hosts':
+					
+						
+						$group_assets[] = array('hosts/hosts_ajaxify_front', 								'admin_js');
+						$group_assets[] = array('hosts/page/admin_host_dashboard', 							'admin_js');
+						$group_assets[] = array('hosts/hosts_router', 										'admin_js');
+						
+						break;
 					case 'promoters':
 					
 					//	$group .= '-promoters';
@@ -567,10 +575,15 @@ class Assets extends MY_Common_Controller {
 				
 							
 				break;
+			case 'ejs_templates_admin_hosts':
+				
+				$lang = $subg; 
+				$group_assets = array();
+				
+				break;
 			case 'ejs_templates_admin_super_admins':
 				
 				$lang = $subg; 
-				
 				$group_assets = array();
 				
 				break;

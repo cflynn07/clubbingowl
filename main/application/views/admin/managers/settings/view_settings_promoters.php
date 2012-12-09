@@ -37,7 +37,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach($promoters as $key => $pro): ?>
+					
+				<?php foreach($promoters as $key => $pro): ?>
 					<tr <?= ($key % 2) ? '' : 'class="odd"' ?>>
 						<td>
 							<?php if($pro->up_completed_setup == '1'): ?>
@@ -51,10 +52,11 @@
 							<a class="tooltip table_icon delete_promoter" title="Delete this user" href="#"><img alt="" src="<?= $central->admin_assets ?>images/icons/actions_small/Trash.png"></a>
 						</td>
 					</tr>
-					<?php endforeach; ?>
-					<?php if(!$promoters): ?>
-						<td>You currently have no active promoters</td>
-					<?php endif; ?>
+				<?php endforeach; ?>
+				<?php if(!$promoters): ?>
+					<td>You currently have no active promoters</td>
+				<?php endif; ?>
+					
 				</tbody>
 			</table>
 			

@@ -9,7 +9,7 @@
 	$this->load->view('admin/_common/view_common_header'); 
 ?>
 
-<?php $this->load->view('admin/_common/pusher/view_global_host_pusher_notifications'); ?>
+<?php //$this->load->view('admin/_common/pusher/view_global_host_pusher_notifications'); ?>
 
 </head>
 <body>
@@ -43,19 +43,61 @@
 					</script>
 					
 				</div> <!-- logo end -->
-			
+				
+				<style>
+					span.menu_dates {
+						padding-top: 0 !important;
+						font-size: 12px !important;
+					}
+				</style>
+				
 				<div id="menu"> <!-- navigation menu -->
 					<ul>
 						
-						<li <?= (!$this->uri->rsegment(3) || $this->uri->rsegment(3) == 'dashboard') ? 'class="current"' : '' ?>>
-							<a href="<?= $central->manager_admin_link_base ?>" class="dashboard">
-								<img src="<?=$central->admin_assets?>images/icons/small_icons_3/dashboard.png" alt="" />
-								<span class="current">Dashboard</span>
+						<?php
+						
+							$yesterday 		= date('Y-m-d', strtotime('today -1 days'));
+							$tomorrow		= date('Y-m-d', strtotime('today +1 days'));
+							$today_plus_2 	= date('Y-m-d', strtotime('today +2 days'));
+							
+						?>
+						
+						
+						<li data-date="<?= $yesterday ?>">
+							<a class="ajaxify" href="<?= $central->front_link_base ?>admin/hosts/<?= $yesterday ?>/" class="dashboard">
+								<img src="<?=$central->admin_assets?>images/icons/small_icons/List.png" alt="" />
+								
+								<span class="menu_dates">Yesterday:<br/>(<?= $yesterday ?>)</span>
+															
 							</a>
 						</li>
 						
-						<li <?= ($this->uri->rsegment(3) == 'logout') ? 'class="current"' : '' ?>>
-							<a href="<?=$central->karma_link_base ?>">
+						
+						
+						<li data-date="<?= $current_date ?>">
+							<a class="ajaxify" href="<?= $central->front_link_base ?>admin/hosts/<?= $current_date ?>/" class="dashboard">
+								<img src="<?=$central->admin_assets?>images/icons/small_icons/List.png" alt="" />
+								
+								<span class="menu_dates">Today:<br/>(<?= $current_date ?>)</span>
+													
+							</a>
+						</li>
+						
+						
+						
+						<li data-date="<?= $tomorrow ?>">
+							<a class="ajaxify" href="<?= $central->front_link_base ?>admin/hosts/<?= $tomorrow ?>/" class="dashboard">
+								<img src="<?=$central->admin_assets?>images/icons/small_icons/List.png" alt="" />
+								
+								<span class="menu_dates">Tomorrow:<br/>(<?= $tomorrow ?>)</span>
+														
+							</a>
+						</li>
+						
+						
+						
+						<li>
+							<a href="<?=$central->front_link_base ?>">
 								<img src="<?=$central->admin_assets?>images/icons/small_icons_2/logout.png" alt="" />
 								<span>Logout</span>
 							</a>
@@ -67,26 +109,3 @@
 
 			<div id="primary_right">
 				<div class="inner">
-
-<?php 
-/*
- * This code block allows for events to create a universal noficiation 
- * that will appear everywhere throught the application on any page
- * using flashdata.
- * */ 
- ?>
-<?php /* ----------------------- universal notifications ----------------------- */ ?>
-
-<?php if($notifications = $this->session->flashdata('admin_notifications')): ?>
-
-	<?php foreach($notifications as $item): ?>
-		<div class="notification <?=$item->type?>" style="cursor: auto; "> 
-			<span></span>
-			<div class="text">
-				<p><strong><cufon class="cufon cufon-canvas" alt="<?=$item->status?>" style="width: 80px; height: 22px; "><canvas width="98" height="23" style="width: 98px; height: 23px; top: -1px; left: -1px; "></canvas><cufontext><?=$item->status?></cufontext></cufon></strong><?=$item->message?></p> 
-			</div>
-		</div>
-	<?php endforeach; ?>
-<?php endif; ?>
-
-<?php /* ----------------------- end universal notifications ----------------------- */ ?>

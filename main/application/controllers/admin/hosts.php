@@ -2,9 +2,16 @@
 
 class Hosts extends MY_Controller {
 
-	private $vc_user = null;
-	private $host = null;
-	private $view_dir = 'admin/hosts/';
+	private $vc_user 	= null;
+	private $host 		= null;
+	private $view_dir 	= 'admin/hosts/';
+	private $date		= null;
+	
+	
+	public $header_html = '';
+	public $body_html	= '';
+	public $footer_html = '';
+	
 	
 	/*
 	 * class constructor, determines if user is properly authenticated, exits if false
@@ -15,8 +22,8 @@ class Hosts extends MY_Controller {
 		parent::__construct();
 				
 		//temporary!
-		error_reporting(E_ALL);
-		ini_set('display_errors', '1');
+//		error_reporting(E_ALL);
+//		ini_set('display_errors', '1');
 		
 		/**
 		 * Authenticates user and verifies they are logged in
@@ -77,7 +84,7 @@ class Hosts extends MY_Controller {
 		/*--------------------- AJAX Request Bypass Handler ---------------------*/
 		//Note: ocupload is the name of the plugin used for one-click image uploading
 			//it creates a hidden iframe which is used to submit an image without a page refresh
-		if($this->input->is_ajax_request()){
+		if($this->input->is_ajax_request() && !$this->input->post('ajaxify')){
 				
 			$arg0 = 'dashboard';
 			
@@ -91,18 +98,10 @@ class Hosts extends MY_Controller {
 		}
 		/*--------------------- End AJAX Request Bypass Handler ---------------------*/
 		
-		/* ------------------------------- Prepare static asset urls ------------------------------- */	
-		//Set in 'CONTROLLER METHOD ROUTING,' passed to the header view. Loads additional
-		//javascript/css files+properties that are unique to specific pages loaded from this
-		//controller
-		$header_data['additional_admin_javascripts'] = array();
-		$header_data['additional_admin_css'] = array();
-		$header_data['additional_global_javascripts'] = array();
-		$header_data['additional_global_css'] = array();
-		//additional_js_properties are javascript variables defined in the global namespace, making them
-			//available to code in included js files
-		$header_data['additional_js_properties'] = array();
-		/* ------------------------------- End prepare static asset urls ------------------------------- */
+		
+		
+	//	$arg0 = 'dashboard';	
+		
 		
 		# ----------------------------------------------------------------------------------- #
 		#	BEGIN CONTROLLER METHOD ROUTING													  #
@@ -119,19 +118,7 @@ class Hosts extends MY_Controller {
 		if($arg0 == ''){
 			
 			
-			$arg0 = 'dashboard';	
-			$header_data['additional_global_javascripts'] = array(
-				'jquery_notify/jquery.notify.js',
-				'sorttable/sorttable.js',
-				'ejs/ejs_fulljslint.js',
-		//		'data_tables/js/jquery.dataTables.min.js',
-				'data_tables/js/jquery.dataTables.js'
-		//		'iphone_checkboxes/iphone-style-checkboxes.js'		
-			);
-			$header_data['additional_global_css'] = array(
-		//		'jquery_notify/jquery.notify.css'
-		//		'iphone_checkboxes/style.css'
-			);		
+			
 			
 			
 		}
@@ -149,7 +136,7 @@ class Hosts extends MY_Controller {
 			switch($arg0){
 				
 				default:
-					show_error('invalid url', 404);
+					//show_error('invalid url', 404);
 					break;
 					
 			}
@@ -186,23 +173,34 @@ class Hosts extends MY_Controller {
 		#	END CONTROLLER METHOD ROUTING													  #
 		# ----------------------------------------------------------------------------------- #	
 		
-		/**
-		 * 'header_data' is made globally available to all views so that the 'view_common_header'
-		 * view can be included from the header files of all themes to properly include
-		 * external css/js files and define global-namespace js variables
-		 */
-		$this->load->vars('header_data', $header_data);
-		
+
 		# ---------------- LOAD HEADER, BODY, FOOTER VIEWS ---------- #
 		
+		$method = 'dashboard';
+		
+		
 
-		$this->load->view('admin/hosts/view_admin_header');
+		
+			
+			
 			
 		//call 'body' function and include all arguments/url-segments
-		call_user_func(array($this, '_' . $arg0), $arg0, $arg1, $arg2);
+		call_user_func(array($this, '_' . $method), $arg0, $arg1, $arg2);
 		
-		//Display the footer view after the header/body views have been displayed
-		$this->load->view('admin/hosts/view_admin_footer');
+		
+		if(!$this->input->post('ajaxify')){
+
+			$this->header_html = $this->load->view('admin/hosts/view_admin_header', '', true);
+		
+			//Display the footer view after the header/body views have been displayed
+			$this->footer_html = $this->load->view('admin/hosts/view_admin_footer', '', true);
+		
+		}
+		# ---------------- END LOAD HEADER, BODY, FOOTER VIEWS ---------- #
+		
+		//Construct final output for browser
+		$this->output->set_output($this->header_html . $this->body_html . $this->footer_html);
+		
 		
 		# ---------------- END LOAD HEADER, BODY, FOOTER VIEWS ---------- #
 		
@@ -223,23 +221,131 @@ class Hosts extends MY_Controller {
 	 */
 	private function _dashboard($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		if($this->vc_user->host->th_banned == '1' || $this->vc_user->host->th_quit == '1'){
+		$this->load->model('model_teams', 'teams', true);
+		$data = new stdClass;
+		
+		if(preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $arg0, $parts)){		
+		    $year  = $parts[1];
+		    $month = $parts[2];
+		    $day   = $parts[3];
 			
-			$this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard_quit');
-			echo 'deleted';
-			
+			$this->date = $year . '-' . $month . '-' . $day;
+					
 		}else{
 			
-			
-			$this->load->model('model_teams', 'teams', true);
-			$data['team'] = $this->teams->retrieve_team($this->vc_user->host->th_teams_fan_page_id);
-
-			$this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard', $data);
+			$this->date = date('Y-m-d', time());
+			if($this->input->post('ajaxify')){
+				echo '<script type="text/javascript">window.location = "/admin/hosts/' . $this->date . '/";</script>';
+				die();
+			}else{
+				redirect('/admin/hosts/' . $this->date . '/', 302);
+				die();
+			}
 			
 		}
 		
+		
+		
+		
+		
+		$data->current_date = date('Y-m-d', time());
+		$this->load->vars('current_date', $data->current_date);
+				
+				
+				
+				
+				
+		if($this->vc_user->host->th_banned == '1' || $this->vc_user->host->th_quit == '1'){
+			$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard_quit', 	'', 	true);
+		}else{
+			
+			
+			list($promoters, $team_venues, $backbone) = $this->_helper_retrieve_gl_data();
+			$data->team 		= $this->teams->retrieve_team($this->vc_user->host->th_teams_fan_page_id);
+			$data->promoters 	= $promoters;
+			$data->team_venues 	= $team_venues;
+			$data->backbone 	= $backbone;
+			
+			$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard', 		array('data' => $data), 	true);
+			
+			
+		}
+		
+		
+		
+		
+		
 	}
 	
+	/**
+	 * 
+	 */
+	private function _helper_retrieve_gl_data($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$backbone = new stdClass;
+		$backbone->selected_date = $this->date;
+		$backbone->date = date('Y-m-d', time());
+		
+		$this->load->model('model_teams', 'teams', true);
+		$this->load->model('model_users_managers', 'users_managers', true);
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$this->load->model('model_guest_lists', 'guest_lists', true);
+		
+		$promoters 		= $this->teams->retrieve_team_promoters($this->vc_user->host->th_teams_fan_page_id);
+		$team_venues 	= $this->users_managers->retrieve_team_venues($this->vc_user->host->th_teams_fan_page_id);
+		
+		
+		
+		//get all the promoter's guest lists and members + filter for the selected date (date in url)
+		foreach($promoters as &$pro){
+			//fetch guest lists		
+			
+			$weekly_guest_lists 	= $this->users_promoters->retrieve_promoter_guest_list_authorizations($pro->up_id);
+			
+			//for each guest list, find all groups associated with it
+			foreach($weekly_guest_lists as $key => &$gla){
+										
+				$gla->human_date 	= $gla->human_date 	= date('l m/d/y', strtotime(rtrim($gla->pgla_day, 's')));
+				$gla->iso_date 		= $gla->iso_date 	= date('Y-m-d', strtotime(rtrim($gla->pgla_day, 's')));
+				
+				//we only care about the GLA of today
+				if($gla->iso_date != $this->date){
+					unset($weekly_guest_lists[$key]);												
+				}
+				
+				$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
+
+			}
+			
+			$pro->weekly_guest_lists 	= $weekly_guest_lists;
+
+		}
+		
+		
+		//iterate over all venues, group promoter guest-list members into each venue
+		foreach($team_venues as &$tv){
+			
+			foreach($promoters as $pro){
+				
+				$pro_tv_wgl = array();
+				
+				foreach($pro->weekly_guest_lists as $wgl){
+					
+					if($wgl->tv_id == $tv->id)
+						break;
+					
+					
+					
+				}
+			}
+		}
+		
+		
+		
+		
+		return array($promoters, $team_venues, $backbone);
+		
+	}
 	
 	/*******************************************************************************************************************
 	 * 	END CONTROLLER VIEW DISPLAY FUNCTIONS

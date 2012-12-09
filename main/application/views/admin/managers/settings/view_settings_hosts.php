@@ -1,4 +1,4 @@
-<<?php if($team->team_completed_setup == '1'): ?>
+<?php if($team->team_completed_setup == '1'): ?>
 <?php
 	$page_obj = new stdClass;
 	$page_obj->users = $users;

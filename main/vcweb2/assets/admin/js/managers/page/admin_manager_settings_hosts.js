@@ -67,8 +67,7 @@ jQuery(function(){
 					method: 'apprequests',
 					title: 'Invite friends to host for your team',
 					message: 'Come host for ' + window.page_obj.team.team_name + ' with ClubbingOwl',
-					data: 'TEST DATA',
-					exclude_ids: hosts_settings_global.invited_users
+					data: 'TEST DATA'
 				}, function(request){
 					
 					if(!request)
@@ -142,7 +141,7 @@ jQuery(function(){
 				
 				jQuery('div#host_delete_dialog').dialog({
 					resizable: false,
-					height:140,
+					height:	180,
 					modal: true,
 					buttons: {
 						"Delete": function(){

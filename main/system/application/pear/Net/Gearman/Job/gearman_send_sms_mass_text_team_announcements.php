@@ -27,13 +27,16 @@ class Net_Gearman_Job_gearman_send_sms_mass_text_team_announcements extends Net_
 					last_name	
 				FROM user		
 				WHERE uid = $manager_oauth_uid";
-		$fb_user_info = $CI->facebook->fb_fql_query($fql);
-		if(!isset($fb_user_info[0])){
+				
+	//	$fb_user_info = $CI->facebook->fb_fql_query($fql, array($user_oauth_uid));
+		
+		$fb_user_info = $CI->facebook->fb_api_query('/' . $manager_oauth_uid);
+		
+		if(!$fb_user_info){
 			echo 'SMS ERROR';
 			var_dump($fb_user_info);
 			return;   
 		}
-		$fb_user_info = $fb_user_info[0];
 		
 
 		//retrieve team members
