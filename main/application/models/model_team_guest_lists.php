@@ -455,8 +455,7 @@ class Model_team_guest_lists extends CI_Model {
 				
 				WHERE	
 						tv.banned = 0
-						AND t.completed_setup = 1
-						AND tgla.team_fan_page_id = ? ";
+						AND t.completed_setup = 1 ";
 		
 		if($filter_fan_page_id)
 			$sql .= "AND tgla.team_fan_page_id = $filter_fan_page_id ";

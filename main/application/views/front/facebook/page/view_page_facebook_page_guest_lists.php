@@ -96,7 +96,7 @@
 			<?php foreach($team_venues as $venue): ?>
 			  <li>
 				
-			  	<img style="max-width:254px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">			  	
+			  	<img style="max-width:254px; border:1px solid #474D6A;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $venue->tv_image ?>_t.jpg" alt="Venue Banner">			  	
 			  	
 			  	<br>
 					  	
@@ -109,7 +109,7 @@
 			    	</div>
 				    
 				    <style type="text/css">
-				    	div.auth_content.tv_friends img{
+				    	div.auth_content.tv_friends img:not(.loading_indicator){
 				    		margin-right: 	3px !important;
 				    		margin-bottom: 	3px !important;
 				    		width: 25px 	!important;
