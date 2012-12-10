@@ -5,19 +5,159 @@ jQuery(function(){
 	
 	window.vc_page_scripts.admin_host_dashboard = function(){
 		
-		console.log('admin_host_dashboard()');
 		if(!window.page_obj || !window.page_obj.backbone)
 			return false;
-			
-			
-			
 		
 		var Models 		= {};
 		var Collections = {};
 		var Views 		= {};
+		var EVT 		= window.ejs_view_templates_admin_hosts;
+					
+		Models.GuestListMember = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				
+			}
+		}; Models.GuestListMember = Models.GuestListMember = Backbone.Model.extend(Models.GuestListMember);
+		
+		Collections.GuestListMembers = {
+			model: Models.GuestListMember,
+			initialize: function(){
+				
+			}
+		}; Collections.GuestListMembers = Backbone.Collection.extend(Collections.GuestListMembers);
 		
 		
-		console.log(window.page_obj);	
+		
+		
+		Models.Promoter = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				
+			}
+		}; Models.Promoter = Backbone.Model.extend(Models.Promoter);
+		
+		Collections.Promoters = {
+			model: Models.Promoter,
+			initialize: function(){
+				
+			}
+		}; Collections.Promoters = Backbone.Collection.extend(Collections.Promoters);
+		
+		
+		
+		
+		Models.TeamVenue = {
+			initialize: function(){
+				
+			},
+			defaults: {
+				
+			}
+		}; Models.TeamVenue = Backbone.Model.extend(Models.TeamVenue);
+		
+		Collections.TeamVenues = {
+			model: Models.TeamVenue,
+			initialize: function(){
+				
+			}
+		}; Collections.TeamVenues = Backbone.Collection.extend(Collections.TeamVenues);
+		
+		
+		
+		
+		
+		
+		Views.GuestList = {
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		}; Views.GuestList = Backbone.View.extend(Views.GuestList);
+		
+		
+		
+		Views.ListsWrapper = {
+			el: '#lists_wrapper',
+			initialize: function(){
+				
+				this.render();
+			},
+			render: function(){
+				
+				var template = EVT['lists_wrapper'];
+				var html = new EJS({
+					text: template
+				}).render({
+					team_venues: 	collection_team_venues.toJSON()
+				});
+				
+				this.$el.html(html);
+				this.events_change_venue_select();
+				
+				return this;
+				
+			},
+			render_active_tv: function(tv_id){
+				
+				var active_venue_wrapper = this.$el.find('div#active_venue_wrapper');
+				var team_venue = collection_team_venues.where({
+					tv_id: tv_id
+				});
+				if(!team_venue.length)
+					return false;
+								
+				team_venue = team_venue[0];
+				
+				var html = new EJS({
+					text: EVT['active_tv_header']
+				}).render(team_venue.toJSON());
+				active_venue_wrapper.html(html);
+				
+				
+				
+				//Load TV header View
+				var active_tv = '';
+				
+				
+				//Load GL view for each promoter
+				
+				
+				
+				//Load House GL view
+				
+				
+				
+			},
+			events: {
+				'change select#venue_select': 'events_change_venue_select'
+			},
+			events_change_venue_select: function(e){
+				console.log('events_change_venue_select');
+				
+				var el 		= this.$el.find('select#venue_select');
+				var tv_id 	= el.val();
+				this.render_active_tv(tv_id);
+				
+			}
+		}; Views.ListsWrapper = Backbone.View.extend(Views.ListsWrapper);
+		
+		var collection_team_venues	= new Collections.TeamVenues(window.page_obj.backbone.team_venues);
+		var collection_promoters	= new Collections.TeamVenues(window.page_obj.backbone.promoters);
+		
+		var view_listsWrapper 		= new Views.ListsWrapper({});
+		
+		
+		
 		
 		
 		//triggered when page is unloaded

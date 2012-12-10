@@ -296,6 +296,14 @@ class Hosts extends MY_Controller {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
 		//get all the promoter's guest lists and members + filter for the selected date (date in url)
 		foreach($promoters as &$pro){
 			//fetch guest lists		
@@ -322,26 +330,17 @@ class Hosts extends MY_Controller {
 		}
 		
 		
-		//iterate over all venues, group promoter guest-list members into each venue
-		foreach($team_venues as &$tv){
-			
-			foreach($promoters as $pro){
-				
-				$pro_tv_wgl = array();
-				
-				foreach($pro->weekly_guest_lists as $wgl){
-					
-					if($wgl->tv_id == $tv->id)
-						break;
-					
-					
-					
-				}
-			}
-		}
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		$backbone->team_venues = $team_venues;
 		
 		return array($promoters, $team_venues, $backbone);
 		

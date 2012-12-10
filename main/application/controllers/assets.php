@@ -577,9 +577,55 @@ class Assets extends MY_Common_Controller {
 				break;
 			case 'ejs_templates_admin_hosts':
 				
-				$lang = $subg; 
-				$group_assets = array();
+				/**
+				 * Loads a separate JS file containing a single object of EJS templates for each
+				 * supported language.
+				 * 
+				 */
 				
+				$lang = $subg; //$this->input->get('lang');
+				
+				if(!in_array($lang, array_keys($this->config->item('supported_lang_codes'))))
+					$lang = 'en'; //default
+				
+				
+				$languages = $this->config->item('supported_langs');
+				$language = $languages[$lang];
+				
+				//load all language files needed by the EJS templates
+				
+				//load language files
+				$this->lang->load('menu', 					$language);
+				$this->lang->load('menu_user', 				$language);
+				$this->lang->load('invitations_dialog', 	$language);
+				$this->lang->load('invite', 				$language);
+				$this->lang->load('footer', 				$language);
+				$this->lang->load('app_data', 				$language);
+				$this->lang->load('home_auth', 				$language);
+				$this->lang->load('friends', 				$language);
+				$this->lang->load('venues', 				$language);
+				$this->lang->load('promoters', 				$language);
+								
+				$group_assets = array(
+					array(
+						array(
+							'global/view_dynamic_assets_js_ejs_templates_admin_hosts',
+							array(
+								'ejs_templates' => array(
+									
+									// ---------------- FRONT --------------------
+									'lists_wrapper',
+									'active_tv_header'
+																		
+								),
+								'lang' => $language
+							)
+						), 
+						'dynamic'
+					)
+				);
+				
+							
 				break;
 			case 'ejs_templates_admin_super_admins':
 				

@@ -8,31 +8,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <?php //Kint::dump($data); ?>
 <?php //Kint::dump($data->promoters[0]->weekly_guest_lists); ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php if(false): ?>
@@ -108,14 +95,6 @@
 		
 		</div>
 
-<?php endif; ?>
-
-
-
-
-
-
-<?php if(false): ?>
 
 			<script type="text/javascript">
 			jQuery(function(){
