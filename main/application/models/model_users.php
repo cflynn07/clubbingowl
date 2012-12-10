@@ -1165,6 +1165,7 @@ class Model_users extends CI_Model {
 			WHERE 	
 					tgla.deactivated = 0 AND
 					tv.banned = 0 AND
+					tvp.deleted = 0 AND 
 					t.completed_setup = 1 AND
 			tglr.create_time > $backtime AND (";
 		foreach($vc_user_friends_oauth_uids as $uid){
@@ -1220,6 +1221,7 @@ class Model_users extends CI_Model {
 			WHERE 	
 					tgla.deactivated = 0 AND
 					tv.banned = 0 AND
+					tvp.deleted = 0 AND
 					t.completed_setup = 1 AND
 			tglr.create_time > $backtime AND (";
 		foreach($vc_user_friends_oauth_uids as $uid){
