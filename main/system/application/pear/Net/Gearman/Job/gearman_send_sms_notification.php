@@ -33,15 +33,19 @@ class Net_Gearman_Job_gearman_send_sms_notification extends Net_Gearman_Job_Comm
 					first_name,
 					last_name
 				FROM user
-				WHERE uid = $user_oauth_uid";
-		$fb_user_info = $CI->facebook->fb_fql_query($fql);
-		if(!isset($fb_user_info[0])){
+				WHERE uid = ?";
+	//	$fb_user_info = $CI->facebook->fb_fql_query($fql, array($user_oauth_uid));
+		
+		$fb_user_info = $CI->facebook->fb_api_query('/' . $user_oauth_uid);
+
+		
+		
+		if(!$fb_user_info){
 			echo 'SMS ERROR';
 			var_dump($fb_user_info);
 			return;   
 		}
-		$fb_user_info = $fb_user_info[0];
-		
+	
 		
 		
 		
@@ -56,7 +60,12 @@ class Net_Gearman_Job_gearman_send_sms_notification extends Net_Gearman_Job_Comm
 		
 		if(!$auto_approved){
 			
-			$message .= "Reply: [yes/no] $glr_id [response message]\n";
+			if($manager){
+				$message .= "Reply: [yes/no] m" . "$glr_id [response message]\n";	
+			}else{
+				$message .= "Reply: [yes/no] p" . "$glr_id [response message]\n";
+			}
+			
 	
 		}else{
 			

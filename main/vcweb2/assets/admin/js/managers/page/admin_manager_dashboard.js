@@ -6,6 +6,7 @@ jQuery(function(){
 	window.vc_page_scripts.admin_manager_dashboard = function(){
 						
 
+		var EVT = window.ejs_view_templates_admin_managers;
 			
 		var Models 		= {};
 		var Collections = {};
@@ -289,11 +290,6 @@ jQuery(function(){
 		
 		
 		
-		
-		
-		
-		var EVT = window.ejs_view_templates_admin_managers;
-		
 		Models.PendingRequest = {
 			initialize: function(){
 				
@@ -322,6 +318,7 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				console.log(this.model.get('request_type'));
 				console.log(this.model.toJSON());
 				
 				var html = new EJS({
@@ -332,7 +329,7 @@ jQuery(function(){
 				return this;
 			},
 			events: {
-				'click *[data-action]': 'click_data_action'
+				'click *[data-action]': 'click_data_action'				
 			},
 			event_request_responded: function(obj){
 				
@@ -344,233 +341,16 @@ jQuery(function(){
 				
 				e.preventDefault();
 				
-				var el 		= jQuery(e.currentTarget);
-				var action 	= el.attr('data-action');
+				var el 				= jQuery(e.currentTarget);
+				var action 			= el.attr('data-action');
+				var globals 		= window.module.Globals.prototype;
+				var _this 			= this;
 				
-				var head_user = this.model.get('head_user');
 				
-				var _this 	= this;
-								
 				switch(action){
 					case 'request-respond':
-										
 
-						var display_tables_helper = function(){
-							jQuery.background_ajax({
-								data: {
-									vc_method: 	'find_tables',
-									tv_id:		this.model.get('tv_id'),
-									
-								},
-								success: function(data){
-									
-									console.log('complete---');
-									console.log(data);
-									
-									var venue;
-									for(var i in data.message.team_venues){
-										venue = data.message.team_venues[i];
-									}
-									
-			
-									
-								//	console.log('venue');
-								//	console.log(venue);
-								//	console.log(_this.model.toJSON());
-									
-			
-									
-									// Find the prices of tables for the day
-									// --------------------------------------------------------------------
-							/*		//array of unique day prices
-									var day_prices = [];
-									
-									var pgla_day = _this.model.get('pgla_day');
-									pgla_day = pgla_day.slice(0, -1);
-									
-									for(var i in venue.venue_floorplan){
-										var floor = venue.venue_floorplan[i]
-										
-										for(var k in floor.items){
-											var item = floor.items[k];
-											
-											if(item.vlfi_item_type == 'table'){
-			
-												//what day do we care about?
-												var table_day_price = item['vlfit_' + pgla_day + '_min'];
-												console.log(table_day_price);
-												
-												if(jQuery.inArray(table_day_price, day_prices) === -1){
-													day_prices.push(table_day_price);
-												}
-												
-											}	
-										}
-									}
-									
-									day_prices = day_prices.sort();
-									console.log(day_prices);
-									// --------------------------------------------------------------------
-							*/		
-							
-									var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
-									
-									tv_display_module
-										.initialize({
-											display_target: 	'#dialog_actions_floorplan', //'#' + _this.$el.attr('id'),
-											team_venue: 		venue,
-											factor: 			0.5,
-											options: {
-												display_slider: true
-											}
-										});
-									
-									_this.modal_view.dialog('option', {
-										width: 	900						
-									});
-									_this.modal_view.dialog('option', {
-										position: 'center center'
-									});
-									
-									_this.$el.find('select#table_min_price').trigger('change');
-														
-								}
-							});
-						}
-
-
-						if(this.model.get('request_type') == 'promoter'){
-							display_tables_helper();
-							
-							
-						}else{
-							
-							if(this.model.get('tglr_table_request') == '1'){
-								display_tables_helper();
-								
-								
-								
-							}else{
-
-
-							}
-							
-						}
-
-
-
-	
-
-
-
-						var respond_callback = function(resp){
-							
-							jQuery('div#dialog_actions').find('textarea[name=message]').val('');
-							
-							if(resp.action == 'approve'){
-								_this.$el.css({
-									background: 'green'
-								});
-							}else{
-								_this.$el.css({
-									background: 'red'
-								});
-							}
-							
-							jQuery.background_ajax({
-								data: {
-									vc_method: 	'update_pending_requests',
-									pglr_id: 	_this.model.get('id'),
-									action: 	resp.action,
-									message: 	resp.message
-								},
-								success: function(data){
-									
-									console.log(data);
-																	
-									_this.$el.animate({
-										opacity: 0
-									}, 500, 'linear', function(){
-										//_this.$el.trigger('request-responded');
-										_this.$el.remove();
-									});
-									
-								}
-							});
-							
-						};
-						
-						jQuery('div#dialog_actions').dialog({
-							title: 		'Approve or Decline Request',
-							height: 	420,
-							width: 		320,
-							modal: 		true,
-							resizable: 	false,
-							draggable: 	false,
-							buttons: [{
-								text: 'Decline',
-								click: function(){
-									respond_callback({
-										action: 'decline',
-										message: jQuery(this).find('textarea[name=message]').val()
-									});
-									jQuery(this).dialog('close');
-								}
-							},{
-								text: 'Approve',
-								id: 'ui-approve-button',
-								'class': 'btn-confirm',
-								click: function(){
-									respond_callback({
-										action: 'approve',
-										message: jQuery(this).find('textarea[name=message]').val()
-									});
-									jQuery(this).dialog('close');
-								}
-							}]
-						});
-						
-						
-												
-						
-						if(head_user){
-						
-							jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
-							jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
-							
-							jQuery.fbUserLookup([head_user], 'name, uid, third_party_id', function(rows){							
-								for(var i in rows){
-									
-									var user = rows[i];
-									if(user.uid != head_user)
-										continue;
-									
-									jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
-									jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
-								
-								}
-							});
-							
-						}else{
-														
-							jQuery('div#dialog_actions').find('*[data-name]').html(_this.model.get('pglr_supplied_name'));				
-							jQuery('div#dialog_actions').find('*[data-pic]').attr('src', window.module.Globals.prototype.admin_assets + 'images/unknown_user.jpeg');	
-							
-						}
-										
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
+						globals.module_manager_accept_guest_list_display.initialize(this);
 					
 						break;
 				}
@@ -613,10 +393,12 @@ jQuery(function(){
 				this.render();
 			},
 			render: function(){
-								
+				
+				var _this = this;
+				var oauth_uids = [];
 				var tbody = this.$el.find('tbody');
+				
 				tbody.empty();
-				_this = this;
 				
 				this.collection.each(function(m){
 				
@@ -626,7 +408,17 @@ jQuery(function(){
 				
 				});
 				
-				var oauth_uids = [];
+				if(tbody.html().length == 0){
+					html = new EJS({ 
+						text: EVT['pending_reservation_none']
+					}).render({
+						colspan: 12
+					});
+					tbody.html(html);
+				}
+				
+				
+				//hunt down all the oauth-uids and supply user names'
 				this.$el.find('*[data-oauth_uid]').each(function(){
 					
 					var oauth_uid = jQuery(this).attr('data-oauth_uid');
@@ -636,7 +428,6 @@ jQuery(function(){
 							oauth_uids.push(oauth_uid);
 						
 					}
-						
 					
 				});
 				jQuery.fbUserLookup(oauth_uids, '', function(rows){

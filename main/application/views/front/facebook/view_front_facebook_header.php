@@ -9,12 +9,12 @@
 </title>
 
 <?php if(ENVIRONMENT == 'production'): ?>
-<?php //quick, easy, dirty way of disabling all javascript console debugging if this is production code ?>
-<script type="text/javascript">console={};console.log = function(){};</script>
+	<?php //quick, easy, dirty way of disabling all javascript console debugging if this is production code ?>
+	<script type="text/javascript">console={};console.log = function(){};</script>
 <?php endif; ?>
 
 <?php # ------------------------ Begin META tags ------------------------ # ?>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php # ------------------------ End META tags ------------------------ # ?>
 
 

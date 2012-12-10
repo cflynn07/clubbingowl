@@ -405,6 +405,45 @@ jQuery(function(){
 			
 			nav_ul.html(menu_html);
 			
+			
+			//quick hack...
+			if(!vc_user.invitations){
+				jQuery('a#user_invitations_href').parents('li').remove();
+				delete vc_user.invitations;
+			}else{
+				if(typeof vc_user.invitations == 'object' || typeof vc_user.invitations == 'array'){
+					var show = false;
+					for(var i in vc_user.invitations){
+						
+						if(vc_user.invitations[i]){
+							show = true;
+							break;
+						}
+						
+					}
+					if(!show){
+						jQuery('a#user_invitations_href').parents('li').remove();
+						delete vc_user.invitations;
+					}else{
+						//show flashing indicator
+						
+						var timeout_callback = function(){
+							if(jQuery('a#user_invitations_href').css('color') == 'rgb(255, 0, 0)'){
+								jQuery('a#user_invitations_href').css('color', 'white');
+							}else{
+								jQuery('a#user_invitations_href').css('color', 'red');
+							}
+							setTimeout(timeout_callback, 1000);
+						}
+						timeout_callback();
+						
+					}
+				}
+			}
+			jQuery.cookies.set('vc_user', vc_user);
+			
+			
+			
 			jQuery('a#user_invitations_href').live('click', function(){
 					
 				VCAuth.prototype.display_invitations();
@@ -479,32 +518,26 @@ jQuery(function(){
 		
 		invitations_dialog.find('table tbody').html(invitations_html);
 		
-		fbEnsureInit(function(){
-				
-			var fql = 'SELECT uid, name, pic_square FROM user WHERE ';		
-			for(var i = 0; i < vc_user.invitations.length; i++){
-				if(vc_user.invitations.length == (i + 1)){
-					fql += 'uid = ' + vc_user.invitations[i].ui_manager_oauth_uid;
-				}else{
-					fql += 'uid = ' + vc_user.invitations[i].ui_manager_oauth_uid + ' OR ';
-				}
-			}
-
+		var uids = [];
+		for(var i = 0; i < vc_user.invitations.length; i++){
 			
-			var query = FB.Data.query(fql);
-			query.wait(function(rows){
-				
-				invitations_dialog.find('div.loading_indicator').remove();
-				
-				for(var i = 0; i < rows.length; i++){
-					invitations_dialog.find('div.name_' + rows[i].uid).html(rows[i].name);
-					invitations_dialog.find('div.pic_square_' + rows[i].uid).html('<img src="' + rows[i].pic_square + '" alt="profile picture" />');
-				}
-				
-			});
+			if(_.indexOf(uids, vc_user.invitations[i].ui_manager_oauth_uid) == -1)
+				uids.push(vc_user.invitations[i].ui_manager_oauth_uid);
+			
+		}
+
+		jQuery.fbUserLookup(uids, 'uid, name, pic_square', function(rows){
+			
+			invitations_dialog.find('div.loading_indicator').remove();
+			
+			for(var i = 0; i < rows.length; i++){
+				invitations_dialog.find('div.name_' + rows[i].uid).html(rows[i].name);
+				invitations_dialog.find('div.pic_square_' + rows[i].uid).html('<img src="' + rows[i].pic_square + '" alt="profile picture" />');
+			}
 			
 		});
 		
+			
 		jQuery('div#invitations_dialog td.actions span').css('cursor', 'pointer').bind('click', function(){
 
 			var response = jQuery(this).html().toLowerCase();
@@ -556,7 +589,7 @@ jQuery(function(){
 								
 								
 														
-								tr.parents('tr').html('<td colspan="4">Congratulations! Click on <b>Promoter/Host Admin Area</b> in the upper right hand corner to get started with your new team! :)</td>');
+								tr.parents('tr').html('<td colspan="5">Congratulations! Click on <b>Promoter/Host Admin Area</b> in the upper right hand corner to get started with your new team! :)</td>');
 								
 								tr.parents('tbody').find('tr').each(function(){
 									//remove all other invitations of same type

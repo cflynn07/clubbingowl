@@ -420,7 +420,7 @@ class Model_team_guest_lists extends CI_Model {
 		}
 		/* --------- END FILTER SETTINGS --------- */
 		
-		$sql = "SELECT
+		$sql = "SELECT DISTINCT
 					tgla.id					as tgla_id,
 					tgla.team_venue_id		as tgla_team_venue_id,
 					tgla.day				as tgla_day,
@@ -447,17 +447,23 @@ class Model_team_guest_lists extends CI_Model {
 				JOIN	team_venues tv
 				ON		tgla.team_venue_id = tv.id 
 				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_venue_id = tv.id
+				
 				JOIN	teams t
-				ON 		tv.team_fan_page_id = t.fan_page_id
+				ON 		tvp.team_fan_page_id = t.fan_page_id
 				
 				JOIN 	cities c 
 				ON 		t.city_id = c.id
 				
 				WHERE	
-						tv.banned = 0 ";
+						tv.banned = 0
+						AND tvp.deleted = 0
+						AND t.completed_setup = 1 
+						AND tgla.deactivated = 0 ";
 		
 		if($filter_fan_page_id)
-			$sql .= "AND t.fan_page_id = $filter_fan_page_id ";
+			$sql .= "AND tgla.team_fan_page_id = $filter_fan_page_id AND tvp.team_fan_page_id = $filter_fan_page_id AND t.fan_page_id = $filter_fan_page_id ";
 		
 		if($filter_team_venue_id)
 			$sql .= "AND tgla.team_venue_id = $filter_team_venue_id ";
@@ -465,9 +471,11 @@ class Model_team_guest_lists extends CI_Model {
 		if($filter_weekday)
 			$sql .= "AND tgla.day = '$filter_weekday' ";
 		
-		if($filter_deactivated)
-			$sql .= "AND tgla.deactivated = 0 ";
-				
+	//	if($filter_deactivated)
+	//		$sql .= "AND tgla.deactivated = 0 ";
+		
+		$sql .= "GROUP BY tgla.id";
+		
 		$query = $this->db->query($sql);
 		return $query->result();
 	 }
@@ -675,7 +683,8 @@ class Model_team_guest_lists extends CI_Model {
 																	$team_guest_list_reservation_id,
 																	$approve_override = false,
 																	$table_request = false,
-																	$vlfit_id = false){
+																	$vlfit_id = false,
+																	$team_fan_page_id = false){
 
 		//retrieve & simultaniously confirm this guest list matches this team
 		$sql = "SELECT
@@ -704,13 +713,14 @@ class Model_team_guest_lists extends CI_Model {
 				JOIN 	team_venues tv
 				ON 		tgla.team_venue_id = tv.id
 				
-				JOIN 	teams t
-				ON 		tv.team_fan_page_id = t.fan_page_id
-				
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
-								
-				WHERE 	tglr.id = ?";
+				ON 		tv.city_id = c.id
+		
+				WHERE 	tglr.id = ? ";
+				
+				if($team_fan_page_id)
+					$sql .= "AND tgla.team_fan_page_id = $team_fan_page_id";
+				
 			//		AND tv.team_fan_page_id = $team_venue_id";
 		$query = $this->db->query($sql, array($team_guest_list_reservation_id));
 		$result = $query->row();
@@ -747,9 +757,9 @@ class Model_team_guest_lists extends CI_Model {
 		
 		//update record, after we recieve original data (necessary for this to work...)
 		$this->db->where('id', $team_guest_list_reservation_id);
-		$this->db->update('teams_guest_lists_reservations', array('approved' => ($approved) ? 1 : -1,
-																	'response_msg' => $message,
-																	'venues_layout_floors_items_table_id' => (($table_request !== false && $vlfit_id !== false) ? $vlfit_id : NULL)));	
+		$this->db->update('teams_guest_lists_reservations', array('approved' 								=> ($approved) ? 1 : -1,
+																	'response_msg' 							=> $message,
+																	'venues_layout_floors_items_table_id' 	=> (($table_request !== false && $vlfit_id !== false) ? $vlfit_id : NULL)));	
 		
 		//get entourage count
 		$sql = "SELECT
@@ -763,18 +773,16 @@ class Model_team_guest_lists extends CI_Model {
 			
 			//Create notification for this user's vc_friends
 			$this->load->model('model_users', 'users', true);
-			$result->team_venue_id = $team_venue_id;
-			$result->entourage_count = $entourage_result->count;
+			$result->team_venue_id 		= $team_venue_id;
+			$result->entourage_count 	= $entourage_result->count;
 			$this->users->create_user_notifications($result->tglr_user_oauth_uid, 'join_team_guest_list', $result);
 			
 			
 			//EMAIL USERS FRIENDS THAT THEY"RE ON THE GL
 			$this->load->helper('run_gearman_job');
 			run_gearman_job('gearman_email_friends_gl_join', array(
-			
 				'type'		=> 'team',
 				'gl_query'	=> json_encode($result)
-								
 			), false);
 			
 		}
@@ -796,8 +804,8 @@ class Model_team_guest_lists extends CI_Model {
 						
 			/* ---------- notify all VC friends of this user that they have joined VibeCompass --------- */
 			$gearman_task = $this->pearloader->load('Net', 'Gearman', 'Task', array('func' => 'guest_list_text_message',
-																					'arg'  => array('user_oauth_uid' => $result->tglr_user_oauth_uid,
-																									'text_message' => $text_message)));
+																					'arg'  => array('user_oauth_uid' 	=> $result->tglr_user_oauth_uid,
+																									'text_message' 		=> $text_message)));
 			$gearman_task->type = Net_Gearman_Task::JOB_BACKGROUND;
 			
 			//add test to a set
@@ -825,12 +833,12 @@ class Model_team_guest_lists extends CI_Model {
 						
 			/* ---------- notify all VC friends of this user that they have joined VibeCompass --------- */
 			$gearman_task = $this->pearloader->load('Net', 'Gearman', 'Task', array('func' => 'guest_list_share_facebook',
-																					'arg'  => array('team_guest_list' => true,
-																									'user_oauth_uid' => $result->tglr_user_oauth_uid,
-																									'venue_name' => $result->tv_name,
-																									'date' => $result->tgl_date,
-																									'guest_list_name' => $result->tgla_name,
-																									'team_venue_id' => $team_venue_id)));
+																					'arg'  => array('team_guest_list' 	=> true,
+																									'user_oauth_uid' 	=> $result->tglr_user_oauth_uid,
+																									'venue_name' 		=> $result->tv_name,
+																									'date' 				=> $result->tgl_date,
+																									'guest_list_name' 	=> $result->tgla_name,
+																									'team_venue_id' 	=> $team_venue_id)));
 			$gearman_task->type = Net_Gearman_Task::JOB_BACKGROUND;
 			
 			//add test to a set
@@ -864,16 +872,18 @@ class Model_team_guest_lists extends CI_Model {
 		if(!$approve_override){
 			
 			$this->load->library('Pusher');
-			$payload = new stdClass;
-			$payload->notification_type = 'request_response';
-			$payload->venue_name = $result->tv_name;
-			$payload->response = ($approved) ? 'approved' : 'declined';
-			$payload->guest_list_name = $result->tgla_name;
-			$payload->response_message = $message;
+			$payload 						= new stdClass;
+			$payload->notification_type 	= 'request_response';
+			$payload->venue_name 			= $result->tv_name;
+			$payload->response 				= ($approved) ? 'approved' : 'declined';
+			$payload->guest_list_name 		= $result->tgla_name;
+			$payload->response_message 		= $message;
 			
 			$this->load->model('model_users', 'users', true);
-			$insert_id = $this->users->create_user_sticky_notification($result->tglr_user_oauth_uid, $result->tglr_user_oauth_uid, json_encode($payload));
-			$payload->id = $insert_id;
+			$insert_id 		= $this->users->create_user_sticky_notification($result->tglr_user_oauth_uid, 
+																			$result->tglr_user_oauth_uid, 
+																			json_encode($payload));
+			$payload->id 	= $insert_id;
 			
 			$pusher_channel = 'private-vc-' . $result->tglr_user_oauth_uid;
 			$this->pusher->trigger($pusher_channel, 'notification', $payload);

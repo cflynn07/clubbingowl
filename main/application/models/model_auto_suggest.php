@@ -119,8 +119,7 @@ class Model_auto_suggest extends CI_Model {
 		$query = $this->db->query($sql, array('%' . $search_pattern . '%'));
 		$result = array_merge($result, $query->result());
 		
-		
-		
+
 		
 		//slap in guest lists
 		$sql = "(SELECT DISTINCT
@@ -143,6 +142,9 @@ class Model_auto_suggest extends CI_Model {
 				JOIN 	users_promoters up 
 				ON 		pgla.user_promoter_id = up.id
 				
+				JOIN	promoters_teams pt 
+				ON 		up.id = pt.promoter_id
+				
 				JOIN 	users u 
 				ON 		up.users_oauth_uid = u.oauth_uid
 				
@@ -158,10 +160,11 @@ class Model_auto_suggest extends CI_Model {
 				JOIN	cities c 
 				ON 		tv.city_id = c.id
 					
-				WHERE	t.completed_setup = 1
-				AND 	tv.banned = 0
-				AND 	tvp.deleted = 0
-				AND 	pgla.deactivated = 0
+				WHERE	t.completed_setup 	= 1
+				AND 	tvp.team_fan_page_id = pt.team_fan_page_id
+				AND 	tv.banned 			= 0
+				AND 	tvp.deleted 		= 0
+				AND 	pgla.deactivated 	= 0
 				AND 	pgla.name LIKE ?
 				GROUP BY pgla.id)
 			UNION

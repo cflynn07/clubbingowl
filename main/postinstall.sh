@@ -25,3 +25,4 @@ php /home/dotcloud/current/index.php assets js ejs_templates de
 
 php /home/dotcloud/current/index.php assets js ejs_templates_admin_promoters en
 php /home/dotcloud/current/index.php assets js ejs_templates_admin_managers en
+php /home/dotcloud/current/index.php assets js ejs_templates_admin_hosts en

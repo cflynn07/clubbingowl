@@ -413,6 +413,14 @@ class Assets extends MY_Common_Controller {
 				
 				//switch($this->input->get('subg')){
 				switch($subg){
+					case 'hosts':
+					
+						
+						$group_assets[] = array('hosts/hosts_ajaxify_front', 								'admin_js');
+						$group_assets[] = array('hosts/page/admin_host_dashboard', 							'admin_js');
+						$group_assets[] = array('hosts/hosts_router', 										'admin_js');
+						
+						break;
 					case 'promoters':
 					
 					//	$group .= '-promoters';
@@ -444,6 +452,9 @@ class Assets extends MY_Common_Controller {
 					//	$group .= '-managers';
 						$group_assets[] = array('admin_team_chat', 										'admin_js');
 						$group_assets[] = array('module_tables_display', 								'admin_js');
+
+						$group_assets[] = array('managers/module_manager_accept_guest_list_display', 	'admin_js');
+						
 						$group_assets[] = array('managers/global_manager_pusher_notifications', 		'admin_js');
 						$group_assets[] = array('managers/managers_ajaxify_front', 						'admin_js');
 					
@@ -564,10 +575,61 @@ class Assets extends MY_Common_Controller {
 				
 							
 				break;
+			case 'ejs_templates_admin_hosts':
+				
+				/**
+				 * Loads a separate JS file containing a single object of EJS templates for each
+				 * supported language.
+				 * 
+				 */
+				
+				$lang = $subg; //$this->input->get('lang');
+				
+				if(!in_array($lang, array_keys($this->config->item('supported_lang_codes'))))
+					$lang = 'en'; //default
+				
+				
+				$languages = $this->config->item('supported_langs');
+				$language = $languages[$lang];
+				
+				//load all language files needed by the EJS templates
+				
+				//load language files
+				$this->lang->load('menu', 					$language);
+				$this->lang->load('menu_user', 				$language);
+				$this->lang->load('invitations_dialog', 	$language);
+				$this->lang->load('invite', 				$language);
+				$this->lang->load('footer', 				$language);
+				$this->lang->load('app_data', 				$language);
+				$this->lang->load('home_auth', 				$language);
+				$this->lang->load('friends', 				$language);
+				$this->lang->load('venues', 				$language);
+				$this->lang->load('promoters', 				$language);
+								
+				$group_assets = array(
+					array(
+						array(
+							'global/view_dynamic_assets_js_ejs_templates_admin_hosts',
+							array(
+								'ejs_templates' => array(
+									
+									// ---------------- FRONT --------------------
+									'lists_wrapper',
+									'active_tv_header'
+																		
+								),
+								'lang' => $language
+							)
+						), 
+						'dynamic'
+					)
+				);
+				
+							
+				break;
 			case 'ejs_templates_admin_super_admins':
 				
 				$lang = $subg; 
-				
 				$group_assets = array();
 				
 				break;
@@ -688,6 +750,22 @@ class Assets extends MY_Common_Controller {
 									'pending_reservation_request_dashboard',
 									'pending_reservation_none',
 									'tr_loading',
+									
+										
+									'guest_lists/gl_left_menu',
+									'guest_lists/gl_status',
+									'guest_lists/gl_reservations_table',
+									'guest_lists/gl_reservation',
+									'guest_lists/gl_tr_no_reservations',
+									'guest_lists/gl_manual_add_base',
+									'guest_lists/gl_manual_add_loading',
+									'guest_lists/gl_manual_add_guestlist_friendspick',
+									'guest_lists/gl_manual_add_guestlist_friendspick_tr',
+									'guest_lists/gl_manual_add_table',
+									
+									'tables/t_wrapper',
+									'tables/t_vlf',
+									'tables/t_vlf_item',
 									
 									
 									'reservation_tr_guest_lists',

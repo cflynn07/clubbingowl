@@ -2,7 +2,7 @@
 
 class Twilio extends MY_Controller {
 	
-	public $msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] [Reservation ID] [response message]";
+	public $msg_invalid_response_format = "";
 	public $unknown_id = "Error, unknown request id";
 	
 	/**
@@ -19,35 +19,59 @@ class Twilio extends MY_Controller {
 	 */
 	function index(){
 		
-		$msg_no_recognize = "Sorry, I don't recognize the number you're texting me from.";
+		
+		$msg_no_recognize 	= "Sorry, I don't recognize the number you're texting me from.";
+		$msg_bad_format 	= "Sorry, I don't recognize the format of your message.";
 		
 		$from_number = $this->input->post('From');
 		if(!$from_number)
 			$this->_set_response($msg_no_recognize);
 		$from_number = ltrim($from_number, '+1');
 
-
-		$this->load->model('model_users', 'users', true);
-		$promoter = $this->users->retrieve_promoter_by_twilio($from_number);
-		if($promoter){
-			$this->_promoters($promoter, $from_number);
-			return;
-		}
-		
-		$manager  = $this->users->retrieve_manager_by_twilio($from_number);
-		if($manager){
-			$this->_managers($manager, $from_number);
+		$body = strtolower($this->input->post('Body'));
+		//yes or no	
+		if(strpos($body, 'yes ') === 0){
+			
+			$offset = 4;
+			
+		}elseif(strpos($body, 'no ') === 0){
+			
+			$offset = 3;
+			
+		}else{
+			
+			$this->_set_response($msg_bad_format);
 			return;
 			
 		}
+								
+		if((strpos($body, 'm', $offset) - $offset) === 0){
+			
+			$manager  = $this->users->retrieve_manager_by_twilio($from_number);
+			if($manager){
+				$this->_managers($manager, $from_number);
+				return;
+			}
+			
+		}else if((strpos($body, 'p', $offset) - $offset) === 0){
+			
+			$this->load->model('model_users', 'users', true);
+			$promoter = $this->users->retrieve_promoter_by_twilio($from_number);
+			if($promoter){
+				$this->_promoters($promoter, $from_number);
+				return;
+			}
+			
+		}else{
+			
+			$this->_set_response($msg_bad_format);
+			return;					
+			
+		}
+
 				
 		$this->_set_response($msg_no_recognize);
-		return;
-		
-		
-		
-		
-		
+
 	}
 
 	/**
@@ -55,12 +79,12 @@ class Twilio extends MY_Controller {
 	 */
 	private function _promoters($promoter, $from_number){
 				
-		$body = $this->input->post('Body');
+		$this->msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] p[Reservation ID] [response message] --> EXAMPLE: yes p15 Sure John, see you tonight!";		
+				
+		$body = strtolower($this->input->post('Body'));
 		
 		//remove extra white space
 		$body = trim(preg_replace('/\s\s+/', ' ', $body));
-		
-		
 		$body = explode(' ', $body, 3);
 		
 		if(isset($body[0]) && (strtolower($body[0]) == 'yes' || strtolower($body[0]) == 'no')){
@@ -69,6 +93,8 @@ class Twilio extends MY_Controller {
 				$this->_set_response($msg_invalid_response_format);
 			if(!isset($body[2]))
 				$body[2] = '';
+			
+			$body[1] = ltrim($body[1], 'p');
 			
 			$this->load->model('model_guest_lists', 'guest_lists', true);
 			if(strtolower($body[0]) == 'yes'){
@@ -102,17 +128,12 @@ class Twilio extends MY_Controller {
 	 */
 	private function _managers($manager, $from_number){
 		
+		$this->msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] m[Reservation ID] [response message] --> EXAMPLE: yes m15 Sure John, see you tonight!";
 		
-		
-		
-		
-		$msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] [Reservation ID] [response message]";
-		
-		$body = $this->input->post('Body');
+		$body = strtolower($this->input->post('Body'));
 		
 		//remove extra white space
 		$body = trim(preg_replace('/\s\s+/', ' ', $body));
-		
 		
 		$body = explode(' ', $body, 3);
 		
@@ -122,6 +143,8 @@ class Twilio extends MY_Controller {
 				$this->_set_response($msg_invalid_response_format);
 			if(!isset($body[2]))
 				$body[2] = '';
+			
+			$body[1] = ltrim($body[1], 'm');
 			
 			$this->load->model('model_team_guest_lists', 'team_guest_lists', true);
 			

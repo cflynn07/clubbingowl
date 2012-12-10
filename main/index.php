@@ -83,7 +83,9 @@ if(MODE == 'staging'){
 
 //force https globally
 if(php_sapi_name() !== 'cli'){
-	if(strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0 && strpos($_SERVER['REQUEST_URI'], '/plugin') !== 0){
+	if(strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0 
+		&& strpos($_SERVER['REQUEST_URI'], '/plugin') !== 0
+		&& strpos($_SERVER['REQUEST_URI'], '/ajax') !== 0){
 		if(strtolower($_SERVER['HTTPS']) != 'on'){
 			$base_url = 'https';
 		    $base_url .= '://'. $_SERVER['HTTP_HOST'];
