@@ -56,17 +56,16 @@ class Net_Gearman_Job_news_feed_retrieve extends Net_Gearman_Job_Common{
 			
 			$CI->load->model('model_users', 'users', true);
 					
-			$user_friends = new stdClass;
-			$user_friends->user_friends_pics = $user_friends_pics;
-			$user_friends->user_friends_ids = $user_friends_ids;
+			$user_friends 						= new stdClass;
+			$user_friends->user_friends_pics 	= $user_friends_pics;
+			$user_friends->user_friends_ids 	= $user_friends_ids;
 							
 			$notifications = $CI->users->retrieve_user_notifications($user_friends->user_friends_ids, $iterator_position, array('lang_locale' => $lang_locale), $user_oauth_uid);
-			
 			
 			if($iterator_position === false || $iterator_position == 'false'){
 				//if iterator is false, also retrieve friend promoter, guest-list and venue popularity
 					
-				$vc_popularity_graph = $CI->users->retrieve_user_friend_popular_promoters_venues_guestlists($user_oauth_uid, $user_friends_ids, $lang_locale);
+				$vc_popularity_graph 					= $CI->users->retrieve_user_friend_popular_promoters_venues_guestlists($user_oauth_uid, $user_friends_ids, $lang_locale);
 				$notifications->user_friends_vc_obj_pop = $vc_popularity_graph;
 				
 			}

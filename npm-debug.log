@@ -1,0 +1,48 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'dotcloud' ]
+2 info using npm@1.1.66
+3 info using node@v0.8.14
+4 verbose read json /Users/casey/package.json
+5 verbose read json /Users/casey/node_modules/express/package.json
+6 verbose read json /Users/casey/node_modules/flatiron/package.json
+7 verbose read json /Users/casey/node_modules/geddy/package.json
+8 verbose read json /Users/casey/node_modules/mysql/package.json
+9 verbose read json /Users/casey/node_modules/mysql-activerecord/package.json
+10 verbose read json /Users/casey/node_modules/socket.io/package.json
+11 verbose read json /Users/casey/package.json
+12 verbose cache add [ 'dotcloud', null ]
+13 silly cache add name=undefined spec="dotcloud" args=["dotcloud",null]
+14 verbose parsed url { pathname: 'dotcloud', path: 'dotcloud', href: 'dotcloud' }
+15 silly lockFile 41b95ca5-dotcloud dotcloud
+16 verbose lock dotcloud /Users/casey/.npm/41b95ca5-dotcloud.lock
+17 silly lockFile 41b95ca5-dotcloud dotcloud
+18 verbose addNamed [ 'dotcloud', '' ]
+19 verbose addNamed [ null, '' ]
+20 silly lockFile 0a086f36-dotcloud dotcloud@
+21 verbose lock dotcloud@ /Users/casey/.npm/0a086f36-dotcloud.lock
+22 silly addNameRange { name: 'dotcloud', range: '', hasData: false }
+23 verbose url raw dotcloud
+24 verbose url resolving [ 'https://registry.npmjs.org/', './dotcloud' ]
+25 verbose url resolved https://registry.npmjs.org/dotcloud
+26 info trying registry request attempt 1 at 13:56:04
+27 http GET https://registry.npmjs.org/dotcloud
+28 http 404 https://registry.npmjs.org/dotcloud
+29 silly registry.get cb [ 404,
+29 silly registry.get   { server: 'CouchDB/1.2.0 (Erlang OTP/R15B)',
+29 silly registry.get     date: 'Sat, 08 Dec 2012 18:55:17 GMT',
+29 silly registry.get     'content-type': 'application/json',
+29 silly registry.get     'content-length': '52',
+29 silly registry.get     'cache-control': 'must-revalidate' } ]
+30 silly lockFile 0a086f36-dotcloud dotcloud@
+31 error 404 'dotcloud' is not in the npm registry.
+31 error 404 You should bug the author to publish it
+31 error 404
+31 error 404 Note that you can also install from a
+31 error 404 tarball, folder, or http url, or git url.
+32 error System Darwin 10.8.0
+33 error command "node" "/usr/local/bin/npm" "install" "dotcloud"
+34 error cwd /Users/casey/Documents/workspaces/clubbingowl
+35 error node -v v0.8.14
+36 error npm -v 1.1.66
+37 error code E404
+38 verbose exit [ 1, true ]
