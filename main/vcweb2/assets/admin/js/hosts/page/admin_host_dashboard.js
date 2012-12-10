@@ -112,24 +112,23 @@ jQuery(function(){
 				
 				var template = EVT['lists_wrapper'];
 				var html = new EJS({
-					text: template
+					text: 			template
 				}).render({
 					team_venues: 	collection_team_venues.toJSON()
 				});
 				
 				this.$el.html(html);
 				
+				
+				//show first venue or #hash indicated venue
 				if(window.location.hash){
-					
-					this.render_active_tv(window.location.hash.replace('#', ''));	
-					
+					var tv_id = window.location.hash.replace('#', '');
+					this.$el.find('select#venue_select').val(tv_id);
+					this.render_active_tv(tv_id);	
 				}else{
-					
 					var tv = collection_team_venues.at(0);
 					window.location.hash = tv.get('tv_id');
-					
 				}
-				
 							
 							
 				return this;
@@ -147,18 +146,13 @@ jQuery(function(){
 					team_venue = team_venue[0];
 				
 				
-				
+				//load_venue_header_view
 				var html = new EJS({
 					text: EVT['active_tv_header']
 				}).render(team_venue.toJSON());
 				active_venue_wrapper.html(html);
 				
-				
-				
-				window.location.hash = tv_id;
-				
-				//Load TV header View
-				var active_tv = '';
+							
 				
 				
 				//Load GL view for each promoter
@@ -169,6 +163,8 @@ jQuery(function(){
 				
 				//Bind the event.
 				
+				window.location.hash = tv_id;
+				return this; 
 			},
 			events: {
 				'change select#venue_select': 'events_change_venue_select'
