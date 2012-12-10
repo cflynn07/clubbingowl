@@ -51,8 +51,8 @@
 			
 			
 			
-			
-			
+			var url_with_hash = url + ((window.location.hash.length) ? window.location.hash : '');
+			 
 			
 			
 			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
@@ -83,8 +83,12 @@
 					});
 					jQuery('div#primary_right > div.inner').html(data);
 					
+					
+					
+					
 					var title = 'ClubbingOwl';									
-					History.pushState({},title,url);
+				//	History.pushState({},title,url);
+					History.pushState({},title,url_with_hash);
 
 
 					//manually trigger route if same url

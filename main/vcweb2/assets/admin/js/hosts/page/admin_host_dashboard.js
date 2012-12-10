@@ -90,6 +90,22 @@ jQuery(function(){
 			el: '#lists_wrapper',
 			initialize: function(){
 				
+				
+				
+				var _this = this;
+				var hash_change_callback = function(){
+					console.log('hashchange');
+					_this.render_active_tv(window.location.hash.replace('#', ''));
+				};
+				jQuery(window).bind('hashchange', hash_change_callback);
+				
+				//extend unbind callback
+				var temp = window.module.Globals.prototype.unbind_callback;
+				window.module.Globals.prototype.unbind_callback = function(){
+					jQuery(window).unbind('hashchange', hash_change_callback);
+					temp();
+				};
+				
 				this.render();
 			},
 			render: function(){
@@ -103,9 +119,18 @@ jQuery(function(){
 				
 				this.$el.html(html);
 				
-				console.log(window.location.hash);
+				if(window.location.hash){
+					
+					this.render_active_tv(window.location.hash.replace('#', ''));	
+					
+				}else{
+					
+					var tv = collection_team_venues.at(0);
+					window.location.hash = tv.get('tv_id');
+					
+				}
 				
-				this.$el.find('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
+							
 							
 				return this;
 				
@@ -117,17 +142,16 @@ jQuery(function(){
 					tv_id: tv_id
 				});
 				if(!team_venue.length)
-					return false;
-								
-				team_venue = team_venue[0];
+					team_venue = collection_team_venues.at(0);
+				else
+					team_venue = team_venue[0];
+				
+				
 				
 				var html = new EJS({
 					text: EVT['active_tv_header']
 				}).render(team_venue.toJSON());
 				active_venue_wrapper.html(html);
-				
-				
-				
 				
 				
 				
@@ -154,7 +178,9 @@ jQuery(function(){
 				
 				var el 		= this.$el.find('select#venue_select');
 				var tv_id 	= el.val();
-				this.render_active_tv(tv_id);
+			//	this.render_active_tv(tv_id);
+				window.location.hash = tv_id;
+			
 				
 			}
 		}; Views.ListsWrapper = Backbone.View.extend(Views.ListsWrapper);
@@ -168,17 +194,17 @@ jQuery(function(){
 		
 		
 		
-	//	var hash_change_callback = function(){
-	//		jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
-	//	};
-	//	jQuery(window).bind('hashchange', hash_change_callback);
+		var hash_change_callback = function(){
+			//jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
+		};
+		jQuery(window).bind('hashchange', hash_change_callback);
 		
 		
 		
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
 			
-		//	jQuery(window).unbind('hashchange', hash_change_callback);
+			jQuery(window).unbind('hashchange', hash_change_callback);
 		}
 		
 	}; 
