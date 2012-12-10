@@ -1151,7 +1151,7 @@ class Model_users extends CI_Model {
 			
 			
 			JOIN 	teams_venues_pairs tvp 
-			ON		tvp.team_venues_id = tv.id 
+			ON		tvp.team_venue_id = tv.id 
 			
 			
 			
@@ -1208,7 +1208,7 @@ class Model_users extends CI_Model {
 			
 			
 			JOIN 	teams_venues_pairs tvp 
-			ON		tvp.team_venues_id = tv.id 
+			ON		tvp.team_venue_id = tv.id 
 			
 			
 			

@@ -102,8 +102,11 @@ jQuery(function(){
 				});
 				
 				this.$el.html(html);
-				this.events_change_venue_select();
 				
+				console.log(window.location.hash);
+				
+				this.$el.find('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
+							
 				return this;
 				
 			},
@@ -125,6 +128,11 @@ jQuery(function(){
 				
 				
 				
+				
+				
+				
+				window.location.hash = tv_id;
+				
 				//Load TV header View
 				var active_tv = '';
 				
@@ -135,7 +143,7 @@ jQuery(function(){
 				
 				//Load House GL view
 				
-				
+				//Bind the event.
 				
 			},
 			events: {
@@ -160,10 +168,17 @@ jQuery(function(){
 		
 		
 		
+	//	var hash_change_callback = function(){
+	//		jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
+	//	};
+	//	jQuery(window).bind('hashchange', hash_change_callback);
+		
+		
+		
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
 			
-			
+		//	jQuery(window).unbind('hashchange', hash_change_callback);
 		}
 		
 	}; 
