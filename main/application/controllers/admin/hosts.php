@@ -250,7 +250,7 @@ class Hosts extends MY_Controller {
 		
 		$data->current_date = date('Y-m-d', time());
 		$this->load->vars('current_date', $data->current_date);
-				
+		$this->load->vars('active_date', $this->date);
 				
 				
 				
