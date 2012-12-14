@@ -78,6 +78,13 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				var html = new EJS({
+					text: EVT['guest_list_wrapper']
+				}).render(this.model.toJSON());
+				this.$el.html(html);
+				
+				return this;
+				
 			},
 			events: {
 				
@@ -119,7 +126,6 @@ jQuery(function(){
 				
 				this.$el.html(html);
 				
-				
 				//show first venue or #hash indicated venue
 				if(window.location.hash){
 					var tv_id = window.location.hash.replace('#', '');
@@ -129,7 +135,6 @@ jQuery(function(){
 					var tv = collection_team_venues.at(0);
 					window.location.hash = tv.get('tv_id');
 				}
-							
 							
 				return this;
 				
@@ -152,11 +157,16 @@ jQuery(function(){
 				}).render(team_venue.toJSON());
 				active_venue_wrapper.html(html);
 				
-							
-				
-				
 				//Load GL view for each promoter
-				
+				collection_promoters.each(function(m){
+					
+					var view_promoter_gl = new Views.GuestList({
+						model: m
+					});
+					active_venue_wrapper.append(view_promoter_gl.el);
+					view_promoter_gl.render();
+					
+				});
 				
 				
 				//Load House GL view
