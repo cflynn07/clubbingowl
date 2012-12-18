@@ -13,7 +13,7 @@
 
 
 
-
+<?php Kint::dump($team); ?>
 
 
 
@@ -527,6 +527,16 @@
 			</table>
 		</div>
 	</div>
+	
+	<div style="width:1050px;">
+		<div class="one_half last">
+			<h3>
+				My Team
+				<img class="info_icon tooltip" title="Team promoters and related statistics." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+			</h3>
+		</div>
+	</div>
+	
 </div>
 
 	<div style="clear:both"></div>

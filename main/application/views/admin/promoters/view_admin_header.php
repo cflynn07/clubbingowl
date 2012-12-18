@@ -77,6 +77,10 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 						<img style="width:200px; margin-left:10px; margin-bottom:10px;" src="<?= $central->global_assets ?>images/ClubbingOwlLogoHeader.png" alt="" />
 					</a>
 
+					<p style="text-align:center;">
+						<a style="color:#BBB;" target="_new" href="http://www.facebook.com/pages/@/<?= $team_fan_page_id ?>"><?= $promoter->team->t_name ?></a>	
+					</p>
+
 					<span style="margin-left:auto;margin-right:auto;margin-bottom:0px;text-align:center;color:#FFF">
 						<p>Promoter Admin Panel
 							<br>
