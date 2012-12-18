@@ -27,6 +27,10 @@
 						<img style="width:200px; margin-left:10px; margin-bottom:10px;" src="<?= $central->global_assets ?>images/ClubbingOwlLogoHeader.png" alt="" />
 					</a>
 					
+					<p style="text-align:center; color:#BBB;">
+						<?= $data->team->team->team_name ?>
+					</p>
+					
 					<span style="margin-left:auto;margin-right:auto;text-align:center;color:#FFF">
 						<p>Host Admin Panel
 							<br>
