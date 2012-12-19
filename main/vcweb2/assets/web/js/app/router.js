@@ -30,8 +30,11 @@ jQuery(function(){
 			}
 			
 			
-			
-			
+		if(jQuery.cookies.get('vc_user')){
+			jQuery('div[role=main]').css('padding-top', 0);
+			jQuery('div[role=main]').css('padding-bottom', 0);
+		}
+		
 		window.setTimeout(function(){
 			jQuery(window).trigger('resize');
 			
