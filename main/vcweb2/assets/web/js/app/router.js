@@ -35,6 +35,8 @@ jQuery(function(){
 		window.setTimeout(function(){
 			jQuery(window).trigger('resize');
 			
+			if(jQuery.cookies.get('vc_user'))
+				return;
 			
 			var window_height 	= jQuery(window).height();
 			var content_height 	= jQuery('#footer').height() + jQuery('#footer').offset().top;
