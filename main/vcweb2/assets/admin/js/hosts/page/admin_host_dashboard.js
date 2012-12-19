@@ -167,11 +167,12 @@ jQuery(function(){
 		
 		
 		
+		var hash_change_callback = function(){
 		
-	//	var hash_change_callback = function(){
-	//		jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
-	//	};
-	//	jQuery(window).bind('hashchange', hash_change_callback);
+		//	jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
+		
+		};
+		jQuery(window).bind('hashchange', hash_change_callback);
 		
 		
 		

@@ -27,7 +27,7 @@ jQuery(function(){
 		        title: 'Invite friends to ClubbingOwl',
 		        to: uid
 		    },
-		    function (response) {
+		    function (response) {		        
 		        
 		    });
 		    
@@ -53,7 +53,10 @@ jQuery(function(){
 				
 				var friends_subset_handle = function(){
 					
+					
 					var data = window.all_vc_friends.slice(vc_friends.items_iterator, vc_friends.items_iterator + 50);
+					
+					
 					vc_friends.append_item_html(data);				
 					vc_friends.items_iterator = vc_friends.items_iterator + data.length;
 					
@@ -62,31 +65,40 @@ jQuery(function(){
 				
 				if(window.all_vc_friends === false){
 					
-					
-			
-					fbEnsureInit(function(){
+					var find_friends = function(){
 						
-						setTimeout(function(){
-							var token 	= FB.getAccessToken();						
-							var fql 	= "SELECT uid, name, pic, pic_square, is_app_user, third_party_id FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY is_app_user DESC";
+						fbEnsureInit(function(){
 							
-							FB.api({
-							    method: 'fql.query',
-								access_token : token,
-							    query: fql
-							}, function(data) {
+							setTimeout(function(){
+								var token 	= FB.getAccessToken();						
+								var fql 	= "SELECT uid, name, pic, pic_square, is_app_user, third_party_id FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY is_app_user DESC";
 								
-							    console.log(data);
-							    window.all_vc_friends = data;
-							    friends_subset_handle();
-							    
-							});
-						}, 1000);
+								FB.api({
+								    method: 'fql.query',
+									access_token : token,
+								    query: fql
+								}, function(data) {
+									
+									if(data.error){
+										find_friends();
+										return;
+									}
+									
+								    console.log(data);
+								    window.all_vc_friends = data;
+								    friends_subset_handle();
+								    
+								});
+							}, 1000);
+							
+							
+						});
 						
-						
-					});
+					};	
 					
-					
+					find_friends();	
+			
+									
 				}else{
 					
 					
