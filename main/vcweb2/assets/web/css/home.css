@@ -6,11 +6,11 @@
 .home {
   margin-top: 20px;
   margin-bottom: 20px;
-  padding-top: 280px;
+  padding-top: 370px;
 //  min-height: 826px;
   min-height: 600px;
 //  background: url('/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
-  background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png') center top no-repeat;
+  background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png') center center no-repeat;
 }
 .home h1 {
   font: 0/0 a;
