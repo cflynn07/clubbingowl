@@ -164,3 +164,12 @@ section#news ul.updates div.avatar img {
 	margin: 0;
 	width: 50px;
 }
+
+
+
+
+@media screen and (max-width: 767px){
+	ul.updates > li > table > tbody > tr > td:nth-child(3){
+		display: none;
+	}
+}
