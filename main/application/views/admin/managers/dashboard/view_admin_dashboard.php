@@ -13,7 +13,7 @@
 
 
 
-
+<?php Kint::dump($team); ?>
 
 
 
@@ -527,6 +527,7 @@
 			</table>
 		</div>
 	</div>
+	
 </div>
 
 	<div style="clear:both"></div>

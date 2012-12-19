@@ -73,24 +73,24 @@
 
 
 
-#friends_list div#unauth_content_holder > h1{
-	  font: 0/0 a;
-	  text-shadow: none;
-	  color: transparent;
-	  //background: url('/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
-	  background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png?1335926711') center top no-repeat;
-	  width: 699px;
-	  height: 79px;
-	  margin: 0 auto 100px;	
-}
+//#friends_list div#unauth_content_holder > h1{
+//	  font: 0/0 a;
+//	  text-shadow: none;
+//	  color: transparent;
+//	  //background: url('/vcweb2/assets/web/images/logo_large.png?1335304870') left center no-repeat;
+//	  background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png?1335926711') center center no-repeat;
+//	  width: 699px;
+//	  height: 79px;
+//	  margin: 0 auto 100px;	
+//}
 #friends_list div#unauth_content_holder{
 	text-align: center;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	padding-top: 280px;
+	padding-top: 370px;
 	min-height: 600px;
-	background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png?1335926711') center top no-repeat;
-	//background: url('/vcweb2/assets/web/images/splash.png?1335926711') center top no-repeat;
+	background: url('/vcweb2/assets/web/images/ClubbingOwlBackgroundWeb.png?1335926711') center center no-repeat;
+	//background: url('/vcweb2/assets/web/images/splash.png?1335926711') center center no-repeat;
 }
 #friends_list div#unauth_content_holder > p.message{
 	font-size: 30px;

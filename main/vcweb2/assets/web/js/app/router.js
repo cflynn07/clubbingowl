@@ -29,6 +29,38 @@ jQuery(function(){
 				window.kill_presence_channel = false;
 			}
 			
+			
+			
+			
+		window.setTimeout(function(){
+			jQuery(window).trigger('resize');
+			
+			
+			var window_height 	= jQuery(window).height();
+			var content_height 	= jQuery('#footer').height() + jQuery('#footer').offset().top;
+			
+			var difference 		= window_height - content_height;
+			difference -= 25;
+			console.log(difference);
+			
+			if(difference > 20){
+				
+				jQuery('div[role=main]').css('padding-top', 	Math.floor(difference / 2) + 'px');
+				jQuery('div[role=main]').css('padding-bottom', 	Math.floor(difference / 2) + 'px');
+				
+			}
+			
+		}, 30);
+		
+		
+		window.setTimeout(function(){
+			jQuery(window).trigger('resize');
+		}, 500);
+		window.setTimeout(function(){
+			jQuery(window).trigger('resize');
+		}, 1000);
+		
+		
 		
 	}
 	

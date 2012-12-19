@@ -53,7 +53,9 @@ jQuery(function(){
 				
 				var friends_subset_handle = function(){
 					
-					
+					if(!window.all_vc_friends || !window.all_vc_friends.slice)
+						return;
+						
 					var data = window.all_vc_friends.slice(vc_friends.items_iterator, vc_friends.items_iterator + 50);
 					
 					

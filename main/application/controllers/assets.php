@@ -615,7 +615,8 @@ class Assets extends MY_Common_Controller {
 									
 									// ---------------- FRONT --------------------
 									'lists_wrapper',
-									'active_tv_header'
+									'active_tv_header',
+									'guest_list_wrapper'
 																		
 								),
 								'lang' => $language

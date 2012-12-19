@@ -78,6 +78,13 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				var html = new EJS({
+					text: EVT['guest_list_wrapper']
+				}).render(this.model.toJSON());
+				this.$el.html(html);
+				
+				return this;
+				
 			},
 			events: {
 				
@@ -90,22 +97,44 @@ jQuery(function(){
 			el: '#lists_wrapper',
 			initialize: function(){
 				
+				
+				
+				var _this = this;
+				var hash_change_callback = function(){
+					console.log('hashchange');
+					_this.render_active_tv(window.location.hash.replace('#', ''));
+				};
+				jQuery(window).bind('hashchange', hash_change_callback);
+				
+				//extend unbind callback
+				var temp = window.module.Globals.prototype.unbind_callback;
+				window.module.Globals.prototype.unbind_callback = function(){
+					jQuery(window).unbind('hashchange', hash_change_callback);
+					temp();
+				};
+				
 				this.render();
 			},
 			render: function(){
 				
 				var template = EVT['lists_wrapper'];
 				var html = new EJS({
-					text: template
+					text: 			template
 				}).render({
 					team_venues: 	collection_team_venues.toJSON()
 				});
 				
 				this.$el.html(html);
 				
-				console.log(window.location.hash);
-				
-				this.$el.find('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
+				//show first venue or #hash indicated venue
+				if(window.location.hash){
+					var tv_id = window.location.hash.replace('#', '');
+					this.$el.find('select#venue_select').val(tv_id);
+					this.render_active_tv(tv_id);	
+				}else{
+					var tv = collection_team_venues.at(0);
+					window.location.hash = tv.get('tv_id');
+				}
 							
 				return this;
 				
@@ -117,34 +146,35 @@ jQuery(function(){
 					tv_id: tv_id
 				});
 				if(!team_venue.length)
-					return false;
-								
-				team_venue = team_venue[0];
+					team_venue = collection_team_venues.at(0);
+				else
+					team_venue = team_venue[0];
 				
+				
+				//load_venue_header_view
 				var html = new EJS({
 					text: EVT['active_tv_header']
 				}).render(team_venue.toJSON());
 				active_venue_wrapper.html(html);
 				
-				
-				
-				
-				
-				
-				window.location.hash = tv_id;
-				
-				//Load TV header View
-				var active_tv = '';
-				
-				
 				//Load GL view for each promoter
-				
+				collection_promoters.each(function(m){
+					
+					var view_promoter_gl = new Views.GuestList({
+						model: m
+					});
+					active_venue_wrapper.append(view_promoter_gl.el);
+					view_promoter_gl.render();
+					
+				});
 				
 				
 				//Load House GL view
 				
 				//Bind the event.
 				
+				window.location.hash = tv_id;
+				return this; 
 			},
 			events: {
 				'change select#venue_select': 'events_change_venue_select'
@@ -154,7 +184,9 @@ jQuery(function(){
 				
 				var el 		= this.$el.find('select#venue_select');
 				var tv_id 	= el.val();
-				this.render_active_tv(tv_id);
+			//	this.render_active_tv(tv_id);
+				window.location.hash = tv_id;
+			
 				
 			}
 		}; Views.ListsWrapper = Backbone.View.extend(Views.ListsWrapper);
@@ -169,8 +201,13 @@ jQuery(function(){
 		
 		var hash_change_callback = function(){
 		
+<<<<<<< HEAD
 		//	jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
 		
+=======
+		var hash_change_callback = function(){
+			//jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
+>>>>>>> 103b95ac936f8f41f4f14b1e7649e92ba2d6885c
 		};
 		jQuery(window).bind('hashchange', hash_change_callback);
 		
@@ -179,7 +216,7 @@ jQuery(function(){
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
 			
-		//	jQuery(window).unbind('hashchange', hash_change_callback);
+			jQuery(window).unbind('hashchange', hash_change_callback);
 		}
 		
 	}; 

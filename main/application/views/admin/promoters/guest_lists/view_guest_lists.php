@@ -30,10 +30,6 @@
 				
 		<ul class="sitemap" style="cursor: default; text-decoration:none !important;"></ul>
 
-		<?php if(false): ?>
-		<div class="datepicker"></div>
-		<?php endif; ?>		
-		
 	</div>
 	
 	<div id="list_status" class="three_fourth last"></div>

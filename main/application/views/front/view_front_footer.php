@@ -84,7 +84,7 @@
 		
 		
 		
-		<div class="footer_msg">&copy; Cobar Systems LLC 2012 - <a href="<?= $central->front_link_base ?>corp/tos/"><?= $this->lang->line('f-tos') ?></a></div>
+		<div class="footer_msg">&copy; 2012 - <a href="<?= $central->front_link_base ?>corp/tos/"><?= $this->lang->line('f-tos') ?></a></div>
 		
 		
 		

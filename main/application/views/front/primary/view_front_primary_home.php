@@ -1,3 +1,6 @@
+<?php //Kint::dump($this->session->userdata('vc_user')); ?>
+<?php //Kint::dump($this->session->userdata('vc_user') == true); ?>
+
 <div id="unauth_content_holder" <?= ($this->session->userdata('vc_user')) ? 'style="display:none"' : 'style="display:block"' ?>>
 	<article class="home">
 					

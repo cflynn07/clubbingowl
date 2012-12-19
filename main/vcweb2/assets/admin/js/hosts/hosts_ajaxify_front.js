@@ -48,13 +48,9 @@
 			
 			var current_url = window.location.href.split('#')[0];
 			var relativeUrl = url.replace(rootUrl,'');
-			
-			
-			
-			
-			
-			
-			
+
+			var url_with_hash = url + ((window.location.hash.length) ? window.location.hash : '');
+			 			
 			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
 			
 			// Ajax Request the Traditional Page
@@ -83,15 +79,24 @@
 					});
 					jQuery('div#primary_right > div.inner').html(data);
 					
+					
+					
+					
 					var title = 'ClubbingOwl';									
-					History.pushState({},title,url);
+				//	History.pushState({},title,url);
+					History.pushState({},
+										title,
+										url_with_hash);
 
 
 					//manually trigger route if same url
-					if(current_url == url)
+					if(current_url == url.split('#')[0])
 						Backbone.history.loadUrl();
-					
-					
+										
+					console.log('current_url');
+					console.log(current_url);
+					console.log('url');
+					console.log(url);
 					
 					// Inform Google Analytics of the change
 					if ( typeof window.pageTracker !== 'undefined' ) {
@@ -109,7 +114,7 @@
 					});
 					
 					
-					jQuery(window).scrollTop(0);
+				//	jQuery(window).scrollTop(0);
 					
 					
 				},
