@@ -81,7 +81,7 @@ jQuery(function(){
 								    query: fql
 								}, function(data) {
 									
-									if(data.error){
+									if(data.error || data.error_codeß){
 										find_friends();
 										return;
 									}

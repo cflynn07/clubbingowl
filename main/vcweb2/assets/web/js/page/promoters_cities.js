@@ -134,11 +134,12 @@ jQuery(function(){
 				console.log(data.promoters_users_friends);
 			
 			
-			
+				jQuery('img.loading_indicator').hide();
+				
 				jQuery.fbUserLookup(user_ids, 'uid, third_party_id, name, first_name, last_name, pic_square, pic_big', function(rows){
 					console.log(rows);
 					
-					jQuery('img.loading_indicator').hide();
+					//jQuery('img.loading_indicator').hide();
 					
 					for(var i in rows){
 						
