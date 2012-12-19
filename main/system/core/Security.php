@@ -170,7 +170,14 @@ class CI_Security {
 	 */
 	public function csrf_show_error()
 	{
+		
+		if(isset($_POST['ajaxify'])){
+			echo '<script type="text/javascript">window.location = "' . $_SERVER['REQUEST_URI'] . '";</script>';
+			die();
+		}
+			
 		show_error('The action you have requested is not allowed.', 403);
+		
 	}
 
 	// --------------------------------------------------------------------
