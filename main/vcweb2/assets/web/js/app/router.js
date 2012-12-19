@@ -56,6 +56,9 @@ jQuery(function(){
 		window.setTimeout(function(){
 			jQuery(window).trigger('resize');
 		}, 500);
+		window.setTimeout(function(){
+			jQuery(window).trigger('resize');
+		}, 1000);
 		
 		
 		
