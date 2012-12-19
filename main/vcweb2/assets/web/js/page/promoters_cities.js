@@ -125,7 +125,7 @@ jQuery(function(){
 						
 						
 						promoter_friends_div.append('<span data-oauth_uid=' + up[k] + '></span>');
-						
+		
 					}
 									
 				}

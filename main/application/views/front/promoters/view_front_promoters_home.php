@@ -126,10 +126,24 @@
 		
 		
 		
-		
-		
-		
 		</li>	
+		
+		
+		
+		
+		
+		<?php if(($key + 1) % 2 === 0): ?>
+			<div class="data_clear_2" data-clear-2="<?= $key ?>" style="clear:both;"></div>
+		<?php endif; ?>
+						
+		<?php if(($key + 1) % 3 === 0): ?>
+			<div class="data_clear_3" data-clear-3="<?= $key ?>" style="clear:both;"></div>
+		<?php endif; ?>
+		
+		
+		
+		
+		
 			
 		<?php endforeach; ?>
 	</ul>
@@ -151,7 +165,7 @@
 	</div>
 	<?php endif; ?>
 	
-	<?php Kint::dump($all_cities); ?>
+	<?php //Kint::dump($all_cities); ?>
 	<?php foreach($all_cities as $vc_city): ?>
 		
 		<?php if($vc_city->promoters): ?>
@@ -162,15 +176,15 @@
 			
 			<ul class="venue-list" style="margin-top:20px;">
 			
-			<?php foreach($vc_city->promoters as $pro): ?>
+			
+			<?php foreach($vc_city->promoters as $key => $pro): ?>
 				
 				<?php
 					$pro_gl_link = $central->front_link_base . 'promoters/' . $pro->up_public_identifier . '/guest_lists/';
 				?>
 				
+					
 				<li>
-					
-					
 					
 					
 					<table class="pro_overview">
@@ -263,6 +277,20 @@
 					
 					
 				</li>
+				
+				
+				
+				
+				<?php if(($key + 1) % 2 === 0): ?>
+					<div class="data_clear_2" data-clear-2="<?= $key ?>" style="clear:both;"></div>
+				<?php endif; ?>
+								
+				<?php if(($key + 1) % 3 === 0): ?>
+					<div class="data_clear_3" data-clear-3="<?= $key ?>" style="clear:both;"></div>
+				<?php endif; ?>
+				
+				
+				
 				
 			<?php endforeach; ?>
 			

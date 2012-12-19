@@ -666,3 +666,21 @@ div#reviews_holder {
 	width: 20px;
 	height: 20px;
 }*/
+
+
+
+div.data_clear_2{
+	display: none;
+}
+div.data_clear_3{
+	display: block;
+}
+
+@media screen and (max-width: 767px){
+	div.data_clear_2{
+		display: block !important;
+	}
+	div.data_clear_3{
+		display: none;
+	}
+}
