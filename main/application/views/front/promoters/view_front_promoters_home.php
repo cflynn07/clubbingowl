@@ -31,7 +31,7 @@
 	<?php else: ?>
 	
 	<ul class="venue-list" style="margin-top:20px;">
-		<?php foreach($promoters as $pro): ?>
+		<?php foreach($promoters as $key => $pro): ?>
 		
 		<?php
 			$pro_gl_link = $central->front_link_base . 'promoters/' . $pro->up_public_identifier . '/guest_lists/';
