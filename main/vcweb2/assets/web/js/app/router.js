@@ -32,7 +32,11 @@ jQuery(function(){
 			
 	
 	
-	
+		if(!jQuery.cookies.get('vc_user')){
+			fbEnsureInit(function(){
+				FB.getLoginStatus();
+			});
+		}
 	
 	
 	
