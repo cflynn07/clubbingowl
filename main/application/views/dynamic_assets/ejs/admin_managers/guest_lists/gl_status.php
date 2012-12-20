@@ -1,7 +1,7 @@
 <div class="ui-widget">
 	
 	<div class="ui-widget-header">
-		<span>"<%= pgla_name %>" Status</span>
+		<span>"<%= tgla_name %>" Status</span>
 		
 		<span style="float:right;color:grey;">Last Updated: 
 			<span id="glas_last_updated"><% if(typeof glas_human_date !== 'undefined'){ %>

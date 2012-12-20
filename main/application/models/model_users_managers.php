@@ -157,7 +157,8 @@ class Model_users_managers extends CI_Model {
 					tgla.deactivated		as tgla_deactivated,
 					tgla.deactivated_time	as tgla_deactivated_time,
 					tgla.auto_approve		as tgla_auto_approve,
-					tgla.description		as tgla_description
+					tgla.description		as tgla_description,
+					tgla.image				as tgla_image
 					
 				FROM team_venues tv
 				

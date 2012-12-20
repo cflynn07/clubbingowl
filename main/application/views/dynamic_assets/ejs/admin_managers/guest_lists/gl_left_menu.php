@@ -5,6 +5,6 @@
 	<% var day_list = day_lists[i]; console.log(day_list); %>
 		
 	<li style="margin-left:15px;text-decoration:none;">
-		<span data-pgla_id="<%= day_list.pgla_id %>" style="text-decoration:underline;"><%= day_list.pgla_name %></span> (<span class="wgl_groups_count"><%= day_list.groups.length %></span>)
+		<span data-tgla_id="<%= day_list.tgla_id %>" style="text-decoration:underline;"><%= day_list.tgla_name %></span> (<span class="wgl_groups_count"><%= (typeof day_list.current_list.groups !== 'undefined') ? day_list.current_list.groups.length : 0 %></span>)
 	</li><br>
 <% } %>

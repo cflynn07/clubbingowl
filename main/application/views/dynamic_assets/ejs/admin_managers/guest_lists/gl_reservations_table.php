@@ -1,5 +1,5 @@
 <div class="ui-widget-header">
-	<span>"<%= pgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
+	<span>"<%= tgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
 	<span style="float:right;">
 		<input type="text" class="guest_list_datepicker" value="<%= human_date %>" style="height:10px; margin-right:-5px;"/>
 	</span>

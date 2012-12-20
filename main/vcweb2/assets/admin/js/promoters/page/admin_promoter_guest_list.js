@@ -7,16 +7,16 @@ jQuery(function(){
 	window.vc_page_scripts.admin_promoter_guest_list = function(){
 						
 						
-		var EVT = window.ejs_view_templates_admin_promoters;
+		var EVT 	= window.ejs_view_templates_admin_promoters;
 		var globals = window.module.Globals.prototype;
 						
 		var unbind_callbacks = [];
 
 
 
-		var Models = {};
+		var Models 		= {};
 		var Collections = {};
-		var Views = {};
+		var Views 		= {};
 		
 		
 		
@@ -1399,7 +1399,9 @@ jQuery(function(){
 		var hash_change_callback = function(){
 			//window.location.hash;
 			
-			if(window.location.hash.length > 0)
+			if(window.location.hash.length === 0)
+				return; 
+				
 			var pgla_name = window.location.hash.replace('_', ' ').replace('#', '');
 
 			var res = collection_guest_lists.where({

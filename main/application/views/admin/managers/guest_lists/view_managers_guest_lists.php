@@ -6,6 +6,14 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
 
+
+
+
+
+
+
+
+
 <div style="display:none;" id="manual_add_modal"></div>
 
 
@@ -14,6 +22,8 @@
 	<div class="ui-widget-header">
 		<span>Team Guest Lists</span>
 	</div><br>
+	
+	
 	
 	
 	<div id="left_menu" class="one_fourth">
@@ -31,16 +41,20 @@
 
 	</div>
 	
+	
+	
+	
+	
 	<div id="list_status" class="three_fourth last"></div>
 	
-	<br/>
-	<br/>
-	<br/>
+	<br/><br/><br/>
 	
 	<div class="one_fourth"></div>
 	<div id="lists_container" class="three_fourth last"></div>
 	
 	<div style="clear:both"></div>
+	
+	
 	
 </div>
 	

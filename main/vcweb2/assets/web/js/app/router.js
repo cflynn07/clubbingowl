@@ -31,6 +31,11 @@ jQuery(function(){
 			
 			
 	
+	
+	
+	
+	
+	
 		jQuery('div[role=main]').css('padding-top', 0);
 		jQuery('div[role=main]').css('padding-bottom', 0);
 		
@@ -64,6 +69,11 @@ jQuery(function(){
 		window.setTimeout(function(){
 			jQuery(window).trigger('resize');
 		}, 1000);
+		
+		
+		
+		
+		
 		
 		
 		

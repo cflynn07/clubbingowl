@@ -342,41 +342,12 @@ class Managers extends MY_Controller {
 	 */
 	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 		
-		$users = array();
-		foreach($team_venues as &$tv){
-			
-			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($tv->tv_id, $this->vc_user->manager->team_fan_page_id);
-			foreach($tv_gla as &$gla){
-				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
-				
-				if($gla->current_list){
-					$gla->current_list->groups = $this->users_managers->retrieve_teams_guest_list_members($gla->current_list->tgl_id);
-					
-					//add users to users array
-					foreach($gla->current_list->groups as $group){
-						$users[] = $group->tglr_user_oauth_uid;
-
-						foreach($group->entourage as $ent_user){
-							$users[] = $ent_user->tglre_oauth_uid;
-						}
-					}
-					
-				}
-			}
-			
-			$tv->tv_gla = $tv_gla;
-			
-		}
-		
-		$users = array_unique($users);
-		$users = array_values($users);
-		
+		list($users, $team_venues) = $this->_helper_guest_lists();
 		$data['users'] = $users;
 		$data['team_venues'] = $team_venues;
-				
+		
+		
 		$this->body_html = $this->load->view($this->view_dir . 'guest_lists/view_managers_guest_lists', $data, true);
 	}
 	
@@ -2765,7 +2736,56 @@ class Managers extends MY_Controller {
 		
 	}
 
+	private function _helper_guest_lists(){
+		
+		
+		
+		$this->load->model('model_users_managers', 'users_managers', true);
+		
+		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
+		
+		$users = array();
+		foreach($team_venues as &$tv){
+			
+			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($tv->tv_id, $this->vc_user->manager->team_fan_page_id);
+			foreach($tv_gla as &$gla){
+				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
+				
+				
+					
+				$gla->human_date 	= date('l m/d/y', strtotime(rtrim($gla->tgla_day, 's')));
+				$gla->iso_date 		= date('Y-m-d', strtotime(rtrim($gla->tgla_day, 's')));
+				$gla->current_week	= true;
+				
+				
+				if($gla->current_list){
+					$gla->current_list->groups = $this->users_managers->retrieve_teams_guest_list_members($gla->current_list->tgl_id);
+					
+					
+					
+					//add users to users array
+					foreach($gla->current_list->groups as $group){
+						$users[] = $group->tglr_user_oauth_uid;
 
+						foreach($group->entourage as $ent_user){
+							$users[] = $ent_user->tglre_oauth_uid;
+						}
+					}
+					
+				}
+			}
+			
+			$tv->tv_gla = $tv_gla;
+			
+		}
+		
+		$users = array_unique($users);
+		$users = array_values($users);
+		
+		
+		return array($users, $team_venues);
+		
+	}
 
 	private function _helper_venue_floorplan_retrieve_v2(){	
 		
@@ -3021,6 +3041,10 @@ class Managers extends MY_Controller {
 			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($venue->tv_id, $this->vc_user->manager->team_fan_page_id);
 			foreach($tv_gla as &$gla){
 				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
+				
+				$gla->human_date 	= date('l m/d/y', strtotime(rtrim($gla->tgla_day, 's')));
+				$gla->iso_date 		= date('Y-m-d', strtotime(rtrim($gla->tgla_day, 's')));
+				
 				
 				if($gla->current_list){
 					$gla->current_list->groups = $this->users_managers->retrieve_teams_guest_list_members($gla->current_list->tgl_id);

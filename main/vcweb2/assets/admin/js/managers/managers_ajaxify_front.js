@@ -46,8 +46,7 @@
 				opacity: 0.4
 			});
 			
-			
-			var current_url = window.location.href;
+			var current_url = window.location.href.split('#')[0];
 			var relativeUrl = url.replace(rootUrl,'');
 			
 			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';

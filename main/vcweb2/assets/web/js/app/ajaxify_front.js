@@ -112,12 +112,20 @@
 						//do nothing
 						
 					}else if(type.type == 3){
+						
+						
+						
+						
 						jQuery('html, body').scrollTop(0);
 						setTimeout(function(){
 							jQuery('html, body').animate({
 							    scrollTop: (jQuery('.ajaxify_t2:first').offset().top - jQuery('.ajaxify_t2:first').parent().height() - 10)
 							}, 750);
 						}, 150);
+						
+						
+						
+						
 						
 					}
 					
