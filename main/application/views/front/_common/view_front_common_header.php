@@ -18,6 +18,9 @@
 <meta http-equiv="X-UA-Compatible" 	content="IE=edge,chrome=1">
 
 
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+
 <meta property="og:type" 			content="website"/>
 <meta property="og:title" 			content="<?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : '' ?><?= $central->title ?>"/>
 <meta property="og:url" 			content="<?= (isset($header_custom->url)) ? $header_custom->url : 'https://' . $this->config->item('active_subdomain') . '.' . SITE . '.' . TLD . '/' ?>"/>

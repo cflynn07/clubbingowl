@@ -16,7 +16,9 @@
   </header>
 
   <div class="left">
-    <div class="avatar"><img style="border: 1px solid lightgray;" src="<?= $promoter->profile_image_complete_url ?>" alt="<?= $promoter->u_full_name ?>'s Picture"></div>
+    <div class="avatar">
+    	<img style="border: 1px solid lightgray;" src="<?= $promoter->profile_image_complete_url ?>" alt="<?= $promoter->u_full_name ?>'s Picture">
+    </div>
     
     <div style="border-top:1px dashed #CCC;border-bottom:1px dashed #CCC;margin-top:15px;" id="add_as_friend">
     	<table style="width:100%;">
