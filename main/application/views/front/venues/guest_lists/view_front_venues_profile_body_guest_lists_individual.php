@@ -401,7 +401,7 @@ div#unavailable_overlay{
 		        <br>
 			
 				<input type="checkbox" id="guestlist-share" name="guestlist-share" checked="checked">
-	          	<label for="guestlist-share">Share on Facebook</label>
+	          	<label style="font-size:11px;" for="guestlist-share">Share with my friends on Facebook</label>
 	          	
 	          	
 	          	
