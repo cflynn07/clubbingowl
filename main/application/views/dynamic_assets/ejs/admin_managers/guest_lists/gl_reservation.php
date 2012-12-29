@@ -73,6 +73,7 @@
 	<% } %>
 </td>
 <td class="actions">
+	
 	<% if(tglr_approved == '1'){ %>
 		<span style="color: green;">Approved</span>
 	<% }else if(tglr_approved == '-1'){ %>
@@ -81,7 +82,7 @@
 		<a href="#" style="position:relative; top:10px;" data-action="request-respond" class="button_link btn-action">Respond</a><br/><br/>
 	<% } %>
 	
-	<% if(false && tglr_manual_add == '1'){ %>
+	<% if(tglr_manual_add == '1'){ %>
 		<br/>
 		<span style="">Manually Added</span>
 	<% } %>

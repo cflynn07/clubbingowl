@@ -244,6 +244,7 @@ class Model_users_managers extends CI_Model {
 					tglr.checked_in_time	as tglr_checked_in_time,
 					tglr.checked_in_by_host	as tglr_checked_in_by_host,
 					tglr.supplied_name		as tglr_supplied_name,
+					tglr.manual_add 		as tglr_manual_add,
 					tv.id					as tv_id,
 					tv.name 				as tv_name,
 					tv.description 			as tv_description,
@@ -287,18 +288,28 @@ class Model_users_managers extends CI_Model {
 			$query = $this->db->query($sql, array($res->tglr_id));
 			$res->entourage = $query->result();
 			
-			//ALSO ATTACH PHONE NUMBER FOR HEAD USER
-			$sql = "SELECT
 			
-						u.phone_number as u_phone_number
+			if($res->tglr_user_oauth_uid !== NULL && $res->tglr_user_oauth_uid != 'null'){
 					
-					FROM 	users u 
+				//ALSO ATTACH PHONE NUMBER FOR HEAD USER
+				$sql = "SELECT
+				
+							u.phone_number as u_phone_number
+						
+						FROM 	users u 
+						
+						WHERE 	u.oauth_uid = ?";
+				$query2 = $this->db->query($sql, array($res->tglr_user_oauth_uid));
+				$result2 = $query2->row();
+				
+				if($result2)				
+					$res->u_phone_number = $result2->u_phone_number;
+				else 
+					$res->u_phone_number = '';
 					
-					WHERE 	u.oauth_uid = ?";
-			$query2 = $this->db->query($sql, array($res->tglr_user_oauth_uid));
-			$result2 = $query2->row();
-			$res->u_phone_number = $result2->u_phone_number;
-			
+			}else{
+				$res->u_phone_number = '';
+			}
 		}
 		
 		return $result;

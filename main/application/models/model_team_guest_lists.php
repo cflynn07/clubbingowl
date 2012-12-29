@@ -59,7 +59,8 @@ class Model_team_guest_lists extends CI_Model {
 												$phone_carrier,
 												$date_check_override 	= false,
 												$approve_override 		= false,
-												$table_min_spend 		= 0){
+												$table_min_spend 		= 0,
+												$tglr_supplied_name = ''){
 		
 		$phone_number = preg_replace('/\D/', '', $phone_number);
 		
@@ -227,6 +228,7 @@ class Model_team_guest_lists extends CI_Model {
 																		'table_request' 	=> ($table_request == 1) ? 1 : 0,
 																		'manual_add' 		=> ($approve_override) ? 1 : 0,
 																		'table_min_spend'	=> $table_min_spend,
+																		'supplied_name'		=> $tglr_supplied_name,
 																		'create_time' 		=> time()));
 		
 	//	var_dump($this->db->last_query()); //die();
@@ -276,13 +278,46 @@ class Model_team_guest_lists extends CI_Model {
 		}
 		
 		//now add the HEAD user's entourage (if no entourage skip)
-		if($entourage && !$approve_override){
+		if($entourage){ // && !$approve_override
 
+	//		foreach($entourage as $member){
+	//			$insert_data[] = array('team_guest_list_reservation_id' => $teams_guest_lists_reservations_id,
+	//									'oauth_uid' => $member);
+	//		}
+	//		$this->db->insert_batch('teams_guest_lists_reservations_entourages', $insert_data);
+			
+			
+			
+			
+			
+			
+			
+			
 			foreach($entourage as $member){
-				$insert_data[] = array('team_guest_list_reservation_id' => $teams_guest_lists_reservations_id,
-										'oauth_uid' => $member);
+				
+				if(is_array($member)){
+					
+					if($member['oauth_uid'] == '0' || strtolower($member['oauth_uid']) == 'null')
+						$member['oauth_uid'] = NULL;
+					
+					$insert_data[] = array('team_guest_list_reservation_id' 		=> $teams_guest_lists_reservations_id,
+											'oauth_uid' 							=> $member['oauth_uid'],
+											'supplied_name'							=> $member['name']);
+											
+					
+				}else{
+					
+					if($member == '0' || strtolower($member) == 'null'){
+						$member = NULL;
+					}
+					
+					$insert_data[] = array('team_guest_list_reservation_id' 	=> $teams_guest_lists_reservations_id,
+											'oauth_uid' 						=> $member);
+					
+				}
+				
 			}
-			$this->db->insert_batch('teams_guest_lists_reservations_entourages', $insert_data);
+			$this->db->insert_batch('teams_guest_lists_reservations_entourages', $insert_data);			
 			
 		}
 				

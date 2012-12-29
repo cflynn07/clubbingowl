@@ -199,8 +199,8 @@ jQuery(function(){
 						//array of unique day prices
 						var day_prices = [];
 						
-						var pgla_day = _this.model.get('pgla_day');
-						pgla_day = pgla_day.slice(0, -1);
+						var tgla_day = _this.model.get('tgla_day');
+						tgla_day = tgla_day.slice(0, -1);
 						
 						for(var i in venue.venue_floorplan){
 							var floor = venue.venue_floorplan[i]
@@ -211,7 +211,7 @@ jQuery(function(){
 								if(item.vlfi_item_type == 'table'){
 
 									//what day do we care about?
-									var table_day_price = item['vlfit_' + pgla_day + '_min'];
+									var table_day_price = item['vlfit_' + tgla_day + '_min'];
 									console.log(table_day_price);
 									
 									if(jQuery.inArray(table_day_price, day_prices) === -1){
@@ -235,7 +235,7 @@ jQuery(function(){
 						}).render({
 							day_prices: day_prices,
 							venue: 		venue,
-							pgla_day: 	pgla_day
+							tgla_day: 	tgla_day
 						});
 						_this.$el.html(html);
 						
@@ -498,15 +498,15 @@ jQuery(function(){
 				
 				this.table_min_spend = value;
 				
-				var pgla_day 	= this.model.get('pgla_day');
-				pgla_day 		= pgla_day.slice(0, -1);
+				var tgla_day 	= this.model.get('tgla_day');
+				tgla_day 		= tgla_day.slice(0, -1);
 				
 				
 				
 				this.$el.find('div.item.table').each(function(){
 					jQuery(this).trigger('de-highlighted');
 				});
-				this.$el.find('div.item.table[day-price-' + pgla_day + '=' + value + ']').each(function(){
+				this.$el.find('div.item.table[day-price-' + tgla_day + '=' + value + ']').each(function(){
 					jQuery(this).addClass('highlighted');
 				});
 				
@@ -701,8 +701,8 @@ jQuery(function(){
 						jQuery.background_ajax({
 							data: {
 								vc_method: 			'manual_add_final',
-								pgla_id:			_this.model.get('pgla_id'),
-								up_id: 				window.page_obj.promoter.up_id,
+								tgla_id:			_this.model.get('tgla_id'),
+							//	up_id: 				window.page_obj.promoter.up_id,
 								group: 				_this.collections_group.toJSON(),
 								table_request: 		_this.table_request,
 								table_min_spend: 	_this.table_min_spend
