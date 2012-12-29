@@ -38,7 +38,7 @@
 		<tr>
 			
 			<td style="width:20%; padding-top:10px; vertical-align:top;">
-				<img id="toro" src="<%= window.module.Globals.prototype.front_assets + 'images/ClubbingOwlBackgroundWeb.png' %>" />
+				<img style="width:50px;" id="toro" src="<%= window.module.Globals.prototype.front_assets + 'images/ClubbingOwlBackgroundWeb.png' %>" />
 			</td>
 			<td style="width:80%; color:#FFF; font-size:14px; padding-left:4px; padding-top:10px; font-weight:300;">Sorry! It looks like none of your friends have reviewed <strong><%= jQuery('div#up_first_name').html() %></strong> yet! You can be the first by joining one of <%= jQuery('div#up_first_name').html() %>'s <a class="ajaxify_t3" href="<%= window.module.Globals.prototype.front_link_base + 'promoters/' + jQuery('div#up_public_identifier').html() + '/guest_lists/' %>">guest-lists</a>.</td>
 			
