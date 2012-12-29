@@ -75,7 +75,7 @@
 						
 					data = jQuery(data);
 
-				//	delete window.page_obj;
+					delete window.page_obj;
 
 
 					jQuery('div[role=main]').html(data);
