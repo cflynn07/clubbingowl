@@ -315,7 +315,6 @@ jQuery(function(){
 							console.log('promoter_new_gl_status ====== ');
 							
 							news_item.un_notification_data = jQuery.parseJSON(news_item.un_notification_data);
-														console.log(news_item);
 
 							news_html = new EJS({
 								text: ejs_view_templates.primary_new_promoter_gl_status
@@ -324,6 +323,23 @@ jQuery(function(){
 						//	news_html.find('a').addClass('ajaxify_t3');
 							
 							
+							
+							
+							break;
+						case 'team_new_gl_status':
+							
+							console.log('team_new_gl_status ====== ');
+							
+							news_item.un_notification_data = jQuery.parseJSON(news_item.un_notification_data);
+							console.log(news_item);
+
+							news_html = new EJS({
+								text: ejs_view_templates.primary_new_team_gl_status
+							}).render(news_item);
+						//	news_html = jQuery(news_html);
+						//	news_html.find('a').addClass('ajaxify_t3');
+						
+						
 							
 							
 							break;

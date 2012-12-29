@@ -169,7 +169,32 @@ class Model_users_managers extends CI_Model {
 					AND tgla.deactivated = 0 
 					AND tgla.team_fan_page_id = ?";
 		$query = $this->db->query($sql, array($team_venue_id, $team_fan_page_id));
-		return $query->result();
+		$result = $query->result();
+		
+		//get latest status
+		foreach($result as &$res){
+			
+			$this->db->select('
+					glas.id 				as glas_id,
+					glas.status 			as glas_status,
+					glas.create_time 		as glas_create_time,
+					glas.users_oauth_uid 	as glas_users_oauth_uid')
+				->from('guest_list_authorizations_statuses glas')	
+				->where(array(
+					'glas.team_guest_list_authorizations_id' => $res->tgla_id
+				))
+				->order_by('glas_id', 'desc')
+				->limit(1, 0);
+			$query = $this->db->get();
+			$res->status = $query->row();
+			
+			if($res->status)
+				$res->status->glas_human_date = date('l m/d/y h:i:s A', $res->status->glas_create_time);
+			
+		}
+		
+		return $result;
+		
 	}
 	
 	/**

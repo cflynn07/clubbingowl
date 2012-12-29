@@ -7,7 +7,7 @@
 				<div class="avatar">
 					<%
 						var image 	= image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'profile-pics/' + un_notification_data.pgla.up_profile_image + '_t.jpg', {alt: 'Promoter Profile Picture', style: 'max-width:50px;', class: 'ajaxify_t3'});
-						var link 	= inline_link('promoters/' + un_notification_data.pgla.up_public_identifier + '/guest_lists/' + un_notification_data.pgla.pgla_name.replace(' ', '_'), image, {alt: 'User', class: 'ajaxify_t3'})
+						var link 	= inline_link('promoters/' + un_notification_data.pgla.up_public_identifier + '/guest_lists/' + un_notification_data.pgla.pgla_name.replace(/ /g, '_'), image, {alt: 'User', class: 'ajaxify_t3'})
 					%>
 					<%= link %>
 				</div>
@@ -20,12 +20,12 @@
 			  		<table>
 			  			<tr>
 			  				<td>
-			  					<%= inline_link('promoters/' + un_notification_data.pgla.up_public_identifier + '/guest_lists/' + un_notification_data.pgla.pgla_name.replace(' ', '_'), '<h2 style="margin:0;">' + un_notification_data.pgla.pgla_name + '</h2>', {class: 'ajaxify_t3'}) %>
+			  					<%= inline_link('promoters/' + un_notification_data.pgla.up_public_identifier + '/guest_lists/' + un_notification_data.pgla.pgla_name.replace(/ /g, '_'), '<h2 style="margin:0;">' + un_notification_data.pgla.pgla_name + '</h2>', {class: 'ajaxify_t3'}) %>
 			  				</td>
 			  			</tr>
 			  			<tr>
 			  				<td style="min-width:45px;vertical-align:top;">
-    							<p style="margin:0; padding:0;"><%= un_notification_data.pgla.u_full_name %> updated the status of "<%= un_notification_data.pgla.pgla_name %>"</p>
+    							<p style="margin:0; padding:0;"><%= un_notification_data.pgla.u_full_name %> updated the status of "<%= un_notification_data.pgla.pgla_name %>"</p><br/>
     							<p style="margin:0; font-weight: 400; font-size: 19px; padding-left:0; padding-bottom:0; color:#474D6A; border-bottom:1px solid #CCC;"><%= un_notification_data.status %></p>
 			  				</td>
 			  			</tr>

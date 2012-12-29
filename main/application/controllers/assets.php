@@ -544,6 +544,7 @@ class Assets extends MY_Common_Controller {
 									'primary_pop_guestlist_empty',
 									'primary_no_friends',
 									'primary_new_promoter_gl_status',
+									'primary_new_team_gl_status',
 									
 									//friends
 									'friends_nonvc_friend', 

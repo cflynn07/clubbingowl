@@ -1924,6 +1924,53 @@ class Managers extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'update_list_status':
+			
+			
+			
+			
+			
+			
+				
+				$tgla_id 	= $this->input->post('tgla_id');
+				$status 	= $this->input->post('status');
+				$status 	= strip_tags($status);
+				
+				if(!$status){
+					die(json_encode(array('success' => false, 'message' => '')));
+				}
+				
+				//should be checking if guest-list belongs to this promoter... too lazy
+				$this->db->insert('guest_list_authorizations_statuses', array(
+					'team_guest_list_authorizations_id'		=> $tgla_id,
+					'status'								=> $status,
+					'create_time'							=> time(),
+					'users_oauth_uid'						=> $this->vc_user->oauth_uid
+				));
+				
+				$return_obj = new stdClass;
+				$return_obj->status = $status;
+				$return_obj->human_date = date('l m/d/y h:i:s A', time());
+				
+				
+				
+				$this->load->helper('run_gearman_job');
+				run_gearman_job('gearman_new_manager_gl_status', array(
+					'manager_oauth_uid'			=> $this->vc_user->oauth_uid,
+					'tgla_id'					=> $tgla_id,
+					'status'					=> $status,
+					'human_time'				=> $return_obj->human_date
+				), false);
+				
+				
+				
+				die(json_encode(array('success' => true, 'message' => $return_obj)));
+				
+				
+				
+				
+				
+				break;
 			case 'update_pending_requests':
 			
 				$result = $this->_helper_guest_list_approve_deny();

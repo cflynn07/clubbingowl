@@ -341,6 +341,7 @@ class Model_team_guest_lists extends CI_Model {
 					tgla.create_time		as tgla_create_time,
 					tgla.deactivated		as tgla_deactivated,
 					tgla.deactivated_time	as tgla_deactivated_time,
+					tgla.image 				as tgla_image,
 					tv.name 				as tv_name,
 					tv.id					as tv_id,
 					tv.description 			as tv_description,
@@ -360,9 +361,12 @@ class Model_team_guest_lists extends CI_Model {
 				JOIN 	cities c 
 				ON 		t.city_id = c.id
 		
-				WHERE 	tgla.team_venue_id = ?
-				AND 	tgla.id = ?";
-		$query = $this->db->query($sql, array($tv_id, $tgla_id));
+				WHERE 	tgla.id = ?";
+				
+				
+		$query = $this->db->query($sql, array($tgla_id));
+		
+		
 		return $query->row();
 	 	
 	 }
@@ -597,7 +601,37 @@ class Model_team_guest_lists extends CI_Model {
 	  			AND 	t.completed_setup = 1
 	  			AND 	tv.banned = 0";
 	  	$query = $this->db->query($sql, array($venue_id, $guest_list_name));
-	  	return $query->row();
+	  	$result = $query->row();
+		
+		
+		if(!$result){
+					
+			return $result;	
+			
+		}
+		
+		
+		//attach latest status
+		$this->db->select('
+				glas.id 				as glas_id,
+				glas.status 			as glas_status,
+				glas.create_time 		as glas_create_time,
+				glas.users_oauth_uid 	as glas_users_oauth_uid')
+			->from('guest_list_authorizations_statuses glas')	
+			->where(array(
+				'glas.team_guest_list_authorizations_id' => $result->tgla_id
+			))
+			->order_by('glas_id', 'desc')
+			->limit(1, 0);
+		$query = $this->db->get();
+		$result->status = $query->row();
+		
+		if($result->status)
+			$result->status->glas_human_date = date('l m/d/y h:i:s A', $result->status->glas_create_time);
+		
+		Kint::dump($result);
+		
+		return $result;
 	  	
 	  	//NOTE: might be a need to attach this week's guest list reservations for friends lookup
 	 	

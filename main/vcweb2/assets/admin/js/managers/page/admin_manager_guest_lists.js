@@ -796,8 +796,8 @@ jQuery(function(){
 							active: true
 						});
 					
-						//window.location.hash = first[0].get('tgla_id'); //; + '|' first[0].get('tgla_name').replace(' ', '_');
-						window.location.hash = first[0].get('tgla_id') + '-' + first[0].get('tgla_name').replace(' ', '_');
+						//window.location.hash = first[0].get('tgla_id'); //; + '|' first[0].get('tgla_name').replace(/ /g, '_');
+						window.location.hash = first[0].get('tgla_id') + '-' + first[0].get('tgla_name').replace(/ /g, '_');
 					}
 					
 				}else{
@@ -831,7 +831,7 @@ jQuery(function(){
 			//			active: true
 			//		});
 					
-					window.location.hash = res[0].get('tgla_id') + '-' + res[0].get('tgla_name').replace(' ', '_'); //res[0].get('tgla_name').replace(' ', '_');
+					window.location.hash = res[0].get('tgla_id') + '-' + res[0].get('tgla_name').replace(/ /g, '_'); //res[0].get('tgla_name').replace(/ /g, '_');
 					
 				//	pending_requests_change();
 					
@@ -917,7 +917,7 @@ jQuery(function(){
 							data: {
 								vc_method: 	'update_list_status',
 								status: 	new_status,
-								pgla_id: 	_this.model.get('pgla_id')
+								tgla_id: 	_this.model.get('tgla_id')
 							},
 							success: function(data){
 								

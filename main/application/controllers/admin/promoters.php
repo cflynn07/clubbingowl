@@ -1254,6 +1254,12 @@ class Promoters extends MY_Controller {
 				
 				break;
 			case 'update_list_status':
+			
+			
+			
+			
+			
+			
 				
 				$pgla_id = $this->input->post('pgla_id');
 				$status = $this->input->post('status');
@@ -1284,6 +1290,10 @@ class Promoters extends MY_Controller {
 				), false);
 				
 				die(json_encode(array('success' => true, 'message' => $return_obj)));
+				
+				
+				
+				
 				
 				break;
 			case 'retrieve_guest_lists':

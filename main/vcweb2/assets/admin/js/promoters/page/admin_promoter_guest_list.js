@@ -778,7 +778,7 @@ jQuery(function(){
 							active: true
 						});
 					
-						window.location.hash = first[0].get('pgla_name').replace(' ', '_');
+						window.location.hash = first[0].get('pgla_name').replace(/ /g, '_');
 						
 					}
 					
@@ -810,7 +810,7 @@ jQuery(function(){
 						active: true
 					});
 					
-					window.location.hash = res[0].get('pgla_name').replace(' ', '_');
+					window.location.hash = res[0].get('pgla_name').replace(/ /g, '_');
 					
 					pending_requests_change();
 					
