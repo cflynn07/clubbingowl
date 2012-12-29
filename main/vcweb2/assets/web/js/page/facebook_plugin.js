@@ -258,7 +258,15 @@ jQuery(function(){
 	
 	window.vc_page_scripts.facebook_plugin_gl_init = function(){
 		
-				
+		
+		setTimeout(function(){
+			jQuery('div#accordion').effect('pulsate', {
+				distance: 15,
+				times: 2
+			}, 300);	
+		}, 300);
+		
+		
 		var publish_stream = false;
 		
 		fbEnsureInit(function(){

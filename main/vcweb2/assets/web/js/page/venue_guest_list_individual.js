@@ -8,6 +8,16 @@ jQuery(function(){
 		if(window.page_obj && window.page_obj.four_oh_four)
 			return false;
 			
+		
+		setTimeout(function(){
+			jQuery('div#accordion').effect('pulsate', {
+				distance: 15,
+				times: 2
+			}, 300);	
+		}, 300);
+		
+		
+			
 		var publish_stream = false;
 		
 		fbEnsureInit(function(){

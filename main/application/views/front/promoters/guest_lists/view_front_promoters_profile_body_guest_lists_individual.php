@@ -135,7 +135,7 @@
     </div>    
     	
     	
-    <h2>Join here</h2>	
+    <h2 id="join_here">Join here</h2>	
     
 	<div id="accordion">
 		<h3><a class="no-ajaxy" href="javascript: void(0);">1: Add Your Friends</a></h3>
