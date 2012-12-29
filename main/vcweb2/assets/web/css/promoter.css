@@ -684,3 +684,8 @@ div.data_clear_3{
 		display: none;
 	}
 }
+
+
+section#profile ul.venues p.auth_content.tv_friends a.thumbnail img {
+	width: 25px;
+}
