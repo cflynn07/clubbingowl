@@ -2099,6 +2099,9 @@ class Managers extends MY_Controller {
 							
 			case 'update_reservation_host_notes':
 				
+				
+				
+				
 				$host_message = strip_tags($this->input->post('host_message'));
 				if(!$host_message)
 					$host_message = '';
@@ -2111,6 +2114,10 @@ class Managers extends MY_Controller {
 				$result = $this->team_guest_lists->update_promoter_reservation_host_notes($host_message,
 																							$tglr_id);
 				die(json_encode($result));
+				
+				
+				
+				
 				break;
 			case 'list_manual_add':
 				

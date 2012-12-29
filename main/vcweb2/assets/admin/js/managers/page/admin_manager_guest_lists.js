@@ -1424,8 +1424,8 @@ jQuery(function(){
 				var _this = this;
 				jQuery.background_ajax({
 					data: {
-						vc_method: 		'update_promoter_reservation_host_notes',
-						pglr_id: 		_this.model.get('id'),
+						vc_method: 		'update_reservation_host_notes',
+						tglr_id: 		_this.model.get('tglr_id'),
 						host_message:	new_notes
 					},
 					success: function(data){
@@ -1434,14 +1434,14 @@ jQuery(function(){
 						
 						if(data.success){
 							
-							if(new_notes == _this.model.get('pglr_host_message')){
+							if(new_notes == _this.model.get('tglr_host_message')){
 								_this.model.trigger('change');
 								_this.$el.trigger('custom-event-add-fb-data');
 								return;
 							}
 							
 							_this.model.set({
-								pglr_host_message: new_notes
+								tglr_host_message: new_notes
 							});
 							_this.$el.trigger('custom-event-add-fb-data');
 							
