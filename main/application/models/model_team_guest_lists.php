@@ -216,8 +216,12 @@ class Model_team_guest_lists extends CI_Model {
 		/* --------------------------------- */
 		
 		// Check if this user has been 'maually added' by a manager, if so -- delete manager manual add and replace with this.
-		$this->db->delete('teams_guest_lists_reservations', array('manual_add' => 1, 'user_oauth_uid' => $oauth_uid, 'team_guest_list_id' => $teams_guest_list_id));
 		
+		if(!$approve_override)
+			$this->db->delete('teams_guest_lists_reservations', array('manual_add' => 1, 
+																		'user_oauth_uid' => $oauth_uid, 
+																		'team_guest_list_id' => $teams_guest_list_id));
+			
 		
 		//now add HEAD user to promoters_guest_list_reservations
 		$this->db->insert('teams_guest_lists_reservations', array('team_guest_list_id' 		=> $teams_guest_list_id,
