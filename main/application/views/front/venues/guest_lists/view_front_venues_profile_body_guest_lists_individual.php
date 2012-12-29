@@ -83,7 +83,38 @@ div#unavailable_overlay{
       </p>
       
     </div>
-    
+
+
+
+
+<div style="position:relative; margin-bottom:0; margin-top:0; position:relative; top:-20px; left:4px; padding:5px;" class="guestlist-form-right">
+	<div style="background-color:#474D6A; border-radius:5px; color:#FFF;">
+		<h3 style="padding-top:5px; padding-left:5px; margin-bottom:5px;"> <?= $guest_list->tv_name ?>'s List Status</h3>
+		
+		<p style="padding-left:5px; text-align:center; padding-bottom:10px;"><?= $guest_list->tv_name ?> hasn't updated the status of "<?= $guest_list->tgla_name ?>" yet.</p>
+		<span>&nbsp;</span>	
+		
+		
+		<?php if(false): ?>
+			<?php if($guest_list->status && $guest_list->status->glas_status): ?>
+				<p style="margin-top:0px; padding-left:5px;"><?= $guest_list->status->glas_status ?></p>
+				<span style="float:right; padding-right:5px; padding-bottom:5px; color:#FFF; font-size:11px;">Last Updated: <?= $guest_list->status->glas_human_date ?></span>
+			<?php else: ?>
+				
+				<p style="padding-left:5px; text-align:center; padding-bottom:10px;"><?= $promoter->u_first_name ?> hasn't updated the status of "<?= $guest_list->pgla_name ?>" yet.</p>
+				<span>&nbsp;</span>	
+				
+			<?php endif; ?>
+		<?php endif; ?>
+		
+		
+		
+		<div style="clear:both;"></div>
+	</div>
+</div>
+
+
+
 
 <div style="position:relative;" class="guestlist-form-right">
 	   
@@ -98,10 +129,13 @@ div#unavailable_overlay{
     	</p>
     </div>   
     
+    <h2>Join here</h2>	
     	
 	<div id="accordion">
 		<h3><a class="no-ajaxy" href="javascript: void(0);">1: Add Your Friends</a></h3>
 		<div style="overflow:hidden;">
+			
+			 <p>Bringing anyone with you? Let <?= $guest_list->tv_name ?> know by adding them here. (optional)</p>
 			
 			 <p>
 			 	<a class="facebook-invite no-ajaxy white" href="javascript: void(0);">
@@ -109,7 +143,7 @@ div#unavailable_overlay{
 			 	</a>
 			 </p>
 				 
-			<p>Friends: <span id="facebook-gl-friends-count"></span></p>
+			<p>Selected Friends: <span id="facebook-gl-friends-count"></span></p>
 			<div id="facebook-guest-list-friends">No friends added yet.</div>
 			
 			<input class="guestlist-button step_submit" type="button" value="Next">
@@ -337,7 +371,7 @@ div#unavailable_overlay{
 			
 			<input class="guestlist-button step_submit" type="button" value="Next">
 		</div>
-		<h3><a class="no-ajaxy" href="javascript: void(0);">4: Options & Submit</a></h3>
+		<h3><a style="font-weight:600;" class="no-ajaxy" href="javascript: void(0);"><span>Last Step</span>: <span style="color:#37CE73;">Submit</span></a></h3>
 		<div>
 			
 			

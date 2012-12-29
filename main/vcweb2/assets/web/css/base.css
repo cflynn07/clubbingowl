@@ -1182,3 +1182,8 @@ p.gl_sec_header_info {
 img.venue-image {
 	border: 1px solid #474D6A !important;
 }
+
+
+section#guestlist div#accordion h3.ui-accordion-header {
+	font-weight: 100;
+}
