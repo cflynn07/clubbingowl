@@ -75,6 +75,9 @@
 						
 					data = jQuery(data);
 
+				//	delete window.page_obj;
+
+
 					jQuery('div[role=main]').html(data);
 					var title = jQuery('div[role=main] > div#ajaxify_page_title').html();
 					History.pushState({
