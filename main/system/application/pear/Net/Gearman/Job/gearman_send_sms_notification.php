@@ -36,8 +36,8 @@ class Net_Gearman_Job_gearman_send_sms_notification extends Net_Gearman_Job_Comm
 				WHERE uid = ?";
 	//	$fb_user_info = $CI->facebook->fb_fql_query($fql, array($user_oauth_uid));
 		
-		$fb_user_info = $CI->facebook->fb_api_query('/' . $user_oauth_uid);
-
+		$fb_user_info = $CI->facebook->fb_api_query($user_oauth_uid);
+		var_dump($fb_user_info);
 		
 		
 		if(!$fb_user_info){

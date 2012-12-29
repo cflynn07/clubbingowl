@@ -78,25 +78,33 @@ class Library_facebook{
 		
 		$api_request = $graph_api_endpoint . urlencode($method);
 		
+		
+		
 	    if($access_token){
 	    	if($http_method == 'POST'){
 	    		$params['access_token'] = $access_token;
 	    	}else{
-	    		$api_request .= '&access_token=' . $access_token;
+	    		$api_request .= '?access_token=' . $access_token;
 	    	}
 	    }else{
 	    	if($http_method == 'POST'){
 	    		$params['access_token'] = $this->vibecompass_app_access_token;
 	    	}else{
-	    		$api_request .= '&access_token=' . $this->vibecompass_app_access_token;
+	    		$api_request .= '?access_token=' . $this->vibecompass_app_access_token;
 	    	}
 	    }
+		
+		
+		
+		
 		
 		if($http_method == 'POST'){
 			$params['format'] = 'json';			
 		}else{
 			$api_request .= '&format=json';
 		}
+				
+				var_dump($api_request);
 				
 		$result = $this->_curl_method($api_request, $http_method, $params);
 		return json_decode(preg_replace('/("\w+"):(\d+)/', '\\1:"\\2"', $result), true);

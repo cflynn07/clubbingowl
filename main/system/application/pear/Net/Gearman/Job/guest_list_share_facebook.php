@@ -73,7 +73,7 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 
 	//	$result = $CI->facebook->fb_api_query('/me/feed/', $vc_user->users_access_token, 'POST', $params);
 		//we don't need a user access token to post to a user's facebook wall if they've granted our application 'publish-stream' access
-		$result = $CI->facebook->fb_api_query('/' . $user_oauth_uid . '/feed/', false, 'POST', $params);
+		$result = $CI->facebook->fb_api_query($user_oauth_uid . '/feed/', false, 'POST', $params);
 		
 		var_dump($result);
 		
