@@ -796,7 +796,7 @@ jQuery(function(){
 							active: true
 						});
 					
-						window.location.hash = first[0].get('tgla_name').replace(' ', '_');
+						window.location.hash = first[0].get('tgla_id'); //; + '|' first[0].get('tgla_name').replace(' ', '_');
 					}
 					
 				}else{
@@ -826,11 +826,11 @@ jQuery(function(){
 						});
 					});
 					
-					res[0].set({
-						active: true
-					});
+			//		res[0].set({
+			//			active: true
+			//		});
 					
-					window.location.hash = res[0].get('tgla_name').replace(' ', '_');
+					window.location.hash = res[0].get('tgla_id'); //res[0].get('tgla_name').replace(' ', '_');
 					
 				//	pending_requests_change();
 					
@@ -956,8 +956,9 @@ jQuery(function(){
 			},
 			render: function(){
 				
-				var _this = this;
-				var template = EVT['guest_lists/gl_reservations_table'];
+				
+				var _this 		= this;
+				var template 	= EVT['guest_lists/gl_reservations_table'];
 				
 				
 				var active_list = this.collection.where({
@@ -966,8 +967,8 @@ jQuery(function(){
 				if(!active_list.length)
 					return false;
 										
-				active_list = active_list[0];
-				this.active_list = active_list;
+				active_list 		= active_list[0];
+				this.active_list 	= active_list;
 
 
 				//insert list status
@@ -975,15 +976,75 @@ jQuery(function(){
 					model: this.active_list
 				});		
 				
-				console.log('---');
+				
+				
+				//todo - delete
+				console.log('--- active_list ---');
 				console.log(this.active_list.toJSON()); 
+				
+				
 				
 				var html = new EJS({
 					text: template
 				}).render(active_list.toJSON());
 				this.$el.html(html);
 				
+				
+				
+				
+				var tbody 	 	 = this.$el.find('tbody');
+				var current_list = active_list.get('current_list');
+
+				
+				
+				
+				if(current_list && current_list.groups){
+						
+						
+					this.collection_reservations = new Collections.Reservations(current_list.groups);
+					this.collection_reservations.each(function(m){
+						
+						var view_reservation = new Views.Reservation({
+							model: m
+						});
+						tbody.append(view_reservation.el);
+						view_reservation.render();
+						
+					});
+					
+					
+					tbody.find('> tr:odd').addClass('odd');
+					this.custom_events_add_fb_data();
+
+					
+				}else{
+					
+					var html = new EJS({
+						text: EVT['guest_lists/gl_tr_no_reservations']
+					}).render({});
+					tbody.html(html);
+					return this;
+					
+				}
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				return;
+				
+				/*
+				
+				
+				
+				
+				
+				
 				
 				
 				//this.$el.tabs();
@@ -1079,36 +1140,11 @@ jQuery(function(){
 					}
 				});
 						
-				var tbody  = this.$el.find('tbody');
-				var groups = this.active_list.get('groups');
-				if(!groups.length){
-					
-					var html = new EJS({
-						text: EVT['guest_lists/gl_tr_no_reservations']
-					}).render({});
-					tbody.html(html);
-					return this;
-					
-				}
-
-				this.collection_reservations = new Collections.Reservations(groups);
-				this.collection_reservations.each(function(m){
-					
-					var view_reservation = new Views.Reservation({
-						model: m
-					});
-					tbody.append(view_reservation.el);
-					view_reservation.render();
-					
-				});
-				
-				
-				tbody.find('> tr:odd').addClass('odd');
-				
-				
-				this.custom_events_add_fb_data();
+		
 				
 				return this;		
+				
+				*/
 				
 			},
 			events: {
@@ -1155,6 +1191,8 @@ jQuery(function(){
 			},
 			custom_events_add_fb_data: function(e){
 				
+				
+				
 				var _this = this;
 				
 				var fb_names = function(rows){
@@ -1164,10 +1202,33 @@ jQuery(function(){
 					}
 				}				
 				
+				console.log('custom_events_add_fb_data');
+				console.log('this.users');
+				console.log(this.users);
+				
+				
 				if(this.users === null){
 					
+					
+					
+					var users = [];
+					//find all users in html
+					this.$el.find('*[data-oauth_uid]').each(function(){
+						
+						var oauth_uid = jQuery(this).attr('data-oauth_uid');
+						if(!oauth_uid)
+							return;
+							
+						users.push(oauth_uid);
+						
+					});
+					users = _.uniq(users);
+					console.log('users');
+					console.log(users);
+					
+					
 					//add fb queried names
-					jQuery.fbUserLookup(window.page_obj.users, '', function(rows){
+					jQuery.fbUserLookup(users, '', function(rows){
 						_this.users = rows;
 						fb_names(rows);
 					});
@@ -1175,7 +1236,9 @@ jQuery(function(){
 				}else{
 					fb_names(this.users);
 				}
-						
+				
+				
+				
 						
 			},
 			events_click_data_action: function(e){
@@ -1237,6 +1300,8 @@ jQuery(function(){
 				
 				console.log('Views.Reservation.render()');
 				
+							
+				
 				var template = EVT['guest_lists/gl_reservation'];
 				var html = new EJS({
 					text: template
@@ -1251,7 +1316,7 @@ jQuery(function(){
 				this.$el.html(html);
 				
 				var timestamp = Math.floor(new Date().getTime() / 1000);
-				if(Math.abs(timestamp - parseInt(this.model.get('time'))) < 10)
+				if(Math.abs(timestamp - parseInt(this.model.get('tglr_create_time'))) < 10)
 					this.$el.effect('highlight', {}, 2000, function(){
 						
 					});
@@ -1494,9 +1559,11 @@ jQuery(function(){
 		
 		
 		
-		//GO!	
-					
-		//strip out the GLA's from each TV
+		
+		
+		
+		
+		
 		
 		
 		var collection_team_venues;
@@ -1507,7 +1574,7 @@ jQuery(function(){
 			
 			var PO_clone = jQuery.extend(window.page_obj, {});
 			
-			var lists 					= [];
+			var lists 				= [];
 			collection_team_venues 	= new Collections.TeamVenues(PO_clone.team_venues);
 			collection_team_venues.each(function(m){
 				
@@ -1525,15 +1592,24 @@ jQuery(function(){
 			collection_guest_lists 		= new Collections.GuestLists(lists);
 			view_left_menu 				= new Views.LeftMenu({
 				collection: collection_guest_lists,
-				el: '#left_menu'
+				el: 		'#left_menu'
 			});
 			var view_guest_list = new Views.GuestList({
 				collection: collection_guest_lists,
-				el: '#lists_container'
+				el: 		'#lists_container'
 			});
+
 
 		};
 		prep_and_launch();
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		var hash_change_callback = function(){
@@ -1541,10 +1617,12 @@ jQuery(function(){
 			if(window.location.hash.length === 0)
 				return;
 				
-			var tgla_name = window.location.hash.replace('_', ' ').replace('#', '');
-
+			//var tgla_name = window.location.hash.replace('_', ' ').replace('#', '');
+			var tgla_id = window.location.hash.replace('#', '');
+			
 			var res = collection_guest_lists.where({
-				tgla_name: tgla_name
+			//	tgla_name: tgla_name
+				tgla_id: tgla_id
 			});
 						
 			if(res.length){
@@ -1562,25 +1640,10 @@ jQuery(function(){
 			}
 		};
 		jQuery(window).bind('hashchange', hash_change_callback);
-		jQuery(window).trigger('hashchange');
+		jQuery(window).trigger('hashchange'); //<-- necessary, don't delete
 		
 		
 		
-		
-		
-//		var collection_guest_lists = new Collections.GuestLists(window.page_obj.team_venues);
-//		var view_left_menu = new Views.LeftMenu({
-//			collection: collection_guest_lists,
-//			el: '#left_menu'
-//		});
-	/*
-	 	var view_guest_list = new Views.GuestList({
-			collection: collection_guest_lists,
-			el: '#lists_container'
-		});
-	*/
-
-
 		
 		
 		
@@ -1594,41 +1657,6 @@ jQuery(function(){
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		window.module.Globals.prototype.unbind_callback = function(){
-			
-			
-			
-		}
 		
 		
 		return;
