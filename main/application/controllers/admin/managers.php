@@ -53,7 +53,13 @@ class Managers extends MY_Controller {
 		$this->load->vars('mt_live_status', $t_live_status);
 
 		if(!$t_live_status && strpos($_SERVER['REQUEST_URI'], '/admin/managers/settings_payment') !== 0){
-			redirect('/admin/managers/settings_payment/', 301);
+			
+			if($this->input->post('ajaxi{fy')){
+				echo '<script type="text/javascript">window.location="/admin/managers/settings_payment/";</script>';
+			}else{
+				redirect('/admin/managers/settings_payment/', 301);
+			}
+			
 			die();
 		}
 		
@@ -873,11 +879,19 @@ class Managers extends MY_Controller {
 	private function _settings_payment($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		$this->load->config('stripe');
+		$this->load->model('model_teams', 'teams', true);
+		
+		
+		//perform an upgrade check on a team to see if max number of promoters / hosts / managers exceeded
+		$this->load->model('model_teams', 'teams', true);
+		$this->teams->upgrade_check($this->vc_user->manager->team_fan_page_id);
 		
 		
 		
 		
-		$this->db->select('t.last4 as last4, t.card_type as type')
+		$this->db->select('t.last4 			as last4, 
+						   t.card_type 		as type,
+						   t.billing_tier 	as billing_tier')
 			->from('teams t')
 			->where(array(
 				't.fan_page_id' => $this->vc_user->manager->team_fan_page_id

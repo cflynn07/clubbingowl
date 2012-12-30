@@ -175,7 +175,15 @@ class Invitations extends MY_Controller {
 				$vc_user->host = $this->users_hosts->retrieve_team_host($vc_user->oauth_uid);				
 			}
 			
+			
 			// -------------------------------------------- HOST INVITATIONS ----------------------------------------------------
+			
+			
+			//perform an upgrade check on a team to see if max number of promoters / hosts / managers exceeded
+			$this->load->model('model_teams', 'teams', true);
+			$this->teams->upgrade_check($current_invitation_object->ui_invitation_team_fan_page_id);
+			
+						
 			
 		}else{
 			

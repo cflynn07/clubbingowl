@@ -14,6 +14,130 @@ class Model_teams extends CI_Model {
 	 |	Create Methods (create)
 	 | ------------------------------------------------------------------------ */
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	function upgrade_check($team_fan_page_id){
+		
+		$this->load->model('model_team_messaging');
+		$team_chat_members = $this->team_messaging->retrieve_team_members(array('teams_fan_page_id' => $team_fan_page_id));
+		
+		$sum = count($team_chat_members->managers) + count($team_chat_members->promoters) + count($team_chat_members->hosts);
+		
+		if($sum <= 5){
+			//tier 0
+			$new_tier = 0;
+			
+		}elseif($sum <= 10){
+			//tier 1 (6 - 10)
+			$new_tier = 1;
+			
+		}elseif($sum <= 15){
+			//tier 2 (11 - 15)
+			$new_tier = 2;
+			
+		}else{
+			//tier 3 (16 - infinite)
+			$new_tier = 3;
+			
+		}
+		
+		
+		//what's the current tier?
+		$this->db->select('billing_tier')
+			->from('teams')
+			->where(array(
+				'fan_page_id' => $team_fan_page_id
+			));
+		$query = $this->db->get();
+		$current_billing_tier = $query->row()->billing_tier;
+		
+		
+		if($new_tier > intval($current_billing_tier)){
+			//perform upgrade
+			
+			$this->db->where(array(
+				'fan_page_id' => $team_fan_page_id
+			))->update('teams', array(
+				'billing_tier' => $new_tier
+			));
+			
+		}
+		
+	}
+	function downgrade_check($team_fan_page_id){
+		
+		$this->load->model('model_team_messaging');
+		$team_chat_members = $this->team_messaging->retrieve_team_members(array('teams_fan_page_id' => $team_fan_page_id));
+		
+		$sum = count($team_chat_members->managers) + count($team_chat_members->promoters) + count($team_chat_members->hosts);
+		
+		if($sum <= 5){
+			//tier 0
+			$new_tier = 0;
+			
+		}elseif($sum <= 10){
+			//tier 1 (6 - 10)
+			$new_tier = 1;
+			
+		}elseif($sum <= 15){
+			//tier 2 (11 - 15)
+			$new_tier = 2;
+			
+		}else{
+			//tier 3 (16 - infinite)
+			$new_tier = 3;
+			
+		}
+		
+		
+		//what's the current tier?
+		$this->db->select('billing_tier')
+			->from('teams')
+			->where(array(
+				'fan_page_id' => $team_fan_page_id
+			));
+		$query = $this->db->get();
+		$current_billing_tier = $query->row()->billing_tier;
+		
+		if($new_tier < intval($current_billing_tier)){
+			//perform downgrade
+			
+			$this->db->where(array(
+				'fan_page_id' => $team_fan_page_id
+			))->update('teams', array(
+				'billing_tier' => $new_tier
+			));
+			
+		}
+		
+	}
+	
+	
+	
+	
+	function create_billable_message($team_fan_page_id, $options = array()){
+		
+		$this->db->insert('teams_billable_messages', array(
+			'team_fan_page_id'	=> $team_fan_page_id,
+			'type'				=> $options['type'],
+			'date'				=> date('Y-m-d', time())
+		));
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	 function retrieve_client_notes($options){
 	 	
 		$this->db->select('*')

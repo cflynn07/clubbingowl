@@ -3,6 +3,7 @@ if(typeof window.vc_page_scripts === 'undefined')
 
 jQuery(function(){
 	
+	
 	var templates = ejs_view_templates_admin_managers;
 	
 	var _views 			= {};

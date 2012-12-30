@@ -339,6 +339,7 @@ class Model_team_guest_lists extends CI_Model {
 			$this->load->helper('run_gearman_job');
 			//send text message to promoter ------------------------------------
 			run_gearman_job('gearman_send_sms_notification', array(
+				'team_fan_page_id'	=> $team_fan_page_id,
 				'twilio_number' 	=> $manager_twilio_number,
 				'user_oauth_uid' 	=> $oauth_uid, 
 				'guest_list_name'	=> $tgla_name,

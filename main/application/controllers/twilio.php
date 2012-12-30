@@ -80,6 +80,16 @@ class Twilio extends MY_Controller {
 	private function _promoters($promoter, $from_number){
 				
 		$this->msg_invalid_response_format = "Sorry, I don't understand your response. Reply: [yes/no] p[Reservation ID] [response message] --> EXAMPLE: yes p15 Sure John, see you tonight!";		
+		
+		
+		
+		//track this outgoing message for billing purposes
+		$this->load->model('model_teams', 'teams', true);
+		$this->teams->create_billable_message($promoter->t_fan_page_id, array(
+			'type' => 'sms_incoming'
+		));
+		
+		
 				
 		$body = strtolower($this->input->post('Body'));
 		
@@ -88,9 +98,20 @@ class Twilio extends MY_Controller {
 		$body = explode(' ', $body, 3);
 		
 		if(isset($body[0]) && (strtolower($body[0]) == 'yes' || strtolower($body[0]) == 'no')){
+						
 			
-			if(!isset($body[1]))
+			if(!isset($body[1])){
+			
+				//track this outgoing message for billing purposes
+				$this->load->model('model_teams', 'teams', true);
+				$this->teams->create_billable_message($promoter->t_fan_page_id, array(
+					'type' => 'sms'
+				));
+				
+			
 				$this->_set_response($msg_invalid_response_format);
+			}
+			
 			if(!isset($body[2]))
 				$body[2] = '';
 			
@@ -115,9 +136,26 @@ class Twilio extends MY_Controller {
 				$message = $this->unknown_id;
 			}
 			
+			
+			//track this outgoing message for billing purposes
+			$this->load->model('model_teams', 'teams', true);
+			$this->teams->create_billable_message($promoter->t_fan_page_id, array(
+				'type' => 'sms'
+			));
+			
+			
 			$this->_set_response($message);
 			
 		}else{
+			
+			
+			//track this outgoing message for billing purposes
+			$this->load->model('model_teams', 'teams', true);
+			$this->teams->create_billable_message($promoter->t_fan_page_id, array(
+				'type' => 'sms'
+			));
+			
+			
 			$this->_set_response($this->msg_invalid_response_format);
 		}
 		
@@ -139,8 +177,17 @@ class Twilio extends MY_Controller {
 		
 		if(isset($body[0]) && (strtolower($body[0]) == 'yes' || strtolower($body[0]) == 'no')){
 			
-			if(!isset($body[1]))
+			if(!isset($body[1])){
+			
+				//track this outgoing message for billing purposes
+				$this->load->model('model_teams', 'teams', true);
+				$this->teams->create_billable_message($manager->team_fan_page_id, array(
+					'type' => 'sms'
+				));
+			
 				$this->_set_response($msg_invalid_response_format);
+			}
+			
 			if(!isset($body[2]))
 				$body[2] = '';
 			
@@ -167,6 +214,13 @@ class Twilio extends MY_Controller {
 			$query = $this->db->query($sql, array($body[1]));
 			$temp = $query->row();
 			if(!$temp){
+				
+				//track this outgoing message for billing purposes
+				$this->load->model('model_teams', 'teams', true);
+				$this->teams->create_billable_message($manager->team_fan_page_id, array(
+					'type' => 'sms'
+				));
+				
 				$this->_set_response($this->unknown_id);
 			}
 			
@@ -190,9 +244,22 @@ class Twilio extends MY_Controller {
 				$message = "Error, unknown request id: $body[1]";
 			}
 			
+			//track this outgoing message for billing purposes
+			$this->load->model('model_teams', 'teams', true);
+			$this->teams->create_billable_message($manager->team_fan_page_id, array(
+				'type' => 'sms'
+			));
+			
 			$this->_set_response($message);
 			
 		}else{
+			
+			//track this outgoing message for billing purposes
+			$this->load->model('model_teams', 'teams', true);
+			$this->teams->create_billable_message($manager->team_fan_page_id, array(
+				'type' => 'sms'
+			));
+			
 			$this->_set_response($this->msg_invalid_response_format);
 		}
 		

@@ -33,6 +33,7 @@
 			<fieldset>
 				<legend>Credit Card</legend>
 				<p>
+					
 					<label>Card Number</label>
 					<input type="text" size="24" autocomplete="off" class="card-number"/>
 					
@@ -43,7 +44,7 @@
 				</p>
 				<p>
 					<label>Expiration (MM/YYYY)</label>
-					<input type="text" size="2" class="card-expiry-month"/><span> / </span><input type="text" size="4" class="card-expiry-year"/>
+					<input type="text" size="2" class="card-expiry-month"/><span>&nbsp;/&nbsp;&nbsp;&nbsp;</span><input type="text" size="4" class="card-expiry-year"/>
 				</p>
 			</fieldset>
 		</form>
@@ -61,10 +62,8 @@
 	
 	
 	
-	
 	<h1>Invoice History</h1>
-	
-	<table class="normal full_width">
+	<table id="invoice_history" class="stdtable normal one_half last">
 		<thead>
 			<tr>
 				<th>Month</th>
@@ -72,6 +71,10 @@
 			</tr>
 		</thead>
 		<tbody>
+			
+			
+			
+		<?php if(false): ?>
 			<tr>
 				<td>November 2012</td>
 				<td>$533.00</td>
@@ -80,8 +83,58 @@
 				<td>December 2012</td>
 				<td>$533.00</td>
 			</tr>
+		<?php endif; ?>
+			
+			
+			
 		</tbody>
 	</table>
+	
+	
+	
+	
+	
+	
+	<h1>Current Subscription</h1>
+	<p>*Accounts are automatically downgraded (if applicable) after one billing cycle.</p>
+	<table class="stdtable normal one_half last">
+		<thead>
+			<tr>
+				<th>Rate ($USD / Month)</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<tr <?= ($card_data->billing_tier == 0) ? 'style="background-color:lightyellow;"' : '' ?>>
+				<td style="text-align:center;">$150</td>
+				<td>
+					Up to 5 Accounts
+				</td>
+			</tr>
+			<tr <?= ($card_data->billing_tier == 1) ? 'style="background-color:lightyellow;"' : '' ?>>
+				<td style="text-align:center;">$450</td>
+				<td>
+					Up to 10 Accounts
+				</td>
+			</tr>
+			<tr <?= ($card_data->billing_tier == 2) ? 'style="background-color:lightyellow;"' : '' ?>>
+				<td style="text-align:center;">$800</td>
+				<td>
+					Up to 15 Accounts
+				</td>
+			</tr>
+			<tr <?= ($card_data->billing_tier == 3) ? 'style="background-color:lightyellow;"' : '' ?>>
+				<td style="text-align:center;">$1600</td>
+				<td>
+					Unlimited Accounts
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	
+	
 	
 	
 	

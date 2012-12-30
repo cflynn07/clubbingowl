@@ -11,6 +11,8 @@ class Net_Gearman_Job_gearman_send_sms_mass_text_team_announcements extends Net_
 		// Get Codeigniter instance, and config.
 		$CI =& get_instance();
 		
+		$CI->load->model('model_teams', 'teams', true);
+		
 		$CI->load->library('library_facebook', '', 'facebook');
 		$CI->load->library('Twilio', '', 'twilio');
 				
@@ -47,6 +49,12 @@ class Net_Gearman_Job_gearman_send_sms_mass_text_team_announcements extends Net_
 		
 		$sms = "(ClubbingOwl) New Announcement from " . $fb_user_info['name'] . ":\n";
 		$sms .= '"' . $message . '"';
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -108,6 +116,12 @@ class Net_Gearman_Job_gearman_send_sms_mass_text_team_announcements extends Net_
 			curl_setopt($curls[$key], CURLOPT_POST, 1 );
 			$key++;
 			
+			//track this outgoing message for billing purposes
+			$CI->teams->create_billable_message($team_fan_page_id, array(
+				'type' => 'sms'
+			));
+			
+			
 		}
 		
 		
@@ -166,6 +180,13 @@ class Net_Gearman_Job_gearman_send_sms_mass_text_team_announcements extends Net_
 			curl_setopt($curls[$key], CURLOPT_RETURNTRANSFER, 1 );
 			curl_setopt($curls[$key], CURLOPT_POST, 1 );
 			$key++;
+			
+			
+			//track this outgoing message for billing purposes
+			$CI->teams->create_billable_message($team_fan_page_id, array(
+				'type' => 'sms'
+			));
+			
 
 		}
 		

@@ -14,7 +14,7 @@ class Net_Gearman_Job_gearman_send_sms_notification extends Net_Gearman_Job_Comm
 		$CI->load->library('library_facebook', '', 'facebook');
 		$CI->load->library('Twilio', '', 'twilio');
 				
-		
+		$team_fan_page_id   = $args['team_fan_page_id'];
 		$twilio_number 		= $args['twilio_number'];
 		$user_oauth_uid		= $args['user_oauth_uid'];
 		$guest_list_name	= $args['guest_list_name'];
@@ -46,6 +46,15 @@ class Net_Gearman_Job_gearman_send_sms_notification extends Net_Gearman_Job_Comm
 			return;   
 		}
 	
+		
+		//track this outgoing message for billing purposes
+		$CI->load->model('model_teams', 'teams', true);
+		$CI->teams->create_billable_message($team_fan_page_id, array(
+			'type' => 'sms'
+		));
+		
+		
+		
 		
 		
 		
