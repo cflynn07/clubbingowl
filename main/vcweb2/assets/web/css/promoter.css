@@ -228,7 +228,7 @@
 #profile .venues li p {
   clear: both;
   float: left;
-  margin-top: 15px;
+  margin-top: 0px;
   font-size: 12px;
 }
 #profile .venues li p .thumbnail {

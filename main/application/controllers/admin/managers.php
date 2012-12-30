@@ -42,20 +42,22 @@ class Managers extends MY_Controller {
 			
 			
 			
-		//is manager live?
-		$this->db->select('mt.live_status as mt_live_status')
-			->from('managers_teams mt')
+		//is team live?
+		$this->db->select('t.live_status as t_live_status')
+			->from('teams t')
 			->where(array(
-				'mt.id'	=> $vc_user->manager->mt_id
+				't.fan_page_id'	=> $vc_user->manager->team_fan_page_id
 			));
-		$mt_live_status = $this->db->get()->row()->mt_live_status;
+		$t_live_status = $this->db->get()->row()->t_live_status;
 					
-		$this->load->vars('mt_live_status', $mt_live_status);
+		$this->load->vars('mt_live_status', $t_live_status);
 
-		if(!$mt_live_status && strpos($_SERVER['REQUEST_URI'], '/admin/managers/settings_payment') !== 0){
+		if(!$t_live_status && strpos($_SERVER['REQUEST_URI'], '/admin/managers/settings_payment') !== 0){
 			redirect('/admin/managers/settings_payment/', 301);
 			die();
 		}
+		
+		
 		
 		
 			
@@ -859,17 +861,32 @@ class Managers extends MY_Controller {
 		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private function _settings_payment($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		$this->load->config('stripe');
 		
-		$this->db->select('mt.last4 as last4, mt.card_type as type')
-			->from('managers_teams mt')
+		
+		
+		
+		$this->db->select('t.last4 as last4, t.card_type as type')
+			->from('teams t')
 			->where(array(
-				'mt.id' => $this->vc_user->manager->mt_id
+				't.fan_page_id' => $this->vc_user->manager->team_fan_page_id
 			));
 		$data = $this->db->get()->row();
 		$this->load->vars('card_data', $data);
+		
+		
+		
 		
 		$this->body_html = $this->load->view($this->view_dir . 'settings/view_settings_payment', '', true);
 		
@@ -880,27 +897,40 @@ class Managers extends MY_Controller {
 			case 'update_stripe_token':
 			
 				$this->load->library('library_payments', '', 'payments');
-				$this->payments->update_stripe_token(array(
-					'managers_teams_id'	=> $this->vc_user->manager->mt_id,
+				$result = $this->payments->update_stripe_token(array(
+					'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
+					'team_name'			=> $this->vc_user->manager->team_name,
 					'token'				=> $this->input->post('token')
 				));
+			
+			
+			//	$this->payments->bill_manager(array(
+			//		'managers_teams_id'	=> $this->vc_user->manager->mt_id
+			//	));
 				
-				$this->payments->bill_manager(array(
-					'managers_teams_id'	=> $this->vc_user->manager->mt_id
-				));
 				
 				
-				
-				die(json_encode(array('success' => true)));
+				die(json_encode(array('success' => $result)));
+			
+			
 			
 				break;
 			default:
 				die(json_encode(array('success' => false)));
 		}
-		
-		
-		
+				
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Invite/Review/Delete promoters

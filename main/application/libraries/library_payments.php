@@ -17,20 +17,82 @@ class library_payments{
 	}
 	
 	
+	
+	
+	
 	public function update_stripe_token($options){
+
+		//do we already have a customer object from stripe for this team?
+		$this->ci->db->select('*')
+			->from('teams')
+			->where(array(
+				'fan_page_id' 	=> $options['team_fan_page_id']
+			));
+		$query 	= $this->ci->db->get();
+		$result = $query->row();
+
+
+
+
+
 		
-		$result = json_decode($this->ci->stripe->customer_create($options['token'], ''));
-		
-		$this->ci->db->where(array(
-			'id'	=> $options['managers_teams_id']
-		));
-		$this->ci->db->update('managers_teams', array(
-			'stripe_token'	=> $result->id,
-			'last4'			=> $result->active_card->last4,
-			'card_type'		=> $result->active_card->type
-		));
+		if($result->stripe_token){
+			//yes, update existing
+			
+			$stripe_result = $this->ci->stripe->customer_update($result->stripe_token, array(
+				'card' => $options['token']
+			));
+			$stripe_result = json_decode($stripe_result);
+			
+			if(!isset($stripe_result->id))
+				return false;
 				
+			$this->ci->db->where(array(
+				'fan_page_id'	=> $options['team_fan_page_id']
+			));
+			$this->ci->db->update('teams', array(
+				'stripe_token'	=> $stripe_result->id,
+				'last4'			=> $stripe_result->active_card->last4,
+				'card_type'		=> $stripe_result->active_card->type,
+				'live_status'	=> '1'
+			));			
+			
+			return true;
+			
+		}else{			
+			//no, create one
+		
+			$stripe_result = $this->ci->stripe->customer_create($options['token'], 
+																	'', 
+																	$options['team_fan_page_id'] . ' - ' . $options['team_name']);
+			$stripe_result = json_decode($stripe_result);
+			
+			if(!isset($stripe_result->id))
+				return false;
+			
+			$this->ci->db->where(array(
+				'fan_page_id'	=> $options['team_fan_page_id']
+			));
+			$this->ci->db->update('teams', array(
+				'stripe_token'	=> $stripe_result->id,
+				'last4'			=> $stripe_result->active_card->last4,
+				'card_type'		=> $stripe_result->active_card->type,
+				'live_status'	=> '1'
+			));
+			
+			return true;
+			
+		}
+					
+					
+					
+					
+					
 	}
+	
+	
+	
+	
 	
 	public function bill_manager($options){
 		

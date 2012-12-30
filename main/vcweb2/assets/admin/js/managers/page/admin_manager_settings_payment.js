@@ -27,7 +27,11 @@ jQuery(function(){
 			this.card_exp_m.mask('99');
 			this.card_exp_y.mask('2099');
 				
-			
+			if(window.card_data && window.card_data.last4){
+				this.card_num.attr({
+					'placeholder': 'xxxx-xxxx-xxxx-' + window.card_data.last4
+				});
+			}
 				
 			this.render();
 		},
@@ -50,7 +54,7 @@ jQuery(function(){
 			
 			e.preventDefault();
 			
-			this.$el.find('#update').slideDown();
+			//this.$el.find('#update').slideDown();
 			
 			return false;
 			
