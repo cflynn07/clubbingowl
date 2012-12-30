@@ -371,7 +371,10 @@ jQuery(function(){
 						for(var i = 0; i < rows.length; i++){													
 							var html = '<div class="live_visitor ' + rows[i].uid + '">';
 							html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
-							html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+							//html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+						
+							html += '<a class="ajaxify" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + rows[i].uid + '/" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';				
+						
 							html += '</div>';
 							jQuery('div#live_visitors').append(html);
 						}
@@ -404,10 +407,14 @@ jQuery(function(){
 					query.wait(function(rows){
 						console.log(rows);
 						
+						
 						for(var i = 0; i < rows.length; i++){
 							var html = '<div class="live_visitor ' + rows[i].uid + '">';
 							html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" />';
-							html += '<a href="#" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+							//html += '<a class="ajaxify" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + rows[i].uid + '/" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+							
+							html += '<a class="ajaxify" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + rows[i].uid + '/" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';				
+							
 							html += '</div>';
 							jQuery('div#live_visitors').append(html);
 						}
@@ -894,7 +901,9 @@ jQuery(function(){
 					
 					var html = '<div data-user_oauth_uid="' + rows[i].uid + '" class="visitor ' + rows[i].uid + '">';
 					html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" /><br/>';
-					html += '<a href="javascript:void(0);" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+					//html += '<a href="javascript:void(0);" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+					
+					html += '<a class="ajaxify" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + rows[i].uid + '/" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';				
 					html += '</div>';
 					jQuery('div#live_visitors').append(html);
 					
@@ -925,7 +934,9 @@ jQuery(function(){
 						
 						var html = '<div data-user_oauth_uid="' + rows[i].uid + '" class="visitor ' + rows[i].uid + '">';
 						html += '<img style="width:50px;height:50px;" src="' + rows[i].pic_square + '" alt="picture" /><br/>';
-						html += '<a href="javascript:void(0);" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+						//html += '<a href="javascript:void(0);" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';
+						html += '<a class="ajaxify" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + rows[i].uid + '/" class="vc_name"><span class="uid">' + rows[i].uid + '</span>' + rows[i].first_name + '</a>';				
+					
 						html += '</div>';
 						jQuery('div#live_visitors').append(html);
 						

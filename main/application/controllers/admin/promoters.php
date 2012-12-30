@@ -542,6 +542,9 @@ class Promoters extends MY_Controller {
 	
 			$data['data']	= $page_data;
 			$data['client'] = $client;
+			$data['oauth_uid'] = strip_tags($arg1);
+			
+			
 			$this->body_html = $this->load->view('admin/promoters/clients/view_clients_individual', $data, true);;
 			
 			return;

@@ -3,6 +3,7 @@
 	$page_obj->clients 			= $clients;
 	$page_obj->client 			= $client;
 	$page_obj->users			= $data->users;
+	$page_obj->oauth_uid		= $oauth_uid;
 ?>
 <?php Kint::dump($data); ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
@@ -14,7 +15,7 @@
 	<div class="ui-widget">
 		
 		<div style="min-height:200px;" class="one_fifth">
-			<img id="client_pic" />
+			<img style="border:1px solid #CCC;" id="client_pic" />
 		</div>
 		<div class="four_fifth last">
 			<h2>Info</h2>
@@ -29,6 +30,15 @@
 						<td class="key">Email:</td>
 						<td data-email=""></td>
 					</tr>
+					
+					<?php if($client === false): ?>
+						
+						<tr>
+							<td colspan="2"><p style="color:red; margin:0;"><span data-client-name=""></span> has not joined one of your guest-lists. You will not be able to see his/her email address and phone number until then.</p></td>
+						</tr>
+						
+					<?php endif; ?>
+					
 				</tbody>
 			</table>
 			

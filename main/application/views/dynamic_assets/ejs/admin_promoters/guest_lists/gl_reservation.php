@@ -11,12 +11,18 @@
 		<br/>
 		
 	<% } %>
+		
+		
 			
-	<% if(head_user == null){ %>
-		<span><%= pglr_supplied_name %></span>
-	<% }else{ %>
-		<span data-name="<%= head_user %>"></span>
-	<% } %>
+		<% if(head_user == null){ %>
+			<span><%= pglr_supplied_name %></span>
+		<% }else{ %>
+			
+			<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>"><span data-name="<%= head_user %>"></span></a>
+			
+		<% } %>
+		
+	
 	
 	<% if(u_phone_number){ %>
 		<br/><span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
@@ -116,7 +122,11 @@
 								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
 									<span><%= entourage_users[i].pglre_supplied_name %></span>
 								<% }else{ %>
-									<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+									
+									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage_users[i].pglre_oauth_uid + '/' %>">
+										<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+									</a>
+									
 								<% } %>
 								
 							</td>
@@ -145,9 +155,15 @@
 						<tr class="<%= (i % 2) ? 'odd' : '' %>">
 							<td>
 								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
+									
 									<span><%= entourage_users[i].pglre_supplied_name %></span>
+									
 								<% }else{ %>
-									<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+									
+									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage_users[i].pglre_oauth_uid + '/' %>">
+										<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+									</a>
+									
 								<% } %>
 							</td>
 						</tr>
