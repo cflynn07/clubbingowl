@@ -91,7 +91,7 @@
     <h1>Your settings</h1>
     <form>
     	
-    	
+      <p><strong>Email Address:</strong> <?= $user->users_email ?></p>
       <p>
         <input type="checkbox" id="email-optout" name="email-optout" <?= ($user->users_opt_out_email == 1) ? 'checked="checked"' : ''?>>
         <label style="position:relative; top:-4px;" for="email-optout">Don't send me email notices from ClubbingOwl</label>
