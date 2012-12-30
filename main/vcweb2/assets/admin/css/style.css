@@ -2208,4 +2208,5 @@ div.tabs .ui-state-active a {
 
 input.hasDatepicker {
 	cursor: pointer !important;
+	background-color: #CCC !important;
 }
