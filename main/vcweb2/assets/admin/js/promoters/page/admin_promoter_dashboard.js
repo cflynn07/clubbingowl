@@ -131,6 +131,9 @@ jQuery(function(){
 						jQuery('div#tabs-1').css('display', 'block');
 											
 						visitors_chart = new Highcharts.Chart({
+							credits: {
+								enabled: false
+							},
 							chart: {
 								renderTo: 'tabs-1',
 								defaultSeriesType: 'area',
@@ -171,6 +174,9 @@ jQuery(function(){
 				jQuery.poll_job(poll_job);				
 				
 				var trailing_requests_chart = new Highcharts.Chart({
+					credits: {
+						enabled: false
+					},
 					chart: {
 						renderTo: 'tabs-2',
 						type: 'column',

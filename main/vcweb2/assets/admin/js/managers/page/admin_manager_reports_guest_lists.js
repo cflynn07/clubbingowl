@@ -21,6 +21,9 @@ jQuery(function(){
 		
 		
 		combo_chart = new Highcharts.Chart({
+			credits: {
+				enabled: false
+			},
 			chart: {
 				renderTo: 'combo_chart_guest_lists'
 			},
@@ -64,6 +67,9 @@ jQuery(function(){
 		
 			
 		gl_attendance_percentage_time = new Highcharts.Chart({
+			credits: {
+				enabled: false
+			},
 			chart: {
 				renderTo: 'gl_attendance_percentage_time',
 				type: 'column'
@@ -115,6 +121,9 @@ jQuery(function(){
 		//------------------------------------------------------------
 		
 		gl_attendance_percentage_team_promoters = new Highcharts.Chart({
+			credits: {
+				enabled: false
+			},
 			chart: {
 				renderTo: 'gl_attendance_percentage_promoter',
 				type: 'column'
