@@ -1,3 +1,13 @@
+
+<div>
+	<p><strong>Public Location</strong>: 
+		<a target="_new" href="<%= window.module.Globals.prototype.front_link_base + 'promoters/' + window.page_obj.promoter.up_public_identifier + '/guest_lists/' + pgla_name.replace(/ /g, '_') + '/#guestlist' %>">
+			<%= window.module.Globals.prototype.front_link_base + 'promoters/' + window.page_obj.promoter.up_public_identifier + '/guest_lists/' + pgla_name.replace(/ /g, '_') + '/' %>
+		</a>
+	</p>
+</div>
+
+
 <div class="ui-widget-header">
 	<span>"<%= pgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
 	<span style="float:right;">
