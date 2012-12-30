@@ -275,11 +275,20 @@ class Profile extends MY_Controller {
 			case 'update_settings':
 				
 				$opt_out_email = ($this->input->post('opt_out_email') == 'true') ? 1 : 0;
-				$opt_out_search = ($this->input->post('opt_out_search') == 'true') ? 1 : 0;
+			//	$opt_out_search = ($this->input->post('opt_out_search') == 'true') ? 1 : 0;
 				
-				$this->load->model('model_users', 'users', true);
-				$this->users->update_user($this->vc_user->oauth_uid, array('opt_out_email' => $opt_out_email,
-																			'opt_out_search' => $opt_out_search));
+				
+				$this->db->where(array(
+					'oauth_uid' => $this->vc_user->oauth_uid
+				))->update('users', array(
+					'opt_out_email' => $opt_out_email
+				));
+				
+				
+			//	$this->load->model('model_users', 'users', true);
+			//	$this->users->update_user($this->vc_user->oauth_uid, array('opt_out_email' => $opt_out_email));
+				
+				
 				
 				die(json_encode(array('success' => true,
 										'message' => '')));

@@ -78,7 +78,7 @@
     	<?php foreach($favorite_promoters as $fav_pro): ?>
     		
     		 <li>
-		        <img style="margin-bottom: 8px;" src="<?= $central->s3_uploaded_images_base_url ?>profile-pics/<?= $fav_pro->up_profile_image ?>_t.jpg" alt="<?= $fav_pro->u_full_name ?>'s Avatar">
+		        <img style="margin-bottom: 8px; border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url ?>profile-pics/<?= $fav_pro->up_profile_image ?>_t.jpg" alt="<?= $fav_pro->u_full_name ?>'s Avatar">
 		        <a style="margin-top:0;width:100%;" class="name" href="<?= $central->front_link_base ?>promoters/<?= $fav_pro->up_public_identifier ?>/"><?= $fav_pro->u_full_name ?></a>
 		     </li>
     		
@@ -90,15 +90,17 @@
   <section style="width:49%;" id="settings" class="column">
     <h1>Your settings</h1>
     <form>
+    	
+    	
       <p>
-        <input type="checkbox" id="email-optout" name="email-optout" <?= ($user->users_opt_out_search == 1) ? 'checked="checked"' : ''?>>
-        <label for="email-optout">Opt out of newsletter emails</label>
+        <input type="checkbox" id="email-optout" name="email-optout" <?= ($user->users_opt_out_email == 1) ? 'checked="checked"' : ''?>>
+        <label style="position:relative; top:-4px;" for="email-optout">Don't send me email notices from ClubbingOwl</label>
       </p>
       
       
       <?php if(false): ?>
       <p>
-        <input type="checkbox" id="search-optout" name="search-optout" <?= ($user->users_opt_out_email == 1) ? 'checked="checked"' : ''?>>
+        <input type="checkbox" id="search-optout" name="search-optout" <?= ($user->users_opt_out_search == 1) ? 'checked="checked"' : ''?>>
         <label for="search-optout">Don't show me in search-results.</label>
       </p>
       <?php endif; ?>

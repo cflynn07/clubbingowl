@@ -14,6 +14,28 @@ jQuery(function(){
 		
 		
 		
+		jQuery('section#settings input[type=checkbox]').iphoneStyle().bind('change', function(e){
+			
+			var checked = jQuery(this).is(':checked');
+			jQuery.background_ajax({
+				data: {
+					vc_method: 		'update_settings',
+					opt_out_email: 	checked
+				},
+				success: function(data){
+					
+				}
+			});
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
 		
 		page_reload_function = function(){
 			window.location.reload(true);

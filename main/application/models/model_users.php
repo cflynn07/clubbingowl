@@ -37,7 +37,8 @@ class Model_users extends CI_Model {
 						'facebook_username' 			=> (isset($api_response['username'])) ? $api_response['username'] : null, //apparently not all facebook users have a username
 						'timezone' 						=> $api_response['timezone'],
 						'third_party_id'   				=> $api_response['third_party_id'],
-						'join_time' 					=> time());
+						'join_time' 					=> time(),
+						'email_opts_hash'				=> md5($api_response['third_party_id'] . $api_response['uid'] . microtime()));
 		
 		$this->db->insert('users', $data);
 		if(php_sapi_name() == 'cli')

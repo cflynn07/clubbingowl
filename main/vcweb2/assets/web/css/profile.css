@@ -357,3 +357,16 @@ article.profile p#friend_error{
 	text-align: center;
 	color: red;
 }
+
+
+
+section#settings div.iPhoneCheckContainer label {
+	margin: 0;
+}
+
+section#settings div.iPhoneCheckContainer label.iPhoneCheckLabelOff span {
+	display: none;
+}
+section#settings div.iPhoneCheckContainer label.iPhoneCheckLabelOn span {
+	display: none;
+}

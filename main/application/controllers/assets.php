@@ -98,6 +98,10 @@ class Assets extends MY_Common_Controller {
 					'kswedberg-jquery-cluetip-477822d/jquery.cluetip'
 				);
 				
+				$admin_css_include = array(
+					'iPhoneCheckboxes'
+				);
+				
 				break;
 			case 'admin_base':
 				
@@ -229,7 +233,7 @@ class Assets extends MY_Common_Controller {
 					array('ejs/ejs_0.9_alpha_1_production.min',							'global_js'),
 					array('jquery/jquery_extensions', 									'global_js'),
 				
-				
+					array('iphone-style-checkboxes',									'admin_js'),
 				
 					array('underscore/underscore.min',									'global_js'),
 					array('backbone/backbone',											'global_js'),
