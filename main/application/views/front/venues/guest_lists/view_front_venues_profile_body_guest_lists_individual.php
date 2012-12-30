@@ -19,8 +19,8 @@ div#unavailable_overlay{
     <?= Kint::dump($central) ?>
     <?php endif; ?>
     
-    <h2>List Desctiption</h2>
-    <p><?= $guest_list->tgla_description ?></p>
+    <h2>List Description</h2>
+    <p style="border:1px dashed #CCC; padding:5px;"><?= $guest_list->tgla_description ?></p>
 
     <div class="guestlist-form-left">
       	
@@ -34,23 +34,23 @@ div#unavailable_overlay{
       	<table id="list_info">
       		<tbody>
       			<tr>
-      				<td>Minimum Age</td>
+      				<td style="font-weight:500; text-align:left;">Minimum Age</td>
       				<td><?= $guest_list->tgla_min_age ?></td>
       			</tr>
       			<tr>
-      				<td>Regular Cover:</td>
+      				<td style="font-weight:500; text-align:left;">Regular Cover</td>
       				<td>$<?= $guest_list->tgla_regular_cover ?></td>
       			</tr>
       			<tr>
-      				<td>List Cover:</td>
+      				<td style="font-weight:500; text-align:left;">List Cover</td>
       				<td>$<?= $guest_list->tgla_gl_cover ?></td>
       			</tr>
       			<tr>
-      				<td>Doors Open</td>
+      				<td style="font-weight:500; text-align:left;">Doors Open</td>
       				<td><?= $guest_list->tgla_door_open ?>:00</td>
       			</tr>
       			<tr>
-      				<td>List Closes</td>
+      				<td style="font-weight:500; text-align:left;">List Closes</td>
       				<td><?= $guest_list->tgla_door_close ?>:00</td>
       			</tr>
       			<?php if($guest_list->tgla_additional_info_1): ?>
@@ -124,7 +124,7 @@ div#unavailable_overlay{
     	</p>
     </div>   
     
-    <h2 id="join_here">Join here</h2>	
+    <h2 id="join_here">Join Here</h2>	
     	
 	<div id="accordion">
 		<h3><a class="no-ajaxy" href="javascript: void(0);">1: Add Your Friends</a></h3>

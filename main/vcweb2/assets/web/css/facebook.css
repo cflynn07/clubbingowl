@@ -502,3 +502,14 @@ div.facebook_plugin_content section#guestlist{
 	margin-top: -15px;
 	border-top: 1px dashed #CCC;
 }
+
+
+section#guestlist h2 {
+	color: #3CA6E2 !important;
+	font-weight: 500;
+	font-size: 16px;
+}
+#guestlist h3 {
+	color: #3CA6E2 !important;
+	font-weight: 300;
+}

@@ -12,7 +12,7 @@
   	
 	<?php //Kint::dump($guest_list); ?>
 		
-    <p id="gl_title_header">
+    <p id="gl_title_header" style="font-size:18px;">
     	    	
     	<?= lang_key($this->lang->line('p-gl_join_msg'), array(
 			'promoter_u_full_name' 				=> $promoter->u_full_name,
@@ -33,8 +33,8 @@
     <?= Kint::dump($central) ?>
 <?php endif; ?>
     
-    <h2>List Desctiption</h2>
-    <p><?= $guest_list->pgla_description ?></p>
+    <h2>List Description</h2>
+    <p style="border:1px dashed #CCC; padding:5px;"><?= $guest_list->pgla_description ?></p>
 
     <div class="guestlist-form-left">
       	
@@ -48,23 +48,23 @@
       	<table id="list_info">
       		<tbody>
       			<tr>
-      				<td>Minimum Age</td>
+      				<td style="font-weight:500; text-align:left;">Minimum Age</td>
       				<td><?= $guest_list->pgla_min_age ?></td>
       			</tr>
       			<tr>
-      				<td>Regular Cover:</td>
+      				<td style="font-weight:500; text-align:left;">Regular Cover</td>
       				<td>$<?= $guest_list->pgla_regular_cover ?></td>
       			</tr>
       			<tr>
-      				<td>List Cover:</td>
+      				<td style="font-weight:500; text-align:left;">List Cover</td>
       				<td>$<?= $guest_list->pgla_gl_cover ?></td>
       			</tr>
       			<tr>
-      				<td>Doors Open</td>
+      				<td style="font-weight:500; text-align:left;">Doors Open</td>
       				<td><?= $guest_list->pgla_door_open ?>:00</td>
       			</tr>
       			<tr>
-      				<td>List Closes</td>
+      				<td style="font-weight:500; text-align:left;">List Closes</td>
       				<td><?= $guest_list->pgla_door_close ?>:00</td>
       			</tr>
       			<?php if($guest_list->pgla_additional_info_1): ?>
@@ -90,7 +90,7 @@
       
       <p>
         <h2>Venue</h2>
-      	<img style="max-width:188px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $guest_list->tv_image ?>_t.jpg" alt="<?= $guest_list->tv_name ?>" /><br>
+      	<img style="max-width:188px; border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $guest_list->tv_image ?>_t.jpg" alt="<?= $guest_list->tv_name ?>" /><br>
         <strong><a href="<?= $central->front_link_base . 'venues/' . $guest_list->c_url_identifier . '/' . str_replace(' ', '_', $guest_list->tv_name) . '/'?>"><?= $guest_list->tv_name ?></a></strong><br>
         <?= $guest_list->tv_street_address ?><br>
         <?= $guest_list->tv_city?>, <?= $guest_list->tv_state ?> <?= $guest_list->tv_zip ?>        
@@ -135,7 +135,7 @@
     </div>    
     	
     	
-    <h2 id="join_here">Join here</h2>	
+    <h2 id="join_here">Join Here</h2>	
     
 	<div id="accordion">
 		<h3><a class="no-ajaxy" href="javascript: void(0);">1: Add Your Friends</a></h3>

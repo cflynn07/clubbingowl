@@ -358,13 +358,14 @@
 		display:block;
 		float:none;
 		width:100%;
+		margin-bottom: 30px;
 	}
 	.non_fb_plugin section#guestlist div.guestlist-form-right{
 		display:block;
 		float:none;
 		width:100%;
 		border-top:1px dashed #CCC;
-		margin-top:10px;
+		//margin-top:10px;
 		padding-top:10px;
 	}
 }

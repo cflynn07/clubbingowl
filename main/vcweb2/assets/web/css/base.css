@@ -1187,3 +1187,11 @@ img.venue-image {
 section#guestlist div#accordion h3.ui-accordion-header {
 	font-weight: 100;
 }
+
+
+section#guestlist p#gl_title_header {
+	text-align: center;
+}
+section#guestlist p#gl_title_header strong{
+	color: #3CA6E2;
+}

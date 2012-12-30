@@ -24,7 +24,7 @@ class Colors {
 		$this->foreground_colors['light_gray'] = '0;37';
 		$this->foreground_colors['white'] = '1;37';
  
-			$this->background_colors['black'] = '40';
+		$this->background_colors['black'] = '40';
 		$this->background_colors['red'] = '41';
 		$this->background_colors['green'] = '42';
 		$this->background_colors['yellow'] = '43';
@@ -87,21 +87,7 @@ class Worker extends CI_Controller {
 		
     }
 	
-	
-	public function run_billing(){
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		// Create new Colors class
-		$colors = new Colors();
-	 
-		// Test some basic printing with Colors class
+	// Test some basic printing with Colors class
 	//	echo $colors->getColoredString("Testing Colors class, this is purple string on yellow background.", 	"purple", 	"yellow") 		. "\n";
 	//	echo $colors->getColoredString("Testing Colors class, this is blue string on light gray background.", 	"blue", 	"light_gray") 	. "\n";
 	//	echo $colors->getColoredString("Testing Colors class, this is red string on black background.", 		"red", 		"black") 		. "\n";
@@ -111,18 +97,74 @@ class Worker extends CI_Controller {
 	
 	
 	
-		echo $colors->getColoredString("Testing Colors class, this is green string on default background.", 		'green', 		null) 		. PHP_EOL;
-		$handle = fopen ("php://stdin","r");
-		
-		echo 'Do you like apples? ';
-		$line 	= fgets($handle);
-		
-		echo $colors->getColoredString($line, 'green', null) . PHP_EOL;
+	public function run_billing(){
 		
 		
+		$previous_month			= date('n', strtotime('-1 month'));
+		$previous_month_year	= date('Y', strtotime('-1 month'));
 		
 		
+	
+		$this->db->select('*')
+			->from('teams');
+		$query = $this->db->get();
+		$all_teams = $query->result();
 		
+	
+		// Create new Colors class
+		$colors = new Colors();
+	 	$handle = fopen ("php://stdin","r");
+	 	
+		
+	 	echo $colors->getColoredString("Hello, welcome to the ClubbingOwl billing experience. My name is Karl, I will help you bill your clients today.", 										'green', null) . PHP_EOL;
+	 	echo $colors->getColoredString("We will start by billing all of the clients for the previous month of " . date('F', strtotime('-1 month')) . ' that have not already been invoiced, one at a time.', 	'purple', null) . PHP_EOL . PHP_EOL;
+	 	
+		
+		echo $colors->getColoredString("You have " . count($all_teams) . " clients.", 	'brown', null) . PHP_EOL;
+		echo $colors->getColoredString("First up:", 									'brown', null) . PHP_EOL;
+
+		foreach($all_teams as $team){
+			
+			
+			//see if this team was invoiced already for the previous month
+			$this->db->select('*')
+				->from('teams_invoices')
+				->where(array(
+					'invoice_month'		=> $previous_month,
+					'invoice_year'		=> $previous_month_year,
+					'team_fan_page_id'	=> $team->fan_page_id
+				));
+			$query = $this->db->get();
+			$result = $query->row();
+			
+			
+			echo $colors->getColoredString($team->name, 														'white', null) 	. PHP_EOL;
+			echo $colors->getColoredString("\t" . "DATE BEGIN BILLING:" . "\t" . $team->date_begin_billing, 	'lightred', null) . PHP_EOL;
+			
+			
+			
+			if($result){
+				echo $colors->getColoredString("\t" . "This team has already been invoiced for " . date('F', strtotime('-1 month')) . " ... skipping", 	'light_cyan', null) . PHP_EOL;
+			}else{						
+				$line 	= strtolower(fgets($handle));
+				
+				
+				
+				
+				
+				$month_days = cal_days_in_month(CAL_GREGORIAN, $previous_month, $previous_month_year);
+				
+				
+				
+				
+			}
+			
+			
+			
+		}
+	
+		echo $colors->getColoredString("And that completes our billing cycle. Have a nice day.", 'green', null) . PHP_EOL;
+				
 	}
 	
 	

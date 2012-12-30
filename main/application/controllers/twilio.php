@@ -29,6 +29,14 @@ class Twilio extends MY_Controller {
 		$from_number = ltrim($from_number, '+1');
 
 		$body = strtolower($this->input->post('Body'));
+		
+		
+		//other types of responses
+		if(strpos($body, 'notify ') === 0){
+			
+		}
+		
+		
 		//yes or no	
 		if(strpos($body, 'yes ') === 0){
 			
