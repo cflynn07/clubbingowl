@@ -203,7 +203,10 @@ class Model_users_managers extends CI_Model {
 	 * @param	int (teams_guest_list_authorizations_id)
 	 * @return	object || false
 	 */
-	function retrieve_teams_guest_list_authorizations_current_guest_list($teams_guest_list_authorizations_id){
+	function retrieve_teams_guest_list_authorizations_current_guest_list($teams_guest_list_authorizations_id, $iso_date = false){
+			
+		
+			
 		$sql = "SELECT
 					
 					tgl.id									as tgl_id,
@@ -215,11 +218,19 @@ class Model_users_managers extends CI_Model {
 				JOIN teams_guest_list_authorizations tgla
 				ON tgl.team_guest_list_authorization_id = tgla.id
 				
-				WHERE tgla.id = $teams_guest_list_authorizations_id
-					AND tgl.date >= '" . date('Y-m-d', time()) . "'";
+				WHERE tgla.id = $teams_guest_list_authorizations_id ";
+				
+		if($iso_date === false){
+			$sql .= " AND tgl.date >= '" . date('Y-m-d', time()) . "'";
+		}else{
+			$sql .= " AND tgl.date = '" . $iso_date . "'";
+		}
+				
 										
 		$query = $this->db->query($sql);
 		return $query->row();
+		
+		
 	}
 	
 	/**

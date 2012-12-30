@@ -351,7 +351,7 @@ class Managers extends MY_Controller {
 	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
-		list($users, $team_venues) = $this->_helper_guest_lists();
+		list($users, $team_venues) = $this->_helper_manager_guest_lists_and_members();
 		$data['users'] = $users;
 		$data['team_venues'] = $team_venues;
 		
@@ -2118,6 +2118,42 @@ class Managers extends MY_Controller {
 				$result = $this->_helper_venue_floorplan_retrieve();
 				die(json_encode($result));
 				break;
+				
+				
+				
+			case 'retrieve_guest_lists':
+				
+				
+				
+				
+				list($users, $team_venues) 			= $this->_helper_manager_guest_lists_and_members($this->input->post('tgla_id'), $this->input->post('tv_id'), $this->input->post('weeks_offset'));
+				$return 							= new stdClass;
+				$return->team_venues		 		= $team_venues;
+				$return->users 						= $users;
+				
+				
+				
+				/**
+				 
+				 
+		list($users, $team_venues) 	= $this->_helper_manager_guest_lists_and_members();
+		$data['users'] 				= $users;
+		$data['team_venues'] 		= $team_venues;
+		
+				 */
+				
+				die(json_encode(array('success' => true, 'message' => $return)));
+				
+				
+				
+				
+				break;
+				
+				
+				
+		/*		
+				
+				
 			case 'guest_lists_retrieve':
 				
 				if(!$admin_manager_guest_list = $this->session->userdata('admin_manager_guest_list'))
@@ -2139,7 +2175,7 @@ class Managers extends MY_Controller {
 				
 				break;
 			
-			
+			*/
 							
 			case 'update_reservation_host_notes':
 				
@@ -2926,7 +2962,11 @@ class Managers extends MY_Controller {
 		
 	}
 
-	private function _helper_guest_lists(){
+	private function _helper_manager_guest_lists_and_members($tgla_id = false, $tv_id = false, $offset = false){
+		
+		
+		
+		
 		
 		
 		
@@ -2935,17 +2975,58 @@ class Managers extends MY_Controller {
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 		
 		$users = array();
-		foreach($team_venues as &$tv){
+		foreach($team_venues as $key => &$tv){
+			
+			
+			//only grab tv we care about
+			if($tv_id !== false){
+				if($tv->tv_id !== $tv_id){
+					unset($team_venues[$key]);
+					continue;
+				}
+			}
+			
+			
 			
 			$tv_gla = $this->users_managers->retrieve_team_venue_guest_list_authorizations($tv->tv_id, $this->vc_user->manager->team_fan_page_id);
-			foreach($tv_gla as &$gla){
-				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id);
+			foreach($tv_gla as $key2 => &$gla){
 				
+				//only grab tv we care about
+				if($tgla_id !== false){
+					if($gla->tgla_id !== $tgla_id){
+						unset($tv_gla[$key2]);
+						continue;
+					}
+				}
+				
+				
+				
+				if(!$offset){
+					$gla->human_date 	= $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->tgla_day, 's')));
+					$gla->iso_date 		= date('Y-m-d', strtotime(rtrim($gla->tgla_day, 's')));
+					$gla->current_week 	= true;
+				}else{
+					$gla->human_date 	= $gla->human_date = date('l m/d/y', strtotime('next ' . rtrim($gla->tgla_day, 's') . ' -' . $offset . ' weeks'));	
+					$gla->iso_date 		= date('Y-m-d', strtotime('next ' . rtrim($gla->tgla_day, 's') . ' -' . $offset . ' weeks'));
+					$gla->current_week 	= false;
+				}
+				
+				if($offset == 0)
+					$offset = false;
+				
+				
+				
+				
+				
+				
+				
+				$gla->current_list = $this->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($gla->tgla_id, $gla->iso_date);
 				
 					
-				$gla->human_date 	= date('l m/d/y', strtotime(rtrim($gla->tgla_day, 's')));
-				$gla->iso_date 		= date('Y-m-d', strtotime(rtrim($gla->tgla_day, 's')));
-				$gla->current_week	= true;
+					
+			//	$gla->human_date 	= date('l m/d/y', strtotime(rtrim($gla->tgla_day, 's')));
+			//	$gla->iso_date 		= date('Y-m-d', strtotime(rtrim($gla->tgla_day, 's')));
+			//	$gla->current_week	= true;
 				
 				
 				if($gla->current_list){
@@ -2974,6 +3055,11 @@ class Managers extends MY_Controller {
 		
 		
 		return array($users, $team_venues);
+		
+		
+		
+		
+		
 		
 	}
 

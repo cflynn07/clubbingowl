@@ -2018,7 +2018,7 @@ class Promoters extends MY_Controller {
 				$gla->human_date = $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->pgla_day, 's')));
 				$gla->current_week = true;
 			}else{
-				$gla->human_date = $gla->human_date = date('l m/d/y', strtotime('next ' . rtrim($gla->pgla_day, 's') . '-' . $offset . ' weeks'));	
+				$gla->human_date = $gla->human_date = date('l m/d/y', strtotime('next ' . rtrim($gla->pgla_day, 's') . ' -' . $offset . ' weeks'));	
 				$gla->current_week = false;
 			}
 			

@@ -66,7 +66,8 @@
 		<div style="clear:both;"></div>
 	
 							<p>
-			<label>Guest List Description:</label>
+			<label>Guest List Description:</label><br/>
+			<span style="color:red;">*Remember, when clients join your list their Facebook friends will see this description. A better description = more clients.</span>
 			<textarea rows=5 style="resize: none; width: 100%; background: none repeat scroll 0 0 #EEEEEE;" name="guest_list_description"><?= $guest_list->pgla_description ?></textarea>
 		</p>
 		
