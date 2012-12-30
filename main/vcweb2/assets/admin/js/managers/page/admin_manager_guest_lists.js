@@ -1148,6 +1148,7 @@ jQuery(function(){
 					tbody.find('> tr:odd').addClass('odd');
 					this.custom_events_add_fb_data();
 
+				
 					
 				}else{
 					
@@ -1155,11 +1156,12 @@ jQuery(function(){
 						text: EVT['guest_lists/gl_tr_no_reservations']
 					}).render({});
 					tbody.html(html);
-					return this;
 					
 				}
 
-				
+				this.$el.find('tbody').css({
+					opacity: 1
+				});
 				
 				return this;
 				
@@ -1170,6 +1172,10 @@ jQuery(function(){
 				'custom-event-add-fb-data': 'custom_events_add_fb_data'
 			},
 			fetch_week: function(weeks_apart){
+				
+				this.$el.find('tbody').css({
+					opacity: 0.5
+				});
 				
 				var _this 	= this;
 				var tgla_id = this.active_list.get('tgla_id');		

@@ -1060,7 +1060,13 @@ jQuery(function(){
 								        
 					}
 				});
-						
+				
+				
+				this.$el.find('tbody').css({
+					opacity: 1
+				});
+				
+				
 				var tbody  = this.$el.find('tbody');
 				var groups = this.active_list.get('groups');
 				if(!groups.length){
@@ -1098,6 +1104,10 @@ jQuery(function(){
 				'custom-event-add-fb-data': 'custom_events_add_fb_data'
 			},
 			fetch_week: function(weeks_apart){
+				
+				this.$el.find('tbody').css({
+					opacity: 0.5
+				});
 				
 				var _this 	= this;
 				var pgla_id = this.active_list.get('pgla_id');				
