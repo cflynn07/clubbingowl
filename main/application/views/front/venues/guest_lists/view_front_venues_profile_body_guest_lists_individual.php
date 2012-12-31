@@ -376,7 +376,7 @@ div#unavailable_overlay{
 		          <p style="font-size:12px;">Check here if you would like ClubbingOwl to text you when <?= $guest_list->tv_name ?> accepts or declines your reservation request.</p>
 		          <p style="font-size:12px;text-align:center;color:red;">*Phone number required for table reservation requests</p>
 		          <input type="checkbox" id="guestlist-confirmation-text" name="guestlist-confirmation-text">
-		          <label for="guestlist-confirmation-text">Confirmation Text</label>
+		          <label for="guestlist-confirmation-text">Confirmation Text & List Updates</label>
 		          
 		          <div class="confirmation-details">
 		            

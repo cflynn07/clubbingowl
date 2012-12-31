@@ -48,7 +48,7 @@
       			<tr>
 		          <td><?= strftime('%x', strtotime($res->tgl_date)) ?></td>
 		          <td> - </td>
-		          <td><a href="<?= $central->front_link_base ?>venues/<?= $res->c_url_identifier ?>/<?= str_replace(' ', '_', $res->tv_name) ?>/<?= str_replace(' ', '_', $res->tgla_name) ?>/"><?= $res->tgla_name ?></a></td>
+		          <td><a href="<?= $central->front_link_base ?>venues/<?= $res->c_url_identifier ?>/<?= str_replace(' ', '_', $res->tv_name) ?>/guest_lists/<?= str_replace(' ', '_', $res->tgla_name) ?>/"><?= $res->tgla_name ?></a></td>
 		          <td class="request_msg">"<?= $res->tglr_request_msg ?>"</td>
 		          <td class="response_msg">"<?= $res->tglr_response_msg ?>"</td>
  				  
