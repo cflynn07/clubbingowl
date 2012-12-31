@@ -1,4 +1,5 @@
-<div style="display:none;" class="notification">
+<div style="display:none;" class="notification <% if(response != 'approved'){ %>negative<% } %>">
+	
 	<div class="center">
 		<% if(notif_type == 'promoter'){ %>
 			<?= $this->lang->line('ad-request_response_promoter') ?>
@@ -12,4 +13,5 @@
 		<br>
 		<?= $this->lang->line('ad-request_response_resp_msg') ?> <%= response_message %>
 	</div>
+	
 </div>
