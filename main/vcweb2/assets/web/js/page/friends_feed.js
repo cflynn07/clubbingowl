@@ -23,7 +23,7 @@ jQuery(function(){
 			
 			FB.ui({
 		        method: 'apprequests',
-		        message: 'Come check out ClubbingOwl!',
+		        message: 'Come check out ClubbingOwl! ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away!',
 		        title: 'Invite friends to ClubbingOwl',
 		        to: uid
 		    },
