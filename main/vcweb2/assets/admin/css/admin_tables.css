@@ -25,3 +25,6 @@ div.vl div.vlf span.vlf_title {
 div.vl div.vlf div.table.highlighted {
 	background: red !important;
 }
+div.vl div.vlf div.table span.title {
+	white-space: nowrap;
+}

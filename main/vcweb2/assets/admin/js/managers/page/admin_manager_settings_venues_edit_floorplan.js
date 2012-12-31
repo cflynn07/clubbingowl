@@ -61,8 +61,8 @@ jQuery(function(){
 		
 		var table_dialog_config = {
 			width: 300,
-			height: 735, 
-			title: 'Add Table',
+			height: 'auto', 
+			title: 'Add/Edit Table',
 			modal: true,
 			resizable: false,
 		}
@@ -73,16 +73,21 @@ jQuery(function(){
 					
 			jQuery('div#table_add_dialog p.error').css('display', 'none').html('');
 			
-			var temp_monday = jQuery(me).find('div.monday').html();
-			var temp_tuesday = jQuery(me).find('div.tuesday').html();
-			var temp_wednesday = jQuery(me).find('div.wednesday').html();
-			var temp_thursday = jQuery(me).find('div.thursday').html();
-			var temp_friday = jQuery(me).find('div.friday').html();
-			var temp_saturday = jQuery(me).find('div.saturday').html();
-			var temp_sunday = jQuery(me).find('div.sunday').html();
-			var temp_max_capacity = jQuery(me).find('div.max_capacity').html();
+			var temp_title		= jQuery.trim(jQuery(me).find('span.title').html());
+			
+			var temp_monday 	= jQuery(me).find('div.monday').html();
+			var temp_tuesday 	= jQuery(me).find('div.tuesday').html();
+			var temp_wednesday 	= jQuery(me).find('div.wednesday').html();
+			var temp_thursday 	= jQuery(me).find('div.thursday').html();
+			var temp_friday 	= jQuery(me).find('div.friday').html();
+			var temp_saturday 	= jQuery(me).find('div.saturday').html();
+			var temp_sunday 		= jQuery(me).find('div.sunday').html();
+			var temp_max_capacity 	= jQuery(me).find('div.max_capacity').html();
 			
 			var tad = jQuery('div#table_add_dialog');
+			
+			tad.find('input[name = title]').attr('value', temp_title);
+			
 			tad.find('input[name = monday]').attr('value', temp_monday);
 			tad.find('input[name = tuesday]').attr('value', temp_tuesday);
 			tad.find('input[name = wednesday]').attr('value', temp_wednesday);
@@ -92,22 +97,39 @@ jQuery(function(){
 			tad.find('input[name = sunday]').attr('value', temp_sunday);
 			tad.find('input.max_capacity').attr('value', temp_max_capacity);
 			
-			table_dialog_config.buttons = {
-				"Okay": function(){
+			
+			
+			
+			table_dialog_config.buttons = [{
+				text: 'Cancel',
+				click: function(){
+					jQuery(this).dialog('close');
+				}
+			},{
+				text: 'OK',
+				'class': 'btn-confirm',
+				click: function(){
+					
+					var title = jQuery(this).find('input[name=title]').val();
+					if(title.length === 0){
+						jQuery('div#table_add_dialog p.error').html('You must specify a name for this table').show();
+						return;
+					}
 					
 					var max_capacity = jQuery(this).find('input.max_capacity').attr('value');
 					if(max_capacity.length == 0){
-						jQuery('div#table_add_dialog p.error').css('display', 'block').html('You must specify a maximum seating capacity for this table');
+						jQuery('div#table_add_dialog p.error').html('You must specify a maximum seating capacity for this table').show();
 						return;
 					}
 					
 					var inputs = [];
+					
 					jQuery(this).find('input.day_price').each(function(){
 						var name = jQuery(this).attr('name');
 						var value = jQuery(this).attr('value');
 												
 						if(value.length == 0){
-							jQuery('div#table_add_dialog p.error').css('display', 'block').html('You must specify a default minimum price for this table on every weekday');
+							jQuery('div#table_add_dialog p.error').html('You must specify a default minimum price for this table on every weekday').show();
 							return;
 						}
 						
@@ -119,17 +141,19 @@ jQuery(function(){
 					
 					
 					for(key in inputs){
-						me.find('div.' + key).html(inputs[key]);
+						me.find('.' + key).html(inputs[key]);
 					}
 					
 					me.find('div.max_capacity').html(max_capacity);
+					me.find('span.title').html(title);
 					
 					jQuery(this).dialog('close');
-				},
-				"close": function(){
-					jQuery(this).dialog('close');
 				}
-			};
+			}];
+			
+			
+			
+			
 			
 			jQuery('div#table_add_dialog').dialog(table_dialog_config);
 			
@@ -138,9 +162,41 @@ jQuery(function(){
 		var table_add_dialog = function(ui, pos_x, pos_y){
 			
 			jQuery('div#table_add_dialog p.error').css('display', 'none').html('');
+			jQuery('div#table_add_dialog input[name=title]').attr('value', '');
 			
-			table_dialog_config.buttons = {
-				"Okay": function(){
+			
+			
+			table_dialog_config.buttons = [{
+				text: 'Cancel',
+				click: function(){
+					jQuery(this).dialog('close');
+				}
+			},{
+				text: 'OK',
+				'class': 'btn-confirm',
+				click: function(){
+					
+					
+					var table_title = jQuery.trim(jQuery('div#table_add_dialog input[name=title]:first').attr('value'));
+					
+					
+					//find out if another table already has this name
+					var title_found = false;
+					jQuery('div.item.table span.title').each(function(){
+						
+						console.log(this_title == jQuery.trim(table_title).toLowerCase());
+												
+						var this_title = jQuery.trim(jQuery(this).html()).toLowerCase();
+						if(this_title == jQuery.trim(table_title).toLowerCase())
+							title_found = true;
+						
+					});
+					if(title_found){
+						jQuery('div#table_add_dialog p.error').css('display', 'block').html('Another table already has the name"' + table_title + '"<br/>Please choose another title');
+						return;
+					}
+					
+					
 					
 					var max_capacity = jQuery(this).find('input.max_capacity').attr('value');
 					if(max_capacity.length == 0){
@@ -168,7 +224,12 @@ jQuery(function(){
 					var item = ui.draggable.clone();
 					item.find('span.full_title').remove();
 					item.find('br').remove();
-					item.find('span.title').html('T-' + num_tables);
+				//	item.find('span.title').html('T-' + num_tables);
+					
+					item.find('span.title').html(table_title).css({
+						color: 'lightblue',
+						'text-decoration': 'underline'
+					});
 					
 					for(key in inputs){
 						item.append('<div class="day_price ' + key + '">' + inputs[key] + '</div>');
@@ -195,12 +256,11 @@ jQuery(function(){
 					});
 					
 					jQuery(this).dialog('close');
-				},
-				"close": function(){
-					jQuery(this).dialog('close');
+					
 				}
-			};
+			}];
 			
+						
 			jQuery('div#table_add_dialog').dialog(table_dialog_config);
 					
 		}
@@ -293,7 +353,7 @@ jQuery(function(){
 		var no_delete_floor_dialog = function(){
 			jQuery('div#no_delete_floor_dialog').dialog({
 				width: 300,
-				height: 200, 
+				height: 'auto', 
 				title: 'Error',
 				modal: true,
 				buttons: [{
@@ -311,11 +371,17 @@ jQuery(function(){
 			
 			jQuery('div#delete_floor_dialog').dialog({
 				width: 300,
-				height: 200, 
+				height: 'auto', 
 				title: 'Are you sure?',
 				modal: true,
 				buttons: [{
-					text: 'Yes',
+					text: 'Cancel',
+					click: function(){
+						jQuery(this).dialog('close');
+					}
+				},{
+					text: 'OK',
+					'class': 'btn-confirm',
 					click: function(){
 						
 						//delete floor
@@ -359,34 +425,103 @@ jQuery(function(){
 						
 						jQuery(this).dialog('close');
 					}
-				},{
-					text: 'Cancel',
-					click: function(){
-						jQuery(this).dialog('close');
-					}
 				}]
 			});
 		}
 		
+		
+		
+		
+		var edit_floor_dialog = function(){
+			
+			var floor_title = jQuery(this).html();
+			jQuery('div#add_floor_dialog').find('input').val(floor_title);
+			var _this = this;
+			
+			jQuery('div#add_floor_dialog').dialog({
+				width: 		300,
+				height: 	'auto', 
+				title: 		'Add/Edit Floor',
+				modal: 		true,
+				resizable: 	false,
+				buttons: [{
+					text: 'Cancel',
+					click: function(){
+						jQuery(this).dialog('close');
+					}
+				},{
+					text: 'OK',
+					'class': 'btn-confirm',
+					click: function(){
+						
+						
+						
+						var title = jQuery.trim(jQuery(this).find('input').val());
+						if(title.length === 0){
+							alert('Please choose a title for this floor.');
+							return;
+						}
+						
+						jQuery(_this).html(title);
+						
+						
+						
+						jQuery(this).dialog('close');
+					}
+				}]
+			});
+			
+		};
+		jQuery('.vlf_title').live('click', edit_floor_dialog);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		var add_floor_dialog = function(){
 			
 			jQuery('div#add_floor_dialog').dialog({
-				width: 300,
-				height: 200, 
-				title: 'Add Floor',
-				modal: true,
+				width: 		300,
+				height: 	'auto', 
+				title: 		'Add/Edit Floor',
+				modal: 		true,
+				resizable: 	false,
 				buttons: [{
-					text: 'Okay',
+					text: 'Cancel',
 					click: function(){
+						jQuery(this).dialog('close');
+					}
+				},{
+					text: 'OK',
+					'class': 'btn-confirm',
+					click: function(){
+						
+						
+						var title = jQuery.trim(jQuery(this).find('input').val());
+						if(title.length === 0){
+							alert('Please choose a title for this floor.');
+							return;
+						}
+						
 						
 						var count_tabs = jQuery('div#tabs div.layout_tabs').length;
 						
 						//add div
-						jQuery('div#tabs div.layout_tabs:last').clone().attr('id', 'tabs-' + count_tabs).appendTo('div#tabs').find('div.venue_floor').empty();
+						jQuery('div#tabs div.layout_tabs:last').clone().attr('id', 'tabs-' + count_tabs).appendTo('div#tabs').find('div.venue_floor').empty().append('<div class="vlf_title">' + title + '</div>');
+						
+						
+						
 						
 						//add select
-						jQuery('div#tabs div.ui-widget-header select.venue_floor_select option:last').clone().attr('value', count_tabs).html('Floor ' + count_tabs).appendTo('div#tabs div.ui-widget-header select.venue_floor_select');
-						jQuery('div#tabs div.ui-widget-header ul li:last').clone().find('a').attr('href', '#tabs-' + count_tabs).html('Floor ' + count_tabs).parent().appendTo('div#tabs div.ui-widget-header ul');
+						jQuery('div#tabs div.ui-widget-header select.venue_floor_select option:last').clone().attr('value', count_tabs).html(title).appendTo('div#tabs div.ui-widget-header select.venue_floor_select');
+						jQuery('div#tabs div.ui-widget-header ul li:last').clone().find('a').attr('href', '#tabs-' + count_tabs).html(title).parent().appendTo('div#tabs div.ui-widget-header ul');
+										
+										
+										
 										
 						jQuery('div#tabs').tabs('destroy').tabs().tabs('select', count_tabs);
 						jQuery('div#tabs div.ui-widget-header select.venue_floor_select').val(count_tabs);					
@@ -396,11 +531,6 @@ jQuery(function(){
 							drop: droppable_drop_function
 						});
 						
-						jQuery(this).dialog('close');
-					}
-				},{
-					text: 'Cancel',
-					click: function(){
 						jQuery(this).dialog('close');
 					}
 				}]
@@ -434,11 +564,11 @@ jQuery(function(){
 			var is_table = item.hasClass('table');
 			item.remove();
 			
-			if(is_table){
-				jQuery('div#tabs-' + jQuery('div#tabs').tabs('option', 'selected') + ' div.venue_floor').find('div.table').each(function(index, element){
-					jQuery(this).find('span.title').html('T-' + index);
-				});
-			}
+		//	if(is_table){
+		//		jQuery('div#tabs-' + jQuery('div#tabs').tabs('option', 'selected') + ' div.venue_floor').find('div.table').each(function(index, element){
+		//			jQuery(this).find('span.title').html('T-' + index);
+		//		});
+		//	}
 			
 		});
 		
@@ -460,6 +590,10 @@ jQuery(function(){
 			
 		});
 		
+		
+		
+		
+		
 		window.json_encode_floorplan = function(){
 			
 			var floors = [];
@@ -471,8 +605,11 @@ jQuery(function(){
 				if(jQuery(this).find('div.vlf_id').length === 1)
 					vlf_id = parseInt(jQuery(this).find('div.vlf_id').html(), 10);
 				
+				vlf_title = jQuery.trim(jQuery(this).find('.vlf_title').html());
+				
 				var floor = {
 					vlf_id: vlf_id,
+					title:	vlf_title,
 					items: []
 				};
 				
@@ -499,6 +636,7 @@ jQuery(function(){
 					if(item_class == 'table'){
 						//pull table specific props
 						
+						item.title			= jQuery.trim(jQuery(this).find('span.title').html());
 						item.monday_min 	= jQuery(this).find('div.monday').html();
 						item.tuesday_min 	= jQuery(this).find('div.tuesday').html();
 						item.wednesday_min 	= jQuery(this).find('div.wednesday').html();
@@ -522,6 +660,10 @@ jQuery(function(){
 			console.log(JSON.stringify(floors));
 			return JSON.stringify(floors);
 		}
+		
+		
+		
+		
 		
 		//submit floorplan
 		jQuery('input#submit_floorplan').bind('click', function(){
@@ -576,6 +718,9 @@ jQuery(function(){
 
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
+			
+			jQuery('.vlf_title').die('click', edit_floor_dialog);
+			
 			
 			for(var i in unbind_callbacks){
 				

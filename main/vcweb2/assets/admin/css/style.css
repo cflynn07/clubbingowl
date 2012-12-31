@@ -1848,9 +1848,27 @@ div#admin_managers_promoters_guest_list_wrapper div.datepicker{
 	margin-right: auto;
 }
 
+
+
+#admin_manager_settings_venues_edit_floorplan_wrapper div.venue_floor .vlf_title {
+	cursor:pointer; 
+	text-decoration:underline; 
+	position:absolute; 
+	top:4px; 
+	left:4px; 
+	color:#FFF; 
+	font-size:16px;
+}
+
+
+
+
 #admin_manager_settings_venues_edit_floorplan_wrapper div.venue_floor div.table > span.title{
 	cursor: pointer;
 	text-decoration: underline;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 14px;
 }
 
 #admin_manager_settings_venues_edit_floorplan_wrapper div.items{
@@ -1875,6 +1893,7 @@ div#admin_managers_promoters_guest_list_wrapper div.datepicker{
 	vertical-align: middle;
 	text-align:left;
 	padding: 1px;
+	overflow: hidden;
 }
 
 #admin_manager_settings_venues_edit_floorplan_wrapper div.item > div.tooltip{

@@ -2753,7 +2753,7 @@ class Managers extends MY_Controller {
 					if($vf_new->vlf_id == false){
 						//this is a new floor
 
-						$vlf_id = $this->teams->create_team_venues_floors('', $tv_id);
+						$vlf_id = $this->teams->create_team_venues_floors($vf_new->title, $tv_id);
 												
 						foreach($vf_new->items as $item){
 							$vlfi_id = $this->teams->create_team_venues_floors_item($vlf_id,
@@ -2766,6 +2766,7 @@ class Managers extends MY_Controller {
 																					NULL);
 							if($item->item_class == 'table'){
 								$this->teams->create_team_venues_floors_item_table($vlfi_id, 
+																					$item->title,
 																					$item->monday_min,
 																					$item->tuesday_min,
 																					$item->wednesday_min,
@@ -2787,11 +2788,11 @@ class Managers extends MY_Controller {
 						//this is an existing floor
 						foreach($venue_layout as $key2 => $vlf){
 							//make sure POST vlf_id matches one we know about
-														
+
 							if($vf_new->vlf_id == $key2){
 								
 								//update floor	
-								$this->teams->update_team_venues_floors($key2, ''); //TODO <--- update with floor name
+								$this->teams->update_team_venues_floors($key2, $vf_new->title); //TODO <--- update with floor name
 																
 								//Loop over uploaded floorplan items and create DB records for all new items
 								foreach($vf_new->items 	as $item){
@@ -2808,6 +2809,7 @@ class Managers extends MY_Controller {
 																								NULL);
 										if($item->item_class == 'table'){
 											$this->teams->create_team_venues_floors_item_table($vlfi_id, 
+																								$item->title,
 																								$item->monday_min,
 																								$item->tuesday_min,
 																								$item->wednesday_min,
@@ -2847,6 +2849,7 @@ class Managers extends MY_Controller {
 										if($item->item_class == 'table'){
 											$this->teams->update_team_venues_floors_item_table(
 																							$item->vlfi_id,
+																							$item->title,
 																							$item->monday_min,
 																							$item->tuesday_min,
 																							$item->wednesday_min,

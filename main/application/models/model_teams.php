@@ -442,6 +442,7 @@ class Model_teams extends CI_Model {
 	 * @return	int (insert_id)
 	 */
 	function create_team_venues_floors_item_table($vlfi_id, 
+													$title,
 													$monday_min,
 													$tuesday_min,
 													$wednesday_min,
@@ -451,16 +452,19 @@ class Model_teams extends CI_Model {
 													$sunday_min,
 													$capacity){
 		
-		$monday_min 	= trim(preg_replace('/\D/', '', $monday_min));
-		$tuesday_min 	= trim(preg_replace('/\D/', '', $tuesday_min));
-		$wednesday_min 	= trim(preg_replace('/\D/', '', $wednesday_min));
-		$thursday_min 	= trim(preg_replace('/\D/', '', $thursday_min));
-		$friday_min 	= trim(preg_replace('/\D/', '', $friday_min));
-		$saturday_min 	= trim(preg_replace('/\D/', '', $saturday_min));
-		$sunday_min		= trim(preg_replace('/\D/', '', $sunday_min));
+		
+		$title 			= strip_tags(trim($title));
+		$monday_min 	= strip_tags(trim(preg_replace('/\D/', '', $monday_min)));
+		$tuesday_min 	= strip_tags(trim(preg_replace('/\D/', '', $tuesday_min)));
+		$wednesday_min 	= strip_tags(trim(preg_replace('/\D/', '', $wednesday_min)));
+		$thursday_min 	= strip_tags(trim(preg_replace('/\D/', '', $thursday_min)));
+		$friday_min 	= strip_tags(trim(preg_replace('/\D/', '', $friday_min)));
+		$saturday_min 	= strip_tags(trim(preg_replace('/\D/', '', $saturday_min)));
+		$sunday_min		= strip_tags(trim(preg_replace('/\D/', '', $sunday_min)));
 		
 		$data = array(
 			'venues_layout_floors_items_id' 	=> $vlfi_id,
+			'title'								=> $title,
 			'capacity'							=> $capacity,
 			'monday_min'						=> $monday_min,
 			'tuesday_min'						=> $tuesday_min,
@@ -891,6 +895,7 @@ class Model_teams extends CI_Model {
 					vlfi.image			as vlfi_image,
 					vlfit.id 			as vlfit_id,
 					vlfit.deleted 		as vlfit_deleted,
+					vlfit.title			as vlfit_title,
 					vlfit.capacity 		as vlfit_capacity,
 					vlfit.monday_min 	as vlfit_monday_min,
 					vlfit.tuesday_min 	as vlfit_tuesday_min,
@@ -1402,6 +1407,7 @@ class Model_teams extends CI_Model {
 	 * @return 	bool
 	 */
 	function update_team_venues_floors_item_table($vlfi_id, 
+													$title,
 													$monday_min,
 													$tuesday_min,
 													$wednesday_min,
@@ -1411,15 +1417,18 @@ class Model_teams extends CI_Model {
 													$sunday_min,
 													$capacity){
 														
-		$monday_min 	= trim(preg_replace('/\D/', '', $monday_min));
-		$tuesday_min 	= trim(preg_replace('/\D/', '', $tuesday_min));
-		$wednesday_min 	= trim(preg_replace('/\D/', '', $wednesday_min));
-		$thursday_min 	= trim(preg_replace('/\D/', '', $thursday_min));
-		$friday_min 	= trim(preg_replace('/\D/', '', $friday_min));
-		$saturday_min 	= trim(preg_replace('/\D/', '', $saturday_min));
-		$sunday_min		= trim(preg_replace('/\D/', '', $sunday_min));
+	
+		$title 			= strip_tags(trim($title));
+		$monday_min 	= strip_tags(trim(preg_replace('/\D/', '', $monday_min)));
+		$tuesday_min 	= strip_tags(trim(preg_replace('/\D/', '', $tuesday_min)));
+		$wednesday_min 	= strip_tags(trim(preg_replace('/\D/', '', $wednesday_min)));
+		$thursday_min 	= strip_tags(trim(preg_replace('/\D/', '', $thursday_min)));
+		$friday_min 	= strip_tags(trim(preg_replace('/\D/', '', $friday_min)));
+		$saturday_min 	= strip_tags(trim(preg_replace('/\D/', '', $saturday_min)));
+		$sunday_min		= strip_tags(trim(preg_replace('/\D/', '', $sunday_min)));
 		
 		$data = array(
+			'title'								=> $title,
 			'capacity'							=> $capacity,
 			'monday_min'						=> $monday_min,
 			'tuesday_min'						=> $tuesday_min,
