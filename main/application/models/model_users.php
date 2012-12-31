@@ -751,20 +751,20 @@ class Model_users extends CI_Model {
 			}
 			
 			$this->db->where($where);
-			
+			$query = $this->db->get();			
+			$result = new stdClass;
+			$result->results = $query->result();
 			
 		}else{
 					
-			$this->db->where('FALSE');	
+			//$this->db->where('FALSE');	
+			$result = new stdClass;
+			$result->results = array();
 			
 		}
 		
 			
-		$query = $this->db->get();
 		
-		
-		$result = new stdClass;
-		$result->results = $query->result();
 		
 		$average = 0;
 		foreach($result->results as $res){
