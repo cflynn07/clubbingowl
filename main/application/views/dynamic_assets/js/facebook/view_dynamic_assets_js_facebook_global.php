@@ -16,7 +16,7 @@
 
 jQuery(function(){
 	if(!jQuery.cookies.test()){
-		alert("Cookies must be enabled for VibeCompass to work!");
+		alert("Cookies must be enabled for ClubbingOwl to work!");
 		return;
 	}
 });

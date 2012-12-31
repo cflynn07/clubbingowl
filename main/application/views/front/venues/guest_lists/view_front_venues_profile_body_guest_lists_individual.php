@@ -380,16 +380,26 @@ div#unavailable_overlay{
 		          
 		          <div class="confirmation-details">
 		            
+		            
+		            <label for="guestlist-confirmation-phone">Phone Number:</label>
 		            <input style="width:140px;" type="text" placeholder="Phone Number" id="guestlist-confirmation-phone" name="guestlist-confirmation-phone">
 		            
+		            
+		            
+		            <?php if(false): ?>
 		            <br><br><label for="guestlist-confirmation-carrier">Carrier:</label>
-		            <select id="guestlist-confirmation-carrier" name="guestlist-confirmation-carrier">
+		            <?php endif; ?>
+		            
+		            <select style="display:none;" id="guestlist-confirmation-carrier" name="guestlist-confirmation-carrier">
 		              	<option value="invalid">Select...</option>
-		              	<option value="0">AT&amp;T</option>
+		              	<option selected="selected" value="0">AT&amp;T</option>
 						<option value="1">Verizon</option>
 						<option value="2">T-Mobile</option>
 						<option value="3">Sprint</option>
 		            </select>
+		            
+		            
+		            
 		          </div>
 		        </div>
 		        

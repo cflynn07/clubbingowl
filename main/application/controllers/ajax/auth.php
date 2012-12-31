@@ -320,6 +320,7 @@ class Auth extends MY_Controller {
 		$response_json['oauth_uid'] = $vc_user->oauth_uid;
 		$response_json['first_name'] = $vc_user->first_name;
 		$response_json['last_name'] =  $vc_user->last_name;
+		$response_json['users_phone_number'] = $message->users_phone_number;
 				
 		//is this user also a promoter, manager, or super_admin?
 		if($message->users_promoter == '1'){

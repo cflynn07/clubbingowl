@@ -259,6 +259,9 @@ jQuery(function(){
 	window.vc_page_scripts.facebook_plugin_gl_init = function(){
 		
 		
+		jQuery('select#guestlist-confirmation-carrier').hide();
+		
+		
 		setTimeout(function(){
 			jQuery('div#accordion').effect('pulsate', {
 				distance: 15,
@@ -332,18 +335,44 @@ jQuery(function(){
 	    }
 	
 	    
+	    
+	    
+	    
+	    
+	    
 	     $buttons.on('click', function(e) {
 		      showDetails();
 		    });
 		    
 		
-		    $confirmationText.on('click', function(e) {
-		      $(this).parent().find('.confirmation-details').slideToggle();
+		    $confirmationText.on('change', function(e) {
+		    	
+		    	if(jQuery(this).is(':checked')){
+		    		$(this).parent().find('.confirmation-details').slideDown();
+		    	}else{
+		    		$(this).parent().find('.confirmation-details').slideUp();
+		    	}
+		    	
+		    	
+		   //   $(this).parent().find('.confirmation-details').slideToggle();
 		    });
-		
+		    
+		    
+		    
+		    
+		    
 		
 			//input mask on phone number -------
 			jQuery('input#guestlist-confirmation-phone').mask('(999)-999-9999');
+			var vc_user = jQuery.cookies.get('vc_user');
+			if(vc_user && vc_user.users_phone_number){
+				jQuery('input#guestlist-confirmation-phone').val(vc_user.users_phone_number);
+				if(!jQuery('#guestlist-confirmation-text').is(':checked')){
+					jQuery('#guestlist-confirmation-text').trigger('click');
+				}
+			}
+			
+			
 			
 			
 			jQuery('select#guest-list-table-price-selection').bind('change', function(){
@@ -356,19 +385,46 @@ jQuery(function(){
 			
 			
 			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			jQuery('input#guestlist-table-request').bind('change', function(){
-				jQuery('div#price_opt_hide').slideToggle();
+						
 				jQuery('select#guest-list-table-price-selection').trigger('change');
 				
-				if(jQuery(this).attr('checked') === 'checked' && $confirmationText.attr('checked') !== 'checked'){
-					$confirmationText.trigger('click').attr('disabled', 'disabled');
+				if(jQuery(this).is(':checked')){
+					
+					jQuery('#price_opt_hide').slideDown();
+					
+					$confirmationText.attr('checked', 'checked');
+					$confirmationText.attr('disabled', 'disabled');
+					if(!jQuery('div.confirmation-details').is(':visible')){
+						jQuery('div.confirmation-details').slideDown();
+					}
+					
 				}else{
+					
 					$confirmationText.removeAttr('disabled');
+					jQuery('#price_opt_hide').slideUp();
+					
 				}
 				
-				
-					
 			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			var return_cancel = function(){
 				var content = jQuery('div#guest_list_content');
@@ -608,10 +664,10 @@ jQuery(function(){
 					return false;
 				}
 							
-				if(data.phone_carrier == 'invalid'){
-					p_messages.html('You must select your phone carrier.');
-					return false;
-				}
+			//	if(data.phone_carrier == 'invalid'){
+			//		p_messages.html('You must select your phone carrier.');
+			//		return false;
+			//	}
 				
 				p_messages.html('');
 				
@@ -633,6 +689,16 @@ jQuery(function(){
 					cache: false,
 					dataType: 'json',
 					success: function(data, textStatus, jqXHR){
+						
+						
+						
+						var vc_user = jQuery.cookies.get('vc_user');
+						if(_this_data.phone_number)
+							vc_user.users_phone_number = _this_data.phone_number.replace(/[^0-9]+/g, '');
+						jQuery.cookies.set('vc_user', vc_user);
+						console.log(_this_data.phone_number);
+						
+						
 						
 						if(data.success){
 							
@@ -746,6 +812,17 @@ jQuery(function(){
 		
 		
 		var vc_login_callback = function(){
+			
+			jQuery('input#guestlist-confirmation-phone').val('');
+			var vc_user = jQuery.cookies.get('vc_user');
+			if(vc_user && vc_user.users_phone_number){
+				jQuery('input#guestlist-confirmation-phone').val(vc_user.users_phone_number);
+				if(!jQuery('#guestlist-confirmation-text').is(':checked')){
+					jQuery('#guestlist-confirmation-text').trigger('click');
+				}
+			}
+			
+			
 			jQuery('div#unavailable_overlay').css('display', 'none');
 			rm_func();
 		};

@@ -107,6 +107,10 @@ jQuery(function(){
 					if(data.invitations)
 						vc_user.invitations = data.invitations;
 					
+					if(data.users_phone_number){
+						vc_user.users_phone_number = data.users_phone_number;
+					}
+					
 					jQuery.cookies.set('vc_user', vc_user);
 																									
 					//update menu
