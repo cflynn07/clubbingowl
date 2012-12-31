@@ -148,7 +148,6 @@
 	
 	<div id="add_floor_dialog" style="display:none;">
 		
-		<h2>Add a floor</h2>
 		<form>
 			<fieldset>
 				<label>Floor Title:</label>
