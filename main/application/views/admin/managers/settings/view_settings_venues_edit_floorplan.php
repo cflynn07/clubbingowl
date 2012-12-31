@@ -163,10 +163,153 @@
 	<p>
 		Create a virtual layout of your venue to organize table assignments and share table availablity with your promoters
 	</p>
+	
+	
+	
+	<p>
+		<table>
+			<tr>
+				<td><input id="submit_floorplan" class="button" type="submit" value="Save Floorplan" /></td>
+				<td><div style="width:20px;"></div></td>
+				<td>
+					<img id="ajax_loading" src="<?=$central->global_assets?>images/ajax.gif" alt="loading" style="display:none"/>
+					<img id="ajax_complete" src="<?=$central->admin_assets?>images/icons/notifications/success.png" alt="complete" style="display:none"/>
+				</td>
+			</tr>
+		</table>
+	</p> 
+	
+	
 			
 	<div class="ui-widget ui-widget-content ui-corner-all" style="width:810px;">
 	
-		<div id="tabs" class="ui-widget ui-widget-content ui-corner-all" style="width:810px; border:0px; box-shadow:none;">
+	
+	
+		<div style="width: 810px;">
+			
+			<div class="items">
+			
+				<div class="item dancefloor pre_drop">
+					
+					<span class="title">(D)</span>
+					<br>
+					<span class="full_title">Dance Floor</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+				<div style="width:10px; display:inline-block;"></div>
+				
+				<div class="item stage pre_drop">
+					
+					<span class="title">(S)</span>
+					<br>
+					<span class="full_title">Stage</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+				<div style="width:10px; display:inline-block;"></div>
+				
+				<div class="item bar pre_drop">
+					
+					<span class="title">(B)</span>
+					<br>
+					<span class="full_title">Bar</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+				<div style="width:10px; display:inline-block;"></div>
+				
+				<div class="item table pre_drop">
+					
+					<span class="title">(T)</span>
+					<br>
+					<span class="full_title">Table</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+				<div style="width:10px; display:inline-block;"></div>
+							
+				<div class="item djbooth pre_drop">
+					
+					<span class="title">(DJ)</span>
+					<br>
+					<span class="full_title">DJ</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+				<div style="width:10px; display:inline-block;"></div>
+				
+				<div class="item bathroom pre_drop">
+					
+					<span class="title">(Br)</span>
+					<br>
+					<span class="full_title">Bathroom</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+				<div style="width:10px; display:inline-block;"></div>
+				
+				<div class="item entrance pre_drop">
+					
+					<span class="title">(E)</span>
+					<br>
+					<span class="full_title">Entrance</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+				<div style="width:10px; display:inline-block;"></div>
+				
+				<div class="item stairs pre_drop">
+					
+					<span class="title">(St)</span>
+					<br>
+					<span class="full_title">Stairs</span>
+					
+					<div class="tooltip">
+					</div>
+					
+					<div class="del">X</div>
+				</div>
+				
+			</div>
+			
+		</div>
+	
+	
+	
+	
+	
+	
+	
+		<div id="tabs" class="ui-widget ui-widget-content ui-corner-all" style="width:810px; border:0px; box-shadow:none; margin-bottom:0;">
 			
 			<div class="ui-widget-header">
 				
@@ -311,138 +454,7 @@
 				
 		</div>
 		
-		
-		
-		<div style="width: 810px;">
-			
-			<div class="items">
-			
-				<div class="item dancefloor pre_drop">
-					
-					<span class="title">(D)</span>
-					<br>
-					<span class="full_title">Dance Floor</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-				<div style="width:10px; display:inline-block;"></div>
-				
-				<div class="item stage pre_drop">
-					
-					<span class="title">(S)</span>
-					<br>
-					<span class="full_title">Stage</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-				<div style="width:10px; display:inline-block;"></div>
-				
-				<div class="item bar pre_drop">
-					
-					<span class="title">(B)</span>
-					<br>
-					<span class="full_title">Bar</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-				<div style="width:10px; display:inline-block;"></div>
-				
-				<div class="item table pre_drop">
-					
-					<span class="title">(T)</span>
-					<br>
-					<span class="full_title">Table</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-				<div style="width:10px; display:inline-block;"></div>
-							
-				<div class="item djbooth pre_drop">
-					
-					<span class="title">(DJ)</span>
-					<br>
-					<span class="full_title">DJ</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-				<div style="width:10px; display:inline-block;"></div>
-				
-				<div class="item bathroom pre_drop">
-					
-					<span class="title">(Br)</span>
-					<br>
-					<span class="full_title">Bathroom</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-				<div style="width:10px; display:inline-block;"></div>
-				
-				<div class="item entrance pre_drop">
-					
-					<span class="title">(E)</span>
-					<br>
-					<span class="full_title">Entrance</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-				<div style="width:10px; display:inline-block;"></div>
-				
-				<div class="item stairs pre_drop">
-					
-					<span class="title">(St)</span>
-					<br>
-					<span class="full_title">Stairs</span>
-					
-					<div class="tooltip">
-					</div>
-					
-					<div class="del">X</div>
-				</div>
-				
-			</div>
-			
-		</div>
 	
 	</div>
 	
-	<p>
-		<table>
-			<tr>
-				<td><input id="submit_floorplan" class="button" type="submit" value="Save Floorplan" /></td>
-				<td><div style="width:20px;"></div></td>
-				<td>
-					<img id="ajax_loading" src="<?=$central->global_assets?>images/ajax.gif" alt="loading" style="display:none"/>
-					<img id="ajax_complete" src="<?=$central->admin_assets?>images/icons/notifications/success.png" alt="complete" style="display:none"/>
-				</td>
-			</tr>
-		</table>
-	</p> 
 </div>
