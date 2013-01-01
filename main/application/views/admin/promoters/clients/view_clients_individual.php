@@ -13,7 +13,7 @@
 	<div class="ui-widget">
 		
 		<div class="ui-widget-header">
-			<span data-client-name=""></span>
+			<span style="width:100%;" data-client-name=""></span>
 		</div>
 		
 		<div style="width:100%;" class="">

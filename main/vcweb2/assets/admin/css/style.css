@@ -2230,3 +2230,7 @@ input.hasDatepicker {
 	background-color: #474D6A !important;
 	color: #FFF !important;
 }
+
+#left_menu ul.sitemap li {
+	white-space: nowrap;
+}
