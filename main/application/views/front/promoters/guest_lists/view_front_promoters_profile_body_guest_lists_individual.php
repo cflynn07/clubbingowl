@@ -365,7 +365,7 @@
 					<?php endforeach; ?>
 				</select>
 				
-				<p style="color:red; text-align:center;">Note: For a table request, you must provide your phone number on step #4 (Next)</p>
+				<p style="color:darkred; text-align:center;">Note: For a table request, you must provide your phone number on step #4 (Next)</p>
 				<span style="font-size:12px;">*required</span>
 			</div>
 

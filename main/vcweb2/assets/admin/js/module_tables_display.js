@@ -64,6 +64,31 @@
 	
 	
 	
+	
+	
+	Models.Reservation = {
+		initialize: function(){
+			
+		},
+		defaults:{
+			
+		}
+	}; Models.Reservation = Backbone.Model.extend(Models.Reservation);
+	
+	Collections.Reservations = {
+		model: Models.Reservation,
+		initialize: function(){
+			
+		}
+	}; Collections.Reservations = Backbone.Collection.extend(Collections.Reservations);	
+	
+	
+	
+	
+	
+	
+	
+	
 	Collections.FloorItems = {
 		model: Models.FloorItem,
 		initialize: function(){
@@ -78,16 +103,17 @@
 		}
 	}; Collections.Floors = Backbone.Collection.extend(Collections.Floors);
 	
-	
+	Collections.Reservation = {}; Collections.Reservation = Backbone.Collection.extend(Collections.Reservation);
 	
 	
 		
 	
 	
 	Views.FloorItem = {
-		initialized: false,
-		display_settings: null,
-		className: 'item',
+		initialized: 		false,
+		reservation: 		null,
+		display_settings: 	null,
+		className: 			'item',
 		initialize: function(){
 			
 			model_display_settings.on('change', this.render, this);
@@ -110,8 +136,7 @@
 			});
 			this.$el.addClass(item_type);
 			
-			if(this.model.get('highlighted'))
-				this.$el.addClass('highlighted');
+			
 			
 			var template = EVT['tables/t_vlf_item'];
 			
@@ -121,6 +146,37 @@
 			
 			this.$el.html(html);
 			this.$el.data('vlfit_id', this.model.get('vlfit_id'));
+			
+			
+			if(item_type == 'table'){
+				
+				
+				//determine if this table exists in the pool of reserved tables
+				var results = collection_reservations.where({
+					vlfit_id: this.model.get('vlfit_id')
+				});
+				
+				if(results.length){
+					
+					this.reservation = results[0];
+					
+					this.model.set({
+						highlighted: true
+					});		
+					
+					this.$el.append('<img style="position:absolute;bottom:0;right:0;" src="' + window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/People.png" alt="" />');
+					this.$el.find('img').draggable();
+					
+					console.log('this.reservation');
+					console.log(this.reservation);
+					
+				}
+				
+			}
+			
+			
+			if(this.model.get('highlighted'))
+				this.$el.addClass('highlighted');
 			
 			
 			
@@ -390,7 +446,7 @@
 	var model_team_venue;
 	var collection_floors;
 	var views_venue_layout_wrapper;
-	
+	var collection_reservations;
 	
 	var ui_tables_options = {
 		display_slider: true
@@ -430,15 +486,30 @@
 					model_display_settings.set({
 						factor: opts.factor
 					});
-					
+				
 				
 				//collection_floors = new Collections.Floors(opts.floors);
-				model_team_venue			= new Models.TeamVenue(opts.team_venue);				
+				model_team_venue		= new Models.TeamVenue(opts.team_venue);
+				
+				
+				
+				var venue_reservations 	= model_team_venue.get('venue_reservations');
+				if(venue_reservations){
+					collection_reservations = new Collections.Reservations(model_team_venue.get('venue_reservations'));
+				}else{
+					collection_reservations = new Collections.Reservations([]);
+				}
+				
+				
+				
+				console.log('collection_reservations');
+				console.log(collection_reservations);
+				
+				
 				views_venue_layout_wrapper 	= new Views.VenueLayoutWrapper({
 					el: 				opts.display_target,
 					model:				model_team_venue
 				});
-				
 				
 				
 				

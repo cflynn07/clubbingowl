@@ -14,6 +14,10 @@ div.vl div.vlf {
 	margin: 10px;
 }
 
+div.vl div.vlf div.item {
+	overflow: hidden;
+}
+
 div.vl div.vlf span.vlf_title {
 	position: absolute;
 	top: 0;

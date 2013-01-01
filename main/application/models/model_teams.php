@@ -963,9 +963,9 @@ class Model_teams extends CI_Model {
 					ON 		pgl.promoters_guest_list_authorizations_id = pgla.id
 					
 					WHERE	pglr.id = ?
-							AND
+								AND
 							pglr.approved = 1
-							AND
+								AND
 							pglr.manager_table_approved = 0";
 			$query = $this->db->query($sql, array($pglr_id));		
 			$result = $query->row();
@@ -1020,6 +1020,7 @@ class Model_teams extends CI_Model {
 					vlfit.venues_layout_floors_items_id			as vlfit_vlfi_id,
 					pglr.id										as pglr_id,
 					pglr.user_oauth_uid 						as pglr_user_oauth_uid,
+					pglr.supplied_name							as pglr_supplied_name,
 					pglr.host_message 							as pglr_host_message,
 					pglr.request_msg							as pglr_request_msg,
 					pglr.response_msg 							as pglr_response_msg,
@@ -1096,6 +1097,7 @@ class Model_teams extends CI_Model {
 					vlfit.venues_layout_floors_items_id			as vlfit_vlfi_id,
 					tglr.id										as tglr_id,
 					tglr.user_oauth_uid 						as tglr_user_oauth_uid,
+					tglr.supplied_name							as tglr_supplied_name,
 					tglr.host_message 							as tglr_host_message,
 					tglr.request_msg							as tglr_request_msg,
 					tglr.response_msg							as tglr_response_msg, 

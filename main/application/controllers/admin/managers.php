@@ -1896,11 +1896,15 @@ class Managers extends MY_Controller {
 				
 			case 'find_tables':
 				
+				
+				
 				$data = $this->_helper_venue_floorplan_retrieve_v2();
 				die(json_encode(array('success' => true, 'message' => array(
 					'init_users' 	=> $data[0],
 					'team_venues' 	=> $data[1]
 				))));
+				
+				
 				
 				break;
 			case 'retrieve_pending_requests':
@@ -3123,10 +3127,57 @@ class Managers extends MY_Controller {
 			}
 			
 			$venue->venue_floorplan = $venue_floors;
-			
+
+
+
+
+
+
+
+			//default date is today... lookup date of guest-list if pglr or tglr specified
+			$lookup_date = date('Y-m-d', time());
+			$pglr_id = $this->input->post('pglr_id');
+			$tglr_id = $this->input->post('tglr_id');
+			if($pglr_id){
+				
+				$this->db->select('pgl.date as date')
+					->from('promoters_guest_lists pgl')
+					->join('promoters_guest_lists_reservations pglr', 'pglr.promoter_guest_lists_id = pgl.id')
+					->where(array(
+						'pglr.id' => $pglr_id
+					));
+				$query = $this->db->get();
+				$result = $query->row();
+				if($result && isset($result->date)){
+					$lookup_date = $result->date;
+				}
+				
+			}
+			if($tglr_id){
+				
+				$this->db->select('tgl.date as date')
+					->from('teams_guest_lists tgl')
+					->join('teams_guest_lists_reservations tglr', 'tglr.team_guest_list_id = tgl.id')
+					->where(array(
+						'tglr.id' => $tglr_id
+					));
+				$query = $this->db->get();
+				$result = $query->row();
+				if($result && isset($result->date)){
+					$lookup_date = $result->date;
+				}
+				
+			}
+
+
+
+
+
+
+
 			$venue_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
 																						$this->vc_user->manager->team_fan_page_id,
-																						date('Y-m-d', time()));
+																						$lookup_date);
 			foreach($venue_reservations as $vr){
 				
 				if(isset($vr->tglr_user_oauth_uid))
@@ -3144,6 +3195,13 @@ class Managers extends MY_Controller {
 				
 			}unset($vr);
 			$venue->venue_reservations = $venue_reservations;
+			
+			
+			
+			
+			
+			
+			
 			
 			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
 																						$this->vc_user->manager->team_fan_page_id,

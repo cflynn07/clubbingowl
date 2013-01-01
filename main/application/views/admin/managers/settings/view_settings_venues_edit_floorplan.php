@@ -399,7 +399,7 @@
 										<?php if($item->vlfi_item_type == 'table'): ?>
 											
 											
-											<span style="color:lightblue; text-decoration:underline;" class="title"><?php if(isset($item->vlfit_title)): ?><?= $item->vlfit_title ?><?php else: ?>T-<?= $table_count ?><?php endif; ?></span>
+											<span style="color:lightblue; text-decoration:underline;" class="title"><?php if(isset($item->vlfit_title) && $item->vlfit_title): ?><?= $item->vlfit_title ?><?php else: ?>T-<?= $table_count ?><?php endif; ?></span>
 												
 												
 											<div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 0, '', ',') ?></div>
