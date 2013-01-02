@@ -290,6 +290,24 @@ div#friend_content ul#user_promoters li{
 	height: auto;
 	width: auto;
 }
+
+
+
+
+.promoter .avatar img {
+	box-shadow: 3px 3px #474D6A;
+	border: 1px solid black !important;
+	border-radius: 5px;
+	margin-bottom: 3px;
+}
+div#friend_content ul#user_promoters li a,img.logo{
+	box-shadow: 3px 3px #474D6A;
+	border: 1px solid black !important;
+	border-radius: 10px;
+}
+
+
+
 div#friend_content ul#user_promoters li a,img{
 	display: inline-block;
 }

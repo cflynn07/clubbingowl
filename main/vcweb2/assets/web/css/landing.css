@@ -215,4 +215,6 @@ div#trending_gl ul li img{
 	border-radius: 5px;
 	width: 40px;
 	height: 60px;
+	box-shadow: 3px 3px #474D6A;
+	border: 1px solid #000;
 }
