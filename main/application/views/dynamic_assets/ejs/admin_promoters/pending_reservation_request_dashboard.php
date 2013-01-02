@@ -16,7 +16,7 @@
 	</table>
 </td>
 <td>
-	<%= human_date %>
+	<%= request_human_date %>
 </td>
 <td>
 	<%= (pglr_request_msg.length) ? pglr_request_msg : ' - ' %>

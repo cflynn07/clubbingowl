@@ -156,6 +156,8 @@
 					vlfit_id: this.model.get('vlfit_id')
 				});
 				
+				
+				
 				if(results.length){
 					
 					this.reservation = results[0];
@@ -164,11 +166,32 @@
 						highlighted: true
 					});		
 					
-					this.$el.append('<img style="position:absolute;bottom:0;right:0;" src="' + window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/People.png" alt="" />');
-					this.$el.find('img').draggable();
 					
 					console.log('this.reservation');
 					console.log(this.reservation);
+					
+					var res_oauth_uid = this.reservation.get('pglr_user_oauth_uid') || this.reservation.get('tglr_user_oauth_uid');
+					if(res_oauth_uid){
+						this.$el.append('<img style="" src="https://graph.facebook.com/' + res_oauth_uid + '/picture" alt="" />');
+					}else{
+						this.$el.append('<img style="" src="' + window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/People.png" alt="" />');
+					}
+					
+					
+					this.$el.find('img').draggable({
+					//	helper: 'clone'
+						revert: 'invalid',
+					//	scope: '.table'
+					}).css({
+						'max-width': 	'50%',
+						'border': 		'1px solid #CCC',
+						'position': 	'absolute',
+						'bottom': 		'5px',
+						'right': 		'5px'
+					});
+					
+					
+					
 					
 				}
 				
@@ -338,6 +361,10 @@
 					view_floor.render();
 					
 				});
+				
+				
+				this.$el.find('.table').droppable();
+				
 				
 				this.initialized = true;
 				

@@ -697,7 +697,10 @@ class Model_guest_lists extends CI_Model {
 	 * @return	array
 	 * */
 	function retrieve_single_guest_list_and_guest_list_members($promoters_guest_list_authorizations_id, $pgla_day, $index = false, $pgla_create_time = 0){
-			
+		
+		
+		$guest_list_date = date('Y-m-d', strtotime('next ' . rtrim($pgla_day, 's') . '-' . '0' . ' weeks'));
+		
 		if($index !== false){
 			
 			if($index < 0)
@@ -774,7 +777,12 @@ class Model_guest_lists extends CI_Model {
 				
 		foreach($result as &$res){
 					
-			$res->human_date = date('m/d/y h:iA', $res->time);
+			$res->human_date 			= date('m/d/y h:iA', $res->time);
+			$res->request_human_date 	= date('m/d/y h:iA', $res->time);
+			
+			//NOTE, human date is when requested -- iso date is date of guest-list
+			$res->iso_date = $guest_list_date;
+			
 			
 			$sql = "SELECT 	
 			

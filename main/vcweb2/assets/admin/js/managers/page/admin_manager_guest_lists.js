@@ -167,14 +167,18 @@ jQuery(function(){
 			},
 			render_table_flow_1: function(){
 				
-				var _this = this;
+				var _this 		= this;
+				var iso_date 	= this.model.get('iso_date');
+				
 				
 				this.render_loading();
 				jQuery.background_ajax({
 					data: {
-						vc_method: 	'manual_add_find_tables',
+					//	vc_method: 	'manual_add_find_tables',
+						vc_method: 	'find_tables',
 						pgla_id: 	this.model.get('id'),
-						tv_id:		this.model.get('tv_id')
+						tv_id:		this.model.get('tv_id'),
+						iso_date: 	iso_date
 					},
 					success: function(data){
 						

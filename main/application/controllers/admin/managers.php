@@ -326,6 +326,9 @@ class Managers extends MY_Controller {
 		
 		
 		
+		
+		
+		
 		if($this->library_admin_managers->team->team_completed_setup == '1'){
 		
 			$this->load->helper('run_gearman_job');
@@ -338,6 +341,11 @@ class Managers extends MY_Controller {
 
 
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_admin_dashboard', $data, true);
+		
+		
+		
+		
+		
 	}
 	
 	/**
@@ -351,12 +359,19 @@ class Managers extends MY_Controller {
 	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
+		
+		
+		
 		list($users, $team_venues) = $this->_helper_manager_guest_lists_and_members();
 		$data['users'] = $users;
 		$data['team_venues'] = $team_venues;
 		
 		
 		$this->body_html = $this->load->view($this->view_dir . 'guest_lists/view_managers_guest_lists', $data, true);
+		
+		
+		
+		
 	}
 	
 	/**
@@ -533,12 +548,17 @@ class Managers extends MY_Controller {
 	private function _tables($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		
+		
+		
 		list($init_users, $team_venues) = $this->_helper_venue_floorplan_retrieve_v2();
 		
 		$data['init_users'] = $init_users;
 		$data['team_venues'] = $team_venues;
 
 		$this->body_html = $this->load->view($this->view_dir . 'tables/view_admin_manager_tables', $data, true);
+		
+		
+		
 		
 	}
 	
@@ -1909,8 +1929,12 @@ class Managers extends MY_Controller {
 				break;
 			case 'retrieve_pending_requests':
 			
+			
+			
 				$data = $this->_helper_retrieve_pending_requests();
 				die(json_encode(array('success' => true, 'message' => $data)));		
+				
+				
 				
 				break;
 			case 'announcement_create':
@@ -1930,14 +1954,18 @@ class Managers extends MY_Controller {
 				
 				
 				break;
-			case 'venue_floorplan_retrieve':		
-				$result = $this->_helper_venue_floorplan_retrieve();
-				die(json_encode($result));
-				break;
-			case 'team_guest_list_request_accept_deny':
-				$result = $this->_helper_guest_list_approve_deny();
-				die(json_encode($result));
-				break;
+	
+	//	No longer being used?
+	//		case 'venue_floorplan_retrieve':		
+	//			$result = $this->_helper_venue_floorplan_retrieve();
+	//			die(json_encode($result));
+	//			break;
+	//		case 'team_guest_list_request_accept_deny':
+	//			$result = $this->_helper_guest_list_approve_deny();
+	//			die(json_encode($result));
+	//			break;
+	
+	
 			case 'stats_retrieve':
 				
 				$this->load->helper('check_gearman_job_complete');
@@ -2036,11 +2064,19 @@ class Managers extends MY_Controller {
 
 
 				break;
-			case 'manual_add_find_tables':
+		//	case 'manual_add_find_tables':
+			
+			
+			
+			case 'find_tables':		
+					
+					
+					
+					
 					
 				
 				//data for displaying floorplans of venues
-				list($team_venues, $init_users) = $this->_helper_retrieve_floorplans_and_reservations(array(
+				list($init_users, $team_venues) = $this->_helper_venue_floorplan_retrieve_v2(array(
 					'tv_id' => $this->input->post('tv_id'),
 					'date' 	=> $this->input->post('date')
 				));
@@ -2119,9 +2155,9 @@ class Managers extends MY_Controller {
 				
 				
 			case 'venue_floorplan_retrieve':
-				$result = $this->_helper_venue_floorplan_retrieve();
-				die(json_encode($result));
-				break;
+	//			$result = $this->_helper_venue_floorplan_retrieve();
+	//			die(json_encode($result));
+	//			break;
 				
 				
 				
@@ -3078,8 +3114,90 @@ class Managers extends MY_Controller {
 		
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 		
+		
+		//are we looking for just 1 tv?
+		$tv_id 		= $this->input->post('tv_id');
+		$iso_date 	= $this->input->post('iso_date');
+		
+		
+		
 		$init_users = array();
-		foreach($team_venues as &$venue){
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//default date is today... lookup date of guest-list if pglr or tglr specified
+		$lookup_date = date('Y-m-d', time());
+		$pglr_id = $this->input->post('pglr_id');
+		$tglr_id = $this->input->post('tglr_id');
+		if($pglr_id){
+			
+			$this->db->select('pgl.date as date')
+				->from('promoters_guest_lists pgl')
+				->join('promoters_guest_lists_reservations pglr', 'pglr.promoter_guest_lists_id = pgl.id')
+				->where(array(
+					'pglr.id' => $pglr_id
+				));
+			$query = $this->db->get();
+			$result = $query->row();
+			if($result && isset($result->date)){
+				$lookup_date = $result->date;
+			}
+			
+		}
+		if($tglr_id){
+			
+			$this->db->select('tgl.date as date')
+				->from('teams_guest_lists tgl')
+				->join('teams_guest_lists_reservations tglr', 'tglr.team_guest_list_id = tgl.id')
+				->where(array(
+					'tglr.id' => $tglr_id
+				));
+			$query = $this->db->get();
+			$result = $query->row();
+			if($result && isset($result->date)){
+				$lookup_date = $result->date;
+			}
+			
+		}
+		if($iso_date){
+			$lookup_date = $iso_date;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		foreach($team_venues as $key => &$venue){
+			
+			
+			if($tv_id){
+				
+				if($tv_id != $venue->tv_id){
+					unset($team_venues[$key]);
+					continue;
+				}
+				
+			}
+			
+			$venue->floorplan_iso_date = $lookup_date;
+			$venue->floorplan_human_date = date('l F j, Y', strtotime($lookup_date));
 			
 			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
 
@@ -3134,40 +3252,7 @@ class Managers extends MY_Controller {
 
 
 
-			//default date is today... lookup date of guest-list if pglr or tglr specified
-			$lookup_date = date('Y-m-d', time());
-			$pglr_id = $this->input->post('pglr_id');
-			$tglr_id = $this->input->post('tglr_id');
-			if($pglr_id){
-				
-				$this->db->select('pgl.date as date')
-					->from('promoters_guest_lists pgl')
-					->join('promoters_guest_lists_reservations pglr', 'pglr.promoter_guest_lists_id = pgl.id')
-					->where(array(
-						'pglr.id' => $pglr_id
-					));
-				$query = $this->db->get();
-				$result = $query->row();
-				if($result && isset($result->date)){
-					$lookup_date = $result->date;
-				}
-				
-			}
-			if($tglr_id){
-				
-				$this->db->select('tgl.date as date')
-					->from('teams_guest_lists tgl')
-					->join('teams_guest_lists_reservations tglr', 'tglr.team_guest_list_id = tgl.id')
-					->where(array(
-						'tglr.id' => $tglr_id
-					));
-				$query = $this->db->get();
-				$result = $query->row();
-				if($result && isset($result->date)){
-					$lookup_date = $result->date;
-				}
-				
-			}
+			
 
 
 
@@ -3253,7 +3338,7 @@ class Managers extends MY_Controller {
 	 * @param	third URL segment
 	 * @return	object || false
 	 */
-	private function _helper_venue_floorplan_retrieve(){
+/*	private function _helper_venue_floorplan_retrieve(){
 
 		//'promoter' || 'manager'
 		$request_type = $this->input->post('request_type');
@@ -3326,7 +3411,7 @@ class Managers extends MY_Controller {
 		
 		return $response;
 	}
-
+*/
 
 	private function _helper_retrieve_pending_requests(){
 		
@@ -3504,6 +3589,9 @@ class Managers extends MY_Controller {
 					foreach($tv_gla->current_list->groups as $group){
 						
 						$group->request_type = 'team';
+						$group->human_date	 = $tv_gla->human_date;
+						$group->iso_date	 = $tv_gla->iso_date;
+						
 						
 						if($group->tglr_approved === '0' || $group->tglr_approved === 0)
 							$pending_requests[] = $group;
