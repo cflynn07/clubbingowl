@@ -278,6 +278,7 @@ div#friend_content section#activity li a,img{
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 5px;
+	border: 1px solid #CCC;
 }
 div#friend_content section#activity li p{
 	display: inline-block;
