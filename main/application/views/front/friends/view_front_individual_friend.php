@@ -16,7 +16,9 @@
 
   <header>
   	<div>
-	  	<div class="avatar pic_<?= $friend->users_oauth_uid ?>"></div>
+	  	<div class="avatar">
+	  		<img style="border-radius:10px;" src="https://graph.facebook.com/<?= $friend->users_oauth_uid ?>/picture?type=large"  />
+	  	</div>
 	  	<div>
 	  		<h1><?= $friend->users_full_name ?></h1>
 	  		<br><br><br>
