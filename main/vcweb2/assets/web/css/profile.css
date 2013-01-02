@@ -308,10 +308,23 @@ div#friend_content ul#user_promoters li{
 	border-radius: 5px;
 	margin-bottom: 3px;
 }
-div#friend_content ul#user_promoters li a,img.logo{
-	box-shadow: 3px 3px #474D6A;
+
+
+div#friend_content ul#user_promoters li a{
+//	box-shadow: 3px 3px #474D6A;
+//	border: 1px solid black !important;
+//	border-radius: 5px;
+}
+div#friend_content ul#user_promoters li a img{
+	box-shadow: 2px 2px #474D6A;
 	border: 1px solid black !important;
 	border-radius: 5px;
+}
+div#friend_content ul#user_promoters li a img:hover{
+	box-shadow: none !important;
+	position: relative;
+	top: 2px;
+	left: 2px;
 }
 
 

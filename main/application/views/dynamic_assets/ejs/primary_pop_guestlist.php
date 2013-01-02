@@ -1,6 +1,6 @@
 <li>
 	<% 
-		var image = image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + gla_image + '_t.jpg', {});
+		var image = image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + gla_image + '_t.jpg', {class: 'venue-image'});
 		var path;
 		if(gl_type == 'promoter'){
 			path = 'promoters/' + up_public_identifier + '/guest_lists/' + gla_name.replace(/ /g, '_');

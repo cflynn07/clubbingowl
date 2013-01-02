@@ -6,9 +6,9 @@
 				
 				
 				
-				<div class="avatar">
+				<div class="avatar venue-image" style="height:72px;border-radius:6px;">
 					<%
-						var image 	= image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + un_notification_data.tgla.tgla_image + '_t.jpg', {alt: 'Guest List Banner', style: 'max-width:50px;', class: 'ajaxify_t3'});
+						var image 	= image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + un_notification_data.tgla.tgla_image + '_t.jpg', {alt: 'Guest List Banner', style: 'max-width:50px; border-radius:5px;', class: 'ajaxify_t3'});
 						var link 	= inline_link('venues/' + un_notification_data.tgla.c_url_identifier + '/' + un_notification_data.tgla.tv_name.replace(/ /g, '_') + '/guest_lists/' + un_notification_data.tgla.tgla_name.replace(/ /g, '_'), image, {alt: 'User', class: 'ajaxify_t3'})
 					%>
 					<%= link %>

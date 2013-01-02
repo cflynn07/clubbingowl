@@ -4,9 +4,9 @@
 		<tr>
 			<td style="vertical-align:top; width:50px;">
 				
-				<div class="avatar">
+				<div class="avatar venue-image" style="height:69px;border-radius:6px;">
 					<%
-						var image 	= image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'profile-pics/' + un_notification_data.pgla.up_profile_image + '_t.jpg', {alt: 'Promoter Profile Picture', style: 'max-width:50px;', class: 'ajaxify_t3'});
+						var image 	= image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'profile-pics/' + un_notification_data.pgla.up_profile_image + '_t.jpg', {alt: 'Promoter Profile Picture', style: 'max-width:50px; border-radius:5px;', class: 'ajaxify_t3'});
 						var link 	= inline_link('promoters/' + un_notification_data.pgla.up_public_identifier + '/guest_lists/' + un_notification_data.pgla.pgla_name.replace(/ /g, '_'), image, {alt: 'User', class: 'ajaxify_t3'})
 					%>
 					<%= link %>
