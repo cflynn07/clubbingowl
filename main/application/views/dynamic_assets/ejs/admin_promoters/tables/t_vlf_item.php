@@ -1,6 +1,10 @@
 <% if(vlfi_item_type == 'table'){ %>
 											
-	<span class="title">T</span>
+	<% if(typeof vlfit_title !== 'undefined' && vlfit_title){ %>										
+		<span class="title"><%= vlfit_title %></span>
+	<% }else{ %>
+		<span class="title">T</span>
+	<% } %>
 	
 	<?php if(false): ?>
 	<div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 		0, '', ',') ?></div>

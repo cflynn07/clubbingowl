@@ -1,4 +1,4 @@
-<h3>"<%= tv_name %>" Table Layout</h3>
+<h3>"<strong><%= tv_name %></strong>" Table Layout<% if(typeof floorplan_human_date !== 'undefined'){ %><br/><span style="color:#474D6A; font-size:16px;"><%= floorplan_human_date %><% } %></span></h3>
 			
 <% if(display_slider){ %>	
 	<div class="ui2">

@@ -125,7 +125,7 @@
 							<p style="margin-bottom:0;"><%= tgla_name %></p>
 						</td>
 						<td>
-							<%= human_date %>
+							<%= request_human_date %>
 						</td>
 						<td>
 							<%= (tglr_request_msg.length) ? tglr_request_msg : ' - ' %>

@@ -190,6 +190,9 @@ class Promoters extends MY_Controller {
 				case 'clients':
 					
 					break;
+					
+				/*	
+					
 				case 'reports_guest_lists':
 					
 					break;
@@ -199,6 +202,10 @@ class Promoters extends MY_Controller {
 				case 'reports_clients':
 					
 					break;
+				 * 
+				 * */
+				
+				
 				case 'my_profile_img':
 					
 					break;
@@ -242,6 +249,9 @@ class Promoters extends MY_Controller {
 		elseif($arg0 != '' && $arg1 != '' && $arg2 == ''){
 			
 			switch($arg0){
+				
+				case 'reports':
+					break;
 				case 'clients':
 					
 					break;
@@ -557,6 +567,36 @@ class Promoters extends MY_Controller {
 		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 *
+	 * @param	First URL segment
+	 * @param	Second URL segment
+	 * @param	Third URL segment
+	 * @return	null
+	 */
+	private function _reports($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		
+		
+	}
+
+
+
+
+
+	
+	
+	
+	
 	/**
 	 * Reports statistical data about a promoter's guest list performance
 	 * 
@@ -565,9 +605,9 @@ class Promoters extends MY_Controller {
 	 * @param	Third URL segment
 	 * @return	null
 	 */
-	private function _reports_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
+//	private function _reports_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-	}
+//	}
 	
 	/**
 	 * Reports statistical information about a promoter's sales
@@ -577,9 +617,9 @@ class Promoters extends MY_Controller {
 	 * @param	Third URL segment
 	 * @return	null
 	 */
-	private function _reports_sales($arg0 = '', $arg1 = '', $arg2 = ''){
+//	private function _reports_sales($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-	}
+//	}
 	
 	/**
 	 * Reports statistical information about a promoter's clients
@@ -589,9 +629,18 @@ class Promoters extends MY_Controller {
 	 * @param	Third URL segment
 	 * @return	null
 	 */
-	private function _reports_clients($arg0 = '', $arg1 = '', $arg2 = ''){
+//	private function _reports_clients($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-	}
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Profile management page

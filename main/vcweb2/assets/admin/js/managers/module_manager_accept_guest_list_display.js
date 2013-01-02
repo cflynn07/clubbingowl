@@ -18,6 +18,8 @@
 		
 		var display_tables_helper = function(){
 			
+			console.log(_this.model.toJSON());
+			
 			var target = '#dialog_actions_floorplan';
 			jQuery(target).hide();
 			
@@ -26,9 +28,16 @@
 					vc_method: 	'find_tables',
 					tv_id:		_this.model.get('tv_id'),
 					
+					pglr_id:	_this.model.get('id'),
+					tglr_id:	_this.model.get('tglr_id'),
+					iso_date: 	_this.model.get('iso_date')
 				},
 				success: function(data){
-														
+					
+					
+					console.log(data);
+					
+									
 					var venue = false;
 					for(var i in data.message.team_venues){
 						
@@ -90,6 +99,11 @@
 							}
 						});
 					jQuery(target).show();	
+					jQuery('div#dialog_actions').dialog('option', 'position', 'center center');
+					
+					
+					
+					
 					
 					
 					//_this.modal_view.dialog('option', {
@@ -221,6 +235,7 @@
 		var dialog_options = {
 			title: 		'Approve or Decline Request',
 			modal: 		true,
+			height: 	'auto',
 			resizable: 	true,
 			draggable: 	true,
 			open: 		function(){
@@ -276,14 +291,11 @@
 		
 		
 		if(!table_display){
-			dialog_options.height 	= 330;
+		//	dialog_options.height 	= 330;
 			dialog_options.width 	= 320;
 		}else{
-			dialog_options.height 	= 690;
-			dialog_options.width 	= 800;
-			
-			
-			
+		//	dialog_options.height 	= 690;
+			dialog_options.width 	= 800;		
 		}
 		
 		

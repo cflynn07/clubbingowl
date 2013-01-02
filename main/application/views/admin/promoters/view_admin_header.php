@@ -136,9 +136,15 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 								<span>Reports</span>
 							</a>
 							<ul>
+								
+								<li><a class="ajaxify" href="<?=$central->promoter_admin_link_base?>reports/promoter_performance/">Promoter Performance</a></li>
+								
+							<?php if(false): ?>	
 								<li><a class="ajaxify" href="<?=$central->promoter_admin_link_base?>reports_guest_lists/">Guest Lists</a></li>
 								<li><a class="ajaxify" href="<?=$central->promoter_admin_link_base?>reports_sales/">Sales</a></li>
 								<li><a class="ajaxify" href="<?=$central->promoter_admin_link_base?>reports_clients/">Clients</a></li>
+							<?php endif; ?>
+								
 							</ul>
 						</li>
 						

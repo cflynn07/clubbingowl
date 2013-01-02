@@ -285,7 +285,8 @@ class Model_users_managers extends CI_Model {
 		//loop over the head users and attach their entourages
 		foreach($result as &$res){
 					
-			$res->human_date = date('m/d/y h:iA', $res->tglr_create_time);	
+			$res->request_human_date = date('m/d/y h:iA', $res->tglr_create_time);	
+			$res->human_date = date('m/d/y h:iA', $res->tglr_create_time); 
 			
 			$sql = "SELECT
 					

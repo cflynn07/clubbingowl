@@ -1225,3 +1225,7 @@ section#guestlist p#gl_title_header {
 section#guestlist p#gl_title_header strong{
 	color: #3CA6E2;
 }
+
+#guest-list-table-price-selection {
+	width: 100%;
+}

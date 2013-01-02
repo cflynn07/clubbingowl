@@ -1412,7 +1412,7 @@ jQuery(function(){
 			if(window.location.hash.length === 0)
 				return; 
 				
-			var pgla_name = window.location.hash.replace('_', ' ').replace('#', '');
+			var pgla_name = window.location.hash.replace(/_/g, ' ').replace('#', '');
 
 			var res = collection_guest_lists.where({
 				pgla_name: pgla_name
