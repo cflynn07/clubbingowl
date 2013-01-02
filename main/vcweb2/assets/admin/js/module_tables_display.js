@@ -150,7 +150,11 @@
 			
 			if(item_type == 'table'){
 				
-				
+				this.$el.droppable({
+					hoverClass: 'highlighted'
+				});
+					
+					
 				//determine if this table exists in the pool of reserved tables
 				var results = collection_reservations.where({
 					vlfit_id: this.model.get('vlfit_id')
@@ -187,7 +191,8 @@
 						'border': 		'1px solid #CCC',
 						'position': 	'absolute',
 						'bottom': 		'5px',
-						'right': 		'5px'
+						'right': 		'5px',
+						'z-index':  	'2'
 					});
 					
 					
@@ -361,10 +366,6 @@
 					view_floor.render();
 					
 				});
-				
-				
-				this.$el.find('.table').droppable();
-				
 				
 				this.initialized = true;
 				
