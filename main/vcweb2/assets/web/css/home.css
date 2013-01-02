@@ -159,6 +159,7 @@ section#news ul.updates div.avatar {
 	padding: 0px;
 	min-width: 57px;
 	margin-bottom: 10px;	
+	border-radius: 5px;
 }
 section#news ul.updates div.avatar img {
 	margin: 0;
