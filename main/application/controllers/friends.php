@@ -284,7 +284,19 @@ class Friends extends MY_Controller {
 					if($promoter->up_completed_setup == 1){
 					//	redirect('/promoters/' . $promoter->team->c_url_identifier . '/' . $promoter->up_public_identifier . '/', 301);
 					//	die();
-						$this->body_html = '<script type="text/javascript">window.top.location = "/promoters/' . $promoter->up_public_identifier . '/";</script>';
+					
+					
+					
+					
+						if($this->input->post('ajaxify')){
+							$this->body_html = '<a class="ajaxify" id="redirect_link" style="opacity:0;display:none;" href="/promoters/' . $promoter->up_public_identifier . '/">Promoter</a><script type="text/javascript">jQuery("#redirect_link").trigger("click");</script>';
+						}else{
+							$this->body_html = '<script type="text/javascript">window.top.location = "/promoters/' . $promoter->up_public_identifier . '/";</script>';	
+						}
+
+
+
+						
 						return;
 					}
 					
