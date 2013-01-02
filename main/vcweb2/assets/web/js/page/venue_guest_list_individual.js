@@ -13,7 +13,7 @@ jQuery(function(){
 		
 		jQuery(window).bind('scroll', function(){
 			
-			var scroll_offset 		= jQuery(window).scrollTop() + jQuery(window).height() + 50;
+			var scroll_offset 		= jQuery(window).scrollTop() + jQuery(window).height() - 150;
 			var accordion_offset 	= jQuery('div#accordion').offset().top;
 			
 			if(accordion_offset < scroll_offset){
