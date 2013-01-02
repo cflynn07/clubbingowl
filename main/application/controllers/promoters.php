@@ -598,6 +598,19 @@ class Promoters extends MY_Controller {
 			
 			Kint::dump($data);
 			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			$header_custom = new stdClass;
 			$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/';
 			
@@ -607,6 +620,7 @@ class Promoters extends MY_Controller {
 										. $this->library_promoters->promoter->up_profile_image
 										. '_p.jpg';
 										
+					
 										
 			$header_custom->title_prefix = lang_key($this->lang->line('ad-promoters_all_guest_lists_title'), array(
 				'promoter_u_full_name' => $this->library_promoters->promoter->u_full_name
@@ -628,8 +642,17 @@ class Promoters extends MY_Controller {
 			
 			*/
 			
-					
+			
 			$this->load->vars('header_custom', $header_custom);
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 		}else{
 			
@@ -726,8 +749,18 @@ class Promoters extends MY_Controller {
 			
 			
 			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			$header_custom = new stdClass;
-			$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/' . $arg3 . '/';
+			$header_custom->url = base_url() . 'promoters/' . $this->library_promoters->promoter->up_public_identifier . '/guest_lists/' . $arg2 . '/';
 			$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	
 										. 'guest_lists/' 
 										. $data['guest_list']->pgla_image
@@ -763,6 +796,14 @@ class Promoters extends MY_Controller {
 			
 			
 			$this->load->vars('header_custom', $header_custom);
+			
+			Kint::dump('DFSDF');
+			
+			
+			
+			
+			
+			
 			
 		}
 		
