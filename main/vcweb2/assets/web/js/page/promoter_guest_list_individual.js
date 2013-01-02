@@ -12,16 +12,30 @@ jQuery(function(){
 		
 		
 		
-	//	jQuery('#join_here').effect('shake', {
-	//		easing: 'swing'
-	//	}, 200);
-	
-		setTimeout(function(){
-			jQuery('div#accordion').effect('pulsate', {
-				distance: 15,
-				times: 2
-			}, 300);	
-		}, 300);
+		
+		
+		jQuery(window).bind('scroll', function(){
+			
+			var scroll_offset 		= jQuery(window).scrollTop() + jQuery(window).height() + 50;
+			var accordion_offset 	= jQuery('div#accordion').offset().top;
+			
+			if(accordion_offset < scroll_offset){
+				setTimeout(function(){
+					jQuery('div#accordion').effect('pulsate', {
+						distance: 15,
+						times: 2
+					}, 300);	
+				}, 600);
+				
+				jQuery(window).unbind('scroll');
+				
+			}
+			
+		});
+		jQuery(window).trigger('scroll');
+		
+		
+		
 		
 		
 		
@@ -542,6 +556,11 @@ jQuery(function(){
 		
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
+			
+			
+			jQuery(window).unbind('scroll');
+			
+			
 			
 			console.log('unbind_callback');
 			console.log(unload_items);
