@@ -23,12 +23,25 @@
   float: left;
   padding-right: 15px;
 }
-.venue-list li .venue-image {
+
+
+
+.venue-image {
 //  display: block;
   max-width: 100%;
   height: auto;
   margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px #474D6A !important;
 }
+.venue-image:hover {
+	box-shadow: none !important;
+	top: 2px;
+	left: 2px;
+	position: relative;	
+}
+
+
 .venue-list li a {
 //  display: block;
   font-size: 22px;

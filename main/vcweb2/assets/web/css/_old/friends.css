@@ -12,6 +12,7 @@
   margin: 0 auto;
   padding-top: 28px;
   display: block;
+  border: 0;
 }
 .people .name {
   color: #777777;

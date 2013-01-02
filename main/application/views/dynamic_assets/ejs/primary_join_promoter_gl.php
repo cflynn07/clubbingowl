@@ -3,9 +3,9 @@
 	<table style="width:100%; margin-bottom:10px; margin-top:-5px;">
 		<tr>
 			<td style="vertical-align:top;">
-				<div class="avatar">
+				<div class="avatar venue-image" style="height:52px; border-radius:6px;">
 					<%
-						var image 	= image_insert(pic_square, {alt: 'User'});
+						var image 	= image_insert(pic_square, {alt: 'User', style: 'border-radius:5px;'});
 						var link 	= inline_link('friends/' + u_third_party_id, image, {alt: 'User'})
 					%>
 					<%= link %>

@@ -1,4 +1,3 @@
-
 <section id="profile" style="display: block;">
   <h1><?= $this->lang->line('v-profile') ?></h1>
   
@@ -32,7 +31,7 @@
 	  		
 	  	<li>
 	  		<a class="ajaxify_t3" href="<?= $pro_link ?>">
-				<img class="logo" src="<?=$central->s3_uploaded_images_base_url?>profile-pics/<?= $promoter->up_profile_image ?>_t.jpg" alt="Venue Banner" />
+				<img class="logo venue-image" src="<?=$central->s3_uploaded_images_base_url?>profile-pics/<?= $promoter->up_profile_image ?>_t.jpg" alt="Venue Banner" />
 			</a>
 	  		<div class="name">
 	  			<a class="ajaxify_t3" href="<?= $pro_link ?>">

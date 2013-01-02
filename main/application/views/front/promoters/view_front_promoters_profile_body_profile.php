@@ -26,7 +26,7 @@
 				?>
 				
 				<a href="<?= $venue_link ?>">
-				  	<img class="logo" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $ptv->tv_image ?>_t.jpg" alt="<?= $this->lang->line('p-venue_banner') ?>">
+				  	<img class="logo venue-image" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $ptv->tv_image ?>_t.jpg" alt="<?= $this->lang->line('p-venue_banner') ?>">
 			  	</a>
 			  	
               <?php if(false): ?>
