@@ -34,7 +34,7 @@
 <div id="loading_modal" style="display:none;">
 	<div id="loading_modal_inner">
 		<p><?= $this->lang->line('ad-loading') ?>...</p>
-		<img src="<?= $central->global_assets . 'images/ajax.gif' ?>" alt="loading..." />
+		<img style="border:0;" src="<?= $central->global_assets . 'images/ajax.gif' ?>" alt="loading..." />
 	</div>
 </div>
 

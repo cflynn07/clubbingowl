@@ -62,6 +62,7 @@
   margin: 0 auto;
   padding-top: 28px;
   display: block;
+  border: 0;
 }
 #friends .people .name {
   color: #777777;
@@ -304,7 +305,7 @@ div#friend_content ul#user_promoters li{
 div#friend_content ul#user_promoters li a,img.logo{
 	box-shadow: 3px 3px #474D6A;
 	border: 1px solid black !important;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 
@@ -312,7 +313,12 @@ div#friend_content ul#user_promoters li a,img.logo{
 div#friend_content ul#user_promoters li a,img{
 	display: inline-block;
 }
-
+#profile .updates li img {
+	border: 1px solid black;
+	border-radius: 5px;
+	box-shadow: 3px 3px #474D6A;
+	margin-bottom: 3px;
+}
 
 
 
