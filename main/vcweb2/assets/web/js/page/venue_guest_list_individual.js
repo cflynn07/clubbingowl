@@ -27,7 +27,7 @@ jQuery(function(){
 					}, 300);	
 				}, 600);
 				
-				jQuery(window).unbind('scroll');
+				jQuery(window).unbind('scroll', scroll_callback);
 				
 			}
 			
