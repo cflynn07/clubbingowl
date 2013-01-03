@@ -395,11 +395,8 @@ class Model_team_guest_lists extends CI_Model {
 				JOIN 	team_venues tv 
 				ON 		tgla.team_venue_id = tv.id
 				
-				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id 
-				
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 		
 				WHERE 	tgla.id = ?";
 				

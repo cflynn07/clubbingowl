@@ -26,7 +26,7 @@
 			<p>
 				<label>SMS/Text Number</label>
 				<input class="sf" id="sms_text_number" name="sms_text_number" type="text" value="<?= $promoter->u_twilio_sms_number ?>" />
-				<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="VibeCompass will notify you via SMS when you recieve a new guest-list reservation. You can reply to accept/decline the request.">
+				<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="ClubbingOwl will notify you via SMS when you recieve a new guest-list reservation. You can reply to accept/decline the request.">
 			</p>
 			
 			<hr />

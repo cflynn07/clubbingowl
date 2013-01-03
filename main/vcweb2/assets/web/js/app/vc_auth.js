@@ -230,17 +230,83 @@ jQuery(function(){
 		});
 	};
 	
+	
+	
+	
+	
+	
+	
 	var lock_scroll_top = function(){
 		var resize_scroll_callback = function(){
 													
-			var header = jQuery('header#header');
-			var user = jQuery('div#user');
-			var spacer = jQuery('div#spacer');
+			var header 	= jQuery('header#header');
+			var user 	= jQuery('div#user');
+			var spacer 	= jQuery('div#spacer');
+			
+			
+			
 			
 			top_offset = 0;
 			if(user.css('display') == 'block')
 				top_offset += 35;
 						
+			if(jQuery(this).width() <= 991){
+				top_offset += header.find('nav#navigation').height();
+			}
+					
+					
+					
+			if((top_offset - jQuery(this).scrollTop()) < 1){
+				//lock to top
+				
+				
+				if(jQuery(this).width() > 991){
+					
+					if(header.css('position') == 'relative'){
+						
+						header.css({
+							position:	'fixed',
+							top:		'0px',
+							width:		'100%',
+							'z-index':	99998
+						});
+						spacer.css({
+							'height': header.height() + 'px'
+						});
+						
+					}
+					
+				}else{
+					
+					if(header.css('position') == 'relative'){
+					
+						header.find('nav#navigation').css({
+							position:	'fixed',
+							top:		'0px',
+							width:		'100%',
+							'z-index':	99998
+						});
+						spacer.css({
+							'height': header.height() + 'px'
+						});
+						
+					}
+					
+				}
+				
+			}else{
+				//allow to scroll down
+				
+				header.removeAttr('style');
+				header.find('nav#navigation').removeAttr('style');
+				spacer.removeAttr('style');
+				
+			}		
+						
+						
+		/*				
+						
+						//991
 			if(jQuery(this).width() > 991 && (top_offset - jQuery(this).scrollTop()) < 1){
 				//lock to top
 				
@@ -248,10 +314,10 @@ jQuery(function(){
 				if(header.css('position') == 'relative'){
 					
 					header.css({
-						position: 	'fixed',
-						top: 		'0px',
-						width: 		'100%',
-						'z-index': 	99998
+						position:	'fixed',
+						top:		'0px',
+						width:		'100%',
+						'z-index':	99998
 					});
 					spacer.css({
 						'height': header.height() + 'px'
@@ -267,6 +333,11 @@ jQuery(function(){
 				
 			}
 						
+		*/				
+						
+						
+						
+						
 		};
 		
 		EventHandlerObject.addListener('vc_login', function(){ 
@@ -279,6 +350,11 @@ jQuery(function(){
 		jQuery(window).scroll(resize_scroll_callback);
 		jQuery(window).resize(resize_scroll_callback);
 	}
+	
+	
+	
+	
+	
 	
 	
 	/**

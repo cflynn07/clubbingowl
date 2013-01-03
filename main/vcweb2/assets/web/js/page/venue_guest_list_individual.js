@@ -11,7 +11,10 @@ jQuery(function(){
 		jQuery('select#guestlist-confirmation-carrier').hide();
 		
 		
-		jQuery(window).bind('scroll', function(){
+		
+		
+		
+		var scroll_callback = function(){
 			
 			var scroll_offset 		= jQuery(window).scrollTop() + jQuery(window).height() - 150;
 			var accordion_offset 	= jQuery('div#accordion').offset().top;
@@ -24,11 +27,12 @@ jQuery(function(){
 					}, 300);	
 				}, 600);
 				
-				jQuery(window).unbind('scroll');
+				jQuery(window).unbind('scroll', scroll_callback);
 				
 			}
 			
-		});
+		};
+		jQuery(window).bind('scroll', scroll_callback);
 		jQuery(window).trigger('scroll');
 		
 		
@@ -602,7 +606,7 @@ jQuery(function(){
 			
 			
 			
-			jQuery(window).unbind('scroll');
+			jQuery(window).unbind('scroll', scroll_callback);
 			
 			
 			

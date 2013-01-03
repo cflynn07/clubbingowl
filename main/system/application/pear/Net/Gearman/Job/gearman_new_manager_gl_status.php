@@ -96,7 +96,7 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 		
 		
 		
-		
+	/*
 		
 		$user_oauth_uid = $args['user_oauth_uid'];
 		$promoter_id	= $args['promoter_id'];
@@ -175,5 +175,7 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 		$CI->redis->expire($handle, 120);
 		
 		echo "Promoter guest list manual add. PGLA_ID:" . $pgla_id . " User friend: " . (($result) ? "true" : "false") . PHP_EOL;
-    }
+   
+	 * */
+	}
 }
