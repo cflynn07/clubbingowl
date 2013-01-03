@@ -52,11 +52,19 @@
 				
 				<div class="full_width last">
 					
-					<h3 style="color:red;"><?= $venue->tv_name ?></h3>
+					<div>
+						<div style="float:left; display:inline-block;">
+							<img 	style="border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url . 'venues/banners/' . $venue->tv_image . '_t.jpg' ?>" alt="<?= $venue->tv_name ?>"/>
+							<h3 	style="color:red;"><?= $venue->tv_name ?></h3>
+						</div>
+						<div style="float:right; display:inline-block; padding-top:5px;">
+							<a 		href="<?= $central->manager_admin_link_base . 'settings_venues_edit_floorplan/' . $venue->tv_id . '/' ?>" class="ajaxify button_link btn-action">Edit Floorplan</a>	
+						</div>
+					</div>
 					
-					<a href="<?= $central->manager_admin_link_base . 'settings_venues_edit_floorplan/' . $venue->tv_id . '/' ?>" class="ajaxify button_link btn-action">Edit Floorplan</a>	
-					<br/><br/>
+					<div style="clear:both;"></div>
 					
+										
 					<div data-tv_id="<?= $venue->tv_id ?>" class="tabs_tables tabs_tables_tv_id_<?= $venue->tv_id ?>">
 						
 						
@@ -66,7 +74,7 @@
 						<div class="ui-widget-header">
 							
 							<span>
-								<span style="font-weight:bold; color:red;"><?= $venue->tv_name ?></span> @ <input type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
+								<input type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
 								<img class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 							</span>
 							
@@ -75,6 +83,7 @@
 								<li><a href="#tabs-<?= $venue->tv_id ?>-1">Table Reservations</a></li>
 								<li><a href="#tabs-<?= $venue->tv_id ?>-2">Guest List & Table Reservations</a></li>
 							</ul>
+							
 						</div>
 						
 						

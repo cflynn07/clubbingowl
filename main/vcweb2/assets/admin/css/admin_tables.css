@@ -388,3 +388,9 @@ div.vl div.vlf div.table span.title {
 #admin_manager_settings_venues_edit_floorplan_wrapper div#table_add_dialog p.error{
 	height: 50px;
 }
+
+
+ul li.ui-tabs-active a {
+	color: red !important;
+	text-decoration: underline !important;
+}
