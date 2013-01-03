@@ -117,12 +117,14 @@
 		initialize: function(){
 			
 			model_display_settings.on('change', this.render, this);
-			
 			collection_reservations.on('reset', this.render, this);
-			collection_reservations.on('change', this.render, this);
+		
+			
 			
 		},
 		render: function(){
+			
+		
 			
 			var factor 		= model_display_settings.get('factor');
 			var vlfi_pos_x 	= this.model.get('vlfi_pos_x');
@@ -149,10 +151,15 @@
 			}).render(this.model.toJSON());
 			
 			this.$el.html(html);
-			this.$el.data('vlfit_id', this.model.get('vlfit_id'));
-						
+			
+			this.model.set({
+				highlighted: false
+			});
+			
+			
+			
 			if(item_type == 'table'){
-				
+								
 				this.$el.droppable({
 					hoverClass: 'highlighted',
 					drop: function(e, obj){
@@ -170,7 +177,7 @@
 						
 						params.vc_method	= 'reservation_reassign';
 						params.vlfit_id 	= _this.model.get('vlfit_id');
-						params.iso_date 	= model_team_venue.get('floorplan_iso_date')
+						params.iso_date 	= current_manual_date || model_team_venue.get('floorplan_iso_date')
 						params.tv_id		= model_team_venue.get('tv_id');
 						
 						jQuery.background_ajax({
@@ -234,21 +241,34 @@
 					//	helper: 'clone'
 						revert: 'invalid',
 					//	scope: '.table'
+						zIndex: 10000,
+						stop: function(){
+							console.log('drop');
+							
+							jQuery(this).parent('.table').addClass('highlighted');
+							
+						}
 					}).css({
 						'max-width': 	'50%',
 						'border': 		'1px solid #CCC',
 						'position': 	'absolute',
 						'bottom': 		'5px',
-						'right': 		'5px',
-						'z-index':  	'2'
-					});
+						'right': 		'5px'
+					})
 					
+									
 				}
 				
 			}
 			
+			
+			
 			if(this.model.get('highlighted'))
 				this.$el.addClass('highlighted');
+			else 
+				this.$el.removeClass('highlighted');
+				
+				
 				
 			if(!this.initialized){
 				
@@ -511,46 +531,54 @@
 	
 	
 	
-	
-	
 	var refresh_table_layout = function(tv_id, iso_date){
 		
-		
-		
-		var target = '#dialog_actions_floorplan';
+			
+		var target = cached_target;
 		jQuery(target).css({
 			opacity: 0.5
 		});
 		
 		
-		
+		/**
+		 *
+			vc_method:find_tables
+			tv_id:1
+			iso_date:2013-01-04
+		 */
 		
 		jQuery.background_ajax({
 			data: {
 				vc_method: 	'find_tables',
 				tv_id:		tv_id,
-				iso_date: 	iso_date
+				iso_date: 	current_manual_date || iso_date
 			},
 			success: function(data){
 				
-												
-				var venue = false;
+
+				var venue = false;										
 				for(var i in data.message.team_venues){
-					
-					if(data.message.team_venues[i].tv_id == tv_id){
+						
+					if(parseInt(data.message.team_venues[i].tv_id) == parseInt(tv_id)){
 						venue = data.message.team_venues[i];
 						break;
 					}
-				}
+				}	
+									
 				if(!venue)
 					return false;
-			
+					
+					
+					
+					
 																
 				if(venue.venue_reservations){
 					collection_reservations.reset(venue.venue_reservations);
 				}else{
 					collection_reservations.reset([]);
 				}
+				
+				
 				
 				
 				
@@ -563,7 +591,12 @@
 			}
 		});
 		
+
 	};
+	
+	
+	
+	
 	
 	
 	
@@ -580,6 +613,14 @@
 	var views_venue_layout_wrapper;
 	var collection_reservations;
 	
+	
+	
+	var cached_target;
+	var cached_tv_id;
+	var current_manual_date;
+	
+	
+	
 	var ui_tables_options = {
 		display_slider: true
 	};
@@ -587,20 +628,25 @@
 	
 	//public api	
 	var module_tables_display = {
+		
+		
+		manual_date: 			function(arg){
+			current_manual_date = arg;
+		},
+		refresh_table_layout: 	refresh_table_layout,
+		
+		
+		
 		display_settings: model_display_settings,
 		initialize: function(opts){
 			
-			//opts.factor
-			//opts.display_target
 			
-			
-			//opts.date
-			//opts.team_venue
-			//opts.team_venue.venue_floorplan			
 			
 			if(opts.options){
 				jQuery.extend(ui_tables_options, opts.options);
 			}
+			
+			cached_target = opts.display_target;
 			
 			if(opts.team_venue){
 				
@@ -631,11 +677,6 @@
 				}else{
 					collection_reservations = new Collections.Reservations([]);
 				}
-				
-				
-				
-				console.log('collection_reservations');
-				console.log(collection_reservations);
 				
 				
 				views_venue_layout_wrapper 	= new Views.VenueLayoutWrapper({

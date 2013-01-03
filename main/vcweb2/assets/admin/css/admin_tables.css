@@ -49,6 +49,7 @@ div.item > div.day_price{
 div.table{
 	border: 1px solid red !important;
 	cursor: pointer;
+	z-index: 1 !important;
 }
 
 div.table > div.max_capacity{

@@ -2392,7 +2392,20 @@ class Managers extends MY_Controller {
 			$this->_helper_reservation_reassign();
 			die();
 		}
-		
+		if($this->input->post('vc_method') == 'find_tables'){
+			
+			$data = $this->_helper_venue_floorplan_retrieve_v2();
+			die(json_encode(array('success' => true, 'message' => array(
+				'init_users' 	=> $data[0],
+				'team_venues' 	=> $data[1]
+			))));
+			
+		}
+				
+				
+				
+				
+				
 		
 		$tv_id = $this->input->post('tv_id');
 		$date_obj = $this->input->post('dateObj');

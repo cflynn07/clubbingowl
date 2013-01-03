@@ -1,6 +1,6 @@
 <h3>
 	"<strong><%= tv_name %></strong>" Table Layout<% if(typeof floorplan_human_date !== 'undefined'){ %>
-	<span style="color:#474D6A; font-size:22px; float:right; display:inline-block;"><%= floorplan_human_date %><% } %></span>
+	<span id="displayed_layout_date" style="color:#474D6A; font-size:22px; float:right; display:inline-block;"><%= floorplan_human_date %><% } %></span>
 </h3>
 			
 <% if(display_slider){ %>	
