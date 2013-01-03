@@ -6,16 +6,17 @@ jQuery(function(){
 	window.vc_page_scripts.admin_manager_tables = function(){
 		
 		var globals = window.module.Globals.prototype;
+		var datepicker;
 		
 		jQuery('div#tabs').tabs({}).css('display', 'block').resizable();
 		jQuery('div#tabs div.tabs_tables').tabs();
-		
-		
-		
-		
-		
-		var datepicker;
+				
 		jQuery('div#tabs > div.ui-widget-header select.venue_select').bind('change', function(){
+			
+			
+			
+			
+			
 			
 			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));	
 						
@@ -32,6 +33,10 @@ jQuery(function(){
 			jQuery('div[data-clear-zone]').empty();
 		
 			
+		
+		
+		
+		
 		
 			var tv_display_module;
 			for(var i in window.page_obj.team_venues){
@@ -56,14 +61,15 @@ jQuery(function(){
 			}
 			
 			
+			
+			
+			
 			datepicker = jQuery('div#tabs div[data-tv_id=' + selected_tv_id + '] input.table_datepicker').datepicker({
 				dateFormat: 'DD MM d, yy',
 				maxDate: '+6d',
 				minDate: '-3y',
 				defaultDate: new Date(),
 				onSelect: function(dateText, inst){
-										
-										
 										
 					var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', jQuery(this).datepicker('getDate'));
 					tv_display_module.manual_date(iso_date);
@@ -73,18 +79,17 @@ jQuery(function(){
 					
 		       }
 			});
-			
 			datepicker.datepicker('setDate', '0 days');			
-		
-		
-		//	jQuery('.ui-datepicker-current-day').click();
-			
-			
+				
+				
+				
+				
+				
+					
 		}).trigger('change');
 		
 		
-		
-			//triggered when page is unloaded
+		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
 			
 			jQuery('div[data-clear-zone]').empty();
@@ -95,7 +100,6 @@ jQuery(function(){
 			});
 			
 			jQuery('div#tabs > div.ui-widget-header select.venue_select').unbind('change');
-			
 
 		}
 		

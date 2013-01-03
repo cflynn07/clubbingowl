@@ -238,9 +238,22 @@
 					
 					
 					this.$el.find('img').draggable({
-					//	helper: 'clone'
+						helper: function(){
+							//this must return a helper dom element?
+							
+							var width = jQuery(this).width();
+							var vlf = jQuery(this).parents('.vlf');
+							var el = jQuery(this).clone();
+							el.css({
+								width: width
+							});
+							vlf.append(el);
+							
+							return el;
+							
+						},
 						revert: 'invalid',
-					//	scope: '.table'
+					
 						zIndex: 10000,
 						stop: function(){
 							console.log('drop');
