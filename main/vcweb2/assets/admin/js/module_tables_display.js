@@ -266,7 +266,8 @@
 						'border': 		'1px solid #CCC',
 						'position': 	'absolute',
 						'bottom': 		'5px',
-						'right': 		'5px'
+						'right': 		'5px',
+						'cursor':  		'move'
 					})
 					
 									
