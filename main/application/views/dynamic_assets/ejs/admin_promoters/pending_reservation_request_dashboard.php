@@ -24,7 +24,7 @@
 <td>
 	
 	<% if(entourage_users && entourage_users.length > 0){ %>
-		<table>
+		<table style="width:100%;">
 			
 			<% for(var i=0; i < entourage_users.length; i++){ %>
 				<% var ent_user = entourage_users[i]; %>
@@ -32,7 +32,7 @@
 				<td style="padding:0;">
 					<img src="https://graph.facebook.com/<%= ent_user.pglre_oauth_uid %>/picture?width=25&height=25" />
 				</td>
-				<td style="padding:0 0 0 5px;">
+				<td style="padding:0 0 0 5px; text-align:right;">
 					<p data-name="<%= ent_user.pglre_oauth_uid %>"></p>
 				</td>
 			</tr>

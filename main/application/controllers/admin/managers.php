@@ -1908,6 +1908,11 @@ class Managers extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'reservation_reassign':
+				
+				$this->_helper_reservation_reassign();
+				
+				break;
 			case 'update_pending_requests':
 			
 				$result = $this->_helper_guest_list_approve_deny();
@@ -2002,7 +2007,11 @@ class Managers extends MY_Controller {
 		switch($vc_method){
 			
 			
-			
+			case 'reservation_reassign':
+				
+				$this->_helper_reservation_reassign();
+				
+				break;
 			
 			
 			
@@ -2377,6 +2386,13 @@ class Managers extends MY_Controller {
 	 * @return	null
 	 */
 	private function _ajax_tables($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		
+		if($this->input->post('vc_method') == 'reservation_reassign'){				
+			$this->_helper_reservation_reassign();
+			die();
+		}
+		
 		
 		$tv_id = $this->input->post('tv_id');
 		$date_obj = $this->input->post('dateObj');
@@ -3004,6 +3020,75 @@ class Managers extends MY_Controller {
 		die(json_encode(array('success' => false)));
 		
 	}
+	
+	
+	
+	
+	
+	private function _helper_reservation_reassign(){
+		
+		$pglr_id 	= $this->input->post('pglr_id');
+		$tglr_id 	= $this->input->post('tglr_id');
+		$vlfit_id 	= $this->input->post('vlfit_id');
+		$iso_date	= $this->input->post('iso_date');
+		$tv_id		= $this->input->post('tv_id');
+		
+		
+		//check if table is already assigned
+		list($init_users, $team_venues) 	= $this->_helper_venue_floorplan_retrieve_v2();
+		if(!is_array($team_venues) || !count($team_venues))
+			die(json_encode(array('success' => false)));
+	
+	
+		$team_venue 			= $team_venues[0];
+		$reservations_vlfit_ids = array();
+		foreach($team_venue->venue_reservations as $res){
+			$reservations_vlfit_ids[] = $res->vlfit_id;
+		}
+		
+		if(in_array($vlfit_id, $reservations_vlfit_ids)){
+			//table is already reserved
+			die(json_encode(array('success' => false, 'message' => 'already reserved')));
+		}
+		
+		
+		
+		if($tglr_id){
+			
+
+
+		
+			$this->load->model('model_team_guest_lists', 'team_guest_lists', true);
+			$response = $this->team_guest_lists->update_reservation_reassign(array(
+				'tglr_id'			=> $tglr_id,
+				'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
+				'vlfit_id'			=> $vlfit_id
+			));
+			
+			
+			
+			
+			die(json_encode(array('success' => true)));
+			
+			
+		}elseif($pglr_id){
+	
+			die(json_encode(array('success' => true)));
+	
+	
+		}else{
+			die(json_encode(array('success' => false)));
+		}
+		
+		
+		
+		
+		
+	}
+
+
+
+
 
 	private function _helper_manager_guest_lists_and_members($tgla_id = false, $tv_id = false, $offset = false){
 		
@@ -3660,7 +3745,7 @@ class Managers extends MY_Controller {
 		$glr_id 		= $this->input->post('glr_id');
 		$message 		= strip_tags($this->input->post('message'));
 		$request_type 	= $this->input->post('request_type');
-		$table_request 	= $this->input->post('table_request');
+//		$table_request 	= $this->input->post('table_request');
 		$vlfit_id 		= $this->input->post('vlfit_id');
 		
 		
@@ -3679,11 +3764,11 @@ class Managers extends MY_Controller {
 		
 		
 		
-		if($table_request == '1'){
+//		if($table_request == '1'){
 			$table_request = true;
-		}else{
-			$table_request = false;
-		}
+//		}else{
+//			$table_request = false;
+//		}
 		
 		
 		

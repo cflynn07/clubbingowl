@@ -740,6 +740,96 @@ class Model_team_guest_lists extends CI_Model {
 	 |	Update Methods (update)
 	 | ------------------------------------------------------------------------ */
 	
+	
+	function update_reservation_reassign($options){
+					
+				
+			
+		
+		//retrieve & simultaniously confirm this guest list matches this team
+		$sql = "SELECT
+		
+					tglr.user_oauth_uid 	as tglr_user_oauth_uid,
+					tglr.approved			as tglr_approved,
+					tglr.text_message		as tglr_text_message,
+					tglr.share_facebook		as tglr_share_facebook,
+					tgl.date				as tgl_date,
+					tgla.name				as tgla_name,
+					tgla.image 				as tgla_image,
+					tv.id				 	as tv_id,
+					tv.name					as tv_name,
+					tv.image 				as tv_image,
+					c.name					as c_name,
+					c.url_identifier		as c_url_identifier
+					
+				FROM 	teams_guest_lists_reservations tglr
+				
+				JOIN 	teams_guest_lists tgl
+				ON 		tglr.team_guest_list_id = tgl.id
+
+				JOIN 	teams_guest_list_authorizations tgla
+				ON 		tgl.team_guest_list_authorization_id = tgla.id
+
+				JOIN 	team_venues tv
+				ON 		tgla.team_venue_id = tv.id
+				
+				JOIN 	cities c 
+				ON 		tv.city_id = c.id
+		
+				WHERE 	tglr.id = ? AND tgla.team_fan_page_id = ? ";
+				
+			//	if($team_fan_page_id)
+			//		$sql .= "AND tgla.team_fan_page_id = $team_fan_page_id";
+				
+			//		AND tv.team_fan_page_id = $team_venue_id";
+		$query = $this->db->query($sql, array($options['tglr_id'], $options['team_fan_page_id']));
+		$result = $query->row();
+		
+		if(!$result)
+			return false;
+				
+		if($result->tglr_approved == 0)
+			return false; //this guest list reservation hasn't been approved
+			
+		
+		if($options['vlfit_id'] !== false){
+			//verify vlfit_id is for a venue that belongs to this team
+			$sql = "SELECT
+						
+						*
+					
+					FROM 	venues_layout_floors_items_tables vlfit
+					
+					JOIN 	venues_layout_floors_items vlfi
+					ON 		vlfit.venues_layout_floors_items_id = vlfi.id
+					
+					JOIN 	venues_layout_floors vlf
+					ON 		vlfi.venues_layout_floor_id = vlf.id
+					
+					WHERE 	vlf.team_venue_id = ?
+							AND
+							vlfit.id = ?";
+			$query = $this->db->query($sql, array($result->tv_id, $options['vlfit_id']));
+			$result2_temp = $query->row();
+			if(!$result2_temp){
+				return false; //this vlfit_id doesn't belong to a venue that's part of this team
+			}
+		}
+		
+		
+		
+		
+		//update record, after we recieve original data (necessary for this to work...)
+		$this->db->where('id', $options['tglr_id']);
+		$this->db->update('teams_guest_lists_reservations', array('venues_layout_floors_items_table_id' => $options['vlfit_id']));	
+		
+		
+		return true;
+		
+	}
+	
+	
+	
 	/**
 	 * Update a user's guest list reservation request as either 'approved' or 'rejected'
 	 * 
@@ -805,6 +895,11 @@ class Model_team_guest_lists extends CI_Model {
 		if($result->tglr_approved == 1)
 			return false; //this guest list reservation request has already been approved, don't continue
 		
+		
+		
+		
+		
+		
 		if($vlfit_id !== false){
 			//verify vlfit_id is for a venue that belongs to this team
 			$sql = "SELECT
@@ -828,6 +923,9 @@ class Model_team_guest_lists extends CI_Model {
 				return false; //this vlfit_id doesn't belong to a venue that's part of this team
 			}
 		}
+		
+		
+		
 		
 		//update record, after we recieve original data (necessary for this to work...)
 		$this->db->where('id', $team_guest_list_reservation_id);

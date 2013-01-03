@@ -28,8 +28,13 @@
 					vc_method: 	'find_tables',
 					tv_id:		_this.model.get('tv_id'),
 					
-					pglr_id:	_this.model.get('id'),
-					tglr_id:	_this.model.get('tglr_id'),
+					
+					
+				//	pglr_id:	_this.model.get('id'),
+				//	tglr_id:	_this.model.get('tglr_id'),
+					
+					
+					
 					iso_date: 	_this.model.get('iso_date')
 				},
 				success: function(data){

@@ -118,6 +118,9 @@
 			
 			model_display_settings.on('change', this.render, this);
 			
+			collection_reservations.on('reset', this.render, this);
+			collection_reservations.on('change', this.render, this);
+			
 		},
 		render: function(){
 			
@@ -127,6 +130,7 @@
 			var vlfi_width 	= this.model.get('vlfi_width');
 			var vlfi_height	= this.model.get('vlfi_height');
 			var item_type	= this.model.get('vlfi_item_type');
+			var _this 		= this;
 			
 			this.$el.css({
 				left: 	Math.floor(vlfi_pos_x * factor) 	+ 'px',
@@ -146,12 +150,42 @@
 			
 			this.$el.html(html);
 			this.$el.data('vlfit_id', this.model.get('vlfit_id'));
-			
-			
+						
 			if(item_type == 'table'){
 				
 				this.$el.droppable({
-					hoverClass: 'highlighted'
+					hoverClass: 'highlighted',
+					drop: function(e, obj){
+						
+						var el = jQuery(obj.draggable);
+						
+						var params 			= {};
+						
+						if(el.data('pglr_id'))
+							params.pglr_id		= el.data('pglr_id');
+						
+						if(el.data('tglr_id'))
+							params.tglr_id		= el.data('tglr_id');
+						
+						
+						params.vc_method	= 'reservation_reassign';
+						params.vlfit_id 	= _this.model.get('vlfit_id');
+						params.iso_date 	= model_team_venue.get('floorplan_iso_date')
+						params.tv_id		= model_team_venue.get('tv_id');
+						
+						jQuery.background_ajax({
+							data: 		params,
+							success: 	function(data){
+								
+								console.log(data);
+								refresh_table_layout(params.tv_id, params.iso_date);
+								
+							}
+						});
+												
+						_this.$el.addClass('highlighted');
+						
+					}
 				});
 					
 					
@@ -159,6 +193,8 @@
 				var results = collection_reservations.where({
 					vlfit_id: this.model.get('vlfit_id')
 				});
+				
+				console.log(collection_reservations);
 				
 				
 				
@@ -182,6 +218,18 @@
 					}
 					
 					
+					
+					
+					this.$el.find('img').data({
+						vlfit_id: 	this.model.get('vlfit_id'),
+						tglr_id:	this.reservation.get('tglr_id'),
+						pglr_id:	this.reservation.get('pglr_id')						
+					});
+					
+					
+					
+					
+					
 					this.$el.find('img').draggable({
 					//	helper: 'clone'
 						revert: 'invalid',
@@ -195,32 +243,13 @@
 						'z-index':  	'2'
 					});
 					
-					
-					
-					
 				}
 				
 			}
 			
-			
 			if(this.model.get('highlighted'))
 				this.$el.addClass('highlighted');
-			
-			
-			
-			/*
-			 <div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 		0, '', ',') ?></div>
-			<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 		0, '', ',') ?></div>
-			<div class="day_price wednesday">US$ <?= number_format($item->vlfit_wednesday_min, 	0, '', ',') ?></div>
-			<div class="day_price thursday">US$ <?= number_format($item->vlfit_thursday_min, 	0, '', ',') ?></div>
-			<div class="day_price friday">US$ <?= number_format($item->vlfit_friday_min, 		0, '', ',') ?></div>
-			<div class="day_price saturday">US$ <?= number_format($item->vlfit_saturday_min, 	0, '', ',') ?></div>
-			<div class="day_price sunday">US$ <?= number_format($item->vlfit_sunday_min, 		0, '', ',') ?></div>
-			<div class="max_capacity"><?= $item->vlfit_capacity ?></div>
-			 * */
-			
-			
-			
+				
 			if(!this.initialized){
 				
 				var days = [
@@ -242,6 +271,20 @@
 				
 			}
 			
+		
+			/*
+			 <div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 		0, '', ',') ?></div>
+			<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 		0, '', ',') ?></div>
+			<div class="day_price wednesday">US$ <?= number_format($item->vlfit_wednesday_min, 	0, '', ',') ?></div>
+			<div class="day_price thursday">US$ <?= number_format($item->vlfit_thursday_min, 	0, '', ',') ?></div>
+			<div class="day_price friday">US$ <?= number_format($item->vlfit_friday_min, 		0, '', ',') ?></div>
+			<div class="day_price saturday">US$ <?= number_format($item->vlfit_saturday_min, 	0, '', ',') ?></div>
+			<div class="day_price sunday">US$ <?= number_format($item->vlfit_sunday_min, 		0, '', ',') ?></div>
+			<div class="max_capacity"><?= $item->vlfit_capacity ?></div>
+			 * */
+			
+			
+		
 						
 			return this;
 		},
@@ -461,6 +504,67 @@
 			
 		}
 	}; Views.VenueLayoutWrapper = Backbone.View.extend(Views.VenueLayoutWrapper);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	var refresh_table_layout = function(tv_id, iso_date){
+		
+		
+		
+		var target = '#dialog_actions_floorplan';
+		jQuery(target).css({
+			opacity: 0.5
+		});
+		
+		
+		
+		
+		jQuery.background_ajax({
+			data: {
+				vc_method: 	'find_tables',
+				tv_id:		tv_id,
+				iso_date: 	iso_date
+			},
+			success: function(data){
+				
+												
+				var venue = false;
+				for(var i in data.message.team_venues){
+					
+					if(data.message.team_venues[i].tv_id == tv_id){
+						venue = data.message.team_venues[i];
+						break;
+					}
+				}
+				if(!venue)
+					return false;
+			
+																
+				if(venue.venue_reservations){
+					collection_reservations.reset(venue.venue_reservations);
+				}else{
+					collection_reservations.reset([]);
+				}
+				
+				
+				
+				jQuery(target).css({
+					opacity: 1
+				});
+				
+				
+				
+			}
+		});
+		
+	};
+	
 	
 	
 	
