@@ -973,6 +973,82 @@ class Model_guest_lists extends CI_Model {
 	 |	Update Methods (update)
 	 | ------------------------------------------------------------------------ */
 	
+	
+	
+	function update_reservation_reassign($options){
+
+		//retrieve & simultaniously confirm this guest list matches this promoter
+		$sql = "SELECT	
+		
+					pgla.image 				as pgla_image,
+					pglr.user_oauth_uid 	as pglr_user_oauth_uid,
+					pglr.approved 			as pglr_approved,
+					pglr.text_message 		as pglr_text_message,
+					pglr.share_facebook 	as pglr_share_facebook,
+					pglr.request_msg		as pglr_request_msg,
+					pglr.response_msg		as pglr_response_msg,
+					pglr.host_message		as pglr_host_message,
+					pgl.date 				as pgl_date,
+					pgla.name 				as pgla_name,
+					pgla.id 				as pgla_id,
+					tv.name 				as tv_name,
+					tv.image 				as tv_image,
+					tv.id					as tv_id,
+					up.users_oauth_uid		as up_users_oauth_uid,
+					up.public_identifier 	as up_public_identifier,
+					up.id					as up_id,
+					up.profile_image 		as up_profile_image,
+					up.users_oauth_uid		as up_users_oauth_uid,
+					u.full_name				as u_full_name,
+					u.third_party_id		as u_third_party_id,
+					c.name 					as c_name,
+					c.url_identifier		as c_url_identifier
+		
+				FROM 	promoters_guest_lists_reservations pglr
+				
+				JOIN	promoters_guest_lists pgl
+				ON		pglr.promoter_guest_lists_id = pgl.id
+				
+				JOIN	promoters_guest_list_authorizations pgla
+				ON		pgl.promoters_guest_list_authorizations_id = pgla.id
+				
+				JOIN	team_venues tv
+				ON		pgla.team_venue_id = tv.id
+				
+				JOIN	cities c 
+				ON 		tv.city_id = c.id
+				
+				JOIN 	users_promoters up 
+				ON  	up.id = pgla.user_promoter_id
+				
+				JOIN 	users u 
+				ON 		up.users_oauth_uid = u.oauth_uid
+				
+				WHERE	pglr.id = ? ";
+		$query = $this->db->query($sql, array($options['pglr_id']));
+		$result = $query->row();
+			
+		if(!$result)
+			return false;
+			
+		if($result->pglr_approved == 0 || $result->pglr_approved == -1)
+			return false; 
+		
+		
+		
+		//update record, after we recieve original data (necessary for this to work...)
+		$this->db->where('id', $options['pglr_id']);
+		$this->db->update('promoters_guest_lists_reservations', array(
+			'venues_layout_floors_items_table_id' => $options['vlfit_id']
+		));	
+						
+		return true;
+		
+	}
+	
+	
+	
+	
 	/**
 	 * Approve or deny a promoter guest list reservation request
 	 * 

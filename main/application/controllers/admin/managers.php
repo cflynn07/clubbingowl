@@ -3073,15 +3073,21 @@ class Managers extends MY_Controller {
 			
 		}elseif($pglr_id){
 	
+	
+			$this->load->model('model_guest_lists', 'guest_lists', true);
+			$this->guest_lists->update_reservation_reassign(array(
+				'pglr_id'		=> $pglr_id,
+				'vlfit_id'		=> $vlfit_id
+			));
+			
+	
+	
 			die(json_encode(array('success' => true)));
 	
 	
 		}else{
 			die(json_encode(array('success' => false)));
 		}
-		
-		
-		
 		
 		
 	}
