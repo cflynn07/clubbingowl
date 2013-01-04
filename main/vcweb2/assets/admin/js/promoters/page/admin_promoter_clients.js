@@ -98,8 +98,8 @@ jQuery(function(){
 					
 						break;
 					case 'clients_export':
-						this.$el.find('textarea#clients_export').show();
-						this.$el.find('p#p_clients_export').show();
+						this.$el.find('textarea#clients_export').slideToggle();
+						this.$el.find('p#p_clients_export').slideToggle();
 						break;
 				}
 				
