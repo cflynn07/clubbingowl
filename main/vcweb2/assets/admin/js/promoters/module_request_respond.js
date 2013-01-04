@@ -144,5 +144,8 @@
 	};
 
  	globals.promoter_module_request_respond = module_request_respond;
+ 	
+ 	
+ 	
 
 }(window.module.Globals.prototype));
