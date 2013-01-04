@@ -1259,6 +1259,22 @@ jQuery(function(){
 			events_click_request_respond: function(e){
 				e.preventDefault();
 				
+				var _this 		= this;
+				var head_user 	= this.model.get('head_user');
+				var el 			= this.$el;
+				
+				window.module.Globals.prototype.promoter_module_request_respond.respond({
+					el: 			el,
+					head_user: 		head_user,
+					_this: 			_this,
+					called_from:	'guest_lists'
+				});
+				
+				
+				/*
+				
+				
+				
 				var _this = this;
 				var head_user = this.model.get('head_user');
 				
@@ -1333,6 +1349,10 @@ jQuery(function(){
 					}
 					
 				});
+				
+				
+				
+				*/
 				
 				return false;
 			},

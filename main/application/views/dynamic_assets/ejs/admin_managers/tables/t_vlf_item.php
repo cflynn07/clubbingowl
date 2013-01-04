@@ -27,7 +27,6 @@
 	 	}
 	%>
 	
-	
 	<span style="margin:0; padding:0; top:-14px; color:green; position:relative;" data-day="" data-day_price="" >$<%= day_price %></span>
 
 			

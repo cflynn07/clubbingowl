@@ -79,8 +79,24 @@
 	<% } %>
 </td>
 <td class="actions">
+	
+	
+	
+	
 	<% if(pglr_approved == '1'){ %>
 		<span style="color: green;">Approved</span>
+		
+		<% if(pglr_table_request == '1'){ %>
+			<br/>
+			<% if(pglr_manager_table_approved == '1'){ %>
+				<span style="color: green; 	white-space:nowrap; width: 100%; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Manager Approved</span>
+			<% }else if(pglr_manager_table_approved == '-1'){ %>
+				<span style="color: red; 	white-space:nowrap; width: 100%; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/No.png' %>" /> Manager Declined</span>
+			<% }else{ %>
+				<span style="white-space:nowrap; width: 100%; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/Question.png' %>" /> Pending Manager Approval</span>
+			<% } %>
+		<% } %>
+		
 	<% }else if(pglr_approved == '-1'){ %>
 		<span style="color: red;">Declined</span>
 	<% }else{ %>
@@ -91,6 +107,8 @@
 		<br/>
 		<span style="">Manually Added</span>
 	<% } %>
+	
+	
 	
 </td>
 
