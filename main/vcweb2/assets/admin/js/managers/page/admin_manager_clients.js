@@ -58,7 +58,8 @@ jQuery(function(){
 						((m.get('friend_status')) ? 'Friend' : '<a data-action="add_friend" data-oauth_uid="' + m.get('u_oauth_uid') + '" href="#">Not Friend</a>'),
 						m.get('u_phone_number').replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3'),
 						m.get('u_email'),
-						'<a target="_new" href="http://www.facebook.com/' + m.get('u_oauth_uid') + '">Facebook</a>'
+						'<a target="_new" href="http://www.facebook.com/' + m.get('u_oauth_uid') + '">Facebook</a>',
+						((m.get('u_opt_out_email') == '1') ? '<span style="color:red;">Yes</span>' : 'No')
 					];
 					
 					jQuery('textarea#clients_export').html(jQuery('textarea#clients_export').html() 
@@ -67,6 +68,7 @@ jQuery(function(){
 						+ ((m.get('friend_status')) ? 'Friend' : 'Not Friend') 	+ ',' 
 						+ m.get('u_phone_number')								+ ',' 
 						+ data[4] 												+ ',' 
+						+ ((m.get('u_opt_out_email') == '1') ? 'Yes' : 'No')	+ '' 
 						+ "\n");
 					
 					_this.data_table.fnAddData(data);

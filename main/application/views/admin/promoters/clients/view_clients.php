@@ -39,6 +39,7 @@
 					<th>Phone Number</th>
 					<th>Email</th>
 					<th>Facebook Profile</th>
+					<th>Email Opt-Out</th>
 				</tr>
 			</thead>
 		</table>
