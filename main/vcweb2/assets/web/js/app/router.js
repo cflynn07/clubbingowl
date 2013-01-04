@@ -119,6 +119,9 @@ jQuery(function(){
 			'friends/:third_party_id*splat': 										'friends_individual',
 			'friends*splat': 														'friends',
 			
+			//email unsubscribe
+			'email*splat': 															'email',
+			
 			//profile callback
 			'profile*splat': 														'profile',
 			
@@ -320,6 +323,13 @@ jQuery(function(){
 			
 		},
 		
+		// --------------------------------------------------------------------------------------------------
+	
+		email: function(){
+			console.log('--------- email ---------');
+			callback_helper();
+		},
+	
 		// --------------------------------------------------------------------------------------------------
 		
 		profile: function(){
