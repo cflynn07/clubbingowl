@@ -96,10 +96,54 @@ jQuery(function(){
 		}; Views.Client = Backbone.View.extend(Views.Client);
 		
 
-		var model_client = new Models.Client(window.page_obj.client);
-		var view_client = new Views.Client({
-			model: model_client
-		});
+		
+		
+		if(!window.page_obj.client){
+			
+			
+			jQuery.fbUserLookup([window.page_obj.oauth_uid], '', function(rows){
+				
+				var vc_user = jQuery.cookies.get('vc_user');
+				
+				if(rows.length === 0 || rows[0].uid == vc_user.vc_oauth_uid){
+					jQuery('a[href="https://' + window.location.host + '/admin/managers/"].ajaxify:first').trigger('click');
+					return;
+				}
+				
+				var row = rows[0];
+				
+				window.page_obj.client = {
+					gl_history: 		[],
+					u_email: 			"---",
+					u_first_name: 		row.first_name,
+					u_full_name: 		row.name,
+					u_last_name: 		row.last_name,
+					u_oauth_uid: 		row.uid,
+					u_opt_out_email: 	"0",
+					u_phone_number: 	"---",
+					is_client: 			false
+				}
+
+				var model_client = new Models.Client(window.page_obj.client);
+				var view_client = new Views.Client({
+					model: model_client
+				});
+				
+			});
+
+
+			
+		}else{
+			
+			window.page_obj.client.is_client = true;
+			
+			var model_client = new Models.Client(window.page_obj.client);
+			var view_client = new Views.Client({
+				model: model_client
+			});
+			
+		}
+		
 
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){

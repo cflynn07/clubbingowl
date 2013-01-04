@@ -145,7 +145,6 @@ jQuery(function(){
 			
 		}
 
-
 		
 
 	
