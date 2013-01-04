@@ -87,9 +87,10 @@
 											<?php $message = json_decode($an->message); 
 												if($message->subtype == 'new_client_notes'):
 											?>
-											
-												<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a class="ajaxify" href="<?= $central->promoter_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
-											
+												
+												<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a data-oauth_uid="<?= $message->client_oauth_uid ?>" class="ajaxify" href="<?= $central->promoter_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+												<br/><a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><img src="https://graph.facebook.com/<?= $message->client_oauth_uid ?>/picture" /></a>
+												
 											<?php endif; ?>
 											
 										<?php endif; ?>

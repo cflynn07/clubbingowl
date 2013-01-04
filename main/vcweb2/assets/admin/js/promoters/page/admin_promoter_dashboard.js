@@ -59,6 +59,13 @@ jQuery(function(){
 				}
 				
 				_this = this;
+				
+				
+				jQuery('#team_announcements').find('*[data-oauth_uid]').each(function(){
+					team_managers.push(jQuery(this).attr('data-oauth_uid'));
+				});
+				team_managers = _.uniq(team_managers);
+				
 				if(team_managers.length > 0){
 					jQuery.fbUserLookup(team_managers, '', function(rows){
 						

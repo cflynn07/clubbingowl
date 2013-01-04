@@ -17,6 +17,8 @@ jQuery(function(){
 			team_managers: [],
 			initialize: function(){
 				
+				
+				
 				this.render();
 			},
 			render: function(){
