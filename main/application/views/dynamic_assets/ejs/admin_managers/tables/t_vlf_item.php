@@ -1,12 +1,36 @@
 <% if(vlfi_item_type == 'table'){ %>
 	
 	<% if(typeof vlfit_title !== 'undefined' && vlfit_title){ %>										
-		<span class="title"><%= vlfit_title %></span>
+		<span style="margin:0; padding:0;" class="title"><%= vlfit_title %></span>
 	<% }else{ %>
-		<span class="title">T</span>
+		<span style="margin:0; padding:0;" class="title">T</span>
 	<% } %>
+	<br/>
+	
+	<%
+		var day_price = 0;
+	 	day = parseInt(day);
+	 	if(day === 0){
+	 		day_price = vlfit_sunday_min;
+	 	}else if(day == 1){
+	 		day_price = vlfit_monday_min;
+	 	}else if(day == 2){
+	 		day_price = vlfit_tuesday_min;
+	 	}else if(day == 3){
+	 		day_price = vlfit_wednesday_min;
+	 	}else if(day == 4){
+	 		day_price = vlfit_thursday_min;
+	 	}else if(day == 5){
+	 		day_price = vlfit_friday_min;
+	 	}else if(day == 6){
+	 		day_price = vlfit_saturday_min;
+	 	}
+	%>
 	
 	
+	<span style="margin:0; padding:0; top:-14px; color:green; position:relative;" data-day="" data-day_price="" >$<%= day_price %></span>
+
+			
 	<?php if(false): ?>
 	<div class="day_price monday">US$ <?= number_format($item->vlfit_monday_min, 		0, '', ',') ?></div>
 	<div class="day_price tuesday">US$ <?= number_format($item->vlfit_tuesday_min, 		0, '', ',') ?></div>

@@ -124,7 +124,17 @@
 		},
 		render: function(){
 			
-		
+			var isodate_to_date = function(isodate){
+			
+				var t = isodate.split(/[-]/);
+				var d = new Date(t[0], t[1]-1, t[2], 0, 0, 0);
+				return d;
+				
+			}
+			
+			var date 	= isodate_to_date(current_manual_date);
+			var day		= date.getDay();
+			
 			
 			var factor 		= model_display_settings.get('factor');
 			var vlfi_pos_x 	= this.model.get('vlfi_pos_x');
@@ -148,7 +158,9 @@
 			
 			var html = new EJS({
 				text: template
-			}).render(this.model.toJSON());
+			}).render(jQuery.extend({
+				day: day
+			}, this.model.toJSON()));
 			
 			this.$el.html(html);
 			
@@ -200,9 +212,7 @@
 				var results = collection_reservations.where({
 					vlfit_id: this.model.get('vlfit_id')
 				});
-				
-				console.log(collection_reservations);
-				
+							
 				
 				
 				if(results.length){
@@ -682,7 +692,7 @@
 				
 				//collection_floors = new Collections.Floors(opts.floors);
 				model_team_venue		= new Models.TeamVenue(opts.team_venue);
-				
+				current_manual_date		= model_team_venue.get('floorplan_iso_date');
 				
 				
 				var venue_reservations 	= model_team_venue.get('venue_reservations');
