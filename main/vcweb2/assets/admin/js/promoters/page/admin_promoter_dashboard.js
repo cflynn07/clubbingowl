@@ -59,6 +59,13 @@ jQuery(function(){
 				}
 				
 				_this = this;
+				
+				
+				jQuery('#team_announcements').find('*[data-oauth_uid]').each(function(){
+					team_managers.push(jQuery(this).attr('data-oauth_uid'));
+				});
+				team_managers = _.uniq(team_managers);
+				
 				if(team_managers.length > 0){
 					jQuery.fbUserLookup(team_managers, '', function(rows){
 						
@@ -592,90 +599,12 @@ jQuery(function(){
 				switch(action){
 					case 'request-respond':
 										
-
-						var respond_callback = function(resp){
-							
-							jQuery('div#dialog_actions').find('textarea[name=message]').val('');
-							
-							if(resp.action == 'approve'){
-								_this.$el.css({
-									background: 'green'
-								});
-							}else{
-								_this.$el.css({
-									background: 'red'
-								});
-							}
-							
-							jQuery.background_ajax({
-								data: {
-									vc_method: 	'update_pending_requests',
-									pglr_id: 	_this.model.get('id'),
-									action: 	resp.action,
-									message: 	resp.message
-								},
-								success: function(data){
-									
-									console.log(data);
-																	
-									_this.$el.animate({
-										opacity: 0
-									}, 500, 'linear', function(){
-										//_this.$el.trigger('request-responded');
-										_this.$el.remove();
-									});
-									
-								}
-							});
-							
-						};
-						
-						jQuery('div#dialog_actions').dialog({
-							title: 		'Approve or Decline Request',
-							height: 	420,
-							width: 		320,
-							modal: 		true,
-							resizable: 	false,
-							draggable: 	false,
-							buttons: [{
-								text: 'Decline',
-								click: function(){
-									respond_callback({
-										action: 'decline',
-										message: jQuery(this).find('textarea[name=message]').val()
-									});
-									jQuery(this).dialog('close');
-								}
-							},{
-								text: 'Approve',
-								id: 'ui-approve-button',
-								'class': 'btn-confirm',
-								click: function(){
-									respond_callback({
-										action: 'approve',
-										message: jQuery(this).find('textarea[name=message]').val()
-									});
-									jQuery(this).dialog('close');
-								}
-							}]
+						window.module.Globals.prototype.promoter_module_request_respond.respond({
+							el: 			el,
+							head_user: 		head_user,
+							_this: 			_this,
+							called_from:	'dashboard'
 						});
-						
-						jQuery('div#dialog_actions').find('*[data-name]').attr('data-name', head_user);				
-						jQuery('div#dialog_actions').find('*[data-pic]').attr('data-pic', 	head_user);				
-						
-						jQuery.fbUserLookup(window.page_obj.pending_reservations_users, 'name, uid, third_party_id', function(rows){							
-							for(var i in rows){
-								var user = rows[i];
-								if(user.uid != head_user)
-									continue;
-								
-								jQuery('div#dialog_actions').find('*[data-name=' + head_user + ']').html(user.name);				
-								jQuery('div#dialog_actions').find('*[data-pic=' + head_user + ']').attr('src', 	'https://graph.facebook.com/' + head_user + '/picture?width=50&height=50');
-							
-							}
-						});
-						
-						
 					
 						break;
 				}

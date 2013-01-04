@@ -38,7 +38,7 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 <div id="dialog_actions" style="display: none;">
 
 	<span>
-		<img data-pic="" src="" class="pic_square" style="float: left; margin-right: 5px;" alt="picture" />
+		<img data-pic="" src="" class="pic_square" style="float: left; margin-right: 5px; height:50px; width:50px;" alt="picture" />
 		<span data-name="" class="name"></span>'s reservation request.
 	</span>
 	
@@ -53,6 +53,9 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 			<span id="dialog_actions_message_remaining"></span>
 		</fieldset>
 	</form>
+	
+	<p id="table_message" style="display:none; color:red;">Note: All table requests must also be approved by a manager.</p>
+	
 	
 	<div id="dialog_actions_loading_indicator" style="text-align: center; display: none;">
 		<img src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />

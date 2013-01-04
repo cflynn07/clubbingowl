@@ -153,11 +153,15 @@ jQuery(function(){
 				var _this = this;
 				
 				this.render_loading();
+				
+				
+				
 				jQuery.background_ajax({
 					data: {
 						vc_method: 	'manual_add_find_tables',
-						pgla_id: 	this.model.get('id'),
-						tv_id:		this.model.get('tv_id')
+						pgla_id: 	this.model.get('id') || this.model.get('pgla_id'),
+						tv_id:		this.model.get('tv_id'),
+						iso_date:	this.model.get('iso_date')
 					},
 					success: function(data){
 						
@@ -227,6 +231,9 @@ jQuery(function(){
 						
 						var tv_display_module 	= jQuery.extend(globals.module_tables_display, {});
 						
+						
+						
+			//			tv_display_module.manual_date(venue);
 						tv_display_module
 							.initialize({
 								display_target: 	'#floorplan_holder', //'#' + _this.$el.attr('id'),
@@ -243,6 +250,10 @@ jQuery(function(){
 						_this.modal_view.dialog('option', {
 							position: 'center center'
 						});
+						
+						
+						
+						
 						
 						_this.$el.find('select#table_min_price').trigger('change');
 											
@@ -488,6 +499,7 @@ jQuery(function(){
 				
 				this.$el.find('div.item.table').each(function(){
 					jQuery(this).trigger('de-highlighted');
+					jQuery(this).removeClass('highlighted');
 				});
 				this.$el.find('div.item.table[day-price-' + pgla_day + '=' + value + ']').each(function(){
 					jQuery(this).addClass('highlighted');
@@ -1259,6 +1271,22 @@ jQuery(function(){
 			events_click_request_respond: function(e){
 				e.preventDefault();
 				
+				var _this 		= this;
+				var head_user 	= this.model.get('head_user');
+				var el 			= this.$el;
+				
+				window.module.Globals.prototype.promoter_module_request_respond.respond({
+					el: 			el,
+					head_user: 		head_user,
+					_this: 			_this,
+					called_from:	'guest_lists'
+				});
+				
+				
+				/*
+				
+				
+				
 				var _this = this;
 				var head_user = this.model.get('head_user');
 				
@@ -1333,6 +1361,10 @@ jQuery(function(){
 					}
 					
 				});
+				
+				
+				
+				*/
 				
 				return false;
 			},

@@ -429,7 +429,15 @@ class Assets extends MY_Common_Controller {
 					
 					//	$group .= '-promoters';
 						$group_assets[] = array('admin_team_chat', 											'admin_js');
+						
+						
+						
 						$group_assets[] = array('module_tables_display', 									'admin_js');
+						$group_assets[] = array('module_reservation_display',								'admin_js');
+						$group_assets[] = array('promoters/module_request_respond', 						'admin_js');
+						
+						
+						
 						$group_assets[] = array('promoters/global_promoter_pusher_notifications', 			'admin_js');
 
 						$group_assets[] = array('promoters/promoters_ajaxify_front', 						'admin_js');
@@ -455,8 +463,10 @@ class Assets extends MY_Common_Controller {
 					
 					//	$group .= '-managers';
 						$group_assets[] = array('admin_team_chat', 										'admin_js');
+						
 						$group_assets[] = array('module_tables_display', 								'admin_js');
-
+						$group_assets[] = array('module_reservation_display',							'admin_js');
+						
 						$group_assets[] = array('managers/module_manager_accept_guest_list_display', 	'admin_js');
 						
 						$group_assets[] = array('managers/global_manager_pusher_notifications', 		'admin_js');

@@ -6,85 +6,100 @@ jQuery(function(){
 	window.vc_page_scripts.admin_manager_tables = function(){
 		
 		var globals = window.module.Globals.prototype;
+		var datepicker;
 		
 		jQuery('div#tabs').tabs({}).css('display', 'block').resizable();
 		jQuery('div#tabs div.tabs_tables').tabs();
-		
-		
-		
-		
+				
 		jQuery('div#tabs > div.ui-widget-header select.venue_select').bind('change', function(){
-			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));
 			
-				
-							
-				if(!window.page_obj.team_venues)
-					return;
+			
+			
+			
+			
+			
+			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));	
+						
+			if(!window.page_obj.team_venues)
+				return;
 
-				var selected_tv_id = jQuery('select.venue_select option[value=' + jQuery(this).val() + ']').attr('data-tv_id');
+			var selected_tv_id = jQuery('select.venue_select option[value=' + jQuery(this).val() + ']').attr('data-tv_id');
 			
-			
-			
-				jQuery('div[data-clear-zone]').empty();
-				jQuery('input.table_datepicker').datepicker('destroy');
-			
+			jQuery('input.table_datepicker').each(function(){
+				if(jQuery(this).hasClass('hasDatepicker'))
+					jQuery(this).datepicker('destroy');	
+			});
 				
-			
-				var tv_display_module;
-				for(var i in window.page_obj.team_venues){
-					
-					var venue 				= window.page_obj.team_venues[i];
-					if(venue.tv_id != selected_tv_id)
-						continue;
-					
-					tv_display_module 	= jQuery.extend(true, {}, globals.module_tables_display);
-					tv_display_module
-						.initialize({
-							display_target: 	'#tabs-' + venue.tv_id + '-0',
-							team_venue: 		venue,
-							factor: 			0.5,
-							options: {
-								display_slider: true
-							}
-						});
-									
-					break;
+			jQuery('div[data-clear-zone]').empty();
 		
-				}
+			
+		
+		
+		
+		
+		
+			var tv_display_module;
+			for(var i in window.page_obj.team_venues){
 				
+				var venue 				= window.page_obj.team_venues[i];
+				if(venue.tv_id != selected_tv_id)
+					continue;
 				
-				var datepicker = jQuery('div#tabs div[data-tv_id=' + selected_tv_id + '] input.table_datepicker').datepicker({
-					dateFormat: 'DD MM d, yy',
-					maxDate: '+6d',
-					minDate: '-3y',
-					defaultDate: new Date(),
-					onSelect: function(dateText, inst){
-											
-											
-											
-						var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', jQuery(this).datepicker('getDate'));
-						tv_display_module.manual_date(iso_date);
-						
-						tv_display_module.refresh_table_layout(selected_tv_id, iso_date);
-						jQuery('#displayed_layout_date').html(jQuery(this).val());
-						
-			       }
-				});
+				tv_display_module 	= jQuery.extend(true, {}, globals.module_tables_display);
+				tv_display_module
+					.initialize({
+						display_target: 	'#tabs-' + venue.tv_id + '-0',
+						team_venue: 		venue,
+						factor: 			0.5,
+						options: {
+							display_slider: true
+						}
+					});
 								
+				break;
+	
+			}
 			
-				jQuery('.ui-datepicker-current-day').click();
 			
+			
+			
+			
+			datepicker = jQuery('div#tabs div[data-tv_id=' + selected_tv_id + '] input.table_datepicker').datepicker({
+				dateFormat: 'DD MM d, yy',
+				maxDate: '+6d',
+				minDate: '-3y',
+				defaultDate: new Date(),
+				onSelect: function(dateText, inst){
+										
+					var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', jQuery(this).datepicker('getDate'));
+					tv_display_module.manual_date(iso_date);
+					
+					tv_display_module.refresh_table_layout(selected_tv_id, iso_date);
+					jQuery('#displayed_layout_date').html(jQuery(this).val());
+					
+		       }
+			});
+			datepicker.datepicker('setDate', '0 days');			
+				
+				
+				
+				
+				
+					
 		}).trigger('change');
 		
 		
-		
-			//triggered when page is unloaded
+		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
 			
 			jQuery('div[data-clear-zone]').empty();
-			jQuery('input.table_datepicker').datepicker('destroy');
-			jQuery('div#tabs > div.ui-widget-header select.venue_select').unbind('change');
 			
+			jQuery('input.table_datepicker').each(function(){
+				if(jQuery(this).hasClass('hasDatepicker'))
+					jQuery(this).datepicker('destroy');	
+			});
+			
+			jQuery('div#tabs > div.ui-widget-header select.venue_select').unbind('change');
 
 		}
 		

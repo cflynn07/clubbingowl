@@ -49,7 +49,7 @@
 <td>
 	<% if(pglr_table_request == 1){ %>
 		<span style="color:green;">Yes</span>
-		<p><%= table_min_spend %></p>
+		<p style="color:green;">$<%= table_min_spend %></p>
 	<% }else{ %>
 		<span style="color:red;">No</span>
 	<% } %>
