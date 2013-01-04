@@ -573,14 +573,10 @@ class Managers extends MY_Controller {
 	 */
 	private function _clients($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-		
-		
-		
-		
+
 		$this->load->model('model_teams', 			'teams', 			true);
 		$this->load->model('model_users_promoters', 'users_promoters', 	true);
 		$this->load->model('model_users_managers', 	'users_managers', 	true);
-		
 		
 		
 		$promoters 	= $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
@@ -653,12 +649,15 @@ class Managers extends MY_Controller {
 					$client = $cl;
 			}
 			
-			$this->load->model('model_teams', 'teams', true);
+			
 			//retrieve client notes
+
 			$client_notes_team = $this->teams->retrieve_client_notes(array(
-				'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
+				'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
 				'client_oauth_uid'	=> $arg1
 			));
+			
+			
 			
 			
 			$users = array();
@@ -690,6 +689,7 @@ class Managers extends MY_Controller {
 		
 			$data['data']	= $page_data;
 			$data['client'] = $client;
+			$data['oauth_uid'] = strip_tags($arg1);
 			$this->body_html = $this->load->view('admin/promoters/clients/view_clients_individual', $data, true);;
 			
 			return;
@@ -2524,6 +2524,37 @@ class Managers extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			case 'update_client_notes':
+				
+				
+				
+				$this->load->model('model_teams', 'teams', true);
+				$this->teams->update_client_notes(array(
+					'users_oauth_uid'	=> $this->vc_user->oauth_uid,
+					'client_oauth_uid'	=> $arg1,
+					'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
+					'public_notes'		=> $this->input->post('public_notes'),
+					'private_notes'		=> $this->input->post('private_notes')
+				));
+				
+				$this->teams->create_team_announcement(array(
+					'type'				=> 'json',
+					'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
+					'message'			=> json_encode(array(
+					
+						'subtype'			=> 'new_client_notes',
+						'client_oauth_uid'	=> $arg1,
+						'public_notes'		=> $this->input->post('public_notes')
+						
+					)),
+					'manager_oauth_uid'	=> $this->vc_user->oauth_uid
+				));
+				
+				die(json_encode(array('success' => true)));
+				
+				
+				
+				break;
 			case 'client_list_retrieve':
 				
 				if(!$admin_manager_client_list = $this->session->userdata('admin_manager_client_list'))

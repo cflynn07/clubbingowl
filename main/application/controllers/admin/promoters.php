@@ -517,10 +517,16 @@ class Promoters extends MY_Controller {
 			
 			$this->load->model('model_teams', 'teams', true);
 			//retrieve client notes
+			
+			
+			
+			
 			$client_notes_team = $this->teams->retrieve_client_notes(array(
 				'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
 				'client_oauth_uid'	=> $arg1
 			));
+			
+			
 			
 			
 			$users = array();

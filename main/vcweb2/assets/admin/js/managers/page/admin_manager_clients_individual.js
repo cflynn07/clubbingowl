@@ -39,7 +39,7 @@ jQuery(function(){
 				});
 				
 				this.$el.find('textarea.notes').cleditor({
-					width: 1025,
+					width: '100%',
 					height: 200
 				});
 				

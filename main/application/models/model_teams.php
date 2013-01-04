@@ -140,13 +140,25 @@ class Model_teams extends CI_Model {
 	
 	 function retrieve_client_notes($options){
 	 	
-		$this->db->select('*')
+		
+		$this->db->select('')
 			->from('clients_notes')
 			->where($options);
 		$query = $this->db->get();
-		return $query->result();
+		
+		$sql = "SELECT * 
+				FROM clients_notes 
+				WHERE team_fan_page_id = ?
+				AND client_oauth_uid = ?";
+		$query = $this->db->query($sql, array($options['team_fan_page_id'], $options['client_oauth_uid']));
+		$result = $query->result();
+		
+		return $result;
 		
 	 }
+	 
+	 
+	 
 	 function update_client_notes($options = array()){
 	 	
 		//find out if notes exist
