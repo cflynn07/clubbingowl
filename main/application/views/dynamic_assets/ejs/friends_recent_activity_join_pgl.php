@@ -4,7 +4,7 @@
 <li>
 	
 	<% if(typeof data.pgla_image !== 'undefined'){ %>
-		<%= image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + data.pgla_image + '_t.jpg', {}) %>
+		<%= image_insert(window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + data.pgla_image + '_t.jpg', {class: 'venue-image'}) %>
 	<% } %>
 	
 	<p><?= $this->lang->line('fr-rec_act_join_pgl') ?></p>

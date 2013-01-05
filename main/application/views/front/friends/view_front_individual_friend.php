@@ -14,7 +14,7 @@
 
 
 
-  <header>
+  <header class="auth_content">
   	<div>
 	  	<div class="avatar">
 	  		<img style="border-radius:10px;" src="https://graph.facebook.com/<?= $friend->users_oauth_uid ?>/picture?type=large"  />
@@ -57,46 +57,68 @@
 		<?php if(false): ?>
 		<h2><?= $friend->users_first_name ?> is on ClubbingOwl!</h2>
 		<?php endif; ?>
+		
 	
-		<h2><?= lang_key($this->lang->line('fr-indiv_friend_title'), array(
-			'full_name' => $friend->users_full_name
-		)) ?></h2>
+		<table style="margin:120px auto 40px auto;">
+			
+			<tr>
+				<td style="vertical-align:top;">
+					<div class="avatar">
+				  		<img id="friend_pic_unauth" class="fb-connect venue-image vc_fb_login" style="cursor:pointer;" src="https://graph.facebook.com/<?= $friend->users_oauth_uid ?>/picture?type=large"  />
+				  	</div>
+				</td>
+				<td style="padding-top:0; vertical-align:top;">
+					<h2 style="margin-top:0;"><?= lang_key($this->lang->line('fr-indiv_friend_title'), array(
+						'full_name' => $friend->users_full_name
+					)) ?></h2>
+					
+					<?php if(true): ?>
+						<p class="message">Log in to ClubbingOwl with Facebook to see <?= $friend->users_first_name ?>'s favorite clubs, promoters and guest-lists.</p>		
+					<?php endif; ?>
+					
+					<p><a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a></p>
+					
+				</td>
+			</tr>
+			
+			<script type="text/javascript">
+				jQuery('#friend_pic_unauth').bind('click', function(){ jQuery('a.vc_fb_login:first').trigger('click'); });
+			</script>
+
+		</table>
 		
-		<br><br><br>
-		
+				
 		<?php if(false): ?>
-		<p class="message">Log in to ClubbingOwl with Facebook to see <?= $friend->users_first_name ?>'s favorite clubs, promoters and guest-lists.</p>		
-		<?php endif; ?>
-		
 		<p class="message"><?= lang_key($this->lang->line('fr-login_message_indiv'), array(
 			'first_name' => $friend->users_first_name
 		)) ?></p>		
+		<?php endif; ?>
+			
+		<div style="padding-top:0px; top:-20px; width:90%;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
 		
-		<p><a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a></p>
 		
-		<br><br><br>
+		<img id="toro" style="width:50%; margin-bottom:50px; margin-top:10px;" src="<?= $central->front_assets ?>images/ClubbingOwlBackgroundWeb.png">
 		
-		<div style="padding-top:0px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
 		
 	</div>
 	
 	
 	<div id="friend_content" style="display:none;">
 		
-		  <section id="friends">
-		    <h1><?= $this->lang->line('fr-friends_title') ?></h1>
+		  <section style="margin-top:0;" id="friends">
+		    <h2><?= $this->lang->line('fr-friends_title') ?></h2>
 		    <ul id="vibecompass_friends" class="people"></ul>
 		  </section>
 		  
 		  
-		  <section id="activity">
-		    <h1><?= $this->lang->line('fr-recent_activity_title') ?></h1>
+		  <section style="margin-top:0;" id="activity">
+		    <h2><?= $this->lang->line('fr-recent_activity_title') ?></h2>
 		    <ul id="recent_activity"></ul>
 		  </section>
 		
 		
-		  <section id="promoters">
-		    <h1><?= $this->lang->line('fr-promoters_title') ?></h1>
+		  <section style="margin-top:0;" id="promoters">
+		    <h2><?= $this->lang->line('fr-promoters_title') ?></h2>
 		    <ul id="user_promoters" class="people"></ul>
 		  </section> 
 		  

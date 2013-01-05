@@ -9,7 +9,7 @@
 	<% }else{ %>
 		
 		<a href="javascript: void(0);">
-        	<%= image_insert(pic_square, {alt: name + '\'s Avatar'}) %>
+        	<%= image_insert(pic_square, {alt: name + '\'s Avatar', class: 'venue-image'}) %>
         </a>
 		
 	<% } %>
