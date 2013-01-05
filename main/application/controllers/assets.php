@@ -710,6 +710,7 @@ class Assets extends MY_Common_Controller {
 									'tables/t_wrapper',
 									'tables/t_vlf',
 									'tables/t_vlf_item',
+									'tables/t_vlfit_reservation_detail',
 									
 									'tr_loading', 
 									'pending_reservation_none'
@@ -782,6 +783,7 @@ class Assets extends MY_Common_Controller {
 									'tables/t_wrapper',
 									'tables/t_vlf',
 									'tables/t_vlf_item',
+									'tables/t_vlfit_reservation_detail',
 									
 									
 									'reservation_tr_guest_lists',

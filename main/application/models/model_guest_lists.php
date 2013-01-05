@@ -738,7 +738,8 @@ class Model_guest_lists extends CI_Model {
  					tv.image 						as tv_image,
  					up.public_identifier 			as up_public_identifier,
  					up.profile_image 				as up_profile_image,
- 					u.full_name 					as u_full_name
+ 					u.full_name 					as u_full_name,
+ 					u.email 						as u_email
  					
 				FROM 	promoters_guest_lists pgl
 				

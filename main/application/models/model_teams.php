@@ -1047,7 +1047,10 @@ class Model_teams extends CI_Model {
 					pgla.name									as pgla_name,
 					tv.name 									as tv_name,
 					up.users_oauth_uid 							as up_users_oauth_uid,
-					up.profile_image 							as up_profile_image
+					up.profile_image 							as up_profile_image,
+					u.first_name 								as u_first_name,
+					u.last_name 								as u_last_name,
+					u.full_name 								as u_full_name
 					
 								
 				FROM 	promoters_guest_lists_reservations pglr
@@ -1066,6 +1069,9 @@ class Model_teams extends CI_Model {
 				
 				JOIN	users_promoters up
 				ON		pgla.user_promoter_id = up.id
+				
+				JOIN 	users u 
+				ON 		up.users_oauth_uid = u.oauth_uid
 				
 				WHERE 	pgla.team_venue_id = ?
 						AND

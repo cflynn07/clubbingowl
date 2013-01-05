@@ -171,7 +171,8 @@
 			
 			
 			if(item_type == 'table'){
-								
+				
+					
 				this.$el.droppable({
 					hoverClass: 'highlighted',
 					drop: function(e, obj){
@@ -223,6 +224,24 @@
 						highlighted: true
 					});		
 					
+					var _this = this;
+					
+					
+					this.$el.bind('hover', function(e){
+												
+						if(e.type == 'mouseenter'){
+						
+							globals.module_reservation_display.display({
+								el: _this.$el,
+								reservation: _this.reservation,
+								model_display_settings: model_display_settings
+							});
+						
+						}						
+						
+					});
+					
+					
 					
 					console.log('this.reservation');
 					console.log(this.reservation);
@@ -248,6 +267,12 @@
 					
 					
 					this.$el.find('img').draggable({
+						start: function(){
+							
+							globals.module_reservation_display.remove();
+							
+							
+						},
 						helper: function(){
 							//this must return a helper dom element?
 							
@@ -266,7 +291,6 @@
 					
 						zIndex: 10000,
 						stop: function(){
-							console.log('drop');
 							
 							jQuery(this).parent('.table').addClass('highlighted');
 							
@@ -281,6 +305,8 @@
 					})
 					
 									
+				}else{
+					this.$el.unbind('hover');
 				}
 				
 			}

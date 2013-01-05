@@ -256,6 +256,31 @@ jQuery(document).ready(function() {
 	    isIpad: function(){
 	        return navigator.userAgent.match(/ipad/i) != null;
 	    },
+	    populateFacebook: function(el, callback){
+	    	
+	    	var oauth_uids = [];
+	    	el.find('*[data-oauth_uid]').each(function(){
+	    		
+	    		oauth_uids.push(jQuery(this).attr('data-oauth_uid'));
+	    		    		
+	    	});
+	    	
+	    	oauth_uids = _.uniq(oauth_uids);
+	    	jQuery.fbUserLookup(oauth_uids, '', function(rows){
+	    		
+	    		for(var i in rows){
+	    			
+	    			var user = rows[i];
+	    			
+	    			el.find('*[data-name=' + user.uid + ']').html(user.name);
+	    			
+	    		}
+	    		
+	    		callback();
+	    		
+	    	});
+	    	
+	    },
 	    /**
 	     * FQL query to retrieve user info for given uids
 	     */
