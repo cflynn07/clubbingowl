@@ -15,7 +15,7 @@
 	<% if(tglr_user_oauth_uid == null){ %>
 		<span><%= tglr_supplied_name %></span>
 	<% }else{ %>
-		<span data-oauth_uid="<%= tglr_user_oauth_uid %>" data-name="<%= tglr_user_oauth_uid %>"></span>
+		<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + tglr_user_oauth_uid + '/' %>"><span data-oauth_uid="<%= tglr_user_oauth_uid %>" data-name="<%= tglr_user_oauth_uid %>"></span></a>
 	<% } %>
 	
 	<% if(u_phone_number){ %>
@@ -117,7 +117,11 @@
 								<% if(entourage[i].tglre_oauth_uid == null){ %>
 									<span><%= entourage[i].tglre_supplied_name %></span>
 								<% }else{ %>
-									<span data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
+									
+									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + entourage[i].tglre_oauth_uid + '/' %>">
+										<span data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
+									</a>
+									
 								<% } %>
 								
 							</td>
@@ -148,7 +152,11 @@
 								<% if(entourage[i].tglre_oauth_uid == null){ %>
 									<span><%= entourage[i].tglre_supplied_name %></span>
 								<% }else{ %>
-									<span data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
+									
+									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + entourage[i].tglre_oauth_uid + '/' %>">
+										<span data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
+									</a>
+									
 								<% } %>
 							</td>
 						</tr>

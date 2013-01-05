@@ -1,6 +1,10 @@
 <td>
 	<img src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
-	<p style="margin-bottom:0;" data-name="<%= head_user %>"></p>
+	
+	<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>">
+		<p style="margin-bottom:0;" data-name="<%= head_user %>"></p>
+	</a>
+	
 	<span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 </td>
 <td>
@@ -33,7 +37,12 @@
 					<img src="https://graph.facebook.com/<%= ent_user.pglre_oauth_uid %>/picture?width=25&height=25" />
 				</td>
 				<td style="padding:0 0 0 5px; text-align:right;">
-					<p data-name="<%= ent_user.pglre_oauth_uid %>"></p>
+					
+					
+					<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + ent_user.pglre_oauth_uid + '/' %>">
+						<p data-name="<%= ent_user.pglre_oauth_uid %>"></p>
+					</a>
+					
 				</td>
 			</tr>
 			

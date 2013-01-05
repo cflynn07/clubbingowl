@@ -10,7 +10,11 @@
 							<% }else{ %>
 								
 								<img src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
-								<p style="margin-bottom:0;" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></p>
+								
+								<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + head_user + '/' %>">
+									<p style="margin-bottom:0;" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></p>
+								</a>
+								
 								<span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 										
 							<% } %>
@@ -51,7 +55,11 @@
 												<% if(ent_user.pglre_oauth_uid == null){ %>
 													<span><%= ent_user.pglre_supplied_name %></span>
 												<% }else{ %>
-													<span data-oauth_uid="<%= ent_user.pglre_oauth_uid %>" data-name="<%= ent_user.pglre_oauth_uid %>"></span>
+																									
+													<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + ent_user.pglre_oauth_uid + '/' %>">
+														<span data-oauth_uid="<%= ent_user.pglre_oauth_uid %>" data-name="<%= ent_user.pglre_oauth_uid %>"></span>
+													</a>
+												
 												<% } %>
 												
 											</td>
@@ -107,7 +115,12 @@
 							<% }else{ %>
 								
 								<img src="https://graph.facebook.com/<%= tglr_user_oauth_uid %>/picture?width=50&height=50" />
-								<p style="margin-bottom:0;" data-oauth_uid="<%= tglr_user_oauth_uid %>" data-name="<%= tglr_user_oauth_uid %>"></p>
+								
+								<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + tglr_user_oauth_uid + '/' %>">
+									<p style="margin-bottom:0;" data-oauth_uid="<%= tglr_user_oauth_uid %>" data-name="<%= tglr_user_oauth_uid %>"></p>
+								</a>
+								
+								
 								<span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 										
 							<% } %>
@@ -147,7 +160,11 @@
 												<% if(ent_user.tglre_oauth_uid == null){ %>
 													<span><%= ent_user.tglre_supplied_name %></span>
 												<% }else{ %>
-													<span data-oauth_uid="<%= ent_user.tglre_oauth_uid %>" data-name="<%= ent_user.tglre_oauth_uid %>"></span>
+													
+													<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + ent_user.tglre_oauth_uid + '/' %>">
+														<span data-oauth_uid="<%= ent_user.tglre_oauth_uid %>" data-name="<%= ent_user.tglre_oauth_uid %>"></span>
+													</a>
+													
 												<% } %>
 												
 											</td>
