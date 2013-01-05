@@ -15,12 +15,13 @@
 		render: function(){
 			
 			this.$el.addClass('ui-widget');
+			this.$el.draggable();
 			this.$el.attr({
 				id: 'reservation_detail_paine'
 			});
 			
 			
-			var vlf = el.parents('.vlf');
+			var vlf 	= el.parents('body');
 			var top 	= el.offset().top - 1 - vlf.offset().top;
 			var left 	= el.offset().left + el.width() + 3 - vlf.offset().left;
 			
@@ -28,7 +29,8 @@
 				left:			left + 'px',
 				top: 			top + 'px',
 				zIndex: 		'1000 !important',
-				'min-height': 	(el.height() + 2) + 'px'
+				position: 		'absolute'
+			//	'min-height': 	(el.height() + 2) + 'px'
 			});
 			
 			console.log(this.model.toJSON());
@@ -105,9 +107,7 @@
 			});
 			
 			
-			console.log('el parents');
-			console.log(el.parents('.vlf'));
-			el.parents('.vlf').append(view_reservation_detail_paine.el)
+			jQuery('body').append(view_reservation_detail_paine.el)
 			
 			view_reservation_detail_paine.render();
 			

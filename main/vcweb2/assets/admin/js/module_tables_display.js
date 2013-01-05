@@ -241,8 +241,7 @@
 						
 					});
 					
-					
-					
+										
 					console.log('this.reservation');
 					console.log(this.reservation);
 					
