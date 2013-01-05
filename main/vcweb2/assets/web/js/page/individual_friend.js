@@ -4,8 +4,8 @@ if(typeof window.vc_page_scripts === 'undefined')
 jQuery(function(){
 	window.vc_page_scripts.individual_friend = function(){
 		
-		var users_oauth_uid = individual_friend_obj.users_oauth_uid, 
-				friend_users_full_name = individual_friend_obj.users_full_name;
+		var users_oauth_uid 			= individual_friend_obj.users_oauth_uid, 
+				friend_users_full_name 	= individual_friend_obj.users_full_name;
 					
 							
 		//multi-dimensional 2D array of event types, bounded elements, and callbacks

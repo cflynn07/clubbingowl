@@ -19,11 +19,26 @@
     <div class="avatar">
     	<img style="border-radius:10px; border: 1px solid lightgray;" src="<?= $promoter->profile_image_complete_url ?>" alt="<?= $promoter->u_full_name ?>'s Picture">
     </div>
-    
+    <div style="text-align:center; padding-top:10px;">
+    	
+  		<?php if($promoter->up_last_login_time 		> (time() - 60 * 20)): //20 mins ?>
+    		<img src="<?= $central->front_assets ?>images/on.png" style="vertical-align:bottom;" /> <span style="color:green;">Online Now</span>
+  		<?php elseif($promoter->up_last_login_time 	> (time() - 60 * 60)): //60 mins): ?>
+  			<img src="<?= $central->front_assets ?>images/off.png" style="vertical-align:bottom; filter:gray; -webkit-filter:grayscale(1); opacity:0.5;" /> <span>Last Online: Within the hour</span>
+  		<?php elseif($promoter->up_last_login_time 	> (time() - 60 * 60 * 24)): //1 day): ?>
+  			<img src="<?= $central->front_assets ?>images/off.png" style="vertical-align:bottom; filter:gray; -webkit-filter:grayscale(1); opacity:0.5;" /> <span>Last Online: Today</span>  			
+  		<?php elseif($promoter->up_last_login_time 	> (time() - 60 * 60 * 24 * 7)): //1 week): ?>
+  			<img src="<?= $central->front_assets ?>images/off.png" style="vertical-align:bottom; filter:gray; -webkit-filter:grayscale(1); opacity:0.5;" /> <span>Last Online: This week</span>  			
+  		<?php else: ?>
+  			<img src="<?= $central->front_assets ?>images/off.png" style="vertical-align:bottom; filter:gray; -webkit-filter:grayscale(1); opacity:0.5;" /> <span>Offline</span>  			
+  		<?php endif; ?>  
+  		
+    </div>
+   
     <div style="border-top:1px dashed #CCC;border-bottom:1px dashed #CCC;margin-top:15px;" id="add_as_friend">
     	<table style="width:100%;">
     		<tr>
-    			<td><img src="<?= $central->front_assets ?>images/facebook-icon.png" /></td>
+    			<td><img src="<?= $central->front_assets ?>images/fb_add_friend_48x48.png" /></td>
     			<td style="text-align:center;"><p><a href="javascript:void(0);">Add <?= $promoter->u_full_name ?> as a Friend.</a></p></td>
     		</tr>
     	</table>

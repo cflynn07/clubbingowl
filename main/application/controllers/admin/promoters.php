@@ -33,11 +33,21 @@ class Promoters extends MY_Controller {
 			die();
 		}
 		/*--------------------- End Login Handler --------------------*/
-				
+		
+		
+		//update last login time
+		$this->db->where(array(
+			'users_oauth_uid' 	=> $vc_user->oauth_uid
+		))->update('users_promoters', array(
+			'last_login_time'	=> time()
+		));
+		
+		
 		/* --------------------- Load admin-promoter library ------------------------ */
 		$this->load->library('library_promoters');
 		$this->library_promoters->initialize(array('promoter_id' => $vc_user->promoter->up_id), true);
 		/* --------------------- End Load admin-promoter library ------------------------ */
+		
 		
 		if($this->input->post('vc_method') == 'user_stats_retrieve'){
 			$this->_helper_retrieve_user_stats();

@@ -515,8 +515,8 @@ class Promoters extends MY_Controller {
 		$this->_helper_pop_retrieve_job();
 		$this->_helper_send_pusher_presence();
 		
-		
-		
+		Kint::dump('test');
+		Kint::dump($this->library_promoters->promoter);
 
 
 

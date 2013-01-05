@@ -24,7 +24,7 @@
 	  		<br><br><br>
 	  		
 	  		<?php if(false): ?>
-	  		<p id="since_date">ClubbingOwl user since <?= strftime('%B, %G', $friend->users_join_time) ?></p>
+	  		<p id="since_date">ClubbingOwl since: <?= strftime('%B, %G', $friend->users_join_time) ?></p>
 	  		<?php endif; ?>
 	  		
 	  		<p id="since_date"><?= lang_key($this->lang->line('fr-since_date'), array(
