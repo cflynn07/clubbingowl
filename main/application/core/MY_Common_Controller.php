@@ -62,6 +62,20 @@ class MY_Common_Controller extends CI_Controller{
 			$vc_user = json_decode($vc_user);
 			
 			
+			
+			if(isset($vc_user->promoter)){
+				//update last login time
+				$this->db->where(array(
+					'users_oauth_uid' 	=> $vc_user->oauth_uid
+				))->update('users_promoters', array(
+					'last_login_time'	=> time()
+				));
+			}
+			
+			
+			
+			
+			
 			//retrieve this users notifications
 			if(!$this->input->is_ajax_request()){
 				$this->load->model('model_users', 'users', true);

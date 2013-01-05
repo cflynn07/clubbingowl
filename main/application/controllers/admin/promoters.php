@@ -34,14 +34,7 @@ class Promoters extends MY_Controller {
 		}
 		/*--------------------- End Login Handler --------------------*/
 		
-		
-		//update last login time
-		$this->db->where(array(
-			'users_oauth_uid' 	=> $vc_user->oauth_uid
-		))->update('users_promoters', array(
-			'last_login_time'	=> time()
-		));
-		
+
 		
 		/* --------------------- Load admin-promoter library ------------------------ */
 		$this->load->library('library_promoters');
