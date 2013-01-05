@@ -3408,14 +3408,13 @@ class Managers extends MY_Controller {
 				}
 					
 				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
+		//		if($vr->entourage)
+		//			foreach($vr->entourage as $ent){
+		//				$init_users[] = $ent;
+		//			}
 				
-			}unset($vr);
+			}//unset($vr);
 			$venue->venue_reservations = $venue_reservations;
-			
 			
 			
 			
@@ -3436,12 +3435,12 @@ class Managers extends MY_Controller {
 				}
 					
 				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
+			//	if($vr->entourage)
+			//		foreach($vr->entourage as $ent){
+			//			$init_users[] = $ent;
+			//		}
 				
-			}unset($vr);																	
+			}//unset($vr);																	
 																						
 			
 			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;

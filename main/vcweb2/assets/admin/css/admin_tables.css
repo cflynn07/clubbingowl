@@ -431,3 +431,7 @@ div#reservation_detail_paine table#reservation_info tr td {
 div#reservation_detail_paine table#reservation_info tr td:first-child {
 	font-weight: bold;
 }
+div#reservation_detail_paine table#reservation_info img {
+	max-width: 50px;
+	margin-right: 5px;
+}

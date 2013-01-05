@@ -1092,22 +1092,29 @@ class Model_teams extends CI_Model {
 		$result1 = $query->result();
 		
 		//add entourages to promoter reservations
-		foreach($result1 as $res){
+		foreach($result1 as &$res){
 			$sql = "SELECT
-			
-						oauth_uid
+						
+						pglre.oauth_uid 		as oauth_uid,
+						pglre.oauth_uid			as pglre_oauth_uid,
+						pglre.supplied_name 	as pglre_supplied_name
 						
 					FROM 	promoters_guest_lists_reservations_entourages pglre
 					
 					WHERE	pglre.promoters_guest_lists_reservations_id = ?";
 			$query = $this->db->query($sql, array($res->pglr_id));
 			$res->entourage = $query->result();
-			foreach($res->entourage as &$temp){
-				$temp = $temp->oauth_uid;
-			}
-			unset($temp);
+			
+			
+		//	foreach($res->entourage as &$temp){
+		//		$temp = $temp->oauth_uid;
+				
+				
+				
+		//	}
+		//	unset($temp);
 		}
-		unset($res);
+	//	unset($res);
 		
 		$sql = "SELECT
 		
@@ -1161,22 +1168,25 @@ class Model_teams extends CI_Model {
 		$result2 = $query->result();
 		
 		//add entourages to promoter reservations
-		foreach($result2 as $res){
+		foreach($result2 as &$res){
 			$sql = "SELECT
 			
-						oauth_uid
+						tglre.oauth_uid 		as oauth_uid,
+						tglre.oauth_uid			as tglre_oauth_uid,
+						tglre.supplied_name 	as tglre_supplied_name
 						
 					FROM 	teams_guest_lists_reservations_entourages tglre
 					
 					WHERE	tglre.team_guest_list_reservation_id = ?";
 			$query = $this->db->query($sql, array($res->tglr_id));
 			$res->entourage = $query->result();
-			foreach($res->entourage as &$temp){
-				$temp = $temp->oauth_uid;
-			}
-			unset($temp);
+		
+		//	foreach($res->entourage as &$temp){
+		//		$temp = $temp->oauth_uid;
+		//	}
+		//	unset($temp);
 		}
-		unset($res);
+	//	unset($res);
 		
 		return array_merge($result1, $result2);
 		
