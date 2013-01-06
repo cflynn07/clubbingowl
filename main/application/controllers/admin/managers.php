@@ -2058,7 +2058,7 @@ class Managers extends MY_Controller {
 					$this->vc_user->manager->team_fan_page_id,
 					$entourage,
 					$this->input->post('tgla_id'),
-					(($this->input->post('table_request') == '1') ? 'true' : 'false'),
+					(($this->input->post('table_request') == '1') ? 1 : 0),
 					false,
 					'',
 					'',
@@ -2067,7 +2067,8 @@ class Managers extends MY_Controller {
 					false,
 					true,
 					$this->input->post('table_min_spend'),
-					$head_user['name']
+					$head_user['name'],
+					$this->input->post('vlfit_id')
 				);
 				die(json_encode($result));
 				
@@ -3215,13 +3216,33 @@ class Managers extends MY_Controller {
 					
 					
 					//add users to users array
-					foreach($gla->current_list->groups as $group){
+					foreach($gla->current_list->groups as &$group){
+						
+						
+						
+						if(!$offset){
+							$group->human_date 	= $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->tgla_day, 's')));
+							$group->iso_date 		= date('Y-m-d', strtotime(rtrim($gla->tgla_day, 's')));
+							$group->current_week 	= true;
+						}else{
+							$group->human_date 	= $gla->human_date = date('l m/d/y', strtotime('next ' . rtrim($gla->tgla_day, 's') . ' -' . $offset . ' weeks'));	
+							$group->iso_date 		= date('Y-m-d', strtotime('next ' . rtrim($gla->tgla_day, 's') . ' -' . $offset . ' weeks'));
+							$group->current_week 	= false;
+						}
+						$group->request_type = 'team';
+						
+						
+						
+						
+						
 						$users[] = $group->tglr_user_oauth_uid;
 
 						foreach($group->entourage as $ent_user){
 							$users[] = $ent_user->tglre_oauth_uid;
 						}
-					}
+						
+						
+					}unset($group);
 					
 				}
 			}
@@ -3572,6 +3593,7 @@ class Managers extends MY_Controller {
 		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 		$total_clients = 0;
 		
+		
 		$users = array();
 		
 		foreach($announcements as $an){
@@ -3624,8 +3646,7 @@ class Managers extends MY_Controller {
 		
 		//------------------------------- promoter table requests -----------------------------------
 		$promoters = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
-		
-		
+				
 		
 		$users2 = array();
 		//attach current guest list data to each promoter object
@@ -3634,11 +3655,13 @@ class Managers extends MY_Controller {
 			//retrieve a list of all the guest lists a promoter has set up
 			$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($promoter->up_id);
 			
+			
 			//for each guest list, find all groups associated with it
 			foreach($weekly_guest_lists as &$gla){
 				$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
 			}
-		
+			
+			
 			//attach to promoter object
 			$promoter->weekly_guest_lists = $weekly_guest_lists;
 			
@@ -3652,7 +3675,7 @@ class Managers extends MY_Controller {
 				}
 			}
 			
-		}
+		}unset($promoter);
 		
 //		Kint::dump($users);
 //		Kint::dump($users2);
@@ -3719,7 +3742,7 @@ class Managers extends MY_Controller {
 		
 		foreach($statistics->team_venues as $team_venue){
 			foreach($team_venue->tv_gla as $tv_gla){
-				
+								
 				if($tv_gla->current_list){
 					
 					foreach($tv_gla->current_list->groups as $group){
@@ -3737,9 +3760,11 @@ class Managers extends MY_Controller {
 				}
 				
 			}
-		}
+		}unset($team_venue);
 		foreach($statistics->promoters as $promoter){
+						
 			foreach($promoter->weekly_guest_lists as $wgl){
+								
 				if($wgl->groups){
 					foreach($wgl->groups as $group){
 						
@@ -3751,14 +3776,12 @@ class Managers extends MY_Controller {
 					}
 				}
 			}
-		}
+		}unset($promoter);
 		
 		$statistics->pending_requests = $pending_requests;
 		
 		
-		
-		
-		
+				
 		
 		
 		

@@ -600,7 +600,7 @@ class Model_users_promoters extends CI_Model {
 		}else{
 			
 			$sql .= "up.id					as up_id,
-					up.users_oauth_uid		as up_users_oauth_uid,
+				
 					up.completed_setup		as up_completed_setup,
 					up.time_created			as up_time_created,
 					up.last_login_time		as up_last_login_time,
@@ -628,7 +628,8 @@ class Model_users_promoters extends CI_Model {
 			
 		}	
 		
-		$sql .= "t.fan_page_id 		as t_fan_page_id 
+		$sql .= " up.users_oauth_uid		as up_users_oauth_uid,
+				t.fan_page_id 		as t_fan_page_id 
 		
 				FROM	users_promoters up
 				

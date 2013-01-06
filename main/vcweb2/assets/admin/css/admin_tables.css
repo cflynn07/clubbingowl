@@ -441,7 +441,7 @@ div#reservation_detail_paine table#reservation_info img {
 
 
 
-div#dialog_actions span#assigned_table > div {
+span#assigned_table > div {
 	border: 1px solid #000; 
 	background: red; 
 	width: auto;
@@ -449,6 +449,6 @@ div#dialog_actions span#assigned_table > div {
 	height: 50px;
 	float: right;
 }
-div#dialog_actions span#assigned_table > div > span[data-day_price] {
+span#assigned_table > div > span[data-day_price] {
 	top: -5px !important;
 }

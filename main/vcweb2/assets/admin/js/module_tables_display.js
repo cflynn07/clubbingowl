@@ -177,7 +177,35 @@
 				
 				
 				
+				
+				
+				
+				var day_price = 0;
+			 	day = parseInt(day);
+			 	if(day === 0){
+			 		day_price = this.model.get('vlfit_sunday_min');
+			 	}else if(day == 1){
+			 		day_price = this.model.get('vlfit_monday_min');
+			 	}else if(day == 2){
+			 		day_price = this.model.get('vlfit_tuesday_min');
+			 	}else if(day == 3){
+			 		day_price = this.model.get('vlfit_wednesday_min');
+			 	}else if(day == 4){
+			 		day_price = this.model.get('vlfit_thursday_min');
+			 	}else if(day == 5){
+			 		day_price = this.model.get('vlfit_friday_min');
+			 	}else if(day == 6){
+			 		day_price = this.model.get('vlfit_saturday_min');
+			 	}
+				
 				this.$el.data('vlfit_id', this.model.get('vlfit_id'));
+				this.$el.data('table_min_spend', day_price);
+				
+				
+				
+				
+				
+				
 				
 				
 				this.$el.droppable({

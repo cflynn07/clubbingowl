@@ -63,10 +63,10 @@ class MY_Common_Controller extends CI_Controller{
 			
 			
 			
-			if(isset($vc_user->promoter)){
+			if(isset($vc_user->promoter->up_users_oauth_uid)){
 				//update last login time
 				$this->db->where(array(
-					'users_oauth_uid' 	=> $vc_user->oauth_uid
+					'users_oauth_uid' 	=> $vc_user->promoter->up_users_oauth_uid
 				))->update('users_promoters', array(
 					'last_login_time'	=> time()
 				));

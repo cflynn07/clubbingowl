@@ -12,6 +12,9 @@
 		var table_display 	= (_this.model.get('request_type') == 'promoter' || _this.model.get('tglr_table_request') == '1');
 		var Views 			= {};
 		var vlfit_id		= false;
+		
+		var guest_lists_page		= (window.location.href.indexOf('/admin/managers/guest_lists') != -1);
+		
 		jQuery('div#dialog_actions span#assigned_table div').empty().hide();
 		
 		if(table_display)
@@ -147,15 +150,16 @@
 			
 			jQuery('div#dialog_actions').find('textarea[name=message]').val('');
 			
-			if(resp.action == 'approve'){				
-				_this.$el.css({
-					background: 'green'
-				});
-			}else{
-				_this.$el.css({
-					background: 'red'
-				});
-			}
+			if(!guest_lists_page)
+				if(resp.action == 'approve'){				
+					_this.$el.css({
+						background: 'green'
+					});
+				}else{
+					_this.$el.css({
+						background: 'red'
+					});
+				}
 			
 			
 			jQuery.background_ajax({
@@ -169,14 +173,12 @@
 				},
 				success: function(data){
 					
-					console.log(data);
-													
-					_this.$el.animate({
-						opacity: 0
-					}, 500, 'linear', function(){
-						//_this.$el.trigger('request-responded');
-						_this.$el.remove();
-					});
+					if(!guest_lists_page)													
+						_this.$el.animate({
+							opacity: 0
+						}, 500, 'linear', function(){
+							_this.$el.remove();
+						});
 					
 				}
 			});

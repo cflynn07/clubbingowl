@@ -60,8 +60,9 @@ class Model_team_guest_lists extends CI_Model {
 												$date_check_override 	= false,
 												$approve_override 		= false,
 												$table_min_spend 		= 0,
-												$tglr_supplied_name = ''){
-		
+												$tglr_supplied_name 	= '',
+												$vlfit_id 				= NULL){
+
 		$phone_number = preg_replace('/\D/', '', $phone_number);
 		
 		//get the dates/epoch times of this week's start/end dates (sunday - saturday)
@@ -231,10 +232,11 @@ class Model_team_guest_lists extends CI_Model {
 																		'request_msg'		=> ($request_message) ? $request_message : '',
 																		'table_request' 	=> ($table_request == 1) ? 1 : 0,
 																		'manual_add' 		=> ($approve_override) ? 1 : 0,
+																		'approved'			=> ($approve_override) ? 1 : 0,
 																		'table_min_spend'	=> $table_min_spend,
 																		'supplied_name'		=> $tglr_supplied_name,
+																		'venues_layout_floors_items_table_id'	=> (($vlfit_id) ? $vlfit_id : NULL),
 																		'create_time' 		=> time()));
-		
 	//	var_dump($this->db->last_query()); //die();
 		
 		$teams_guest_lists_reservations_id = $this->db->insert_id();

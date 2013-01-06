@@ -48,12 +48,25 @@
 	<div style="display:none; width:100%;" id="dialog_actions_floorplan"></div>
 
 	<div style="width:90%; margin-left:auto; margin-right:auto;">
-		<img data-pic="" src="" class="pic_square" style="float: left; margin-right: 5px;" alt="picture" />
-		<span data-name="" class="name"></span>'s reservation request.<br/>
-		<span style="display:none;" id="table_assignment_message">Click on an available table to assign. Drag & Drop reservations to reorganize table assignments.</span>
 		
-
-		<span id="assigned_table" style="float:right;">Assigned Table:<br/><div></div></span>
+		<table style="width:100%;">
+			<tbody>
+				<tr>
+					<td>
+						<div style="float:left;">
+							<img data-pic="" src="" class="pic_square" style="float: left; margin-right: 5px;" alt="picture" />
+							<span style="font-size:14px;"><span data-name="" class="name"></span>'s reservation request.</span><br/>
+							<span style="display:none;" id="table_assignment_message">Click on an available table to assign. Drag & Drop reservations to reorganize table assignments.</span>
+						</div>
+					</td>
+					<td>
+						<div style="float:right;">
+							<span style="float:right;" id="assigned_table" style="float:right;">Assigned Table:<br/><div>None</div></span>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		
 	</div>
 	

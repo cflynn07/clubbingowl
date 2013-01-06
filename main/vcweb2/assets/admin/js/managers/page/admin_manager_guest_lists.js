@@ -95,6 +95,8 @@ jQuery(function(){
 
 		Views.ManualAddModal = {
 			
+			vlfit_id: 			false,
+			
 			modal_view: 		null,
 			selected_head_user: null,
 			exclude_ids: 		[],
@@ -196,11 +198,12 @@ jQuery(function(){
 					//	console.log(venue);
 					//	console.log(_this.model.toJSON());
 						
-
+						var tgla_day = _this.model.get('tgla_day');
+						tgla_day = tgla_day.slice(0, -1);
 						
 						// Find the prices of tables for the day
 						// --------------------------------------------------------------------
-						//array of unique day prices
+			/*			//array of unique day prices
 						var day_prices = [];
 						
 						var tgla_day = _this.model.get('tgla_day');
@@ -230,14 +233,14 @@ jQuery(function(){
 						console.log(day_prices);
 						// --------------------------------------------------------------------
 						
-						
+				*/		
 						
 						
 						var template = EVT['guest_lists/gl_manual_add_table'];
 						var html = new EJS({
 							text: template
 						}).render({
-							day_prices: day_prices,
+						//	day_prices: day_prices,
 							venue: 		venue,
 							tgla_day: 	tgla_day
 						});
@@ -490,8 +493,40 @@ jQuery(function(){
 				
 			},
 			events: {
-				'click a[data-action]': 'events_click_data_action',
-				'change select#table_min_price': 'events_change_select_min_price'
+				'click a[data-action]': 			'events_click_data_action',
+				'change select#table_min_price': 	'events_change_select_min_price',
+				'event-reorganize-tables': 			'reorganize_tables',
+				'click div.item.table': 			'click_item_table'
+			},
+			click_item_table: function(e){
+				
+				
+				
+				
+				
+				
+				var el = jQuery(e.currentTarget);
+				
+				if(el.data('reserved')){
+					return false;
+				}
+								
+				this.vlfit_id 			= el.data('vlfit_id');
+				this.table_min_spend 	= el.data('table_min_spend');
+				this.table_request		= 1;
+				
+				jQuery('div#manual_add_modal span#assigned_table').show();
+				jQuery('div#manual_add_modal span#assigned_table div').html(el.html()).show();
+							
+				
+			},
+			reorganize_tables: function(){
+				
+				console.log('--- reorg tables ---');
+				this.vlfit_id = false;
+				jQuery('div#manual_add_modal span#assigned_table div').empty();
+				
+				
 			},
 			events_change_select_min_price: function(e){
 				
@@ -542,6 +577,13 @@ jQuery(function(){
 					
 						break;
 					case 'init-gl-flow':
+					
+						if(this.table_request == 1){
+							if(this.vlfit_id === false){
+								this.$el.find('p#message').html('Please select a table.')
+								return false; 
+							}
+						}
 												
 						//add friends
 						this.render_guestlist_flow_1();
@@ -709,6 +751,7 @@ jQuery(function(){
 							//	up_id: 				window.page_obj.promoter.up_id,
 								group: 				_this.collections_group.toJSON(),
 								table_request: 		_this.table_request,
+								vlfit_id: 			_this.vlfit_id,
 								table_min_spend: 	_this.table_min_spend
 							},
 							success: function(data){
@@ -1395,6 +1438,14 @@ jQuery(function(){
 			events_click_request_respond: function(e){
 				e.preventDefault();
 				
+				
+				globals.module_manager_accept_guest_list_display.initialize(this);
+				
+				
+				
+				/*
+				
+				
 				var _this = this;
 				var head_user = this.model.get('head_user');
 				
@@ -1469,6 +1520,18 @@ jQuery(function(){
 					}
 					
 				});
+				
+				
+				
+				*/
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				return false;
 			},

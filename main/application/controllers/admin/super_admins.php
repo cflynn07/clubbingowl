@@ -397,12 +397,15 @@ class Super_admins extends MY_Controller {
 				$oauth_uid = $this->input->post('oauth_uid');
 				if($type == 'promoter'){
 
-					$up_id = $this->input->post('up_id');
-					$team_fan_page_id = $this->input->post('team_fan_page_id');
+					$up_id 				= $this->input->post('up_id');
+					$team_fan_page_id 	= $this->input->post('team_fan_page_id');
+					$up_users_oauth_uid = $this->input->post('up_users_oauth_uid');
+					
 					
 					$promoter = new stdClass;
 					$promoter->up_id = $up_id;
 					$promoter->t_fan_page_id = $team_fan_page_id;
+					$promoter->up_users_oauth_uid = $up_users_oauth_uid;
 					
 		//			$this->vc_user->oauth_uid = $oauth_uid;
 					$this->vc_user->promoter = $promoter;

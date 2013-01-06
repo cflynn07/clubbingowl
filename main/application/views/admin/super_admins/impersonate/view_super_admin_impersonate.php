@@ -22,6 +22,7 @@ jQuery(function(){
 			
 				data.up_id = jQuery(this).parents('tr').find('td.up_id').html();
 				data.team_fan_page_id = jQuery(this).parents('tr').find('td.team_fan_page_id').html();
+				data.up_users_oauth_uid = jQuery(this).parents('tr').find('td.up_users_oauth_uid').html();
 			
 				break;
 			case 'manager':
@@ -134,6 +135,7 @@ jQuery(function(){
 		<?php foreach($promoters as $promoter): ?>
 		<tr>
 			<td class="oauth_uid" style="display:none;"><?= $promoter->up_users_oauth_uid ?></td>
+			<td class="up_users_oauth_uid" style="display:none;"><?= $promoter->up_users_oauth_uid ?></td>
 			<td class="type" style="display:none;">promoter</td>
 			<td class="up_id"><?= $promoter->up_id ?></td>
 			<td class="team_fan_page_id"><?= $promoter->t_fan_page_id ?></td>
