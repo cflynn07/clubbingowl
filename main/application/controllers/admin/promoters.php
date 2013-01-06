@@ -544,7 +544,7 @@ class Promoters extends MY_Controller {
 			
 			$my_client_notes = false;
 			foreach($client_notes_team as $key => $cnt){
-				if($cnt->user_oauth_uid == $this->vc_user->oauth_uid){
+				if($cnt->user_oauth_uid == $this->library_promoters->promoter->up_users_oauth_uid){
 					$my_client_notes = $cnt;
 					unset($client_notes_team[$key]);
 					break;
@@ -1344,7 +1344,7 @@ class Promoters extends MY_Controller {
 					'promoter_guest_list_authorizations_id'	=> $pgla_id,
 					'status'								=> $status,
 					'create_time'							=> time(),
-					'users_oauth_uid'						=> $this->vc_user->oauth_uid
+					'users_oauth_uid'						=> $this->library_promoters->promoter->up_users_oauth_uid
 				));
 				
 				$return_obj = new stdClass;
@@ -1584,7 +1584,7 @@ class Promoters extends MY_Controller {
 				
 				$this->load->model('model_teams', 'teams', true);
 				$this->teams->update_client_notes(array(
-					'users_oauth_uid'	=> $this->vc_user->oauth_uid,
+					'users_oauth_uid'	=> $this->library_promoters->promoter->up_users_oauth_uid,
 					'client_oauth_uid'	=> $arg1,
 					'team_fan_page_id'	=> $this->vc_user->promoter->t_fan_page_id,
 					'public_notes'		=> $this->input->post('public_notes'),
@@ -1601,7 +1601,7 @@ class Promoters extends MY_Controller {
 						'public_notes'		=> $this->input->post('public_notes')
 						
 					)),
-					'manager_oauth_uid'	=> $this->vc_user->oauth_uid
+					'manager_oauth_uid'	=> $this->library_promoters->promoter->up_users_oauth_uid
 				));
 				
 				die(json_encode(array('success' => true)));
@@ -1687,7 +1687,7 @@ class Promoters extends MY_Controller {
 		$sms_text_number = trim(preg_replace('/\D/', '', $sms_text_number));
 		
 		$this->load->model('model_users', 'users', true);
-		if($this->users->retrieve_twilio_number($this->vc_user->oauth_uid, $sms_text_number))
+		if($this->users->retrieve_twilio_number($this->library_promoters->promoter->up_users_oauth_uid, $sms_text_number))
 					die(json_encode(array('success' => false,
 											'message' => 'SMS number is already taken. Please choose a different number.')));
 		
@@ -1697,7 +1697,7 @@ class Promoters extends MY_Controller {
 		$this->users_promoters->update_promoter(array('promoter_id' => $this->vc_user->promoter->up_id), 
 													array('biography' => strip_tags($this->input->post('biography'))));
 		
-		$this->users->update_twilio_number($this->vc_user->oauth_uid, $sms_text_number);
+		$this->users->update_twilio_number($this->library_promoters->promoter->up_users_oauth_uid, $sms_text_number);
 		
 		die(json_encode(array('success' => true)));
 	}
@@ -1993,7 +1993,7 @@ class Promoters extends MY_Controller {
 					die(json_encode(array('success' => false,
 											'message' => 'Please enter a valid phone number to recieve texts.')));
 											
-				if($this->users->retrieve_twilio_number($this->vc_user->oauth_uid, $sms_text_number))
+				if($this->users->retrieve_twilio_number($this->library_promoters->promoter->up_users_oauth_uid, $sms_text_number))
 					die(json_encode(array('success' => false,
 											'message' => 'SMS number is already taken. Please choose a different number.')));
 					
@@ -2010,7 +2010,7 @@ class Promoters extends MY_Controller {
 								'biography' => $biography);
 				$this->users_promoters->update_promoter(array('promoter_id' => $this->vc_user->promoter->up_id), $data);
 				
-				$this->users->update_twilio_number($this->vc_user->oauth_uid, $sms_text_number);
+				$this->users->update_twilio_number($this->library_promoters->promoter->up_users_oauth_uid, $sms_text_number);
 									
 				//output success message
 				die(json_encode(array('success' => true)));

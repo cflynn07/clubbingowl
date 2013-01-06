@@ -412,6 +412,7 @@ class Super_admins extends MY_Controller {
 				}elseif($type == 'manager'){
 					
 					$mt_id = $this->input->post('mt_id');
+					$mt_users_oauth_uid = $this->input->post('mt_users_oauth_uid');
 					$team_name = $this->input->post('team_name');
 					$team_fan_page_id = $this->input->post('team_fan_page_id');
 					$team_description = $this->input->post('team_description');
@@ -423,6 +424,7 @@ class Super_admins extends MY_Controller {
 					
 					$manager = new stdClass;
 					$manager->mt_id		= $mt_id;
+					$manager->mt_user_oauth_uid = $mt_users_oauth_uid;
 					$manager->team_name = $team_name;
 					$manager->team_fan_page_id = $team_fan_page_id;
 					$manager->team_description = $team_description;

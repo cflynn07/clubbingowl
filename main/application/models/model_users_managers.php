@@ -30,6 +30,7 @@ class Model_users_managers extends CI_Model {
 		$sql = "SELECT
 					
 					mt.id 				as mt_id,
+					mt.user_oauth_uid	as mt_user_oauth_uid,
 					t.name 				as team_name,
 					t.fan_page_id 		as team_fan_page_id,
 					t.description		as team_description,
@@ -48,7 +49,7 @@ class Model_users_managers extends CI_Model {
 				ON 		c.id = t.city_id
 				
 				WHERE mt.user_oauth_uid = ?
-						
+						AND mt.banned = 0
 				LIMIT 1";
 				
 		$query = $this->db->query($sql, array($users_oauth_uid));

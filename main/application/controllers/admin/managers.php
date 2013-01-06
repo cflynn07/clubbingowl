@@ -35,7 +35,7 @@ class Managers extends MY_Controller {
 
 		/* --------------------- Load manager library ------------------------ */
 		$this->load->library('library_admin_managers');
-		$this->library_admin_managers->initialize($vc_user->oauth_uid);
+		$this->library_admin_managers->initialize($vc_user->manager->mt_user_oauth_uid);
 		/* --------------------- End Load manager library ------------------------ */
 		
 			
@@ -64,15 +64,22 @@ class Managers extends MY_Controller {
 		}
 		
 		
-
+		
+		
+			
+			
+			
+			
 			
 		if($this->input->post('vc_method') == 'user_stats_retrieve'){
 			$this->_helper_retrieve_user_stats();
 		}
 			
 		$this->load->vars('team_fan_page_id', 	$vc_user->manager->team_fan_page_id);
-		$this->load->vars('users_oauth_uid', 	$vc_user->oauth_uid);
+		$this->load->vars('users_oauth_uid', 	$vc_user->manager->mt_user_oauth_uid);
 		$this->load->vars('subg', 'managers');
+
+
 
 		$this->load->vars(array(
 			'is_promoter' 	=> false,
@@ -666,7 +673,7 @@ class Managers extends MY_Controller {
 			
 			$my_client_notes = false;
 			foreach($client_notes_team as $key => $cnt){
-				if($cnt->user_oauth_uid == $this->vc_user->oauth_uid){
+				if($cnt->user_oauth_uid == $this->vc_user->manager->mt_user_oauth_uid){
 					$my_client_notes = $cnt;
 					unset($client_notes_team[$key]);
 					break;
@@ -859,7 +866,7 @@ class Managers extends MY_Controller {
 				$this->load->model('model_email_marketing', 'email_marketing', true);
 				$result = $this->email_marketing->create_marketing_campaign(array(
 					'team_fan_page_id'	=> $this->library_admin_managers->team->team_fan_page_id,
-					'manager_oauth_uid'	=> $this->vc_user->oauth_uid,
+					'manager_oauth_uid'	=> $this->vc_user->manager->mt_user_oauth_uid,
 					'campaign_title'	=> $campaign_title,
 					'campaign_body'		=> $campaign_content,
 					'send_time'			=> time()
@@ -1945,7 +1952,7 @@ class Managers extends MY_Controller {
 				
 				$this->load->model('model_teams', 'teams', true);
 				$this->teams->create_team_announcement(array(
-					'manager_oauth_uid' 	=> $this->vc_user->oauth_uid,
+					'manager_oauth_uid' 	=> $this->vc_user->manager->mt_user_oauth_uid,
 					'message'				=> $this->input->post('message'),
 					'team_fan_page_id'		=> $this->vc_user->manager->team_fan_page_id,
 					'type'					=> 'regular'
@@ -2125,7 +2132,7 @@ class Managers extends MY_Controller {
 					'team_guest_list_authorizations_id'		=> $tgla_id,
 					'status'								=> $status,
 					'create_time'							=> time(),
-					'users_oauth_uid'						=> $this->vc_user->oauth_uid
+					'users_oauth_uid'						=> $this->vc_user->manager->mt_user_oauth_uid
 				));
 				
 				$return_obj = new stdClass;
@@ -2136,7 +2143,7 @@ class Managers extends MY_Controller {
 				
 				$this->load->helper('run_gearman_job');
 				run_gearman_job('gearman_new_manager_gl_status', array(
-					'manager_oauth_uid'			=> $this->vc_user->oauth_uid,
+					'manager_oauth_uid'			=> $this->vc_user->manager->mt_user_oauth_uid,
 					'tgla_id'					=> $tgla_id,
 					'status'					=> $status,
 					'human_time'				=> $return_obj->human_date
@@ -2288,7 +2295,7 @@ class Managers extends MY_Controller {
 						# ------------------------------------------------------------- #				
 						//add job to a task
 						$gearman_task = $this->pearloader->load('Net', 'Gearman', 'Task', array('func' => 'gearman_manager_manual_add',
-																									'arg'  => array('user_oauth_uid' 	=> $vc_user->oauth_uid,
+																									'arg'  => array('user_oauth_uid' 	=> $vc_user->manager->mt_user_oauth_uid,
 																													'fan_page_id'		=> $vc_user->manager->team_fan_page_id,
 																													'access_token' 		=> $vc_user->access_token,
 																													'tgla_id'			=> $tgla_id,
@@ -2525,7 +2532,7 @@ class Managers extends MY_Controller {
 				
 				$this->load->model('model_teams', 'teams', true);
 				$this->teams->update_client_notes(array(
-					'users_oauth_uid'	=> $this->vc_user->oauth_uid,
+					'users_oauth_uid'	=> $this->vc_user->manager->mt_user_oauth_uid,
 					'client_oauth_uid'	=> $arg1,
 					'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
 					'public_notes'		=> $this->input->post('public_notes'),
@@ -2542,7 +2549,7 @@ class Managers extends MY_Controller {
 						'public_notes'		=> $this->input->post('public_notes')
 						
 					)),
-					'manager_oauth_uid'	=> $this->vc_user->oauth_uid
+					'manager_oauth_uid'	=> $this->vc_user->manager->mt_user_oauth_uid
 				));
 				
 				die(json_encode(array('success' => true)));
