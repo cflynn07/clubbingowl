@@ -617,8 +617,15 @@ jQuery(function(){
 			
 		});
 		
-			
+		
+		
+		
+		var ajaxing_dont_touch_me = false;	
 		jQuery('div#invitations_dialog td.actions span').css('cursor', 'pointer').bind('click', function(){
+
+			if(ajaxing_dont_touch_me)
+				return false;
+				ajaxing_dont_touch_me = true;
 
 			var response = jQuery(this).html().toLowerCase();
 			var ui_id = jQuery(this).parent().find('span.ui_id').html();
@@ -643,6 +650,8 @@ jQuery(function(){
 				dataType: 'json',
 				success: function(data, textStatus, jqXHR){
 					console.log(data);
+					
+					ajaxing_dont_touch_me = false;
 					
 					if(data.success){
 					
