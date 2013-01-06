@@ -10,6 +10,9 @@
 	var Collections = {};	
 	var Views 		= {};
 	
+	var user_promoter	= (window.location.href.indexOf('/admin/promoters') != -1);
+	var user_manager	= (window.location.href.indexOf('/admin/managers') 	!= -1);
+	var user_host		= (window.location.href.indexOf('/admin/hosts') 	!= -1);
 	
 	Models.DisplaySettings = {
 		initialize: function(){
@@ -265,46 +268,50 @@
 					});
 					
 					
-					
-					
-					
-					this.$el.find('img').draggable({
-						start: function(){
-							
-							globals.module_reservation_display.remove();
-							
-							
-						},
-						helper: function(){
-							//this must return a helper dom element?
-							
-							var width = jQuery(this).width();
-							var vlf = jQuery(this).parents('.vlf');
-							var el = jQuery(this).clone();
-							el.css({
-								width: width
-							});
-							vlf.append(el);
-							
-							return el;
-							
-						},
-						revert: 'invalid',
-					
-						zIndex: 10000,
-						stop: function(){
-							
-							jQuery(this).parent('.table').addClass('highlighted');
-							
-						}
-					}).css({
+					this.$el.find('img').css({
 						'max-width': 	'50%',
 						'border': 		'1px solid #CCC',
 						'position': 	'absolute',
 						'bottom': 		'5px',
-						'right': 		'5px',
-						'cursor':  		'move'
-					})
+						'right': 		'5px'
+					});
+					
+					//only allow dragging & dropping if user is a manager
+					if(user_manager){
+						
+						this.$el.find('img').draggable({
+							start: function(){
+								
+								globals.module_reservation_display.remove();
+								
+							},
+							helper: function(){
+								//this must return a helper dom element?
+								
+								var width = jQuery(this).width();
+								var vlf = jQuery(this).parents('.vlf');
+								var el = jQuery(this).clone();
+								el.css({
+									width: width
+								});
+								vlf.append(el);
+								
+								return el;
+								
+							},
+							revert: 'invalid',
+						
+							zIndex: 10000,
+							stop: function(){
+								
+								jQuery(this).parent('.table').addClass('highlighted');
+								
+							}
+						}).css({
+							'cursor':  		'move'
+						});
+						
+					}
 					
 					this.$el.data('reserved', true);				
 				}else{

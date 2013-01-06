@@ -256,6 +256,9 @@
 			}
 		}; Views.DialogActions = Backbone.View.extend(Views.DialogActions);
 		
+		
+		
+		
 		var dialog_options = {
 			title: 		'Approve or Decline Request',
 			modal: 		true,
