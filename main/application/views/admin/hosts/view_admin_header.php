@@ -15,6 +15,12 @@
 <body>
 <?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
+
+<script type="text/javascript">
+	window.team_fan_page_id = '<?= $team_fan_page_id ?>';
+	window.admin_users_oauth_uid = '<?= $users_oauth_uid ?>';
+</script>
+
 <?php $this->load->view('admin/_common/view_common_admin_chat'); ?>
 	
 	<div id="container">

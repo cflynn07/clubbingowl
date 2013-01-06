@@ -16,6 +16,11 @@
 ?>
 </head>
 <body>
+	
+<script type="text/javascript">
+	window.admin_users_oauth_uid = false;
+</script>
+	
 <?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
 	<div id="container">

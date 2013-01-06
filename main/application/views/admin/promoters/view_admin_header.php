@@ -29,6 +29,7 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 
 <script type="text/javascript">
 	window.team_fan_page_id = '<?= $team_fan_page_id ?>';
+	window.admin_users_oauth_uid = '<?= $users_oauth_uid ?>';
 </script>
 
 
