@@ -193,7 +193,12 @@ jQuery(document).ready(function() {
 		
 		var vc_user = jQuery.cookies.get('vc_user');
 		var user;
-		var fql = "SELECT uid, name, pic_square FROM user WHERE uid = " + vc_user.vc_oauth_uid;
+		
+		var oauth_uid_to_query = admin_users_oauth_uid || vc_user.vc_oauth_uid;
+		
+		var fql = "SELECT uid, name, pic_square FROM user WHERE uid = " + oauth_uid_to_query;
+		
+		
 		FB.api({
 			method: 'fql.query', 
 			query: fql
