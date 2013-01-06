@@ -10,7 +10,7 @@
 	Views.ReservationDetailPaine = Backbone.View.extend({
 				
 		initialize: function(){
-			model_display_settings.on('change', this.render, this);
+	//		model_display_settings.on('change', this.render, this);
 		},
 		render: function(){
 			
@@ -60,7 +60,13 @@
 			return this;
 		},
 		events: {
-			'click *[data-actions]': 'click_actions'
+			'click *[data-actions]': 	'click_actions',
+			'click a.ajaxify': 			'click_client'
+		},
+		click_client: function(e){
+					
+			jQuery('div#dialog_actions').dialog('close');
+			
 		},
 		click_actions: function(e){
 			

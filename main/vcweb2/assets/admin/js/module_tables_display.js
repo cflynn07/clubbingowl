@@ -689,7 +689,7 @@
 		display_settings: model_display_settings,
 		initialize: function(opts){
 			
-			
+			globals.module_reservation_display.remove();
 			
 			if(opts.options){
 				jQuery.extend(ui_tables_options, opts.options);

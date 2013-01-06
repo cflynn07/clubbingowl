@@ -263,6 +263,8 @@
 			},
 			close: 		function(){
 				
+				globals.module_reservation_display.remove();
+				
 			},
 			buttons: [{
 				text: 'Decline',
@@ -316,7 +318,12 @@
 	
 	//public API
 	var module_manager_accept_guest_list_display = {
-		initialize: initialize
+		initialize: initialize,
+		remove: function(){
+			
+			jQuery('div#dialog_actions').dialog('close');
+			
+		}
 	};
 	globals.module_manager_accept_guest_list_display = module_manager_accept_guest_list_display;
 	
