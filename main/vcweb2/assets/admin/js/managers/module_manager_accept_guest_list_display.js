@@ -14,6 +14,11 @@
 		var vlfit_id		= false;
 		jQuery('div#dialog_actions span#assigned_table div').empty().hide();
 		
+		if(table_display)
+			jQuery('div#dialog_actions #table_assignment_message').show();
+		else 
+			jQuery('div#dialog_actions #table_assignment_message').hide();
+		
 		
 		
 		var display_tables_helper = function(){

@@ -48,7 +48,8 @@
 
 	<div style="width:90%; margin-left:auto; margin-right:auto;">
 		<img data-pic="" src="" class="pic_square" style="float: left; margin-right: 5px;" alt="picture" />
-		<span data-name="" class="name"></span>'s reservation request.
+		<span data-name="" class="name"></span>'s reservation request.<br/>
+		<span style="display:none;" id="table_assignment_message">Click on an available table to assign. Drag & Drop reservations to reorganize table assignments.</span>
 		
 
 		<span id="assigned_table" style="float:right;">Assigned Table:<br/><div></div></span>
