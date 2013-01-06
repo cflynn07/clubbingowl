@@ -75,7 +75,7 @@
 							
 							<span>
 								<input type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
-								<img class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+								<img style="display:none;" class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 							</span>
 							
 							<ul>

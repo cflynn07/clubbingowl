@@ -1432,6 +1432,20 @@ class Promoters extends MY_Controller {
 	 */
 	private function _ajax_tables($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		
+		
+		if($this->input->post('vc_method') == 'find_tables'){
+			
+			$data = $this->_helper_retrieve_floorplans_and_reservations(array());
+			die(json_encode(array('success' => true, 'message' => array(
+				'init_users' 	=> $data[1],
+				'team_venues' 	=> $data[0]
+			))));
+			
+		}
+		
+		
+		
 		$tv_id 		= $this->input->post('tv_id');
 		$date_obj 	= $this->input->post('dateObj');
 				
@@ -2388,12 +2402,12 @@ class Promoters extends MY_Controller {
 				}
 					
 				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
+			//	if($vr->entourage)
+			//		foreach($vr->entourage as $ent){
+			//			$init_users[] = $ent;
+			//		}
 				
-			}unset($vr);
+			}//unset($vr);
 			$venue->venue_reservations = $venue_reservations;
 			
 			
@@ -2416,12 +2430,12 @@ class Promoters extends MY_Controller {
 				}
 					
 				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
+			//	if($vr->entourage)
+			//		foreach($vr->entourage as $ent){
+			//			$init_users[] = $ent;
+			//		}
 				
-			}unset($vr);																	
+			}//unset($vr);																	
 																						
 			
 			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;

@@ -13,11 +13,6 @@ jQuery(function(){
 				
 		jQuery('div#tabs > div.ui-widget-header select.venue_select').bind('change', function(){
 			
-			
-			
-			
-			
-			
 			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));	
 						
 			if(!window.page_obj.team_venues)
