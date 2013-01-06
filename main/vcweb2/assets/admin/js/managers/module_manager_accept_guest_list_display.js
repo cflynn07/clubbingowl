@@ -12,7 +12,7 @@
 		var table_display 	= (_this.model.get('request_type') == 'promoter' || _this.model.get('tglr_table_request') == '1');
 		var Views 			= {};
 		var vlfit_id		= false;
-		
+		jQuery('div#dialog_actions span#assigned_table div').empty().hide();
 		
 		
 		
@@ -220,13 +220,22 @@
 			click_item_table: function(e){
 				
 				var el = jQuery(e.currentTarget);
+				
+				if(el.data('reserved')){
+					return false;
+				}
+								
 				vlfit_id = el.data('vlfit_id');
 				
-				el.trigger('highlighted');
 				
-				this.$el.find('.table').each(function(){
-					jQuery(this).trigger('de-highlighted');
-				})
+				jQuery('div#dialog_actions span#assigned_table div').html(el.html()).show();
+				
+				
+			//	el.trigger('highlighted');
+				
+			//	this.$el.find('.table').each(function(){
+			//		jQuery(this).trigger('de-highlighted');
+			//	})
 												
 			},
 			close: function(){

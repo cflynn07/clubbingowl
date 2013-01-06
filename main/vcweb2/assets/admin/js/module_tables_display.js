@@ -172,7 +172,11 @@
 			
 			if(item_type == 'table'){
 				
-					
+				
+				
+				this.$el.data('vlfit_id', this.model.get('vlfit_id'));
+				
+				
 				this.$el.droppable({
 					hoverClass: 'highlighted',
 					drop: function(e, obj){
@@ -209,6 +213,7 @@
 				});
 					
 					
+					
 				//determine if this table exists in the pool of reserved tables
 				var results = collection_reservations.where({
 					vlfit_id: this.model.get('vlfit_id')
@@ -241,9 +246,7 @@
 						
 					});
 					
-										
-					console.log('this.reservation');
-					console.log(this.reservation);
+					
 					
 					var res_oauth_uid = this.reservation.get('pglr_user_oauth_uid') || this.reservation.get('tglr_user_oauth_uid');
 					if(res_oauth_uid){
@@ -303,8 +306,9 @@
 						'cursor':  		'move'
 					})
 					
-									
+					this.$el.data('reserved', true);				
 				}else{
+					this.$el.data('reserved', false);
 					this.$el.unbind('hover');
 				}
 				

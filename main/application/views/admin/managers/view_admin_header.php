@@ -46,10 +46,14 @@
 
 	<div style="display:none; width:100%;" id="dialog_actions_floorplan"></div>
 
-	<span>
+	<div style="width:90%; margin-left:auto; margin-right:auto;">
 		<img data-pic="" src="" class="pic_square" style="float: left; margin-right: 5px;" alt="picture" />
 		<span data-name="" class="name"></span>'s reservation request.
-	</span>
+		
+
+		<span id="assigned_table" style="float:right;">Assigned Table:<br/><div></div></span>
+		
+	</div>
 	
 	<div style="clear: both;"></div>
 	<br>
