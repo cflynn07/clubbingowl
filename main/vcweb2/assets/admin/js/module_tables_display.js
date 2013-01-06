@@ -461,6 +461,13 @@
 			
 			model_display_settings.on('change', this.render, this);
 			
+			
+			var _this = this;
+			collection_reservations.on('reset', function(){
+				_this.$el.trigger('event-reorganize-tables');
+			});
+			
+			
 			//why the hell do I have to do this?
 			this.$el.addClass('vl');
 			this.render();

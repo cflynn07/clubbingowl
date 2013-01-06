@@ -220,7 +220,12 @@
 				}		
 			},
 			events: {
-				'click .item.table': 'click_item_table'
+				'click .item.table': 'click_item_table',
+				'event-reorganize-tables': 'reorganize_tables'
+			},
+			reorganize_tables: function(){
+				vlfit_id = false;
+				jQuery('div#dialog_actions span#assigned_table div').empty().hide();
 			},
 			click_item_table: function(e){
 				
