@@ -404,7 +404,7 @@ class Super_admins extends MY_Controller {
 					$promoter->up_id = $up_id;
 					$promoter->t_fan_page_id = $team_fan_page_id;
 					
-					$this->vc_user->oauth_uid = $oauth_uid;
+		//			$this->vc_user->oauth_uid = $oauth_uid;
 					$this->vc_user->promoter = $promoter;
 					$this->session->set_userdata('vc_user', json_encode($this->vc_user));
 					
@@ -434,7 +434,7 @@ class Super_admins extends MY_Controller {
 					$manager->c_name = $c_name;
 					$manager->c_state = $c_state;
 					
-					$this->vc_user->oauth_uid = $oauth_uid;
+		//			$this->vc_user->oauth_uid = $oauth_uid;
 					$this->vc_user->manager = $manager;
 					$this->session->set_userdata('vc_user', json_encode($this->vc_user));
 					
