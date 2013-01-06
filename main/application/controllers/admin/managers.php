@@ -64,12 +64,7 @@ class Managers extends MY_Controller {
 		}
 		
 		
-		
-		
-			
-			
-			
-			
+
 			
 		if($this->input->post('vc_method') == 'user_stats_retrieve'){
 			$this->_helper_retrieve_user_stats();

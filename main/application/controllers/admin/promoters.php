@@ -49,8 +49,9 @@ class Promoters extends MY_Controller {
 	
 		//if($this->library_promoters->promoter->)
 		
+		
 		$this->load->vars('team_fan_page_id', $vc_user->promoter->t_fan_page_id);
-		$this->load->vars('users_oauth_uid', $vc_user->oauth_uid);
+		$this->load->vars('users_oauth_uid', $this->library_promoters->promoter->up_users_oauth_uid);
 		$this->load->vars('subg', 'promoters');
 		
 		$this->load->vars(array(

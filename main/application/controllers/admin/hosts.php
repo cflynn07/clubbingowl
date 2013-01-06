@@ -51,7 +51,8 @@ class Hosts extends MY_Controller {
 			'is_manager' 	=> false,
 			'is_host'		=> true
 		));
-
+		
+		
 		$this->load->vars('team_fan_page_id', $this->host->th_teams_fan_page_id);
 		$this->load->vars('users_oauth_uid', $vc_user->oauth_uid);
 		$this->load->vars('subg', 'hosts');
