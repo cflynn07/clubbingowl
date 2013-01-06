@@ -89,7 +89,7 @@
 											?>
 												
 												<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a data-oauth_uid="<?= $message->client_oauth_uid ?>" class="ajaxify" href="<?= $central->promoter_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
-												<br/><a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><img style="vertical-align:top;" src="https://graph.facebook.com/<?= $message->client_oauth_uid ?>/picture" /></a>
+												<br/><a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><img style="vertical-align:top; margin-right:5px;" src="https://graph.facebook.com/<?= $message->client_oauth_uid ?>/picture" /></a>
 												<span>"<?= $message->public_notes ?>"</span>
 												
 											<?php endif; ?>
