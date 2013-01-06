@@ -712,6 +712,8 @@ class Assets extends MY_Common_Controller {
 									'tables/t_vlf_item',
 									'tables/t_vlfit_reservation_detail',
 									
+									'reservations_overview/ro_reservation',
+									
 									'tr_loading', 
 									'pending_reservation_none'
 																		
@@ -785,6 +787,7 @@ class Assets extends MY_Common_Controller {
 									'tables/t_vlf_item',
 									'tables/t_vlfit_reservation_detail',
 									
+									'reservations_overview/ro_reservation',
 									
 									'reservation_tr_guest_lists',
 									'reservation_tr_guest_lists_side_menu',
