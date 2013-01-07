@@ -1342,7 +1342,8 @@ class Promoters extends MY_Controller {
 			}else{
 				
 				//this is a bug
-			//	die(json_encode(array('success' => true, 'message' => $u_up_pop)));
+				if(!$this->input->post('ajaxify') && $this->input->post('vc_method') == 'promoter_friend_popularity_retrieve')
+					die(json_encode(array('success' => true, 'message' => $u_up_pop)));
 				
 			}
 									
