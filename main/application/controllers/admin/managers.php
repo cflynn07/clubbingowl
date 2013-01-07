@@ -3448,7 +3448,6 @@ class Managers extends MY_Controller {
 																						$this->vc_user->manager->team_fan_page_id,
 																						false);
 																						
-																						Kint::dump($all_upcoming_reservations);
 																						
 			foreach($all_upcoming_reservations as $vr){
 				

@@ -57,6 +57,7 @@ jQuery(function(){
 					template = EVT['reservations_overview/ro_reservation_all'];
 				
 				
+								
 				
 				var html = new EJS({
 					text: template
@@ -95,6 +96,11 @@ jQuery(function(){
 				
 				
 				
+						
+				
+				
+				
+				
 				
 				
 				var html = new EJS({
@@ -108,18 +114,25 @@ jQuery(function(){
 					
 					var table_reservations = this.collection.filter(function(m){
 						
-						var approved = (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
+						var vlfit_id 	= m.get('vlfit_id');
+						var approved 	= (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
 						
 						if(_this.options.tv_id !== false){
-							var vlfit_id = m.get('vlfit_id');
-							return (vlfit_id != undefined && vlfit_id != null && vlfit_id != 'null')
-								 && (m.get('tv_id') == _this.options.tv_id)
-								 && approved;
+							
+							var vlfit_id_check 	= (vlfit_id != undefined && vlfit_id != null && vlfit_id != 'null');
+							var tv_id_check		= (m.get('tv_id') == _this.options.tv_id);
+							var match 			= approved && vlfit_id_check && tv_id_check;
+							
+							return match;
+								 
 						}else{
+							
 							return approved;
+							
 						}
 							 	
 					});
+					
 					
 					_.each(table_reservations, function(m){
 						
@@ -136,7 +149,28 @@ jQuery(function(){
 					
 				}else if(this.options.subtype == 'all'){
 					
-					this.collection.each(function(m){
+					
+					
+					var all_reservations = this.collection.filter(function(m){
+						
+						var approved 	= (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
+						
+						if(_this.options.tv_id !== false){
+							
+							var tv_id_check		= (m.get('tv_id') == _this.options.tv_id);
+							var match 			= approved && tv_id_check;
+							
+							return match;
+								 
+						}else{
+							
+							return approved;
+							
+						}
+						
+					});
+					
+					_.each(all_reservations, function(m){
 						
 						var view = new Views.Reservation({
 							model: 				m,
@@ -147,6 +181,7 @@ jQuery(function(){
 						view.render();
 						
 					});
+					
 					
 				}
 				
