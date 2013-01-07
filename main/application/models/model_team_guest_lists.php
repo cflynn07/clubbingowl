@@ -783,7 +783,6 @@ class Model_team_guest_lists extends CI_Model {
 			//		AND tv.team_fan_page_id = $team_venue_id";
 		$query = $this->db->query($sql, array($options['tglr_id'], $options['team_fan_page_id']));
 		$result = $query->row();
-		var_dump($this->db->last_query());
 		
 		if(!$result)
 			return false;

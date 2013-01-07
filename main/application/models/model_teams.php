@@ -1228,7 +1228,7 @@ class Model_teams extends CI_Model {
 			$date = date('Y-m-d', time());//today and the future ;)
 		}
 		
-		$query = $this->db->query($sql, array($team_venue_id, $team_fan_page_id, $team_venue_id, $team_fan_page_id, $team_venue_id, $date));
+		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_fan_page_id, $team_venue_id, $date));
 		$result2 = $query->result();
 		
 		//add entourages to promoter reservations
