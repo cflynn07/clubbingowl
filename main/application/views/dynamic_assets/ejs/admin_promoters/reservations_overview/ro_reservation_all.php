@@ -10,7 +10,8 @@
 		table_request,
 		table_min_spend,
 		guest_list_image,
-		entourage;
+		entourage,
+		date;
 	
 	if(typeof pglr_id !== 'undefined'){
 		
@@ -26,7 +27,7 @@
 		guest_list_image 	= pgla_image;
 		guest_list_name		= pgla_name;
 		entourage 			= entourage;
-		
+		date 				= pgl_date;
 	
 	}else{
 		
@@ -42,14 +43,35 @@
 		guest_list_image 	= tgla_image;
 		guest_list_name		= tgla_name;
 		entourage 			= entourage
+		date 				= tgl_date;
 		
 	}
 
 
 %>
 
-<td></td>
-<td></td>
+<td style="white-space:nowrap;">
+	<span><%= jQuery.datepicker.formatDate('DD MM d, yy', new Date(date + ' 00:00:00')) %></span>
+</td>
+
+
+
+
+<td>
+	
+	<% if(!collapsed){ %>
+	
+		<img style="border:1px solid #CCC; width:150px;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'venues/banners/' + tv_image + '_t.jpg' %>" />
+		<br/>
+		
+	<% } %>
+	
+	<span><%= tv_name %></span>
+	
+</td>
+
+
+
 
 <td>
 	
@@ -186,7 +208,7 @@
 									<span><%= ((typeof entourage[i].pglre_supplied_name !== 'undefined') ? entourage[i].pglre_supplied_name : entourage[i].tglre_supplied_name ) %></span>
 								<% }else{ %>
 									
-									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + entourage[i].oauth_uid + '/' %>">
+									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage[i].oauth_uid + '/' %>">
 										<span data-oauth_uid="<%= entourage[i].oauth_uid %>" data-name="<%= entourage[i].oauth_uid %>"></span>
 									</a>
 									
@@ -226,7 +248,7 @@
 									
 								<% }else{ %>
 									
-									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + entourage[i].oauth_uid + '/' %>">
+									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage[i].oauth_uid + '/' %>">
 										<span data-oauth_uid="<%= entourage[i].oauth_uid %>" data-name="<%= entourage[i].oauth_uid %>"></span>
 									</a>
 									
