@@ -11,7 +11,7 @@ article.home{
 </style>
 
 
-<article class="" id="app_requests">
+<article class="home" style="background:0;" id="app_requests">
 		
 		<div class="auth_content">
 			<?php 
@@ -33,7 +33,13 @@ article.home{
 			<ul class="updates" id="requests_updates_ul" style="display:none;">
 				
 			</ul>
-				
+			
+			<style type="text/css">
+				ul.updates div.info p{
+					width: 100%;
+				}
+			</style>
+					
 		</section>
 		
 		<div>
