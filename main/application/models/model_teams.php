@@ -1075,9 +1075,29 @@ class Model_teams extends CI_Model {
 				JOIN 	users u 
 				ON 		up.users_oauth_uid = u.oauth_uid
 				
+				
+				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_venue_id = tv.id 
+				
+				JOIN 	teams t 
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+				
+				
+				
+				
 				WHERE 	pgla.team_venue_id = ?
 						AND
-						tv.team_fan_page_id = ?
+						tv.id = ?
+						
+						
+						
+						AND tvp.team_fan_page_id = ? 
+						AND tvp.team_venue_id = ? 
+						AND tvp.deleted = 0
+						
+						
+						
 						AND
 						pglr.approved = 1
 						AND ";
@@ -1090,8 +1110,9 @@ class Model_teams extends CI_Model {
 			$date = date('Y-m-d', time());//today and the future ;)
 		}
 		
-		$query = $this->db->query($sql, array($team_venue_id, $team_fan_page_id, $date));
+		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_venue_id, $date));
 		$result1 = $query->result();
+		
 		
 		//add entourages to promoter reservations
 		foreach($result1 as &$res){
@@ -1155,9 +1176,28 @@ class Model_teams extends CI_Model {
 				JOIN 	team_venues tv
 				ON 		tgla.team_venue_id = tv.id
 				
+				
+				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_venue_id = tv.id 
+				
+				JOIN 	teams t 
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+				
+				
+				
 				WHERE	tgla.team_venue_id = ?
 						AND
-						tv.team_fan_page_id = ?
+						tv.id = ?
+						
+						
+						
+						AND tvp.team_fan_page_id = ? 
+						AND tvp.team_venue_id = ? 
+						AND tvp.deleted = 0
+						
+						
+						
 						AND
 						tglr.approved = 1
 						AND ";
@@ -1168,7 +1208,7 @@ class Model_teams extends CI_Model {
 			$date = date('Y-m-d', time());//today and the future ;)
 		}
 		
-		$query = $this->db->query($sql, array($team_venue_id, $team_fan_page_id, $date));
+		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_venue_id, $date));
 		$result2 = $query->result();
 		
 		//add entourages to promoter reservations

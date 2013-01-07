@@ -2370,7 +2370,7 @@ class Promoters extends MY_Controller {
 					$venue_floors->$floor_id = $floor_object;
 					
 				}
-			}
+			}unset($vlf);
 			
 			//for each floor, extract the items
 			foreach($venue_floors as $key => &$vf){
@@ -2388,9 +2388,9 @@ class Promoters extends MY_Controller {
 						$vf->items[] = $vlf;
 						
 					}
-				}
+				}unset($vlf);
 				
-			}
+			}unset($vf);
 			
 			$venue->venue_floorplan = $venue_floors;
 
@@ -2426,7 +2426,7 @@ class Promoters extends MY_Controller {
 		//				$init_users[] = $ent;
 		//			}
 				
-			}//unset($vr);
+			}unset($vr);
 			$venue->venue_reservations = $venue_reservations;
 			
 			
@@ -2453,14 +2453,13 @@ class Promoters extends MY_Controller {
 			//			$init_users[] = $ent;
 			//		}
 				
-			}//unset($vr);																	
+			}unset($vr);																	
 																						
 			
 			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
 			
 			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		}
-		unset($venue);
+		}unset($venue);
 		
 		
 		$init_users = array_unique($init_users);

@@ -3380,7 +3380,7 @@ class Managers extends MY_Controller {
 					$venue_floors->$floor_id = $floor_object;
 					
 				}
-			}
+			}unset($vlf);
 			
 			//for each floor, extract the items
 			foreach($venue_floors as $key => &$vf){
@@ -3398,9 +3398,9 @@ class Managers extends MY_Controller {
 						$vf->items[] = $vlf;
 						
 					}
-				}
+				}unset($vlf);
 				
-			}
+			}unset($vf);
 			
 			$venue->venue_floorplan = $venue_floors;
 
@@ -3411,7 +3411,6 @@ class Managers extends MY_Controller {
 
 
 			
-
 
 
 
@@ -3436,7 +3435,7 @@ class Managers extends MY_Controller {
 		//				$init_users[] = $ent;
 		//			}
 				
-			}//unset($vr);
+			}unset($vr);
 			$venue->venue_reservations = $venue_reservations;
 			
 			
@@ -3448,6 +3447,9 @@ class Managers extends MY_Controller {
 			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
 																						$this->vc_user->manager->team_fan_page_id,
 																						false);
+																						
+																						Kint::dump($all_upcoming_reservations);
+																						
 			foreach($all_upcoming_reservations as $vr){
 				
 				if(isset($vr->tglr_user_oauth_uid))
@@ -3463,14 +3465,14 @@ class Managers extends MY_Controller {
 			//			$init_users[] = $ent;
 			//		}
 				
-			}//unset($vr);																	
+			}unset($vr);																	
 																						
 			
 			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
 			
 			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		}
-		unset($venue);
+		}unset($venue);
+		
 		
 		
 		$init_users = array_unique($init_users);
