@@ -500,6 +500,8 @@ class Managers extends MY_Controller {
 		$promoter_site_ids = array();
 		foreach($data['promoters'] as $pro){
 			
+			if($pro->up_completed_setup != '1'){ continue; }
+			
 			$promoter_site_ids[$pro->up_id] = $pro->up_piwik_id_site;
 			
 		}
@@ -2368,6 +2370,12 @@ class Managers extends MY_Controller {
 		switch($vc_method){
 			case 'stats_retrieve':
 				
+				$this->load->helper('check_gearman_job_complete');
+				check_gearman_job_complete('gearman_admin_manager_promoter_piwik_stats');
+				
+				
+				/*
+				
 				if(!$gearman_admin_manager_promoter_piwik_stats = $this->session->userdata('gearman_admin_manager_promoter_piwik_stats'))
 					die(json_encode(array('success' => false,
 											'message' => 'No guest list retrieve request found')));	
@@ -2384,6 +2392,12 @@ class Managers extends MY_Controller {
 				}else{
 					die(json_encode(array('success' => false)));
 				}
+				
+				
+				*/
+				
+				
+				
 				
 				break;
 			default:

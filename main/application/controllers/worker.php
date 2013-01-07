@@ -258,8 +258,12 @@ class Worker extends CI_Controller {
 			$gearman_worker->addAbility('news_feed_retrieve');
 			$gearman_worker->addAbility('friend_feed_retrieve');
 			$gearman_worker->addAbility('friend_retrieve');
-			$gearman_worker->addAbility('gearman_individual_promoter_friend_activity');			
-			$gearman_worker->addAbility('gearman_admin_manager_promoter_piwik_stats');			
+			$gearman_worker->addAbility('gearman_individual_promoter_friend_activity');		
+			
+				
+			$gearman_worker->addAbility('gearman_admin_manager_promoter_piwik_stats');
+			
+						
 			$gearman_worker->addAbility('gearman_promoter_manual_add');			
 			$gearman_worker->addAbility('gearman_manager_manual_add');			
 			$gearman_worker->addAbility('gearman_vc_user_notify_friends_online');		

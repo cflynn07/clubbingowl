@@ -132,7 +132,8 @@ jQuery(function(){
 					console.log(unique_visitors);
 					console.log('div#table_stats_up_' + up_id);
 					
-					jQuery('div#table_stats_up_' + up_id).html('');
+					jQuery('div#table_stats_up_' + up_id).html('').show();
+					
 					
 					window['visitors_chart' + up_id] = new Highcharts.Chart({
 						chart: {

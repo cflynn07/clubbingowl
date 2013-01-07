@@ -22,6 +22,9 @@
 					Select Promoter: 
 					<select class="promoter_select">
 						<?php foreach($promoters as $key => $promoter): ?>
+							
+							<?php if($promoter->up_completed_setup != '1'){ continue; } ?>
+							
 							<option value="<?= $key ?>"><?= $promoter->u_full_name ?></option>
 						<?php endforeach; ?>
 					</select>
@@ -29,12 +32,18 @@
 				
 				<ul>
 				<?php foreach($promoters as $key => $promoter): ?>
+					
+					<?php if($promoter->up_completed_setup != '1'){ continue; } ?>
+					
 					<li><a href="#tabs-<?= $key ?>"><?= $promoter->u_full_name ?></a></li>
 				<?php endforeach; ?>
 				</ul>
 			</div>
 			
 			<?php foreach($promoters as $key => $promoter): ?>
+				
+				<?php if($promoter->up_completed_setup != '1'){ continue; } ?>
+				
 				<div id="tabs-<?= $key ?>">
 					<?php if($promoter->up_banned == '1'): ?>
 						
