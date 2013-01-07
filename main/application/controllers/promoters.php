@@ -1341,7 +1341,8 @@ class Promoters extends MY_Controller {
 				
 			}else{
 				
-				die(json_encode(array('success' => true, 'message' => $u_up_pop)));
+				//this is a bug
+			//	die(json_encode(array('success' => true, 'message' => $u_up_pop)));
 				
 			}
 									

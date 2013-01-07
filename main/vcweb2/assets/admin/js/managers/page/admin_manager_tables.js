@@ -108,13 +108,15 @@ jQuery(function(){
 					
 					var table_reservations = this.collection.filter(function(m){
 						
+						var approved = (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
+						
 						if(_this.options.tv_id !== false){
 							var vlfit_id = m.get('vlfit_id');
 							return (vlfit_id != undefined && vlfit_id != null && vlfit_id != 'null')
 								 && (m.get('tv_id') == _this.options.tv_id)
-								 && (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');		
+								 && approved;
 						}else{
-							return (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
+							return approved;
 						}
 							 	
 					});
