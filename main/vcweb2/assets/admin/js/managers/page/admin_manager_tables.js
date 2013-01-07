@@ -8,8 +8,10 @@ jQuery(function(){
 		var EVT 				= window.ejs_view_templates_admin_managers;
 		var globals 			= window.module.Globals.prototype;
 		var datepicker;
+		var collapsed			= false;
 							
-							
+		
+	
 							
 		if(!window.page_obj.team_venues)
 			return;
@@ -53,18 +55,14 @@ jQuery(function(){
 				var template = EVT['reservations_overview/ro_reservation'];
 				
 				console.log(this.model.toJSON());
-				return this;
-				
 				
 				
 				var html = new EJS({
 					text: template
 				}).render(jQuery.extend({
-					collapsed: false
+					collapsed: collapsed
 				}, this.model.toJSON()));
-				
-				
-				
+							
 				
 				this.$el.html(html);
 				
@@ -83,7 +81,15 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				
 				var _this = this;
+				
+				
+				var html = new EJS({
+					text: EVT['reservations_overview/ro_reservations_table']
+				}).render({});
+				this.$el.html(html);
+				
 				
 				if(this.options.subtype == 'tables'){
 					
@@ -99,7 +105,7 @@ jQuery(function(){
 							model: m
 						});
 						
-						_this.$el.find('tbody').append(view.el);
+						_this.$el.find('table[data-top_table] > tbody:first').append(view.el);
 						view.render();
 						
 					});
@@ -113,13 +119,29 @@ jQuery(function(){
 							model: m
 						});
 						
-						_this.$el.find('tbody').append(view.el);
+						_this.$el.find('table[data-top_table] > tbody:first').append(view.el);
 						view.render();
 						
-					})
+					});
 					
 				}
-							
+				
+				var _this = this;
+				jQuery.populateFacebook(this.$el, function(){
+					
+					_this.$el.find('table[data-top_table]').dataTable({
+						bJQueryUI: true,
+						bDestroy: 	true,
+						bAuthWidth: true
+					});
+					
+					_this.$el.find('table[data-top_table]').css({
+						width: '100%'
+					});
+					
+				});
+				
+				
 				return this;
 			},
 			events: {
@@ -158,25 +180,57 @@ jQuery(function(){
 				
 			}
 			
+			var views = [];
 			
 			for(var i in team_venues){
 				var venue = team_venues[i];
 				
 				var view_tables = new Views.ReservationsHolder({
-					el: 		'#tabs-' + venue.tv_id + '-1 table',
+					el: 		'#tabs-' + venue.tv_id + '-1',
 					collection: collection_reservations,
 					subtype: 	'tables',
 					tv_id:		venue.tv_id
 				});			
 				
 				var view_all = new Views.ReservationsHolder({
-					el: 		'#tabs-' + venue.tv_id + '-2 table',
+					el: 		'#tabs-' + venue.tv_id + '-2',
 					collection: collection_reservations,
 					subtype: 	'all',
 					tv_id:		venue.tv_id
 				});
 				
+				views.push(view_tables);
+				views.push(view_all);
+				
 			}
+			
+			
+			
+			
+			
+			
+			jQuery('a[data-action="expand-collapse-all"]').unbind('click').bind('click', function(e){
+				e.preventDefault();
+				
+				console.log('collapsed');
+				console.log(collapsed);
+				collapsed = !collapsed;
+				console.log(collapsed);
+				
+				
+				for(var i in views){
+					
+					var view = views[i];
+					view.render();
+					
+				}
+				
+				return false;
+			});
+				
+				
+				
+				
 			
 			console.log(collection_reservations.toJSON());
 		};

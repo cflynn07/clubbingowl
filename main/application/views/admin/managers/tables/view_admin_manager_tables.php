@@ -82,6 +82,9 @@
 							<span>
 								<input type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
 								<img style="display:none;" class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+
+								<a href="#" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
+
 							</span>
 							
 							<ul>
@@ -103,23 +106,7 @@
 							
 							<h3>Table Reservations</h3>
 
-							<div class="full_width last table_reservations">
-								<table class="normal" style="width:100%;">
-									<thead>
-										<tr>
-											<th>Head User</th>
-											<th>Promoter</th>
-											<th>Guest List</th>
-											<th>Messages</th>
-											<th>Entourage</th>
-											<th>Table</th>
-										</tr>
-									</thead>
-									<tbody>
-										
-									</tbody>
-								</table>
-							</div>
+							<div class="full_width last table_reservations"></div>
 					
 						</div>
 						
@@ -131,23 +118,7 @@
 							
 							<h3>All Guest List & Table Reservations</h3>
 							
-							<div class="full_width last all_reservations">
-								<table class="normal" style="width:100%;">
-									<thead>
-										<tr>
-											<th>Head User</th>
-											<th>Promoter</th>
-											<th>Guest List</th>
-											<th>Messages</th>
-											<th>Entourage</th>
-											<th>Table</th>
-										</tr>
-									</thead>
-									<tbody>								
-										
-									</tbody>
-								</table>
-							</div>
+							<div class="full_width last all_reservations"></div>
 							
 						</div>
 						

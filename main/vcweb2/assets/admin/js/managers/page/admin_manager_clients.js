@@ -44,7 +44,8 @@ jQuery(function(){
 								
 				this.data_table = this.$el.find('table:first').dataTable({
 					bJQueryUI: true,
-					bDestroy: true
+					bDestroy: true,
+					bAuthWidth: true
 				});
 				
 				this.data_table.fnClearTable();
