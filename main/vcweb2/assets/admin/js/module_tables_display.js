@@ -626,7 +626,7 @@
 	
 	
 	
-	var refresh_table_layout = function(tv_id, iso_date){
+	var refresh_table_layout = function(tv_id, iso_date, callback){
 		
 			
 		var target = cached_target;
@@ -662,10 +662,7 @@
 									
 				if(!venue)
 					return false;
-					
-					
-					
-					
+										
 																
 				if(venue.venue_reservations){
 					collection_reservations.reset(venue.venue_reservations);
@@ -673,14 +670,16 @@
 					collection_reservations.reset([]);
 				}
 				
-				
-				
-				
+								
 				
 				jQuery(target).css({
 					opacity: 1
 				});
 				
+				
+				
+				if(callback)
+					callback(data);
 				
 				
 			}

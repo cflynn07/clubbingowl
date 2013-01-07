@@ -59,7 +59,7 @@ class Primary extends MY_Controller {
 		}
 		/*--------------------- End AJAX Request Bypass Handler ---------------------*/
 			
-		Kint::dump(json_decode($this->session->userdata('vc_user')));
+	//	Kint::dump(json_decode($this->session->userdata('vc_user')));
 			
 		/* ------------------------------- Prepare static asset urls ------------------------------- */	
 		//Set in 'CONTROLLER METHOD ROUTING,' passed to the header view. Loads additional
