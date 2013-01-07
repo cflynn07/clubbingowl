@@ -11,7 +11,7 @@ article.home{
 </style>
 
 
-<article class="home" id="app_requests">
+<article class="" id="app_requests">
 		
 		<div class="auth_content">
 			<?php 
