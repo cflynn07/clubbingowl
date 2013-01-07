@@ -460,11 +460,13 @@
 		</div>
 	</div>
 	
-	<div id="accordion_replace_msg" style="display:none;text-align:center;padding-bottom:20px;">
+	<div id="accordion_replace_msg" style="display:none;text-align:center;padding:0 15px 20px 15px;">
 		
-		<br><br><br>
+		<br><br>
 		
-		<h2>Your reservation request has been successfully submitted, ClubbingOwl will notify you via email/sms when <?= $promoter->u_first_name ?> responds.</h2>
+		<h2 style="text-align:left;">Your reservation request has been successfully submitted</h2>
+		<h2 style="text-align:left;">ClubbingOwl will notify you via email/sms when <?= $promoter->u_first_name ?> responds.</h2>
+		
 		<div class="fb-like-box" data-href="http://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div>
 		
 		<div style="margin-left:auto;margin-right:auto;margin-bottom:20px;"></div>

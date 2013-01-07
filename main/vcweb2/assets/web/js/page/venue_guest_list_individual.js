@@ -448,7 +448,11 @@ jQuery(function(){
 							loading.css('display', 'none');
 							jQuery('div#accordion').fadeOut(700, function(){
 								jQuery('div#accordion_replace_msg').fadeIn(700, function(){
-																	
+											
+									fbEnsureInit(function(){
+										FB.XFBML.parse();
+									});		
+															
 								});
 							});
 							

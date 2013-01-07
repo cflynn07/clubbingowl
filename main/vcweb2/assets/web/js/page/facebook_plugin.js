@@ -706,6 +706,10 @@ jQuery(function(){
 							jQuery('div#accordion').fadeOut(700, function(){
 								jQuery('div#accordion_replace_msg').fadeIn(700, function(){
 									
+									
+									fbEnsureInit(function(){
+										FB.XFBML.parse();
+									});
 									jQuery(this).append('<br><br><a href="#" class="return_cancel" >Return</a>');
 										
 								});
