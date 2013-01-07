@@ -19,7 +19,38 @@ jQuery(function(){
 		
 		
 		
+		jQuery('a[data-action="invite-friends"]').bind('click', function(e){
+			e.preventDefault();
+			
+			fbEnsureInit(function(){
+			
+				var vc_user = jQuery.cookies.get('vc_user');
+				var message = 'Use ClubbingOwl to join my guest-lists! It\'s the fastest and easiest way to plan your night out.';
+								
+				var data = {
+					type: 1
+				};
+				
+				FB.ui({
+					method: 	'apprequests',
+					title: 		'Invite your friends to your Promoter Profile',
+					message: 	message,
+					data: 		JSON.stringify(data)
+				  }, function(){});
+				  
+			});
+						
+			return false;
+		});
 		
+		setTimeout(function(){
+			
+			jQuery('a[data-action="invite-friends"]').effect('pulsate', {
+				times: 2
+			}, 700);
+				
+		}, 1000);
+	
 		
 		
 		
