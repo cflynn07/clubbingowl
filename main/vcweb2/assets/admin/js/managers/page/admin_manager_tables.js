@@ -111,9 +111,10 @@ jQuery(function(){
 						if(_this.options.tv_id !== false){
 							var vlfit_id = m.get('vlfit_id');
 							return (vlfit_id != undefined && vlfit_id != null && vlfit_id != 'null')
-								 && (m.get('tv_id') == _this.options.tv_id);		
+								 && (m.get('tv_id') == _this.options.tv_id)
+								 && (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');		
 						}else{
-							return true;
+							return (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
 						}
 							 	
 					});
