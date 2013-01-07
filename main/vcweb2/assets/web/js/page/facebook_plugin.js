@@ -710,7 +710,8 @@ jQuery(function(){
 								//	fbEnsureInit(function(){
 								//		FB.XFBML.parse();
 								//	});
-									
+								
+									FB.XFBML.parse();
 									jQuery(this).append('<br><br><a href="#" class="return_cancel" >Return</a>');
 										
 								});
