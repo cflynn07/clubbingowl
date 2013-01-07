@@ -1031,6 +1031,7 @@ class Model_teams extends CI_Model {
 					vlfit.id 									as vlfit_id,
 					vlfit.venues_layout_floors_items_id			as vlfit_vlfi_id,
 					pglr.id										as pglr_id,
+					pglr.approved 								as pglr_approved,
 					pglr.user_oauth_uid 						as pglr_user_oauth_uid,
 					pglr.supplied_name							as pglr_supplied_name,
 					pglr.host_message 							as pglr_host_message,
@@ -1045,6 +1046,7 @@ class Model_teams extends CI_Model {
 					pgla.day									as pgla_day,
 					pgla.image 									as pgla_image,
 					pgla.name									as pgla_name,
+					pgl.date 									as pgl_date,
 					tv.name 									as tv_name,
 					up.users_oauth_uid 							as up_users_oauth_uid,
 					up.profile_image 							as up_profile_image,
@@ -1121,6 +1123,7 @@ class Model_teams extends CI_Model {
 					vlfit.id 									as vlfit_id,
 					vlfit.venues_layout_floors_items_id			as vlfit_vlfi_id,
 					tglr.id										as tglr_id,
+					tglr.approved 								as tglr_approved,
 					tglr.user_oauth_uid 						as tglr_user_oauth_uid,
 					tglr.supplied_name							as tglr_supplied_name,
 					tglr.host_message 							as tglr_host_message,
@@ -1135,6 +1138,7 @@ class Model_teams extends CI_Model {
 					tgla.day 									as tgla_day,
 					tgla.image 									as tgla_image,
 					tgla.name 									as tgla_name,
+					tgl.date 									as tgl_date,
 					tv.name										as tv_name
 					
 				FROM 	teams_guest_lists_reservations tglr

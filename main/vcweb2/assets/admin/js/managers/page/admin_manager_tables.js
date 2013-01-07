@@ -53,8 +53,9 @@ jQuery(function(){
 			render: function(){
 				
 				var template = EVT['reservations_overview/ro_reservation'];
+				if(this.options.reservations_all)
+					template = EVT['reservations_overview/ro_reservation_all'];
 				
-				console.log(this.model.toJSON());
 				
 				
 				var html = new EJS({
@@ -81,28 +82,47 @@ jQuery(function(){
 			},
 			render: function(){
 				
-				
 				var _this = this;
 				
 				
+				
+				var reservations_all = false;
+				var template = EVT['reservations_overview/ro_reservations_table'];
+				if(this.options.subtype == 'all' && this.options.tv_id === false){
+					template = EVT['reservations_overview/ro_reservations_table_all'];
+					reservations_all = true;
+				}
+				
+				
+				
+				
+				
 				var html = new EJS({
-					text: EVT['reservations_overview/ro_reservations_table']
+					text: template
 				}).render({});
 				this.$el.html(html);
 				
 				
 				if(this.options.subtype == 'tables'){
 					
+					
 					var table_reservations = this.collection.filter(function(m){
-						var vlfit_id = m.get('vlfit_id');
-						return (vlfit_id != undefined && vlfit_id != null && vlfit_id != 'null')
-							 && (m.get('tv_id') == _this.options.tv_id);			
+						
+						if(_this.options.tv_id !== false){
+							var vlfit_id = m.get('vlfit_id');
+							return (vlfit_id != undefined && vlfit_id != null && vlfit_id != 'null')
+								 && (m.get('tv_id') == _this.options.tv_id);		
+						}else{
+							return true;
+						}
+							 	
 					});
 					
 					_.each(table_reservations, function(m){
 						
 						var view = new Views.Reservation({
-							model: m
+							model: 				m,
+							reservations_all: 	reservations_all
 						});
 						
 						_this.$el.find('table[data-top_table] > tbody:first').append(view.el);
@@ -116,7 +136,8 @@ jQuery(function(){
 					this.collection.each(function(m){
 						
 						var view = new Views.Reservation({
-							model: m
+							model: 				m,
+							reservations_all: 	reservations_all
 						});
 						
 						_this.$el.find('table[data-top_table] > tbody:first').append(view.el);
@@ -161,7 +182,9 @@ jQuery(function(){
 			var team_venues = tv || window.page_obj.team_venues;
 			
 			//build up a collection of all reservations		
-			var collection_reservations = new Collections.Reservations();
+			var collection_reservations 	= new Collections.Reservations();
+			
+			
 			for(var i in team_venues){
 				var venue = team_venues[i];
 								
@@ -207,35 +230,52 @@ jQuery(function(){
 			
 			
 			
+			var collection_all_reservations = new Collections.Reservations();
+			for(var i in window.page_obj.team_venues){
+				var venue = window.page_obj.team_venues[i];
+				
+				var temp = jQuery.extend({}, venue);
+				delete temp.venue_all_upcoming_reservations;
+				delete temp.venue_floorplan;
+				delete temp.venue_reservations;
+				
+				
+				for(var k in venue.venue_all_upcoming_reservations){
+				
+					var reservation = jQuery.extend({}, temp, venue.venue_all_upcoming_reservations[k]);
+					collection_all_reservations.add(reservation);
+					
+				}
+					
+			}
+			
+			var view_all_upcoming = new Views.ReservationsHolder({
+				el: 		'#all_upcoming_reservations',
+				collection: collection_all_reservations,
+				subtype: 	'all',
+				tv_id:		false
+			});		
+			views.push(view_all_upcoming);
+			
+			
 			
 			
 			jQuery('a[data-action="expand-collapse-all"]').unbind('click').bind('click', function(e){
 				e.preventDefault();
-				
-				console.log('collapsed');
-				console.log(collapsed);
+			
 				collapsed = !collapsed;
-				console.log(collapsed);
-				
 				
 				for(var i in views){
-					
 					var view = views[i];
 					view.render();
-					
 				}
 				
 				return false;
 			});
 				
-				
-				
-				
-			
-			console.log(collection_reservations.toJSON());
+
 		};
 		initialize();
-		
 		
 		
 		

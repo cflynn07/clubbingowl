@@ -169,77 +169,19 @@
 		<img class="info_icon tooltip" title="All upcoming table and guest list reservations" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 	</h3>
 	
-	<div class="full_width last" style="margin-bottom:40px;">
-				
-		<table class="normal" style="width:100%;">
-			<thead>
-				<tr>
-					<th>Head User</th>
-					<th>Picture</th>
-					<th>Venue</th>
-					<th>Promoter</th>
-					<th>Guest List</th>
-					<th>Entourage</th>
-					<th>Date</th>
-					<th>Table</th>
-				</tr>
-			</thead>
-			<tbody>
-				
-				<?php if(false): ?>
-				
-				
-																
-																
-																
-																<?php foreach($team_venues as $tv): ?>
-																	<?php foreach($tv->venue_all_upcoming_reservations as $tvaur): ?>
-																		<tr>
-																			<td class="head_user_name"><span class="name_<?= (isset($tvaur->pglr_user_oauth_uid)) ? $tvaur->pglr_user_oauth_uid : $tvaur->tglr_user_oauth_uid ?>"></span></td>
-																			<td class="head_user_picture"><div class="pic_square_<?= (isset($tvaur->pglr_user_oauth_uid)) ? $tvaur->pglr_user_oauth_uid : $tvaur->tglr_user_oauth_uid ?>"></div></td>
-																			<td class="venue"><?= $tv->tv_name ?></td>
-																			<td class="promoter"><?= (isset($tvaur->up_users_oauth_uid)) ? '<span class="name_' . $tvaur->up_users_oauth_uid . '"></span>' : ' - ' ?></td>
-																			<td class="guest_list"><?= (isset($tvaur->pgla_name)) ? $tvaur->pgla_name : $tvaur->tgla_name ?></td>
-																			<td class="entourage">
-																				<?php if($tvaur->entourage): ?>
-																				<table>
-																					<thead>
-																						<tr>
-																							<th>Name</th>
-																							<th>Picture</th>
-																						</tr>
-																					</thead>
-																					<tbody>
-																						<?php foreach($tvaur->entourage as $ent): ?>
-																						<tr>
-																							<td><span class="name_<?= $ent ?>"></span></td>
-																							<td><div class="pic_square_<?= $ent ?>"></div></td>
-																						</tr>
-																						<?php endforeach; ?>
-																					</tbody>
-																				</table>
-																				<?php else: ?>
-																					<p>No Entourage</p>
-																				<?php endif; ?>
-																			</td>
-																			<td class="date"><?= (isset($tvaur->pgla_day)) ? date('l F j, Y', strtotime($tvaur->pgla_day)) : date('l F j, Y', strtotime($tvaur->tgla_day)) ?></td>
-																			<td class="table"><?= ($tvaur->vlfit_id) ? '<div style="width:100px; height:100px; background:#000;"></div>' : '<span style="color:red;">No</span>' ?></td>
-																		</tr>
-																	<?php endforeach; ?>
-																<?php endforeach; ?>
-																
-																
-				
-				
-				<?php endif; ?>
-				
-				
-				
-			</tbody>
-		</table>
+	<div class="ui-widget">
+		<div class="ui-widget-header">
+			<span>All Upcoming Reservations</span>
+		</div>
+		
+		<br/>
+		<a href="#" style="margin-left:5px;" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
+		<br/><br/>
+		
+		<div id="all_upcoming_reservations" class="full_width last" style="margin-bottom:40px;"></div>
 			
 	</div>
-
+	
 </div>
 
 

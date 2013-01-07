@@ -714,6 +714,9 @@ class Assets extends MY_Common_Controller {
 									
 									'reservations_overview/ro_reservation',
 									'reservations_overview/ro_reservations_table',
+									'reservations_overview/ro_reservation_all',
+									'reservations_overview/ro_reservations_table_all',
+									
 									
 									'tr_loading', 
 									'pending_reservation_none'
@@ -790,6 +793,9 @@ class Assets extends MY_Common_Controller {
 									
 									'reservations_overview/ro_reservation',
 									'reservations_overview/ro_reservations_table',
+									'reservations_overview/ro_reservation_all',
+									'reservations_overview/ro_reservations_table_all',
+									
 									
 									'reservation_tr_guest_lists',
 									'reservation_tr_guest_lists_side_menu',
