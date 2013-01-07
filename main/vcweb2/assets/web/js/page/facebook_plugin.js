@@ -680,7 +680,7 @@ jQuery(function(){
 			loading.css('display', 'block');
 			
 			
-			
+			var _this_data = data;
 			var ajax_submit = function(){
 				jQuery.ajax({
 					url: window.location,
