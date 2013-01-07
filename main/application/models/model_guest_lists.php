@@ -211,8 +211,9 @@ class Model_guest_lists extends CI_Model {
 		/* --------------------------------- */
 		
 		// Check if this user has been 'maually added' by a promoter, if so -- delete promoter manual add and replace with this.
-		$this->db->delete('promoters_guest_lists_reservations', array('manual_add' => 1, 'user_oauth_uid' => $head, 'promoter_guest_lists_id' => $promoters_guest_list_id));
-		
+		if(!$approve_override)
+			$this->db->delete('promoters_guest_lists_reservations', array('manual_add' => 1, 'user_oauth_uid' => $head, 'promoter_guest_lists_id' => $promoters_guest_list_id));
+			
 		//now add HEAD user to promoters_guest_list_reservations
 		$this->db->insert('promoters_guest_lists_reservations', array('promoter_guest_lists_id' => $promoters_guest_list_id,
 																		'user_oauth_uid' 	=> $head,

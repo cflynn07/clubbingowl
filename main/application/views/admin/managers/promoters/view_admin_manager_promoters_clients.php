@@ -21,25 +21,32 @@
 					Select Promoter: 
 					<select class="promoter_select">
 						<?php foreach($promoters as $key => $promoter): ?>
+							<?php if($promoter->up_completed_setup != '1'){ continue; } ?>
+							
 							<option value="<?= $key ?>"><?= $promoter->u_full_name ?></option>
 						<?php endforeach; ?>
-							<option value="<?= count($promoters) ?>"><span style="font-weight: bold;">All Promoters</span></option>
 					</select>
 				</div>
 				
 				<ul>
 				<?php foreach($promoters as $key => $promoter): ?>
+					
+					<?php if($promoter->up_completed_setup != '1'){ continue; } ?>
+					
 					<li><a href="#tabs-<?= $key ?>"><?= $promoter->u_full_name ?></a></li>
 				<?php endforeach; ?>
-					<li><a href="#tabs-<?= count($promoters) ?>">All Promoters</a></li>
+
 				</ul>
 			</div>
 			
 			<?php foreach($promoters as $key => $promoter): ?>
+				
+				<?php if($promoter->up_completed_setup != '1'){ continue; } ?>
+				
 				<div id="tabs-<?= $key ?>">
 					<?php if($promoter->up_banned == '1'): ?>
 						
-						<p>This promoter has been banned from VibeCompass</p>
+						<p>This promoter has been banned</p>
 						
 					<?php else: ?>
 											
@@ -49,31 +56,66 @@
 								
 								<h3><?= $promoter->u_full_name ?></h3>
 								
-								<img src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $promoter->up_profile_image . '_p.jpg' ?>" alt="" style="margin-left: 35px;"/>
+								<img src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $promoter->up_profile_image . '_p.jpg' ?>" alt="" />
 								
 							</div>
 							
 							<div class="three_fourth last column lists_container">
 								
+								<h3>&nbsp;</h3>
 								
-								
-								<table class="clients_list normal">
+								<table style="width:100%;" class="clients_list normal">
+									
+									
+									
+									
+									
 									<thead>
-										<th>Name</th>
-										<th style="width: 200px;">Picture</th>
+										<tr>
+											<th>Name</th>
+											<th>Phone Number</th>
+											<th>Email</th>
+											<th>Facebook</th>
+											<th>Email Opt-Out</th>
+										</tr>
 									</thead>
 									<tbody>
 										<?php foreach($promoter->clients as $client): ?>
 										<tr>
-											<td style="text-wrap: none;"><div class="name_<?= $client->pglr_user_oauth_uid ?>"></div></td>
-											<td style="width: 200px;"><div class="pic_big_<?= $client->pglr_user_oauth_uid ?>"></div></td>
+											
+											<td>
+												
+												<a class="ajaxify" href="/admin/managers/clients/<?= $client->u_oauth_uid ?>/">
+													<?= $client->u_full_name ?>
+												</a>
+												
+											</td>
+											<td>
+												<?= $client->u_phone_number ?>
+											</td>
+											<td>
+												<?= $client->u_email ?>
+											</td>
+											<td>
+												<a target="_new" href="http://www.facebook.com/<?= $client->u_oauth_uid ?>">Facebook</a>
+											</td>
+											<td>
+												<?php if($client->u_opt_out_email == '1'): ?>
+													<span style="color:red;">Yes</span>
+												<?php else: ?>
+													<span style="color:black;">No</span>
+												<?php endif; ?>
+											</td>
+											
 										</tr>
 										<?php endforeach; ?>
 									</tbody>
-									<tfoot>
-										<th>Name</th>
-										<th style="width: 200px;">Picture</th>
-									</tfoot>
+									
+									
+									
+									
+									
+									
 								</table>
 	
 							</div>
@@ -84,32 +126,11 @@
 					<div style="clear:both;"></div>
 				</div>
 			<?php endforeach; ?>
-				<div id="tabs-<?= count($promoters) ?>">
-					<div class="client_list_content">
-							
-							<div class="last column lists_container">
-								<table class="clients_list normal">
-									<thead>
-										<th>Name</th>
-										<th style="width: 200px;">Picture</th>
-									</thead>
-									<tbody>
-										<?php foreach($users as $user): ?>
-										<tr>
-											<td style="text-wrap: none;"><div class="name_<?= $user ?>"></div></td>
-											<td style="width: 200px;"><div class="pic_big_<?= $user ?>"></div></td>
-										</tr>
-										<?php endforeach; ?>
-									</tbody>
-									<tfoot>
-										<th>Name</th>
-										<th style="width: 200px;">Picture</th>
-									</tfoot>
-								</table>
-							</div>
-							
-						</div>
-				</div>
+				
+				
+				
+				
+				
 		</div>
 	
 	<?php else: ?>

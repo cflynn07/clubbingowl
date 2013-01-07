@@ -47,12 +47,14 @@ jQuery(function(){
 					for(var i = 0; i < rows.length; i++){
 						
 						jQuery('div.pic_square_' + rows[i].uid).html('<img src="' + rows[i].pic_square + '" alt="picture" />');
-						jQuery('div.pic_big_' + rows[i].uid).html('<img src="' + rows[i].pic_big + '" alt="picture" />');
+						jQuery('div.pic_big_' + rows[i].uid).html('<img src="' + rows[i].pic_square + '" alt="picture" />');
 						jQuery('div.name_' + rows[i].uid).html('<a href="#" class="vc_name"><span style="display: none;">' + rows[i].uid + '</span>' + rows[i].name + '</a>');
 						
 					}	
 		
-					jQuery('table.clients_list').dataTable();
+					jQuery('table.clients_list').dataTable({
+						"bJQueryUI": true
+					});
 					jQuery("div.dataTables_filter input[type = text]").bind("mousedown",function(e){ e.stopPropagation(); });
 		
 					jQuery('div#main_loading_indicator').remove();

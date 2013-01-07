@@ -389,6 +389,12 @@ class Managers extends MY_Controller {
 		$this->load->model('model_teams', 'teams', true);
 		$data['promoters'] = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
 		
+		
+		
+		
+		
+		
+		
 		$this->load->model('model_users_promoters', 'users_promoters', true);
 		$users = array();
 		
@@ -419,17 +425,23 @@ class Managers extends MY_Controller {
 			foreach($weekly_guest_lists as $wgl){
 				foreach($wgl->groups as $group){
 					
-					$users[] = $group->head_user;
-					$users = array_merge($users, $group->entourage_users);
+			//		$users[] = $group->head_user;
+			//		$users = array_merge($users, $group->entourage_users);
 					
 				}
 			}
 			
 		}
 
-		$users = array_unique($users);
-		$users = array_values($users);
+	//	$users = array_unique($users);
+	//	$users = array_values($users);
 		$data['users'] = $users;
+		
+		
+		
+
+		
+		
 		
 		$this->body_html = $this->load->view($this->view_dir . 'promoters/view_admin_manager_promoters_guest_lists', $data, true);
 		
@@ -453,18 +465,20 @@ class Managers extends MY_Controller {
 		$users = array();
 		foreach($data['promoters'] as &$promoter){
 			
-			$promoter->clients = $this->users_promoters->retrieve_promoter_clients_list($promoter->up_id, $this->vc_user->manager->team_fan_page_id);	
+		//	$promoter->clients = $this->users_promoters->retrieve_promoter_clients_list($promoter->up_id, $this->vc_user->manager->team_fan_page_id);	
+			$promoter->clients = $this->users_promoters->retrieve_promoter_clients_list_detailed($promoter->up_id);	
 			
-			foreach($promoter->clients as $client){
-				$users[] = $client->pglr_user_oauth_uid;
-			}
+		//	foreach($promoter->clients as $client){
+		//		$users[] = $client->pglr_user_oauth_uid;
+		//	}
 			
 		}
-		
-		$users = array_unique($users);
-		$users = array_values($users);
-		
+
 		$data['users'] = $users;
+		
+		
+		Kint::dump($data['promoters']);
+		
 		
 		$this->body_html = $this->load->view($this->view_dir . 'promoters/view_admin_manager_promoters_clients', $data, true);
 		

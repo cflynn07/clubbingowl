@@ -9,7 +9,13 @@ jQuery(function(){
 				
 		jQuery('.tabs').tabs();
 		jQuery('img.tooltip').tooltip();		
-		jQuery("div.datepicker").datepicker();
+		
+		
+		
+		jQuery.populateFacebook(jQuery('#admin_managers_promoters_guest_list_wrapper'), function(){
+			
+		});
+//		jQuery("div.datepicker").datepicker();
 		
 		
 		
@@ -24,16 +30,55 @@ jQuery(function(){
 		
 		jQuery('ul.sitemap li').bind('click', function(){
 			
-			jQuery(this).parent().find('li').css('font-weight', 'normal');
-			jQuery(this).css('font-weight', 'bold');
+			jQuery(this).parent().find('li').css({
+				'font-weight': 	'normal',
+				'color': 		'black'
+			});
+			jQuery(this).css({
+				'font-weight': 	'bold',
+				'color': 		'blue',
+				'white-space': 	'nowrap'
+			});
 	
-			var pgla_id = jQuery(this).find('span').html();
+
+			
 			jQuery(this).parents('div.guest_list_content').find('div.list').css('display', 'none');
+			
+			
+			var pgla_id = jQuery(this).attr('data-pgla_id');
 			
 			jQuery('div#pgla_' + pgla_id).css('display', 'block');
 						
 		});
 		
+		jQuery('ul.sitemap li:first').trigger('click');
+		
+		
+		
+		
+		
+		var display_first = function(){
+			jQuery('div#main_loading_indicator').remove();
+			
+			if(window.page_obj.promoters.length > 0)
+				jQuery('div#tabs').tabs().css('display', 'block');
+				
+			jQuery('ul.sitemap').each(function(){
+				
+				jQuery(this).children('li:first').css('font-weight', 'bold');
+				var first_pgla_id = jQuery(this).children('li:first').find('span.pgla_id').html();
+				
+				jQuery('div#pgla_' + first_pgla_id).css('display', 'block');
+				
+			});		
+		};
+		display_first();
+			
+			
+			
+			
+			
+	/*		
 		fbEnsureInit(function(){
 			
 			var display_first = function(){
@@ -51,6 +96,11 @@ jQuery(function(){
 					
 				});		
 			};
+			
+			
+			
+	
+			
 			
 		//	var users = eval('<?= json_encode($users) ?>');
 			var users = window.page_obj.users;
@@ -89,11 +139,14 @@ jQuery(function(){
 				
 			}
 	
+	
+	
+	
 			fb_operation_complete = true;
 			
 		});		
 				
-				
+	*/			
 				
 				
 				
