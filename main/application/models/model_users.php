@@ -1032,7 +1032,7 @@ class Model_users extends CI_Model {
 			ON 		pt.team_fan_page_id = t.fan_page_id 
 			
 			JOIN 	cities c 
-			ON 		t.city_id = c.id
+			ON 		tv.city_id = c.id
 			
 			WHERE	
 					pgla.deactivated 	= 0 AND
@@ -1095,7 +1095,7 @@ class Model_users extends CI_Model {
 			ON 		pt.team_fan_page_id = t.fan_page_id 
 			
 			JOIN 	cities c 
-			ON 		t.city_id = c.id
+			ON 		tv.city_id = c.id
 			
 			WHERE 	
 					pgla.deactivated 	= 0 AND
