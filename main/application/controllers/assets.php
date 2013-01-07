@@ -880,14 +880,6 @@ class Assets extends MY_Common_Controller {
 			
 			
 			
-			require 'class.JavaScriptPacker.php';
-
-			$packer = new JavaScriptPacker($output, 'Normal', true, false);
-			$output = $packer->pack();
-			
-			
-			
-			
 			$filename = FCPATH . 'vcweb2/assets/' . $output_file_name . $this->config->item('cache_global_js') . '.js';
 			if(!file_exists($filename)){
 				$fh = fopen($filename, 'w+');

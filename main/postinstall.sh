@@ -27,5 +27,3 @@ php /home/dotcloud/current/index.php assets js ejs_templates_admin_promoters en
 php /home/dotcloud/current/index.php assets js ejs_templates_admin_managers en
 php /home/dotcloud/current/index.php assets js ejs_templates_admin_hosts en
 
-
-rm -f /home/dotcloud/current/application/controllers/class.JavaScriptPacker.php
