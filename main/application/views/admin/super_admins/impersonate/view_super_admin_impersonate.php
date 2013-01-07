@@ -55,7 +55,7 @@ jQuery(function(){
 				console.log(data);
 				
 				if(data.success){
-					alert(data.message);
+				//	alert(data.message);
 					
 					if(type == 'promoter'){
 						window.location = '/admin/promoters/';
