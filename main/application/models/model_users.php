@@ -1164,9 +1164,13 @@ class Model_users extends CI_Model {
 			ON 		t.city_id = c.id
 			
 			WHERE 	
-					tgla.deactivated = 0 AND
-					tv.banned = 0 AND
-					tvp.deleted = 0 AND 
+					tgla.deactivated 	= 0 AND
+					tv.banned 			= 0 AND
+					tvp.deleted 		= 0 AND 
+					
+					tvp.team_venue_id		= tgla.team_venue_id AND 
+					tvp.team_fan_page_id 	= tgla.team_fan_page_id AND
+					
 					t.completed_setup = 1 AND
 			tglr.create_time > $backtime AND (";
 		foreach($vc_user_friends_oauth_uids as $uid){
@@ -1223,6 +1227,11 @@ class Model_users extends CI_Model {
 					tgla.deactivated = 0 AND
 					tv.banned = 0 AND
 					tvp.deleted = 0 AND
+					
+					tvp.team_venue_id		= tgla.team_venue_id AND 
+					tvp.team_fan_page_id 	= tgla.team_fan_page_id AND
+					
+					
 					t.completed_setup = 1 AND
 			tglr.create_time > $backtime AND (";
 		foreach($vc_user_friends_oauth_uids as $uid){
