@@ -115,10 +115,15 @@ jQuery(function(){
 		
 					
 				
+				
+				
+				
+				
+				
 		var page_items = {
-			retrieve_lock: false,
+			retrieve_lock: 	false,
 			items_iterator: false,
-			retrieve_feed: function(request_first){
+			retrieve_feed: 	function(request_first){
 				
 				if(page_items.retrieve_lock)
 					return;
@@ -142,9 +147,9 @@ jQuery(function(){
 						url: window.location,
 						type: 'post',
 						data: {
-						 	ci_csrf_token: cct,
-							vc_method: 'promoter_friend_popularity_retrieve',
-							status_check: true
+						 	ci_csrf_token: 	cct,
+							vc_method: 		'promoter_friend_popularity_retrieve',
+							status_check: 	true
 						},
 						cache: false,
 						dataType: 'json',
@@ -185,17 +190,28 @@ jQuery(function(){
 						url: window.location,
 						type: 'post',
 						data: {
-							ci_csrf_token: cct,
-							vc_method: 'promoter_friend_popularity_retrieve'
+							ci_csrf_token: 	cct,
+							vc_method: 		'promoter_friend_popularity_retrieve'
 						},
 						cache: false,
 						dataType: 'json',
 						success: function(data, textStatus, jqXHR){
 							
-							if(data.success)
-								//start first check 1 second after
-								var timeout = setTimeout(retrieve_function, 1000);
+							if(data.success){
+								
+								if(data.message){
+									
+									page_items.display(jQuery.parseJSON(data.message));
+									
+								}else{
+									
+									//start first check 1 second after
+									var timeout = setTimeout(retrieve_function, 1000);
 
+								}
+								
+							}
+								
 						}
 					});			
 					

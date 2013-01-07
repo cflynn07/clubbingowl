@@ -515,6 +515,9 @@ class Promoters extends MY_Controller {
 		$this->_helper_pop_retrieve_job();
 		$this->_helper_send_pusher_presence();
 		
+		
+		
+		
 		Kint::dump('test');
 		Kint::dump($this->library_promoters->promoter);
 
@@ -581,6 +584,10 @@ class Promoters extends MY_Controller {
 	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){	
 		
 		$this->_helper_pop_retrieve_job();
+		
+		
+		
+		
 		
 		setlocale(LC_ALL, $this->config->item('current_lang_locale'));
 		
@@ -1117,7 +1124,7 @@ class Promoters extends MY_Controller {
 		switch($vc_method){
 			case 'promoter_friend_popularity_retrieve':
 			
-				$this->_helper_ajax_pop_retrieve_job();
+				$result = $this->_helper_ajax_pop_retrieve_job();
 			
 				break;
 			case 'promoter_guest_list_join_request': //second step
@@ -1308,14 +1315,19 @@ class Promoters extends MY_Controller {
 	
 	private function _helper_pop_retrieve_job(){
 		
+		
+		
 		$vc_user = json_decode($this->session->userdata('vc_user'));
 		
 		if($vc_user){
 			//user logged in
 			
-			$up_id = $this->library_promoters->promoter->up_id;
+			
 			$this->load->library('Redis', '', 'redis');
-			$u_up_pop = $this->redis->get('up_pop-' . $vc_user->oauth_uid . '_' . $up_id);
+						
+			$up_id 		= $this->library_promoters->promoter->up_id;
+			$u_up_pop 	= $this->redis->get('up_pop-' . $vc_user->oauth_uid . '_' . $up_id);
+		
 			$this->load->vars('u_up_pop', $u_up_pop);
 			
 			if(!$u_up_pop){
@@ -1327,15 +1339,40 @@ class Promoters extends MY_Controller {
 									'promoter_id' 				=> $this->library_promoters->promoter->up_id);
 				run_gearman_job('gearman_individual_promoter_friend_reviews', $arguments);
 				
+			}else{
+				
+				die(json_encode(array('success' => true, 'message' => $u_up_pop)));
+				
 			}
 									
 		}
+		
 				
 	}
+	
+	
 	private function _helper_ajax_pop_retrieve_job(){
+			
+			
 		
-		$this->load->helper('check_gearman_job_complete');
-		check_gearman_job_complete('gearman_individual_promoter_friend_reviews');
+		
+		
+		if($this->input->post('status_check') == 'true'){
+				
+			$this->load->helper('check_gearman_job_complete');
+			check_gearman_job_complete('gearman_individual_promoter_friend_reviews');
+		
+		}else{
+			
+			
+			$this->_helper_pop_retrieve_job();
+			return array('success' => true);
+			
+			
+		}
+		
+		
+		
 		
 	}
 	
