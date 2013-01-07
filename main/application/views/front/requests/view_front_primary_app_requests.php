@@ -45,6 +45,8 @@ article.home{
 		<div>
 			
 			<p>Making your night-life even more social! <strong>It’s free, try it!</strong></p>
+			
+			<p style="font-size:16px;">ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away.</p>
 					
 			<div style="padding-top:0px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
 			
