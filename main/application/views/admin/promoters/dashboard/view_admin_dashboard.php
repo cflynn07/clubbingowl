@@ -15,15 +15,17 @@
 
 <div id="s_admin_promoter_dashboard">
 	
+		<h1 style="display:inline-block;">Promoter Dashboard</h1>
 		
-		<a href="#" data-action="invite-friends" class="button_link btn-action">Invite Friends to Profile/Guest-Lists</a>
+		<br/>
+		<a href="#" data-action="invite-friends" class="button_link btn-action">Invite Friends to Profile & Guest-Lists</a>
 		<br/><br/>
 	
 	
 		<?php // $this->load->view('admin/_common/view_promoter_dialog_reservation_respond'); ?>
 		<?php $this->load->view('admin/_common/view_page_video_tutorial'); ?>
 		
-		<h1 style="display:inline-block;">Promoter Dashboard</h1>
+		
 		
 		<?php if(false): ?>
 		 - (<span class="page_video_tutorial"><img src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
