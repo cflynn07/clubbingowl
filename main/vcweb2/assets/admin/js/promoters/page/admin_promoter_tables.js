@@ -109,7 +109,27 @@ jQuery(function(){
 					var table_reservations = this.collection.filter(function(m){
 						
 						var vlfit_id 	= m.get('vlfit_id');
-						var approved 	= (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
+						//var approved 	= ((m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1') || m.get('tglr_approved') == '1');
+						
+						var approved;
+						if(m.get('pglr_approved') !== undefined){
+							
+							if(m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}else{
+							
+							if(m.get('tglr_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}
+						
+						
+						
 						
 						if(_this.options.tv_id !== false){
 							
@@ -147,7 +167,31 @@ jQuery(function(){
 					
 					var all_reservations = this.collection.filter(function(m){
 						
-						var approved 	= (m.get('pglr_approved') == '1' || m.get('tglr_approved') == '1');
+						//var approved 	= ((m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1') || m.get('tglr_approved') == '1');
+						
+						var approved;
+						if(m.get('pglr_approved') !== undefined){
+							
+							if(m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}else{
+							
+							if(m.get('tglr_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}
+						
+						
+						
+						
+						
+						
+						
 						
 						if(_this.options.tv_id !== false){
 							

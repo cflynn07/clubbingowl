@@ -963,6 +963,7 @@ class Model_teams extends CI_Model {
 			
 						pgl.date 									as pgl_date,
 						pgla.team_venue_id 							as pgla_team_venue_id,
+						pgla.user_promoter_id 						as pgla_user_promoter_id,
 						pglr.venues_layout_floors_items_table_id 	as pglr_venues_layout_floors_items_table_id,
 						pglr.table_request							as pglr_table_request
 					
@@ -985,8 +986,9 @@ class Model_teams extends CI_Model {
 			if(!$result)
 				return array();
 			
-			$team_venue_id = $result->pgla_team_venue_id;
-			$date = $result->pgl_date;
+			$users_promoters_id = $result->pgla_user_promoter_id;
+			$team_venue_id 	= $result->pgla_team_venue_id;
+			$date 			= $result->pgl_date;
 			
 		}elseif($tglr_id){
 			
@@ -1043,6 +1045,7 @@ class Model_teams extends CI_Model {
 					pglr.text_message 							as pglr_text_message,
 					pglr.share_facebook							as pglr_share_facebook,
 					pglr.venues_layout_floors_items_table_id 	as pglr_vlfit_id,
+					pglr.manager_table_approved 				as pglr_manager_table_approved,
 					pgla.day									as pgla_day,
 					pgla.image 									as pgla_image,
 					pgla.name									as pgla_name,
@@ -1072,6 +1075,14 @@ class Model_teams extends CI_Model {
 				JOIN	users_promoters up
 				ON		pgla.user_promoter_id = up.id
 				
+				
+				
+				
+				JOIN 	promoters_teams pt 
+				ON 		pt.promoter_id = up.id
+				
+				
+				
 				JOIN 	users u 
 				ON 		up.users_oauth_uid = u.oauth_uid
 				
@@ -1090,6 +1101,11 @@ class Model_teams extends CI_Model {
 						AND
 						tv.id = ?
 						
+						
+						AND pt.team_fan_page_id = ?
+						AND pt.approved = 1 
+						AND pt.banned = 0 
+						AND pt.quit = 0
 						
 						
 						AND tvp.team_fan_page_id = ? 
@@ -1110,7 +1126,10 @@ class Model_teams extends CI_Model {
 			$date = date('Y-m-d', time());//today and the future ;)
 		}
 		
-		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_venue_id, $date));
+		
+		//$users_promoters_id
+		
+		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_fan_page_id, $team_venue_id, $date));
 		$result1 = $query->result();
 		
 		
@@ -1190,6 +1209,7 @@ class Model_teams extends CI_Model {
 						AND
 						tv.id = ?
 						
+						AND tgla.team_fan_page_id = ?
 						
 						
 						AND tvp.team_fan_page_id = ? 
@@ -1208,7 +1228,7 @@ class Model_teams extends CI_Model {
 			$date = date('Y-m-d', time());//today and the future ;)
 		}
 		
-		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_venue_id, $date));
+		$query = $this->db->query($sql, array($team_venue_id, $team_fan_page_id, $team_venue_id, $team_fan_page_id, $team_venue_id, $date));
 		$result2 = $query->result();
 		
 		//add entourages to promoter reservations

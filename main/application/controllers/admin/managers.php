@@ -111,6 +111,8 @@ class Managers extends MY_Controller {
 	 * */
 	public function index($arg0 = '', $arg1 = '', $arg2 = ''){
 				
+			//	Kint::dump($this->vc_user);
+				
 		/* ------------------------- Force new managers into setup ------------------------- */
 	
 	//maybe we want to have first time setup for venue managers?
