@@ -11,11 +11,11 @@ jQuery(function(){
 		var type = jQuery(this).parents('tr').find('td.type').html();
 		var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
 		
-		var data = {};
-		data.oauth_uid = oauth_uid;
-		data.type = type;
-		data.ci_csrf_token = cct;
-		data.vc_method = 'impersonate';
+		var data 			= {};
+		data.oauth_uid 		= oauth_uid;
+		data.type 			= type;
+		data.ci_csrf_token 	= cct;
+		data.vc_method 		= 'impersonate';
 		
 		switch(type){
 			case 'promoter':
@@ -41,7 +41,9 @@ jQuery(function(){
 				break;
 		}
 		
-	
+		var _this = this;
+		
+		
 		jQuery.ajax({
 			url: window.location,
 			type: 'post',
@@ -54,6 +56,15 @@ jQuery(function(){
 				
 				if(data.success){
 					alert(data.message);
+					
+					if(type == 'promoter'){
+						window.location = '/admin/promoters/';
+					}else if(type == 'manager'){
+						window.location = '/admin/managers/';
+					}else if(type == 'host'){
+						window.location = '/admin/hosts/';
+					}
+					
 				}else{
 					alert('error');
 				}
@@ -115,7 +126,7 @@ jQuery(function(){
 			
 			
 			
-			<td><a class="impersonate" href="#">Impersonate</a></td>
+			<td><a data-follow="<?= $central->front_link_base . 'admin/managers/' ?>" class="impersonate" href="#">Impersonate</a></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
@@ -143,7 +154,7 @@ jQuery(function(){
 			<td><?= $promoter->u_full_name ?></td>
 			<td><?= $promoter->t_name ?></td>
 			<td><?= $promoter->up_completed_setup ?></td>
-			<td><a class="impersonate" href="#">Impersonate</a></td>
+			<td><a data-follow="<?= $central->front_link_base . 'admin/promoters/' ?>" class="impersonate" href="#">Impersonate</a></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
