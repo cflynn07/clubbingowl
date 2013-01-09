@@ -591,7 +591,7 @@ jQuery(function(){
 			invitations_html += '<td>' + vc_user.invitations[i].t_name + '</td>';
 			invitations_html += '<td>' + date.toLocaleDateString() + ' ' + date.toLocaleTimeString() + '</td>';
 			invitations_html += '<td class="type" style="text-transform: capitalize;">' + vc_user.invitations[i].ui_invitation_type + '</td>';
-			invitations_html += '<td class="actions"><span class="ui_i" style="display:none">' + i + '</span><span class="ui_id" style="display:none;">' + vc_user.invitations[i].ui_id + '</span><span style="color:green;">Accept</span> | <span style="color:red;">Decline</span></td>';
+			invitations_html += '<td class="actions"><span class="ui_i" style="display:none">' + i + '</span><span class="ui_id" style="display:none;">' + vc_user.invitations[i].ui_id + '</span><span class="actions_holder"><span class="respond_action" style="color:green;">Accept</span> | <span class="respond_action" style="color:red;">Decline</span></span></td>';
 			invitations_html += '</tr>';
 						
 		}
@@ -621,17 +621,21 @@ jQuery(function(){
 		
 		
 		var ajaxing_dont_touch_me = false;	
-		jQuery('div#invitations_dialog td.actions span').css('cursor', 'pointer').bind('click', function(){
+		jQuery('div#invitations_dialog td.actions span.respond_action').css('cursor', 'pointer').bind('click', function(){
 
 			if(ajaxing_dont_touch_me)
 				return false;
 				ajaxing_dont_touch_me = true;
 
-			var response = jQuery(this).html().toLowerCase();
-			var ui_id = jQuery(this).parent().find('span.ui_id').html();
-			var ui_i = parseInt(jQuery(this).parent().find('span.ui_i').html());
-			var tr = jQuery(this);
+			var response 	= jQuery(this).html().toLowerCase();
+			var ui_id 		= jQuery(this).parents('td').find('span.ui_id').html();
+			var ui_i 		= parseInt(jQuery(this).parents('td').find('span.ui_i').html());
+			var tr 			= jQuery(this).parents('tr');
+			
+			
+			jQuery(this).parents('span.actions_holder').html('<img src="' + window.module.Globals.prototype.global_assets + 'images/ajax.gif" />');
 		
+
 			//cross-site request forgery token, accessed from session cookie
 			//requires jQuery cookie plugin
 			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
@@ -676,9 +680,11 @@ jQuery(function(){
 									
 								}
 								
-								
+								console.log('---------');
+								console.log(tr);
+								console.log(tr.parents('tr'));
 														
-								tr.parents('tr').html('<td colspan="5">Congratulations! Click on <b>Promoter/Host Admin Area</b> in the upper right hand corner to get started with your new team! :)</td>');
+								tr.html('<td colspan="5">Congratulations! Click on <b>Promoter/Host Admin Area</b> in the upper right hand corner to get started with your new team! :)</td>');
 								
 								tr.parents('tbody').find('tr').each(function(){
 									//remove all other invitations of same type
@@ -701,7 +707,7 @@ jQuery(function(){
 							
 								//remove invitation from vc_user.invitations
 								vc_user.invitations.splice(ui_i, 1);
-								tr.parent().parent().remove();
+								tr.remove();
 								
 								if(vc_user.invitations.length == 0){
 									delete vc_user.invitations;
