@@ -5,6 +5,13 @@ jQuery(function(){
 	
 	window.vc_page_scripts.admin_host_dashboard = function(){
 		
+		
+		
+		
+		
+		
+		
+		
 		if(!window.page_obj || !window.page_obj.backbone)
 			return false;
 		

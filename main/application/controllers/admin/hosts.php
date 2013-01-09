@@ -223,6 +223,39 @@ class Hosts extends MY_Controller {
 	private function _dashboard($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		$this->load->model('model_teams', 'teams', true);
+		
+		
+		$data = new stdClass;
+		list($promoters, $team_venues, $backbone) = $this->_helper_retrieve_gl_data();
+		$data->team 		= $this->teams->retrieve_team($this->vc_user->host->th_teams_fan_page_id);
+		$data->promoters 	= $promoters;
+		$data->team_venues 	= $team_venues;
+		$data->backbone 	= $backbone;
+		
+		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard', 		array('data' => $data), 	true);
+		
+		
+		
+		
+		
+		$data->current_date = date('Y-m-d', time());
+		$this->load->vars('current_date', $data->current_date);
+		$this->load->vars('active_date', $this->date);
+		
+		return;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		$data = new stdClass;
 		
 		if(preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $arg0, $parts)){		
