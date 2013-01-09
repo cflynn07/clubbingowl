@@ -4,21 +4,27 @@ if(typeof window.vc_page_scripts === 'undefined')
 jQuery(function(){
 	
 	window.vc_page_scripts.admin_host_dashboard = function(){
-		
-		
-		
-		
-		
-		
-		
-		
+
 		if(!window.page_obj || !window.page_obj.backbone)
 			return false;
+		
+		
+		
+		
+		
+		
 		
 		var Models 		= {};
 		var Collections = {};
 		var Views 		= {};
 		var EVT 		= window.ejs_view_templates_admin_hosts;
+			
+			
+			
+			
+			
+			
+			
 					
 		Models.GuestListMember = {
 			initialize: function(){
@@ -35,6 +41,10 @@ jQuery(function(){
 				
 			}
 		}; Collections.GuestListMembers = Backbone.Collection.extend(Collections.GuestListMembers);
+		
+		
+		
+		
 		
 		
 		
@@ -58,6 +68,11 @@ jQuery(function(){
 		
 		
 		
+		
+		
+		
+		
+		
 		Models.TeamVenue = {
 			initialize: function(){
 				
@@ -73,6 +88,11 @@ jQuery(function(){
 				
 			}
 		}; Collections.TeamVenues = Backbone.Collection.extend(Collections.TeamVenues);
+		
+		
+		
+		
+		
 		
 		
 		
@@ -120,6 +140,11 @@ jQuery(function(){
 					temp();
 				};
 				
+				
+				
+				
+				
+				
 				this.render();
 			},
 			render: function(){
@@ -132,6 +157,9 @@ jQuery(function(){
 				});
 				
 				this.$el.html(html);
+				this.$el.find('div.tabs:first').resizable();
+				
+				
 				
 				//show first venue or #hash indicated venue
 				if(window.location.hash){
@@ -142,6 +170,9 @@ jQuery(function(){
 					var tv = collection_team_venues.at(0);
 					window.location.hash = tv.get('tv_id');
 				}
+					
+					
+					
 							
 				return this;
 				
@@ -198,25 +229,40 @@ jQuery(function(){
 			}
 		}; Views.ListsWrapper = Backbone.View.extend(Views.ListsWrapper);
 		
+		
+		
+		
+		
 		var collection_team_venues	= new Collections.TeamVenues(window.page_obj.backbone.team_venues);
 		var collection_promoters	= new Collections.TeamVenues(window.page_obj.backbone.promoters);
-		
 		var view_listsWrapper 		= new Views.ListsWrapper({});
 		
 		
 		
 		
-		var hash_change_callback = function(){
 		
-<<<<<<< HEAD
-		//	jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
 		
-=======
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		var hash_change_callback = function(){
-			//jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
->>>>>>> 103b95ac936f8f41f4f14b1e7649e92ba2d6885c
 		};
 		jQuery(window).bind('hashchange', hash_change_callback);
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

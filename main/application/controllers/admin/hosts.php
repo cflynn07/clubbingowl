@@ -224,23 +224,12 @@ class Hosts extends MY_Controller {
 		
 		$this->load->model('model_teams', 'teams', true);
 		
-		
 		$data = new stdClass;
-		list($promoters, $team_venues, $backbone) = $this->_helper_retrieve_gl_data();
 		$data->team 		= $this->teams->retrieve_team($this->vc_user->host->th_teams_fan_page_id);
-		$data->promoters 	= $promoters;
-		$data->team_venues 	= $team_venues;
-		$data->backbone 	= $backbone;
-		
+		$data->team_venues 	= $this->_helper_venue_floorplan_retrieve_v2();
+
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard', 		array('data' => $data), 	true);
-		
-		
-		
-		
-		
-		$data->current_date = date('Y-m-d', time());
-		$this->load->vars('current_date', $data->current_date);
-		$this->load->vars('active_date', $this->date);
+				
 		
 		return;
 		
@@ -314,19 +303,10 @@ class Hosts extends MY_Controller {
 	/**
 	 * 
 	 */
-	private function _helper_retrieve_gl_data($arg0 = '', $arg1 = '', $arg2 = ''){
-		
-		$backbone = new stdClass;
-		$backbone->selected_date = $this->date;
-		$backbone->date = date('Y-m-d', time());
-		
-		$this->load->model('model_teams', 'teams', true);
+	private function _helper_venue_floorplan_retrieve_v2(){
+				
 		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_users_promoters', 'users_promoters', true);
-		$this->load->model('model_guest_lists', 'guest_lists', true);
-		
-		$promoters 		= $this->teams->retrieve_team_promoters($this->vc_user->host->th_teams_fan_page_id);
-		$team_venues 	= $this->users_managers->retrieve_team_venues($this->vc_user->host->th_teams_fan_page_id);
+		$this->load->model('model_teams', 'teams', true);
 		
 		
 		
@@ -335,32 +315,59 @@ class Hosts extends MY_Controller {
 		
 		
 		
+		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->host->th_teams_fan_page_id);
 		
 		
+		//are we looking for just 1 tv?
+		$tv_id 		= $this->input->post('tv_id');
+		$iso_date 	= $this->input->post('iso_date');
 		
-		//get all the promoter's guest lists and members + filter for the selected date (date in url)
-		foreach($promoters as &$pro){
-			//fetch guest lists		
 			
-			$weekly_guest_lists 	= $this->users_promoters->retrieve_promoter_guest_list_authorizations($pro->up_id);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//default date is today... lookup date of guest-list if pglr or tglr specified
+		$lookup_date = date('Y-m-d', time());
+		$pglr_id = $this->input->post('pglr_id');
+		$tglr_id = $this->input->post('tglr_id');
+		if($pglr_id){
 			
-			//for each guest list, find all groups associated with it
-			foreach($weekly_guest_lists as $key => &$gla){
-										
-				$gla->human_date 	= $gla->human_date 	= date('l m/d/y', strtotime(rtrim($gla->pgla_day, 's')));
-				$gla->iso_date 		= $gla->iso_date 	= date('Y-m-d', strtotime(rtrim($gla->pgla_day, 's')));
-				
-				//we only care about the GLA of today
-				if($gla->iso_date != $this->date){
-					unset($weekly_guest_lists[$key]);												
-				}
-				
-				$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day);
-
+			$this->db->select('pgl.date as date')
+				->from('promoters_guest_lists pgl')
+				->join('promoters_guest_lists_reservations pglr', 'pglr.promoter_guest_lists_id = pgl.id')
+				->where(array(
+					'pglr.id' => $pglr_id
+				));
+			$query = $this->db->get();
+			$result = $query->row();
+			if($result && isset($result->date)){
+				$lookup_date = $result->date;
 			}
 			
-			$pro->weekly_guest_lists 	= $weekly_guest_lists;
-
+		}
+		if($tglr_id){
+			
+			$this->db->select('tgl.date as date')
+				->from('teams_guest_lists tgl')
+				->join('teams_guest_lists_reservations tglr', 'tglr.team_guest_list_id = tgl.id')
+				->where(array(
+					'tglr.id' => $tglr_id
+				));
+			$query = $this->db->get();
+			$result = $query->row();
+			if($result && isset($result->date)){
+				$lookup_date = $result->date;
+			}
+			
+		}
+		if($iso_date){
+			$lookup_date = $iso_date;
 		}
 		
 		
@@ -374,9 +381,102 @@ class Hosts extends MY_Controller {
 		
 		
 		
-		$backbone->team_venues = $team_venues;
 		
-		return array($promoters, $team_venues, $backbone);
+		foreach($team_venues as $key => &$venue){
+			
+			
+			if($tv_id){
+				
+				if($tv_id != $venue->tv_id){
+					unset($team_venues[$key]);
+					continue;
+				}
+				
+			}
+			
+			$venue->floorplan_iso_date = $lookup_date;
+			$venue->floorplan_human_date = date('l F j, Y', strtotime($lookup_date));
+			
+			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
+
+			$venue_floorplan = $this->teams->retrieve_venue_floorplan($venue->tv_id, $this->vc_user->host->th_teams_fan_page_id);
+			$venue_floors = new stdClass;
+			
+			//iterate over all items to extract floors
+			foreach($venue_floorplan as $key => $vlf){
+				if(!isset($vlf->vlf_id))
+					continue;
+				
+				if($vlf->vlf_deleted == 1)
+					continue;
+				
+				if(!array_key_exists($vlf->vlf_id, $venue_floors)){
+					
+					$floor_object = new stdClass;
+					$floor_object->items = array();
+					$floor_object->name = $vlf->vlf_floor_name;
+					
+					$floor_id = $vlf->vlf_id;
+					$venue_floors->$floor_id = $floor_object;
+					
+				}
+			}unset($vlf);
+			
+			//for each floor, extract the items
+			foreach($venue_floors as $key => &$vf){
+							
+				foreach($venue_floorplan as $vlf){
+					if($key == $vlf->vlf_id){
+						//item is on THIS floor
+						
+						if($vlf->vlfi_id == NULL)
+							continue;
+						
+						if($vlf->vlfi_deleted == 1)
+							continue;
+											
+						$vf->items[] = $vlf;
+						
+					}
+				}unset($vlf);
+				
+			}unset($vf);
+			
+			$venue->venue_floorplan = $venue_floors;
+
+
+
+
+
+
+
+			
+
+
+
+
+
+
+			$venue_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
+																						$this->vc_user->host->th_teams_fan_page_id,
+																						$lookup_date);
+			$venue->venue_reservations = $venue_reservations;
+			
+			
+			
+			
+			
+			
+			
+			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
+																						$this->vc_user->host->th_teams_fan_page_id,
+																						false);
+			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
+			
+			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
+		}unset($venue);
+		
+		return $team_venues;		
 		
 	}
 	

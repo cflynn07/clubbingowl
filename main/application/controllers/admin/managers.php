@@ -3115,9 +3115,12 @@ class Managers extends MY_Controller {
 		list($init_users, $team_venues) 	= $this->_helper_venue_floorplan_retrieve_v2();
 		if(!is_array($team_venues) || !count($team_venues))
 			die(json_encode(array('success' => false)));
-	
-	
-		$team_venue 			= $team_venues[0];
+		
+		
+		$team_venue = array_shift(array_values($team_venues));
+	//	$team_venue 			= $team_venues[0];
+		
+		
 		$reservations_vlfit_ids = array();
 		foreach($team_venue->venue_reservations as $res){
 			$reservations_vlfit_ids[] = $res->vlfit_id;

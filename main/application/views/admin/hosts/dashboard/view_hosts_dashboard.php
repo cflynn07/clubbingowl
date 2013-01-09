@@ -1,9 +1,20 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($data) ?>;</script>
 
-<h1><?= $data->team->team->team_name ?></h1>
-<h2><?= date('l M d, Y', strtotime($active_date)); ?></h2>
-
 <div id="lists_wrapper"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
