@@ -236,6 +236,8 @@ class Managers extends MY_Controller {
 					break;
 				case 'support':
 					break;
+				case 'settings_checkin_categories':
+					break;
 				default:
 					show_error('invalid url', 404);
 					break;
@@ -1849,6 +1851,24 @@ class Managers extends MY_Controller {
 		$data['manage_image'] = $manage_image;		
 		$this->body_html = $this->load->view($this->view_dir . 'manage/view_manage_image', $data, true);
 	}
+	
+	
+	
+	
+	private function _settings_checkin_categories($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$this->load->model('model_teams', 'teams', true);
+		
+		$data = new stdClass;
+		$data->categories = $this->teams->retrieve_team_checkin_categories(array(
+			'team_fan_page_id' => $this->vc_user->manager->team_fan_page_id
+		));
+		
+		$this->body_html = $this->load->view($this->view_dir . 'settings/view_settings_checkin_categories', array('data' => $data), true);
+	}
+	
+	
+	
 	
 	/**
 	 * Contact support for help

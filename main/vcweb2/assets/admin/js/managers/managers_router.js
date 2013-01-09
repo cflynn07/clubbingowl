@@ -30,6 +30,7 @@ jQuery(function(){
 		'/settings_guest_lists_new': 									'settings_guest_lists_new',
 		'/settings_guest_lists_edit': 									'settings_guest_lists_edit',
 		'/settings_guest_lists': 										'settings_guest_lists',
+		'/settings_checkin_categories': 								'settings_checkin_categories',
 
 		
 		
@@ -198,6 +199,17 @@ jQuery(function(){
 			window.manager_admin_menu_set_active('settings');
 			callback_helper(window.vc_page_scripts.admin_manager_settings_guest_lists_new);
 			console.log('--------- manager settings_guest_lists_new ---------');
+			
+		},
+		
+		// --------------------------------------------------------------------------
+
+		settings_checkin_categories: function(segment){
+			
+			window.manager_admin_menu_set_active('settings');
+			callback_helper(window.vc_page_scripts.admin_manager_settings_checkin_categories);
+			console.log('--------- manager settings_checkin_categories ---------');
+			
 			
 		},
 

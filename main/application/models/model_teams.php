@@ -17,7 +17,17 @@ class Model_teams extends CI_Model {
 	
 	
 	
-	
+	function retrieve_team_checkin_categories($options){
+		
+		$this->db->select('*')
+			->from('host_checkins_categories')
+			->where(array(
+				'hcc_team_fan_page_id' => $options['team_fan_page_id']
+			));
+		$query = $this->db->get();
+		return $query->result();
+		
+	}
 	
 	
 	

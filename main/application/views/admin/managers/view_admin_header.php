@@ -201,6 +201,7 @@
 								<span>Settings</span>
 							</a>
 							<ul>
+								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_checkin_categories/">Checkin Categories</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_promoters/">Promoters</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_hosts/">Hosts</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_venues/">Venues</a></li>
