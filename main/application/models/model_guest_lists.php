@@ -1223,8 +1223,8 @@ class Model_guest_lists extends CI_Model {
 						
 			/* ---------- notify all VC friends of this user that they have joined VibeCompass --------- */
 			$gearman_task = $this->pearloader->load('Net', 'Gearman', 'Task', array('func' => 'guest_list_text_message',
-																					'arg'  => array('user_oauth_uid' => $result->pglr_user_oauth_uid,
-																									'text_message' => $text_message)));
+																					'arg'  => array('user_oauth_uid' 	=> $result->pglr_user_oauth_uid,
+																									'text_message' 		=> $text_message)));
 			$gearman_task->type = Net_Gearman_Task::JOB_BACKGROUND;
 			
 			//add test to a set
