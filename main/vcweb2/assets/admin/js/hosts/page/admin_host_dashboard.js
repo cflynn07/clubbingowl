@@ -405,7 +405,7 @@ jQuery(function(){
 				
 				
 				
-				this.$el.sortable();
+			//	this.$el.sortable();
 				
 				
 			},
