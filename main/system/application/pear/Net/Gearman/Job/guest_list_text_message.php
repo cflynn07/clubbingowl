@@ -25,7 +25,7 @@ class Net_Gearman_Job_guest_list_text_message extends Net_Gearman_Job_Common{
 		
 		
 		$CI->load->library('Twilio', '', 'twilio');
-		$CI->twilio->sms($phone_number, $text_message);
+		$CI->twilio->sms(false, $phone_number, $text_message);
 		
 		
 		
