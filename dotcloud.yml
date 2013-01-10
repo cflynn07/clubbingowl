@@ -4,6 +4,8 @@ www:
  systempackages:
   - libfuse2
   - fuse-utils
+ environment:
+  UNIQUE_ID: apples
  postinstall: ./postinstall.sh
 daemons:
  type: php-worker
