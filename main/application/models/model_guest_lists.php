@@ -1209,9 +1209,9 @@ class Model_guest_lists extends CI_Model {
 		if($result->pglr_text_message){
 				
 			if($approved)
-				$text_message = "VibeCompass: Request Approved. Msg: " . $message; //"You have been approved to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date";
+				$text_message = "ClubbingOwl: Request Approved. Msg: " . $message; //"You have been approved to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date";
 			else
-				$text_message = "VibeCompass: Request Declined. Msg: " . $message; //"Your request to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date has been denied.";
+				$text_message = "ClubbingOwl: Request Declined. Msg: " . $message; //"Your request to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date has been denied.";
 						
 			# ---------------------------------------------------------- #
 			#	Send text message job to gearman as background job		 #
