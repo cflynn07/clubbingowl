@@ -73,7 +73,7 @@
 						<div class="ui-widget-header">
 							
 							<span>
-								<input type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
+								<input readonly="true" type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
 								<img style="display:none;" class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 
 								
