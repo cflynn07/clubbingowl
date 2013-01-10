@@ -15,20 +15,21 @@
 	<div style="padding:5px;" class="ui-widget-content">
 		<p>Create 'catagories' with associated prices and details for your team hosts to check in clients with. Ex: 'Comped', 'Reduced', etc</p>
 		
-		<a id="add_category" class="ajaxify button_link" href="#">Add Category</a>
+		<a data-action="add" class="button_link" href="">Add Category</a>
 		<br/><br/>	
 		
 		<table id="categories" class="normal" style="width:100%;">
 			<thead>
 				<tr>
 					<th>Category</th>
-					<th>Description</th>
 					<th>$ Value</th>
+					<th>Description</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="3">No categories yet</td>
+					<td colspan="4">No categories yet</td>
 				</tr>
 			</tbody>
 		</table>

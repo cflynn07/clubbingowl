@@ -22,14 +22,41 @@ class Model_teams extends CI_Model {
 		$this->db->select('*')
 			->from('host_checkins_categories')
 			->where(array(
-				'hcc_team_fan_page_id' => $options['team_fan_page_id']
+				'hcc_team_fan_page_id' 	=> $options['team_fan_page_id'],
+				'hcc_deleted'			=> '0'
 			));
 		$query = $this->db->get();
 		return $query->result();
 		
 	}
 	
-	
+	function update_category($options){
+		
+		//safety first buddy.
+		foreach($options['category'] as $key => $val){
+			$options['category'][$key] = trim(strip_tags($val));
+		}
+		unset($options['category']['editing']);
+		$options['category']['hcc_amount'] = preg_replace('/\D/', '', $options['category']['hcc_amount']);
+		
+		if(isset($options['category']['hcc_id'])){
+		
+			$this->db->where(array(
+				'hcc_team_fan_page_id'	=> $options['team_fan_page_id'],
+				'hcc_id'				=> $options['category']['hcc_id']
+			))
+			->update('host_checkins_categories', $options['category']);
+			
+		}else{
+			
+			$options['category']['hcc_team_fan_page_id'] = $options['team_fan_page_id'];
+			$this->db->insert('host_checkins_categories', $options['category']);
+			
+		}
+				
+		return true;
+		
+	}
 	
 	
 	

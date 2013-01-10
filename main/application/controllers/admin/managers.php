@@ -3052,6 +3052,43 @@ class Managers extends MY_Controller {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 */
+	private function _ajax_settings_checkin_categories($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$vc_method = $this->input->post('vc_method');
+		
+		switch($vc_method){
+			case 'save_category':
+				
+				$category = $this->input->post('category');
+				
+			//	var_dump($category);
+				
+				$this->load->model('model_teams', 'teams', true);
+				$this->teams->update_category(array(
+					'team_fan_page_id' 	=> $this->vc_user->manager->team_fan_page_id,
+					'category'			=> $category
+				));
+				
+				
+				$categories = $this->teams->retrieve_team_checkin_categories(array(
+					'team_fan_page_id' => $this->vc_user->manager->team_fan_page_id
+				));
+				
+				die(json_encode(array('success' => true, 'message' => $categories)));
+								
+				break;
+		}
+		
+		
+	}
+	
+	
+	
+	
 	/**
 	 * AJAX requests made from image manage page
 	 * 

@@ -483,14 +483,15 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('managers/page/admin_manager_reports_guest_lists',					'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_promoters',					'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists',					'admin_js');
-						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists_edit',		'admin_js');
-						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists_new',		'admin_js');
+						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists_edit',			'admin_js');
+						$group_assets[] = array('managers/page/admin_manager_settings_guest_lists_new',				'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_payment',						'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_settings_hosts',						'admin_js');					
 						$group_assets[] = array('managers/page/admin_manager_settings_venues',						'admin_js');					
 						$group_assets[] = array('managers/page/admin_manager_settings_venues_edit',					'admin_js');					
 						$group_assets[] = array('managers/page/admin_manager_settings_venues_new',					'admin_js');					
 						$group_assets[] = array('managers/page/admin_manager_settings_venues_edit_floorplan',		'admin_js');		
+						$group_assets[] = array('managers/page/admin_manager_settings_checkin_categories',			'admin_js');		
 						
 						$group_assets[] = array('managers/page/admin_manager_marketing_new',						'admin_js');		
 						$group_assets[] = array('managers/page/admin_manager_marketing',							'admin_js');		
@@ -799,6 +800,10 @@ class Assets extends MY_Common_Controller {
 									
 									'reservation_tr_guest_lists',
 									'reservation_tr_guest_lists_side_menu',
+									
+									'settings/settings_category',
+									'settings/settings_category_edit',
+									
 									
 									'on_file_payment'
 																		
