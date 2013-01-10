@@ -50,8 +50,13 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			$params = array(
 //				'message' 		=> "$vc_user->users_full_name is on the ClubbingOwl guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!",
 				'message' 		=> "I'm on the guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!\n\n Click here to join \"$guest_list_name.\"",
-			//	'link' 			=> "www.facebook.com/pages/@/$team_venue_id?sk=app_$facebook_application_id",
+		
+//				'link' 			=> "www.facebook.com/pages/@/$team_venue_id?sk=app_$facebook_application_id",
+				
+				
 				'link'			=> $base_url . 'venues/' . $c_url_identifier . '/' . str_replace(' ', '_', $venue_name) . '/guest_lists/',
+				
+				
 				'picture' 		=> ($image) ? '' : $CI->config->item('global_assets') . 'images/ClubbingOwlBackgroundWeb_small2.png',
 				'name' 			=> $guest_list_name,
 				'caption' 		=> "Click here to join \"$guest_list_name\"",
