@@ -4004,90 +4004,9 @@ class Managers extends MY_Controller {
 								'message' => '');
 	}
 
-	/**
-	 * Retrieve statistics about a user
-	 * 
-	 */
-	private function _helper_retrieve_user_stats(){
-		
-		
-		die(json_encode(array('success' => true)));
-	}
-	
-	
-	
-	private function _helper_retrieve_floorplans_and_reservations($options){
-		
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_teams', 'teams', true);
-		
-		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
-		$this->load->helper('retrieve_venue_floorplan');
-		
-		$init_users = array();
-		foreach($team_venues as $key => &$venue){
-			
-			
-			
-			
-			
-			if(isset($options['tv_id']))
-				if($venue->tv_id != $options['tv_id']){
-					unset($team_venues[$key]);
-					continue;
-				}
-			
-			
-			
-			
-			
-			$venue_floorplan = retrieve_venue_floorplan(array(
-				'tv_id' 							=> $venue->tv_id,
-				'team_fan_page_id' 					=> $this->vc_user->manager->team_fan_page_id,
-				'retrieve_approved_reservations'	=> false
-			));
-			$venue = (object)array_merge((array)$venue, (array)$venue_floorplan);
-			$venue->venue_floorplan = (array)$venue->venue_floorplan;
-			
 
-			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																								$this->vc_user->manager->team_fan_page_id,
-																								false);
-																								
-			//get a list of all the users on this reservation																					
-			foreach($all_upcoming_reservations as $vr){
-				
-				if(isset($vr->tglr_user_oauth_uid))
-					$init_users[] = $vr->tglr_user_oauth_uid;
-				elseif(isset($vr->pglr_user_oauth_uid)){
-					$init_users[] = $vr->pglr_user_oauth_uid;
-					$init_users[] = $vr->up_users_oauth_uid;
-				}
-				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
-				
-			}unset($vr);																	
-																						
-			
-			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
-			
-			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		
-			
-			
-		}
-		unset($venue);
-		
-		$init_users = array_unique($init_users);
-		$init_users = array_values($init_users);
-		
-		return array($team_venues, $init_users);
-		
-	}
-	
+
+
 	
 
 	/**

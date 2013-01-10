@@ -734,13 +734,16 @@ class Model_guest_lists extends CI_Model {
 					pglr.supplied_name				as pglr_supplied_name,
 					pgla.name 						as pgla_name,
 					pgla.image 						as pgla_image,			
+					pgl.id 							as pgl_id,
 					tv.id 							as tv_id,		
  					tv.name 						as tv_name,
  					tv.image 						as tv_image,
  					up.public_identifier 			as up_public_identifier,
  					up.profile_image 				as up_profile_image,
  					u.full_name 					as u_full_name,
- 					u.email 						as u_email
+ 					u.email 						as u_email,
+ 					hc.*,
+ 					hcd.*
  					
 				FROM 	promoters_guest_lists pgl
 				
@@ -759,6 +762,17 @@ class Model_guest_lists extends CI_Model {
 				JOIN 	users u 
 				ON 		u.oauth_uid = up.users_oauth_uid
 				
+				
+				
+				LEFT JOIN 	host_checkins hc 
+				ON 			hc.hc_pglr_id = pglr.id
+				
+				LEFT JOIN 	host_checkins_data hcd
+				ON 			hc.hcd_id = hcd.hcd_id
+				
+				
+				
+				
 				WHERE 	pgl.promoters_guest_list_authorizations_id = $promoters_guest_list_authorizations_id ";
 		if($index === false){
 			
@@ -773,7 +787,7 @@ class Model_guest_lists extends CI_Model {
 		$sql .= " ORDER BY pglr.create_time ASC";
 				
 				
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql);			
 		$result = $query->result();
 		//this gives us all of the head users, for every head user find all the entourage users
 				
@@ -789,9 +803,19 @@ class Model_guest_lists extends CI_Model {
 			$sql = "SELECT 	
 			
 						pglre.oauth_uid 	as pglre_oauth_uid,
-						pglre.supplied_name	as pglre_supplied_name
+						pglre.supplied_name	as pglre_supplied_name,
+						hc.*,
+						hcd.*
 						
 					FROM 	promoters_guest_lists_reservations_entourages pglre
+					
+					
+					LEFT JOIN 	host_checkins hc 
+					ON 			hc.hc_pglre_id = pglre.id
+					
+					LEFT JOIN 	host_checkins_data hcd
+					ON 			hc.hcd_id = hcd.hcd_id
+					
 					
 					WHERE 	pglre.promoters_guest_lists_reservations_id = $res->id";
 			$query = $this->db->query($sql);

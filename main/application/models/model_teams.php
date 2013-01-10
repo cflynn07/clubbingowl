@@ -15,6 +15,28 @@ class Model_teams extends CI_Model {
 	 | ------------------------------------------------------------------------ */
 	
 	
+	function retrieve_checkins($options){
+		
+		$this->db->select('*')
+			->from('host_checkins')
+			->or_where(array(
+				'hc_pgl_id' => $options['pgl_id'],
+				'hc_tgl_id' => $options['tgl_id']
+			));
+			
+		$query = $this->db->get();		
+		return $query->result();
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	function retrieve_team_checkin_categories($options){
@@ -57,6 +79,27 @@ class Model_teams extends CI_Model {
 		return true;
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -1087,12 +1130,15 @@ class Model_teams extends CI_Model {
 					pgla.image 									as pgla_image,
 					pgla.name									as pgla_name,
 					pgl.date 									as pgl_date,
+					pgl.id 										as pgl_id,
 					tv.name 									as tv_name,
 					up.users_oauth_uid 							as up_users_oauth_uid,
 					up.profile_image 							as up_profile_image,
 					u.first_name 								as u_first_name,
 					u.last_name 								as u_last_name,
-					u.full_name 								as u_full_name
+					u.full_name 								as u_full_name,
+					hc.*,
+					hcd.*
 					
 								
 				FROM 	promoters_guest_lists_reservations pglr
@@ -1134,6 +1180,17 @@ class Model_teams extends CI_Model {
 				
 				
 				
+				
+				LEFT JOIN 	host_checkins hc 
+				ON 			hc.hc_pglr_id = pglr.id
+				
+				LEFT JOIN 	host_checkins_data hcd
+				ON 			hc.hcd_id = hcd.hcd_id
+				
+				
+				
+				
+				
 				WHERE 	pgla.team_venue_id = ?
 						AND
 						tv.id = ?
@@ -1170,18 +1227,52 @@ class Model_teams extends CI_Model {
 		$result1 = $query->result();
 		
 		
+		
+		//find all checkins
+		$checkins = array();
+		
+		
+		
+		foreach($result1 as $res){
+				
+			
+			$t = $this->retrieve_checkins(array(
+				'pgl_id' 	=> $res->pgl_id,
+				'tgl_id'	=> false
+			));		
+			
+			$checkins = array_merge($checkins, $t);
+			
+		}unset($res);
+		
+		
+		
+		
 		//add entourages to promoter reservations
 		foreach($result1 as &$res){
 			$sql = "SELECT
 						
 						pglre.oauth_uid 		as oauth_uid,
 						pglre.oauth_uid			as pglre_oauth_uid,
-						pglre.supplied_name 	as pglre_supplied_name
+						pglre.supplied_name 	as pglre_supplied_name,
+						hc.*,
+						hcd.*
 						
 					FROM 	promoters_guest_lists_reservations_entourages pglre
 					
+
+
+					LEFT JOIN 	host_checkins hc 
+					ON 			hc.hc_pglre_id = pglre.id
+					
+					LEFT JOIN 	host_checkins_data hcd
+					ON 			hc.hcd_id = hcd.hcd_id
+					
+
+					
+					
 					WHERE	pglre.promoters_guest_lists_reservations_id = ?";
-			$query = $this->db->query($sql, array($res->pglr_id));
+			$query = $this->db->query($sql, array($res->pglr_id));			
 			$res->entourage = $query->result();
 			
 			
@@ -1216,7 +1307,10 @@ class Model_teams extends CI_Model {
 					tgla.image 									as tgla_image,
 					tgla.name 									as tgla_name,
 					tgl.date 									as tgl_date,
-					tv.name										as tv_name
+					tgl.id 										as tgl_id,
+					tv.name										as tv_name,
+					hc.*,
+					hcd.*
 					
 				FROM 	teams_guest_lists_reservations tglr
 				
@@ -1240,7 +1334,21 @@ class Model_teams extends CI_Model {
 				JOIN 	teams t 
 				ON 		tvp.team_fan_page_id = t.fan_page_id
 				
+					
+					
+					
+					
+					
+				LEFT JOIN 	host_checkins hc 
+				ON 			hc.hc_tglr_id = tglr.id
 				
+				LEFT JOIN 	host_checkins_data hcd
+				ON 			hc.hcd_id = hcd.hcd_id
+					
+					
+					
+					
+					
 				
 				WHERE	tgla.team_venue_id = ?
 						AND
@@ -1268,15 +1376,31 @@ class Model_teams extends CI_Model {
 		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_fan_page_id, $team_venue_id, $date));
 		$result2 = $query->result();
 		
+		
+		
+		
+		
 		//add entourages to promoter reservations
 		foreach($result2 as &$res){
 			$sql = "SELECT
 			
 						tglre.oauth_uid 		as oauth_uid,
 						tglre.oauth_uid			as tglre_oauth_uid,
-						tglre.supplied_name 	as tglre_supplied_name
+						tglre.supplied_name 	as tglre_supplied_name,
+						hc.*,
+						hcd.*
 						
 					FROM 	teams_guest_lists_reservations_entourages tglre
+					
+					
+					LEFT JOIN 	host_checkins hc 
+					ON 			hc.hc_tglre_id = tglre.id
+					
+					LEFT JOIN 	host_checkins_data hcd
+					ON 			hc.hcd_id = hcd.hcd_id
+					
+					
+					
 					
 					WHERE	tglre.team_guest_list_reservation_id = ?";
 			$query = $this->db->query($sql, array($res->tglr_id));
