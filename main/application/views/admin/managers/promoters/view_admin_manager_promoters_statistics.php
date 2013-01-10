@@ -47,7 +47,7 @@
 				<div id="tabs-<?= $key ?>">
 					<?php if($promoter->up_banned == '1'): ?>
 						
-						<p>This promoter has been banned from VibeCompass</p>
+						<p>This promoter has been banned from ClubbingOwl</p>
 						
 					<?php else: ?>
 											

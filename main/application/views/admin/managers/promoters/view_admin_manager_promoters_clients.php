@@ -145,6 +145,6 @@
 
 	<h1>Promoters' Clients</h1>
 	
-	<p>When your team is live this page will detail each of your promoters 'clients' - VibeCompass users that have requested to join a promoter's guest list or event. You can add promoters to your team once your are live.</p>
+	<p>When your team is live this page will detail each of your promoters 'clients' - ClubbingOwl users that have requested to join a promoter's guest list or event. You can add promoters to your team once your are live.</p>
 
 <?php endif; ?>

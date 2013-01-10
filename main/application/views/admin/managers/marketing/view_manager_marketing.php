@@ -49,7 +49,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Your team (promoters & venues) have a database of <strong style="text-decoration:underline;"><?= count($data->clients) ?></strong> clients that have no opted out of recieving emails from VibeCompass.</td>
+					<td>Your team (promoters & venues) have a database of <strong style="text-decoration:underline;"><?= count($data->clients) ?></strong> clients that have no opted out of recieving emails from ClubbingOwl.</td>
 				</tr>
 			</tbody>
 		</table>
@@ -103,7 +103,7 @@
 	
 	<div class="one_half last">
 		<h2>About this Feature</h2>
-		<p>VibeCompass gives you tools to more effectively reach your clients.</p>
+		<p>ClubbingOwl gives you tools to more effectively reach your clients.</p>
 	</div>
 	
 </div>

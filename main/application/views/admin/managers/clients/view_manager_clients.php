@@ -80,6 +80,6 @@
 	
 	<h1>Team Clients</h1>
 	
-	<p>When your team is live this page will detail all of your 'clients' - VibeCompass users that have requested to be included on one of your team guest lists.</p>
+	<p>When your team is live this page will detail all of your 'clients' - ClubbingOwl users that have requested to be included on one of your team guest lists.</p>
 	
 <?php endif; ?>
