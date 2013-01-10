@@ -260,12 +260,153 @@ jQuery(function(){
 		
 		
 		
-		
-		Views.ReservationsCheckinHolder = {
+		Views.ReservationCheckin = {
+			tagName: 'tr',
 			initialize: function(){
 				
 			},
 			render: function(){
+				
+				var template = EVT['reservations_checkin/reservations_checkin_reservation'];
+				var html = new EJS({
+					text: template
+				}).render(jQuery.extend({
+					collapsed: collapsed
+				}, this.model.toJSON()))
+				
+				this.$el.html(html);
+				
+				
+				
+				
+			},
+			events: {
+				
+			}
+		}; Views.ReservationCheckin = Backbone.View.extend(Views.ReservationCheckin);
+		
+		
+		
+		
+		
+		
+		Views.ReservationCheckinGroup = {
+			className: 'ui-widget ui-widget-content ui-helper-clearfix ui-corner-all full_width',
+			initialize: function(){
+				
+				
+			},
+			render: function(){
+				
+				var _this = this;
+				var model = this.collection.first();
+				
+				var template = EVT['reservations_checkin/reservations_checkin_group'];
+				var html = new EJS({
+					text: template
+				}).render(model.toJSON());
+							
+				this.$el.html(html);
+				
+				
+				
+				
+				
+				
+				
+				this.collection.each(function(m){
+					//append each tr
+					
+					var view_reservation_checkin_individual = new Views.ReservationCheckin({
+						model: m
+					});
+					
+					_this.$el.find('tbody:first').append(view_reservation_checkin_individual.el);
+					view_reservation_checkin_individual.render();
+					
+				});
+				
+				
+								
+				
+			},
+			events: {
+				
+			}
+		}; Views.ReservationCheckinGroup = Backbone.View.extend(Views.ReservationCheckinGroup);
+		
+		
+		
+		
+		
+		
+		Views.ReservationsCheckinHolder = {
+			initialize: function(){
+				
+				this.render();
+			},
+			render: function(){
+				
+				this.$el.empty();
+				var _this = this;
+				
+				
+				
+				var reservation_groupings = this.collection.groupBy(function(m){
+					if(m.get('pglr_id') !== undefined){
+						return m.get('up_users_oauth_uid');
+					}else{
+						return 'team';
+					}
+				});
+				
+				
+				
+				for(var i in reservation_groupings){
+					
+					var group 		= reservation_groupings[i];
+					var collection 	= new Collections.Reservations(group);
+					
+					
+					var view_reservation_checkin_group = new Views.ReservationCheckinGroup({
+						collection: collection
+					});
+
+
+					_this.$el.append(view_reservation_checkin_group.el);
+					view_reservation_checkin_group.render();
+					
+				
+					
+				};
+				
+				
+				
+				
+				
+				
+				jQuery.populateFacebook(this.$el, function(){
+						
+					_this.$el.find('table.reservations_holder').dataTable({
+						bJQueryUI: 		true,
+						bDestroy: 		true,
+						bAuthWidth: 	true
+					});
+					
+					_this.$el.find('input[type=checkbox]').iphoneStyle({
+						checkedLabel: 	'Yes',
+						uncheckedLabel: 'No'
+					});
+					
+				});
+				
+				
+				
+				
+				
+				
+				this.$el.sortable();
+				
 				
 			},
 			events: {
@@ -331,20 +472,16 @@ jQuery(function(){
 				
 				
 				
-				var view_checkin = new Views.ReservationsCheckinHolder({
-					el: 		'#tabs-' + venue.tv_id + '-2',
+				var view_check_in = new Views.ReservationsCheckinHolder({
+					el: 		'#tabs-' + venue.tv_id + '-2 div[data-checkin_tv=' + venue.tv_id + ']',
 					collection: collection_reservations,
 					subtype: 	'all',
 					tv_id:		venue.tv_id
 				});
 				
 				views.push(view_tables);
-				views.push(view_checkin);
-				
-				
-				
-				
-				
+				views.push(view_check_in);
+
 			}
 			
 			

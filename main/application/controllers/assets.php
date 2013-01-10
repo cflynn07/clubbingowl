@@ -656,7 +656,10 @@ class Assets extends MY_Common_Controller {
 									'reservations_overview/ro_reservation',
 									'reservations_overview/ro_reservations_table',
 									'reservations_overview/ro_reservation_all',
-									'reservations_overview/ro_reservations_table_all'
+									'reservations_overview/ro_reservations_table_all',
+									
+									'reservations_checkin/reservations_checkin_group',
+									'reservations_checkin/reservations_checkin_reservation'
 																		
 								),
 								'lang' => $language
