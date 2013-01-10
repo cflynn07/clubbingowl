@@ -15,9 +15,23 @@ class Net_Gearman_Job_guest_list_text_message extends Net_Gearman_Job_Common{
 		
 		//find user's phone number and provider
 		$CI->load->model('model_users', 'users', true);
+		
+		
 		$user = $CI->users->retrieve_user($user_oauth_uid);
 		$phone_number = $user->users_phone_number;
 		$phone_carrier = $user->users_phone_carrier;
+		
+		
+		
+		
+		$CI->load->library('Twilio', '', 'twilio');
+		$CI->twilio->sms($phone_number, $text_message);
+		
+		
+		
+		
+		/*
+		
 		
 		switch($phone_carrier){
 			case 'att':
@@ -62,6 +76,16 @@ class Net_Gearman_Job_guest_list_text_message extends Net_Gearman_Job_Common{
 		 
 		$url = "http://us4.sts.mailchimp.com/1.0/SendEmail";
 		 
+		 
+		 
+		 */
+		 
+		 
+		 
+		 
+		 /*
+		 
+		 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url.'?'.http_build_query($params));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -70,6 +94,10 @@ class Net_Gearman_Job_guest_list_text_message extends Net_Gearman_Job_Common{
 		curl_close ($ch);
 				
 		$data = json_decode($result);
+		
+		*/
+		
+		
 		echo "Text Confirmation Sent To: $user->users_full_name - Status = " . ((isset($data->status)) ? $data->status : 'NO STATUS') . PHP_EOL;
 				
     }

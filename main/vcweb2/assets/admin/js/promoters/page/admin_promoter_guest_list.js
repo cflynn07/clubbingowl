@@ -1159,6 +1159,14 @@ jQuery(function(){
 			},
 			custom_events_add_fb_data: function(e){
 				
+				
+				jQuery.populateFacebook(this.$el.find('tbody'), function(){});
+				
+				return;
+				
+				
+				
+				
 				var _this = this;
 				
 				var fb_names = function(rows){
@@ -1179,6 +1187,14 @@ jQuery(function(){
 				}else{
 					fb_names(this.users);
 				}
+						
+						
+						
+						
+						
+						
+						
+						
 						
 						
 			},

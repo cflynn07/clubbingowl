@@ -18,7 +18,7 @@
 			<span><%= pglr_supplied_name %></span>
 		<% }else{ %>
 			
-			<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>"><span data-name="<%= head_user %>"></span></a>
+			<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>"><span data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span></a>
 			
 		<% } %>
 		
@@ -142,7 +142,7 @@
 								<% }else{ %>
 									
 									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage_users[i].pglre_oauth_uid + '/' %>">
-										<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+										<span data-oauth_uid="<%= entourage_users[i].pglre_oauth_uid %>" data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
 									</a>
 									
 								<% } %>
@@ -179,7 +179,7 @@
 								<% }else{ %>
 									
 									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage_users[i].pglre_oauth_uid + '/' %>">
-										<span data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+										<span data-oauth_uid="<%= entourage_users[i].pglre_oauth_uid %>" data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
 									</a>
 									
 								<% } %>

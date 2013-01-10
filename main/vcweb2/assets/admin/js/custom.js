@@ -263,6 +263,9 @@ jQuery(document).ready(function() {
 	    },
 	    populateFacebook: function(el, callback){
 	    	
+	    	console.log(el.find('*[data-oauth_uid]'));
+	    	
+	    	
 	    	var oauth_uids = [];
 	    	el.find('*[data-oauth_uid]').each(function(){
 	    		
@@ -270,7 +273,15 @@ jQuery(document).ready(function() {
 	    		    		
 	    	});
 	    	
+	    	
+	    	
+	    	
 	    	oauth_uids = _.uniq(oauth_uids);
+	    	
+	    	console.log('unique_oauth_uids');
+	    	console.log(oauth_uids);
+	    	
+	    	
 	    	jQuery.fbUserLookup(oauth_uids, '', function(rows){
 	    		
 	    		for(var i in rows){
