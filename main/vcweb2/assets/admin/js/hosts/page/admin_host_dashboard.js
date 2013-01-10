@@ -261,6 +261,31 @@ jQuery(function(){
 		
 		
 		
+		Views.ReservationsCheckinHolder = {
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+			},
+			events: {
+				
+			}
+		}; Views.ReservationsCheckinHolder = Backbone.View.extend(Views.ReservationsCheckinHolder);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -302,7 +327,11 @@ jQuery(function(){
 					tv_id:		venue.tv_id
 				});			
 				
-				var view_all = new Views.ReservationsHolder({
+				
+				
+				
+				
+				var view_checkin = new Views.ReservationsCheckinHolder({
 					el: 		'#tabs-' + venue.tv_id + '-2',
 					collection: collection_reservations,
 					subtype: 	'all',
@@ -310,7 +339,11 @@ jQuery(function(){
 				});
 				
 				views.push(view_tables);
-				views.push(view_all);
+				views.push(view_checkin);
+				
+				
+				
+				
 				
 			}
 			

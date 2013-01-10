@@ -1009,6 +1009,9 @@ class Model_team_guest_lists extends CI_Model {
 																									'venue_name' 		=> $result->tv_name,
 																									'date' 				=> $result->tgl_date,
 																									'guest_list_name' 	=> $result->tgla_name,
+																									
+																									'c_url_identifier' 	=> $result->c_url_identifier,
+																									
 																									'team_venue_id' 	=> $team_venue_id)));
 			$gearman_task->type = Net_Gearman_Task::JOB_BACKGROUND;
 			

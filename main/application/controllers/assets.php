@@ -127,7 +127,10 @@ class Assets extends MY_Common_Controller {
 					
 					//pages
 					'page/admin_team_chat',
-					'page/admin_promoter_dashboard'					
+					'page/admin_promoter_dashboard',
+					
+					'engage.itoggle.css'
+							
 				);
 			
 				break;
@@ -367,6 +370,7 @@ class Assets extends MY_Common_Controller {
 					array('ejs/ejs_0.9_alpha_1_production.min',								'global_js'),
 					array('jquery/jquery_extensions', 										'global_js'),
 					
+					
 					array('admin_event_handler',											'admin_js'),
 					array('json2',															'global_js'),					
 					array('json_parse',														'global_js'),
@@ -408,7 +412,9 @@ class Assets extends MY_Common_Controller {
 					
 					
 					
-					array('jquery.maskedinput-1.3.min',										'admin_js')
+					array('jquery.maskedinput-1.3.min',										'admin_js'),
+
+					array('engage.itoggle',													'admin_js')
 					
 				//	array('suite_re_init', 													'admin_js')
 					

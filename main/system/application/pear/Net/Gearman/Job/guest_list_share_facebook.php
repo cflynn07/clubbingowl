@@ -20,6 +20,9 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 		$guest_list_name 	= $args['guest_list_name'];
 		$image 				= (isset($args['image'])) ? $args['image'] : false;
 		
+		$c_url_identifier 	= (isset($args['c_url_identifier'])) ? $args['c_url_identifier'] : '';
+		
+		
 		$facebook_application_id = $CI->config->item('facebook_app_id');
 		
 		$CI->load->model('model_users', 'users', true);
@@ -27,7 +30,17 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 
 		$CI->load->library('library_facebook', '', 'facebook');
 		
-		$app_description = 'ClubbingOwl is the best way to join guest lists and reserve tables at your favorite venues.';
+		$app_description = 'ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away.';
+		
+		
+		
+		
+		if(MODE == 'local')
+				$base_url = 'https://www.clubbingowl.com/';
+			else
+				$base_url = 'https://www.clubbingowl.com/';
+		
+		
 		
 		if($team_guest_list){
 			//team guest list
@@ -36,8 +49,9 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			
 			$params = array(
 //				'message' 		=> "$vc_user->users_full_name is on the ClubbingOwl guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!",
-				'message' 		=> "I'm on the guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "! Click here to join \"$guest_list_name.\"",
-				'link' 			=> "www.facebook.com/pages/@/$team_venue_id?sk=app_$facebook_application_id",
+				'message' 		=> "I'm on the guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!\n\n Click here to join \"$guest_list_name.\"",
+			//	'link' 			=> "www.facebook.com/pages/@/$team_venue_id?sk=app_$facebook_application_id",
+				'link'			=> $base_url . 'venues/' . $c_url_identifier . '/' . str_replace(' ', '_', $venue_name) . '/guest_lists/',
 				'picture' 		=> ($image) ? '' : $CI->config->item('global_assets') . 'images/ClubbingOwlBackgroundWeb_small2.png',
 				'name' 			=> $guest_list_name,
 				'caption' 		=> "Click here to join \"$guest_list_name\"",
@@ -55,13 +69,10 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			
 			//we need the promoter_public_identifier and the pgla_name to form the hyperlink to post on facebook
 			
-			if(MODE == 'local')
-				$base_url = 'https://www.clubbingowl.com/';
-			else
-				$base_url = 'https://www.clubbingowl.com/';
+			
 				
 			$params = array(
-				'message' 		=> "I'm on $promoter_full_name's guest list \"$guest_list_name\" at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "! Click here to join\"$guest_list_name.\"",
+				'message' 		=> "I'm on $promoter_full_name's guest list \"$guest_list_name\" at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!\n\n Click here to join \"$guest_list_name.\"",
 				'link' 			=> $base_url . "promoters/$promoter_public_identifier/guest_lists/$guest_list_url_name/?ref=$user_third_party_id",
 				'picture' 		=> ($image) ? $CI->config->item('s3_uploaded_images_base_url') . 'guest_lists/' . $image . '_t.jpg' : $CI->config->item('global_assets') . 'images/vibecompass_logo.png',
 				'name' 			=> $guest_list_name,
