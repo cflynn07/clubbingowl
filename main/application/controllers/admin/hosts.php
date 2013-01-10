@@ -224,79 +224,15 @@ class Hosts extends MY_Controller {
 		
 		$this->load->model('model_teams', 'teams', true);
 		
+		
+		
 		$data = new stdClass;
 		$data->team 		= $this->teams->retrieve_team($this->vc_user->host->th_teams_fan_page_id);
 		$data->team_venues 	= $this->_helper_venue_floorplan_retrieve_v2();
 
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard', 		array('data' => $data), 	true);
 				
-		
-		return;
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		$data = new stdClass;
-		
-		if(preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $arg0, $parts)){		
-		    $year  = $parts[1];
-		    $month = $parts[2];
-		    $day   = $parts[3];
-			
-			$this->date = $year . '-' . $month . '-' . $day;
-					
-		}else{
-			
-			$this->date = date('Y-m-d', time());
-			if($this->input->post('ajaxify')){
-				echo '<script type="text/javascript">window.location = "/admin/hosts/' . $this->date . '/";</script>';
-				die();
-			}else{
-				redirect('/admin/hosts/' . $this->date . '/', 302);
-				die();
-			}
-			
-		}
-		
-		
-		
-		
-		
-		$data->current_date = date('Y-m-d', time());
-		$this->load->vars('current_date', $data->current_date);
-		$this->load->vars('active_date', $this->date);
-				
-				
-				
-				
-		if($this->vc_user->host->th_banned == '1' || $this->vc_user->host->th_quit == '1'){
-			$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard_quit', 	'', 	true);
-		}else{
-			
-			
-			list($promoters, $team_venues, $backbone) = $this->_helper_retrieve_gl_data();
-			$data->team 		= $this->teams->retrieve_team($this->vc_user->host->th_teams_fan_page_id);
-			$data->promoters 	= $promoters;
-			$data->team_venues 	= $team_venues;
-			$data->backbone 	= $backbone;
-			
-			$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard', 		array('data' => $data), 	true);
-			
-			
-		}
-		
-		
-		
-		
+	//	Kint::dump($data);
 		
 	}
 	
@@ -468,10 +404,10 @@ class Hosts extends MY_Controller {
 			
 			
 			
-			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																						$this->vc_user->host->th_teams_fan_page_id,
-																						false);
-			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
+		//	$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
+		//																				$this->vc_user->host->th_teams_fan_page_id,
+		//																				false);
+		//	$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
 			
 			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
 		}unset($venue);
@@ -495,11 +431,51 @@ class Hosts extends MY_Controller {
 	 */
 	private function _ajax_dashboard($arg0 = '', $arg1 = '', $arg2 = ''){
 		
-				
 		$vc_method = $this->input->post('vc_method');
 		if(!$vc_method){
 			die(json_encode(array('success' => false, 'message' => 'vc_method required')));
 		}
+		
+		
+		
+		
+		
+		
+		switch($vc_method){
+			case 'find_tables':
+				
+				
+				$data = $this->_helper_venue_floorplan_retrieve_v2();
+				die(json_encode(array('success' => true, 'message' => array(
+					'init_users' 	=> array(),
+					'team_venues' 	=> $data
+				))));
+				
+				
+				
+				break;
+			case 'checkin_event':
+				
+				
+				
+				break;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		return;
+		
+		
+		
+		
+		
+		
+		
 		
 		switch($vc_method){
 			case 'venue_gl_retrieve':

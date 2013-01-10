@@ -1,6 +1,6 @@
 (function(globals){
 	
-	var EVT = window.ejs_view_templates_admin_promoters || window.ejs_view_templates_admin_managers;
+	var EVT = window.ejs_view_templates_admin_promoters || window.ejs_view_templates_admin_managers || window.ejs_view_templates_admin_hosts;
 	
 	var Factor 			= 0.5;
 	var BaseFloorWidth 	= 800;

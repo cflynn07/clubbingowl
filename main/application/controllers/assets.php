@@ -421,6 +421,11 @@ class Assets extends MY_Common_Controller {
 					
 						
 						$group_assets[] = array('hosts/hosts_ajaxify_front', 								'admin_js');
+						
+						$group_assets[] = array('module_tables_display', 									'admin_js');
+						$group_assets[] = array('module_reservation_display',							'admin_js');
+						
+						
 						$group_assets[] = array('hosts/page/admin_host_dashboard', 							'admin_js');
 						$group_assets[] = array('hosts/hosts_router', 										'admin_js');
 						
@@ -632,7 +637,20 @@ class Assets extends MY_Common_Controller {
 									// ---------------- FRONT --------------------
 									'lists_wrapper',
 									'active_tv_header',
-									'guest_list_wrapper'
+									'guest_list_wrapper',
+									
+									
+									'tables/t_wrapper',
+									'tables/t_vlf',
+									'tables/t_vlf_item',
+									'tables/t_vlfit_reservation_detail',
+
+									
+									
+									'reservations_overview/ro_reservation',
+									'reservations_overview/ro_reservations_table',
+									'reservations_overview/ro_reservation_all',
+									'reservations_overview/ro_reservations_table_all'
 																		
 								),
 								'lang' => $language

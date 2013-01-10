@@ -14,20 +14,23 @@ class Model_teams extends CI_Model {
 	 |	Create Methods (create)
 	 | ------------------------------------------------------------------------ */
 	
+	function create_checkin($options){
 	
-	function retrieve_checkins($options){
+	
+		//create record in hcd
 		
-		$this->db->select('*')
-			->from('host_checkins')
-			->or_where(array(
-				'hc_pgl_id' => $options['pgl_id'],
-				'hc_tgl_id' => $options['tgl_id']
-			));
-			
-		$query = $this->db->get();		
-		return $query->result();
+		//create join-table records to any reservations that are connected to this checkin (99% of the time this will be just 1 record)
+		
+		
 		
 	}
+	
+	function delete_checkin($options){
+		
+		//remove record from hcd
+		
+	}
+	
 	
 	
 	
@@ -1231,19 +1234,6 @@ class Model_teams extends CI_Model {
 		//find all checkins
 		$checkins = array();
 		
-		
-		
-		foreach($result1 as $res){
-				
-			
-			$t = $this->retrieve_checkins(array(
-				'pgl_id' 	=> $res->pgl_id,
-				'tgl_id'	=> false
-			));		
-			
-			$checkins = array_merge($checkins, $t);
-			
-		}unset($res);
 		
 		
 		
