@@ -33,14 +33,26 @@
     <?= Kint::dump($central) ?>
 <?php endif; ?>
     
+    
+    
+    <?php if(false): ?>
     <h2>List Description</h2>
     <p style="border:1px dashed #CCC; padding:5px;"><?= $guest_list->pgla_description ?></p>
+	<?php endif; ?>
+
 
     <div class="guestlist-form-left">
       	
       <div class="guestlist-form-image">
         <img id="gl_image" src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $guest_list->pgla_image . '_p.jpg' ?>" style="width:188px; height:266px; border-radius:10px;" alt="Event Image">
       </div>
+      
+      
+      <p>
+      	<h2>Description</h2>
+      	<p><?= $guest_list->pgla_description ?></p>
+      </p>
+      
       
       <p>
       	<h2>Info</h2>
