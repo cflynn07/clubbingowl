@@ -53,8 +53,7 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 		
 //				'link' 			=> "www.facebook.com/pages/@/$team_venue_id?sk=app_$facebook_application_id",
 				
-				
-				'link'			=> $base_url . 'venues/' . $c_url_identifier . '/' . str_replace(' ', '_', $venue_name) . '/guest_lists/',
+				'link'			=> $base_url . 'venues/' . $c_url_identifier . '/' . str_replace(' ', '_', $venue_name) . '/guest_lists/' . str_replace(' ', '_', $guest_list_name) . '/',
 				
 				
 				'picture' 		=> ($image) ? '' : $CI->config->item('global_assets') . 'images/ClubbingOwlBackgroundWeb_small2.png',
