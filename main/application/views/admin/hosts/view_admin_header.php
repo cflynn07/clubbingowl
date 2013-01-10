@@ -15,9 +15,7 @@
 <body>
 <?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
-
 <script type="text/javascript">
-	window.team_fan_page_id = '<?= $team_fan_page_id ?>';
 	window.admin_users_oauth_uid = '<?= $users_oauth_uid ?>';
 </script>
 
@@ -62,49 +60,7 @@
 				</style>
 				
 				<div id="menu"> <!-- navigation menu -->
-					<ul>
-						
-						<?php
-						
-							$yesterday 		= date('Y-m-d', strtotime('today -1 days'));
-							$tomorrow		= date('Y-m-d', strtotime('today +1 days'));
-							$today_plus_2 	= date('Y-m-d', strtotime('today +2 days'));
-							
-						?>
-						
-						
-						<li data-date="<?= $yesterday ?>">
-							<a class="ajaxify" href="<?= $central->front_link_base ?>admin/hosts/<?= $yesterday ?>/" class="dashboard">
-								<img src="<?=$central->admin_assets?>images/icons/small_icons/List.png" alt="" />
-								
-								<span class="menu_dates">Yesterday:<br/>(<?= $yesterday ?>)</span>
-															
-							</a>
-						</li>
-						
-						
-						
-						<li data-date="<?= $current_date ?>">
-							<a class="ajaxify" href="<?= $central->front_link_base ?>admin/hosts/<?= $current_date ?>/" class="dashboard">
-								<img src="<?=$central->admin_assets?>images/icons/small_icons/List.png" alt="" />
-								
-								<span class="menu_dates">Today:<br/>(<?= $current_date ?>)</span>
-													
-							</a>
-						</li>
-						
-						
-						
-						<li data-date="<?= $tomorrow ?>">
-							<a class="ajaxify" href="<?= $central->front_link_base ?>admin/hosts/<?= $tomorrow ?>/" class="dashboard">
-								<img src="<?=$central->admin_assets?>images/icons/small_icons/List.png" alt="" />
-								
-								<span class="menu_dates">Tomorrow:<br/>(<?= $tomorrow ?>)</span>
-														
-							</a>
-						</li>
-						
-						
+					<ul> 
 						
 						<li>
 							<a href="<?=$central->front_link_base ?>">

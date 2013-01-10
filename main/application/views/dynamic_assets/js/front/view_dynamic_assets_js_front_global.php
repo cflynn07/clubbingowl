@@ -14,6 +14,9 @@
 	else 
 		Globals.prototype.user_oauth_uid 					= false;
 	
+	
+//	Globals.prototype.loading_indicator = '<img src="' + Globals.prototype.admin_assets + 'images/ajax.gif" alt="loading..." />';
+	
 	exports.module = exports.module || {};
 	exports.module.Globals = Globals;
 	

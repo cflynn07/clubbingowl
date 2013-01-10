@@ -1,9 +1,166 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($data) ?>;</script>
 
-<h1><?= $data->team->team->team_name ?></h1>
-<h2><?= date('l M d, Y', strtotime($active_date)); ?></h2>
 
-<div id="lists_wrapper"></div>
+
+
+<?php $team_venues = $data->team_venues; ?>
+
+
+
+
+
+<div id="admin_managers_tables_wrapper">
+
+	<h1>Table & Guest List Reservations</h1>
+		
+	<h3>
+		Venue Reservations
+		<img class="info_icon tooltip" title="Requests organized by venue" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+	</h3>
+	
+	<div id="tabs" style="margin-bottom:0px; height: auto !important;">
+		
+		
+		<div class="ui-widget-header" style="cursor: default;">
+			<span></span>
+			
+			
+			
+			<div style="display: inline-block; float: right;">
+				Select Venue: 
+				<select class="venue_select">
+					<?php foreach($team_venues as $key => $venue): ?>
+						<option data-tv_id="<?= $venue->tv_id ?>" value="<?= $key ?>"><?= $venue->tv_name ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+			
+			
+			
+			<ul>
+			<?php foreach($team_venues as $key => $venue): ?>
+				<li><a href="#tabs-<?= $key ?>"><?= $venue->tv_name ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+			
+			
+		</div>
+
+		<?php foreach($team_venues as $key => $venue): ?>
+		<div class="top_lvl" id="tabs-<?= $key ?>">
+			
+			<div>
+				
+				<div class="full_width last">
+					
+					<div>
+						
+						<div style="float:left; display:inline-block;">
+							<img 	style="border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url . 'venues/banners/' . $venue->tv_image . '_t.jpg' ?>" alt="<?= $venue->tv_name ?>"/>
+							<h3 	style="color:red;"><?= $venue->tv_name ?></h3>
+						</div>
+												
+					</div>
+					
+					<div style="clear:both;"></div>
+					
+					
+					<a href="#" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
+					<br/><br/>
+					
+					<div data-tv_id="<?= $venue->tv_id ?>" class="tabs_tables tabs_tables_tv_id_<?= $venue->tv_id ?>">
+						
+						<div class="ui-widget-header">
+							
+							<span>
+								<input type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
+								<img style="display:none;" class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+
+								
+
+							</span>
+							
+							<ul>
+								<li><a href="#tabs-<?= $venue->tv_id ?>-0">Floorplan</a></li>
+								<li><a href="#tabs-<?= $venue->tv_id ?>-1">Table Reservations</a></li>
+								<li><a href="#tabs-<?= $venue->tv_id ?>-2">Guest List & Table Reservations</a></li>
+							</ul>
+							
+						</div>
+									
+						
+						<div data-clear-zone="" id="tabs-<?= $venue->tv_id ?>-0"></div>
+
+
+
+
+
+						<div id="tabs-<?= $venue->tv_id ?>-1">
+							
+							<h3>Table Reservations</h3>
+
+							<div class="full_width last table_reservations"></div>
+					
+						</div>
+						
+						
+						
+						
+						
+						<div id="tabs-<?= $venue->tv_id ?>-2">
+							
+							<h3>All Guest List & Table Reservations</h3>
+							
+							<div class="full_width last all_reservations"></div>
+							
+						</div>
+						
+						
+						
+						
+						
+						
+					</div>
+					
+					<div style="clear:both;"></div>
+					
+				</div>
+				
+				<div style="clear:both;"></div>
+				
+			</div>
+			
+			<div style="clear:both;"></div>
+			
+		</div>
+		<?php endforeach; ?>
+		
+		<div style="clear:both;"></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

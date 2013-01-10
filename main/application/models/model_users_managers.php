@@ -264,7 +264,9 @@ class Model_users_managers extends CI_Model {
 					tgla.id					as tgla_id,
 					tgla.day				as tgla_day,
 					tgla.name				as tgla_name,
-					tgla.image 				as tgla_image
+					tgla.image 				as tgla_image,
+					hc.*,
+					hcd.*
 				
 				FROM 	teams_guest_lists_reservations tglr
 				
@@ -276,6 +278,21 @@ class Model_users_managers extends CI_Model {
 				
 				JOIN 	team_venues tv 
 				ON 		tgla.team_venue_id = tv.id
+				
+				
+				
+				
+				
+				LEFT JOIN 	host_checkins hc 
+				ON 			hc.hc_tglr_id = tglr.id
+				
+				LEFT JOIN 	host_checkins_data hcd
+				ON 			hc.hcd_id = hcd.hcd_id
+					
+				
+				
+				
+				
 				
 				WHERE 	tglr.team_guest_list_id = ?
 				
@@ -292,9 +309,22 @@ class Model_users_managers extends CI_Model {
 			$sql = "SELECT
 					
 						tglre.oauth_uid		as tglre_oauth_uid,
-						tglre.supplied_name	as tglre_supplied_name
+						tglre.supplied_name	as tglre_supplied_name,
+						hc.*,
+						hcd.*
 					
 					FROM teams_guest_lists_reservations_entourages tglre
+					
+					
+					
+					LEFT JOIN 	host_checkins hc 
+					ON 			hc.hc_tglre_id = tglre.id
+					
+					LEFT JOIN 	host_checkins_data hcd
+					ON 			hc.hcd_id = hcd.hcd_id
+					
+					
+					
 					
 					WHERE tglre.team_guest_list_reservation_id = ?";
 					

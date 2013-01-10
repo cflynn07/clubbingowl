@@ -484,12 +484,6 @@ class Promoters extends MY_Controller {
 	 */
 	private function _tables($arg0 = '', $arg1 = '', $arg2 = ''){
 
-/*				
-		list($team_venues, $init_users) = $this->_helper_retrieve_floorplans_and_reservations(array());
-		
-		$data['init_users'] 	= $init_users;
-		$data['team_venues'] 	= $team_venues;
-*/	
 		
 		
 		list($init_users, $team_venues) = $this->_helper_venue_floorplan_retrieve_v2();
@@ -1314,12 +1308,9 @@ class Promoters extends MY_Controller {
 				
 				
 				
+				list($init_users, $team_venues) = $this->_helper_venue_floorplan_retrieve_v2();
 				
-				//data for displaying floorplans of venues
-				list($team_venues, $init_users) = $this->_helper_retrieve_floorplans_and_reservations(array(
-					'tv_id' => $this->input->post('tv_id'),
-					'date' 	=> $this->input->post('date')
-				));
+				
 				$data['init_users'] 	= $init_users;
 				$data['team_venues'] 	= $team_venues;
 				
@@ -1456,119 +1447,8 @@ class Promoters extends MY_Controller {
 		}
 		
 		
-		
-		$tv_id 		= $this->input->post('tv_id');
-		$date_obj 	= $this->input->post('dateObj');
-				
-		$month 	= $date_obj['currentMonth'];
-		$day 	= $date_obj['currentDay'];
-		$year 	= $date_obj['currentYear'];
-		$venue_floorplan = false;
-
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_teams', 'teams', true);
-		$this->load->helper('retrieve_venue_floorplan');
-		
-		$team_venues 	= $this->users_managers->retrieve_team_venues($this->vc_user->promoter->t_fan_page_id);
-		$init_users 	= array();
-		foreach($team_venues as $key => &$venue){
-			
-			if($venue->tv_id != $tv_id){
-				unset($team_venues[$key]);
-				continue;
-			}
 			
 			
-			/*
-			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
-			$venue_floorplan = $this->teams->retrieve_venue_floorplan($venue->tv_id, $this->vc_user->promoter->t_fan_page_id);
-			$venue_floors = new stdClass;
-			
-			//iterate over all items to extract floors
-			foreach($venue_floorplan as $key => $vlf){
-				if(!isset($vlf->vlf_id))
-					continue;
-				
-				if($vlf->vlf_deleted == 1)
-					continue;
-				
-				if(!array_key_exists($vlf->vlf_id, $venue_floors)){
-					
-					$floor_object = new stdClass;
-					$floor_object->items = array();
-					$floor_object->name = $vlf->vlf_floor_name;
-					
-					$floor_id = $vlf->vlf_id;
-					$venue_floors->$floor_id = $floor_object;
-					
-				}
-			}
-			
-			//for each floor, extract the items
-			foreach($venue_floors as $key => &$vf){
-							
-				foreach($venue_floorplan as $vlf){
-					if($key == $vlf->vlf_id){
-						//item is on THIS floor
-						
-						if($vlf->vlfi_id == NULL)
-							continue;
-						
-						if($vlf->vlfi_deleted == 1)
-							continue;
-											
-						$vf->items[] = $vlf;
-						
-					}
-				}
-				
-			}
-			
-			$venue->venue_floorplan = $venue_floors;
-			
-			$venue_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																						$this->vc_user->promoter->t_fan_page_id,
-																						date('Y-m-d', strtotime("$month/$day/$year")));
-			
-			foreach($venue_reservations as $vr){
-			
-				if(isset($vr->tglr_user_oauth_uid))
-					$init_users[] = $vr->tglr_user_oauth_uid;
-				elseif(isset($vr->pglr_user_oauth_uid)){
-					$init_users[] = $vr->pglr_user_oauth_uid;
-					$init_users[] = $vr->up_users_oauth_uid;
-				}
-				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
-			}
-			
-			$venue->venue_reservations = $venue_reservations;			
-			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		
-			 * */
-			$venue_floorplan = retrieve_venue_floorplan(array(
-				'tv_id' 							=> $venue->tv_id,
-				'team_fan_page_id' 					=> $this->vc_user->promoter->t_fan_page_id,
-				'retrieve_approved_reservations'	=> false
-			));
-			$venue = (object)array_merge((array)$venue, (array)$venue_floorplan);
-			
-			//Kint::dump($venue);
-			
-		}unset($venue);
-		
-		$init_users = array_unique($init_users);
-		$init_users = array_values($init_users);
-		
-		if($team_venues)
-			die(json_encode(array('success' => true, 'message' => $team_venues, 'init_users' => $init_users)));
-		
-		
-		die(json_encode(array('success' => false, 'message' => 'Invalid tv_id')));
-				
 	}
 
 	/**
@@ -2088,9 +1968,15 @@ class Promoters extends MY_Controller {
 	
 	private function _helper_promoter_guest_lists_and_members($pgla_id = false, $offset = false){
 		
+		
+		
+		
+		
 		//retrieve a list of all the guest lists a promoter has set up
 		$this->load->model('model_users_promoters', 'users_promoters', true);
 		$weekly_guest_lists = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
+		
+		
 		
 		$this->load->model('model_guest_lists', 'guest_lists', true);
 		//for each guest list, find all groups associated with it
@@ -2122,43 +2008,43 @@ class Promoters extends MY_Controller {
 				$offset = false;
 			
 			$gla->groups = $this->guest_lists->retrieve_single_guest_list_and_guest_list_members($gla->pgla_id, $gla->pgla_day, $offset);
-	
+			
 		}
 		
 		//Need simple array of all FBID's of users for javascript client-side FQL query
 		$users = array();
-		foreach($weekly_guest_lists as $wgl){
-			foreach($wgl->groups as $group){
+	//	foreach($weekly_guest_lists as $wgl){
+	//		foreach($wgl->groups as $group){
 				
 			//	$users[] = $group->head_user;
 			//	$users = array_merge($users, $group->entourage_users);
 				
-				if($group->head_user !== null)
-					$users[] = $group->head_user;
+	//			if($group->head_user !== null)
+	//				$users[] = $group->head_user;
 				
 				
-				foreach($group->entourage_users as $ent_user){
-					if($ent_user->pglre_oauth_uid !== null)
-						$users[] = $ent_user->pglre_oauth_uid;
-				}
+	//			foreach($group->entourage_users as $ent_user){
+		//			if($ent_user->pglre_oauth_uid !== null)
+		//				$users[] = $ent_user->pglre_oauth_uid;
+		//		}
 				
 				
 				
-			}
-		}
-		$users = array_unique($users);
-		$users = array_values($users);
+	//		}
+	//	}
+	//	$users = array_unique($users);
+	//	$users = array_values($users);
 		
-		foreach($users as $key => $val){
-			if(!is_numeric($val)){
-				unset($users[$key]);
-			}
-		}
+	//	foreach($users as $key => $val){
+	//		if(!is_numeric($val)){
+	//			unset($users[$key]);
+	//		}
+	//	}
 		
 		
-		if(($key = array_search(null, $users)) !== false) {
-		    unset($users[$key]);
-		}
+	//	if(($key = array_search(null, $users)) !== false) {
+	//	    unset($users[$key]);
+	//	}
 		
 		
 		return array($weekly_guest_lists, $users);
@@ -2490,321 +2376,6 @@ class Promoters extends MY_Controller {
 	
 	
 	
-	
-	
-
-	private function _helper_retrieve_floorplans_and_reservations($options){
-		
-		
-		
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_teams', 'teams', true);
-		
-		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->promoter->t_fan_page_id);
-		
-		
-		//are we looking for just 1 tv?
-		$tv_id 		= $this->input->post('tv_id');
-		$iso_date 	= $this->input->post('iso_date');
-		
-		
-		
-		$init_users = array();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//default date is today... lookup date of guest-list if pglr or tglr specified
-		$lookup_date = date('Y-m-d', time());
-		$pglr_id = $this->input->post('pglr_id');
-		$tglr_id = $this->input->post('tglr_id');
-		if($pglr_id && !$iso_date){
-			
-			$this->db->select('pgl.date as date')
-				->from('promoters_guest_lists pgl')
-				->join('promoters_guest_lists_reservations pglr', 'pglr.promoter_guest_lists_id = pgl.id')
-				->where(array(
-					'pglr.id' => $pglr_id
-				));
-			$query = $this->db->get();
-			$result = $query->row();
-			if($result && isset($result->date)){
-				$lookup_date = $result->date;
-			}
-			
-		}
-		if($tglr_id && !$iso_date){
-			
-			$this->db->select('tgl.date as date')
-				->from('teams_guest_lists tgl')
-				->join('teams_guest_lists_reservations tglr', 'tglr.team_guest_list_id = tgl.id')
-				->where(array(
-					'tglr.id' => $tglr_id
-				));
-			$query = $this->db->get();
-			$result = $query->row();
-			if($result && isset($result->date)){
-				$lookup_date = $result->date;
-			}
-			
-		}
-		if($iso_date){
-			$lookup_date = $iso_date;
-		}
-		
-		
-		
-
-		
-		
-		
-		
-		
-		foreach($team_venues as $key => &$venue){
-			
-			
-			if($tv_id){
-				
-				if($tv_id != $venue->tv_id){
-					unset($team_venues[$key]);
-					continue;
-				}
-				
-			}
-			
-			$venue->floorplan_iso_date = $lookup_date;
-			$venue->floorplan_human_date = date('l F j, Y', strtotime($lookup_date));
-			
-			//------------------------------------- EXTRACT FLOORPLAN -----------------------------------------
-
-			$venue_floorplan = $this->teams->retrieve_venue_floorplan($venue->tv_id, $this->vc_user->promoter->t_fan_page_id);
-			$venue_floors = new stdClass;
-			
-			//iterate over all items to extract floors
-			foreach($venue_floorplan as $key => $vlf){
-				if(!isset($vlf->vlf_id))
-					continue;
-				
-				if($vlf->vlf_deleted == 1)
-					continue;
-				
-				if(!array_key_exists($vlf->vlf_id, $venue_floors)){
-					
-					$floor_object = new stdClass;
-					$floor_object->items = array();
-					$floor_object->name = $vlf->vlf_floor_name;
-					
-					$floor_id = $vlf->vlf_id;
-					$venue_floors->$floor_id = $floor_object;
-					
-				}
-			}
-			
-			//for each floor, extract the items
-			foreach($venue_floors as $key => &$vf){
-							
-				foreach($venue_floorplan as $vlf){
-					if($key == $vlf->vlf_id){
-						//item is on THIS floor
-						
-						if($vlf->vlfi_id == NULL)
-							continue;
-						
-						if($vlf->vlfi_deleted == 1)
-							continue;
-											
-						$vf->items[] = $vlf;
-						
-					}
-				}
-				
-			}
-			
-			$venue->venue_floorplan = $venue_floors;
-
-
-
-
-
-
-
-			
-
-
-
-
-
-
-
-			$venue_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																						$this->vc_user->promoter->t_fan_page_id,
-																						$lookup_date);
-			foreach($venue_reservations as $vr){
-				
-				if(isset($vr->tglr_user_oauth_uid))
-					$init_users[] = $vr->tglr_user_oauth_uid;
-				elseif(isset($vr->pglr_user_oauth_uid)){
-					$init_users[] = $vr->pglr_user_oauth_uid;
-					$init_users[] = $vr->up_users_oauth_uid;
-				}
-					
-				
-			//	if($vr->entourage)
-			//		foreach($vr->entourage as $ent){
-			//			$init_users[] = $ent;
-			//		}
-				
-			}//unset($vr);
-			$venue->venue_reservations = $venue_reservations;
-			
-			
-			
-			
-			
-			
-			
-			
-			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																						$this->vc_user->promoter->t_fan_page_id,
-																						false);
-			foreach($all_upcoming_reservations as $vr){
-				
-				if(isset($vr->tglr_user_oauth_uid))
-					$init_users[] = $vr->tglr_user_oauth_uid;
-				elseif(isset($vr->pglr_user_oauth_uid)){
-					$init_users[] = $vr->pglr_user_oauth_uid;
-					$init_users[] = $vr->up_users_oauth_uid;
-				}
-					
-				
-			//	if($vr->entourage)
-			//		foreach($vr->entourage as $ent){
-			//			$init_users[] = $ent;
-			//		}
-				
-			}//unset($vr);																	
-																						
-			
-			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
-			
-			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		}
-		unset($venue);
-		
-		
-		$init_users = array_unique($init_users);
-		$init_users = array_values($init_users);
-		
-		//$data['init_users'] = $init_users;
-		//$data['team_venues'] = $team_venues;
-		
-		return array($team_venues, $init_users);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_teams', 'teams', true);
-		
-		$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->promoter->t_fan_page_id);
-		$this->load->helper('retrieve_venue_floorplan');
-		
-		
-		$init_users = array();
-		foreach($team_venues as $key => &$venue){
-			
-			
-			
-			
-			$venue->floorplan_iso_date = $lookup_date;
-			$venue->floorplan_human_date = date('l F j, Y', strtotime($lookup_date));
-			
-			
-			
-			
-			
-			if(isset($options['tv_id']))
-				if($venue->tv_id != $options['tv_id']){
-					unset($team_venues[$key]);
-					continue;
-				}
-			
-			
-			
-			
-			
-			$venue_floorplan = retrieve_venue_floorplan(array(
-				'tv_id' 							=> $venue->tv_id,
-				'team_fan_page_id' 					=> $this->vc_user->promoter->t_fan_page_id,
-				'retrieve_approved_reservations'	=> false
-			));
-			$venue = (object)array_merge((array)$venue, (array)$venue_floorplan);
-			$venue->venue_floorplan = (array)$venue->venue_floorplan;
-			
-
-			$all_upcoming_reservations = $this->teams->retrieve_venue_floorplan_reservations($venue->tv_id,
-																								$this->vc_user->promoter->t_fan_page_id,
-																								false);
-																								
-			//get a list of all the users on this reservation																					
-			foreach($all_upcoming_reservations as $vr){
-				
-				if(isset($vr->tglr_user_oauth_uid))
-					$init_users[] = $vr->tglr_user_oauth_uid;
-				elseif(isset($vr->pglr_user_oauth_uid)){
-					$init_users[] = $vr->pglr_user_oauth_uid;
-					$init_users[] = $vr->up_users_oauth_uid;
-				}
-				
-				if($vr->entourage)
-					foreach($vr->entourage as $ent){
-						$init_users[] = $ent;
-					}
-				
-			}unset($vr);																	
-																						
-			
-			$venue->venue_all_upcoming_reservations = $all_upcoming_reservations;
-			
-			//------------------------------------- END EXTRACT FLOORPLAN -----------------------------------------
-		
-			
-			
-		}
-		unset($venue);
-		
-		$init_users = array_unique($init_users);
-		$init_users = array_values($init_users);
-		
-		
-		
-		
-		*/
-		
-		
-		
-		
-		
-		return array($team_venues, $init_users);
-		
-	}
 
 	
 	/**

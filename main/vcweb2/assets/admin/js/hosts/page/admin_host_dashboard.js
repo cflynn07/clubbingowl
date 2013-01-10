@@ -2,85 +2,67 @@ if(typeof window.vc_page_scripts === 'undefined')
 	window.vc_page_scripts = {};
 
 jQuery(function(){
-	
 	window.vc_page_scripts.admin_host_dashboard = function(){
-		
-		if(!window.page_obj || !window.page_obj.backbone)
-			return false;
+
+		var EVT 				= window.ejs_view_templates_admin_hosts;
+		var globals 			= window.module.Globals.prototype;
+		var datepicker;
+		var collapsed			= false;
+							
+							
+		if(!window.page_obj.team_venues)
+			return;
+			
+			
 		
 		var Models 		= {};
 		var Collections = {};
 		var Views 		= {};
-		var EVT 		= window.ejs_view_templates_admin_hosts;
-					
-		Models.GuestListMember = {
+		
+		Models.Reservation = {
 			initialize: function(){
 				
 			},
 			defaults: {
 				
 			}
-		}; Models.GuestListMember = Models.GuestListMember = Backbone.Model.extend(Models.GuestListMember);
+		}; Models.Reservation = Backbone.Model.extend(Models.Reservation);
 		
-		Collections.GuestListMembers = {
-			model: Models.GuestListMember,
+		
+		
+		
+		
+		Collections.Reservations = {
+			model: Models.Reservation,
 			initialize: function(){
 				
 			}
-		}; Collections.GuestListMembers = Backbone.Collection.extend(Collections.GuestListMembers);
+		}; Collections.Reservations = Backbone.Collection.extend(Collections.Reservations);
 		
 		
 		
 		
-		Models.Promoter = {
-			initialize: function(){
-				
-			},
-			defaults: {
-				
-			}
-		}; Models.Promoter = Backbone.Model.extend(Models.Promoter);
-		
-		Collections.Promoters = {
-			model: Models.Promoter,
-			initialize: function(){
-				
-			}
-		}; Collections.Promoters = Backbone.Collection.extend(Collections.Promoters);
-		
-		
-		
-		
-		Models.TeamVenue = {
-			initialize: function(){
-				
-			},
-			defaults: {
-				
-			}
-		}; Models.TeamVenue = Backbone.Model.extend(Models.TeamVenue);
-		
-		Collections.TeamVenues = {
-			model: Models.TeamVenue,
-			initialize: function(){
-				
-			}
-		}; Collections.TeamVenues = Backbone.Collection.extend(Collections.TeamVenues);
-		
-		
-		
-		
-		
-		
-		Views.GuestList = {
+		Views.Reservation = {
+			tagName: 'tr',
 			initialize: function(){
 				
 			},
 			render: function(){
 				
+				var template = EVT['reservations_overview/ro_reservation'];
+				if(this.options.reservations_all)
+					template = EVT['reservations_overview/ro_reservation_all'];
+				
+				
+								
+				
 				var html = new EJS({
-					text: EVT['guest_list_wrapper']
-				}).render(this.model.toJSON());
+					text: template
+				}).render(jQuery.extend({
+					collapsed: collapsed
+				}, this.model.toJSON()));
+							
+				
 				this.$el.html(html);
 				
 				return this;
@@ -89,136 +71,404 @@ jQuery(function(){
 			events: {
 				
 			}
-		}; Views.GuestList = Backbone.View.extend(Views.GuestList);
+		}; Views.Reservation = Backbone.View.extend(Views.Reservation);
 		
-		
-		
-		Views.ListsWrapper = {
-			el: '#lists_wrapper',
+		Views.ReservationsHolder = {
 			initialize: function(){
-				
-				
-				
-				var _this = this;
-				var hash_change_callback = function(){
-					console.log('hashchange');
-					_this.render_active_tv(window.location.hash.replace('#', ''));
-				};
-				jQuery(window).bind('hashchange', hash_change_callback);
-				
-				//extend unbind callback
-				var temp = window.module.Globals.prototype.unbind_callback;
-				window.module.Globals.prototype.unbind_callback = function(){
-					jQuery(window).unbind('hashchange', hash_change_callback);
-					temp();
-				};
 				
 				this.render();
 			},
 			render: function(){
 				
-				var template = EVT['lists_wrapper'];
-				var html = new EJS({
-					text: 			template
-				}).render({
-					team_venues: 	collection_team_venues.toJSON()
-				});
+				var _this = this;
 				
+				
+				
+				var reservations_all = false;
+				var template = EVT['reservations_overview/ro_reservations_table'];
+				if(this.options.subtype == 'all' && this.options.tv_id === false){
+					template = EVT['reservations_overview/ro_reservations_table_all'];
+					reservations_all = true;
+				}
+				
+				
+				
+						
+				
+				
+				
+				
+				
+				
+				var html = new EJS({
+					text: template
+				}).render({});
 				this.$el.html(html);
 				
-				//show first venue or #hash indicated venue
-				if(window.location.hash){
-					var tv_id = window.location.hash.replace('#', '');
-					this.$el.find('select#venue_select').val(tv_id);
-					this.render_active_tv(tv_id);	
-				}else{
-					var tv = collection_team_venues.at(0);
-					window.location.hash = tv.get('tv_id');
-				}
+				
+				if(this.options.subtype == 'tables'){
+					
+					
+					var table_reservations = this.collection.filter(function(m){
+						
+						var vlfit_id 	= m.get('vlfit_id');
+					//	var approved 	= ((m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1') || m.get('tglr_approved') == '1');
+						
+						var approved;
+						if(m.get('pglr_approved') !== undefined){
 							
-				return this;
-				
-			},
-			render_active_tv: function(tv_id){
-				
-				var active_venue_wrapper = this.$el.find('div#active_venue_wrapper');
-				var team_venue = collection_team_venues.where({
-					tv_id: tv_id
-				});
-				if(!team_venue.length)
-					team_venue = collection_team_venues.at(0);
-				else
-					team_venue = team_venue[0];
-				
-				
-				//load_venue_header_view
-				var html = new EJS({
-					text: EVT['active_tv_header']
-				}).render(team_venue.toJSON());
-				active_venue_wrapper.html(html);
-				
-				//Load GL view for each promoter
-				collection_promoters.each(function(m){
-					
-					var view_promoter_gl = new Views.GuestList({
-						model: m
+							if(m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}else{
+							
+							if(m.get('tglr_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}
+						
+						
+						
+						
+						
+						
+						if(_this.options.tv_id !== false){
+							
+							var vlfit_id_check 	= (vlfit_id != undefined && vlfit_id != null && vlfit_id != 'null');
+							var tv_id_check		= (m.get('tv_id') == _this.options.tv_id);
+							var match 			= approved && vlfit_id_check && tv_id_check;
+							
+							return match;
+								 
+						}else{
+							
+							return approved;
+							
+						}
+							 	
 					});
-					active_venue_wrapper.append(view_promoter_gl.el);
-					view_promoter_gl.render();
+					
+					
+					_.each(table_reservations, function(m){
+						
+						var view = new Views.Reservation({
+							model: 				m,
+							reservations_all: 	reservations_all
+						});
+						
+						_this.$el.find('table[data-top_table] > tbody:first').append(view.el);
+						view.render();
+						
+					});
+					
+					
+				}else if(this.options.subtype == 'all'){
+					
+					
+					
+					var all_reservations = this.collection.filter(function(m){
+						
+				//		var approved 	= ((m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1') || m.get('tglr_approved') == '1');
+						
+						var approved;
+						if(m.get('pglr_approved') !== undefined){
+							
+							if(m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}else{
+							
+							if(m.get('tglr_approved') == '1')
+								approved = true;
+							else
+								approved = false;
+							
+						}
+						
+						
+						
+						
+						
+						
+						
+						if(_this.options.tv_id !== false){
+							
+							var tv_id_check		= (m.get('tv_id') == _this.options.tv_id);
+							var match 			= approved && tv_id_check;
+							
+							return match;
+								 
+						}else{
+							
+							return approved;
+							
+						}
+						
+					});
+					
+					_.each(all_reservations, function(m){
+						
+						var view = new Views.Reservation({
+							model: 				m,
+							reservations_all: 	reservations_all
+						});
+						
+						_this.$el.find('table[data-top_table] > tbody:first').append(view.el);
+						view.render();
+						
+					});
+					
+					
+				}
+				
+				var _this = this;
+				jQuery.populateFacebook(this.$el, function(){
+					
+					_this.$el.find('table[data-top_table]').dataTable({
+						bJQueryUI: true,
+						bDestroy: 	true,
+						bAuthWidth: true
+					});
+					
+					_this.$el.find('table[data-top_table]').css({
+						width: '100%'
+					});
 					
 				});
 				
 				
-				//Load House GL view
-				
-				//Bind the event.
-				
-				window.location.hash = tv_id;
-				return this; 
+				return this;
 			},
 			events: {
-				'change select#venue_select': 'events_change_venue_select'
-			},
-			events_change_venue_select: function(e){
-				console.log('events_change_venue_select');
-				
-				var el 		= this.$el.find('select#venue_select');
-				var tv_id 	= el.val();
-			//	this.render_active_tv(tv_id);
-				window.location.hash = tv_id;
-			
 				
 			}
-		}; Views.ListsWrapper = Backbone.View.extend(Views.ListsWrapper);
-		
-		var collection_team_venues	= new Collections.TeamVenues(window.page_obj.backbone.team_venues);
-		var collection_promoters	= new Collections.TeamVenues(window.page_obj.backbone.promoters);
-		
-		var view_listsWrapper 		= new Views.ListsWrapper({});
+		}; Views.ReservationsHolder = Backbone.View.extend(Views.ReservationsHolder);
 		
 		
 		
 		
-		var hash_change_callback = function(){
 		
-<<<<<<< HEAD
-		//	jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
 		
-=======
-		var hash_change_callback = function(){
-			//jQuery('select#venue_select').val(window.location.hash.replace('#', '')).trigger('change');
->>>>>>> 103b95ac936f8f41f4f14b1e7649e92ba2d6885c
+		
+		
+		var initialize = function(tv){
+			
+			var team_venues = tv || window.page_obj.team_venues;
+			
+			//build up a collection of all reservations		
+			var collection_reservations 	= new Collections.Reservations();
+			
+			
+			for(var i in team_venues){
+				var venue = team_venues[i];
+								
+				var temp = jQuery.extend({}, venue);
+				delete temp.venue_all_upcoming_reservations;
+				delete temp.venue_floorplan;
+				delete temp.venue_reservations;
+				
+				for(var k in venue.venue_reservations){
+			
+					var reservation = jQuery.extend({}, temp, venue.venue_reservations[k]);
+					
+					collection_reservations.add(reservation);
+					
+				}
+				
+			}
+			
+			var views = [];
+			
+			for(var i in team_venues){
+				var venue = team_venues[i];
+				
+				var view_tables = new Views.ReservationsHolder({
+					el: 		'#tabs-' + venue.tv_id + '-1',
+					collection: collection_reservations,
+					subtype: 	'tables',
+					tv_id:		venue.tv_id
+				});			
+				
+				var view_all = new Views.ReservationsHolder({
+					el: 		'#tabs-' + venue.tv_id + '-2',
+					collection: collection_reservations,
+					subtype: 	'all',
+					tv_id:		venue.tv_id
+				});
+				
+				views.push(view_tables);
+				views.push(view_all);
+				
+			}
+			
+			
+			/*
+			
+			var collection_all_reservations = new Collections.Reservations();
+			for(var i in window.page_obj.team_venues){
+				var venue = window.page_obj.team_venues[i];
+				
+				var temp = jQuery.extend({}, venue);
+				delete temp.venue_all_upcoming_reservations;
+				delete temp.venue_floorplan;
+				delete temp.venue_reservations;
+				
+				
+				for(var k in venue.venue_all_upcoming_reservations){
+				
+					var reservation = jQuery.extend({}, temp, venue.venue_all_upcoming_reservations[k]);
+					collection_all_reservations.add(reservation);
+					
+				}
+					
+			}
+			
+			var view_all_upcoming = new Views.ReservationsHolder({
+				el: 		'#all_upcoming_reservations',
+				collection: collection_all_reservations,
+				subtype: 	'all',
+				tv_id:		false
+			});		
+			views.push(view_all_upcoming);
+			
+			*/
+			
+			
+			jQuery('a[data-action="expand-collapse-all"]').unbind('click').bind('click', function(e){
+				e.preventDefault();
+			
+				collapsed = !collapsed;
+				
+				for(var i in views){
+					var view = views[i];
+					view.render();
+				}
+				
+				return false;
+			});
+				
+
 		};
-		jQuery(window).bind('hashchange', hash_change_callback);
+		initialize();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		jQuery('div#tabs').tabs({}).css('display', 'block').resizable();
+		jQuery('div#tabs div.tabs_tables').tabs();
+				
+		jQuery('div#tabs > div.ui-widget-header select.venue_select').bind('change', function(){
+			
+			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));	
+			
+
+
+
+
+			var selected_tv_id = jQuery('select.venue_select option[value=' + jQuery(this).val() + ']').attr('data-tv_id');
+			
+			
+			
+			
+			jQuery('input.table_datepicker').each(function(){
+				if(jQuery(this).hasClass('hasDatepicker'))
+					jQuery(this).datepicker('destroy');	
+			});
+			jQuery('div[data-clear-zone]').empty();
+		
+			
+		
+		
+			var tv_display_module;
+			for(var i in window.page_obj.team_venues){
+				
+				var venue 				= window.page_obj.team_venues[i];
+				if(venue.tv_id != selected_tv_id)
+					continue;
+				
+				tv_display_module 	= jQuery.extend(true, {}, globals.module_tables_display);
+				tv_display_module
+					.initialize({
+						display_target: 	'#tabs-' + venue.tv_id + '-0',
+						team_venue: 		venue,
+						factor: 			0.5,
+						options: {
+							display_slider: true
+						}
+					});
+								
+				break;
+	
+			}
+			
+			
+			
+			datepicker = jQuery('div#tabs div[data-tv_id=' + selected_tv_id + '] input.table_datepicker').datepicker({
+				dateFormat: 'DD MM d, yy',
+				maxDate: '+6d',
+				minDate: '-3y',
+				defaultDate: new Date(),
+				onSelect: function(dateText, inst){
+										
+					var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', jQuery(this).datepicker('getDate'));
+					tv_display_module.manual_date(iso_date);
+					
+					tv_display_module.refresh_table_layout(selected_tv_id, iso_date, function(data){
+						
+						if(!data.success)
+							return;
+						
+						initialize(data.message.team_venues);
+						
+					});
+					jQuery('#displayed_layout_date').html(jQuery(this).val());
+					
+		       }
+			});
+			datepicker.datepicker('setDate', '0 days');			
+									
+		}).trigger('change');
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
 			
-			jQuery(window).unbind('hashchange', hash_change_callback);
-		}
-		
-	}; 
+			jQuery('div[data-clear-zone]').empty();
+			
+			jQuery('input.table_datepicker').each(function(){
+				if(jQuery(this).hasClass('hasDatepicker'))
+					jQuery(this).datepicker('destroy');	
+			});
+			
+			jQuery('div#tabs > div.ui-widget-header select.venue_select').unbind('change');
 
+		}
+
+
+
+	}
 });
