@@ -19,8 +19,15 @@ div#unavailable_overlay{
     <?= Kint::dump($central) ?>
     <?php endif; ?>
     
+    
+    
+    <?php if(false): ?>
     <h2>List Description</h2>
     <p style="border:1px dashed #CCC; padding:5px;"><?= $guest_list->tgla_description ?></p>
+	<?php endif; ?>
+
+
+
 
     <div class="guestlist-form-left">
       	
@@ -29,29 +36,35 @@ div#unavailable_overlay{
       </div>
       
       <p>
+      	<h2>Description</h2>
+      	<p><?= $guest_list->tgla_description ?></p>
+      </p>
+      
+      
+      <p>
       	<h2>Info</h2>
       	
       	<table id="list_info">
       		<tbody>
       			<tr>
       				<td style="font-weight:500; text-align:left;">Minimum Age</td>
-      				<td><?= $guest_list->tgla_min_age ?></td>
+      				<td style="text-align:right;"><?= $guest_list->tgla_min_age ?></td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">Regular Cover</td>
-      				<td>$<?= $guest_list->tgla_regular_cover ?></td>
+      				<td style="text-align:right;">$<?= $guest_list->tgla_regular_cover ?></td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">List Cover</td>
-      				<td>$<?= $guest_list->tgla_gl_cover ?></td>
+      				<td style="text-align:right;">$<?= $guest_list->tgla_gl_cover ?></td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">Doors Open</td>
-      				<td><?= $guest_list->tgla_door_open ?>:00</td>
+      				<td style="text-align:right;"><?= $guest_list->tgla_door_open ?>:00</td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">List Closes</td>
-      				<td><?= $guest_list->tgla_door_close ?>:00</td>
+      				<td style="text-align:right;"><?= $guest_list->tgla_door_close ?>:00</td>
       			</tr>
       			<?php if($guest_list->tgla_additional_info_1): ?>
       			<tr>

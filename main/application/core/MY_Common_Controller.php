@@ -160,6 +160,8 @@ class MY_Common_Controller extends CI_Controller{
 
 		//http://d1pv30wi5cq71r.cloudfront.net/vc-images/
 		$central->s3_uploaded_images_base_url = $this->config->item('s3_uploaded_images_base_url');
+	
+		
 		
 		# ----------- caching ------------- #
 		$central->cache_admin_css = $this->config->item('cache_admin_css');

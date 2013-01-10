@@ -33,14 +33,26 @@
     <?= Kint::dump($central) ?>
 <?php endif; ?>
     
+    
+    
+    <?php if(false): ?>
     <h2>List Description</h2>
     <p style="border:1px dashed #CCC; padding:5px;"><?= $guest_list->pgla_description ?></p>
+	<?php endif; ?>
+
 
     <div class="guestlist-form-left">
       	
       <div class="guestlist-form-image">
         <img id="gl_image" src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $guest_list->pgla_image . '_p.jpg' ?>" style="width:188px; height:266px; border-radius:10px;" alt="Event Image">
       </div>
+      
+      
+      <p>
+      	<h2>Description</h2>
+      	<p><?= $guest_list->pgla_description ?></p>
+      </p>
+      
       
       <p>
       	<h2>Info</h2>
@@ -49,23 +61,23 @@
       		<tbody>
       			<tr>
       				<td style="font-weight:500; text-align:left;">Minimum Age</td>
-      				<td><?= $guest_list->pgla_min_age ?></td>
+      				<td style="text-align:right;"><?= $guest_list->pgla_min_age ?></td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">Regular Cover</td>
-      				<td>$<?= $guest_list->pgla_regular_cover ?></td>
+      				<td style="text-align:right;">$<?= $guest_list->pgla_regular_cover ?></td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">List Cover</td>
-      				<td>$<?= $guest_list->pgla_gl_cover ?></td>
+      				<td style="text-align:right;">$<?= $guest_list->pgla_gl_cover ?></td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">Doors Open</td>
-      				<td><?= $guest_list->pgla_door_open ?>:00</td>
+      				<td style="text-align:right;"><?= $guest_list->pgla_door_open ?>:00</td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">List Closes</td>
-      				<td><?= $guest_list->pgla_door_close ?>:00</td>
+      				<td style="text-align:right;"><?= $guest_list->pgla_door_close ?>:00</td>
       			</tr>
       			<?php if($guest_list->pgla_additional_info_1): ?>
       			<tr>
