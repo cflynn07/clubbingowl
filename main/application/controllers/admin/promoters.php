@@ -915,7 +915,7 @@ class Promoters extends MY_Controller {
 	//	var_dump($arg2);	44
 		
 		
-		$data['title'] = 'Promoter Mobile Interface - VibeCompass';
+		$data['title'] = 'Promoter Mobile Interface - ClubbingOwl';
 		
 		
 		//for root, just load regular view of page

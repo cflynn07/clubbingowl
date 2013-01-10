@@ -175,7 +175,7 @@ class Plugin extends MY_Controller {
 			
 			
 			$header_custom = new stdClass;
-			$header_custom->title_prefix = ' | VibeCompass Plugin | ';
+			$header_custom->title_prefix = ' | ClubbingOwl Plugin | ';
 			$this->load->vars('header_custom', $header_custom);
 			
 									

@@ -1302,7 +1302,7 @@ class Promoters extends MY_Controller {
 		
 		$cookie_data = array('name' 		=> 'k',
 								'value' 	=> json_encode($test),
-								'domain'	=> '.vibecompass.' . TLD,
+								'domain'	=> '.clubbingowl.' . TLD,
 								'expire'	=> '10',
 								'path' 		=> '/',
 								'prefix'	=> 'vc_',
