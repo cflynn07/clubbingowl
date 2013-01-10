@@ -176,13 +176,20 @@ jQuery(function(){
 						
 						var approved;
 						if(m.get('pglr_approved') !== undefined){
+							//promoter request
 							
-							if(m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1')
-								approved = true;
-							else
-								approved = false;
+							
+							if(m.get('pglr_table_request') == '1'){
+								approved = (m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1');
+							}else{
+								approved = (m.get('pglr_approved') == '1');
+							}
+														
+								
 							
 						}else{
+							//team request
+							
 							
 							if(m.get('tglr_approved') == '1')
 								approved = true;
@@ -308,8 +315,12 @@ jQuery(function(){
 			}
 			
 			
-			/*
 			
+			
+			
+			
+			
+			/*
 			var collection_all_reservations = new Collections.Reservations();
 			for(var i in window.page_obj.team_venues){
 				var venue = window.page_obj.team_venues[i];
@@ -338,6 +349,10 @@ jQuery(function(){
 			views.push(view_all_upcoming);
 			
 			*/
+			
+			
+			
+			
 			
 			
 			jQuery('a[data-action="expand-collapse-all"]').unbind('click').bind('click', function(e){

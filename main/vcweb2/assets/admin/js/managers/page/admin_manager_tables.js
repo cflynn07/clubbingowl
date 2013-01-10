@@ -120,10 +120,15 @@ jQuery(function(){
 						var approved;
 						if(m.get('pglr_approved') !== undefined){
 							
-							if(m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1')
-								approved = true;
-							else
-								approved = false;
+							
+							
+							if(m.get('pglr_table_request') == '1'){
+								approved = (m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1');
+							}else{
+								approved = (m.get('pglr_approved') == '1');
+							}
+							
+							
 							
 						}else{
 							

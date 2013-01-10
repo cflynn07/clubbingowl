@@ -83,7 +83,7 @@
 							<ul>
 								<li><a href="#tabs-<?= $venue->tv_id ?>-0">Floorplan</a></li>
 								<li><a href="#tabs-<?= $venue->tv_id ?>-1">Table Reservations</a></li>
-								<li><a href="#tabs-<?= $venue->tv_id ?>-2">Guest List & Table Reservations</a></li>
+								<li><a href="#tabs-<?= $venue->tv_id ?>-2">Guest Check-In</a></li>
 							</ul>
 							
 						</div>
@@ -112,6 +112,12 @@
 							<h3>All Guest List & Table Reservations</h3>
 							
 							<div class="full_width last all_reservations"></div>
+							
+							
+							
+							
+							
+							
 							
 						</div>
 						
