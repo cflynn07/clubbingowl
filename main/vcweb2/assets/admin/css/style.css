@@ -1898,3 +1898,9 @@ input.hasDatepicker {
 #left_menu ul.sitemap li {
 	white-space: nowrap;
 }
+
+
+
+div {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}

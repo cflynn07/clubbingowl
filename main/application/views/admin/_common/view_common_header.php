@@ -9,6 +9,7 @@
 
 <meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=980; user-scalable=1;" /> 
 
 
 <?php # ------------------------ End META tags ------------------------ # ?>
@@ -68,7 +69,36 @@
 <link rel="shortcut icon" href="<?=$central->global_assets?>images/fav_v_2.jpg">
 
 
-
 <?php if(extension_loaded('newrelic')): ?>
 	<?= newrelic_get_browser_timing_header(); ?>
 <?php endif; ?>
+
+
+<script type="text/javascript">
+jQuery(function(){
+	
+	if(jQuery.isMobile()){
+		jQuery('body').css('background', 'none');
+		jQuery('#primary_left').hide();
+		jQuery('#primary_right').css({
+			margin: 0,
+			width: '980px',
+			position: 'absolute',
+			top: 0,
+			left: 0
+		});  
+		jQuery('#primary_right > .inner').css({
+			padding: '5px',
+			margin: 0,
+			width: '970px',
+			overflow: 'hidden',
+			'min-width': 0
+		});
+		jQuery('#primary_right > .inner > div').css({
+			width: 			'980px',
+			'max-width': 	'980px'
+		});
+	}
+	  
+});
+</script>

@@ -336,11 +336,11 @@ class Promoters extends MY_Controller {
 	private function _dashboard($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		//force mobile devices onto mobile site
-		$this->load->library('user_agent');
-		if($this->agent->is_mobile()){
-			redirect('/admin/promoters/mobile/', 'refresh');
-			die();
-		}
+	//	$this->load->library('user_agent');
+	//	if($this->agent->is_mobile()){
+	//		redirect('/admin/promoters/mobile/', 'refresh');
+	//		die();
+	//	}
 
 
 		$this->load->helper('run_gearman_job');
@@ -703,7 +703,6 @@ class Promoters extends MY_Controller {
 		//retrieve promoter's guest lists
 		$data['promoters_guest_lists'] = $this->library_promoters->retrieve_promoter_guest_list_authorizations();
 		
-		Kint::dump($data);
 		
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists', $data, true);
 	}

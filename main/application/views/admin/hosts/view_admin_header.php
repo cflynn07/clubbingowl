@@ -12,10 +12,6 @@
 <?php //$this->load->view('admin/_common/pusher/view_global_host_pusher_notifications'); ?>
 
 
-<meta name="viewport" content="width=980; user-scalable=1;" /> 
-
-
-
 </head>
 <body style="background:none;">
 <?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
