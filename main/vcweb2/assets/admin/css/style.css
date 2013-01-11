@@ -1904,3 +1904,11 @@ input.hasDatepicker {
 div {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
+
+/**
+ * 	Prevent auto-zooming in on ios
+ */
+input[type="text"]:focus, input[type="password"],
+textarea:focus, select:focus {
+  font-size: 16px;
+}
