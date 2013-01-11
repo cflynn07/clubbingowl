@@ -401,12 +401,8 @@ jQuery(function(){
 					
 					jQuery('input.checkbox1').button();
 					
-					jQuery('label.ui-button').each(function(){
 						
-						jQuery.NoClickDelay(this);
-						
-					});
-					
+					jQuery.NoClickDelay(_this.$el.find('table.reservations_holder').get(0));
 					
 			//		_this.$el.find('input[type=checkbox]').iphoneStyle({
 			//			checkedLabel: 	'Yes',
