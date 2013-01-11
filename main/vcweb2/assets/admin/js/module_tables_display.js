@@ -568,27 +568,35 @@
 			if(ui_tables_options.display_slider){
 				
 								
-				
-				this.$el.find('#slider-' + this.model.get('tv_id')).slider({
+				var slider_opts = {
 					value: 	Math.floor(model_display_settings.get('factor') * 100),
-					min: 	30,
-		            stop: 	function(event, ui){
-		        
-		        
-		        		
-		            	
-		            	var val = ui.value / 100;
-		            	model_display_settings.set({
-		            		factor: val
-		            	});
-		            	
-		            	//set all other sliders on page?
-		            	jQuery('div[data-function=tv_size_slider]').slider('value', ui.value);
-		            	
-		            }
-				});
+					min: 	30
+				};
+				
+				var change_func = function(event, ui){
+					var val = ui.value / 100;
+	            	model_display_settings.set({
+	            		factor: val
+	            	});
+	            	
+	            	//set all other sliders on page?
+	            	jQuery('div[data-function=tv_size_slider]').slider('value', ui.value);
+				}
 				
 				
+				if(jQuery.isMobile()){
+					
+					slider_opts.stop = change_func;
+					
+				}else{
+					
+					slider_opts.slide = change_func;
+					
+				}
+				
+			
+				
+				this.$el.find('#slider-' + this.model.get('tv_id')).slider(slider_opts);
 				
 			}
 			

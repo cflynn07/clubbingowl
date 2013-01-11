@@ -258,8 +258,14 @@ jQuery(document).ready(function() {
 	
 	
 	jQuery.extend({
+		
 	    isIpad: function(){
 	        return navigator.userAgent.match(/ipad/i) != null;
+	    },
+	    isMobile: function(){
+	    	
+	    	return /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+	    	
 	    },
 	    populateFacebook: function(el, callback){
 	    	

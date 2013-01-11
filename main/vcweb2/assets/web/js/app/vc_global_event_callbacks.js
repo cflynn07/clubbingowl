@@ -32,6 +32,11 @@ jQuery.extend({
 			}, 1000);
 		
 	},
+	isMobile: function(){
+	    	
+    	return /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+    	
+    },
     isIpad: function(){
         return navigator.userAgent.match(/ipad/i) != null;
     },
