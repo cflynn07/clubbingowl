@@ -23,6 +23,16 @@
 		onTouchStart: function(e) {
 			e.preventDefault();
 			this.moved = false;
+			
+			
+			var el = jQuery(this.element);
+			if(el.hasClass('ui-button')){
+				
+				if(!el.hasClass('ui-state-active'))
+					el.addClass('ui-state-active');
+				
+			}
+			
 	
 			this.element.addEventListener('touchmove', this, false);
 			this.element.addEventListener('touchend', this, false);
