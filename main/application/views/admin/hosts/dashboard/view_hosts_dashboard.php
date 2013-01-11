@@ -11,14 +11,17 @@
 
 <div id="admin_managers_tables_wrapper">
 
+<?php if(false): ?>
 	<h1>Table & Guest List Reservations</h1>
 		
 	<h3>
 		Venue Reservations
 		<img class="info_icon tooltip" title="Requests organized by venue" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 	</h3>
+<?php endif; ?>	
+
 	
-	<div id="tabs" style="display:none;margin-bottom:0px; height: auto !important;">
+	<div id="tabs" style="display:none; margin-bottom:0px; height:auto !important; width:977px;">
 		
 		
 		<div class="ui-widget-header" style="cursor: default;">
@@ -81,9 +84,9 @@
 							</span>
 							
 							<ul>
-								<li><a href="#tabs-<?= $venue->tv_id ?>-0">Floorplan</a></li>
-								<li><a href="#tabs-<?= $venue->tv_id ?>-1">Table Reservations</a></li>
-								<li><a href="#tabs-<?= $venue->tv_id ?>-2">Guest Check-In</a></li>
+								<li><a style="font-size:18px;" href="#tabs-<?= $venue->tv_id ?>-0">Floorplan</a></li>
+								<li><a style="font-size:18px;" href="#tabs-<?= $venue->tv_id ?>-1">Table Reservations</a></li>
+								<li><a style="font-size:18px;" href="#tabs-<?= $venue->tv_id ?>-2">Guest Check-In</a></li>
 							</ul>
 							
 						</div>
