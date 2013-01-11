@@ -598,6 +598,22 @@
 				
 				this.$el.find('#slider-' + this.model.get('tv_id')).slider(slider_opts);
 				
+				
+				if(jQuery.isMobile()){
+					jQuery('div[data-function="tv_size_slider"]').css({
+						margin: '50px 0 50px 0'
+					});
+					
+					jQuery('a.ui-slider-handle').css({
+						width: 		'30px',
+						height: 	'30px',
+						top: 		'-11px'
+					});
+				}
+				
+				
+				
+				
 			}
 			
 			
