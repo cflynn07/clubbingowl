@@ -565,11 +565,17 @@
 			
 			
 			
-			if(ui_tables_options.display_slider)
+			if(ui_tables_options.display_slider){
+				
+								
+				
 				this.$el.find('#slider-' + this.model.get('tv_id')).slider({
 					value: 	Math.floor(model_display_settings.get('factor') * 100),
 					min: 	30,
-		            slide: 	function(event, ui){
+		            stop: 	function(event, ui){
+		        
+		        
+		        		
 		            	
 		            	var val = ui.value / 100;
 		            	model_display_settings.set({
@@ -581,6 +587,10 @@
 		            	
 		            }
 				});
+				
+				
+				
+			}
 			
 			
 			

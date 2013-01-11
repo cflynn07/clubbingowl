@@ -12,7 +12,7 @@
 <?php //$this->load->view('admin/_common/pusher/view_global_host_pusher_notifications'); ?>
 
 
-<meta name="viewport" content="width=980; user-scalable=0;" /> 
+<meta name="viewport" content="width=980; user-scalable=1;" /> 
 
 
 
