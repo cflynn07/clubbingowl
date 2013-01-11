@@ -414,7 +414,7 @@ jQuery(function(){
 						first_only=true;
 						
 						//speed shit up
-						new FastClick(this);
+						new NoClickDelay(this);
 						console.log('done1!');
 						
 					});
@@ -432,7 +432,7 @@ jQuery(function(){
 						first_only=true;
 						
 						//speed shit up
-						new FastClick(this);
+						new NoClickDelay(this);
 						console.log('done2!');
 						
 					});
