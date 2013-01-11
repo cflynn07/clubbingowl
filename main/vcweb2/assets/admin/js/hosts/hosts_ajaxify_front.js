@@ -174,7 +174,7 @@
 		
 		
 		//
-		new FastClick(document.body);
+	
 				
 				
 				

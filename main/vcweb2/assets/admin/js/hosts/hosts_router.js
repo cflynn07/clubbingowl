@@ -61,7 +61,6 @@ jQuery(function(){
 		hashChange: false
 	});
 	
-	//speed shit up
-//	jQuery.NoClickDelay(jQuery('#primary_right > .inner:first').get(0));
+	
 	
 });

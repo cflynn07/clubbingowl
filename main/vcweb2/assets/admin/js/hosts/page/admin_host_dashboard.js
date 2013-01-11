@@ -403,7 +403,41 @@ jQuery(function(){
 					
 					
 					
-								
+					
+					
+					var first_only=false;
+					jQuery('label.ui-button').each(function(){
+						
+						if(first_only)
+							return;
+							
+						first_only=true;
+						
+						//speed shit up
+						new FastClick(this);
+						console.log('done1!');
+						
+					});
+					
+					
+					
+					
+					
+					first_only=false;
+					jQuery('ul.ui-tabs-nav').each(function(){
+						
+						if(first_only)
+							return;
+							
+						first_only=true;
+						
+						//speed shit up
+						new FastClick(this);
+						console.log('done2!');
+						
+					});
+					
+					
 					
 					
 					
