@@ -349,6 +349,14 @@ jQuery(function(){
 		});
 		jQuery(window).scroll(resize_scroll_callback);
 		jQuery(window).resize(resize_scroll_callback);
+		
+		jQuery(window).bind('touchmove', resize_scroll_callback);
+		
+		var timeout_func = function(){
+			resize_scroll_callback();
+			window.setTimeout(timeout_func, 50);
+		};
+		
 	}
 	
 	
