@@ -41,18 +41,28 @@ NoClickDelay.prototype = {
 		this.element.removeEventListener('touchmove', this, false);
 		this.element.removeEventListener('touchend', this, false);
 	
+		
 	
 		jQuery(this.element).removeClass('ui-state-active');
 	
 	
-		if( !this.moved && this.theTarget ) {
-		//	this.theTarget.className = this.theTarget.className.replace(/ ?ui-state-active/gi, '');
+	
+	
+	
+	//	if( !this.moved && this.theTarget ) {
+	
+		if( this.theTarget ) {
+
 			jQuery(this.element).removeClass('ui-state-active');
 						
 			var theEvent = document.createEvent('MouseEvents');
 			theEvent.initEvent('click', true, true);
 			this.theTarget.dispatchEvent(theEvent);
+			
 		}
+	
+	
+	
 	
 		this.theTarget = undefined;
 	}
