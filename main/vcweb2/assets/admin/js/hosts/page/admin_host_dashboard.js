@@ -401,7 +401,40 @@ jQuery(function(){
 					
 					jQuery('input.checkbox1').button();
 					
+					
+					
+					
+					
+					var first_only=false;
+					jQuery('label.ui-button').each(function(){
 						
+						if(first_only)
+							return;
+							
+						first_only=true;
+						
+						jQuery.NoClickDelay(this);
+						
+					});
+					
+					
+					
+					
+					
+					first_only=false;
+					jQuery('ul.ui-tabs-nav').each(function(){
+						
+						if(first_only)
+							return;
+							
+						first_only=true;
+						
+						jQuery.NoClickDelay(this);
+						
+					});
+					
+					
+					
 					
 					
 			//		_this.$el.find('input[type=checkbox]').iphoneStyle({
@@ -636,6 +669,11 @@ jQuery(function(){
 			datepicker.datepicker('setDate', '0 days');			
 									
 		}).trigger('change');
+		
+		
+		
+		
+		
 		
 		
 		
