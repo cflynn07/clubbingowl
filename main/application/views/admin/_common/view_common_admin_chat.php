@@ -1158,6 +1158,15 @@ jQuery(function(){
 <?php endif; ?>
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <div id="notification_container" style="display:none;">
 	
 	<div id="basic-template">

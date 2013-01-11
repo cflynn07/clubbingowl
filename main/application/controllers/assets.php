@@ -412,9 +412,9 @@ class Assets extends MY_Common_Controller {
 					
 					
 					
-					array('jquery.maskedinput-1.3.min',										'admin_js'),
+					array('jquery.maskedinput-1.3.min',										'admin_js')
 
-					array('engage.itoggle',													'admin_js')
+				//	array('engage.itoggle',													'admin_js')
 					
 				//	array('suite_re_init', 													'admin_js')
 					
@@ -425,8 +425,10 @@ class Assets extends MY_Common_Controller {
 				switch($subg){
 					case 'hosts':
 					
+						$group_assets[] = array('admin_team_chat', 											'admin_js');
 						
 						$group_assets[] = array('hosts/hosts_ajaxify_front', 								'admin_js');
+						
 						
 						$group_assets[] = array('module_tables_display', 									'admin_js');
 						$group_assets[] = array('module_reservation_display',							'admin_js');
