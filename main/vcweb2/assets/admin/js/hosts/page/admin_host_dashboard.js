@@ -401,6 +401,13 @@ jQuery(function(){
 					
 					jQuery('input.checkbox1').button();
 					
+					jQuery('label.ui-button').each(function(){
+						
+						jQuery.NoClickDelay(this);
+						
+					});
+					
+					
 			//		_this.$el.find('input[type=checkbox]').iphoneStyle({
 			//			checkedLabel: 	'Yes',
 			//			uncheckedLabel: 'No'

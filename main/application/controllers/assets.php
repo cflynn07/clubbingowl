@@ -421,7 +421,16 @@ class Assets extends MY_Common_Controller {
 					
 					
 					
-					array('jquery.maskedinput-1.3.min',										'admin_js')
+
+					
+					array('jquery.maskedinput-1.3.min',										'admin_js'),
+					
+					
+					
+					array('click_event_accelerator',										'admin_js')
+					
+					
+					
 
 				//	array('engage.itoggle',													'admin_js')
 					
