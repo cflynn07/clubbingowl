@@ -14,7 +14,11 @@ $fh = fopen($custom_env_file, 'w+');
 $json = new stdClass;
 //$json->deployment_unique_id = md5(time() . rand(0, 1000));
 
-$json->deployment_unique_id = $env['DEPLOYMENT_UNIQUE_ID'];
+
+$cust_dir = exec('cd ~/code && pwd -P');
+$json->deployment_unique_id = md5($cust_dir);
+
+
 
 fwrite($fh, json_encode($json));
 fclose($fh);
