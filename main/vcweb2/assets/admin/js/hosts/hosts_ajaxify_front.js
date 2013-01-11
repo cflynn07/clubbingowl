@@ -172,6 +172,12 @@
 		
 		
 		
+		
+		//
+		new FastClick(document.body);
+				
+				
+				
 				
 		
 	}); // end onDomLoad
