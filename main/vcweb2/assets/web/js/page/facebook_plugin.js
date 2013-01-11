@@ -259,6 +259,11 @@ jQuery(function(){
 	window.vc_page_scripts.facebook_plugin_gl_init = function(){
 		
 		
+		jQuery('#unavailable_overlay > p').css({
+			top: '15%'
+		});
+		
+		
 		jQuery('select#guestlist-confirmation-carrier').hide();
 		
 		
