@@ -29,11 +29,11 @@
 			
 			
 			
-			<div style="display: inline-block; float: right;">
+			<div data-mobile_font="18px" style="display: inline-block; float: right;">
 				Select Venue: 
 				<select class="venue_select">
 					<?php foreach($team_venues as $key => $venue): ?>
-						<option data-tv_id="<?= $venue->tv_id ?>" value="<?= $key ?>"><?= $venue->tv_name ?></option>
+						<option data-mobile_font="18px" data-tv_id="<?= $venue->tv_id ?>" value="<?= $key ?>"><?= $venue->tv_name ?></option>
 					<?php endforeach; ?>
 				</select>
 			</div>

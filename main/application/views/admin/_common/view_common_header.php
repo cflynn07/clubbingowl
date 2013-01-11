@@ -74,10 +74,21 @@
 <?php endif; ?>
 
 
+
+
+
+
+
+
+
 <script type="text/javascript">
 jQuery(function(){
 	
 	if(jQuery.isMobile()){
+		
+		
+		
+		
 		jQuery('body').css('background', 'none');
 		jQuery('#primary_left').hide();
 		jQuery('#primary_right').css({
@@ -98,6 +109,38 @@ jQuery(function(){
 			width: 			'980px',
 			'max-width': 	'980px'
 		});
+		
+		
+		jQuery('div.ui-widget ul.ui-tabs-nav li').each(function(){
+		
+			jQuery(this).css({
+				'padding': '5px 0 5px 0',
+			}).find('a').addClass('button-action btn-link').css({
+				'font-size': '18px'
+			});
+		
+		});
+		
+		
+		jQuery('*[data-mobile_font]').each(function(){
+			jQuery(this).css({
+				'font-size': jQuery(this).attr('data-mobile_font')
+			});
+		});
+		
+		jQuery('div[data-function="tv_size_slider"]').css({
+			margin: '50px 0 50px 0'
+		});
+		
+		jQuery('a.ui-slider-handle').css({
+			width: 		'30px',
+			height: 	'30px',
+			top: 		'-11px'
+		});
+		
+		
+		
+		
 	}
 	  
 });

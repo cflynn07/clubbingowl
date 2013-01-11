@@ -551,7 +551,7 @@ jQuery(function(){
 		
 		
 		
-		jQuery('div#tabs').tabs({}).css('display', 'block').resizable();
+		jQuery('div#tabs').tabs({}).css('display', 'block');//.resizable();
 		jQuery('div#tabs div.tabs_tables').tabs();
 				
 		jQuery('div#tabs > div.ui-widget-header select.venue_select').bind('change', function(){
