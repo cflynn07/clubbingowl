@@ -402,7 +402,7 @@ jQuery(function(){
 					jQuery('input.checkbox1').button();
 					
 						
-					jQuery.NoClickDelay(_this.$el.find('table.reservations_holder').get(0));
+					
 					
 			//		_this.$el.find('input[type=checkbox]').iphoneStyle({
 			//			checkedLabel: 	'Yes',
@@ -636,11 +636,6 @@ jQuery(function(){
 			datepicker.datepicker('setDate', '0 days');			
 									
 		}).trigger('change');
-		
-		
-		
-		
-		
 		
 		
 		
