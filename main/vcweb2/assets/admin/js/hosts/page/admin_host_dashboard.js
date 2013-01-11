@@ -402,25 +402,10 @@ jQuery(function(){
 					jQuery('input.checkbox1').button();
 					
 					
-					
-					
-					
-					jQuery('label.ui-button').each(function(){
+					_this.$el.find('label.ui-button').each(function(){
 						//speed shit up
 						new NoClickDelay(this);
 					});
-					
-					
-					
-					
-					
-					jQuery('ul.ui-tabs-nav li').each(function(){
-						//speed shit up
-						new NoClickDelay(this);
-					});
-					
-					
-					
 					
 					
 			//		_this.$el.find('input[type=checkbox]').iphoneStyle({
@@ -455,7 +440,10 @@ jQuery(function(){
 		
 		
 		
-		
+		jQuery('ul.ui-tabs-nav li').each(function(){
+			//speed shit up
+			new NoClickDelay(this);
+		});
 		
 		
 		
