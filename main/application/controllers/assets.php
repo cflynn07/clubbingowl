@@ -100,6 +100,7 @@ class Assets extends MY_Common_Controller {
 				
 				$admin_css_include = array(
 					'iPhoneCheckboxes'
+					
 				);
 				
 				break;
@@ -114,7 +115,12 @@ class Assets extends MY_Common_Controller {
 				
 				$admin_css_include = array(
 					'jQuery_UI_uniq',
+				
+				
 					'iPhoneCheckboxes',
+				//	'engage.itoggle.css',
+				
+					
 					'visualize',
 					'style',
 					'admin_tables',
@@ -123,6 +129,9 @@ class Assets extends MY_Common_Controller {
 					//added for ui-slider
 					'ui2/jquery-ui-1.9.1.custom.min',
 					'ui3/jquery-ui-1.9.2.custom',
+					
+					'ui4/jquery-ui-1.9.2.custom',
+					
 					'resizable_container_parent/jquery-ui-1.9.2.custom',
 					
 					//pages

@@ -313,7 +313,7 @@ jQuery(function(){
 				
 				
 				
-				
+				//first loop through and take all head-users, then snatch all entourage users
 				this.collection.each(function(m){
 					//append each tr
 					
@@ -323,6 +323,12 @@ jQuery(function(){
 					
 					_this.$el.find('tbody:first').append(view_reservation_checkin_individual.el);
 					view_reservation_checkin_individual.render();
+					
+				});
+				
+				
+				//now go for entourage users
+				this.collection.each(function(m){
 					
 				});
 				
@@ -393,10 +399,12 @@ jQuery(function(){
 						bAuthWidth: 	true
 					});
 					
-					_this.$el.find('input[type=checkbox]').iphoneStyle({
-						checkedLabel: 	'Yes',
-						uncheckedLabel: 'No'
-					});
+					jQuery('input.checkbox1').button();
+					
+			//		_this.$el.find('input[type=checkbox]').iphoneStyle({
+			//			checkedLabel: 	'Yes',
+			//			uncheckedLabel: 'No'
+			//		});
 					
 				});
 				
