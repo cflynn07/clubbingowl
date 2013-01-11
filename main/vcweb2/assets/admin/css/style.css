@@ -1906,10 +1906,3 @@ div {
 }
 
 
-/**
- * 	Prevent auto-zooming in on ios
- */
-input[type="text"]:focus, input[type="password"],
-textarea:focus, select:focus {
-  font-size: 16px;
-}

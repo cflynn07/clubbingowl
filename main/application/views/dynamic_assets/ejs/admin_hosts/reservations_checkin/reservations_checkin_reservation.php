@@ -48,7 +48,7 @@
 
 %>
 
-<td>
+<td class="ui4">
 	
 	
 	<% if(collapsed){ %>
@@ -89,6 +89,17 @@
 		<input type="checkbox" />
 		
 	<% } %>
+	
+	
+	
+      	
+    <input class="checkbox1" type="checkbox" id="<%= head_user %>" name="<%= head_user %>" />
+    <label for="<%= head_user %>">Arrived</label>
+	
+	
+	
+	
+	
 
 	
 </td>
