@@ -263,19 +263,23 @@
 					var _this = this;
 					
 					
-					this.$el.bind('hover', function(e){
-												
-						if(e.type == 'mouseenter'){
+					
+					
+					
+				
+					this.$el.bind('click', function(){
 						
-							globals.module_reservation_display.display({
-								el: _this.$el,
-								reservation: _this.reservation,
-								model_display_settings: model_display_settings
-							});
 						
-						}						
-						
+						globals.module_reservation_display.display({
+							el: _this.$el,
+							reservation: _this.reservation,
+							model_display_settings: model_display_settings
+						});
 					});
+						
+					
+					
+					
 					
 					
 					
