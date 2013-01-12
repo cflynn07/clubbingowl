@@ -660,12 +660,12 @@ jQuery(function(){
 			if(data.text_message == 1){
 					
 				if(data.phone_number.length == 0){
-					p_messages.html('You must enter your cellphone number to recieve a confirmation text!');
+					p_messages.show().html('You must enter your cellphone number to recieve a confirmation text!');
 					return false;
 				}
 				
 				if(data.phone_number.length < 13){
-					p_messages.html('Please enter a valid phone number.');
+					p_messages.show().html('Please enter a valid phone number.');
 					return false;
 				}
 							
@@ -674,7 +674,7 @@ jQuery(function(){
 			//		return false;
 			//	}
 				
-				p_messages.html('');
+				p_messages.hide().html('');
 				
 			}
 			
@@ -725,8 +725,7 @@ jQuery(function(){
 													
 						}else if(data.message){
 							
-							p_messages.css('color', 'red');
-							p_messages.html(data.message);
+							p_messages.show().html(data.message);
 							
 						}
 						
@@ -811,7 +810,7 @@ jQuery(function(){
 			jQuery('input#guestlist-confirmation-phone').val('');
 			jQuery('select#guestlist-confirmation-carrier').val('invalid');
 			jQuery('div#facebook-guest-list-friends').html('No one yet.');
-			jQuery('p#messages').html('');
+			jQuery('p#messages').html('').hide();
 			
 			window.teams_guest_list.invitees = [];
 		};

@@ -161,8 +161,10 @@
 			 	</a>
 			 </p>
 				 
-			<p>Selected Friends: <span id="facebook-gl-friends-count"></span></p>
-			<div id="facebook-guest-list-friends">No friends added yet.</div>
+			<p style="font-weight:600;">Selected Friends: <span id="facebook-gl-friends-count"></span></p>
+			<div id="facebook-guest-list-friends">
+				<span style="color:#CCC;">No friends added yet.</span>
+			</div>
 			
 			<input class="guestlist-button step_submit" type="button" value="Next">
 			
@@ -186,16 +188,67 @@
 			
 			
 			<input type="checkbox" id="guestlist-table-request" name="guestlist-table-request">
-			<label for="guestlist-table-request">Request a Table</label>
+			<label for="guestlist-table-request"> Request a Table</label>
 			
 			
 			<div id="price_opt_hide" style="display:none;">
+					
+					
+					
 					
 				<?php $factor = 0.39; ?>
 				<?php $small_factor = 0.20; ?>
 				<?php 
 					$table_prices = array();
 				?>
+					
+					
+					
+				
+				
+
+				<?php foreach($venue_floorplan as $key => $vf): ?>
+					
+						<?php foreach($vf->items as $item): ?>
+						
+								<?php if($item->vlfi_item_type == 'table'): ?>
+									
+									<?php $table_prices[] = $item->{'vlfit_' . rtrim($guest_list->pgla_day, 's') . '_min' } ?>
+											
+								<?php endif; ?>
+								
+						<?php endforeach; ?>
+						
+				<?php endforeach; ?>
+									
+					
+					
+				<?php 
+					// gather all unique table prices for TODAY	
+				//	echo '<div style="display:none">';
+				//	var_dump($table_prices);
+				//	echo '</div>';	
+					$table_prices = array_unique($table_prices);
+					array_multisort($table_prices, SORT_ASC);
+				?>
+				
+					
+					
+					
+					
+					
+				<label for="guest-list-table-price-selection">*Select a Minimum Spend:</label><br>
+				<select id="guest-list-table-price-selection" name="guest-list-table-price-selection">
+					<?php foreach($table_prices as $val): ?>
+						<option value="<?= $val ?>">$<?= $val ?></option>
+					<?php endforeach; ?>
+				</select>	
+					
+					
+					
+				<span class="tables_res_description">These are the tables and minimum spends required to reserve them @ <?= $guest_list->tv_name ?> on <?= ucfirst(rtrim($guest_list->pgla_day, 's')) ?></span>	
+
+				
 				
 				<p style="text-align:center; font-weight:bold;"><?= $guest_list->tv_name ?> Tables and Floorplan</p>
 						
@@ -268,80 +321,6 @@
 				</div>
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-
-				<div id="vl_small" class="vl" style="margin-left:auto; margin-right:auto; width:100%; text-align:center;">
-				<?php foreach($venue_floorplan as $key => $vf): ?>
-					<div class="vlf" style="width:<?= ceil(800 * $small_factor) ?>px; height:<?= ceil(600 * $small_factor) ?>px;">
-						
-						<div class="vlf_title">Floor <?= $key ?></div>
-						
-						<div class="vlf_id" style="display:none;"><?= $key ?></div>
-						
-					
-						<?php foreach($vf->items as $item): ?>
-							
-						
-							<div class="item <?= $item-> vlfi_item_type ?>" style="top:<?= ceil($item->vlfi_pos_y * $small_factor) ?>px; left:<?= ceil($item->vlfi_pos_x * $small_factor) ?>px; width:<?= ceil($item->vlfi_width * $small_factor) ?>px; height:<?= ceil($item->vlfi_height * $small_factor) ?>px;">
-	
-								<?php if($item->vlfi_item_type == 'table'): ?>
-									
-									<span class="title price_<?= $item->{'vlfit_' . rtrim($guest_list->pgla_day, 's') . '_min' } ?>">T</span>						
-									<?php $table_prices[] = $item->{'vlfit_' . rtrim($guest_list->pgla_day, 's') . '_min' } ?>
-																		
-								<?php elseif($item->vlfi_item_type == 'bar'): ?>
-									<span class="title">(B)</span>
-								<?php elseif($item->vlfi_item_type == 'stage'): ?>
-									<span class="title">(S)</span>
-								<?php elseif($item->vlfi_item_type == 'dancefloor'): ?>
-									<span class="title">(D)</span>
-								<?php elseif($item->vlfi_item_type == 'djbooth'): ?>
-									<span class="title">(DJ)</span>
-								<?php elseif($item->vlfi_item_type == 'bathroom'): ?>
-									<span class="title">(Br)</span>
-								<?php elseif($item->vlfi_item_type == 'entrance'): ?>
-									<span class="title">(E)</span>
-								<?php elseif($item->vlfi_item_type == 'stairs'): ?>
-									<span class="title">(St)</span>
-								<?php endif; ?>
-	
-								<div class="vlfi_id" style="display:none;"><?= $item->vlfi_id ?></div>
-								<div class="vlfi_id_<?= $item->vlfi_id ?>" style="display:none;"><?= $item->vlfi_id ?></div>
-								<div class="pos_x" style="display:none;"><?= $item->vlfi_pos_x ?></div>
-								<div class="pos_y" style="display:none;"><?= $item->vlfi_pos_y ?></div>
-								<div class="width" style="display:none;"><?= $item->vlfi_width ?></div>
-								<div class="height" style="display:none;"><?= $item->vlfi_height ?></div>
-								<div class="itmCls" style="display:none;"><?= $item->vlfi_item_type ?></div>
-							
-							</div>
-						<?php endforeach; ?>
-						<?php unset($table_count); ?>
-						
-					</div>
-				<?php endforeach; ?>
-				</div>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				<table id="vlf_key">
 					<tr>
 						<td>(Br) - Bathroom</td>
@@ -358,24 +337,11 @@
 				</table>
 				
 				
-				<?php 
-					// gather all unique table prices for TODAY	
-					echo '<div style="display:none">';
-					var_dump($table_prices);
-					echo '</div>';	
-					$table_prices = array_unique($table_prices);
-					array_multisort($table_prices, SORT_ASC);
-				?>
-				
+			
 				
 				<br>
 			
-				<label for="guest-list-table-price-selection">*Select a Minimum Spend:</label><br>
-				<select id="guest-list-table-price-selection" name="guest-list-table-price-selection">
-					<?php foreach($table_prices as $val): ?>
-						<option value="<?= $val ?>">$<?= $val ?></option>
-					<?php endforeach; ?>
-				</select>
+				
 				
 				<p style="color:darkred; text-align:center;">Note: For a table request, you must provide your phone number on step #4 (Next)</p>
 				<span style="font-size:12px;">*required</span>
@@ -438,7 +404,7 @@
 	          	
 	          	
 	          	
-	          	<p id="messages" style="color:red;background:#000;"></p>
+	          	<p id="messages" style=""></p>
 	          	
 	          	
 	          	

@@ -85,7 +85,7 @@
 jQuery(function(){
 	
 	if(true || jQuery.isMobile()){
-				
+				//return false;
 		
 		jQuery('body').css('background', 'none');
 		jQuery('#primary_left').hide();
