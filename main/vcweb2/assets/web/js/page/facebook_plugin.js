@@ -138,7 +138,10 @@ jQuery(function(){
 			
 			jQuery('div#loading_modal').css({
 				display: 'block',
-				top: (Math.ceil(jQuery(window).height() / 2) - 100)
+			//	top: (Math.ceil(jQuery(window).height() / 2) - 100)
+				
+				top: jQuery(this).offset().top
+				
 			});
 			
 			
