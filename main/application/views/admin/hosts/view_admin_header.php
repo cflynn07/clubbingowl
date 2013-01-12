@@ -76,6 +76,13 @@
 					<ul> 
 						
 						<li>
+							<a class="ajaxify" href="<?=$central->front_link_base ?>admin/hosts/">
+								<img src="<?=$central->admin_assets?>images/icons/small_icons_3/dashboard.png" alt="" />
+								<span>Dashboard</span>
+							</a>
+						</li>
+						
+						<li>
 							<a href="<?=$central->front_link_base ?>">
 								<img src="<?=$central->admin_assets?>images/icons/small_icons_2/logout.png" alt="" />
 								<span>Logout</span>
