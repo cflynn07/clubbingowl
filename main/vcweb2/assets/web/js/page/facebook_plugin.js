@@ -135,6 +135,13 @@ jQuery(function(){
 		// --------------------- page setup ------------------------------
 		jQuery('a.gl_join').live('click', function(e){
 			
+			
+			jQuery('div#loading_modal').css({
+				display: 'block',
+				top: (Math.ceil(jQuery(window).height() / 2) - 100)
+			});
+			
+			
 			var tgla_id = jQuery(this).parent().find('span.tgla_id').html();
 			var tv_id = jQuery(this).parent().find('span.tv_id').html();
 			var content = jQuery('div#guest_list_content');
@@ -159,6 +166,10 @@ jQuery(function(){
 				cache: false,
 			//	dataType: 'json',
 				success: function(data, textStatus, jqXHR){
+							
+							
+					jQuery('div#loading_modal').hide();
+							
 											
 					//temp store content in holder
 					content_holder.html(content.html());

@@ -59,6 +59,15 @@ try {
 <?php endif; ?>
 
 
+<div id="loading_modal" style="display:none;">
+	<div id="loading_modal_inner">
+		<p><?= $this->lang->line('ad-loading') ?>...</p>
+		<img style="border:0;" src="<?= $central->global_assets . 'images/ajax.gif' ?>" alt="loading..." />
+	</div>
+</div>
+
+
+
 <?= $this->load->view('front/_common/view_individual_global_pusher_channels', '', true); ?>
 
 <div id="fb_style_inject">
