@@ -679,7 +679,9 @@ class Assets extends MY_Common_Controller {
 									'reservations_overview/ro_reservations_table_all',
 									
 									'reservations_checkin/reservations_checkin_group',
-									'reservations_checkin/reservations_checkin_reservation'
+									'reservations_checkin/reservations_checkin_reservation',
+									
+									'admin_mobile_menu'
 																		
 								),
 								'lang' => $language
@@ -854,7 +856,10 @@ class Assets extends MY_Common_Controller {
 									'settings/settings_category_edit',
 									
 									
-									'on_file_payment'
+									
+									'on_file_payment',
+									
+									'admin_mobile_menu'
 																		
 								),
 								'lang' => $language
