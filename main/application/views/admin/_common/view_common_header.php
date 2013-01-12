@@ -127,7 +127,75 @@ jQuery(function(){
 				'font-size': jQuery(this).attr('data-mobile_font')
 			});
 		});
+		
+		
+		var EVT = window.ejs_view_templates_admin_hosts || window.ejs_view_templates_admin_promoters || window.ejs_view_templates_admin_managers;
 				
+		var mobile_menu = jQuery('#primary_right > #mobile_menu');
+		if(!mobile_menu.length){
+
+
+			var links = [];
+			var prefix = '';
+			jQuery('#primary_left div#menu > ul > li').each(function(){
+				
+				var first_link = jQuery(this).find('> a:first');				
+				
+				//is there a sub ul here?
+				if(jQuery(this).find('> ul').length){
+					//yes
+					
+					var prefix = jQuery(this).find('a:first > span').html();
+					jQuery(this).find('> ul li a').each(function(){
+						
+						links.push({
+							title: 	prefix + ' - ' + jQuery(this).html(),
+							href: 	jQuery(this).attr('href')
+						});
+						
+					});
+					
+				}else{
+					//no
+					
+					links.push({
+						title: 	first_link.find('> span').html(),
+						href: 	first_link.attr('href')
+					});
+					
+				}
+								
+			});
+			
+			var html = new EJS({
+				text: EVT['admin_mobile_menu']
+			}).render({
+				links: links
+			});
+	
+			jQuery('#primary_right').prepend(html);
+			jQuery('#primary_right #mobile_menu select#mobile_menu_nav').bind('change', function(){
+				
+				var value = jQuery(this).val();
+				jQuery('#primary_left div#menu a[href="' + value + '"]').trigger('click');
+				
+			});
+			
+			jQuery.fbUserLookup([window.admin_users_oauth_uid], '', function(rows){
+				if(rows.length){
+					jQuery('#primary_right #mobile_menu span[data-user_name]').html(rows[0].name);
+				}
+			});
+			
+			
+			jQuery('#primary_right > .inner').css({
+				top: '40px'
+			});
+			
+		}
+		
+		
+		
 		
 	}
 	  

@@ -1907,4 +1907,15 @@ div {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-
+div#mobile_menu {
+	position:absolute; 
+	top:0; 
+	left:0; 
+	width:990px; 
+	height:30px; 
+	background:#474D6A; 
+	color:#FFF; 
+	vertical-align:middle; 
+	font-size:16px; 
+	padding: 10px 5px 0px 5px;
+}

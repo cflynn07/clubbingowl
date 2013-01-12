@@ -767,7 +767,9 @@ class Assets extends MY_Common_Controller {
 									
 									
 									'tr_loading', 
-									'pending_reservation_none'
+									'pending_reservation_none',
+									
+									'admin_mobile_menu'
 																		
 								),
 								'lang' => $language
