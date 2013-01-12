@@ -13,7 +13,7 @@
 			<img src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 		</div>
 		
-		<div id="tabs" style="width: 1050px; display: none;">
+		<div id="tabs" style="width: 980px; display: none;">
 			
 			<div class="ui-widget-header">
 				<span>Promoter Statistics</span>
@@ -57,7 +57,7 @@
 								
 								<h3><?= $promoter->u_full_name ?></h3>
 								
-								<img src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $promoter->up_profile_image . '_p.jpg' ?>" alt="" />
+								<img style="left:-5px;position:relative;" src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $promoter->up_profile_image . '_p.jpg' ?>" alt="" />
 								
 							</div>
 							

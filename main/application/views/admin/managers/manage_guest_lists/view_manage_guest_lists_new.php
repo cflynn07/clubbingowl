@@ -1,4 +1,4 @@
-<div class="ui-widget" style="width:1050px;">
+<div class="ui-widget" style="width:980px;">
 		
 	<h1>Create New Guest List</h1>
 	<p>

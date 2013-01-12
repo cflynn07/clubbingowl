@@ -21,7 +21,7 @@
 	
 	<h1>Host Settings</h1>
 	
-	<div class="full_width last" style="width:1050px; margin-bottom:40px;">
+	<div class="full_width last" style="width:980px; margin-bottom:40px;">
 		
 		<div class="one_half">
 			<h3>Active</h3>

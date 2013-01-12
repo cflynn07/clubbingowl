@@ -22,7 +22,7 @@
 	
 	<h1>Promoter Settings</h1>
 	
-	<div style="width:1050px; margin-bottom:40px;">
+	<div style="width:980px; margin-bottom:40px;">
 		<div class="one_half">
 			
 			<h3>Active</h3>

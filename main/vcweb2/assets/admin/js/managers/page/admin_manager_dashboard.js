@@ -47,8 +47,8 @@ jQuery(function(){
 					
 				});
 				jQuery('#resize_box').resizable({
-				  maxWidth:1050,
-				  minWidth:1050
+				  maxWidth:980,
+				  minWidth:980
 				});
 				
 				
@@ -236,7 +236,7 @@ jQuery(function(){
 					chart: {
 						renderTo: 'tabs-2',
 						type: 'column',
-						width: 1048
+						width: 978
 					},
 					title: {
 						text: ' '

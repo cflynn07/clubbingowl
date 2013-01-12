@@ -136,10 +136,13 @@ jQuery(function(){
 					
 					
 					window['visitors_chart' + up_id] = new Highcharts.Chart({
+						credits: {
+							enabled: false
+						},
 						chart: {
 							renderTo: 'table_stats_up_' + up_id,
 							defaultSeriesType: 'area',
-							width: 719
+							//width: 719
 						},
 						width: '100%',
 						margin: [0, 0, 0, 0],

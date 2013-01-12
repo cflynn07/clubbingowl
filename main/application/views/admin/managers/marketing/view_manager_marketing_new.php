@@ -1,6 +1,6 @@
 <h1>Create a New Email Marketing Campaign</h1>
 
-<div style="width:1050px; margin-bottom:40px;">
+<div style="width:980px; margin-bottom:40px;">
 	
 	<div class="full_width last">
 		<h2>Edit</h2>

@@ -36,7 +36,7 @@
 		Pending Reservation Requests 
 		<img class="info_icon tooltip" title="Outstanding team and promoter guest list and table reservation requests from your widgets and promoters." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 	</h3>
-	<div id="pending_reservations" class="full_width last reservations" style="width:1050px;">
+	<div id="pending_reservations" class="full_width last reservations" style="width:980px;">
 		<table class="normal" style="width:100%;vertical-align:text-top !important;">
 			<thead>
 				<tr>
@@ -64,7 +64,7 @@
 
 
 
-	<div class="resizable_container_parent full_width" id="team_announcements"  style="width:1050px; padding:0; overflow:visible;">
+	<div class="resizable_container_parent full_width" id="team_announcements"  style="width:980px; padding:0; overflow:visible;">
 		<h3>
 			Team Announcements
 			<img class="info_icon tooltip" title="Announcements for team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
@@ -154,14 +154,14 @@
 	
 	
 	
-	<div id="team_statistics" class="full_width" style="width:1050px;">
+	<div id="team_statistics" class="full_width" style="width:980px;">
 		<h3>
 			Team Statistics 
 			<img class="info_icon tooltip" title="Basic statistics related to your team." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 		</h3>
 		<div style="clearboth"></div>
 		
-		<div class="tabs team_stats_tabs" style="width:1050px; display:none;">
+		<div class="tabs team_stats_tabs" style="width:980px; display:none;">
 			<div class="ui-widget-header">
 				<span>Statistics</span>
 				<ul>
@@ -190,7 +190,13 @@
 	
 	<hr>
 	
-	<div style="width:1050px;">
+	
+	
+	
+	
+	
+	
+	<div style="width:980px;">
 		<div class="one_half">
 			
 			<h3>
@@ -258,7 +264,7 @@
 	
 	<hr>
 
-	<div style="width:1050px;">
+	<div style="width:980px;">
 		<div class="one_half">
 			
 			<h3>
@@ -322,6 +328,9 @@
 	</div>
 	
 </div>
+
+
+
 
 	<div style="clear:both"></div>
 	

@@ -5,7 +5,7 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
 
-<div class="ui-widget" style="width:1050px; margin-bottom:40px;">
+<div class="ui-widget" style="width:980px; margin-bottom:40px;">
 		
 	<h1>Edit Guest List</h1>
 
