@@ -427,10 +427,14 @@ class Assets extends MY_Common_Controller {
 					
 					
 					
-					array('click_event_accelerator',										'admin_js')
+					array('click_event_accelerator',										'admin_js'),
 					
 					
-					
+					array('reformat_layout_mobile',											'admin_js')
+
+
+
+
 
 				//	array('engage.itoggle',													'admin_js')
 					
