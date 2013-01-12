@@ -1,6 +1,30 @@
 div.guestlist-form-right div#tabs div.tabs_tables img.loading_indicator{
 	display: none;
 }
+
+
+
+
+div.guestlist-form-right span.tables_res_description {
+	font-size: 12px;
+	clear: both;
+	display: block;
+	margin: 15px 0 20px 0;
+	color: #474D6A;
+}
+
+
+div.guestlist-form-right p#messages {
+	color: red;
+	background: black;
+	padding: 5px;
+	border-radius: 5px;
+	font-weight: normal;
+	display: none;
+	font-size: 14px;
+}
+
+
 	
 div.guestlist-form-right div.vl{
 	margin-left: auto;
@@ -44,6 +68,8 @@ div.guestlist-form-right div.vlf{
 	cursor: pointer;
 	overflow: hidden;
 	position: relative;
+	margin-left: auto;
+	margin-right: auto;
 }
 	
 div.guestlist-form-right div.vlf div.item{
@@ -203,8 +229,8 @@ div.guestlist-form-right img.loading_indicator{
 }
 
 div.guestlist-form-right div#price_opt_hide{
-	border:1px solid #CCC; 
-	padding:8px; 
+//	border:1px solid #CCC; 
+//	padding:8px; 
 	margin-top:10px;
 }
 
@@ -289,7 +315,7 @@ section#guestlist div#accordion div#loading_indicator{
 	text-align: center;
 }
 section#guestlist div#accordion div#facebook-guest-list-friends{
-	height: 220px;
+	height: 130px;
 }
 section#guestlist .step_submit{
 	position: absolute;

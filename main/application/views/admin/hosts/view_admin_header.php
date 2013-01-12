@@ -13,7 +13,7 @@
 
 
 </head>
-<body style="background:none;">
+<body>
 <?= $this->load->view('admin/_common/view_load_admin_fb_sdk', '', true) ?>
 
 <script type="text/javascript">
@@ -35,10 +35,8 @@
 			
 			
 			
-			
-		<?php if(false): ?>	
-			
-			<div id="primary_left" style="position:absolute; top:0px; display:none;">
+						
+			<div id="primary_left" style="position:absolute; top:0px;">
         
 				<div id="logo">
 					
@@ -88,7 +86,6 @@
 				</div> <!-- navigation menu end -->
 			</div> <!-- sidebar end -->
 
-		<?php endif; ?>
 
 
 
@@ -98,9 +95,8 @@
 
 
 
-
-			<div style="width:980px; margin:0; position:absolute; top:0; left:0; float:none; overflow:hidden;" id="primary_right">
-				<div style="margin:0; width:980px; padding:0; min-width:980px; max-width:980px;" class="inner">
+			<div style="" id="primary_right">
+				<div style="" class="inner">
 					
 
 

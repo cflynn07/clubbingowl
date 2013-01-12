@@ -84,10 +84,8 @@
 <script type="text/javascript">
 jQuery(function(){
 	
-	if(jQuery.isMobile()){
-		
-		
-		
+	if(true || jQuery.isMobile()){
+				//return false;
 		
 		jQuery('body').css('background', 'none');
 		jQuery('#primary_left').hide();
@@ -110,6 +108,9 @@ jQuery(function(){
 			'max-width': 	'980px'
 		});
 		
+		jQuery('#primary_right > .inner #admin_managers_tables_wrapper > div#tabs').css({
+			width: '980px'
+		});
 		
 		jQuery('div.ui-widget ul.ui-tabs-nav li').each(function(){
 		

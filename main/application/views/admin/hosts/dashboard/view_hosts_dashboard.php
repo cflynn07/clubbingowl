@@ -21,7 +21,7 @@
 
 
 	
-	<div id="tabs" style="display:none; margin-bottom:0px; height:auto !important; width:977px;">
+	<div id="tabs" style="display:none; margin-bottom:0px; height:auto !important;">
 		
 		
 		<div class="ui-widget-header" style="cursor: default;">
