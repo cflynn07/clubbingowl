@@ -29,6 +29,14 @@
 		<script type="text/javascript" src="<?= $central->global_assets ?>js/json_parse.js?<?= $central->cache_global_js ?>"></script>
 		<script type="text/javascript" src="<?= $central->global_assets ?>js/json_parse_state.js?<?= $central->cache_global_js ?>"></script>
         
+        
+        
+        
+        <link rel="apple-touch-icon-precomposed" href="<?= $central->front_assets ?>images/square_icon.png" />
+ 		<meta name="apple-mobile-web-app-capable" content="yes">
+        
+        
+        
         <script type="text/javascript">
 
 		  var _gaq = _gaq || [];
