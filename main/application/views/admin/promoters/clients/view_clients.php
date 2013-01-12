@@ -11,7 +11,7 @@
 
 
 
-<div class="full_width last" style="width:1050px;">
+<div class="full_width last" style="width:980px;">
 	
 	
 	

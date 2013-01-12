@@ -23,15 +23,15 @@
 		<img class="info_icon tooltip" title="Requests organized by venue" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 	</h3>
 	
-	<div id="tabs" style="display:none;margin-bottom:0px; height: auto !important;">
+	<div id="tabs" style="display:none; margin-bottom:0px; height:auto !important; width:980px;">
 		
 		
-		<div class="ui-widget-header" style="cursor: default;">
+		<div class="ui-widget-header" style="cursor:default;">
 			<span></span>
 			
 			
 			
-			<div style="display: inline-block; float: right;">
+			<div style="display: inline-block; float:right;">
 				Select Venue: 
 				<select class="venue_select">
 					<?php foreach($team_venues as $key => $venue): ?>
@@ -181,7 +181,7 @@
 		<a href="#" style="margin-left:5px;" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
 		<br/><br/>
 		
-		<div id="all_upcoming_reservations" class="full_width last" style="margin-bottom:40px;"></div>
+		<div id="all_upcoming_reservations" class="full_width last" style="margin-bottom:40px; width:980px;"></div>
 			
 	</div>
 	

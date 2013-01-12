@@ -9,7 +9,7 @@
 
 <meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=980; user-scalable=1;" /> 
+<meta name="viewport" content="width=1000; user-scalable=1;" /> 
 
 
 <?php # ------------------------ End META tags ------------------------ # ?>
@@ -90,16 +90,16 @@ jQuery(function(){
 		jQuery('body').css('background', 'none');
 		jQuery('#primary_left').hide();
 		jQuery('#primary_right').css({
-			margin: 0,
-			width: '980px',
-			position: 'absolute',
-			top: 0,
-			left: 0
+			margin: 	0,
+			width: 		'980px',
+			position: 	'absolute',
+			top: 		0,
+			left: 		0
 		});  
 		jQuery('#primary_right > .inner').css({
-			padding: '5px',
+			padding: '10px',
 			margin: 0,
-			width: '970px',
+			width: '980px',
 			overflow: 'hidden',
 			'min-width': 0
 		});

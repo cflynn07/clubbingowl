@@ -43,7 +43,7 @@
 			Pending Reservation Requests
 			<img class="info_icon tooltip" title="Pending guest list and table reservation requests." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 		</h3>
-		<div id="pending_reservations" class="full_width last reservations" style="width: 1050px;">
+		<div id="pending_reservations" class="full_width last reservations" style="width:980px;">
 			<table class="normal" style="width:100%; vertical-align:text-top !important;">
 				<thead>
 					<tr>
@@ -64,7 +64,7 @@
 
 		<hr>
 		
-		<div id="team_announcements_parent" class="resizable_container_parent full_width" style="width:1050px; padding:0; overflow:visible;">
+		<div id="team_announcements_parent" class="resizable_container_parent full_width" style="width:980px; padding:0; overflow:visible;">
 			<h3>
 				Team Announcements
 				<img class="info_icon tooltip" title="Send announcements to your team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
@@ -136,7 +136,7 @@
 		</h3>
 		<div style="clearboth"></div>
 		
-		<div id="promoter_stats_tabs" class="tabs promoter_stats_tabs" style="width:1050px;">
+		<div id="promoter_stats_tabs" class="tabs promoter_stats_tabs" style="width:980px;;">
 			<div class="ui-widget-header">
 				<span>Statistics</span>
 				<ul>
@@ -164,7 +164,7 @@
 		
 		
 		
-		<div style="width:1050px;">
+		<div style="width:980px;">
 			
 
 			<div id="live_visitors_wrapper" class="one_half">
@@ -172,7 +172,7 @@
 					Live Profile Visitors 
 					<img class="info_icon tooltip" title="ClubbingOwl users that are actively viewing your promoter profile." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 				</h3>
-				<div class="visitors ui-widget" style="width:100%;">
+				<div class="visitors ui-widget" style="width:auto;">
 					<div class="ui-widget-header">
 						<span>Live Visitors</span>
 					</div>										
@@ -185,12 +185,15 @@
 				
 				
 				
+				
+				
+				
 			<div id="top_visitors_wrapper" class="one_half last">
 				<h3>
 					Top Profile Visitors
 					<img class="info_icon tooltip" title="ClubbingOwl users that frequently visit your promoter profile." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 				</h3>
-				<div class="visitors ui-widget" style="width:100%;">
+				<div class="visitors ui-widget" style="width:auto;">
 					<div class="ui-widget-header">
 						<span>Top Visitors</span>
 					</div>
@@ -208,7 +211,7 @@
 					Recent Profile Visitors 
 					<img class="info_icon tooltip" title="The 100 most recent ClubbingOwl users to visit your promoter profile." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 				</h3>
-				<div class="visitors ui-widget" style="width:100%;">
+				<div class="visitors ui-widget" style="width:auto;">
 					<div class="ui-widget-header">
 						<span>Recent Visitors</span>
 					</div>									
@@ -230,7 +233,7 @@
 		
 		<hr>
 		
-		<div style="width:1050px;">
+		<div style="width:980px;">
 			
 			<div class="one_half last">
 				<h3>

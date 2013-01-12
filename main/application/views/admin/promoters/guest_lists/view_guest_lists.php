@@ -11,7 +11,7 @@
 <div style="display:none;" id="manual_add_modal"></div>
 
 
-<div id="guest_list_content" class="tabs" style="display:block; width:1050px">
+<div id="guest_list_content" class="tabs" style="display:block; width:980px">
 	
 	<div class="ui-widget-header">
 		<span>Promoter Guest Lists</span>

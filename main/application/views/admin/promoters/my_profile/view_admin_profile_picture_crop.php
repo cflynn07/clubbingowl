@@ -5,14 +5,10 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
 
-<div style="width:1050px;">
+<div style="width:980px;">
 	<fieldset>
-		<legend>Update profile information</legend> 
-		
-		<h2>General</h2>
-		
-		<p>Note: Maximum width: 1024px & Maximum height: 1600px</p>
-		
+		<legend>Update profile image</legend> 
+					
 		<img id="original_profile_pic" style="border: 1px solid #000;" src="<?=$central->s3_uploaded_images_base_url?>profile-pics/originals/<?=$promoter->up_profile_image?>.jpg" alt="profile picture" />
 			
 		<img id="ajax_picture_loading" src="<?=$central->global_assets?>images/ajax.gif" alt="loading" style="visibility:hidden;display:inline"/>

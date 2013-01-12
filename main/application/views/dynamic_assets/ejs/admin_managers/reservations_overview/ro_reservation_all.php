@@ -50,8 +50,8 @@
 
 %>
 
-<td style="white-space:nowrap;">
-	<span><%= jQuery.datepicker.formatDate('DD MM d, yy', new Date(date + ' 00:00:00')) %></span>
+<td>
+	<span><%= jQuery.datepicker.formatDate('DD<br/>mm/d', new Date(date + ' 00:00:00')) %></span>
 </td>
 
 
@@ -61,7 +61,7 @@
 	
 	<% if(!collapsed){ %>
 	
-		<img style="border:1px solid #CCC; width:150px;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'venues/banners/' + tv_image + '_t.jpg' %>" />
+		<img style="border:1px solid #CCC; width:100px;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'venues/banners/' + tv_image + '_t.jpg' %>" />
 		<br/>
 		
 	<% } %>

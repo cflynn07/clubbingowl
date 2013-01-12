@@ -26,7 +26,7 @@
 
 <br/><br/>
 
-<table class="normal tablesorter guestlists" style="width: 770px;">
+<table class="normal tablesorter guestlists" style="width:100%;">
 	<thead>
 		<tr>
 			<th>Head User</th>

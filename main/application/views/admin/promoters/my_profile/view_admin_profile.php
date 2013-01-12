@@ -1,4 +1,4 @@
-<div style="width:1050px;">
+<div style="width:980px;">
 	<form id="my_profile_form">
 	<fieldset>
 			<legend>Update profile information</legend> 
@@ -33,7 +33,7 @@
 			
 			<h2 style="clear:both;">Biography</h2> 
 			
-			<textarea name="biography"><?= $promoter->up_biography ?></textarea> 
+			<textarea style="width:100%;" name="biography"><?= $promoter->up_biography ?></textarea> 
 			
 			<div class="clearboth"></div> 
 			

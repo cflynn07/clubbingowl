@@ -113,7 +113,7 @@
 </td>
 
 
-<td style="white-space:nowrap; <% if(!collapsed){ %> width:244px; <% } %>">
+<td style="<% if(!collapsed){ %> width:244px; <% } %>">
 	<% if(!entourage_users.length){ %>
 		
 		

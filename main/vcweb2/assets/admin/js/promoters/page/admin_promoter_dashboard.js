@@ -122,8 +122,8 @@ jQuery(function(){
 				this.$el.show();
 				
 				this.$el.resizable({
-				  maxWidth:1025,
-				  minWidth:1025
+				  maxWidth:960,
+				  minWidth:960
 				});
 				
 				return this;
@@ -175,7 +175,7 @@ jQuery(function(){
 							chart: {
 								renderTo: 'tabs-1',
 								defaultSeriesType: 'area',
-								width: 1048
+								width: 978
 							},
 							tooltip:{
 								enabled: false
@@ -218,7 +218,7 @@ jQuery(function(){
 					chart: {
 						renderTo: 'tabs-2',
 						type: 'column',
-						width: 1048
+						width: 978
 					},
 					title: {
 						text: ' '

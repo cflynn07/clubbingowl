@@ -219,7 +219,9 @@ h1 span {
 	margin-left:215px;
 	position:relative;
 /* --- added by Casey 11.7.2011 */
-	min-width:1050px;
+//	min-width:1050px;
+
+	min-width:980px;
 	background: #F0F0F0;
 	height: 100%;
 	z-index: 1;
