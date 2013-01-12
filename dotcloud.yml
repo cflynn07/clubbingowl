@@ -1,16 +1,10 @@
 www:
  type: php
  approot: main
- systempackages:
-  - libfuse2
-  - fuse-utils
  postinstall: ./postinstall.sh
 daemons:
  type: php-worker
  approot: main
- systempackages:
-  - libfuse2
-  - fuse-utils
  process: php /home/dotcloud/current/index.php worker all
  process: php /home/dotcloud/current/index.php worker all
  process: php /home/dotcloud/current/index.php worker all
