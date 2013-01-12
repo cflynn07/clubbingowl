@@ -141,9 +141,7 @@ jQuery(function(){
 				
 				var first_link = jQuery(this).find('> a:first');				
 				
-				//is there a sub ul here?
 				if(jQuery(this).find('> ul').length){
-					//yes
 					
 					var prefix = jQuery(this).find('a:first > span').html();
 					jQuery(this).find('> ul li a').each(function(){
@@ -156,7 +154,6 @@ jQuery(function(){
 					});
 					
 				}else{
-					//no
 					
 					links.push({
 						title: 	first_link.find('> span').html(),
