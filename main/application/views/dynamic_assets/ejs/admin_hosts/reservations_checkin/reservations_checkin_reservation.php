@@ -68,9 +68,9 @@
 					<td style="font-size:14px;padding-right:0;"><label for="category">Category: </label></td>
 					<td>
 						<select disabled="disabled" data-mobile_font="18px" name="category">
-							<option>Full - $25</option>
-							<option>Reduced - $15</option>
-							<option>Comped - $0</option>
+							<option val="1">Full - $25</option>
+							<option val="2">Reduced - $15</option>
+							<option val="3">Comped - $0</option>
 						</select>
 					</td>
 				</tr>

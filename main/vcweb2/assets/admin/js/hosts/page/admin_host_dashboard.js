@@ -312,7 +312,7 @@ jQuery(function(){
 		
 		
 		
-		
+		var last_checkin_val;
 		
 		
 		
@@ -361,6 +361,22 @@ jQuery(function(){
 				
 			},
 			events: {
+				'change select[name=category]': 'events_change_select_category',
+				'change input.checkbox1': 		'events_change_arrived_checkbox'
+			},
+			events_change_arrived_checkbox: function(e){
+				
+				var el = jQuery(e.currentTarget);
+				var checked = el.is(':checked');
+				
+				if(typeof last_checkin_val !== 'undefined' && checked)
+					this.$el.find('select[name=category]').val(last_checkin_val);
+				
+				
+			},
+			events_change_select_category: function(e){
+				
+				last_checkin_val = jQuery(e.currentTarget).val();
 				
 			}
 		}; Views.ReservationCheckin = Backbone.View.extend(Views.ReservationCheckin);
@@ -531,7 +547,6 @@ jQuery(function(){
 						new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
 						
 						
-						
 						_this.$el.find('label.ui-button').css({
 							padding: '8px 0 8px 0'
 						});
@@ -540,14 +555,12 @@ jQuery(function(){
 							padding: '14px 0 14px 0'
 						});
 						
-						
-												
+										
 						jQuery('*[data-mobile_font]').each(function(){
 							jQuery(this).css({
 								'font-size': jQuery(this).attr('data-mobile_font')
 							});
 						});
-						
 						
 					}
 						
@@ -559,7 +572,7 @@ jQuery(function(){
 					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').toggle();									
 				});
 				
-
+				
 				
 			},
 			
