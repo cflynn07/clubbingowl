@@ -48,10 +48,47 @@
 
 %>
 
-<td data-mobile_font="18px" class="ui4">
-	<input class="checkbox1" type="checkbox" id="<%= head_user %>" name="<%= head_user %>" />
-	<label for="<%= head_user %>">Arrived</label>
+<td data-mobile_font="18px" style="width:30%;" class="ui4">
+	
+	<%  var rand = Math.random(); %>
+	<input class="checkbox1" type="checkbox" id="<%= head_user || rand %>" name="<%= head_user || rand %>" />
+	<label for="<%= head_user || rand %>">Arrived</label>
+	
+	
+	<div class="additional_checkin_info" style="margin-bottom:20px; display:none;">
+		<table>
+			<tbody>
+				<tr>
+					<td style="font-size:14px;padding-right:0;"><label for="category">Category: </label></td>
+					<td>
+						<select data-mobile_font="16px" name="category">
+							<option>Full - $25</option>
+							<option>Reduced - $15</option>
+							<option>Comped - $0</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td style="font-size:14px;padding-right:0;"><label for="additional_friends">Additional Friends: </label></td>
+					<td>
+						<select data-mobile_font="16px" name="additional_friends">
+								<option selected="selected" value="0">0</option>
+							<?php for($i=1; $i<11; $i++): ?>
+								<option value="<?= $i ?>"><?= $i ?></option>
+							<?php endfor; ?>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>		
+	</div>
+	
+
+	
 </td>
+
+
+
 
 
 <td data-mobile_font="18px">
@@ -87,10 +124,11 @@
 		<% } %>
 		
 		
-		
-		
-	
 </td>
+
+
+
+
 
 
 
@@ -140,6 +178,18 @@
 		
 	
 </td>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -335,7 +335,18 @@ jQuery(function(){
 				
 				this.$el.html(html);
 				
+				this.$el.find('input[type=checkbox].checkbox1').bind('change', function(e){
+					
+					var el 		= jQuery(e.currentTarget);
+					var checked = el.is(':checked');
 				
+					if(checked){
+						el.parents('td.ui4').find('div.additional_checkin_info').show();
+					}else{
+						el.parents('td.ui4').find('div.additional_checkin_info').hide();
+					}
+				
+				});
 				
 				
 			},
@@ -348,7 +359,9 @@ jQuery(function(){
 		
 		
 		
-		
+		/**
+		 * Each promoter + house guest lists == a group
+		 */
 		Views.ReservationCheckinGroup = {
 			className: 'ui-widget ui-widget-content ui-helper-clearfix ui-corner-all full_width',
 			initialize: function(){
@@ -374,8 +387,8 @@ jQuery(function(){
 				
 				
 				var added_oauth_uids = [];
-
 				this.$el.find('tbody:first').empty();
+				
 				
 				//first loop through and take all head-users
 				this.collection.each(function(m){
@@ -398,7 +411,8 @@ jQuery(function(){
 				this.collection.each(function(m){
 					
 					//check each oauth_uid of each bloke that's already been added to avoid duplicates
-					
+					console.log('collection.each');
+					console.log(m.toJSON());
 					
 					
 				});
@@ -465,16 +479,7 @@ jQuery(function(){
 				//they appear for a second time since they've already been checked in
 				this.remove_duplicates();
 				
-				
-				
-				this.$el.find('*[data-mobile_font]').each(function(){
-					jQuery(this).css({
-						'font-size': jQuery(this).attr('data-mobile_font')
-					});
-				});
-				
-				
-				
+								
 				jQuery.populateFacebook(this.$el, function(){
 						
 					_this.$el.find('table.reservations_holder').dataTable({
@@ -488,32 +493,7 @@ jQuery(function(){
 					});
 	
 	
-	
-	
-	
-					
 					jQuery('input.checkbox1').button();
-					
-					
-					
-					
-					
-					
-					
-					_this.$el.find('label.ui-button').each(function(){
-						//speed shit up
-						new NoClickDelay(this);
-					});
-					_this.$el.find('div[data-top_min]').each(function(){
-						//speed shit up
-						new NoClickDelay(this);
-					});
-					new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
-					
-					
-					
-					
-					
 					
 					
 					_this.$el.find('label.ui-button').css({
@@ -524,6 +504,24 @@ jQuery(function(){
 					
 					
 					if(jQuery.isMobile()){
+						
+						_this.$el.find('label.ui-button').each(function(){
+							//speed shit up
+							new NoClickDelay(this);
+						});
+						_this.$el.find('div[data-top_min]').each(function(){
+							//speed shit up
+							new NoClickDelay(this);
+						});
+						new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
+						
+						
+						this.$el.find('*[data-mobile_font]').each(function(){
+							jQuery(this).css({
+								'font-size': jQuery(this).attr('data-mobile_font')
+							});
+						});
+						
 						_this.$el.find('label.ui-button').css({
 							padding: '8px 0 8px 0'
 						});
@@ -533,9 +531,7 @@ jQuery(function(){
 						});
 						
 					}
-						
-						
-						
+	
 						
 					
 				});
