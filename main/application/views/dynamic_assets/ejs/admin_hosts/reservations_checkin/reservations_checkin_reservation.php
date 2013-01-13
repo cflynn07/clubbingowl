@@ -48,59 +48,43 @@
 
 %>
 
-<td class="ui4">
-	
-	
-	<% if(collapsed){ %>
-									
-		<input type="checkbox" />
-		
-	<% } %>
-	
+<td data-mobile_font="18px" class="ui4">
 	
 	<% if(!collapsed){ %>
 		
 		<% if(head_user == null){ %>
-			<img src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />
+			<img style="display:inline-block;margin:0 5px 5px 0; vertical-align:top;" src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />
 		<% }else{ %>
-			<img src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
-		<% } %>
-		
-		<br/>
+			<img style="display:inline-block;margin:0 5px 5px 0; vertical-align:top;" src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
+		<% } %>		
 		
 	<% } %>		
+		
+		
+			
+		<% if(collapsed){ %>
+			<br />
+		<% } %>
+		
+		
 			
 		<% if(head_user == null){ %>
-			<span><%= supplied_name %></span>
+			<span style="margin-bottom:5px;" data-mobile_font="24px"><%= supplied_name %></span>
 		<% }else{ %>
-			
-			<span data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span>
-			
+			<span style="margin-bottom:5px;" data-mobile_font="24px" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span>
 		<% } %>
+		
+		
 			
-	<% if(u_phone_number){ %>
-		<br/><span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
-	<% } %>
-	
-	
-	<% if(!collapsed){ %>
+		<% if(collapsed){ %>
+			<br />
+		<% } %>
 		
-		<br/>						
-		<input type="checkbox" />
 		
-	<% } %>
-	
-	
-	
-      	
-    <input class="checkbox1" type="checkbox" id="<%= head_user %>" name="<%= head_user %>" />
-    <label for="<%= head_user %>">Arrived</label>
-	
-	
-	
-	
-	
-
+		
+		<br />						
+		<input class="checkbox1" type="checkbox" id="<%= head_user %>" name="<%= head_user %>" />
+    	<label for="<%= head_user %>">Arrived</label>
 	
 </td>
 
@@ -113,7 +97,7 @@
 		<img style="border:1px solid #CCC;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + guest_list_image + '_t.jpg' %>" />
 		<br/>
 	<% } %>
-	<span><%= guest_list_name %></span>
+	<span data-mobile_font="18px"><%= guest_list_name %></span>
 	
 </td>
 
@@ -152,6 +136,13 @@
 		
 	
 </td>
+
+
+
+
+<?php if(false): ?>
+
+
 <td>
 	<% if(table_request == '1'){ %>
 		<span style="color:green;">Yes</span><br/>
@@ -161,6 +152,13 @@
 		<span style="color:red;">No</span>
 	<% } %>
 </td>
+
+
+
+
+
+
+
 
 <td style="white-space:nowrap; <% if(!collapsed){ %> width:244px; <% } %>">
 	
@@ -305,3 +303,6 @@
 	
 
 </td>
+
+
+<?php endif; ?>

@@ -53,9 +53,7 @@ jQuery(function(){
 				if(this.options.reservations_all)
 					template = EVT['reservations_overview/ro_reservation_all'];
 				
-				
 								
-				
 				var html = new EJS({
 					text: template
 				}).render(jQuery.extend({
@@ -260,12 +258,73 @@ jQuery(function(){
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/**
+		 * Simple pub-sub mechanism to let a reservation know if it's been checked in elsewhere
+		 */
+		var object = {};
+		_.extend(object, Backbone.Events);
+		
+
+
+
+
+		
+		/*
+		 * Reference
+		 
+		object.on("alert", function(msg) {
+		  alert("Triggered " + msg);
+		});
+		
+		object.trigger("alert", "an event");
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
 		Views.ReservationCheckin = {
 			tagName: 'tr',
 			initialize: function(){
 				
 			},
 			render: function(){
+				
+				
+				
 				
 				var template = EVT['reservations_checkin/reservations_checkin_reservation'];
 				var html = new EJS({
@@ -313,7 +372,12 @@ jQuery(function(){
 				
 				
 				
-				//first loop through and take all head-users, then snatch all entourage users
+				
+				var added_oauth_uids = [];
+				
+				this.$el.find('tbody:first').empty();
+				
+				//first loop through and take all head-users
 				this.collection.each(function(m){
 					//append each tr
 					
@@ -327,8 +391,15 @@ jQuery(function(){
 				});
 				
 				
+				
+				
+				
 				//now go for entourage users
 				this.collection.each(function(m){
+					
+					//check each oauth_uid of each bloke that's already been added to avoid duplicates
+					
+					
 					
 				});
 				
@@ -340,9 +411,6 @@ jQuery(function(){
 				
 			}
 		}; Views.ReservationCheckinGroup = Backbone.View.extend(Views.ReservationCheckinGroup);
-		
-		
-		
 		
 		
 		
@@ -358,6 +426,10 @@ jQuery(function(){
 				
 				
 				
+				
+				
+				
+				
 				var reservation_groupings = this.collection.groupBy(function(m){
 					if(m.get('pglr_id') !== undefined){
 						return m.get('up_users_oauth_uid');
@@ -365,6 +437,9 @@ jQuery(function(){
 						return 'team';
 					}
 				});
+				
+				
+				
 				
 				
 				
@@ -381,13 +456,22 @@ jQuery(function(){
 
 					_this.$el.append(view_reservation_checkin_group.el);
 					view_reservation_checkin_group.render();
-					
-				
-					
+							
 				};
 				
 				
 				
+				//now that all the reservations are laid out, find all oauth_uid's that have been checked in anywhere -- and remove them from places where
+				//they appear for a second time since they've already been checked in
+				this.remove_duplicates();
+				
+				
+				
+				this.$el.find('*[data-mobile_font]').each(function(){
+					jQuery(this).css({
+						'font-size': jQuery(this).attr('data-mobile_font')
+					});
+				});
 				
 				
 				
@@ -406,12 +490,16 @@ jQuery(function(){
 						//speed shit up
 						new NoClickDelay(this);
 					});
+					_this.$el.find('label.ui-button').css({
+						'max-width': '250px'
+					});
 					
 					
-			//		_this.$el.find('input[type=checkbox]').iphoneStyle({
-			//			checkedLabel: 	'Yes',
-			//			uncheckedLabel: 'No'
-			//		});
+					
+					if(jQuery.isMobile())
+						_this.$el.find('label.ui-button').css({
+							padding: '12px 0 12px 0'
+						});
 					
 				});
 				
@@ -420,14 +508,33 @@ jQuery(function(){
 				
 				
 				
-			//	this.$el.sortable();
+			},
+			
+			remove_duplicates: function(){
+				
 				
 				
 			},
+			
 			events: {
 				
 			}
 		}; Views.ReservationsCheckinHolder = Backbone.View.extend(Views.ReservationsCheckinHolder);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

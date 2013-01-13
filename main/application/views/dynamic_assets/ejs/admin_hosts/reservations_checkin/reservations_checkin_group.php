@@ -21,8 +21,6 @@
 			<th>Head User</th>
 			<th>Guest List</th>
 			<th>Messages</th>
-			<th>Table</th>
-			<th>Entourage</th>
 		</tr>
 	</thead>
 	<tbody>
