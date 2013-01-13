@@ -111,7 +111,7 @@
 	
 	<% if(collapsed){ %>
 		
-		<span> --- </span>
+		<span><%= (host_notes.length) ? host_notes : ' - ' %></span>
 		
 	<% }else{ %>
 		<table class="user_messages" style="width:152px;">
