@@ -442,6 +442,8 @@ jQuery(function(){
 		       }
 			});
 			datepicker.datepicker('setDate', '0 days');			
+			
+			jQuery('input.hasDatepicker').attr('readonly', 'readonly');
 									
 		}).trigger('change');
 		
@@ -449,8 +451,7 @@ jQuery(function(){
 		
 		
 		
-		
-		
+	
 		
 		
 		

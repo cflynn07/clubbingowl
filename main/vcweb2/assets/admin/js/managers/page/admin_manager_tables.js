@@ -447,6 +447,9 @@ jQuery(function(){
 			});
 			datepicker.datepicker('setDate', '0 days');			
 									
+			//format actions to happen on all mobile & desktop pages
+			jQuery('input.hasDatepicker').attr('readonly', 'readonly');
+									
 		}).trigger('change');
 		
 		

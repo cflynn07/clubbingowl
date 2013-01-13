@@ -7,7 +7,8 @@ jQuery(function(){
 			window.module.Globals.prototype.unbind_callback();
 			
 		if(typeof callback === 'function')
-			callback();		
+			callback();
+			
 			
 		window.module.Globals.prototype.global_views.admin_wrapper.ajaxify_change();
 		window.vc_page_scripts.reformat_layout_mobile();

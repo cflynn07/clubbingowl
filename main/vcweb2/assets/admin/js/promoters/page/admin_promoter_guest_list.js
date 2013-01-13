@@ -828,6 +828,12 @@ jQuery(function(){
 					
 				}
 				
+				
+				
+				jQuery('input.hasDatepicker').attr('readonly', 'readonly');
+				
+				
+				
 			},
 			change_collection: function(model, event){
 				
@@ -1110,6 +1116,11 @@ jQuery(function(){
 				
 				
 				this.custom_events_add_fb_data();
+				
+				
+				jQuery('input.hasDatepicker').attr('readonly', 'readonly');
+				
+				
 				
 				return this;		
 				

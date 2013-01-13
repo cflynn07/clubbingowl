@@ -1212,6 +1212,11 @@ jQuery(function(){
 					opacity: 1
 				});
 				
+				
+				//format actions to happen on all mobile & desktop pages
+				jQuery('input.hasDatepicker').attr('readonly', 'readonly');
+				
+				
 				return this;
 				
 				

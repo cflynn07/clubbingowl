@@ -267,6 +267,11 @@ jQuery(document).ready(function() {
 	    	return /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 	    	
 	    },
+	    isIphone: function(){
+	    	
+	    	return /iPhone|iPod/i.test(navigator.userAgent);
+	    	
+	    },
 	    populateFacebook: function(el, callback){
 	    	
 	    	console.log(el.find('*[data-oauth_uid]'));

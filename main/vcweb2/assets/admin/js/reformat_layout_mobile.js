@@ -122,6 +122,25 @@ jQuery(function(){
 			
 		}
 		
+		/*		
+		if( jQuery.isIphone()){
+			
+			jQuery('#primary_right .inner').css({
+				padding: 	'0px',
+				width: 		'1000px'
+			});
+			
+			jQuery('#primary_right div.top_lvl').css({
+				height: '1000px'
+			});
+			
+			jQuery('#primary_right .inner div#tabs:first').css({
+				width: '998px'
+			});
+			
+		}
+		*/
+		
 	}
 	
 });

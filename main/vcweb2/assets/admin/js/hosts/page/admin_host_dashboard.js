@@ -506,7 +506,11 @@ jQuery(function(){
 				
 				
 				
-				
+				this.$el.find('div[data-top_min]').bind('click', function(){
+									
+					jQuery(this).parents('div.ui-widget:first').find('*[data-collapse_me]').toggle();
+					
+				});
 				
 				
 			},
@@ -751,6 +755,13 @@ jQuery(function(){
 			datepicker.datepicker('setDate', '0 days');			
 									
 		}).trigger('change');
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
