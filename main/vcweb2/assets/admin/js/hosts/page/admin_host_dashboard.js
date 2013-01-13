@@ -495,10 +495,27 @@ jQuery(function(){
 					jQuery('input.checkbox1').button();
 					
 					
+					
+					
+					
+					
+					
 					_this.$el.find('label.ui-button').each(function(){
 						//speed shit up
 						new NoClickDelay(this);
 					});
+					_this.$el.find('div[data-top_min]').each(function(){
+						//speed shit up
+						new NoClickDelay(this);
+					});
+					new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
+					
+					
+					
+					
+					
+					
+					
 					_this.$el.find('label.ui-button').css({
 						'max-width': '250px',
 						'min-width': '175px'
@@ -532,8 +549,8 @@ jQuery(function(){
 				this.$el.find('div[data-top_min]').bind('click', function(){
 					
 					
-					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').slideToggle();				
-					jQuery(this).parents('div.ui-widget:first').find('*[data-collapse_me]').slideToggle();
+					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').toggle();				
+				//	jQuery(this).parents('div.ui-widget:first').find('*[data-collapse_me]').toggle();
 					
 					
 				});
