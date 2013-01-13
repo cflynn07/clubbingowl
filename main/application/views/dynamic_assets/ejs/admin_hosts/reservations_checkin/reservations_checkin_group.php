@@ -18,6 +18,7 @@
 <table  style="width:100%;" class="normal reservations_holder">
 	<thead>
 		<tr>
+			<th>Checkin Status</th>
 			<th>Head User</th>
 			<th>Guest List</th>
 			<th>Messages</th>

@@ -491,14 +491,15 @@ jQuery(function(){
 						new NoClickDelay(this);
 					});
 					_this.$el.find('label.ui-button').css({
-						'max-width': '250px'
+						'max-width': '250px',
+						'min-width': '175px'
 					});
 					
 					
 					
 					if(jQuery.isMobile())
 						_this.$el.find('label.ui-button').css({
-							padding: '12px 0 12px 0'
+							padding: '8px 0 8px 0'
 						});
 					
 				});

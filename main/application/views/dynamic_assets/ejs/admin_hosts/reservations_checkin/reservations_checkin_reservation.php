@@ -49,6 +49,12 @@
 %>
 
 <td data-mobile_font="18px" class="ui4">
+	<input class="checkbox1" type="checkbox" id="<%= head_user %>" name="<%= head_user %>" />
+	<label for="<%= head_user %>">Arrived</label>
+</td>
+
+
+<td data-mobile_font="18px">
 	
 	<% if(!collapsed){ %>
 		
@@ -82,9 +88,7 @@
 		
 		
 		
-		<br />						
-		<input class="checkbox1" type="checkbox" id="<%= head_user %>" name="<%= head_user %>" />
-    	<label for="<%= head_user %>">Arrived</label>
+		
 	
 </td>
 
