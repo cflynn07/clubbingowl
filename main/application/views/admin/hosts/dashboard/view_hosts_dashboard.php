@@ -98,7 +98,7 @@
 
 
 
-						<div id="tabs-<?= $venue->tv_id ?>-1">
+						<div style="padding:0;" id="tabs-<?= $venue->tv_id ?>-1">
 							
 							<h3>Table Reservations</h3>
 
@@ -110,7 +110,7 @@
 						
 						
 						
-						<div id="tabs-<?= $venue->tv_id ?>-2">
+						<div style="padding:0;" id="tabs-<?= $venue->tv_id ?>-2">
 													
 							<div data-checkin_tv="<?= $venue->tv_id?>" class="full_width last all_reservations"></div>
 							

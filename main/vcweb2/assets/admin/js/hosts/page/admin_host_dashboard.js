@@ -374,7 +374,7 @@ jQuery(function(){
 				
 				
 				var added_oauth_uids = [];
-				
+
 				this.$el.find('tbody:first').empty();
 				
 				//first loop through and take all head-users
@@ -480,8 +480,17 @@ jQuery(function(){
 					_this.$el.find('table.reservations_holder').dataTable({
 						bJQueryUI: 		true,
 						bDestroy: 		true,
-						bAuthWidth: 	true
+						bAuthWidth: 	true,
+						 "aLengthMenu": [
+					         [-1, 		20, 50, 100],
+					         ["All", 	20, 50, 100]
+					     ]
 					});
+	
+	
+	
+	
+	
 					
 					jQuery('input.checkbox1').button();
 					
@@ -497,20 +506,40 @@ jQuery(function(){
 					
 					
 					
-					if(jQuery.isMobile())
+					if(jQuery.isMobile()){
 						_this.$el.find('label.ui-button').css({
 							padding: '8px 0 8px 0'
 						});
+						
+						jQuery('div[data-top_min]').css({
+							padding: '14px 0 14px 0'
+						});
+						
+					}
+						
+						
+						
+						
 					
 				});
+				
+				
+				
+				
 				
 				
 				
 				this.$el.find('div[data-top_min]').bind('click', function(){
-									
-					jQuery(this).parents('div.ui-widget:first').find('*[data-collapse_me]').toggle();
+					
+					
+					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').slideToggle();				
+					jQuery(this).parents('div.ui-widget:first').find('*[data-collapse_me]').slideToggle();
+					
 					
 				});
+				
+				
+				
 				
 				
 			},

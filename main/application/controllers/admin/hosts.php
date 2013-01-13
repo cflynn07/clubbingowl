@@ -241,8 +241,8 @@ class Hosts extends MY_Controller {
 	 */
 	private function _helper_venue_floorplan_retrieve_v2(){
 				
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$this->load->model('model_teams', 'teams', true);
+		$this->load->model('model_users_managers', 	'users_managers', 	true);
+		$this->load->model('model_teams', 			'teams', 			true);
 		
 		
 		
