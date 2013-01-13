@@ -1087,6 +1087,9 @@ jQuery(function(){
 						text: EVT['guest_lists/gl_tr_no_reservations']
 					}).render({});
 					tbody.html(html);
+					
+					jQuery('#lists_container > table').width(jQuery('#lists_container').width());
+					
 					return this;
 					
 				}
@@ -1160,7 +1163,11 @@ jQuery(function(){
 			custom_events_add_fb_data: function(e){
 				
 				
-				jQuery.populateFacebook(this.$el.find('tbody'), function(){});
+				jQuery.populateFacebook(this.$el.find('tbody'), function(){
+					
+					jQuery('#lists_container > table').width(jQuery('#lists_container').width());
+					
+				});
 				
 				return;
 				

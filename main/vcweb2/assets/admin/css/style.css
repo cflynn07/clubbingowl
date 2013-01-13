@@ -1921,6 +1921,13 @@ div#mobile_menu {
 }
 
 
-ul.ui-tabs-nav {
+
+
+
+
+//ul.ui-tabs-nav {
+//	white-space: nowrap;
+//}
+div.ui-widget-header{
 	white-space: nowrap;
 }

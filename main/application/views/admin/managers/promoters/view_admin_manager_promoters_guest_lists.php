@@ -82,11 +82,11 @@
 										
 										<h3><?= $promoter->u_full_name ?></h3>
 										
-										<img style="left:-5px;position:relative;" src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $promoter->up_profile_image . '_p.jpg' ?>" alt="" />
+										<img style="left:-5px;position:relative; border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $promoter->up_profile_image . '_p.jpg' ?>" alt="" />
 										
-										<br><br>
+										<br>
 												
-										<ul class="sitemap ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" style="cursor: default;">
+										<ul class="sitemap ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" style="cursor: default; margin-left:0;">
 											<?php foreach(array('mondays', 'tuesdays', 'wednesdays', 'thursdays', 'fridays', 'saturdays', 'sundays') as $weekday): 
 													$day_displayed = false;
 											?>
@@ -154,8 +154,11 @@
 																<?php else: ?>
 																	
 																	<img src="https://graph.facebook.com/<?= $group->head_user ?>/picture?type=square" />
-																	<div data-name="<?= $group->head_user ?>" data-oauth_uid="<?= $group->head_user ?>"  class="name_<?= $group->head_user ?>"></div>
-															
+																	
+																	<a href="<?= $central->front_link_base . 'admin/managers/clients/' . $group->head_user . '/' ?>" class="ajaxify">
+																		<div data-name="<?= $group->head_user ?>" data-oauth_uid="<?= $group->head_user ?>"  class="name_<?= $group->head_user ?>"></div>	
+																	</a>
+																	
 																<?php endif; ?>
 															
 															
@@ -220,7 +223,13 @@
 																					
 																				<?php else: ?>
 																					
-																					<td><div data-oauth_uid="<?= $ent_user->pglre_oauth_uid ?>" data-name="<?= $ent_user->pglre_oauth_uid ?>" class="name_<?= $ent_user->pglre_oauth_uid ?>"></div></td>
+																					<td>
+																					
+																						<a href="<?= $central->front_link_base . 'admin/managers/clients/' . $group->head_user . '/' ?>" class="ajaxify">
+																							<div data-oauth_uid="<?= $ent_user->pglre_oauth_uid ?>" data-name="<?= $ent_user->pglre_oauth_uid ?>" class="name_<?= $ent_user->pglre_oauth_uid ?>"></div>
+																						</a>
+																					
+																					</td>
 																					<td><div class=""><img src="https://graph.facebook.com/<?= $ent_user->pglre_oauth_uid ?>/picture?type=square" /></div></td>
 																					
 																				<?php endif; ?>

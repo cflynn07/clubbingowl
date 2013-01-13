@@ -24,7 +24,7 @@
 		<img class="info_icon tooltip" title="Requests organized by venue" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 	</h3>
 	
-	<div id="tabs" style="display:none;margin-bottom:0px; height: auto !important;">
+	<div id="tabs" style="display:none;margin-bottom:0px; height: auto !important; width:980px;">
 		
 		
 		<div class="ui-widget-header" style="cursor: default;">

@@ -1204,6 +1204,8 @@ jQuery(function(){
 					}).render({});
 					tbody.html(html);
 					
+					jQuery('#lists_container > table').width(jQuery('#lists_container').width());
+					
 				}
 
 				this.$el.find('tbody').css({
@@ -1337,6 +1339,11 @@ jQuery(function(){
 					jQuery.fbUserLookup(users, '', function(rows){
 						_this.users = rows;
 						fb_names(rows);
+						
+						
+						jQuery('#lists_container > table').width(jQuery('#lists_container').width());
+						
+						
 					});
 					
 		//		}else{

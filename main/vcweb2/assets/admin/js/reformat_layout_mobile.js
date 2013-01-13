@@ -4,6 +4,13 @@ jQuery(function(){
 	
 	window.vc_page_scripts.reformat_layout_mobile = function(){
 	
+		
+		
+		//format actions to happen on all mobile & desktop pages
+		jQuery('input.hasDatepicker').attr('readonly', 'readonly');
+		
+	
+	
 		if(jQuery.isMobile()){
 		
 			jQuery('body').css('background', 'none');
