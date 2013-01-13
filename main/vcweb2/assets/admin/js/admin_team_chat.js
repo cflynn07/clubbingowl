@@ -839,9 +839,9 @@ jQuery(function() {(function(exports) {
 		team_chat_object.init_pagesslide_open_close();
 		
 		
-		jQuery('#team_chatbox_header').bind('click', function(){
-			jQuery('#team_chatbox_header_tab').trigger('click');
-		});
+//		jQuery('#team_chatbox_header').bind('click', function(){
+//			jQuery('#team_chatbox_header_tab').trigger('click');
+//		});
 
 	})(window);
 });
