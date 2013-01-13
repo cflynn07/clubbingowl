@@ -1,6 +1,6 @@
 <h1>Marketing</h1>
 
-<div style="width:1050px; margin-bottom:40px;">
+<div style="width:980px; margin-bottom:40px;">
 	<?php Kint::dump($data); ?>
 	
 	<div class="full_width last">
@@ -49,7 +49,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Your team (promoters & venues) have a database of <strong style="text-decoration:underline;"><?= count($data->clients) ?></strong> clients that have no opted out of recieving emails from ClubbingOwl.</td>
+					<td>Your team (promoters & venues) have a database of <strong style="text-decoration:underline;"><?= count($data->clients) ?></strong> clients that have not opted out of recieving emails from ClubbingOwl.</td>
 				</tr>
 			</tbody>
 		</table>

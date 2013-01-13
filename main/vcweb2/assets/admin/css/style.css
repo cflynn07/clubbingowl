@@ -1919,3 +1919,8 @@ div#mobile_menu {
 	font-size:16px; 
 	padding: 10px 5px 0px 5px;
 }
+
+
+ul.ui-tabs-nav {
+	white-space: nowrap;
+}

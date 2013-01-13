@@ -61,6 +61,4 @@ jQuery(function(){
 		hashChange: false
 	});
 	
-	
-	
 });
