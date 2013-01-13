@@ -48,20 +48,26 @@
 
 %>
 
-<td data-mobile_font="18px" style="width:30%;" class="ui4">
+<td data-mobile_font="18px" style="width:15%;" class="ui4">
 	
-	<%  var rand = Math.random(); %>
+	<% var rand = Math.random(); %>
 	<input class="checkbox1" type="checkbox" id="<%= head_user || rand %>" name="<%= head_user || rand %>" />
 	<label for="<%= head_user || rand %>">Arrived</label>
+
+</td>
+
+
+
+<td style="padding:5px; width:15%;">
 	
 	
-	<div class="additional_checkin_info" style="margin-bottom:20px; display:none;">
+	<div class="additional_checkin_info" style="opacity:0.4;">
 		<table>
 			<tbody>
 				<tr>
 					<td style="font-size:14px;padding-right:0;"><label for="category">Category: </label></td>
 					<td>
-						<select data-mobile_font="18px" name="category">
+						<select disabled="disabled" data-mobile_font="18px" name="category">
 							<option>Full - $25</option>
 							<option>Reduced - $15</option>
 							<option>Comped - $0</option>
@@ -69,9 +75,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="font-size:14px;padding-right:0;"><label for="additional_friends">Additional Friends: </label></td>
+					<td style="font-size:14px;padding-right:0;"><label for="additional_friends">Friends: </label></td>
 					<td>
-						<select data-mobile_font="18px" name="additional_friends">
+						<select disabled="disabled" data-mobile_font="18px" name="additional_friends">
 								<option selected="selected" value="0">0</option>
 							<?php for($i=1; $i<11; $i++): ?>
 								<option value="<?= $i ?>"><?= $i ?></option>
@@ -83,11 +89,8 @@
 		</table>		
 	</div>
 	
-
 	
 </td>
-
-
 
 
 
@@ -96,33 +99,25 @@
 	<% if(!collapsed){ %>
 		
 		<% if(head_user == null){ %>
-			<img style="display:inline-block;margin:0 5px 5px 0; vertical-align:top;" src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />
+			<img style="display:inline-block; margin:0 5px 5px 0; vertical-align:top;" src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />
 		<% }else{ %>
-			<img style="display:inline-block;margin:0 5px 5px 0; vertical-align:top;" src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
+			<img style="display:inline-block; margin:0 5px 5px 0; vertical-align:top;" src="https://graph.facebook.com/<%= head_user %>/picture?width=50&height=50" />
 		<% } %>		
+		
+		<br/>
 		
 	<% } %>		
 		
+	
+	
 		
-			
-		<% if(collapsed){ %>
-			<br />
-		<% } %>
-		
-		
-			
-		<% if(head_user == null){ %>
-			<span style="margin-bottom:5px;" data-mobile_font="24px"><%= supplied_name %></span>
-		<% }else{ %>
-			<span style="margin-bottom:5px;" data-mobile_font="24px" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span>
-		<% } %>
-		
-		
-			
-		<% if(collapsed){ %>
-			<br />
-		<% } %>
-		
+	<% if(head_user == null){ %>
+		<span style="margin-bottom:5px;" data-mobile_font="18px"><%= supplied_name %></span>
+	<% }else{ %>
+		<span style="margin-bottom:5px;" data-mobile_font="18px" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span>
+	<% } %>
+	
+	
 		
 </td>
 

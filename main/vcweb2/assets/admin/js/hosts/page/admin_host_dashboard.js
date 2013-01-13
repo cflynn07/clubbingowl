@@ -341,9 +341,19 @@ jQuery(function(){
 					var checked = el.is(':checked');
 				
 					if(checked){
-						el.parents('td.ui4').find('div.additional_checkin_info').show();
+				
+						el.parents('tr').find('div.additional_checkin_info').css({
+							opacity: 1
+						});
+						el.parents('tr').find('div.additional_checkin_info select').removeAttr('disabled');
+				
 					}else{
-						el.parents('td.ui4').find('div.additional_checkin_info').hide();
+						
+						el.parents('tr').find('div.additional_checkin_info').css({
+							opacity: 0.4
+						});
+						el.parents('tr').find('div.additional_checkin_info select').attr('disabled', 'disabled');
+					
 					}
 				
 				});
@@ -502,8 +512,8 @@ jQuery(function(){
 					
 					
 					_this.$el.find('label.ui-button').css({
-						'max-width': '250px',
-						'min-width': '175px'
+						'max-width': '150px',
+						'min-width': '100px'
 					});
 					
 					
@@ -531,18 +541,12 @@ jQuery(function(){
 						});
 						
 						
-						
-						
-						
+												
 						jQuery('*[data-mobile_font]').each(function(){
 							jQuery(this).css({
 								'font-size': jQuery(this).attr('data-mobile_font')
 							});
 						});
-						
-						
-						
-						
 						
 						
 					}
