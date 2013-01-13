@@ -7,7 +7,7 @@ jQuery(function(){
 		var EVT 				= window.ejs_view_templates_admin_hosts;
 		var globals 			= window.module.Globals.prototype;
 		var datepicker;
-		var collapsed			= false;
+		var collapsed			= true;
 							
 							
 		if(!window.page_obj.team_venues)
