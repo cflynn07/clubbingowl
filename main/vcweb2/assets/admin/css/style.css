@@ -1931,3 +1931,30 @@ div#mobile_menu {
 div.ui-widget-header{
 	white-space: nowrap;
 }
+
+
+.ui-tabs .ui-tabs-nav li {
+	background: #CCC !important;
+	padding: 5px 0 5px 0;
+}
+.ui-tabs .ui-tabs-nav li.ui-state-active {
+	background: #474D6A !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-state-active a {
+	text-decoration: none !important;
+	color: #FFF !important;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+	text-shadow: none;
+	border-left: none;
+}
+
+#left_menu ul.sitemap li {
+	background: none !important;
+	padding: 0 !important;
+}
+
+
+

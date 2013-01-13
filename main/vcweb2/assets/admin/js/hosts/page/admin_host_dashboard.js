@@ -453,6 +453,13 @@ jQuery(function(){
 				});
 				
 				
+				if(this.collection.length === 0){
+				
+					this.$el.html('<h2 style="width:100%; text-align:center; color:#000; margin-top:10px; margin-top: 20px; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 10px 0 10px 0;">No Reservations</h2>');
+					
+				}
+				
+				
 				
 				
 				
@@ -462,11 +469,9 @@ jQuery(function(){
 					var group 		= reservation_groupings[i];
 					var collection 	= new Collections.Reservations(group);
 					
-					
 					var view_reservation_checkin_group = new Views.ReservationCheckinGroup({
 						collection: collection
 					});
-
 
 					_this.$el.append(view_reservation_checkin_group.el);
 					view_reservation_checkin_group.render();
@@ -516,11 +521,6 @@ jQuery(function(){
 						new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
 						
 						
-						this.$el.find('*[data-mobile_font]').each(function(){
-							jQuery(this).css({
-								'font-size': jQuery(this).attr('data-mobile_font')
-							});
-						});
 						
 						_this.$el.find('label.ui-button').css({
 							padding: '8px 0 8px 0'
@@ -530,30 +530,32 @@ jQuery(function(){
 							padding: '14px 0 14px 0'
 						});
 						
-					}
-	
 						
-					
+						
+						
+						
+						jQuery('*[data-mobile_font]').each(function(){
+							jQuery(this).css({
+								'font-size': jQuery(this).attr('data-mobile_font')
+							});
+						});
+						
+						
+						
+						
+						
+						
+					}
+						
 				});
 				
-				
-				
-				
-				
-				
-				
-				this.$el.find('div[data-top_min]').bind('click', function(){
-					
-					
-					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').toggle();				
-				//	jQuery(this).parents('div.ui-widget:first').find('*[data-collapse_me]').toggle();
-					
-					
+
+
+				this.$el.find('div[data-top_min]').bind('click', function(){					
+					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').toggle();									
 				});
 				
-				
-				
-				
+
 				
 			},
 			

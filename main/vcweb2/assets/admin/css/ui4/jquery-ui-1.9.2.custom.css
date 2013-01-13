@@ -68,25 +68,25 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 .ui4  .ui-widget { font-family: Segoe UI,Arial,sans-serif; font-size: 1.1em; }
 .ui4  .ui-widget .ui-widget { font-size: 1em; }
 .ui4  .ui-widget input, .ui4  .ui-widget select, .ui4  .ui-widget textarea, .ui4  .ui-widget button { font-family: Segoe UI,Arial,sans-serif; font-size: 1em; }
-.ui4  .ui-widget-content { border: 1px solid #666666; background: #000000 url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x; color: #ffffff; }
+.ui4  .ui-widget-content { border: 1px solid #666666; background: #000000 url(/vcweb2/assets/admin/css/ui4/images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x; color: #ffffff; }
 .ui4  .ui-widget-content a { color: #ffffff; }
-.ui4  .ui-widget-header { border: 1px solid #333333; background: #333333 url(images/ui-bg_gloss-wave_25_333333_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+.ui4  .ui-widget-header { border: 1px solid #333333; background: #333333 url(/vcweb2/assets/admin/css/ui4/images/ui-bg_gloss-wave_25_333333_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
 .ui4  .ui-widget-header a { color: #ffffff; }
 
 /* Interaction states
 ----------------------------------*/
-.ui4  .ui-state-default, .ui4  .ui-widget-content .ui-state-default, .ui4  .ui-widget-header .ui-state-default { border: 1px solid #666666; background: #555555 url(images/ui-bg_glass_20_555555_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #eeeeee; }
+.ui4  .ui-state-default, .ui4  .ui-widget-content .ui-state-default, .ui4  .ui-widget-header .ui-state-default { border: 1px solid #666666; background: #555555 url(/vcweb2/assets/admin/css/ui4/images/ui-bg_glass_20_555555_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #eeeeee; }
 .ui4  .ui-state-default a, .ui4  .ui-state-default a:link, .ui4  .ui-state-default a:visited { color: #eeeeee; text-decoration: none; }
-.ui4  .ui-state-hover, .ui4  .ui-widget-content .ui-state-hover, .ui4  .ui-widget-header .ui-state-hover, .ui4  .ui-state-focus, .ui4  .ui-widget-content .ui-state-focus, .ui4  .ui-widget-header .ui-state-focus { border: 1px solid #59b4d4; background: #0078a3 url(images/ui-bg_glass_40_0078a3_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+.ui4  .ui-state-hover, .ui4  .ui-widget-content .ui-state-hover, .ui4  .ui-widget-header .ui-state-hover, .ui4  .ui-state-focus, .ui4  .ui-widget-content .ui-state-focus, .ui4  .ui-widget-header .ui-state-focus { border: 1px solid #59b4d4; background: #0078a3 url(/vcweb2/assets/admin/css/ui4/images/ui-bg_glass_40_0078a3_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
 .ui4  .ui-state-hover a, .ui4  .ui-state-hover a:hover, .ui4  .ui-state-hover a:link, .ui4  .ui-state-hover a:visited { color: #ffffff; text-decoration: none; }
-.ui4  .ui-state-active, .ui4  .ui-widget-content .ui-state-active, .ui4  .ui-widget-header .ui-state-active { border: 1px solid #ffaf0f; background: #f58400 url(images/ui-bg_inset-soft_30_f58400_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+.ui4  .ui-state-active, .ui4  .ui-widget-content .ui-state-active, .ui4  .ui-widget-header .ui-state-active { border: 1px solid #ffaf0f; background: #f58400 url(/vcweb2/assets/admin/css/ui4/images/ui-bg_inset-soft_30_f58400_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
 .ui4  .ui-state-active a, .ui4  .ui-state-active a:link, .ui4  .ui-state-active a:visited { color: #ffffff; text-decoration: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui4  .ui-state-highlight, .ui4  .ui-widget-content .ui-state-highlight, .ui4  .ui-widget-header .ui-state-highlight  {border: 1px solid #cccccc; background: #eeeeee url(images/ui-bg_highlight-soft_80_eeeeee_1x100.png) 50% top repeat-x; color: #2e7db2; }
+.ui4  .ui-state-highlight, .ui4  .ui-widget-content .ui-state-highlight, .ui4  .ui-widget-header .ui-state-highlight  {border: 1px solid #cccccc; background: #eeeeee url(/vcweb2/assets/admin/css/ui4/images/ui-bg_highlight-soft_80_eeeeee_1x100.png) 50% top repeat-x; color: #2e7db2; }
 .ui4  .ui-state-highlight a, .ui4  .ui-widget-content .ui-state-highlight a,.ui4  .ui-widget-header .ui-state-highlight a { color: #2e7db2; }
-.ui4  .ui-state-error, .ui4  .ui-widget-content .ui-state-error, .ui4  .ui-widget-header .ui-state-error {border: 1px solid #ffb73d; background: #ffc73d url(images/ui-bg_glass_40_ffc73d_1x400.png) 50% 50% repeat-x; color: #111111; }
+.ui4  .ui-state-error, .ui4  .ui-widget-content .ui-state-error, .ui4  .ui-widget-header .ui-state-error {border: 1px solid #ffb73d; background: #ffc73d url(/vcweb2/assets/admin/css/ui4/images/ui-bg_glass_40_ffc73d_1x400.png) 50% 50% repeat-x; color: #111111; }
 .ui4  .ui-state-error a, .ui4  .ui-widget-content .ui-state-error a, .ui4  .ui-widget-header .ui-state-error a { color: #111111; }
 .ui4  .ui-state-error-text, .ui4  .ui-widget-content .ui-state-error-text, .ui4  .ui-widget-header .ui-state-error-text { color: #111111; }
 .ui4  .ui-priority-primary, .ui4  .ui-widget-content .ui-priority-primary, .ui4  .ui-widget-header .ui-priority-primary { font-weight: bold; }
@@ -98,14 +98,14 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 ----------------------------------*/
 
 /* states and images */
-.ui4  .ui-icon { width: 16px; height: 16px; background-image: url(images/ui-icons_cccccc_256x240.png); }
-.ui4  .ui-widget-content .ui-icon {background-image: url(images/ui-icons_cccccc_256x240.png); }
-.ui4  .ui-widget-header .ui-icon {background-image: url(images/ui-icons_ffffff_256x240.png); }
-.ui4  .ui-state-default .ui-icon { background-image: url(images/ui-icons_cccccc_256x240.png); }
-.ui4  .ui-state-hover .ui-icon, .ui4  .ui-state-focus .ui-icon {background-image: url(images/ui-icons_ffffff_256x240.png); }
-.ui4  .ui-state-active .ui-icon {background-image: url(images/ui-icons_222222_256x240.png); }
-.ui4  .ui-state-highlight .ui-icon {background-image: url(images/ui-icons_4b8e0b_256x240.png); }
-.ui4  .ui-state-error .ui-icon, .ui4  .ui-state-error-text .ui-icon {background-image: url(images/ui-icons_a83300_256x240.png); }
+.ui4  .ui-icon { width: 16px; height: 16px; background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_cccccc_256x240.png); }
+.ui4  .ui-widget-content .ui-icon {background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_cccccc_256x240.png); }
+.ui4  .ui-widget-header .ui-icon {background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_ffffff_256x240.png); }
+.ui4  .ui-state-default .ui-icon { background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_cccccc_256x240.png); }
+.ui4  .ui-state-hover .ui-icon, .ui4  .ui-state-focus .ui-icon {background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_ffffff_256x240.png); }
+.ui4  .ui-state-active .ui-icon {background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_222222_256x240.png); }
+.ui4  .ui-state-highlight .ui-icon {background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_4b8e0b_256x240.png); }
+.ui4  .ui-state-error .ui-icon, .ui4  .ui-state-error-text .ui-icon {background-image: url(/vcweb2/assets/admin/css/ui4/images/ui-icons_a83300_256x240.png); }
 
 /* positioning */
 .ui4  .ui-icon-carat-1-n { background-position: 0 0; }
@@ -295,8 +295,8 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 .ui4  .ui-corner-all, .ui4  .ui-corner-bottom, .ui4  .ui-corner-right, .ui4  .ui-corner-br { -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; -khtml-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px; }
 
 /* Overlays */
-.ui4  .ui-widget-overlay { background: #5c5c5c url(images/ui-bg_flat_50_5c5c5c_40x100.png) 50% 50% repeat-x; opacity: .8;filter:Alpha(Opacity=80); }
-.ui4  .ui-widget-shadow { margin: -7px 0 0 -7px; padding: 7px; background: #cccccc url(images/ui-bg_flat_30_cccccc_40x100.png) 50% 50% repeat-x; opacity: .6;filter:Alpha(Opacity=60); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }
+.ui4  .ui-widget-overlay { background: #5c5c5c url(/vcweb2/assets/admin/css/ui4/images/ui-bg_flat_50_5c5c5c_40x100.png) 50% 50% repeat-x; opacity: .8;filter:Alpha(Opacity=80); }
+.ui4  .ui-widget-shadow { margin: -7px 0 0 -7px; padding: 7px; background: #cccccc url(/vcweb2/assets/admin/css/ui4/images/ui-bg_flat_30_cccccc_40x100.png) 50% 50% repeat-x; opacity: .6;filter:Alpha(Opacity=60); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }
 
 
 input[type="checkbox"] + label {

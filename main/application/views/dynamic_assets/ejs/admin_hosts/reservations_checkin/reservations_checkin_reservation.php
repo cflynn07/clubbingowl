@@ -61,7 +61,7 @@
 				<tr>
 					<td style="font-size:14px;padding-right:0;"><label for="category">Category: </label></td>
 					<td>
-						<select data-mobile_font="16px" name="category">
+						<select data-mobile_font="18px" name="category">
 							<option>Full - $25</option>
 							<option>Reduced - $15</option>
 							<option>Comped - $0</option>
@@ -71,7 +71,7 @@
 				<tr>
 					<td style="font-size:14px;padding-right:0;"><label for="additional_friends">Additional Friends: </label></td>
 					<td>
-						<select data-mobile_font="16px" name="additional_friends">
+						<select data-mobile_font="18px" name="additional_friends">
 								<option selected="selected" value="0">0</option>
 							<?php for($i=1; $i<11; $i++): ?>
 								<option value="<?= $i ?>"><?= $i ?></option>
