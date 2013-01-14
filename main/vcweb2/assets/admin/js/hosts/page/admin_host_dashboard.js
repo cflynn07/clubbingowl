@@ -389,13 +389,13 @@ jQuery(function(){
 				
 				
 				
-				console.log('before approved');
-				console.log(this.collection.toJSON());
-				var all = all_approved_reservations(this);
-				this.collection.reset(all);
-				console.log('after');
-				console.log(all);
-				console.log(this.collection.toJSON());
+			//	console.log('before approved');
+			//	console.log(this.collection.toJSON());
+			//	var all = all_approved_reservations(this);
+			//	this.collection.reset(all);
+			//	console.log('after');
+			//	console.log(all);
+			//	console.log(this.collection.toJSON());
 				
 				
 				
