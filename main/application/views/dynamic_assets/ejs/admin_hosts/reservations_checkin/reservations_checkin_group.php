@@ -1,7 +1,9 @@
 <div style="background:#474D6A; cursor:pointer !important; " data-top_min class="ui-widget-header ui-corner-all">
 	
 	<span style="font-size:16px; text-shadow:none; color:#FFF; text-align:center; width:100%;">		
-
+			
+		<span style="float:left; position:relative; top:3px;" class="ui-icon ui-icon-circle-triangle-n"></span>
+			
 		<% if(typeof pglr_id !== 'undefined'){ %>
 			
 			<%= u_full_name %>
@@ -11,6 +13,8 @@
 			House Guest List
 		
 		<% } %>
+	
+		<span style="float:right; position:relative; top:3px;" class="ui-icon ui-icon-circle-triangle-n"></span>
 	
 	</span>
 	

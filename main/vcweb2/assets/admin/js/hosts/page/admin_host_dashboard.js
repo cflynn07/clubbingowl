@@ -568,7 +568,14 @@ jQuery(function(){
 				
 
 
-				this.$el.find('div[data-top_min]').bind('click', function(){					
+				this.$el.find('div[data-top_min]').bind('click', function(){		
+					
+					if(jQuery(this).find('span.ui-icon-circle-triangle-n').length){
+						jQuery(this).find('span.ui-icon-circle-triangle-n').switchClass('ui-icon-circle-triangle-n', 'ui-icon-circle-triangle-s', 0);
+					}else{
+						jQuery(this).find('span.ui-icon-circle-triangle-s').switchClass('ui-icon-circle-triangle-s', 'ui-icon-circle-triangle-n', 0);
+					}
+								
 					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').toggle();									
 				});
 				
