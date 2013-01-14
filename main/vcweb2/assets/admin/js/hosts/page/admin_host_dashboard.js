@@ -90,7 +90,6 @@ jQuery(function(){
 				}
 				
 				
-				
 						
 				
 				
@@ -167,55 +166,10 @@ jQuery(function(){
 				}else if(this.options.subtype == 'all'){
 					
 					
+					//uses callbacks defined below
+					var all_reservations = all_approved_reservations(this);
 					
-					var all_reservations = this.collection.filter(function(m){
-						
-				//		var approved 	= ((m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1') || m.get('tglr_approved') == '1');
-						
-						var approved;
-						if(m.get('pglr_approved') !== undefined){
-							//promoter request
-							
-							
-							if(m.get('pglr_table_request') == '1'){
-								approved = (m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1');
-							}else{
-								approved = (m.get('pglr_approved') == '1');
-							}
-														
-								
-							
-						}else{
-							//team request
-							
-							
-							if(m.get('tglr_approved') == '1')
-								approved = true;
-							else
-								approved = false;
-							
-						}
-						
-						
-						
-						
-						
-						
-						
-						if(_this.options.tv_id !== false){
-							
-							var tv_id_check		= (m.get('tv_id') == _this.options.tv_id);
-							var match 			= approved && tv_id_check;
-							
-							return match;
-								 
-						}else{
-							
-							return approved;
-							
-						}
-						
-					});
+					
 					
 					_.each(all_reservations, function(m){
 						
@@ -266,55 +220,77 @@ jQuery(function(){
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		/**
-		 * Simple pub-sub mechanism to let a reservation know if it's been checked in elsewhere
+		 * Helper
 		 */
-		var object = {};
-		_.extend(object, Backbone.Events);
+		var all_approved_reservations = function(_this){
+						
+			var all_reservations = _this.collection.filter(function(m){
+										
+				var approved;
+				if(m.get('pglr_approved') !== undefined){
+					//promoter request
+					
+					if(m.get('pglr_table_request') == '1'){
+						approved = (m.get('pglr_approved') == '1' && m.get('pglr_manager_table_approved') == '1');
+					}else{
+						approved = (m.get('pglr_approved') == '1');
+					}
+												
+				}else{
+					//team request
+					
+					if(m.get('tglr_approved') == '1')
+						approved = true;
+					else
+						approved = false;
+					
+				}
+				
+				
+				if(_this.options.tv_id !== false){
+					
+					var tv_id_check		= (m.get('tv_id') == _this.options.tv_id);
+					var match 			= approved && tv_id_check;
+					
+					return match;
+						 
+				}else{
+					
+					return approved;
+					
+				}
+				
+			});
+						
+			return all_reservations;
+		}
 		
-
-
-
-
-		
-		/*
-		 * Reference
-		 
-		object.on("alert", function(msg) {
-		  alert("Triggered " + msg);
-		});
-		
-		object.trigger("alert", "an event");
-		*/
 		
 		
 		
 		
-		var last_checkin_val;
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//cached last checkin for updating efficiency
+		var last_checkin_val;	
 		
 		Views.ReservationCheckin = {
 			tagName: 'tr',
@@ -397,23 +373,33 @@ jQuery(function(){
 			render: function(){
 				
 				var _this = this;
-				var model = this.collection.first();
+				var added_oauth_uids = [];
 				
+				//set up this group holder w/ information from first reservation
+				var model = this.collection.first();
 				var template = EVT['reservations_checkin/reservations_checkin_group'];
 				var html = new EJS({
 					text: template
 				}).render(model.toJSON());
-							
 				this.$el.html(html);
 				
-				
-				
-				
-				
-				
-				
-				var added_oauth_uids = [];
+				//dont know why i put this here
 				this.$el.find('tbody:first').empty();
+				
+				
+				
+				
+				console.log('before approved');
+				console.log(this.collection.toJSON());
+				var all = all_approved_reservations(this);
+				this.collection.reset(all);
+				console.log('after');
+				console.log(all);
+				console.log(this.collection.toJSON());
+				
+				
+				
+				
 				
 				
 				//first loop through and take all head-users
@@ -427,22 +413,35 @@ jQuery(function(){
 					_this.$el.find('tbody:first').append(view_reservation_checkin_individual.el);
 					view_reservation_checkin_individual.render();
 					
-				});
+				}); 
 				
 				
+				console.log('first collection');
+				console.log(this.collection.toJSON());
 				
-				
-				
+
 				//now go for entourage users
 				this.collection.each(function(m){
 					
 					//check each oauth_uid of each bloke that's already been added to avoid duplicates
-					console.log('collection.each');
-					console.log(m.toJSON());
+			//		console.log('collection.each');
+			//		console.log(m.toJSON());
+					var entourage = m.get('entourage');
+					
+					for(var i in entourage){
+						
+						
+						_this.collection.add(jQuery.extend(m.toJSON(), entourage[i]));
+						
+					}					
+					
 					
 					
 				});
 				
+				
+				console.log('final collection');
+				console.log(this.collection.toJSON());
 				
 								
 				
@@ -469,7 +468,7 @@ jQuery(function(){
 				
 				
 				
-				
+				//organize all the reservations into groups
 				var reservation_groupings = this.collection.groupBy(function(m){
 					if(m.get('pglr_id') !== undefined){
 						return m.get('up_users_oauth_uid');
@@ -479,17 +478,20 @@ jQuery(function(){
 				});
 				
 				
-				if(this.collection.length === 0){
 				
+				
+				
+				
+				//display no reservations msg
+				if(this.collection.length === 0){
 					this.$el.html('<h2 style="width:100%; text-align:center; color:#000; margin-top:10px; margin-top: 20px; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 10px 0 10px 0;">No Reservations</h2>');
-					
 				}
 				
 				
 				
 				
 				
-				
+				//turn each array of reservations into a collection
 				for(var i in reservation_groupings){
 					
 					var group 		= reservation_groupings[i];
@@ -509,7 +511,6 @@ jQuery(function(){
 				//now that all the reservations are laid out, find all oauth_uid's that have been checked in anywhere -- and remove them from places where
 				//they appear for a second time since they've already been checked in
 				this.remove_duplicates();
-				
 								
 				jQuery.populateFacebook(this.$el, function(){
 						
@@ -652,6 +653,12 @@ jQuery(function(){
 			for(var i in team_venues){
 				var venue = team_venues[i];
 				
+				
+				
+				
+				
+				
+				
 				var view_tables = new Views.ReservationsHolder({
 					el: 		'#tabs-' + venue.tv_id + '-1',
 					collection: collection_reservations,
@@ -672,6 +679,10 @@ jQuery(function(){
 				
 				views.push(view_tables);
 				views.push(view_check_in);
+				
+				
+				
+				
 
 			}
 			
