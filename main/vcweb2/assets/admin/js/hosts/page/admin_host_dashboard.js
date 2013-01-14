@@ -312,7 +312,7 @@ jQuery(function(){
 		
 		
 		
-		
+		var last_checkin_val;
 		
 		
 		
@@ -335,11 +335,48 @@ jQuery(function(){
 				
 				this.$el.html(html);
 				
+				this.$el.find('input[type=checkbox].checkbox1').bind('change', function(e){
+					
+					var el 		= jQuery(e.currentTarget);
+					var checked = el.is(':checked');
 				
+					if(checked){
+				
+						el.parents('tr').find('div.additional_checkin_info').css({
+							opacity: 1
+						});
+						el.parents('tr').find('div.additional_checkin_info select').removeAttr('disabled');
+				
+					}else{
+						
+						el.parents('tr').find('div.additional_checkin_info').css({
+							opacity: 0.4
+						});
+						el.parents('tr').find('div.additional_checkin_info select').attr('disabled', 'disabled');
+					
+					}
+				
+				});
 				
 				
 			},
 			events: {
+				'change select[name=category]': 'events_change_select_category',
+				'change input.checkbox1': 		'events_change_arrived_checkbox'
+			},
+			events_change_arrived_checkbox: function(e){
+				
+				var el = jQuery(e.currentTarget);
+				var checked = el.is(':checked');
+				
+				if(typeof last_checkin_val !== 'undefined' && checked)
+					this.$el.find('select[name=category]').val(last_checkin_val);
+				
+				
+			},
+			events_change_select_category: function(e){
+				
+				last_checkin_val = jQuery(e.currentTarget).val();
 				
 			}
 		}; Views.ReservationCheckin = Backbone.View.extend(Views.ReservationCheckin);
@@ -348,7 +385,9 @@ jQuery(function(){
 		
 		
 		
-		
+		/**
+		 * Each promoter + house guest lists == a group
+		 */
 		Views.ReservationCheckinGroup = {
 			className: 'ui-widget ui-widget-content ui-helper-clearfix ui-corner-all full_width',
 			initialize: function(){
@@ -374,8 +413,8 @@ jQuery(function(){
 				
 				
 				var added_oauth_uids = [];
-
 				this.$el.find('tbody:first').empty();
+				
 				
 				//first loop through and take all head-users
 				this.collection.each(function(m){
@@ -398,7 +437,8 @@ jQuery(function(){
 				this.collection.each(function(m){
 					
 					//check each oauth_uid of each bloke that's already been added to avoid duplicates
-					
+					console.log('collection.each');
+					console.log(m.toJSON());
 					
 					
 				});
@@ -439,6 +479,13 @@ jQuery(function(){
 				});
 				
 				
+				if(this.collection.length === 0){
+				
+					this.$el.html('<h2 style="width:100%; text-align:center; color:#000; margin-top:10px; margin-top: 20px; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 10px 0 10px 0;">No Reservations</h2>');
+					
+				}
+				
+				
 				
 				
 				
@@ -448,11 +495,9 @@ jQuery(function(){
 					var group 		= reservation_groupings[i];
 					var collection 	= new Collections.Reservations(group);
 					
-					
 					var view_reservation_checkin_group = new Views.ReservationCheckinGroup({
 						collection: collection
 					});
-
 
 					_this.$el.append(view_reservation_checkin_group.el);
 					view_reservation_checkin_group.render();
@@ -465,16 +510,7 @@ jQuery(function(){
 				//they appear for a second time since they've already been checked in
 				this.remove_duplicates();
 				
-				
-				
-				this.$el.find('*[data-mobile_font]').each(function(){
-					jQuery(this).css({
-						'font-size': jQuery(this).attr('data-mobile_font')
-					});
-				});
-				
-				
-				
+								
 				jQuery.populateFacebook(this.$el, function(){
 						
 					_this.$el.find('table.reservations_holder').dataTable({
@@ -488,42 +524,29 @@ jQuery(function(){
 					});
 	
 	
-	
-	
-	
-					
 					jQuery('input.checkbox1').button();
 					
 					
-					
-					
-					
-					
-					
-					_this.$el.find('label.ui-button').each(function(){
-						//speed shit up
-						new NoClickDelay(this);
-					});
-					_this.$el.find('div[data-top_min]').each(function(){
-						//speed shit up
-						new NoClickDelay(this);
-					});
-					new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
-					
-					
-					
-					
-					
-					
-					
 					_this.$el.find('label.ui-button').css({
-						'max-width': '250px',
-						'min-width': '175px'
+						'max-width': '150px',
+						'min-width': '100px'
 					});
 					
 					
 					
 					if(jQuery.isMobile()){
+						
+						_this.$el.find('label.ui-button').each(function(){
+							//speed shit up
+							new NoClickDelay(this);
+						});
+						_this.$el.find('div[data-top_min]').each(function(){
+							//speed shit up
+							new NoClickDelay(this);
+						});
+						new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
+						
+						
 						_this.$el.find('label.ui-button').css({
 							padding: '8px 0 8px 0'
 						});
@@ -532,30 +555,22 @@ jQuery(function(){
 							padding: '14px 0 14px 0'
 						});
 						
+										
+						jQuery('*[data-mobile_font]').each(function(){
+							jQuery(this).css({
+								'font-size': jQuery(this).attr('data-mobile_font')
+							});
+						});
+						
 					}
 						
-						
-						
-						
-					
 				});
 				
-				
-				
-				
-				
-				
-				
-				this.$el.find('div[data-top_min]').bind('click', function(){
-					
-					
-					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').toggle();				
-				//	jQuery(this).parents('div.ui-widget:first').find('*[data-collapse_me]').toggle();
-					
-					
+
+
+				this.$el.find('div[data-top_min]').bind('click', function(){					
+					jQuery(this).parents('div.ui-widget:first').find('.dataTables_wrapper').toggle();									
 				});
-				
-				
 				
 				
 				

@@ -132,6 +132,10 @@ class Assets extends MY_Common_Controller {
 					
 					'ui4/jquery-ui-1.9.2.custom',
 					
+					
+					//added for better looking tabs
+				//	'ui5/jquery-ui-1.9.2.custom',
+					
 					'resizable_container_parent/jquery-ui-1.9.2.custom',
 					
 					//pages

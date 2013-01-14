@@ -3,7 +3,7 @@
 
 
 
-<div id="admin_managers_tables_wrapper">
+<div class="ui5" id="admin_managers_tables_wrapper">
 
 
 
