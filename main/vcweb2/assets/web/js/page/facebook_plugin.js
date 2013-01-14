@@ -140,7 +140,7 @@ jQuery(function(){
 				display: 'block',
 			//	top: (Math.ceil(jQuery(window).height() / 2) - 100)
 				
-				top: jQuery(this).offset().top
+				top: jQuery(this).offset().top - 100
 				
 			});
 			
