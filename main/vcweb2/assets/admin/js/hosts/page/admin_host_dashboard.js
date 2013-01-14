@@ -808,6 +808,10 @@ jQuery(function(){
 					var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', jQuery(this).datepicker('getDate'));
 					tv_display_module.manual_date(iso_date);
 					
+					
+					jQuery('div[data-checkin_tv="' + selected_tv_id + '"]').html('<div style="width:100%; text-align:center;"><img style="margin:20px auto 15px auto;" src="' + window.module.Globals.prototype.global_assets + 'images/ajax.gif" /></div>');
+
+
 					tv_display_module.refresh_table_layout(selected_tv_id, iso_date, function(data){
 						
 						if(!data.success)

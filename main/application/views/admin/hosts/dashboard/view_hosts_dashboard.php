@@ -56,20 +56,19 @@
 				
 				<div class="full_width last">
 					
-					<div>
+					<div style="text-align:center;">
 						
 						<div style="float:left; display:inline-block;">
-							<img 	style="border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url . 'venues/banners/' . $venue->tv_image . '_t.jpg' ?>" alt="<?= $venue->tv_name ?>"/>
-							<h3 	style="color:red;"><?= $venue->tv_name ?></h3>
+							<img 	style="border:1px solid #CCC; display:inline-block; margin:0 5px 20px 0;" src="<?= $central->s3_uploaded_images_base_url . 'venues/banners/' . $venue->tv_image . '_t.jpg' ?>" alt="<?= $venue->tv_name ?>"/>
 						</div>
-												
+						
+						<h1	style="display:inline-block; position:relative; left:-45px; color:#474D6A; top:10px;"><?= $venue->tv_name ?></h1>
+						
+						<a style="display:inline-block; float:right;" href="#" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
+						
 					</div>
 					
 					<div style="clear:both;"></div>
-					
-					
-					<a href="#" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
-					<br/><br/>
 					
 					<div data-tv_id="<?= $venue->tv_id ?>" class="tabs_tables tabs_tables_tv_id_<?= $venue->tv_id ?>">
 						
