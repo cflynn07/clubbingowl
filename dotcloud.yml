@@ -2,7 +2,6 @@ www:
  type: php
  approot: main
  postinstall: ./postinstall.sh
- process: /home/dotcloud/current/newrelic-daemon.x64 -f -c /home/dotcloud/current/newrelic.cfg
 daemons:
  type: php-worker
  approot: main
