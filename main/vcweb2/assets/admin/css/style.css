@@ -1932,6 +1932,10 @@ div.ui-widget-header{
 	white-space: nowrap;
 }
 
+.ui-tabs .ui-tabs-nav {
+	top: 4px;
+	position: relative;
+}
 
 .ui-tabs .ui-tabs-nav li {
 	background: #CCC !important;
