@@ -2,6 +2,10 @@ jQuery(function(){
 	
 	var initialized = false;
 	
+	
+	if(!window.vc_page_scripts)
+		window.vc_page_scripts = {};
+	
 	window.vc_page_scripts.reformat_layout_mobile = function(){
 	
 		
