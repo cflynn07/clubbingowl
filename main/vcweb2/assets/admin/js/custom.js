@@ -316,27 +316,47 @@ jQuery(document).ready(function() {
 	    	oauth_uids = _.uniq(oauth_uids);
 	    	
 	    	
-	    	
-	    	jQuery.fbUserLookup(oauth_uids, '', function(rows){
-	    			    		
-	    		for(var i in rows){
-	    			var user = rows[i];
-	    			collection_pop_facebook_inst.add(user);
+	    	var new_users = false;
+	    	for(var i in oauth_uids){
+	    		
+	    		var match = collection_pop_facebook_inst.where({
+	    			uid: oauth_uids[i]
+	    		});
+	    		if(!match.length){
+	    			
+	    			new_users = true;
+	    			break;
+	    			
 	    		}
 	    		
+	    	}
+	    	
+	    	
+	    	if(new_users)
+		    	jQuery.fbUserLookup(oauth_uids, '', function(rows){
+		    			    		
+		    		for(var i in rows){
+		    			var user = rows[i];
+		    			collection_pop_facebook_inst.add(user);
+		    		}
 		    		
-	    		collection_pop_facebook_inst.each(function(m){
-		    		el.find('*[data-name=' + m.get('uid') + ']').html(m.get('name'));
+			    		
+		    		collection_pop_facebook_inst.each(function(m){
+			    		el.find('*[data-name=' + m.get('uid') + ']').html(m.get('name'));
+			    	});
+			    	
+		    		callback();
+		    		
 		    	});
-		    	
-	    		callback();
-	    		
-	    	});
 	    	
 	    	
 	    	collection_pop_facebook_inst.each(function(m){
 	    		el.find('*[data-name=' + m.get('uid') + ']').html(m.get('name'));
 	    	});
+	    	
+	    	
+	    	if(!new_users)
+	    		callback();
 	    	
 	    	
 	    },
