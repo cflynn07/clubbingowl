@@ -52,10 +52,10 @@ window.fbAsyncInit = function() {
 	    		}
 	    		
 	    		 //Server and client lost sync, correct. Server session = true, client session = false, update server
-	 		//	if(window.vc_server_auth_session == true){
-	    	//		window.module.VCAuth.prototype.session_logout();
-	    	//		return;
-	    	//	}
+	 			if(window.vc_server_auth_session == true){
+	    			window.module.VCAuth.prototype.session_logout();
+	    			return;
+	    		}
 				
 	    		
 	    	}
