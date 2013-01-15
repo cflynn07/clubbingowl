@@ -102,6 +102,13 @@
 						// ^ we use the full url here as that is what reinvigorate supports
 					}
 					
+					
+					//google analytics
+					_gaq.push(['_trackPageview']);
+					
+					
+					
+					
 					jQuery('div#loading_modal').css({
 						display: 'none'
 					});
