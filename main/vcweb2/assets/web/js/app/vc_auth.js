@@ -341,7 +341,7 @@ jQuery(function(){
 		};
 		
 		EventHandlerObject.addListener('vc_login', function(){ 
-			jQuery.superScroll();
+		//	jQuery.superScroll();
 		});
 		
 		jQuery('ul.menu li.authenticated').live('click', function(){
