@@ -688,6 +688,7 @@ class Assets extends MY_Common_Controller {
 									
 									'reservations_checkin/reservations_checkin_group',
 									'reservations_checkin/reservations_checkin_reservation',
+									'reservations_checkin/reservations_checkin_reservation_entourage',
 									
 									'admin_mobile_menu'
 																		

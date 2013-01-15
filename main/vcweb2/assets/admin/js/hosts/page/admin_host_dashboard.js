@@ -292,6 +292,77 @@ jQuery(function(){
 		//cached last checkin for updating efficiency
 		var last_checkin_val;	
 		
+		
+		Views.ReservationCheckinEnt = {
+			tagName: 'tr',
+			initialize: function(){
+				
+			},
+			render: function(){
+				
+				
+				console.log(this.model.toJSON());
+				
+				var template = EVT['reservations_checkin/reservations_checkin_reservation_entourage'];
+				var html = new EJS({
+					text: template
+				}).render(jQuery.extend({
+					collapsed: collapsed
+				}, this.model.toJSON()))
+				
+				this.$el.html(html);
+				
+				this.$el.find('input[type=checkbox].checkbox1').bind('change', function(e){
+					
+					var el 		= jQuery(e.currentTarget);
+					var checked = el.is(':checked');
+				
+					if(checked){
+				
+						el.parents('tr').find('div.additional_checkin_info').css({
+							opacity: 1
+						});
+						el.parents('tr').find('div.additional_checkin_info select').removeAttr('disabled');
+				
+					}else{
+						
+						el.parents('tr').find('div.additional_checkin_info').css({
+							opacity: 0.4
+						});
+						el.parents('tr').find('div.additional_checkin_info select').attr('disabled', 'disabled');
+					
+					}
+				
+				});
+				
+				
+			},
+			events: {
+				'change select[name=category]': 'events_change_select_category',
+				'change input.checkbox1': 		'events_change_arrived_checkbox'
+			},
+			events_change_arrived_checkbox: function(e){
+				
+				var el = jQuery(e.currentTarget);
+				var checked = el.is(':checked');
+				
+				if(typeof last_checkin_val !== 'undefined' && checked)
+					this.$el.find('select[name=category]').val(last_checkin_val);
+				
+				
+			},
+			events_change_select_category: function(e){
+				
+				last_checkin_val = jQuery(e.currentTarget).val();
+				
+			}
+		}; Views.ReservationCheckinEnt = Backbone.View.extend(Views.ReservationCheckinEnt);
+		
+		
+		
+		
+		
+		
 		Views.ReservationCheckin = {
 			tagName: 'tr',
 			initialize: function(){
@@ -401,7 +472,7 @@ jQuery(function(){
 				
 				
 				
-				
+
 				//first loop through and take all head-users
 				this.collection.each(function(m){
 					//append each tr
@@ -413,37 +484,56 @@ jQuery(function(){
 					_this.$el.find('tbody:first').append(view_reservation_checkin_individual.el);
 					view_reservation_checkin_individual.render();
 					
+					added_oauth_uids.push(m.get('pglr_user_oauth_uid') || m.get('tglr_user_oauth_uid'))
+					
 				}); 
 				
 				
-				console.log('first collection');
-				console.log(this.collection.toJSON());
-				
+
 
 				//now go for entourage users
 				this.collection.each(function(m){
 					
 					//check each oauth_uid of each bloke that's already been added to avoid duplicates
-			//		console.log('collection.each');
-			//		console.log(m.toJSON());
-					var entourage = m.get('entourage');
-					
+					var entourage 	= m.get('entourage');
+					var temp 		= m.toJSON();
+					delete temp.entourage;
+										
 					for(var i in entourage){
 						
 						
-						_this.collection.add(jQuery.extend(m.toJSON(), entourage[i]));
+						var row_obj 			= jQuery.extend({}, entourage[i], temp);
+						row_obj.ent_reservation = true;
+						
+						
+						
+						if(_.indexOf(added_oauth_uids, entourage[i].oauth_uid) == -1){
+							
+							var model = new Models.Reservation(row_obj);
+						
+							
+							var view_reservation_checkin_individual_entourage = new Views.ReservationCheckinEnt({
+								model: model
+							});
+							
+							_this.$el.find('tbody:first').append(view_reservation_checkin_individual_entourage.el);
+							view_reservation_checkin_individual_entourage.render();
+									
+							added_oauth_uids.push(entourage[i].oauth_uid);
+							
+						}
+						
 						
 					}					
-					
-					
-					
+							
 				});
 				
 				
-				console.log('final collection');
-				console.log(this.collection.toJSON());
 				
-								
+				
+				
+				
+				
 				
 			},
 			events: {

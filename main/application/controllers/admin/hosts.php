@@ -230,6 +230,10 @@ class Hosts extends MY_Controller {
 		$data->team 		= $this->teams->retrieve_team($this->vc_user->host->th_teams_fan_page_id);
 		$data->team_venues 	= $this->_helper_venue_floorplan_retrieve_v2();
 
+		
+		//Kint::dump($data); die();
+
+
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_hosts_dashboard', 		array('data' => $data), 	true);
 				
 	//	Kint::dump($data);
