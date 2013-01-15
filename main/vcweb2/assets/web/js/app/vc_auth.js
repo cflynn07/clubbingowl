@@ -16,11 +16,22 @@ jQuery(function(){
 	
 	jQuery('a.vc_fb_login').live('click', function(){
 		
-		FB.login(function(){
+		if(navigator.userAgent.match('CriOS')){
 			
-		},{
-			scope: 'email,publish_stream'
-		});
+			window.locaton = 'https://www.facebook.com/dialog/oauth?client_id=' + window.module.Globals.prototype.fb_app_id + '&redirect_uri=' + window.location.href + '&scope=email,publish_stream';
+			//workaround attempt for chrome on ios
+			
+		}else{
+		
+			FB.login(function(){
+				
+			},{
+				scope: 'email,publish_stream'
+			});
+			
+		}
+		
+		
 		
 		return false;
 	});
