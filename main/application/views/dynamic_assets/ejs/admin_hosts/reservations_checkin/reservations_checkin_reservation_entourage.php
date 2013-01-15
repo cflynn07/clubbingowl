@@ -145,7 +145,7 @@
 				<br/>
 				<img style="display:inline-block; margin:0 5px 5px 0; vertical-align:top; width:30px; height:30px;" src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />						
 			<% } %>
-			<span style="margin-bottom:5px;" data-mobile_font="18px"><%= entourage_supplied_name %></span>
+			<span style="margin-bottom:5px;"><%= entourage_supplied_name %></span>
 			
 
 		<% }else{ %>
@@ -155,7 +155,7 @@
 				<br/>
 				<img style="display:inline-block; margin:0 5px 5px 0; vertical-align:top; width:30px; height:30px;" src="https://graph.facebook.com/<%= entourage_head_user %>/picture?width=50&height=50" />				
 			<% } %>
-			<span style="margin-bottom:5px;" data-mobile_font="18px" data-oauth_uid="<%= entourage_head_user %>" data-name="<%= entourage_head_user %>"></span>
+			<span style="margin-bottom:5px;" data-oauth_uid="<%= entourage_head_user %>" data-name="<%= entourage_head_user %>"></span>
 			
 			
 		<% } %>		
