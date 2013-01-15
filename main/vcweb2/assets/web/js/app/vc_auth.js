@@ -18,7 +18,7 @@ jQuery(function(){
 		
 		if(navigator.userAgent.match('CriOS')){
 			
-			window.locaton.href = 'https://www.facebook.com/dialog/oauth?client_id=' + window.module.Globals.prototype.fb_app_id + '&redirect_uri=' + window.location.href + '&scope=email,publish_stream';
+			jQuery(this).attr('href', 'https://www.facebook.com/dialog/oauth?client_id=' + window.module.Globals.prototype.fb_app_id + '&redirect_uri=' + window.location.href + '&scope=email,publish_stream');
 			//workaround attempt for chrome on ios
 			
 		}else{
@@ -29,11 +29,10 @@ jQuery(function(){
 				scope: 'email,publish_stream'
 			});
 			
+			
+			return false;
 		}
 		
-		
-		
-		return false;
 	});
 	
 });
