@@ -63,9 +63,9 @@ window.fbAsyncInit = function() {
 		});
 		
 		
-		setTimeout(function(){
-			window.test_login_status();
-		}, 300);
+	//	setTimeout(function(){
+	//		window.test_login_status();
+	//	}, 300);
 	};
 	window.test_login_status();
 
