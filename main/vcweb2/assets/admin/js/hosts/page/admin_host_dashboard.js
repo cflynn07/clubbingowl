@@ -406,6 +406,9 @@ jQuery(function(){
 				});
 				
 				
+				
+				
+				
 			},
 			events: {
 				'change select[name=category]': 'events_change_select_category',
@@ -615,7 +618,8 @@ jQuery(function(){
 					});
 	
 	
-					jQuery('input.checkbox1').button();
+				
+					
 					
 					
 					_this.$el.find('label.ui-button').css({
@@ -638,7 +642,7 @@ jQuery(function(){
 						new NoClickDelay(jQuery('#team_chatbox_header_tab').get(0));
 						
 						
-						_this.$el.find('label.ui-button').css({
+						jQuery('label.ui-button').css({
 							padding: '8px 0 8px 0'
 						});
 						
@@ -779,47 +783,13 @@ jQuery(function(){
 				
 				
 				
+		//		jQuery('input.checkbox1').each(function(){
+		//			jQuery(this).button();
+		//		});
+				
 				
 
 			}
-			
-			
-			
-			
-			
-			
-			
-			/*
-			var collection_all_reservations = new Collections.Reservations();
-			for(var i in window.page_obj.team_venues){
-				var venue = window.page_obj.team_venues[i];
-				
-				var temp = jQuery.extend({}, venue);
-				delete temp.venue_all_upcoming_reservations;
-				delete temp.venue_floorplan;
-				delete temp.venue_reservations;
-				
-				
-				for(var k in venue.venue_all_upcoming_reservations){
-				
-					var reservation = jQuery.extend({}, temp, venue.venue_all_upcoming_reservations[k]);
-					collection_all_reservations.add(reservation);
-					
-				}
-					
-			}
-			
-			var view_all_upcoming = new Views.ReservationsHolder({
-				el: 		'#all_upcoming_reservations',
-				collection: collection_all_reservations,
-				subtype: 	'all',
-				tv_id:		false
-			});		
-			views.push(view_all_upcoming);
-			
-			*/
-			
-			
 			
 			
 			
@@ -850,6 +820,13 @@ jQuery(function(){
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
 		jQuery('div#tabs').tabs({}).css('display', 'block');//.resizable();
 		jQuery('div#tabs div.tabs_tables').tabs();
 				
@@ -857,10 +834,6 @@ jQuery(function(){
 			
 			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));	
 			
-
-
-
-
 			var selected_tv_id = jQuery('select.venue_select option[value=' + jQuery(this).val() + ']').attr('data-tv_id');
 			
 			

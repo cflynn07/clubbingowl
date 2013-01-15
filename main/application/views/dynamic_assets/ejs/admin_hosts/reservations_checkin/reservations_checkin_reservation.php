@@ -51,8 +51,8 @@
 <td data-mobile_font="18px" style="width:15%;" class="ui4">
 	
 	<% var rand = Math.random(); %>
-	<input class="checkbox1" type="checkbox" id="<%= head_user || rand %>" name="<%= head_user || rand %>" />
-	<label for="<%= head_user || rand %>">Arrived</label>
+	<input class="checkbox" type="checkbox" id="<%= head_user || rand %>" name="<%= rand %>" />
+	<label for="<%= rand %>">Arrived</label>
 
 </td>
 

@@ -16,7 +16,8 @@ jQuery(function(){
 	
 	
 		if(jQuery.isMobile()){
-		
+			
+			
 			jQuery('body').css('background', '#F0F0F0');
 			jQuery('#primary_left').hide();
 			jQuery('#primary_right').css({
