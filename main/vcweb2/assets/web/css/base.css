@@ -1236,12 +1236,16 @@ section#guestlist p#gl_title_header strong{
 }
 
 
+div.guestlist-form-right {
+	margin-bottom: 10px;
+}
+
 div.guestlist-form-right #unavailable_overlay {
 	position: absolute;
-	top: 30px;
+	top: 45px;
 	left: 0;
 	width: 100%;
-	height: 94%;
+	height: 91%;
 	background: rgba(0,0,0,.70);
 	z-index: 9999;
 	vertical-align: middle;
@@ -1267,6 +1271,57 @@ div.guestlist-form-right #unavailable_overlay > p {
 
 @media screen and (max-width: 991px){
 	div.guestlist-form-right #unavailable_overlay {
-		top: 40px;
+		top: 55px;
 	}
+}
+
+
+
+#guestlist .guestlist-form-right #join_here{
+	text-align: center;
+	font-size: 20px;
+	padding-top: 5px;
+}
+
+#guestlist .guestlist-form-right {
+	margin-bottom: 10px;
+}
+
+
+
+div#super_status_wrapper {
+	position:relative; 
+	margin-bottom:0; 
+	margin-top:0; 
+	padding:5px;
+}
+
+
+
+
+div.guestlist-form-right div#guestlist_status_wrapper {
+	background-color: #474D6A; 
+	border-radius: 5px; 
+	color: #FFF;
+	padding-top: 10px;
+}
+
+
+div.guestlist-form-right div#guestlist_status_wrapper p.no-status {
+	padding-left: 5px; 
+	text-align: center; 
+	padding-bottom: 10px;
+}
+
+div.guestlist-form-right div#guestlist_status_wrapper p.status {
+	margin-top: 0px; 
+	padding-left: 5px;
+}
+
+div.guestlist-form-right div#guestlist_status_wrapper span.status-update-time {
+	float: right; 
+	padding-right: 5px;
+	padding-bottom: 5px;
+	color: #FFF;
+	font-size: 11px;
 }
