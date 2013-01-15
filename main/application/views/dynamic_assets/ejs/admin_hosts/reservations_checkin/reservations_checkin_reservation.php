@@ -138,9 +138,9 @@
 	<br/>
 	
 	<% if(typeof pglr_id !== 'undefined'){ %>
-		<span style="color:#474D6A;" data-mobile_font="14px"><%= u_full_name %></span>
+		<span style="color:#474D6A;" data-mobile_font="10px"><%= u_full_name %></span>
 	<% }else{ %>
-		<span style="color:#474D6A;" data-mobile_font="14px">House List</span>
+		<span style="color:#474D6A;" data-mobile_font="10px">House List</span>
 	<% } %>
 	
 </td>
