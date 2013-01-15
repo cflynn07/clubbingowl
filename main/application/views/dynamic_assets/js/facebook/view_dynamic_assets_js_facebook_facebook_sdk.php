@@ -76,7 +76,7 @@ window.fbAsyncInit = function() {
 	
 	
 	
-	FB.Event.subscript('auth.statusChange', function(response){
+	FB.Event.subscribe('auth.statusChange', function(response){
 		
 		console.log('auth.statusChange');
 		window.test_login_status();
