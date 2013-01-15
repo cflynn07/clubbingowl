@@ -126,8 +126,8 @@ div#unavailable_overlay{
 
 <div style="position:relative;" class="guestlist-form-right">
 	   
-    <div id="unavailable_overlay" style="position:absolute; top:0; left:0; width:100%; height:101%; background:rgba(0,0,0,.70); z-index:9999; vertical-align:middle; text-align:center; color:#FFF; margin-left:10px;">
-    	<p style="position:relative; top:30%; width:85%; font-size:20px; text-align:center; margin-left:auto; margin-right:auto;">
+    <div id="unavailable_overlay">
+    	<p>
     		
     		<?= '' //$this->lang->line('p-login_msg2_overlay') ?>
     		Connect with Facebook to join <?= $guest_list->tv_name ?>'s guest list.<br/><strong>It's that easy!</strong>
