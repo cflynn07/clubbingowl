@@ -49,6 +49,13 @@ jQuery(function(){
 			
 			if(jQuery.cookies.get('vc_user'))
 				return;
+				
+				
+			
+			if(jQuery('#footer').length === 0){
+				return;
+			}
+			
 			
 			var window_height 	= jQuery(window).height();
 			var content_height 	= jQuery('#footer').height() + jQuery('#footer').offset().top;
