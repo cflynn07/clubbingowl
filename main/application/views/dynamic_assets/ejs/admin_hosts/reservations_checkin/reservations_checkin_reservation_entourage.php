@@ -15,8 +15,14 @@
 	if(typeof pglr_id !== 'undefined'){
 		
 		type				= 'promoter';
-		head_user 			= pglr_user_oauth_uid;
-		supplied_name		= pglr_supplied_name;
+		head_user 			= oauth_uid;
+		supplied_name		= pglre_supplied_name;
+		
+		
+		entourage_head_user 		= pglr_user_oauth_uid;
+		entourage_supplied_name		= pglr_supplied_name;
+		
+		
 		u_phone_number		= ''; //TODO
 		request_message 	= pglr_request_msg;
 		response_message 	= pglr_response_msg;
@@ -25,14 +31,20 @@
 		table_min_spend		= ''; //TODO
 		guest_list_image 	= pgla_image;
 		guest_list_name		= pgla_name;
-		entourage 			= entourage;
 		
 	
 	}else{
 		
 		type				= 'team';
-		head_user 			= tglr_user_oauth_uid;
-		supplied_name		= tglr_supplied_name;
+		head_user 			= oauth_uid;
+		supplied_name		= tglre_supplied_name;
+		
+		
+		entourage_head_user 		= tglr_user_oauth_uid;
+		entourage_supplied_name		= tglr_supplied_name;
+		
+		
+		
 		u_phone_number		= ''; //TODO
 		request_message 	= tglr_request_msg;
 		response_message	= tglr_response_msg;
@@ -41,7 +53,6 @@
 		table_min_spend		= ''; //TODO
 		guest_list_image 	= tgla_image;
 		guest_list_name		= tgla_name;
-		entourage 			= entourage
 		
 	}
 
@@ -118,6 +129,42 @@
 	<% } %>
 	
 	
+	
+	
+	
+	
+	
+	
+	<div style="padding-left:10px; font-size:10px;">
+		
+		<span style="text-decoration:underline;">Entourage</span>:&nbsp;			
+			
+		<% if(entourage_head_user == null){ %>
+
+			<% if(!collapsed){ %>
+				<br/>
+				<img style="display:inline-block; margin:0 5px 5px 0; vertical-align:top; width:30px; height:30px;" src="<%= window.module.Globals.prototype.admin_assets %>images/unknown_user.jpeg" />						
+			<% } %>
+			<span style="margin-bottom:5px;"><%= entourage_supplied_name %></span>
+			
+
+		<% }else{ %>
+
+			
+			<% if(!collapsed){ %>
+				<br/>
+				<img style="display:inline-block; margin:0 5px 5px 0; vertical-align:top; width:30px; height:30px;" src="https://graph.facebook.com/<%= entourage_head_user %>/picture?width=50&height=50" />				
+			<% } %>
+			<span style="margin-bottom:5px;" data-oauth_uid="<%= entourage_head_user %>" data-name="<%= entourage_head_user %>"></span>
+			
+			
+		<% } %>		
+		
+			
+	</div>
+	
+	
+	
 		
 </td>
 
@@ -133,14 +180,14 @@
 	<% if(!collapsed){ %>
 		<img style="border:1px solid #CCC;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + guest_list_image + '_t.jpg' %>" />
 		<br/>
-	<% } %>	
+	<% } %>
 	<span style="font-weight:bold; text-decoration:underline;" data-mobile_font="18px"><%= guest_list_name %></span>
 	<br/>
 	
 	<% if(typeof pglr_id !== 'undefined'){ %>
-		<span style="color:#474D6A;" data-mobile_font="10px"><%= u_full_name %></span>
+		<span style="color:#474D6A;" data-mobile_font="14px"><%= u_full_name %></span>
 	<% }else{ %>
-		<span style="color:#474D6A;" data-mobile_font="10px">House List</span>
+		<span style="color:#474D6A;" data-mobile_font="14px">House List</span>
 	<% } %>
 	
 </td>

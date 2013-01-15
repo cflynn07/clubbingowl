@@ -249,12 +249,44 @@ jQuery(document).ready(function() {
 	
 	
 	
+	var model_pop_facebook = Backbone.Model.extend({
+		initialize: function(){},
+		defaults: {}
+	});
+	var collection_pop_facebook = Backbone.Collection.extend({
+		model: model_pop_facebook,
+		initialize: function(){},
+		
+		
+		//http://stackoverflow.com/questions/6416958/how-to-make-backbone-js-collection-items-unique
+		// Using @Peter Lyons' answer
+	    add : function(users) {
+	        // For array
+	        users = _.isArray(users) ? users.slice() : [users]; //From backbone code itself
+	        for (i = 0, length = users.length; i < length; i++) {
+	            var user = ((users[i] instanceof this.model) ? users[i]  : new this.model(users[i])); // Create a model if it's a JS object
 	
+	            // Using isDupe routine from @Bill Eisenhauer's answer
+	            var isDupe = this.any(function(_user) {
+	                return _user.get('uid') === user.get('uid');
+	            });
+	            if (isDupe) {
+	                // Up to you either return false or throw an exception or silently
+	                // ignore
+	                return false;
+	            }
+	            Backbone.Collection.prototype.add.call(this, user);
+	       }
+	    },
 	
+	    comparator : function(user) {
+	        return user.get('uid');
+	    }
+	    
+	});
 	
+	var collection_pop_facebook_inst = new collection_pop_facebook([]);
 	
-	
-///	jQuery('img.tooltip').tooltip();
 	
 	
 	jQuery.extend({
@@ -273,39 +305,59 @@ jQuery(document).ready(function() {
 	    	
 	    },
 	    populateFacebook: function(el, callback){
-	    	
-	    	console.log(el.find('*[data-oauth_uid]'));
+	    	    	
+	    	console.log('new pop facebook');
 	    	
 	    	
 	    	var oauth_uids = [];
 	    	el.find('*[data-oauth_uid]').each(function(){
-	    		
 	    		oauth_uids.push(jQuery(this).attr('data-oauth_uid'));
-	    		    		
 	    	});
-	    	
-	    	
-	    	
-	    	
 	    	oauth_uids = _.uniq(oauth_uids);
 	    	
-	    	console.log('unique_oauth_uids');
-	    	console.log(oauth_uids);
 	    	
-	    	
-	    	jQuery.fbUserLookup(oauth_uids, '', function(rows){
+	    	var new_users = false;
+	    	for(var i in oauth_uids){
 	    		
-	    		for(var i in rows){
+	    		var match = collection_pop_facebook_inst.where({
+	    			uid: oauth_uids[i]
+	    		});
+	    		if(!match.length){
 	    			
-	    			var user = rows[i];
-	    			
-	    			el.find('*[data-name=' + user.uid + ']').html(user.name);
+	    			new_users = true;
+	    			break;
 	    			
 	    		}
 	    		
-	    		callback();
-	    		
+	    	}
+	    	
+	    	
+	    	if(new_users)
+		    	jQuery.fbUserLookup(oauth_uids, '', function(rows){
+		    			    		
+		    		for(var i in rows){
+		    			var user = rows[i];
+		    			collection_pop_facebook_inst.add(user);
+		    		}
+		    		
+			    		
+		    		collection_pop_facebook_inst.each(function(m){
+			    		el.find('*[data-name=' + m.get('uid') + ']').html(m.get('name'));
+			    	});
+			    	
+		    		callback();
+		    		
+		    	});
+	    	
+	    	
+	    	collection_pop_facebook_inst.each(function(m){
+	    		el.find('*[data-name=' + m.get('uid') + ']').html(m.get('name'));
 	    	});
+	    	
+	    	
+	    	if(!new_users)
+	    		callback();
+	    	
 	    	
 	    },
 	    /**

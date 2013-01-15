@@ -1207,7 +1207,7 @@ jQuery(function(){
 
 <div id="team_chat" style="display:none">
 	
-	<div id="team_chatbox_header_tab_close"><a class="close_button" style="color:red;" href="#">Close</a></div>
+	<div id="team_chatbox_header_tab_close"><a data-mobile_font="20px" class="close_button" style="color:red;" href="#">Close</a></div>
 	
 	<br>
 	
@@ -1256,6 +1256,6 @@ jQuery(function(){
 
 <div id="team_chatbox_header">
 	<div id="team_chatbox_header_tab">
-		<span class="team_chat">Team Chat</span> <span class="new"></span>
+		<span data-mobile_font="20px" class="team_chat">Team Chat</span> <span class="new"></span>
 	</div>
 </div>

@@ -136,9 +136,10 @@ jQuery(function(){
 	
 	window.EventHandlerObject.addListener("vc_logout", function(){
 	
-		if(typeof individual_channel.name !== 'undefined'){
-			pusher.unsubscribe(individual_channel.name);
-		}
+		if(individual_channel)
+			if(typeof individual_channel.name !== 'undefined'){
+				pusher.unsubscribe(individual_channel.name);
+			}
 		
 	});
 	

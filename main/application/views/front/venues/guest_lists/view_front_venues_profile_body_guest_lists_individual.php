@@ -100,21 +100,24 @@ div#unavailable_overlay{
 
 
 
-<div style="position:relative; margin-bottom:0; margin-top:0; position:relative; top:-20px; left:4px; padding:5px;" class="guestlist-form-right">
-	<div style="background-color:#474D6A; border-radius:5px; color:#FFF;">
-		<h3 style="padding-top:5px; padding-left:5px; margin-bottom:5px;"> <?= $guest_list->tv_name ?>'s List Status</h3>
+<div id="super_status_wrapper" class="guestlist-form-right">
+	
+
+	<h2><?= $guest_list->tv_name ?>'s List Status</h2>
+
+	
+	<div id="guestlist_status_wrapper">
 		
 		
 			<?php if($guest_list->status && $guest_list->status->glas_status): ?>
-				<p style="margin-top:0px; padding-left:5px;"><?= $guest_list->status->glas_status ?></p>
-				<span style="float:right; padding-right:5px; padding-bottom:5px; color:#FFF; font-size:11px;">Last Updated: <?= $guest_list->status->glas_human_date ?></span>
+				<p class="status"><?= $guest_list->status->glas_status ?></p>
+				<span class="status-update-time">Last Updated: <?= $guest_list->status->glas_human_date ?></span>
 			<?php else: ?>
 				
-				<p style="padding-left:5px; text-align:center; padding-bottom:10px;"><?= $guest_list->tv_name ?> hasn't updated the status of "<?= $guest_list->tgla_name ?>" yet.</p>
+				<p class="no-status"><?= $guest_list->tv_name ?> hasn't updated the status of "<?= $guest_list->tgla_name ?>" yet.</p>
 				<span>&nbsp;</span>	
 				
 			<?php endif; ?>
-		
 		
 		
 		<div style="clear:both;"></div>
@@ -126,8 +129,8 @@ div#unavailable_overlay{
 
 <div style="position:relative;" class="guestlist-form-right">
 	   
-    <div id="unavailable_overlay" style="position:absolute; top:0; left:0; width:100%; height:101%; background:rgba(0,0,0,.70); z-index:9999; vertical-align:middle; text-align:center; color:#FFF; margin-left:10px;">
-    	<p style="position:relative; top:30%; width:85%; font-size:20px; text-align:center; margin-left:auto; margin-right:auto;">
+    <div id="unavailable_overlay">
+    	<p>
     		
     		<?= '' //$this->lang->line('p-login_msg2_overlay') ?>
     		Connect with Facebook to join <?= $guest_list->tv_name ?>'s guest list.<br/><strong>It's that easy!</strong>

@@ -1933,13 +1933,11 @@ div.ui-widget-header{
 }
 
 .ui-tabs .ui-tabs-nav {
-	top: 4px;
 	position: relative;
 }
 
 .ui-tabs .ui-tabs-nav li {
 	background: #CCC !important;
-	padding: 5px 0 5px 0;
 }
 .ui-tabs .ui-tabs-nav li.ui-state-active {
 	background: #474D6A !important;
@@ -1953,6 +1951,7 @@ div.ui-widget-header{
 .ui-tabs .ui-tabs-nav li a {
 	text-shadow: none;
 	border-left: none;
+	padding: 5px 8px 5px 8px;
 }
 
 #left_menu ul.sitemap li {
