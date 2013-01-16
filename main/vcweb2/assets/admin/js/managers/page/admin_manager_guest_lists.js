@@ -1017,17 +1017,13 @@ jQuery(function(){
 				var new_res_callback = function(data){
 					_this.fetch_week(0);
 				};
-				
-				team_chat_channel.bind('team_guest_list_reservation', new_res_callback);
-				
-				
-				
+				team_chat_channel.bind('pending-requests-change', new_res_callback);
 				
 				var temp = window.module.Globals.prototype.unbind_callback;
 				window.module.Globals.prototype.unbind_callback = function(){
 					temp();
 					if(new_res_callback)
-						team_chat_channel.unbind('team_guest_list_reservation', new_res_callback);
+						team_chat_channel.unbind('pending-requests-change', new_res_callback);
 				}
 				
 				

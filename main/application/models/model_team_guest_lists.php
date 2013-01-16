@@ -251,7 +251,7 @@ class Model_team_guest_lists extends CI_Model {
 			
 			$this->load->library('pusher');
 			
-			if(!$approve_override)
+			if(!$approve_override){
 				$this->pusher->trigger('presence-' . $team_fan_page_id, 'team_guest_list_reservation', array('tgl_id' 					=> $teams_guest_list_id,
 																												'tglr_id' 			=> $teams_guest_lists_reservations_id,
 																												'tgla_id'			=> $tgla_id,
@@ -267,7 +267,10 @@ class Model_team_guest_lists extends CI_Model {
 																												'head_oauth_uid'	=> $oauth_uid,
 																												'request_msg'		=> '',
 																												'manual_add'		=> ($approve_override) ? 1 : 0));
-			
+																												
+				$this->pusher->trigger('presence-' . $team_fan_page_id, 'pending-requests-change', null);
+				
+			}
 			
 			
 			
@@ -873,6 +876,7 @@ class Model_team_guest_lists extends CI_Model {
 					tgl.date				as tgl_date,
 					tgla.name				as tgla_name,
 					tgla.image 				as tgla_image,
+					tgla.team_fan_page_id	as tgla_team_fan_page_id,
 					tv.id				 	as tv_id,
 					tv.name					as tv_name,
 					tv.image 				as tv_image,
@@ -909,7 +913,7 @@ class Model_team_guest_lists extends CI_Model {
 			return false; //this guest list reservation request has already been approved, don't continue
 		
 		
-		
+		$team_fan_page_id = $result->tgla_team_fan_page_id;
 		
 		
 		
@@ -1062,6 +1066,11 @@ class Model_team_guest_lists extends CI_Model {
 		if(!$approve_override){
 			
 			$this->load->library('Pusher');
+			
+			//update pending requests everywhere
+			$this->pusher->trigger('presence-' . $team_fan_page_id, 'pending-requests-change', null);
+			
+			
 			$payload 						= new stdClass;
 			$payload->notification_type 	= 'request_response';
 			$payload->venue_name 			= $result->tv_name;

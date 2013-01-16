@@ -9,6 +9,11 @@ jQuery(function(){
 		
 		team_chat_channel.bind('promoter_guest_list_reservation', function(data){
 			
+			console.log('promoter_guest_list_reservation');
+			console.log(data);
+			return;
+			
+			
 			// ------------- Assemble all UIDS of all users in request ------------
 			if(Object.prototype.toString.call(data.entourage) === '[object Array]')
 				var users = data.entourage;

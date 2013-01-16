@@ -232,6 +232,11 @@ class Model_guest_lists extends CI_Model {
 			
 			$this->load->library('pusher');
 			$this->pusher->trigger('private-' . $promoter_oauth_uid, 'pending-requests-change', null);
+
+			
+			//update pending requests everywhere
+			// This should be just approved below
+		//	$this->pusher->trigger('presence-' . $teams_fan_page_id, 'pending-requests-change', null);
 			
 			
 			$this->pusher->trigger('presence-' . $teams_fan_page_id, 'promoter_guest_list_reservation', array('pgl_id' 					=> $promoters_guest_list_id,
@@ -1114,7 +1119,8 @@ class Model_guest_lists extends CI_Model {
 					u.full_name				as u_full_name,
 					u.third_party_id		as u_third_party_id,
 					c.name 					as c_name,
-					c.url_identifier		as c_url_identifier
+					c.url_identifier		as c_url_identifier,
+					t.fan_page_id			as t_fan_page_id
 		
 				FROM 	promoters_guest_lists_reservations pglr
 				
@@ -1133,10 +1139,21 @@ class Model_guest_lists extends CI_Model {
 				JOIN 	users_promoters up 
 				ON  	up.id = pgla.user_promoter_id
 				
+				JOIN 	promoters_teams pt 
+				ON 		pt.promoter_id = up.id
+				
+				JOIN 	teams t 
+				ON 		pt.team_fan_page_id = t.fan_page_id
+				
 				JOIN 	users u 
 				ON 		up.users_oauth_uid = u.oauth_uid
 				
 				WHERE	pglr.id = ?
+				
+						AND pt.approved 	= 1 
+						AND pt.banned 		= 0 
+						AND pt.quit 		= 0
+				
 				AND		pgla.user_promoter_id = ?";
 		$query = $this->db->query($sql, array($pglr_id, $promoter_id));
 		$result = $query->row();
@@ -1149,7 +1166,7 @@ class Model_guest_lists extends CI_Model {
 		
 		
 		
-		
+		$team_fan_page_id = $result->t_fan_page_id;
 		
 		
 		//find third_party_id of head user on this guest list
@@ -1280,6 +1297,13 @@ class Model_guest_lists extends CI_Model {
 		if(!$approve_override){
 			
 			$this->load->library('Pusher');
+			
+			
+			//update pending requests everywhere
+			$this->pusher->trigger('presence-' . $team_fan_page_id, 'pending-requests-change', NULL);
+			
+			
+			
 			$payload = new stdClass;
 			$payload->notification_type = 'request_response';
 			$payload->promoter_name = $result->u_full_name;

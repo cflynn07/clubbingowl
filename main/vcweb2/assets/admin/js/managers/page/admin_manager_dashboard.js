@@ -384,14 +384,13 @@ jQuery(function(){
 				var new_res_callback = function(data){
 					_this.update_collection();
 				};
-				team_chat_channel.bind('team_guest_list_reservation', new_res_callback);
-				
-				
+				team_chat_channel.bind('pending-requests-change', new_res_callback);
+								
 				var temp = window.module.Globals.prototype.unbind_callback;
 				window.module.Globals.prototype.unbind_callback = function(){
 					temp();
 					if(new_res_callback)
-						team_chat_channel.unbind('team_guest_list_reservation', new_res_callback);
+						team_chat_channel.unbind('pending-requests-change', new_res_callback);
 				}
 				
 				
@@ -513,18 +512,18 @@ jQuery(function(){
 		
 		
 		// --------------------------------------------------------------------------------------------
-		var pending_requests_change = function(data){
-			console.log('pending-requests-change');
+	//	var pending_requests_change = function(data){
+	//	/	console.log('pending-requests-change');
 			
 			
-			console.log('data');
-			console.log(data);
-			view_pending_requests.update_collection();
+	//		console.log('data');
+	//		console.log(data);
+	//		view_pending_requests.update_collection();
 			
 			
 			
-		}
-		team_chat_object.individual_channel.bind('pending-requests-change', pending_requests_change);
+	//	}
+	//	team_chat_object.individual_channel.bind('pending-requests-change', pending_requests_change);
 		
 		
 		
