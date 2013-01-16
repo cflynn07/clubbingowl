@@ -173,8 +173,8 @@
 			* @theme header
 			*/
 			#templateHeader{
-				/*@editable*/ background-color:#5E5E5E;
-				/*@editable*/ border-bottom:5px solid #505050;
+				/*@editable*/ background-color:#8A8B8F;
+				/*@editable*/ border-bottom:5px solid #474D6A;
 			}
 			
 			/**
@@ -397,10 +397,10 @@
                             	<td align="center" valign="top">
                                     <!-- // Begin Template Header \\ -->
                                 	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader" style="background-color:#5E5E5E;">
-                                        <tr style="background-color:#5E5E5E;">
+                                        <tr style="background-color:#8A8B8F;">
                                         	<td class="headerContent">
-                                        		<a href="http://www.vibecompass.com/">
-                                            		<img src="https://www.staticcompass.com/vcweb2/assets/web/images/logo.png" style="" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowtext />
+                                        		<a href="https://www.clubingowl.com/">
+                                            		<img src="https://www.clubbingowl.com/vcweb2/assets/web/images/ClubbingOwlHeader_rightdimensions.png?1335304750" style="" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowtext />
                                            		</a>
                                             </td>
                                             <td class="headerContent" width="100%" style="padding-left:20px; padding-right:10px;">
@@ -431,20 +431,18 @@
                                                             	<table >
                                                             		<tr>
                                                             			<td style="padding-right: 25px;">
-                                                            				<a href="http://www.facebook.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" >
+                                                            				<a href="https://www.clubbingowl.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" >
                                                             					<img style="width:50px; height:50px;" src="https://graph.facebook.com/<?= $email_data->from_user->u_oauth_uid ?>/picture" alt="<?= $email_data->from_user->u_full_name ?>" />
                                                             				</a>
                                                             			</td>
-                                                            			<td style="vertical-align:top;font-size:18px;">Your friend <strong style="color: #3CA6E2"><a href="http://www.vibecompass.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" ><?= $email_data->from_user->u_full_name ?></a></strong> is on VibeCompass and is joining guest-lists and reserving tables at their favorite venues with you!</td>
+                                                            			<td style="vertical-align:top;font-size:18px;">Your friend <strong style="color: #3CA6E2"><a href="https://www.clubbingowl.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" ><?= $email_data->from_user->u_full_name ?></a></strong> is on ClubbingOwl and is joining guest-lists and reserving tables at their favorite venues with you!</td>
                                                             		</tr>
                                                             	</table>
                                                             	
                                                             	<br><br>
                                                             	
-                                                                VibeCompass is a Facebook application that makes it easy to join guest-lists and reserve tables at your favorite venues with your friends.
-                                                       			<br><br>
-                                                       			With VibeCompass, there's no hassle to find a club promoter and join a guest list. No filling out annoying forms, or crossing your fingers and hoping that your name actually made it to the list or if you actually have a table. Simply click to send a request, and VibeCompass will notify you (via SMS/email) the instant your promoter responds. Your name will automatically appear on the electronic guest list at the venue.
-                                                                
+                                                            	ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away.
+                                                            	
 															</div>
 														</td>
                                                     </tr>
@@ -472,21 +470,21 @@
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="social">
                                                             <div mc:edit="std_social">
-                                                                &nbsp;<a href="http://twitter.com/vibecompass">Twitter</a> | <a href="http://www.facebook.com/VibeCompass">Facebook</a>
+                                                                &nbsp;<a href="http://twitter.com/clubbingowl">Twitter</a> | <a href="http://www.facebook.com/clubbingowl">Facebook</a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td valign="top" width="350">
                                                             <div mc:edit="std_footer">
-																<em>Copyright &copy; <?= strftime('%Y', time()) ?> Vibe Compass LLC, All rights reserved.</em>
+																<em>Copyright &copy; <?= strftime('%Y', time()) ?> All rights reserved.</em>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="utility">
                                                             <div mc:edit="std_utility">
-                                                                &nbsp;To stop recieving these notifications, log into VibeCompass and select "profile" to modify your email notification settings.
+                                                                &nbsp;To stop recieving these notifications, log into ClubbingOwl and select "profile" to modify your email notification settings, or click <a href="https://www.clubbingowl.com/email/<?= $email_data->to_user->email_opts_hash ?>/">here</a> to unsubscribe. 
                                                             </div>
                                                         </td>
                                                     </tr>

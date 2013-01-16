@@ -97,6 +97,50 @@ class Worker extends CI_Controller {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	public function mandrill_test(){
+		
+		$this->load->library('library_bulk_email', '', 'library_bulk_email');
+		
+		$test_users = array(
+			'Casey Flynn' => 'casey_flynn@cobarsystems.com',
+			'Casey Flynn1' => 'casey_flynn@clubbingowl.com',
+			'Casey Flynn2' => 'casey_flynn@cobarsystems.com',
+			'Casey Flynn3' => 'casey_flynn@clubbingowl.com'
+		);
+		
+				
+		foreach($test_users as $key => $email){
+			
+			$this->library_bulk_email->add_queue(array(
+				'html'		=> '<p>This is a test</p>',
+				'text'		=> 'This is a test',
+				'subject'	=> 'Email test from ClubbingOwl',
+				'to_email'	=> $email, 
+				'to_name'	=> $key,
+			));
+						
+		}
+		
+		$this->library_bulk_email->flush_queue();
+		
+		echo 'complete' . PHP_EOL;			
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public function run_billing(){
 		
 		

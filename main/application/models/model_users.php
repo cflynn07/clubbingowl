@@ -199,7 +199,8 @@ class Model_users extends CI_Model {
 					u.third_party_id 	as u_third_party_id,
 					u.email 			as u_email,
 					u.gender			as u_gender,
-					u.opt_out_email		as u_opt_out_email
+					u.opt_out_email		as u_opt_out_email,
+					u.email_opts_hash	as email_opts_hash
 				
 				FROM 	users u
 				

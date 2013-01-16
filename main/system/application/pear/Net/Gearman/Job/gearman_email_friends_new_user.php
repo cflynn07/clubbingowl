@@ -12,8 +12,19 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
     	
 		echo 'Emailing friends new user...' . PHP_EOL;
 		
+		
+		
+		
+		
+		
 		//get all the stuff we're going to need...
 		$CI =& get_instance();
+		
+		
+		
+		
+		
+		
 		$CI->benchmark->mark('code_start');
 		
 		$CI->load->library('library_facebook', '', 'facebook');
@@ -53,6 +64,40 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
 		
 		$CI->benchmark->mark('email_start');
 		//create a separate curl request for each friend
+		
+		
+		$CI->load->library('library_bulk_email', '', 'library_bulk_email');
+		
+		foreach($vibecompass_users as $key => $uf){
+			
+						
+			$email_data 				= new stdClass;
+			$email_data->to_user 		= $uf;
+			$email_data->from_user	 	= $from_user;
+			$email_data->message_title 	= "Your friend " . $from_user->u_first_name . " has joined ClubbingOwl!";
+			
+			
+			
+			$email_text = $CI->load->view('emails/' . 'view_email_friend_join_vc', array('email_data' => $email_data), true);
+			
+			$this->library_bulk_email->add_queue(array(
+				'html'		=> $email_text,
+				'text'		=> strip_tags($email_text),
+				'subject'	=> $email_data->message_title,
+				'to_email'	=> $uf->u_email, 
+				'to_name'	=> $uf->u_full_name,
+			));
+			
+		}
+		
+		$this->library_bulk_email->flush_queue();
+		
+		
+		
+		
+		
+		/*
+		
 		$curls = array();
 		foreach($vibecompass_users as $key => $uf){
 			
@@ -131,9 +176,21 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
 
 		curl_multi_close($mh);
 			$CI->benchmark->mark('email_end');
+			
+			
+			
+			
+			*/
+			
+			
+		echo 'Emailed ' . count($vibecompass_users) . ' users new friend join.' . PHP_EOL;
+			
+			
+			
+			
+			
+			
+			
 		
-		echo 'New user email sent to ' . count($vibecompass_users) . " friends." . PHP_EOL;
-		echo 'Facebook time: ' . $CI->benchmark->elapsed_time('facebook_start', 'facebook_end') . ' | email time: ' . $CI->benchmark->elapsed_time('email_start', 'email_end') . PHP_EOL;
-    
     }
 }
