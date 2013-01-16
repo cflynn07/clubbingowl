@@ -7,6 +7,11 @@ jQuery(function(){
 						
 
 		var EVT = window.ejs_view_templates_admin_managers;
+		
+		var team_chat_channel = window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];
+
+			
+			
 			
 		var Models 		= {};
 		var Collections = {};
@@ -369,6 +374,32 @@ jQuery(function(){
 			el: '#pending_reservations table',
 			initialize: function(){
 
+
+				
+				
+				
+				
+				
+				var _this = this;
+				var new_res_callback = function(data){
+					_this.update_collection();
+				};
+				team_chat_channel.bind('team_guest_list_reservation', new_res_callback);
+				
+				
+				var temp = window.module.Globals.prototype.unbind_callback;
+				window.module.Globals.prototype.unbind_callback = function(){
+					temp();
+					if(new_res_callback)
+						team_chat_channel.unbind('team_guest_list_reservation', new_res_callback);
+				}
+				
+				
+
+
+
+
+
 				this.collection.on('reset', this.pre_render, this);
 				this.pre_render();
 				
@@ -463,7 +494,7 @@ jQuery(function(){
 						console.log(data);
 						
 						window.page_obj.pending_reservations_users = data.message.users;
-						_this.collection.reset(data.message.reservations);
+						_this.collection.reset(data.message.statistics.pending_requests);
 						
 					}
 				})
@@ -489,6 +520,9 @@ jQuery(function(){
 			console.log('data');
 			console.log(data);
 			view_pending_requests.update_collection();
+			
+			
+			
 		}
 		team_chat_object.individual_channel.bind('pending-requests-change', pending_requests_change);
 		

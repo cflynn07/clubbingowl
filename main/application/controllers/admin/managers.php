@@ -1975,8 +1975,9 @@ class Managers extends MY_Controller {
 			case 'retrieve_pending_requests':
 			
 			
-			
+							
 				$data = $this->_helper_retrieve_pending_requests();
+				
 				die(json_encode(array('success' => true, 'message' => $data)));		
 				
 				
