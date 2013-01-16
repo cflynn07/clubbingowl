@@ -979,9 +979,12 @@ class Model_team_guest_lists extends CI_Model {
 		if($result->tglr_text_message && !$approve_override){
 				
 			if($approved)
-				$text_message = "You have been approved to join \"$result->tgla_name\" at $result->tv_name on $result->tgl_date";
+				$text_message = "(ClubbingOwl) You have been approved to join \"$result->tgla_name\" at $result->tv_name on $result->tgl_date.";
 			else
-				$text_message = "Your request to join \"$result->tgla_name\" at $result->tv_name on $result->tgl_date has been denied.";
+				$text_message = "(ClubbingOwl) Your request to join \"$result->tgla_name\" at $result->tv_name on $result->tgl_date has been denied.";
+						
+			if($message)
+				$text_message = $text_message . " MSG: \"$message.\"";		
 						
 			# ---------------------------------------------------------- #
 			#	Send text message job to gearman as background job		 #
