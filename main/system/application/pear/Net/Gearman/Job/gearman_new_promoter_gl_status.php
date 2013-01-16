@@ -105,7 +105,7 @@ class Net_Gearman_Job_gearman_new_promoter_gl_status extends Net_Gearman_Job_Com
 			$CI->teams->create_billable_message($team_fan_page_id, array(
 				'type' => 'sms'
 			));
-			$CI->twilio->sms(false, $group->u_phone_number, "ClubbingOwl - \"$group->pgla_name\" Update:\n" . "\"$status\"");
+			$CI->twilio->sms(false, $group->u_phone_number, "(ClubbingOwl) \"$group->pgla_name\" update:\n" . "\"$status\"");
 			
 			
 			

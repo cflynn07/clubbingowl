@@ -117,7 +117,7 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 			$CI->teams->create_billable_message($team_fan_page_id, array(
 				'type' => 'sms'
 			));
-			$CI->twilio->sms(false, $group->u_phone_number, "ClubbingOwl - \"$group->tgla_name\" Update:\n" . "\"$status\"");
+			$CI->twilio->sms(false, $group->u_phone_number, "(ClubbingOwl) \"$group->tgla_name\" update:\n" . "\"$status\"");
 			
 		}
 		
