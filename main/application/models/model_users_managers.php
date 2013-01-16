@@ -257,6 +257,7 @@ class Model_users_managers extends CI_Model {
 					tglr.checked_in_by_host	as tglr_checked_in_by_host,
 					tglr.supplied_name		as tglr_supplied_name,
 					tglr.manual_add 		as tglr_manual_add,
+					tglr.text_message 		as tglr_text_message,
 					tv.id					as tv_id,
 					tv.name 				as tv_name,
 					tv.description 			as tv_description,
@@ -337,7 +338,8 @@ class Model_users_managers extends CI_Model {
 				//ALSO ATTACH PHONE NUMBER FOR HEAD USER
 				$sql = "SELECT
 				
-							u.phone_number as u_phone_number
+							u.phone_number 	as u_phone_number,
+							u.email 		as u_email
 						
 						FROM 	users u 
 						
@@ -345,11 +347,19 @@ class Model_users_managers extends CI_Model {
 				$query2 = $this->db->query($sql, array($res->tglr_user_oauth_uid));
 				$result2 = $query2->row();
 				
-				if($result2)				
-					$res->u_phone_number = $result2->u_phone_number;
-				else 
-					$res->u_phone_number = '';
+				if($result2){		
+					$res->u_phone_number 	= $result2->u_phone_number;
+					$res->u_email 			= $result2->u_email;
+				}else{
+					$res->u_phone_number 	= '';
+					$res->u_email 			= '';
+				}
 					
+				if(isset($result2->u_email))
+					$res->u_email = $result2->u_email;
+				else 
+					$res->u_email = '';
+
 			}else{
 				$res->u_phone_number = '';
 			}

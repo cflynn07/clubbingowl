@@ -2183,6 +2183,7 @@ class Managers extends MY_Controller {
 				
 				$this->load->helper('run_gearman_job');
 				run_gearman_job('gearman_new_manager_gl_status', array(
+					'team_fan_page_id'			=> $this->vc_user->manager->team_fan_page_id,
 					'manager_oauth_uid'			=> $this->vc_user->manager->mt_user_oauth_uid,
 					'tgla_id'					=> $tgla_id,
 					'status'					=> $status,

@@ -10,7 +10,9 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
     			
 		//get all the stuff we're going to need...
 		$CI =& get_instance();
-		$CI->load->library('library_facebook', '', 'facebook');
+		$CI->load->library('library_facebook', 	'', 'facebook');
+		$CI->load->library('Twilio', 			'', 'twilio');
+		$CI->load->library('library_bulk_email', '', 'library_bulk_email');
 		$handle = $this->handle;
 		
 		
@@ -18,20 +20,21 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 		
 		
 		
-		
+		$team_fan_page_id	= $args['team_fan_page_id'];
 		$manager_oauth_uid  = $args['manager_oauth_uid'];
 		$tgla_id 			= $args['tgla_id'];
 		$status 			= $args['status'];
 		$human_time 		= $args['human_time'];
+		
 	
 
 		
 		//find pgla
-		$CI->load->model('model_users', 			'users', true);
-		$CI->load->model('model_guest_lists', 		'guest_lists', true);
+		$CI->load->model('model_users', 			'users', 			true);
+		$CI->load->model('model_guest_lists', 		'guest_lists', 		true);
 		$CI->load->model('model_team_guest_lists', 	'team_guest_lists', true);
-		
-		
+		$CI->load->model('model_users_managers', 	'users_managers',	true);
+		$CI->load->model('model_teams', 			'teams', 			true);
 		
 		
 		$tgla = $CI->team_guest_lists->retrieve_tgla(false, $tgla_id);
@@ -50,25 +53,11 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 			));
 		$query = $CI->db->get();
 			
-		if(MODE == 'local')
-			var_dump($CI->db->last_query());
+	//	if(MODE == 'local')
+	//		var_dump($CI->db->last_query());
 		
 		$result = $query->result();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//email users...
-		foreach($result as $res){
-			echo 'SENDING EMAIL TO: ' . $res->full_name . PHP_EOL;
-		}
-		
-		
+
 		//create notifications...
 		foreach($result as $res){
 			
@@ -86,96 +75,54 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 		}
 		
 		
-		//sms users...
+		//Find all users on the upcoming guest list
 		
-				
-		
-		
-		return;
-		
-		
-		
-		
-	/*
-		
-		$user_oauth_uid = $args['user_oauth_uid'];
-		$promoter_id	= $args['promoter_id'];
-		$access_token = $args['access_token'];
-		$oauth_uids = json_decode($args['oauth_uids']);
-		$pgla_id = $args['pgla_id'];
-				
-		//find out if current user and friend are friends		
-		$fql = "SELECT uid2 FROM friend WHERE uid1 = $user_oauth_uid AND (";
-		
-		foreach($oauth_uids as $key => $uid){
-			
-			if($key == (count($oauth_uids) - 1)){
-				
-				$fql .= "uid2 = $uid)";
-				
-			}else{
-				
-				$fql .= "uid2 = $uid OR ";
-				
-			}
+		$current_list = $CI->users_managers->retrieve_teams_guest_list_authorizations_current_guest_list($tgla->tgla_id, 
+																	date('Y-m-d', strtotime(rtrim($tgla->tgla_day, 's'))));
 
-		}
-				
-		$result = $CI->facebook->fb_fql_query($fql, $access_token);
-				
-		if(count($result) != count($oauth_uids)){
-			//users are NOT friends
-			
-			$data = json_encode(array('success' => true,
-									'message' => false));
-
-			$CI->redis->set($handle, 
-									$data);
-			$CI->redis->expire($handle, 120);
-			
-			
-			return;
-			
-		}
+		$current_list->groups = $CI->users_managers->retrieve_teams_guest_list_members($current_list->tgl_id);
 		
 		
-		
-		$CI->load->model('model_guest_lists', 'guest_lists', true);
-		
-		$message = new stdClass;
-		foreach($oauth_uids as $uid){
+		$email_count 	= 0;
+		$sms_count 		= 0;
+		foreach($current_list->groups as $group){
 			
-			$result = $CI->guest_lists->create_new_promoter_guest_list_reservation($pgla_id,
-																					$uid,
-																					array(),
-																					$promoter_id,
-																					false,
-																					false,
-																					'',
-																					false,
-																					'',
-																					false,
-																					0,			//table_min_spend
-																					true,
-																					true);
+			if($group->tglr_manual_add == '1' || $group->tglr_approved != '1' || !$group->u_email)
+				continue;
 			
-			$message->$uid->pglr_id = $result[1];
 			
-		}
-		
-		
+			
+			//first email
+			//$user_email = $group->u_email;
+	//		if($user_email){}
 	
-		//users are friends
+			//track this outgoing message for billing purposes
+			$CI->teams->create_billable_message($team_fan_page_id, array(
+				'type' => 'email'
+			));
+			
+			$email_count++;
+			
+			
+			
+			
+			if( $group->tglr_text_message != '1' || !$group->u_phone_number)
+				continue;
+			
+			$sms_count++;
+			
+			
+			//then sms
+			
+			$CI->teams->create_billable_message($team_fan_page_id, array(
+				'type' => 'sms'
+			));
+			$CI->twilio->sms(false, $group->u_phone_number, "ClubbingOwl - \"$group->tgla_name\" Update:\n" . "\"$status\"");
+			
+		}
 		
-		$data = json_encode(array('success' => true,
-								'message' => $message));
-
-		$CI->redis->set($handle, 
-								$data);
-		$CI->redis->expire($handle, 120);
 		
-		echo "Promoter guest list manual add. PGLA_ID:" . $pgla_id . " User friend: " . (($result) ? "true" : "false") . PHP_EOL;
-   
-	 * */
+		echo 'NEW manager/team guest list status created. ' . count($email_count) . ' emails and ' . count($sms_count) . ' sms sent.' . PHP_EOL;
+		
 	}
 }
