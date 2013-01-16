@@ -1325,3 +1325,20 @@ div.guestlist-form-right div#guestlist_status_wrapper span.status-update-time {
 	color: #FFF;
 	font-size: 11px;
 }
+
+
+
+
+div.guestlist-form-right #accordion_replace_sub_msg {
+	border-radius: 5px;
+	background: #474D6A;
+	border: 1px dotted #CCC;
+	padding: 10px;
+	width: 98%;
+	margin: 0 auto 0 auto;
+}
+div.guestlist-form-right #accordion_replace_sub_msg h2 {
+	color: #FFF !important;
+	font-weight: normal !important;
+}
+

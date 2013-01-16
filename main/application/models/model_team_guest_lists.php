@@ -141,6 +141,7 @@ class Model_team_guest_lists extends CI_Model {
 					tgl.id 					as id,
 					tgla.id 				as tgla_id,
 					tgla.name 				as tgla_name,
+					tgla.team_fan_page_id 	as tgla_team_fan_page_id,
 					tv.name 				as tv_name,
 					tv.id 					as tv_id,
 					u.full_name 			as u_full_name,
@@ -196,13 +197,15 @@ class Model_team_guest_lists extends CI_Model {
 	//		var_dump($this->db->last_query()); //die();
 			
 		}
-				
-		$tgla_id 	= $result->tgla_id;
-		$tgla_name 	= $result->tgla_name;
-		$tv_name 	= $result->tv_name;
-		$tv_id 		= $result->tv_id;
-		$manager_name 	= $result->u_full_name;
-		$manager_email 	= $result->u_email;
+		
+		
+		$team_fan_page_id 	= $result->tgla_team_fan_page_id;
+		$tgla_id 			= $result->tgla_id;
+		$tgla_name 			= $result->tgla_name;
+		$tv_name 			= $result->tv_name;
+		$tv_id 				= $result->tv_id;
+		$manager_name 		= $result->u_full_name;
+		$manager_email 		= $result->u_email;
 		$manager_twilio_number = $result->u_twilio_sms_number;	
 				
 		/* --------------------------------- */
@@ -247,7 +250,9 @@ class Model_team_guest_lists extends CI_Model {
 		if($teams_guest_lists_reservations_id){
 			
 			$this->load->library('pusher');
-			$this->pusher->trigger('presence-' . $team_fan_page_id, 'team_guest_list_reservation', array('tgl_id' 					=> $teams_guest_list_id,
+			
+			if(!$approve_override)
+				$this->pusher->trigger('presence-' . $team_fan_page_id, 'team_guest_list_reservation', array('tgl_id' 					=> $teams_guest_list_id,
 																												'tglr_id' 			=> $teams_guest_lists_reservations_id,
 																												'tgla_id'			=> $tgla_id,
 																												'entourage' 		=> $entourage,
@@ -262,6 +267,11 @@ class Model_team_guest_lists extends CI_Model {
 																												'head_oauth_uid'	=> $oauth_uid,
 																												'request_msg'		=> '',
 																												'manual_add'		=> ($approve_override) ? 1 : 0));
+			
+			
+			
+			
+			
 			
 			if(!$approve_override){
 				$email_view_data = array(
@@ -280,6 +290,10 @@ class Model_team_guest_lists extends CI_Model {
 					'email_view_data'	=> json_encode($email_view_data)
 				), false);
 			}
+			
+			
+			
+			
 			
 		}
 		
@@ -336,7 +350,7 @@ class Model_team_guest_lists extends CI_Model {
 																		$approve_override);
 																		
 																		
-		if(!$approve_override){
+		if(!$approve_override && $team_fan_page_id && $team_fan_page_id != '0'){
 			
 			$this->load->helper('run_gearman_job');
 			//send text message to promoter ------------------------------------

@@ -437,10 +437,22 @@ div#unavailable_overlay{
 	
 	<div id="accordion_replace_msg" style="display:none;text-align:center;padding:0 15px 20px 15px;">
 		
-		<br><br><br>
+		<br><br>
 		
-		<h2 style="text-align:left;">Your reservation request has been successfully submitted</h2>
-		<h2 style="text-align:left;">ClubbingOwl will notify you via email/sms when <?= $guest_list->tv_name ?> responds.</h2>
+		
+		
+		
+		<div id="accordion_replace_sub_msg">
+		
+			<h2 style="text-align:left;">Your reservation request has been successfully submitted</h2>
+			<h2 style="text-align:left;">ClubbingOwl will notify you via email/sms when <?= $guest_list->tv_name ?> responds.</h2>
+		
+			<a class="ajaxify" href="<?= $central->front_link_base ?>profile/">View Your Reservation Status</a>
+		
+		</div>
+		
+		
+		
 		
 		<div class="fb-like-box" data-href="http://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div>
 		

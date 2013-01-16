@@ -9,6 +9,12 @@ jQuery(function(){
 		var globals 			= window.module.Globals.prototype;
 		var page_collapsed 		= false;	
 		var unbind_callbacks 	= [];
+		
+		var team_chat_channel = window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];
+	
+		
+		
+		
 
 		var Models 		= {};
 		var Collections = {};
@@ -1002,6 +1008,32 @@ jQuery(function(){
 			active_list: 				null,
 			className: 'list tabs',
 			initialize: function(){
+				
+				
+				
+				
+				
+				var _this = this;
+				var new_res_callback = function(data){
+					_this.fetch_week(0);
+				};
+				
+				team_chat_channel.bind('team_guest_list_reservation', new_res_callback);
+				
+				
+				
+				
+				var temp = window.module.Globals.prototype.unbind_callback;
+				window.module.Globals.prototype.unbind_callback = function(){
+					temp();
+					if(new_res_callback)
+						team_chat_channel.unbind('team_guest_list_reservation', new_res_callback);
+				}
+				
+				
+				
+				
+				
 				
 				this.collection.on('change', this.render, this);
 				this.render();

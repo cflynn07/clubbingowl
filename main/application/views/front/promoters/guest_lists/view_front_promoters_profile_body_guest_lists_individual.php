@@ -151,14 +151,14 @@
 	
 	
     <div id="unavailable_overlay">
-	    	<p>
-	    		
-	    		<?= '' //$this->lang->line('p-login_msg2_overlay') ?>
-	    		Connect with Facebook to join <?= $promoter->u_first_name ?>'s guest list.<br/><strong>It's that easy!</strong>
-	    		<br><br>
-	    		<a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a>
-	    		
-	    	</p>
+    	<p>
+    		
+    		<?= '' //$this->lang->line('p-login_msg2_overlay') ?>
+    		Connect with Facebook to join <?= $promoter->u_first_name ?>'s guest list.<br/><strong>It's that easy!</strong>
+    		<br><br>
+    		<a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="<?= $central->front_assets ?>images/connect-large.png" alt="Facebook Connect" /></a>
+    		
+    	</p>
     </div>    
     	
     	
@@ -457,8 +457,19 @@
 		
 		<br><br>
 		
-		<h2 style="text-align:left;">Your reservation request has been successfully submitted</h2>
-		<h2 style="text-align:left;">ClubbingOwl will notify you via email/sms when <?= $promoter->u_first_name ?> responds.</h2>
+		
+		
+		<div id="accordion_replace_sub_msg">
+			
+			<h2 style="text-align:left;">Your reservation request has been successfully submitted</h2>
+			<h2 style="text-align:left;">ClubbingOwl will notify you via email/sms when <?= $promoter->u_first_name ?> responds.</h2>
+			
+			<a class="ajaxify" href="<?= $central->front_link_base ?>profile/">View Your Reservation Status</a>
+			
+		</div>
+		
+		
+		
 		
 		<div class="fb-like-box" data-href="http://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div>
 		
