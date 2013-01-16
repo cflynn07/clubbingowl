@@ -235,13 +235,13 @@ class Model_team_guest_lists extends CI_Model {
 																		'approved'			=> ($approve_override) ? 1 : 0,
 																		'table_min_spend'	=> $table_min_spend,
 																		'supplied_name'		=> $tglr_supplied_name,
-																		'venues_layout_floors_items_table_id'	=> (($vlfit_id) ? $vlfit_id : NULL),
+																		'venues_layout_floors_items_table_id'	=> (($vlfit_id && $vlfit_id != 'false') ? $vlfit_id : NULL),
 																		'create_time' 		=> time()));
 	//	var_dump($this->db->last_query()); //die();
 		
 		$teams_guest_lists_reservations_id = $this->db->insert_id();
 	//	var_dump($teams_guest_lists_reservations_id); die();
-
+		
 		
 		//send PUSHER notification to team channel (only if NOT a manual add)
 		if($teams_guest_lists_reservations_id){
