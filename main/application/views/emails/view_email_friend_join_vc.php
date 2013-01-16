@@ -399,7 +399,7 @@
                                 	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader" style="background-color:#5E5E5E;">
                                         <tr style="background-color:#8A8B8F;">
                                         	<td class="headerContent">
-                                        		<a href="https://www.clubingowl.com/">
+                                        		<a href="https://www.clubbingowl.com/">
                                             		<img src="https://www.clubbingowl.com/vcweb2/assets/web/images/ClubbingOwlHeader_rightdimensions.png?1335304750" style="" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowtext />
                                            		</a>
                                             </td>

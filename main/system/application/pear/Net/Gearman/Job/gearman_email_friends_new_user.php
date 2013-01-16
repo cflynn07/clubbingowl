@@ -80,7 +80,7 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
 			
 			$email_text = $CI->load->view('emails/' . 'view_email_friend_join_vc', array('email_data' => $email_data), true);
 			
-			$this->library_bulk_email->add_queue(array(
+			$CI->library_bulk_email->add_queue(array(
 				'html'		=> $email_text,
 				'text'		=> strip_tags($email_text),
 				'subject'	=> $email_data->message_title,
@@ -90,7 +90,7 @@ class Net_Gearman_Job_gearman_email_friends_new_user extends Net_Gearman_Job_Com
 			
 		}
 		
-		$this->library_bulk_email->flush_queue();
+		$CI->library_bulk_email->flush_queue();
 		
 		
 		
