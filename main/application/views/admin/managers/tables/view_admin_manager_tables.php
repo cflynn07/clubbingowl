@@ -59,11 +59,12 @@
 				
 				<div class="full_width last">
 					
-					<div>
+					
+					<div style="text-align:center;">
 						
 						<div style="float:left; display:inline-block;">
 							<img 	style="border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url . 'venues/banners/' . $venue->tv_image . '_t.jpg' ?>" alt="<?= $venue->tv_name ?>"/>
-							<h3 	style="color:red;"><?= $venue->tv_name ?></h3>
+							<h3 	style="color:#000;"><?= $venue->tv_name ?></h3>
 						</div>
 						
 						<div style="float:right; display:inline-block; padding-top:5px;">
@@ -71,6 +72,10 @@
 						</div>
 						
 					</div>
+					
+					
+					
+					
 					
 					<div style="clear:both;"></div>
 					
@@ -172,7 +177,7 @@
 		<img class="info_icon tooltip" title="All upcoming table and guest list reservations" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
 	</h3>
 	
-	<div class="ui-widget">
+	<div style="width:980px;" class="ui-widget">
 		<div class="ui-widget-header">
 			<span>All Upcoming Reservations</span>
 		</div>

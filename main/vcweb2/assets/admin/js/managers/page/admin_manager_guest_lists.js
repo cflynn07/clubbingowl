@@ -134,9 +134,6 @@ jQuery(function(){
 						
 						
 						
-						
-						
-						
 					}
 				});
 				
