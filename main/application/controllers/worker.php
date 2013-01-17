@@ -327,6 +327,10 @@ class Worker extends CI_Controller {
 			$gearman_worker->addAbility('gearman_new_manager_gl_status');	
 			
 			
+			$gearman_worker->addAbility('gearman_confirmation_email_team');	
+			$gearman_worker->addAbility('gearman_confirmation_email_promoter');	
+			
+			
 			//finds reviews of a user's friends for a given promoter
 			$gearman_worker->addAbility('gearman_individual_promoter_friend_reviews');	
 					

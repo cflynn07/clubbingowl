@@ -15,6 +15,8 @@ class Net_Gearman_Job_gearman_email_friends_gl_join extends Net_Gearman_Job_Comm
     public function run($args){
 		
 		echo 'Emailing friends new gl-join...' . PHP_EOL;
+		return;
+		
 		
 		//get all the stuff we're going to need...
 		$CI =& get_instance();

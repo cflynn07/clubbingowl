@@ -3957,6 +3957,9 @@ class Managers extends MY_Controller {
 																							$table_request,
 																							$vlfit_id,
 																							$this->vc_user->manager->team_fan_page_id);
+																							
+																							
+																							
 		}else{
 			
 			
@@ -3982,6 +3985,15 @@ class Managers extends MY_Controller {
 			
 			
 			$result = true;
+			
+			
+			
+			//sms & email user
+			
+			
+			
+			
+			
 			
 			
 		/*	

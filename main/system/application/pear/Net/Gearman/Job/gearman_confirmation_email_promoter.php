@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * Verifies that a VC user is a friend of the promoter that is attempting to add them
- * to their guest list
- */
-class Net_Gearman_Job_gearman_new_promoter_gl_status extends Net_Gearman_Job_Common{
+
+
+
+
+class Net_Gearman_Job_gearman_confirmation_email_promoter extends Net_Gearman_Job_Common{
 	
     public function run($args){
     			

@@ -861,10 +861,10 @@ class Model_team_guest_lists extends CI_Model {
 																	$message,
 																	$team_venue_id,
 																	$team_guest_list_reservation_id,
-																	$approve_override = false,
-																	$table_request = false,
-																	$vlfit_id = false,
-																	$team_fan_page_id = false){
+																	$approve_override 			= false,
+																	$table_request 				= false,
+																	$vlfit_id 					= false,
+																	$team_fan_page_id 			= false){
 
 		//retrieve & simultaniously confirm this guest list matches this team
 		$sql = "SELECT
@@ -873,6 +873,9 @@ class Model_team_guest_lists extends CI_Model {
 					tglr.approved			as tglr_approved,
 					tglr.text_message		as tglr_text_message,
 					tglr.share_facebook		as tglr_share_facebook,
+					tglr.table_request 		as tglr_table_request,
+					tglr.manual_add 		as tglr_manual_add,
+					
 					tgl.date				as tgl_date,
 					tgla.name				as tgla_name,
 					tgla.image 				as tgla_image,
@@ -906,6 +909,9 @@ class Model_team_guest_lists extends CI_Model {
 		$query = $this->db->query($sql, array($team_guest_list_reservation_id));
 		$result = $query->row();
 		
+		
+		
+		
 		if(!$result)
 			return false;
 				
@@ -913,8 +919,8 @@ class Model_team_guest_lists extends CI_Model {
 			return false; //this guest list reservation request has already been approved, don't continue
 		
 		
-		$team_fan_page_id = $result->tgla_team_fan_page_id;
-		
+		$team_fan_page_id 	= $result->tgla_team_fan_page_id;
+		$tglr_manual_add 	= $result->tglr_manual_add;
 		
 		
 		if($vlfit_id !== false){
@@ -975,6 +981,37 @@ class Model_team_guest_lists extends CI_Model {
 			), false);
 			
 		}
+		
+		
+		
+		
+		
+		if(!$approve_override && !$tglr_manual_add){
+			//send confirmation email
+			
+			
+			$this->db->cache_off();
+			$sql5 	= "SELECT * FROM users WHERE oauth_uid = ?";
+			$query 	= $this->db->query($sql5, array($result->tglr_user_oauth_uid));
+			$confirm_email_user = $query->row();
+			
+			
+			$this->load->helper('run_gearman_job');
+			run_gearman_job('gearman_confirmation_email_team', array(
+				'user_json'			=> json_encode($confirm_email_user),
+				'tglr'				=> json_encode($result),
+				'team_fan_page_id'	=> $team_fan_page_id,
+				'approved'			=> $approved,
+				'message' 			=> $message
+			), false);
+			
+			
+		}
+		
+		
+		
+		
+		
 		
 		if($result->tglr_text_message && !$approve_override){
 				
