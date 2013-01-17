@@ -847,7 +847,12 @@ class Model_guest_lists extends CI_Model {
 				//ALSO ATTACH PHONE NUMBER FOR HEAD USER
 				$sql = "SELECT
 				
-							u.phone_number as u_phone_number
+							u.phone_number 		as u_phone_number,
+							u.first_name 		as head_user_first_name,
+							u.last_name 		as head_user_last_name,
+							u.full_name 		as head_user_full_name,
+							u.email_opts_hash 	as head_user_email_opts_hash,
+							u.email 			as head_user_email
 						
 						FROM 	users u 
 						
@@ -856,7 +861,14 @@ class Model_guest_lists extends CI_Model {
 				$result2 = $query2->row();
 				
 				if(isset($result2->u_phone_number)){
-					$res->u_phone_number = $result2->u_phone_number;
+					
+					$res->u_phone_number 			= $result2->u_phone_number;
+					$res->head_user_first_name 		= $result2->head_user_first_name;
+					$res->head_user_last_name 		= $result2->head_user_last_name;
+					$res->head_user_full_name 		= $result2->head_user_full_name;
+					$res->head_user_email_opts_hash = $result2->head_user_email_opts_hash;
+					$res->head_user_email			= $result2->head_user_email;
+					
 				}else{
 					$res->u_phone_number = '';
 				}

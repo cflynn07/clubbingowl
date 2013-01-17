@@ -339,7 +339,11 @@ class Model_users_managers extends CI_Model {
 				$sql = "SELECT
 				
 							u.phone_number 	as u_phone_number,
-							u.email 		as u_email
+							u.email 		as head_user_email,
+							u.first_name 	as head_user_first_name,
+							u.last_name 	as head_user_last_name,
+							u.full_name 	as head_user_full_name,
+							u.email_opts_hash	as head_user_email_opts_hash
 						
 						FROM 	users u 
 						
@@ -348,8 +352,14 @@ class Model_users_managers extends CI_Model {
 				$result2 = $query2->row();
 				
 				if($result2){		
-					$res->u_phone_number 	= $result2->u_phone_number;
-					$res->u_email 			= $result2->u_email;
+					$res->u_phone_number 			= $result2->u_phone_number;
+					$res->head_user_email 			= $result2->head_user_email;
+					
+					$res->head_user_first_name 		= $result2->head_user_first_name;
+					$res->head_user_last_name 		= $result2->head_user_last_name;
+					$res->head_user_full_name 		= $result2->head_user_full_name;
+					$res->head_user_email_opts_hash = $result2->head_user_email_opts_hash;
+					
 				}else{
 					$res->u_phone_number 	= '';
 					$res->u_email 			= '';

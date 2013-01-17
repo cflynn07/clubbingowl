@@ -54,14 +54,15 @@ $route['admin/super_admins/(:any)'] = 'admin/super_admins/index/$1';
 $route['admin'] 					= 'error';
 
 
-$route['promoters/(:any)'] 	= 'promoters/index/$1';
-$route['friends/(:any)'] 	= 'friends/index/$1';
-$route['venues/(:any)'] 	= 'venues/index/$1';
-$route['profile/(:any)'] 	= 'profile/index/$1';
-$route['primary/(:any)'] 	= 'primary/index/$1';
-$route['corp/(:any)'] 		= 'corp/index/$1';
-$route['twilio/(:any)'] 	= 'twilio/index/$1';
-$route['email/(:any)'] 		= 'email/index/$1';
+$route['promoters/(:any)'] 			= 'promoters/index/$1';
+$route['friends/(:any)'] 			= 'friends/index/$1';
+$route['venues/(:any)'] 			= 'venues/index/$1';
+$route['profile/(:any)'] 			= 'profile/index/$1';
+$route['primary/(:any)'] 			= 'primary/index/$1';
+$route['corp/(:any)'] 				= 'corp/index/$1';
+$route['twilio/(:any)'] 			= 'twilio/index/$1';
+$route['email/(:any)'] 				= 'email/index/$1';
+$route['development/(:any)'] 		= 'development/index/$1';
 
 # ---------- facebook tab routes --------- #
 $route['facebook/(:any)'] 	= 'facebook/primary/index/$1';

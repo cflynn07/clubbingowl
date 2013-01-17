@@ -70,24 +70,64 @@ class Net_Gearman_Job_gearman_new_promoter_gl_status extends Net_Gearman_Job_Com
 		$pgla->groups = $CI->guest_lists->retrieve_single_guest_list_and_guest_list_members($pgla->pgla_id, $pgla->pgla_day, false);
 		
 		
+	//	var_dump($pgla);
+		
+		
+		
 		$email_count 	= 0;
 		$sms_count 		= 0;
 		foreach($pgla->groups as $group){
 			
-			if($group->pglr_manual_add == '1' || $group->pglr_approved != '1' || !$group->u_email)
+			if($group->pglr_manual_add == '1' || $group->pglr_approved != '1' || !$group->head_user_email)
 				continue;
 				
 				
-			//first email
-			//$user_email = $group->u_email;
-	//		if($user_email){}
-			
+				
+				
+				
+				
+				
+				
+				
 			//track this outgoing message for billing purposes
 			$CI->teams->create_billable_message($team_fan_page_id, array(
 				'type' => 'email'
 			));
 			
 			$email_count++;
+			
+			
+			
+			
+			$email_data 						= new stdClass;
+			$email_data->up_public_identifier	= $pgla->up_public_identifier;
+			$email_data->up_profile_image 		= $pgla->up_profile_image;
+			$email_data->pgla_name 				= $pgla->pgla_name;
+			$email_data->pgla_image 			= $pgla->pgla_image;
+			$email_data->promoter_full_name		= $pgla->u_full_name;
+			
+			$email_data->to_user 					= new stdClass;
+			$email_data->to_user->u_first_name 		= $group->head_user_first_name;
+			$email_data->to_user->u_last_name 		= $group->head_user_last_name;
+			$email_data->to_user->u_full_name 		= $group->head_user_full_name;
+			$email_data->to_user->email_opts_hash 	= $group->head_user_email_opts_hash;
+			
+			$email_data->message_title 	= "Updated status for guest list \"$group->pgla_name\"";
+			
+			$email_data->status 		= $status;
+						
+			$html 						= $CI->load->view('emails/view_email_new_promoter_status', array('email_data' => $email_data), true);
+			
+		//	var_dump($email_data);
+			
+			$CI->library_bulk_email->add_queue(array(
+				'html'		=> $html,
+				'text'		=> strip_tags($html),
+				'subject'	=> $email_data->message_title,
+				'to_email'	=> $group->head_user_email, 
+				'to_name'	=> $email_data->to_user->u_full_name,
+			));
+			
 			
 			
 			
@@ -113,7 +153,7 @@ class Net_Gearman_Job_gearman_new_promoter_gl_status extends Net_Gearman_Job_Com
 			
 		}
 		
-		
+		$CI->library_bulk_email->flush_queue();
 		
 		echo 'NEW promoter guest list status created. ' . count($email_count) . ' emails and ' . count($sms_count) . ' sms sent.' . PHP_EOL;
 		

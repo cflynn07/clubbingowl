@@ -426,16 +426,18 @@
                                                         <td valign="top" style="padding-right:0;">
                                                             <div mc:edit="std_content00">
                                                             	
+                                                            	<?php $link = "https://www.clubbingowl.com/venues/$email_data->c_url_identifier/" . str_replace(' ', '_', $email_data->tv_name) . "/guest_lists/" . str_replace(' ', '_', $email_data->tgla_name) . "/"; ?>
+                                                            	
                                                             	<h2>Hey <?= $email_data->to_user->u_first_name ?></h2>
                                                             	<br><br>
                                                             	<table >
                                                             		<tr>
                                                             			<td style="padding-right: 25px;">
-                                                            				<a href="https://www.clubbingowl.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" >
-                                                            					<img style="width:50px; height:50px;" src="https://graph.facebook.com/<?= $email_data->from_user->u_oauth_uid ?>/picture" alt="<?= $email_data->from_user->u_full_name ?>" />
+                                                            				<a href="<?= $link ?>" >
+                                                            					<img style="border-radius:5px; border:2px solid #000;" src="https://s3.amazonaws.com/clubbingowl/vc-images/guest_lists/<?= $email_data->tgla_image ?>_p.jpg" alt="<?= $email_data->tgla_name ?>" />
                                                             				</a>
                                                             			</td>
-                                                            			<td style="vertical-align:top;font-size:18px;">Your friend <strong style="color: #3CA6E2"><a href="https://www.clubbingowl.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" ><?= $email_data->from_user->u_full_name ?></a></strong> is on ClubbingOwl and is joining guest-lists and reserving tables at their favorite venues with you!</td>
+                                                            			<td style="vertical-align:top;font-size:18px;"><?= $email_data->tv_name ?> has updated the status of <strong><a href="<?= $link ?>"><?= $email_data->tgla_name ?></a></strong>:<br/>"<?= strip_tags($email_data->status) ?>"</td>
                                                             		</tr>
                                                             	</table>
                                                             	
@@ -484,7 +486,6 @@
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="utility">
                                                             <div mc:edit="std_utility">
-                                                                &nbsp;To stop recieving these notifications, log into ClubbingOwl and select "profile" to modify your email notification settings, or click <a href="https://www.clubbingowl.com/email/<?= $email_data->to_user->email_opts_hash ?>/">here</a> to unsubscribe. 
                                                             </div>
                                                         </td>
                                                     </tr>

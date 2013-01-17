@@ -87,14 +87,10 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 		$sms_count 		= 0;
 		foreach($current_list->groups as $group){
 			
-			if($group->tglr_manual_add == '1' || $group->tglr_approved != '1' || !$group->u_email)
+			if($group->tglr_manual_add == '1' || $group->tglr_approved != '1' || !$group->head_user_email)
 				continue;
 			
 			
-			
-			//first email
-			//$user_email = $group->u_email;
-	//		if($user_email){}
 	
 			//track this outgoing message for billing purposes
 			$CI->teams->create_billable_message($team_fan_page_id, array(
@@ -102,6 +98,42 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 			));
 			
 			$email_count++;
+			
+			
+			
+			$email_data 						= new stdClass;
+			$email_data->tv_name				= $tgla->tv_name;
+			$email_data->tgla_name 				= $tgla->tgla_name;
+			$email_data->tgla_image 			= $tgla->tgla_image;
+			$email_data->c_url_identifier		= $tgla->c_url_identifier;
+			
+			$email_data->to_user 					= new stdClass;
+			$email_data->to_user->u_first_name 		= $group->head_user_first_name;
+			$email_data->to_user->u_last_name 		= $group->head_user_last_name;
+			$email_data->to_user->u_full_name 		= $group->head_user_full_name;
+			$email_data->to_user->email_opts_hash 	= $group->head_user_email_opts_hash;
+			
+			$email_data->message_title 	= "Updated status for guest list \"$email_data->tgla_name\"";
+			
+			$email_data->status 		= $status;
+						
+			$html 						= $CI->load->view('emails/view_email_new_manager_status', array('email_data' => $email_data), true);
+			
+			
+			$CI->library_bulk_email->add_queue(array(
+				'html'		=> $html,
+				'text'		=> strip_tags($html),
+				'subject'	=> $email_data->message_title,
+				'to_email'	=> $group->head_user_email, 
+				'to_name'	=> $email_data->to_user->u_full_name,
+			));
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			
@@ -120,6 +152,8 @@ class Net_Gearman_Job_gearman_new_manager_gl_status extends Net_Gearman_Job_Comm
 			$CI->twilio->sms(false, $group->u_phone_number, "(ClubbingOwl) \"$group->tgla_name\" update:\n" . "\"$status\"");
 			
 		}
+
+		$CI->library_bulk_email->flush_queue();
 		
 		
 		echo 'NEW manager/team guest list status created. ' . count($email_count) . ' emails and ' . count($sms_count) . ' sms sent.' . PHP_EOL;
