@@ -291,7 +291,7 @@ jQuery(function(){
 		
 		//cached last checkin for updating efficiency
 		var last_checkin_val;	
-		
+		var reservation_iterator = 0;
 		
 		Views.ReservationCheckinEnt = {
 			tagName: 'tr',
@@ -307,12 +307,15 @@ jQuery(function(){
 				var html = new EJS({
 					text: template
 				}).render(jQuery.extend({
-					collapsed: collapsed
+					collapsed: 				collapsed,
+					reservation_iterator: 	reservation_iterator
 				}, this.model.toJSON()))
 				
 				this.$el.html(html);
+				reservation_iterator++;
 				
-				this.$el.find('input[type=checkbox].checkbox1').bind('change', function(e){
+				
+				this.$el.find('input[type=checkbox]').bind('change', function(e){
 					
 					var el 		= jQuery(e.currentTarget);
 					var checked = el.is(':checked');
@@ -336,20 +339,62 @@ jQuery(function(){
 				});
 				
 				
+				
+				this.$el.find('input[type=checkbox].checkin_button').button();
+				
+				
 			},
-			events: {
-				'change select[name=category]': 'events_change_select_category',
-				'change input.checkbox1': 		'events_change_arrived_checkbox'
+			events: {				
+				'change select[name=category]': 			'events_change_select_category',
+				'change select[name=additional_guests]': 	'events_change_select_additional_guests',
+				'change input.checkin_button': 				'events_change_arrived_checkbox'
+			},
+			events_change_select_additional_guests: function(e){
+				
 			},
 			events_change_arrived_checkbox: function(e){
 				
-				var el = jQuery(e.currentTarget);
+				var _this 	= this;
+				var el 		= jQuery(e.currentTarget);
 				var checked = el.is(':checked');
+				
+				
 				
 				if(typeof last_checkin_val !== 'undefined' && checked)
 					this.$el.find('select[name=category]').val(last_checkin_val);
 				
 				
+				
+				var category 			= this.$el.find('select[name=category] 			:selected').val();
+				var category_value		= this.$el.find('select[name=category] 			:selected').attr('data-category_value');
+				var additional_guests	= this.$el.find('select[name=additional_guests] :selected').val();				
+				
+				
+				
+				jQuery.background_ajax({
+					data: {
+						vc_method: 			'checkin_event',
+						user_type: 			'entourage',
+						list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
+						pglr_id: 			_this.model.get('pglr_id'),
+						pglre_id: 			_this.model.get('pglre_id'),
+						tglr_id: 			_this.model.get('tglr_id'),
+						tglre_id: 			_this.model.get('tglre_id'),
+						checked: 			checked,
+						category: 			category,
+						category_value: 	category_value,
+						additional_guests: 	additional_guests,
+						hcd_id: 			_this.model.get('hcd_id'),
+						tv_id: 				_this.model.get('tv_id')
+					}, 
+					success: function(data){
+						console.log(data);
+					}
+				});
+				
+				
+				
+							
 			},
 			events_change_select_category: function(e){
 				
@@ -377,12 +422,15 @@ jQuery(function(){
 				var html = new EJS({
 					text: template
 				}).render(jQuery.extend({
-					collapsed: collapsed
+					collapsed: 				collapsed,
+					reservation_iterator:	reservation_iterator
 				}, this.model.toJSON()))
 				
 				this.$el.html(html);
+				reservation_iterator++;
 				
-				this.$el.find('input[type=checkbox].checkbox1').bind('change', function(e){
+				
+				this.$el.find('input[type=checkbox]').bind('change', function(e){
 					
 					var el 		= jQuery(e.currentTarget);
 					var checked = el.is(':checked');
@@ -406,27 +454,70 @@ jQuery(function(){
 				});
 				
 				
+				this.$el.find('input[type=checkbox].checkin_button').button();
 				
 				
 				
 			},
 			events: {
-				'change select[name=category]': 'events_change_select_category',
-				'change input.checkbox1': 		'events_change_arrived_checkbox'
+				'change select[name=category]': 			'events_change_select_category',
+				'change select[name=additional_guests]': 	'events_change_select_additional_guests',
+				'change input.checkin_button': 				'events_change_arrived_checkbox'
+			},
+			events_change_select_additional_guests: function(e){
+				
 			},
 			events_change_arrived_checkbox: function(e){
 				
-				var el = jQuery(e.currentTarget);
+				var _this 	= this;
+				var el 		= jQuery(e.currentTarget);
 				var checked = el.is(':checked');
+				
+				
 				
 				if(typeof last_checkin_val !== 'undefined' && checked)
 					this.$el.find('select[name=category]').val(last_checkin_val);
 				
 				
+				
+				var category 			= this.$el.find('select[name=category] 			:selected').val();
+				var category_value		= this.$el.find('select[name=category] 			:selected').attr('data-category_value');
+				var additional_guests	= this.$el.find('select[name=additional_guests] :selected').val();				
+				
+				
+				
+				jQuery.background_ajax({
+					data: {
+						vc_method: 			'checkin_event',
+						user_type: 			'head_user',
+						list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
+						pglr_id: 			_this.model.get('pglr_id'),
+						pglre_id: 			_this.model.get('pglre_id'),
+						tglr_id: 			_this.model.get('tglr_id'),
+						tglre_id: 			_this.model.get('tglre_id'),
+						checked: 			checked,
+						category: 			category,
+						category_value: 	category_value,
+						additional_guests: 	additional_guests,
+						hcd_id: 			_this.model.get('hcd_id'),
+						tv_id: 				_this.model.get('tv_id')
+					}, 
+					success: function(data){
+						console.log(data);
+					}
+				});
+				
+				
+				
+							
 			},
 			events_change_select_category: function(e){
 				
+					alert('change arrived checkbox');
 				last_checkin_val = jQuery(e.currentTarget).val();
+				
+				
+				
 				
 			}
 		}; Views.ReservationCheckin = Backbone.View.extend(Views.ReservationCheckin);
@@ -463,17 +554,6 @@ jQuery(function(){
 				
 				
 				
-			//	console.log('before approved');
-			//	console.log(this.collection.toJSON());
-			//	var all = all_approved_reservations(this);
-			//	this.collection.reset(all);
-			//	console.log('after');
-			//	console.log(all);
-			//	console.log(this.collection.toJSON());
-				
-				
-				
-				
 				
 
 				//first loop through and take all head-users
@@ -505,16 +585,14 @@ jQuery(function(){
 					for(var i in entourage){
 						
 						
-						var row_obj 			= jQuery.extend({}, entourage[i], temp);
+						var row_obj 			= jQuery.extend({}, temp, entourage[i]);
 						row_obj.ent_reservation = true;
-						
 						
 						
 						if(_.indexOf(added_oauth_uids, entourage[i].oauth_uid) == -1){
 							
 							var model = new Models.Reservation(row_obj);
 						
-							
 							var view_reservation_checkin_individual_entourage = new Views.ReservationCheckinEnt({
 								model: model
 							});
@@ -781,14 +859,6 @@ jQuery(function(){
 				views.push(view_tables);
 				views.push(view_check_in);
 				
-				
-				
-		//		jQuery('input.checkbox1').each(function(){
-		//			jQuery(this).button();
-		//		});
-				
-				
-
 			}
 			
 			
@@ -807,6 +877,9 @@ jQuery(function(){
 				return false;
 			});
 				
+			
+			
+
 
 		};
 		initialize();

@@ -30,6 +30,17 @@
 		<br/><span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 	<% } %>
 		
+		
+		
+		
+	<% if(hc_id != null){ %>
+			
+		<br/>
+		<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+		
+	<% } %>
+	
+	
 	
 	
 </td>
@@ -102,20 +113,17 @@
 		<% } %>
 		
 		
-		
-		
-		
-		<% if(collapsed){ %>
+		<% if(hc_id == null){ %>
 			
-			<br/><input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
-		
+			<% if(collapsed){ %>
+				<br/><input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+			<% }else{ %>
+				<br/><label style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</label><br/>
+				<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+			<% } %>
 			
-		<% }else{ %>
-			
-			<br/><label style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</label><br/>
-			<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
-					
 		<% } %>
+		
 		
 		
 		
@@ -161,13 +169,20 @@
 							<td>
 								
 								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
+
 									<span><%= entourage_users[i].pglre_supplied_name %></span>
+
 								<% }else{ %>
 									
 									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage_users[i].pglre_oauth_uid + '/' %>">
 										<span data-oauth_uid="<%= entourage_users[i].pglre_oauth_uid %>" data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
 									</a>
 									
+								<% } %>
+								
+								
+								<% if(entourage_users[i].hc_id != null){ %>
+									<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
 								<% } %>
 								
 							</td>
@@ -206,6 +221,11 @@
 									</a>
 									
 								<% } %>
+								
+								<% if(entourage_users[i].hc_id != null){ %>
+									<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+								<% } %>
+								
 							</td>
 						</tr>
 						

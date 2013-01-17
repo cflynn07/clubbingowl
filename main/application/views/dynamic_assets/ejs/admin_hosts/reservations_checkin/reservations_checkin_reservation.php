@@ -50,10 +50,9 @@
 
 <td data-mobile_font="18px" style="width:15%;" class="ui4">
 	
-	<% var rand = Math.random(); %>
-	<input class="checkbox" type="checkbox" id="<%= head_user || rand %>" name="<%= rand %>" />
-	<label for="<%= rand %>">Arrived</label>
-
+	<input type="checkbox" class="checkin_button" id="button_<%= reservation_iterator %>" name="button_<%= reservation_iterator %>" <%= ((hc_id != null) ? 'checked="checked"' : '') %> />
+	<label for="button_<%= reservation_iterator %>">Arrived</label>
+	
 </td>
 
 
@@ -67,22 +66,37 @@
 				<tr>
 					<td style="font-size:14px;padding-right:0;"><label for="category">Category: </label></td>
 					<td>
-						<select disabled="disabled" data-mobile_font="18px" name="category">
-							<option val="1">Full - $25</option>
-							<option val="2">Reduced - $15</option>
-							<option val="3">Comped - $0</option>
+						
+						
+						<select <%= ((hc_id == null) ? 'disabled="disabled"' : '')  %> data-mobile_font="18px" name="category">
+						
+							<% for(var i in window.page_obj.checkin_categories){ %>
+							
+								<% var category = window.page_obj.checkin_categories[i]; %>
+								<option data-category_value="<%= category.hcc_amount %>" value="<%= category.hcc_id %>">$<%= category.hcc_amount %> - <%= category.hcc_title %></option>
+							
+							<% } %>
+							
 						</select>
+						
+						
 					</td>
 				</tr>
 				<tr>
 					<td style="font-size:14px;padding-right:0;"><label for="additional_friends">Friends: </label></td>
 					<td>
-						<select disabled="disabled" data-mobile_font="18px" name="additional_friends">
-								<option selected="selected" value="0">0</option>
-							<?php for($i=1; $i<11; $i++): ?>
-								<option value="<?= $i ?>"><?= $i ?></option>
-							<?php endfor; ?>
+						
+						
+						<select <%= ((hc_id == null) ? 'disabled="disabled"' : '')  %> data-mobile_font="18px" name="additional_guests">
+							
+							
+							<% for(var i=0; i < 21; i++){ %>
+								<option <%= ((hcd_additional_guests == i) ? 'selected="selected"' : '') %> value="<%= i %>"><%= i %></option>
+							<% } %>
+							
+							
 						</select>
+						
 					</td>
 				</tr>
 			</tbody>

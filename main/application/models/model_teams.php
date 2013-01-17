@@ -1242,6 +1242,7 @@ class Model_teams extends CI_Model {
 		foreach($result1 as &$res){
 			$sql = "SELECT
 						
+						pglre.id 				as pglre_id,
 						pglre.oauth_uid 		as oauth_uid,
 						pglre.oauth_uid			as pglre_oauth_uid,
 						pglre.supplied_name 	as pglre_supplied_name,
@@ -1374,6 +1375,7 @@ class Model_teams extends CI_Model {
 		foreach($result2 as &$res){
 			$sql = "SELECT
 			
+						tglre.id 				as tglre_id,
 						tglre.oauth_uid 		as oauth_uid,
 						tglre.oauth_uid			as tglre_oauth_uid,
 						tglre.supplied_name 	as tglre_supplied_name,

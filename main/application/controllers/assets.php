@@ -130,6 +130,7 @@ class Assets extends MY_Common_Controller {
 					'ui2/jquery-ui-1.9.1.custom.min',
 					'ui3/jquery-ui-1.9.2.custom',
 					
+					//added for button
 					'ui4/jquery-ui-1.9.2.custom',
 					
 					
