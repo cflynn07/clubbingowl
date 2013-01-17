@@ -114,8 +114,10 @@ class Model_guest_lists extends CI_Model {
 		$auto_approve_requests = $result->auto_approve;
 		
 		//if this is a table request, no-auto approve (unless it's a manual table request -- next line)
-		if($table_request == 1 || $table_request == '1' || $table_request == 'true')
+		if($table_request == 1 || $table_request == '1' || $table_request == 'true' || $table_request === true){
 			$auto_approve_requests = false;
+			$table_request = true;
+		}
 		
 		if($approve_override)
 			$auto_approve_requests = true;
@@ -220,7 +222,7 @@ class Model_guest_lists extends CI_Model {
 																		'request_msg' 		=> $request_message,
 																		'share_facebook' 	=> ($share_facebook == 'true') ? 1 : 0,
 																		'text_message' 		=> ($text_message == 'true') ? 1 : 0,
-																		'table_request' 	=> ($table_request == 'true') ? 1 : 0,
+																		'table_request' 	=> ($table_request == 'true' || $table_request === true) ? 1 : 0,
 																		'manual_add'		=> ($approve_override) ? 1 : 0,
 																		'table_min_spend'	=> $table_min_spend,
 																		'supplied_name'		=> $pglr_supplied_name,
@@ -244,7 +246,7 @@ class Model_guest_lists extends CI_Model {
 																												'pgla_id'				=> $promoter_gla_id,
 																												'promoter_id'			=> $promoter_id,
 																												'approved'				=> $auto_approve_requests,
-																												'table_request' 		=> ($table_request == 'true') ? 1 : 0,
+																												'table_request' 		=> ($table_request == 'true' || $table_request === true) ? 1 : 0,
 																												
 																												'promoter_oauth_uid'	=> $promoter_oauth_uid,
 																												'guest_list_name'		=> $promoter_guest_list_name,
@@ -284,7 +286,7 @@ class Model_guest_lists extends CI_Model {
 					'request_msg'		=> $request_message,
 					'entourage'			=> $entourage,
 					'auto_approved'		=> $auto_approve_requests,
-					'table_request'		=> ($table_request == 1) ? true : false,
+					'table_request'		=> ($table_request == 1 || $table_request == '1' || $table_request == 'true' || $table_request === true) ? true : false,
 					'manager'			=> false
 				), false);
 				

@@ -1284,7 +1284,7 @@ class Promoters extends MY_Controller {
 					((isset($head_user['oauth_uid']) && $head_user['oauth_uid'] != 'null') ? $head_user['oauth_uid'] : NULL),
 					$entourage,
 					$this->input->post('up_id'),
-					(($this->input->post('table_request') == '1') ? 'true' : 'false'),
+					(($this->input->post('table_request') == 'true' || $this->input->post('table_request') == '1') ? 'true' : 'false'),
 					false,
 					'',
 					'',

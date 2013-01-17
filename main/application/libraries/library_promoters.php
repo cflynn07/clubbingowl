@@ -721,6 +721,10 @@ class library_promoters{
 		$phone_carrier 		= $this->CI->input->post('phone_carrier');
 		$table_min_spend	= $this->CI->input->post('table_min_spend');
 		
+		
+		if($table_request == 'true' || $table_request == '1')
+			$table_request = true;
+		
 		switch($phone_carrier){
 			case 0:
 				$phone_carrier = 'att';
