@@ -57,7 +57,9 @@ jQuery(function(){
 					
 					this.$el.find('#primary_left .current').removeClass('current');
 					el.toggleClass('current');
-					el.find('ul').slideToggle('fast');
+					el.find('ul').slideToggle('fast', function(){
+						window.test_set_relative_menu();
+					});
 					
 				}else{
 					

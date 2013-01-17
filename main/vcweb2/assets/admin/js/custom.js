@@ -166,7 +166,7 @@ jQuery(document).ready(function() {
 	
 //----------------------------------------------------------------------
 	//special fix for browsers with viewports that cannot fit entire menu
-	var test_set_relative_menu = function(){
+	window.test_set_relative_menu = function(){
 	
 		var pl_height = jQuery('div#primary_left').height();
 		var win_height = jQuery(window).height();
@@ -182,6 +182,7 @@ jQuery(document).ready(function() {
 		jQuery(window).resize(function(){
 			test_set_relative_menu();
 		});
+		
 		
 		test_set_relative_menu();
 	});
