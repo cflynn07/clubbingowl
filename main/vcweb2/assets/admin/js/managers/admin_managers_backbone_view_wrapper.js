@@ -48,7 +48,10 @@ jQuery(function(){
 			var el = jQuery(e.currentTarget);
 			if(el.hasClass('current')){
 				if(el.find('ul')){
-					el.find('ul').slideToggle('fast');
+					el.find('ul').slideToggle('fast', function(){
+						window.test_set_relative_menu();
+						jQuery(window).trigger('resize');
+					});
 				}
 				return;
 			}else{
@@ -59,6 +62,7 @@ jQuery(function(){
 					el.toggleClass('current');
 					el.find('ul').slideToggle('fast', function(){
 						window.test_set_relative_menu();
+						jQuery(window).trigger('resize');
 					});
 					
 				}else{
