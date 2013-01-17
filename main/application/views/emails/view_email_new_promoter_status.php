@@ -434,7 +434,7 @@
                                                             		<tr>
                                                             			<td style="padding-right: 25px;">
                                                             				<a href="<?= $link ?>" >
-                                                            					<img style="border-radius:5px;" src="https://s3.amazonaws.com/clubbingowl/vc-images/guest_lists/<?= $email_data->pgla_image ?>_p.jpg" alt="<?= $email_data->pgla_name ?>" />
+                                                            					<img style="border-radius:5px; border:2px solid #000;" src="https://s3.amazonaws.com/clubbingowl/vc-images/guest_lists/<?= $email_data->pgla_image ?>_p.jpg" alt="<?= $email_data->pgla_name ?>" />
                                                             				</a>
                                                             			</td>
                                                             			<td style="vertical-align:top;font-size:18px;"><?= $email_data->promoter_full_name ?> has updated the status of <strong><a href="<?= $link ?>"><?= $email_data->pgla_name ?></a></strong>:<br/>"<?= strip_tags($email_data->status) ?>"</td>
