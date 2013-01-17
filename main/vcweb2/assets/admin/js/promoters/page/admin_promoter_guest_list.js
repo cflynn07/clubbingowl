@@ -1293,14 +1293,39 @@ jQuery(function(){
 					this.$el.effect('highlight', {}, 2000, function(){
 						
 					});
-					
+				
+				this.$el.find('input.checkin_notify').iphoneStyle();
+				
 				return this;
 				
 			},
 			events: {
+				'change input.checkin_notify': 			'events_change_checkin_notify',
 				'click span.original': 					'events_click_host_notes',
 				'click a[data-action=update-notes]': 	'events_update_host_notes',
 				'click a[data-action=request-respond]': 'events_click_request_respond',
+			},
+			events_change_checkin_notify: function(e){
+				
+				var el 		= jQuery(e.currentTarget);
+				var checked = el.is(':checked');
+				
+				jQuery.background_ajax({
+					data: {
+						vc_method: 	'update_checkin_notify',
+						checked: 	checked,
+						pglr_id: 	this.model.get('id')
+					},
+					success: function(data){
+						console.log(data);
+						
+						
+						
+					}
+				});
+				
+				
+				
 			},
 			events_click_request_respond: function(e){
 				e.preventDefault();

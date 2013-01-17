@@ -14,19 +14,23 @@
 		
 		
 			
-		<% if(head_user == null){ %>
-			<span><%= pglr_supplied_name %></span>
-		<% }else{ %>
-			
-			<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>"><span data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span></a>
-			
-		<% } %>
+	<% if(head_user == null){ %>
 		
-	
-	
+		<span><%= pglr_supplied_name %></span>
+		
+	<% }else{ %>
+		
+		<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>"><span data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span></a>
+		
+	<% } %>
+		
+		
+		
 	<% if(u_phone_number){ %>
 		<br/><span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 	<% } %>
+		
+	
 	
 </td>
 <td>
@@ -96,6 +100,11 @@
 				<span style="white-space:nowrap; width: 100%; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/Question.png' %>" /> Pending Manager Approval</span>
 			<% } %>
 		<% } %>
+		
+		
+		<br/><label style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</label><br/>
+		<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+		
 		
 	<% }else if(pglr_approved == '-1'){ %>
 		<span style="color: red;">Declined</span>

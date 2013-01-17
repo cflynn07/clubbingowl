@@ -1244,6 +1244,23 @@ class Promoters extends MY_Controller {
 		}
 		
 		switch($vc_method){
+			
+			case 'update_checkin_notify':
+				
+				$checked 	= $this->input->post('checked');
+				$pglr_id 	= $this->input->post('pglr_id');	
+				
+				$this->db->where(array(
+					'id'	=> $pglr_id
+				))
+				->update('promoters_guest_lists_reservations', array(
+					'checkin_notify'	=> (($checked == 'true') ? 1 : 0)
+				));
+				
+				die(json_encode(array('success' => true)));
+								
+				break;
+			
 			case 'manual_add_final':
 
 

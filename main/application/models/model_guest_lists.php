@@ -740,6 +740,7 @@ class Model_guest_lists extends CI_Model {
 					pglr.manager_table_approved 	as pglr_manager_table_approved,
 					pglr.supplied_name				as pglr_supplied_name,
 					pglr.text_message 				as pglr_text_message,
+					pglr.checkin_notify	 			as pglr_checkin_notify,
 					pgla.name 						as pgla_name,
 					pgla.image 						as pgla_image,			
 					pgl.id 							as pgl_id,
