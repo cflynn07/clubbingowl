@@ -1114,6 +1114,9 @@ class Model_guest_lists extends CI_Model {
 					pglr.user_oauth_uid 	as pglr_user_oauth_uid,
 					pglr.approved 			as pglr_approved,
 					pglr.text_message 		as pglr_text_message,
+					pglr.table_request 		as pglr_table_request,
+					
+					
 					pglr.share_facebook 	as pglr_share_facebook,
 					pglr.request_msg		as pglr_request_msg,
 					pglr.response_msg		as pglr_response_msg,
@@ -1215,6 +1218,10 @@ class Model_guest_lists extends CI_Model {
 		$query = $this->db->query($sql);
 		$entourage_result = $query->row();
 		
+		
+		
+		
+		
 		if($approved && !$approve_override){
 			
 			//Create notification for this user's vc_friends
@@ -1236,6 +1243,44 @@ class Model_guest_lists extends CI_Model {
 			
 		}
 		
+		
+		
+		
+		
+		
+		//dont send this if it's a table request
+		if(!$approve_override && !$tglr_manual_add){
+			//send confirmation email
+			
+			
+			$this->db->cache_off();
+			$sql5 	= "SELECT * FROM users WHERE oauth_uid = ?";
+			$query 	= $this->db->query($sql5, array($result->tglr_user_oauth_uid));
+			$confirm_email_user = $query->row();
+			
+			
+			$this->load->helper('run_gearman_job');
+			run_gearman_job('gearman_confirmation_email_team', array(
+				'user_json'			=> json_encode($confirm_email_user),
+				'tglr'				=> json_encode($result),
+				'team_fan_page_id'	=> $team_fan_page_id,
+				'approved'			=> $approved,
+				'message' 			=> $message
+			), false);
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		if($result->pglr_text_message){
 				
 	//		if($approved)
@@ -1247,11 +1292,20 @@ class Model_guest_lists extends CI_Model {
 			
 			
 			
-			if($approved)
+			if($approved){
 				$text_message = "(ClubbingOwl) You have been approved to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date.";
-			else
+				
+				if($result->pglr_table_request == '1'){
+					$text_message .= " Your table request is being reviewed by " . $result->tv_name . ". ClubbingOwl will notify you when management responds."; 
+				}
+				
+				
+			
+			}else{
 				$text_message = "(ClubbingOwl) Your request to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date has been denied.";
-						
+			}
+			
+				
 			if($message)
 				$text_message = $text_message . " MSG: \"$message.\"";	
 			

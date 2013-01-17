@@ -53,6 +53,12 @@ class Net_Gearman_Job_gearman_confirmation_email_team extends Net_Gearman_Job_Co
 		
 		
 		
+		//track this outgoing message for billing purposes
+		$CI->teams->create_billable_message($team_fan_page_id, array(
+			'type' => 'email'
+		));
+		
+		
 		
 		$CI->library_bulk_email->flush_queue();
 		

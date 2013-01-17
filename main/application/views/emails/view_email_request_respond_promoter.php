@@ -426,18 +426,47 @@
                                                         <td valign="top" style="padding-right:0;">
                                                             <div mc:edit="std_content00">
                                                             	
-                                                            	<?php $link = "https://www.clubbingowl.com/venues/$email_data->c_url_identifier/" . str_replace(' ', '_', $email_data->tv_name) . "/guest_lists/" . str_replace(' ', '_', $email_data->tgla_name) . "/"; ?>
+                                                            	<?php $link = "https://www.clubbingowl.com/venues/" . $email_data->tglr->c_url_identifier . "/" . str_replace(' ', '_', $email_data->tglr->tv_name) . "/guest_lists/" . str_replace(' ', '_', $email_data->tglr->tgla_name) . "/"; ?>
                                                             	
-                                                            	<h2>Hey <?= $email_data->to_user->u_first_name ?></h2>
+                                                            	<h2>Hey <?= $email_data->to_user->first_name ?></h2>
                                                             	<br><br>
                                                             	<table >
                                                             		<tr>
                                                             			<td style="padding-right: 25px;">
                                                             				<a href="<?= $link ?>" >
-                                                            					<img style="border-radius:5px; border:2px solid #000;" src="https://s3.amazonaws.com/clubbingowl/vc-images/guest_lists/<?= $email_data->tgla_image ?>_p.jpg" alt="<?= $email_data->tgla_name ?>" />
+                                                            					<img style="border-radius:5px; border:2px solid #000;" src="https://s3.amazonaws.com/clubbingowl/vc-images/guest_lists/<?= $email_data->tglr->tgla_image ?>_p.jpg" alt="<?= $email_data->tglr->tgla_name ?>" />
                                                             				</a>
                                                             			</td>
-                                                            			<td style="vertical-align:top;font-size:18px;"><?= $email_data->tv_name ?> has updated the status of <strong><a href="<?= $link ?>"><?= $email_data->tgla_name ?></a></strong>:<br/>"<?= strip_tags($email_data->status) ?>"</td>
+                                                            			<td style="vertical-align:top;font-size:18px;">
+                                                            				
+                                                            				
+                                                            				<?php if($email_data->approved): ?>
+                                                            					
+                                                            					
+                                                            					<?php if($email_data->tglr->tglr_table_request == '1'): ?>
+                                                            				
+                                                            						<?= $email_data->tglr->tv_name ?> has approved your table reservation request on <strong><a href="<?= $link ?>">"<?= $email_data->tglr->tgla_name ?>"</a></strong>.<br/><br/>Have fun!
+                                                            				
+                                                            					<?php else: ?>
+                                                            						
+                                                            						<?= $email_data->tglr->tv_name ?> has approved your request to join <strong><a href="<?= $link ?>">"<?= $email_data->tglr->tgla_name ?>"</a></strong>.<br/><br/>Have fun!
+                                                            						
+                                                            					<?php endif; ?>
+                                                            				
+                                                            				
+                                                            				<?php else: ?>
+                                                            					
+                                                            					We're sorry, <?= $email_data->tglr->tv_name ?> has declined your request to join <strong><a href="<?= $link ?>">"<?= $email_data->tglr->tgla_name ?>"</a></strong>.
+                                                            				
+                                                            				<?php endif; ?>
+                                                            				
+                                                            				
+                                                            				<?php if($email_data->message): ?>
+	                                                            				<br/><br/>
+	                                                            				<?= $email_data->tglr->tv_name ?> says: "<?= $email_data->message ?>"
+                                                            				<?php endif; ?>
+                                                            				
+                                                            			</td>
                                                             		</tr>
                                                             	</table>
                                                             	
