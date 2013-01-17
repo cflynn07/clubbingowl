@@ -670,6 +670,37 @@ class Hosts extends MY_Controller {
 															
 								die(json_encode(array('success' => true)));
 								
+							}else{
+								
+								//check this instance in
+								$this->db->insert('host_checkins', array(
+									'hcd_id'		=> $hcd_id,
+									'hc_pglre_id' 	=> $found_reservation->pglre_id
+								));
+								
+								
+								//scan all other entourages
+								//check entourages of each reservation
+								foreach($all_reservations as $reservation){
+									foreach($reservation->entourage as $ent_member){
+																				
+										if($ent_member->oauth_uid != $found_reservation->pglre_oauth_uid)
+											continue;
+										
+										if($ent_member->pglre_id == $found_reservation->pglre_id)
+											continue;
+										
+										//add a join record for this guy
+										$this->db->insert('host_checkins', array(
+											'hcd_id'		=> $hcd_id,
+											'hc_pglre_id' 	=> $ent_member->pglre_id
+										));
+										
+									}
+								}
+								
+								die(json_encode(array('success' => true)));
+								
 							}
 							
 							
