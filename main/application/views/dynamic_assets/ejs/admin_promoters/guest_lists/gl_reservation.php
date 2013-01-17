@@ -102,8 +102,22 @@
 		<% } %>
 		
 		
-		<br/><label style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</label><br/>
-		<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+		
+		
+		
+		<% if(collapsed){ %>
+			
+			<br/><input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+		
+			
+		<% }else{ %>
+			
+			<br/><label style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</label><br/>
+			<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+					
+		<% } %>
+		
+		
 		
 		
 	<% }else if(pglr_approved == '-1'){ %>
