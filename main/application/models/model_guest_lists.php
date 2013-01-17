@@ -1283,7 +1283,10 @@ class Model_guest_lists extends CI_Model {
 		
 		
 		
-		if($result->pglr_text_message){
+		if($result->pglr_text_message == '1'){
+					
+				
+			
 				
 	//		if($approved)
 	//			$text_message = "ClubbingOwl: Request Approved. Msg: " . $message; //"You have been approved to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date";
@@ -1295,16 +1298,18 @@ class Model_guest_lists extends CI_Model {
 			
 			
 			if($approved){
+				
+				
 				$text_message = "(ClubbingOwl) You have been approved to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date.";
 				
-				if($result->pglr_table_request == '1'){
-					$text_message .= " Your table request is being reviewed by " . $result->tv_name . ". ClubbingOwl will notify you when management responds."; 
-				}
+			//	if($result->pglr_table_request == '1'){
+			//		$text_message .= " Your table request is being reviewed by " . $result->tv_name . ". ClubbingOwl will notify you when management responds."; 
+			//	}
 				
 				
 			
 			}else{
-				$text_message = "(ClubbingOwl) Your request to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date has been denied.";
+				$text_message = "(ClubbingOwl) Your request to join \"$result->pgla_name\" at $result->tv_name on $result->pgl_date has been declined.";
 			}
 			
 				
@@ -1338,6 +1343,14 @@ class Model_guest_lists extends CI_Model {
 			# ---------------------------------------------------------- #
 			
 		}
+
+
+
+
+
+
+
+
 		
 		if($result->pglr_share_facebook && $approved){
 

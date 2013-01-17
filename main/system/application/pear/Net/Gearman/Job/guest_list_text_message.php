@@ -18,8 +18,8 @@ class Net_Gearman_Job_guest_list_text_message extends Net_Gearman_Job_Common{
 		
 		
 		$user = $CI->users->retrieve_user($user_oauth_uid);
-		$phone_number = $user->users_phone_number;
-		$phone_carrier = $user->users_phone_carrier;
+		$phone_number 	= $user->users_phone_number;
+		$phone_carrier 	= $user->users_phone_carrier;
 		
 		
 		
