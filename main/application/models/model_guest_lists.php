@@ -1123,6 +1123,9 @@ class Model_guest_lists extends CI_Model {
 					pglr.request_msg		as pglr_request_msg,
 					pglr.response_msg		as pglr_response_msg,
 					pglr.host_message		as pglr_host_message,
+					pglr.manual_add 		as pglr_manual_add,
+					
+					
 					pgl.date 				as pgl_date,
 					pgla.name 				as pgla_name,
 					pgla.id 				as pgla_id,
@@ -1250,21 +1253,19 @@ class Model_guest_lists extends CI_Model {
 		
 		
 		
-		//dont send this if it's a table request
-		if(!$approve_override && !$tglr_manual_add){
+		if(!$approve_override && $result->pglr_manual_add == '0'){
 			//send confirmation email
 			
 			
-			$this->db->cache_off();
 			$sql5 	= "SELECT * FROM users WHERE oauth_uid = ?";
-			$query 	= $this->db->query($sql5, array($result->tglr_user_oauth_uid));
+			$query 	= $this->db->query($sql5, array($result->pglr_user_oauth_uid));
 			$confirm_email_user = $query->row();
 			
 			
 			$this->load->helper('run_gearman_job');
-			run_gearman_job('gearman_confirmation_email_team', array(
+			run_gearman_job('gearman_confirmation_email_promoter', array(
 				'user_json'			=> json_encode($confirm_email_user),
-				'tglr'				=> json_encode($result),
+				'pglr'				=> json_encode($result),
 				'team_fan_page_id'	=> $team_fan_page_id,
 				'approved'			=> $approved,
 				'message' 			=> $message

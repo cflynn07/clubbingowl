@@ -19,7 +19,7 @@ class Net_Gearman_Job_gearman_confirmation_email_promoter extends Net_Gearman_Jo
 		
 		$team_fan_page_id	= $args['team_fan_page_id'];
 		$user 				= json_decode($args['user_json']);
-		$tglr 				= json_decode($args['tglr']);
+		$pglr 				= json_decode($args['pglr']);
 		$approved			= $args['approved'];
 		$message 			= $args['message'];
 
@@ -31,14 +31,14 @@ class Net_Gearman_Job_gearman_confirmation_email_promoter extends Net_Gearman_Jo
 		
 		
 		$email_data 				= new stdClass;
-		$email_data->tglr 			= $tglr;
+		$email_data->pglr 			= $pglr;
 		$email_data->to_user 		= $user;
 		$email_data->approved 		= $approved;
 		$email_data->message 		= $message;
-		$email_data->message_title 	= "Your reservation request for \"$tglr->tgla_name\"";
+		$email_data->message_title 	= "Your reservation request for \"$pglr->pgla_name\"";
 		
 					
-		$html 						= $CI->load->view('emails/view_email_request_respond_team', array('email_data' => $email_data), true);
+		$html 						= $CI->load->view('emails/view_email_request_respond_promoter', array('email_data' => $email_data), true);
 		
 
 
@@ -62,7 +62,7 @@ class Net_Gearman_Job_gearman_confirmation_email_promoter extends Net_Gearman_Jo
 		
 		$CI->library_bulk_email->flush_queue();
 		
-		echo 'SEND TEAM GL CONFIRMATION EMAIL -- 1 sms sent.' . PHP_EOL;
+		echo 'SEND PROMOTER GL CONFIRMATION EMAIL -- 1 sms sent.' . PHP_EOL;
 		
 		
     }
