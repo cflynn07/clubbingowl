@@ -327,12 +327,12 @@ jQuery(function(){
 							switch(data.event){
 								case 'check_in':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 								
 									break;
 								case 'check_out':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
 								
 									break;
 							}
@@ -348,12 +348,12 @@ jQuery(function(){
 							switch(data.event){
 								case 'check_in':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 								
 									break;
 								case 'check_out':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
 								
 									break;
 							}
@@ -518,12 +518,12 @@ jQuery(function(){
 							switch(data.event){
 								case 'check_in':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 								
 									break;
 								case 'check_out':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
 								
 									break;
 							}
@@ -539,12 +539,12 @@ jQuery(function(){
 							switch(data.event){
 								case 'check_in':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 								
 									break;
 								case 'check_out':
 								
-									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
 								
 									break;
 							}
@@ -622,7 +622,7 @@ jQuery(function(){
 				
 			},
 			events_change_arrived_checkbox: function(e){
-				
+								
 				var _this 	= this;
 				var el 		= jQuery(e.currentTarget);
 				var checked 		= el.is(':checked');
