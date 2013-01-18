@@ -22,6 +22,14 @@
 		<br/><span style="white-space:nowrap;"><%= u_phone_number.replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3') %></span>
 	<% } %>
 	
+	
+	<% if(hc_id != null){ %>
+			
+		<br/>
+		<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+		
+	<% } %>
+	
 </td>
 <td>
 	<% if(collapsed){ %>
@@ -124,6 +132,12 @@
 									
 								<% } %>
 								
+								
+								<% if(entourage[i].hc_id != null){ %>
+									<br/><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+								<% } %>
+								
+								
 							</td>
 							<td>
 
@@ -158,6 +172,11 @@
 									</a>
 									
 								<% } %>
+								
+								<% if(entourage[i].hc_id != null){ %>
+									<br/><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+								<% } %>
+								
 							</td>
 						</tr>
 						

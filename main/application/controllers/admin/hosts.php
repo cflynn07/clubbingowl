@@ -572,9 +572,7 @@ class Hosts extends MY_Controller {
 					unset($temp_found);
 					
 				}
-				
-			//	var_dump($found_reservation); die();
-				
+								
 				if(!isset($found_reservation))
 					die(json_encode(array('success' => false)));
 				
@@ -585,7 +583,15 @@ class Hosts extends MY_Controller {
 				
 				//--------------------------------------------------------------------------------------------------------
 				
-	
+				if($post->checked == 'false'){
+					//delete hcd & return
+					
+					$this->db->delete('host_checkins_data', array('hcd_id' 					=> $found_reservation->hcd_id, 
+																	'hcd_team_fan_page_id' 	=> $this->vc_user->host->th_teams_fan_page_id));
+										
+					die(json_encode(array('success' => true)));
+										
+				}
 				
 				
 				if($post->checked == 'true'){
@@ -609,12 +615,91 @@ class Hosts extends MY_Controller {
 						
 						if($post->user_type == 'head_user'){
 							
-							//link this user and any other entourage users on this tgl
+							if($found_reservation->tglr_user_oauth_uid == NULL){
+								//just link this guy and be done
+								
+								$this->db->insert('host_checkins', array(
+									'hcd_id'		=> $hcd_id,
+									'hc_tglr_id' 	=> $found_reservation->tglr_id
+								));
+															
+								die(json_encode(array('success' => true)));
+								
+							}else{
+								//regular user -- link and link all entourage occurances
+								
+								//first link this guy
+								$this->db->insert('host_checkins', array(
+									'hcd_id'		=> $hcd_id,
+									'hc_tglr_id' 	=> $found_reservation->tglr_id
+								));
+								
+								//check entourages of each reservation
+								foreach($all_reservations as $reservation){
+									foreach($reservation->entourage as $ent_member){
+																				
+										if($ent_member->oauth_uid != $found_reservation->tglr_user_oauth_uid)
+											continue;
+										
+										//add a join record for this guy
+										$this->db->insert('host_checkins', array(
+											'hcd_id'		=> $hcd_id,
+											'hc_tglre_id' 	=> $ent_member->tglre_id
+										));
+										
+									}
+								}
+								
+								die(json_encode(array('success' => true)));
+								
+							}
 							
 						}elseif($post->user_type == 'entourage'){
+
+							if($found_reservation->tglre_oauth_uid == NULL){
+								//just link this guy and be done
+								
+								$this->db->insert('host_checkins', array(
+									'hcd_id'		=> $hcd_id,
+									'hc_tglre_id' 	=> $found_reservation->tglre_id
+								));
+															
+								die(json_encode(array('success' => true)));
+								
+							}else{
+								
+								//check this instance in
+								$this->db->insert('host_checkins', array(
+									'hcd_id'		=> $hcd_id,
+									'hc_tglre_id' 	=> $found_reservation->tglre_id
+								));
+								
+								
+								//scan all other entourages
+								//check entourages of each reservation
+								foreach($all_reservations as $reservation){
+									foreach($reservation->entourage as $ent_member){
+																				
+										if($ent_member->oauth_uid != $found_reservation->tglre_oauth_uid)
+											continue;
+										
+										if($ent_member->tglre_id == $found_reservation->tglre_id)
+											continue;
+										
+										//add a join record for this guy
+										$this->db->insert('host_checkins', array(
+											'hcd_id'		=> $hcd_id,
+											'hc_tglre_id' 	=> $ent_member->tglre_id
+										));
+										
+									}
+								}
+								
+								die(json_encode(array('success' => true)));
+							}
 							
 						}
-						
+				
 					}elseif($post->list_type == 'promoter'){
 						
 						if($post->user_type == 'head_user'){
@@ -702,81 +787,17 @@ class Hosts extends MY_Controller {
 								die(json_encode(array('success' => true)));
 								
 							}
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							if($found_reservation->pglr_user_oauth_uid == NULL){
-								//just link this guy and be done
-								
-								$this->db->insert('host_checkins', array(
-									'hcd_id'		=> $hcd_id,
-									'hc_pglr_id' 	=> $found_reservation->pglr_id
-								));
-															
-								die(json_encode(array('success' => true)));
-								
-							}else{
-								//regular user -- link and link all entourage occurances
-								
-								//first link this guy
-								$this->db->insert('host_checkins', array(
-									'hcd_id'		=> $hcd_id,
-									'hc_pglr_id' 	=> $found_reservation->pglr_id
-								));
-								
-								//check entourages of each reservation
-								foreach($all_reservations as $reservation){
-									foreach($reservation->entourage as $ent_member){
-																				
-										if($ent_member->oauth_uid != $found_reservation->pglr_user_oauth_uid)
-											continue;
-										
-										//add a join record for this guy
-										$this->db->insert('host_checkins', array(
-											'hcd_id'		=> $hcd_id,
-											'hc_pglre_id' 	=> $ent_member->pglre_id
-										));
-										
-									}
-								}
-								
-								die(json_encode(array('success' => true)));
-								
-							}
-
-
-
-
-
-
-
 
 						}
 
 					}
-					
-					
-					
-					
-					
-					
-					die(json_encode(array('success' => true)));
+
+
+
+
 				
-				}elseif($post->checked == 'false'){
-					//delete hcd & return
-					
-					$this->db->delete('host_checkins_data', array('hcd_id' 					=> $found_reservation->hcd_id, 
-																	'hcd_team_fan_page_id' 	=> $this->vc_user->host->th_teams_fan_page_id));
-										
-					die(json_encode(array('success' => true)));
-					
+				
+				
 				}
 				
 				
