@@ -474,7 +474,18 @@ jQuery(function(){
 							
 							el.button('enable').button('refresh');
 							
-							console.log(data);
+							if(data.success)
+								if(checked){
+									_this.model.set({
+										hc_id: true
+									});
+								}else{
+									_this.model.set({
+										hc_id: null
+									});
+								}
+							
+
 						}
 					});
 					
@@ -661,7 +672,20 @@ jQuery(function(){
 						success: function(data){
 							console.log(data);
 							
+							if(data.success)
+								if(checked){
+									_this.model.set({
+										hc_id: true
+									});
+								}else{
+									_this.model.set({
+										hc_id: null
+									});
+								}
+							
+							
 							el.button('enable').button('refresh');
+							
 							
 						}
 					});
