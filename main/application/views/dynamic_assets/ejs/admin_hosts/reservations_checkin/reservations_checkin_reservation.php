@@ -60,7 +60,7 @@
 <td style="padding:5px; width:15%;">
 	
 	
-	<div class="additional_checkin_info" style="opacity:0.4;">
+	<div class="additional_checkin_info" style="<%= ((hc_id == null) ? 'opacity:0.4;' : '')  %>">
 		<table>
 			<tbody>
 				<tr>
