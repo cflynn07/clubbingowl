@@ -617,6 +617,7 @@ class Hosts extends MY_Controller {
 					));
 					$hcd_id = $this->db->insert_id();
 					
+					$found_reservation->checkin_category = $post->category;
 					
 					//create join records
 					if($post->list_type == 'team'){

@@ -3,6 +3,36 @@
 
 
 
+
+
+<div id="notify_container" style="display:none;">
+	
+	<div id="checkin_event">
+		
+        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+		<table style="color:#FFF; margin:0;">
+			<tbody>
+				<tr>
+					<td>
+						<img style="width:50px;height:50px;" src="https://graph.facebook.com/#{host_oauth_uid}/picture" />
+					</td>
+					<td style="vertical-align:top; padding-left:5px;">
+						<p>#{host_name} checked in #{guest_name} on #{team_or_promoter}'s guest list.</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	
+</div>
+
+
+
+
+
+
+
 <div class="ui5" id="admin_managers_tables_wrapper">
 
 

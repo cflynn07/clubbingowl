@@ -13,7 +13,7 @@ jQuery(function(){
 		var pusher_team_channel	= window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];				
 		
 		var unbind_events = [];
-		
+		jQuery('#notify_container').notify();
 		
 		
 		
@@ -328,12 +328,22 @@ jQuery(function(){
 								case 'check_in':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
+									_this.$el.find('select[name=category]').val(data.checkin_category);
+								
+									jQuery('#notify_container').notify('create', 0, {
+										host_oauth_uid: 	504405294,
+										host_name: 			'Casey Flynn',
+										guest_name: 		'John Doe',
+										team_or_promoter:	'Waldos'
+									}, {
+										expires: false
+									});
 								
 									break;
 								case 'check_out':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
-								
+									
 									break;
 							}
 							
@@ -349,12 +359,22 @@ jQuery(function(){
 								case 'check_in':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
-								
+									_this.$el.find('select[name=category]').val(data.checkin_category);
+									
+									jQuery('#notify_container').notify('create', 0, {
+										host_oauth_uid: 	504405294,
+										host_name: 			'Casey Flynn',
+										guest_name: 		'John Doe',
+										team_or_promoter:	'Waldos'
+									}, {
+										expires: false
+									});
+									
 									break;
 								case 'check_out':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
-								
+									
 									break;
 							}
 							
@@ -530,7 +550,17 @@ jQuery(function(){
 								case 'check_in':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
-								
+									_this.$el.find('select[name=category]').val(data.checkin_category);
+									
+									jQuery('#notify_container').notify('create', 0, {
+										host_oauth_uid: 	504405294,
+										host_name: 			'Casey Flynn',
+										guest_name: 		'John Doe',
+										team_or_promoter:	'Waldos'
+									}, {
+										expires: false
+									});
+									
 									break;
 								case 'check_out':
 								
@@ -551,6 +581,26 @@ jQuery(function(){
 								case 'check_in':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
+									_this.$el.find('select[name=category]').val(data.checkin_category);
+								
+									if(this.model.get('tglr_user_oauth_uid') == NULL){
+										
+									}else{
+										
+									}
+									
+									
+									jQuery.fbUserLookup([], '', function(rows){
+										
+										jQuery('#notify_container').notify('create', 0, {
+											host_oauth_uid: 	504405294,
+											host_name: 			'Casey Flynn',
+											guest_name: 		'John Doe',
+											team_or_promoter:	'Waldos'
+										});
+										
+									});
+									
 								
 									break;
 								case 'check_out':
@@ -698,7 +748,6 @@ jQuery(function(){
 			},
 			events_change_select_category: function(e){
 				
-					alert('change arrived checkbox');
 				last_checkin_val = jQuery(e.currentTarget).val();
 				
 				
