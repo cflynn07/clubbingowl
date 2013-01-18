@@ -12,7 +12,7 @@ jQuery(function(){
 		
 		var pusher_team_channel	= window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];				
 		
-		
+		var unbind_events = [];
 		
 		
 		
@@ -312,9 +312,8 @@ jQuery(function(){
 			tagName: 'tr',
 			initialize: function(){
 				
-				
 				var _this = this;
-				pusher_team_channel.bind('host_emit', function(data){
+				var callback = function(data){
 								
 				
 								
@@ -366,6 +365,13 @@ jQuery(function(){
 				
 									
 				
+				};
+				
+				
+				pusher_team_channel.bind('host_emit', callback);
+				unbind_events.push({
+					event: 		'host_emit',
+					callback: 	callback
 				});
 				
 				
@@ -498,7 +504,7 @@ jQuery(function(){
 				
 				
 				var _this = this;
-				pusher_team_channel.bind('host_emit', function(data){
+				var callback = function(data){
 								
 				
 								
@@ -550,6 +556,13 @@ jQuery(function(){
 				
 									
 				
+				};
+				
+				
+				pusher_team_channel.bind('host_emit', callback);
+				unbind_events.push({
+					event: 		'host_emit',
+					callback: 	callback
 				});
 				
 				
@@ -952,7 +965,16 @@ jQuery(function(){
 		var initialize = function(tv){
 			
 			//unbind events
-			pusher_team_channel.unbind('host_emit');
+			for(var i in unbind_events){
+				
+				var event_obj = unbind_events[i];
+				pusher_team_channel.unbind(event_obj.event, event_obj.callback);
+				
+			}
+			
+			
+			
+			
 			
 			
 			var team_venues = tv || window.page_obj.team_venues;
