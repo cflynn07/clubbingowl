@@ -24,6 +24,8 @@ NoClickDelay.prototype = {
 		jQuery(this.element).addClass('ui-state-active');
 		
 	
+		
+	
 		this.element.addEventListener('touchmove', this, false);
 		this.element.addEventListener('touchend', this, false);
 	},

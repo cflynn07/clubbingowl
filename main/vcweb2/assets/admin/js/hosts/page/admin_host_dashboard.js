@@ -8,7 +8,16 @@ jQuery(function(){
 		var globals 			= window.module.Globals.prototype;
 		var datepicker;
 		var collapsed			= true;
-							
+		
+		
+		var pusher_team_channel	= window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];				
+		
+		
+		
+		
+		
+		
+		
 							
 		if(!window.page_obj.team_venues)
 			return;
@@ -45,6 +54,12 @@ jQuery(function(){
 		Views.Reservation = {
 			tagName: 'tr',
 			initialize: function(){
+				
+				pusher_team_channel.bind('host_events', function(data){
+					
+					
+					
+				});
 				
 			},
 			render: function(){
@@ -297,6 +312,64 @@ jQuery(function(){
 			tagName: 'tr',
 			initialize: function(){
 				
+				
+				var _this = this;
+				pusher_team_channel.bind('host_emit', function(data){
+								
+				
+								
+					//promoter or team reservation
+					if(_this.model.get('pgl_id')){
+						
+						//Does this event apply to this reservation?
+						if(typeof data.pglre_id !== 'undefined' && data.pglre_id == _this.model.get('pglre_id')){
+							
+							
+							switch(data.event){
+								case 'check_in':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+								
+									break;
+								case 'check_out':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+								
+									break;
+							}
+							
+						}
+						
+						
+					}else{
+						
+						//Does this event apply to this reservation?
+						if(typeof data.tglre_id !== 'undefined' && data.tglre_id == _this.model.get('tglre_id')){
+							
+							switch(data.event){
+								case 'check_in':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+								
+									break;
+								case 'check_out':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+								
+									break;
+							}
+							
+						}
+						
+						
+					}	
+				
+									
+				
+				});
+				
+				
+				
 			},
 			render: function(){
 				
@@ -356,12 +429,15 @@ jQuery(function(){
 				
 				var _this 	= this;
 				var el 		= jQuery(e.currentTarget);
-				var checked = el.is(':checked');
+				var checked 		= el.is(':checked');
+				var auto_triggered 	= (el.data('auto_triggered') === true) ? true : false;
 				
+				if(!auto_triggered)
+					el.button('disable').button('refresh');
 				
-				
-				if(typeof last_checkin_val !== 'undefined' && checked)
-					this.$el.find('select[name=category]').val(last_checkin_val);
+				if(!auto_triggered)
+					if(typeof last_checkin_val !== 'undefined' && checked)
+						this.$el.find('select[name=category]').val(last_checkin_val);
 				
 				
 				
@@ -370,29 +446,37 @@ jQuery(function(){
 				var additional_guests	= this.$el.find('select[name=additional_guests] :selected').val();				
 				
 				
-				
-				jQuery.background_ajax({
-					data: {
-						vc_method: 			'checkin_event',
-						user_type: 			'entourage',
-						list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
-						pglr_id: 			_this.model.get('pglr_id'),
-						pglre_id: 			_this.model.get('pglre_id'),
-						tglr_id: 			_this.model.get('tglr_id'),
-						tglre_id: 			_this.model.get('tglre_id'),
-						checked: 			checked,
-						category: 			category,
-						category_value: 	category_value,
-						additional_guests: 	additional_guests,
-						hcd_id: 			_this.model.get('hcd_id'),
-						tv_id: 				_this.model.get('tv_id')
-					}, 
-					success: function(data){
-						console.log(data);
-					}
+				if(!auto_triggered)
+					jQuery.background_ajax({
+						data: {
+							vc_method: 			'checkin_event',
+							user_type: 			'entourage',
+							list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
+							pglr_id: 			_this.model.get('pglr_id'),
+							pglre_id: 			_this.model.get('pglre_id'),
+							tglr_id: 			_this.model.get('tglr_id'),
+							tglre_id: 			_this.model.get('tglre_id'),
+							checked: 			checked,
+							category: 			category,
+							category_value: 	category_value,
+							additional_guests: 	additional_guests,
+							hcd_id: 			_this.model.get('hcd_id'),
+							tv_id: 				_this.model.get('tv_id'),
+							socket_id:			window.team_chat_object.pusher.connection.socket_id
+						}, 
+						success: function(data){
+							
+							el.button('enable').button('refresh');
+							
+							console.log(data);
+						}
+					});
+					
+					
+					
+				el.data({
+					auto_triggered: false
 				});
-				
-				
 				
 							
 			},
@@ -411,6 +495,63 @@ jQuery(function(){
 		Views.ReservationCheckin = {
 			tagName: 'tr',
 			initialize: function(){
+				
+				
+				var _this = this;
+				pusher_team_channel.bind('host_emit', function(data){
+								
+				
+								
+					//promoter or team reservation
+					if(_this.model.get('pgl_id')){
+						
+						//Does this event apply to this reservation?
+						if(typeof data.pglr_id !== 'undefined' && data.pglr_id == _this.model.get('pglr_id')){
+							
+							
+							switch(data.event){
+								case 'check_in':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+								
+									break;
+								case 'check_out':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+								
+									break;
+							}
+							
+						}
+						
+						
+					}else{
+						
+						//Does this event apply to this reservation?
+						if(typeof data.tglr_id !== 'undefined' && data.tglr_id == _this.model.get('tglr_id')){
+							
+							switch(data.event){
+								case 'check_in':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).button('refresh');
+								
+									break;
+								case 'check_out':
+								
+									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).button('refresh');
+								
+									break;
+							}
+							
+						}
+						
+						
+					}	
+				
+									
+				
+				});
+				
 				
 			},
 			render: function(){
@@ -471,43 +612,50 @@ jQuery(function(){
 				
 				var _this 	= this;
 				var el 		= jQuery(e.currentTarget);
-				var checked = el.is(':checked');
+				var checked 		= el.is(':checked');
+				var auto_triggered 	= (el.data('auto_triggered') === true) ? true : false;
 				
+				if(!auto_triggered)
+					if(typeof last_checkin_val !== 'undefined' && checked)
+						this.$el.find('select[name=category]').val(last_checkin_val);
 				
-				
-				if(typeof last_checkin_val !== 'undefined' && checked)
-					this.$el.find('select[name=category]').val(last_checkin_val);
-				
-				
+				if(!auto_triggered)
+					el.button('disable').button('refresh');
 				
 				var category 			= this.$el.find('select[name=category] 			:selected').val();
 				var category_value		= this.$el.find('select[name=category] 			:selected').attr('data-category_value');
 				var additional_guests	= this.$el.find('select[name=additional_guests] :selected').val();				
 				
 				
+				if(!auto_triggered)
+					jQuery.background_ajax({
+						data: {
+							vc_method: 			'checkin_event',
+							user_type: 			'head_user',
+							list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
+							pglr_id: 			_this.model.get('pglr_id'),
+							pglre_id: 			_this.model.get('pglre_id'),
+							tglr_id: 			_this.model.get('tglr_id'),
+							tglre_id: 			_this.model.get('tglre_id'),
+							checked: 			checked,
+							category: 			category,
+							category_value: 	category_value,
+							additional_guests: 	additional_guests,
+							hcd_id: 			_this.model.get('hcd_id'),
+							tv_id: 				_this.model.get('tv_id'),
+							socket_id:			window.team_chat_object.pusher.connection.socket_id
+						}, 
+						success: function(data){
+							console.log(data);
+							
+							el.button('enable').button('refresh');
+							
+						}
+					});
 				
-				jQuery.background_ajax({
-					data: {
-						vc_method: 			'checkin_event',
-						user_type: 			'head_user',
-						list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
-						pglr_id: 			_this.model.get('pglr_id'),
-						pglre_id: 			_this.model.get('pglre_id'),
-						tglr_id: 			_this.model.get('tglr_id'),
-						tglre_id: 			_this.model.get('tglre_id'),
-						checked: 			checked,
-						category: 			category,
-						category_value: 	category_value,
-						additional_guests: 	additional_guests,
-						hcd_id: 			_this.model.get('hcd_id'),
-						tv_id: 				_this.model.get('tv_id')
-					}, 
-					success: function(data){
-						console.log(data);
-					}
+				el.data({
+					auto_triggered: false
 				});
-				
-				
 				
 							
 			},
@@ -803,6 +951,10 @@ jQuery(function(){
 		
 		var initialize = function(tv){
 			
+			//unbind events
+			pusher_team_channel.unbind('host_emit');
+			
+			
 			var team_venues = tv || window.page_obj.team_venues;
 			
 			//build up a collection of all reservations		
@@ -997,6 +1149,8 @@ jQuery(function(){
 		
 		//triggered when page is unloaded
 		window.module.Globals.prototype.unbind_callback = function(){
+			
+			pusher_team_channel.unbind('host_events');
 			
 			jQuery('div[data-clear-zone]').empty();
 			

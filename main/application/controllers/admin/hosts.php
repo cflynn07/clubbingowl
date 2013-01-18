@@ -481,12 +481,16 @@ class Hosts extends MY_Controller {
 				
 				
 				$post = (object)$this->input->post();
-				
-				$delete_callback = function($hcd_id){
-					$this->db->delete('host_checkins_data', array('hcd_id' 					=> $hcd_id, 
-																	'hcd_team_fan_page_id' 	=> $this->vc_user->host->th_teams_fan_page_id));
+								
+				$pusher_checkin_broadcast = function($event, $found_reservation, $socket_id){
+					
+					$found_reservation->event = $event;
+					$this->load->library('Pusher', '', 'pusher');
+					$this->pusher->trigger('presence-' . $this->vc_user->host->th_teams_fan_page_id, 'host_emit', $found_reservation, $socket_id);
 					
 				};
+				
+				
 				 
 				//--------------------------------------------------------------------------------------------------------
 				//	now find the damn reservation that we're dealing with and determine if it's already checked in or not
@@ -588,7 +592,11 @@ class Hosts extends MY_Controller {
 					
 					$this->db->delete('host_checkins_data', array('hcd_id' 					=> $found_reservation->hcd_id, 
 																	'hcd_team_fan_page_id' 	=> $this->vc_user->host->th_teams_fan_page_id));
-										
+					
+					
+					$pusher_checkin_broadcast('check_out', $found_reservation, $post->socket_id);
+					
+					
 					die(json_encode(array('success' => true)));
 										
 				}
@@ -622,6 +630,8 @@ class Hosts extends MY_Controller {
 									'hcd_id'		=> $hcd_id,
 									'hc_tglr_id' 	=> $found_reservation->tglr_id
 								));
+								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 															
 								die(json_encode(array('success' => true)));
 								
@@ -633,6 +643,8 @@ class Hosts extends MY_Controller {
 									'hcd_id'		=> $hcd_id,
 									'hc_tglr_id' 	=> $found_reservation->tglr_id
 								));
+								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 								
 								//check entourages of each reservation
 								foreach($all_reservations as $reservation){
@@ -663,6 +675,8 @@ class Hosts extends MY_Controller {
 									'hcd_id'		=> $hcd_id,
 									'hc_tglre_id' 	=> $found_reservation->tglre_id
 								));
+								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 															
 								die(json_encode(array('success' => true)));
 								
@@ -674,6 +688,7 @@ class Hosts extends MY_Controller {
 									'hc_tglre_id' 	=> $found_reservation->tglre_id
 								));
 								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 								
 								//scan all other entourages
 								//check entourages of each reservation
@@ -711,6 +726,8 @@ class Hosts extends MY_Controller {
 									'hcd_id'		=> $hcd_id,
 									'hc_pglr_id' 	=> $found_reservation->pglr_id
 								));
+								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);						
 															
 								die(json_encode(array('success' => true)));
 								
@@ -722,6 +739,8 @@ class Hosts extends MY_Controller {
 									'hcd_id'		=> $hcd_id,
 									'hc_pglr_id' 	=> $found_reservation->pglr_id
 								));
+								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 								
 								//check entourages of each reservation
 								foreach($all_reservations as $reservation){
@@ -752,6 +771,8 @@ class Hosts extends MY_Controller {
 									'hcd_id'		=> $hcd_id,
 									'hc_pglre_id' 	=> $found_reservation->pglre_id
 								));
+								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 															
 								die(json_encode(array('success' => true)));
 								
@@ -763,6 +784,7 @@ class Hosts extends MY_Controller {
 									'hc_pglre_id' 	=> $found_reservation->pglre_id
 								));
 								
+								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 								
 								//scan all other entourages
 								//check entourages of each reservation
