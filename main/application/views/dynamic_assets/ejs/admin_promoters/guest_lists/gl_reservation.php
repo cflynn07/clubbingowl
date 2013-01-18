@@ -39,6 +39,20 @@
 		<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
 		
 	<% } %>
+	<% if(hc_id == null){ %>
+			
+			<% if(collapsed){ %>
+				<br/><input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+			<% }else{ %>
+				<br/>
+				
+				<span style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</span><br/>
+				<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+			
+			<% } %>
+			
+		<% } %>
+		
 	
 	
 	
@@ -111,19 +125,6 @@
 				<span style="white-space:nowrap; width: 100%; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/Question.png' %>" /> Pending Manager Approval</span>
 			<% } %>
 		<% } %>
-		
-		
-		<% if(hc_id == null){ %>
-			
-			<% if(collapsed){ %>
-				<br/><input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
-			<% }else{ %>
-				<br/><label style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</label><br/>
-				<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
-			<% } %>
-			
-		<% } %>
-		
 		
 		
 		
