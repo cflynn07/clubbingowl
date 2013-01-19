@@ -1001,7 +1001,8 @@ jQuery(function(){
 							
 							
 							jQuery('div#pageslide').css({
-							  height: '70%'
+							  	height: '70%',
+							  	overflow: 'hidden'
 							});
 							jQuery('div.team_chat_messages').addClass('mobile-chat');
 							jQuery('#team_chat_wrapper div.team_chat_input textarea').css({
@@ -1019,8 +1020,11 @@ jQuery(function(){
 							});
 							
 							jQuery('#team_chat_wrapper div.team_chat_messages').css({
-								height: '500px',
-								width: 	'95%'
+								height: 		'500px',
+							//	width: 			'95%',
+								'padding-left': '150px',
+								border: 		'0',
+								width: 			'60%'
 							});
 							jQuery('#team_chat_wrapper textarea').css({
 							  	height: 		'35px', 
@@ -1028,6 +1032,10 @@ jQuery(function(){
 								padding: 		'15px 4px 15px 4px',
 								width: 			'95%',
 								margin: 		'10px auto 10px auto'
+							});
+							jQuery('div#team_chat div#team_chatbox_header_tab_close').css({
+								top: 				'0',
+								'border-bottom': 	'1px solid red'
 							});
 						}
 						
