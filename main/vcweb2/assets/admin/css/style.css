@@ -1973,3 +1973,7 @@ div.ui-widget-header{
 	font-size: 14px;
 	border: 1px solid #000;
 }
+
+div.ui-datepicker { 
+	font-size:26px; 
+}
