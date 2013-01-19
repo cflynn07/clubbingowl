@@ -1961,6 +1961,8 @@ div.ui-widget-header{
 
 
 #notify_container.mobile-notifications {
+	width: 	30%;
+	float: 	right;
 	top:	45px;
 }
 #notify_container.mobile-notifications > div{
