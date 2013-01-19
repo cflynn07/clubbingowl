@@ -9,7 +9,7 @@
 
 <meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=1000; user-scalable=1;" /> 
+<meta name="viewport" content="width=1000; user-scalable=0;" /> 
 <link rel="apple-touch-icon-precomposed" href="<?= $central->front_assets ?>images/square_icon.png" />
 
 

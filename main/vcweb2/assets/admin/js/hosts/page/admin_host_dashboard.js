@@ -998,6 +998,37 @@ jQuery(function(){
 								'min-width': 	'100px',
 								padding: 		'20px'
 							});
+							
+							
+							jQuery('div#pageslide').css({
+							  height: '70%'
+							});
+							jQuery('div.team_chat_messages').addClass('mobile-chat');
+							jQuery('#team_chat_wrapper div.team_chat_input textarea').css({
+								width: '97%',
+								'float': 'left'
+							});
+							jQuery('#team_chat_wrapper div.team_chat_input').css({
+								width: '100%',
+							});
+							jQuery('#team_chat_wrapper div.team_chat_messages_wrapper').css({
+								position: 'absolute',
+								bottom: '0',
+								margin: '10px',
+								width: 	'100%'
+							});
+							
+							jQuery('#team_chat_wrapper div.team_chat_messages').css({
+								height: '500px',
+								width: 	'95%'
+							});
+							jQuery('#team_chat_wrapper textarea').css({
+							  	height: 		'25px', 
+								'font-size': 	'25px',
+								padding: 		'15px 4px 15px 4px',
+								width: 			'95%',
+								margin: 		'10px auto 10px auto'
+							});
 						}
 						
 						
