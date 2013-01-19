@@ -14,7 +14,23 @@ jQuery(function(){
 		
 		var unbind_events = [];
 		jQuery('#notify_container').notify();
+		if(jQuery.isMobile()){
+			jQuery('#notify_container').addClass('mobile-notifications');
+		}
 		
+		var notify_scroll_callback = function(){
+			if(jQuery(window).scrollTop() > 45){
+				jQuery('#notify_container').css({
+					top: '10px'
+				});
+			}else{
+				jQuery('#notify_container').css({
+					top: '45px'
+				});
+			}
+		};
+		jQuery(window).scroll(notify_scroll_callback);
+		jQuery(window).bind('touchmove', notify_scroll_callback);
 		
 		
 		
