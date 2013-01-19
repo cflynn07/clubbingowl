@@ -62,7 +62,7 @@
 <td data-mobile_font="18px" style="width:15%;" class="ui4">
 	
 	<input type="checkbox" class="checkin_button" id="button_<%= reservation_iterator %>" name="button_<%= reservation_iterator %>"  <%= ((hc_id != null) ? 'checked="checked"' : '') %> />
-	<label for="button_<%= reservation_iterator %>">Arrived</label>
+	<label data-iphone_font for="button_<%= reservation_iterator %>">Arrived</label>
 
 </td>
 
@@ -137,19 +137,26 @@
 	
 		
 	<% if(head_user == null){ %>
-		<span style="margin-bottom:5px;" data-mobile_font="18px"><%= supplied_name %></span>
+		<span data-iphone_font style="margin-bottom:5px;" data-mobile_font="18px"><%= supplied_name %></span>
 	<% }else{ %>
-		<span style="margin-bottom:5px;" data-mobile_font="18px" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span>
+		<span data-iphone_font style="margin-bottom:5px;" data-mobile_font="18px" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span>
 	<% } %>
 	
 	
 	
 	
+	<% if(jQuery.isIphone()){ %>
+		
+		<br/>
+		<span style="font-weight:bold;">Host Notes:</span>
+		<span><%= (host_notes.length) ? host_notes : ' - ' %></span>
+		
+		
+	<% } %>
 	
 	
 	
-	
-	<div style="padding-left:10px; font-size:10px;">
+	<div data-iphone_hide style="padding-left:10px; font-size:10px;">
 		
 		<span style="text-decoration:underline;">Entourage</span>:&nbsp;			
 			
@@ -189,7 +196,7 @@
 
 
 
-<td>
+<td data-iphone_hide>
 	
 	<% if(!collapsed){ %>
 		<img style="border:1px solid #CCC;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'guest_lists/' + guest_list_image + '_t.jpg' %>" />
@@ -208,7 +215,7 @@
 
 
 
-<td>
+<td data-iphone_hide>
 	
 	<% if(collapsed){ %>
 		

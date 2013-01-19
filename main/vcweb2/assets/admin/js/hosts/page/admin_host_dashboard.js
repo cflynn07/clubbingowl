@@ -979,6 +979,30 @@ jQuery(function(){
 							});
 						});
 						
+						
+						jQuery('*[data-mobile_width]').css({
+							width: '300px',
+							'max-width': '300px',
+							'min-width': '300px'
+						});
+						
+						
+						if(jQuery.isIphone()){
+							jQuery('*[data-iphone_font]').css({
+								'font-size': '35px',
+								'white-space': 'nowrap'
+							});
+							jQuery('*[data-iphone_hide]').hide();
+							_this.$el.find('label.ui-button').css({
+								'max-width': 	'200px',
+								'min-width': 	'100px',
+								padding: 		'20px'
+							});
+						}
+						
+						
+						
+						
 					}
 						
 				});
