@@ -351,8 +351,6 @@ jQuery(function(){
 										host_name: 			'Casey Flynn',
 										guest_name: 		'John Doe',
 										team_or_promoter:	'Waldos'
-									}, {
-										expires: false
 									});
 								
 									break;
@@ -382,8 +380,6 @@ jQuery(function(){
 										host_name: 			'Casey Flynn',
 										guest_name: 		'John Doe',
 										team_or_promoter:	'Waldos'
-									}, {
-										expires: false
 									});
 									
 									break;
@@ -573,8 +569,6 @@ jQuery(function(){
 										host_name: 			'Casey Flynn',
 										guest_name: 		'John Doe',
 										team_or_promoter:	'Waldos'
-									}, {
-										expires: false
 									});
 									
 									break;
