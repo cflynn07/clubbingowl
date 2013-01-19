@@ -811,6 +811,7 @@ class Model_guest_lists extends CI_Model {
 			
 			$sql = "SELECT 	
 			
+						pglre.id 			as pglre_id,
 						pglre.oauth_uid 	as pglre_oauth_uid,
 						pglre.supplied_name	as pglre_supplied_name,
 						hc.*,

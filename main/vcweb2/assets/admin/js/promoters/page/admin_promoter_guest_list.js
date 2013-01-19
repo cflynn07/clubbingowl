@@ -993,8 +993,24 @@ jQuery(function(){
 							found = true;
 							break;
 						}
+					
+						var entourage = g.entourage_users;
+						for(var k in entourage){
+							var e = entourage[k];
+							
+							if(e.pglre_id == data.pglre_id){
+								found = true;
+								break;
+							}
+							
+							
+						}
 						
 					}
+					
+					
+					
+					
 					if(found){
 						_this.fetch_week(0);
 					}
