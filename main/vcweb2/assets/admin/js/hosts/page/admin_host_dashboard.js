@@ -346,13 +346,6 @@ jQuery(function(){
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
 								
-									jQuery('#notify_container').notify('create', 0, {
-										host_oauth_uid: 	504405294,
-										host_name: 			'Casey Flynn',
-										guest_name: 		'John Doe',
-										team_or_promoter:	'Waldos'
-									});
-								
 									break;
 								case 'check_out':
 								
@@ -374,14 +367,7 @@ jQuery(function(){
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
-									
-									jQuery('#notify_container').notify('create', 0, {
-										host_oauth_uid: 	504405294,
-										host_name: 			'Casey Flynn',
-										guest_name: 		'John Doe',
-										team_or_promoter:	'Waldos'
-									});
-									
+						
 									break;
 								case 'check_out':
 								
@@ -564,12 +550,6 @@ jQuery(function(){
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
 									
-									jQuery('#notify_container').notify('create', 0, {
-										host_oauth_uid: 	504405294,
-										host_name: 			'Casey Flynn',
-										guest_name: 		'John Doe',
-										team_or_promoter:	'Waldos'
-									});
 									
 									break;
 								case 'check_out':
@@ -593,23 +573,6 @@ jQuery(function(){
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
 								
-									if(this.model.get('tglr_user_oauth_uid') == NULL){
-										
-									}else{
-										
-									}
-									
-									
-									jQuery.fbUserLookup([], '', function(rows){
-										
-										jQuery('#notify_container').notify('create', 0, {
-											host_oauth_uid: 	504405294,
-											host_name: 			'Casey Flynn',
-											guest_name: 		'John Doe',
-											team_or_promoter:	'Waldos'
-										});
-										
-									});
 									
 								
 									break;
