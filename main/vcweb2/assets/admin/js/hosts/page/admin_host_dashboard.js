@@ -1033,10 +1033,16 @@ jQuery(function(){
 								width: 			'95%',
 								margin: 		'10px auto 10px auto'
 							});
+							jQuery('div#team_chat div#team_chatbox_header_tab_close a').css({
+								'font-size': 		'28px'
+							});
 							jQuery('div#team_chat div#team_chatbox_header_tab_close').css({
 								top: 				'0',
+								right: 				'-18px',
+								left: 				'auto',
 								'border-bottom': 	'1px solid red'
-							});
+								
+							}); 
 						}
 						
 						
