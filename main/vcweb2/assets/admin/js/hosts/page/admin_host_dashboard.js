@@ -1023,8 +1023,8 @@ jQuery(function(){
 								width: 	'95%'
 							});
 							jQuery('#team_chat_wrapper textarea').css({
-							  	height: 		'25px', 
-								'font-size': 	'25px',
+							  	height: 		'35px', 
+								'font-size': 	'45px',
 								padding: 		'15px 4px 15px 4px',
 								width: 			'95%',
 								margin: 		'10px auto 10px auto'
