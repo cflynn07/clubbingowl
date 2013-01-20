@@ -183,7 +183,7 @@
 								
 								
 								<% if(entourage_users[i].hc_id != null){ %>
-									<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+									<br/><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
 								<% } %>
 								
 							</td>
@@ -224,7 +224,7 @@
 								<% } %>
 								
 								<% if(entourage_users[i].hc_id != null){ %>
-									<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+									<br/><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
 								<% } %>
 								
 							</td>

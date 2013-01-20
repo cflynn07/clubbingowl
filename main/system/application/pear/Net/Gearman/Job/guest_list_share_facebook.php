@@ -18,6 +18,11 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 		$venue_name 		= $args['venue_name'];
 		$date 				= $args['date'];
 		$guest_list_name 	= $args['guest_list_name'];
+		
+		
+		$guest_list_name 	= strtoupper($guest_list_name);
+		
+		
 		$image 				= (isset($args['image'])) ? $args['image'] : false;
 		
 		$c_url_identifier 	= (isset($args['c_url_identifier'])) ? $args['c_url_identifier'] : '';
@@ -49,7 +54,8 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			
 			$params = array(
 //				'message' 		=> "$vc_user->users_full_name is on the ClubbingOwl guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!",
-				'message' 		=> "I'm on the guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!\n\n Click here to join \"$guest_list_name.\"",
+//				'message' 		=> "I'm on the guest list '$guest_list_name' at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!\n\n Click here to join \"$guest_list_name.\"",
+				'message'		=> "I just joined the house guest list $guest_list_name at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : 'this ' . date('l', strtotime($date))) . ". \n\n Click here to join $guest_list_name with ClubbingOwl.", 
 		
 //				'link' 			=> "www.facebook.com/pages/@/$team_venue_id?sk=app_$facebook_application_id",
 				
@@ -58,7 +64,7 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 				
 				'picture' 		=> ($image) ? $CI->config->item('s3_uploaded_images_base_url') . 'guest_lists/' . $image . '_t.jpg' : $CI->config->item('global_assets') . 'images/ClubbingOwlBackgroundWeb_small2.png',
 				'name' 			=> $guest_list_name,
-				'caption' 		=> "Click here to join \"$guest_list_name\"",
+				'caption' 		=> "Click here to join $guest_list_name with ClubbingOwl",
 				'description' 	=> $app_description
 			);
 			
@@ -76,11 +82,14 @@ class Net_Gearman_Job_guest_list_share_facebook extends Net_Gearman_Job_Common{
 			
 				
 			$params = array(
-				'message' 		=> "I'm on $promoter_full_name's guest list \"$guest_list_name\" at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!\n\n Click here to join \"$guest_list_name.\"",
+				
+				'message'		=> "I just joined $promoter_full_name's guest list at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : 'this ' . date('l', strtotime($date))) . ". \n\n Click here to join $guest_list_name with ClubbingOwl.", 
+				
+		//		'message' 		=> "I'm on $promoter_full_name's guest list \"$guest_list_name\" at $venue_name " . ((date('l', strtotime($date)) == date('l', time())) ? 'today' : date('l', strtotime($date))) . "!\n\n Click here to join \"$guest_list_name.\"",
 				'link' 			=> $base_url . "promoters/$promoter_public_identifier/guest_lists/$guest_list_url_name/?ref=$user_third_party_id",
 				'picture' 		=> ($image) ? $CI->config->item('s3_uploaded_images_base_url') . 'guest_lists/' . $image . '_t.jpg' : $CI->config->item('global_assets') . 'images/vibecompass_logo.png',
 				'name' 			=> $guest_list_name,
-				'caption' 		=> "Click here to join \"$guest_list_name\"",
+				'caption' 		=> "Click here to join $guest_list_name with ClubbingOwl",
 				'description' 	=> $app_description
 			);
 			
