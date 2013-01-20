@@ -37,6 +37,10 @@
 							<td class="key">Email:</td>
 							<td data-email=""></td>
 						</tr>
+						<tr>
+							<td style="white-space:nowrap;" class="key">Facebook Profile:</td>
+							<td><a target="_new" href="https://www.facebook.com/<?= $oauth_uid ?>">Facebook</a></td>
+						</tr>
 						
 						<?php if($client === false): ?>
 							

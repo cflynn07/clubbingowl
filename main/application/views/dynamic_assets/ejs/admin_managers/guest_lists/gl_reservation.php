@@ -109,11 +109,11 @@
 		
 		<% if(!collapsed){ %>
 			
-			<table style="margin:0;">
+			<table style="margin:0; width:100%;">
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Picture</th>
+						<th style="width:50px;">Picture</th>
 					</tr>
 				</thead>
 				<tbody>

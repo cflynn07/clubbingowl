@@ -1977,7 +1977,10 @@ div.ui-widget-header{
 div.ui-datepicker { 
 	font-size:26px; 
 }
-
+div.ui-datepicker td a {
+	padding-top: 10px;
+	padding-bottom: 6px;
+}
 
 div.team_chat_messages.mobile-chat div.message_wrapper div.message_content {
 	font-size: 30px !important;
