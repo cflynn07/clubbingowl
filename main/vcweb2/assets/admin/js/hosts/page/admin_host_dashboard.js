@@ -14,7 +14,23 @@ jQuery(function(){
 		
 		var unbind_events = [];
 		jQuery('#notify_container').notify();
+		if(jQuery.isMobile()){
+			jQuery('#notify_container').addClass('mobile-notifications');
+		}
 		
+		var notify_scroll_callback = function(){
+			if(jQuery(window).scrollTop() > 45){
+				jQuery('#notify_container').css({
+					top: '10px'
+				});
+			}else{
+				jQuery('#notify_container').css({
+					top: '45px'
+				});
+			}
+		};
+		jQuery(window).scroll(notify_scroll_callback);
+		jQuery(window).bind('touchmove', notify_scroll_callback);
 		
 		
 		
@@ -330,15 +346,6 @@ jQuery(function(){
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
 								
-									jQuery('#notify_container').notify('create', 0, {
-										host_oauth_uid: 	504405294,
-										host_name: 			'Casey Flynn',
-										guest_name: 		'John Doe',
-										team_or_promoter:	'Waldos'
-									}, {
-										expires: false
-									});
-								
 									break;
 								case 'check_out':
 								
@@ -360,16 +367,7 @@ jQuery(function(){
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
-									
-									jQuery('#notify_container').notify('create', 0, {
-										host_oauth_uid: 	504405294,
-										host_name: 			'Casey Flynn',
-										guest_name: 		'John Doe',
-										team_or_promoter:	'Waldos'
-									}, {
-										expires: false
-									});
-									
+						
 									break;
 								case 'check_out':
 								
@@ -552,14 +550,6 @@ jQuery(function(){
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
 									
-									jQuery('#notify_container').notify('create', 0, {
-										host_oauth_uid: 	504405294,
-										host_name: 			'Casey Flynn',
-										guest_name: 		'John Doe',
-										team_or_promoter:	'Waldos'
-									}, {
-										expires: false
-									});
 									
 									break;
 								case 'check_out':
@@ -583,23 +573,6 @@ jQuery(function(){
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
 								
-									if(this.model.get('tglr_user_oauth_uid') == NULL){
-										
-									}else{
-										
-									}
-									
-									
-									jQuery.fbUserLookup([], '', function(rows){
-										
-										jQuery('#notify_container').notify('create', 0, {
-											host_oauth_uid: 	504405294,
-											host_name: 			'Casey Flynn',
-											guest_name: 		'John Doe',
-											team_or_promoter:	'Waldos'
-										});
-										
-									});
 									
 								
 									break;
@@ -968,6 +941,75 @@ jQuery(function(){
 								'font-size': jQuery(this).attr('data-mobile_font')
 							});
 						});
+						
+						
+						jQuery('*[data-mobile_width]').css({
+							width: '300px',
+							'max-width': '300px',
+							'min-width': '300px'
+						});
+						
+						
+						if(jQuery.isIphone()){
+							jQuery('*[data-iphone_font]').css({
+								'font-size': '35px',
+								'white-space': 'nowrap'
+							});
+							jQuery('*[data-iphone_hide]').hide();
+							_this.$el.find('label.ui-button').css({
+								'max-width': 	'200px',
+								'min-width': 	'100px',
+								padding: 		'20px'
+							});
+							
+							
+							jQuery('div#pageslide').css({
+							  	height: '70%',
+							  	overflow: 'hidden'
+							});
+							jQuery('div.team_chat_messages').addClass('mobile-chat');
+							jQuery('#team_chat_wrapper div.team_chat_input textarea').css({
+								width: '97%',
+								'float': 'left'
+							});
+							jQuery('#team_chat_wrapper div.team_chat_input').css({
+								width: '100%',
+							});
+							jQuery('#team_chat_wrapper div.team_chat_messages_wrapper').css({
+								position: 'absolute',
+								bottom: '0',
+								margin: '10px',
+								width: 	'100%'
+							});
+							
+							jQuery('#team_chat_wrapper div.team_chat_messages').css({
+								height: 		'500px',
+							//	width: 			'95%',
+								'padding-left': '150px',
+								border: 		'0',
+								width: 			'60%'
+							});
+							jQuery('#team_chat_wrapper textarea').css({
+							  	height: 		'35px', 
+								'font-size': 	'45px',
+								padding: 		'15px 4px 15px 4px',
+								width: 			'95%',
+								margin: 		'10px auto 10px auto'
+							});
+							jQuery('div#team_chat div#team_chatbox_header_tab_close a').css({
+								'font-size': 		'28px'
+							});
+							jQuery('div#team_chat div#team_chatbox_header_tab_close').css({
+								top: 				'0',
+								right: 				'-18px',
+								left: 				'auto',
+								'border-bottom': 	'1px solid red'
+								
+							}); 
+						}
+						
+						
+						
 						
 					}
 						

@@ -105,7 +105,7 @@
 						<div class="ui-widget-header">
 							
 							<span>
-								<input readonly="true" type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" />
+								<input data-mobile_width data-iphone_font data-mobile_font="20px" readonly="true" type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" style="width:auto !important;" />
 								<img style="display:none;" class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
 
 								

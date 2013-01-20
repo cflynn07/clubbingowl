@@ -12,7 +12,8 @@ jQuery(function(){
 		
 		var team_chat_channel = window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];
 	
-		
+		var pusher_team_channel		= window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];	
+		var unbind_pusher_events 	= [];
 		
 		
 
@@ -1025,6 +1026,55 @@ jQuery(function(){
 					if(new_res_callback)
 						team_chat_channel.unbind('pending-requests-change', new_res_callback);
 				}
+				
+				
+				
+				
+				
+				
+				
+				
+				for(var i in unbind_pusher_events){
+					var u = unbind_pusher_events[i];
+					pusher_team_channel.unbind(u.event, u.callback);
+				}
+				
+				var _this = this;
+				var callback = function(data){
+					
+					if(typeof data.event === 'undefined' || (data.event != 'check_in' && data.event != 'check_out'))
+						return;
+					
+					if(!_this.active_list)
+						return;
+					
+					var found 			= false;
+					var current_list 	= _this.active_list.get('current_list');
+		
+					if(typeof current_list === 'undefined' || typeof current_list.tgl_id === 'undefined')
+						return;
+												
+					
+					if(data.tgl_id == current_list.tgl_id)
+						_this.fetch_week(0);
+								
+				};
+				
+				
+				pusher_team_channel.bind('host_emit', callback);
+				
+				unbind_pusher_events.push({
+					event: 		'host_emit',
+					callback: 	callback
+				});
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 				

@@ -754,7 +754,7 @@ jQuery(function() {(function(exports) {
 				document.ontouchmove = function(e2) {
 					e2.preventDefault();
 				}
-				if(jQuery.isIpad())
+				if(false && jQuery.isIpad())
 					setTimeout(function() {
 
 						var orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';

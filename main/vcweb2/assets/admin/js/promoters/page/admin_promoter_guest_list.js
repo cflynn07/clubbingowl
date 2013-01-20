@@ -7,9 +7,18 @@ jQuery(function(){
 	window.vc_page_scripts.admin_promoter_guest_list = function(){
 						
 						
-		var EVT 	= window.ejs_view_templates_admin_promoters;
-		var globals = window.module.Globals.prototype;
-						
+		var EVT 				= window.ejs_view_templates_admin_promoters;
+		var globals 			= window.module.Globals.prototype;
+		
+		
+		
+		var pusher_team_channel		= window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];	
+		var unbind_pusher_events 	= [];
+			
+			
+			
+			
+			
 		var unbind_callbacks = [];
 
 
@@ -956,6 +965,75 @@ jQuery(function(){
 				this.collection.on('change', this.render, this);
 				this.render();
 				
+				
+				
+				
+				for(var i in unbind_pusher_events){
+					var u = unbind_pusher_events[i];
+					pusher_team_channel.unbind(u.event, u.callback);
+				}
+				
+				var _this = this;
+				var callback = function(data){
+					
+					if(typeof data.event === 'undefined' || (data.event != 'check_in' && data.event != 'check_out'))
+						return;
+					
+					if(!_this.active_list)
+						return;
+					
+					var found 	= false;
+					var groups 	= _this.active_list.get('groups');
+		
+					
+					for(var i in groups){
+						var g = groups[i];
+						
+						if(g.pgl_id == data.pgl_id){
+							found = true;
+							break;
+						}
+					
+						var entourage = g.entourage_users;
+						for(var k in entourage){
+							var e = entourage[k];
+							
+							if(e.pglre_id == data.pglre_id){
+								found = true;
+								break;
+							}
+							
+							
+						}
+						
+					}
+					
+					
+					
+					
+					if(found){
+						_this.fetch_week(0);
+					}
+								
+				};
+				
+				
+				pusher_team_channel.bind('host_emit', callback);
+				
+				unbind_pusher_events.push({
+					event: 		'host_emit',
+					callback: 	callback
+				});
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			},
 			render: function(){
 				
@@ -1280,6 +1358,10 @@ jQuery(function(){
 					collapsed: page_collapsed
 				});
 				this.model.on('change', this.render, this);
+				
+				
+				
+				
 				
 			},
 			render: function(){

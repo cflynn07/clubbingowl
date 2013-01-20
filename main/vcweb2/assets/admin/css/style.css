@@ -1960,4 +1960,27 @@ div.ui-widget-header{
 }
 
 
+#notify_container.mobile-notifications {
+	width: 	30%;
+	float: 	right;
+	top:	45px;
+}
+#notify_container.mobile-notifications > div{
+	width: 30% !important;
+	float: right;
+	clear: both;
+	display: block;
+	font-size: 14px;
+	border: 1px solid #000;
+}
 
+div.ui-datepicker { 
+	font-size:26px; 
+}
+
+
+div.team_chat_messages.mobile-chat div.message_wrapper div.message_content {
+	font-size: 30px !important;
+	padding: 15px !important;
+	line-height: 35px;
+}

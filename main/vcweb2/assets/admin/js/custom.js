@@ -291,7 +291,9 @@ jQuery(document).ready(function() {
 	
 	
 	jQuery.extend({
-		
+		isIphone: function(){
+			return navigator.userAgent.match(/iPhone/i) != null;
+		},
 	    isIpad: function(){
 	        return navigator.userAgent.match(/ipad/i) != null;
 	    },
