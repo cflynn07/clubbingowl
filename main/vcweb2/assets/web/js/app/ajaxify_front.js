@@ -98,12 +98,15 @@
 
 					// Inform ReInvigorate of a state change
 					if ( typeof window.reinvigorate !== 'undefined' && typeof window.reinvigorate.ajax_track !== 'undefined' ) {
-						reinvigorate.ajax_track(url);
-						// ^ we use the full url here as that is what reinvigorate supports
+						reinvigorate.ajax_track(window.location.href);
 					}
 					
 					
+					
+					
 					//google analytics
+					console.log('_setCustomVar');
+					_gaq.push(['_setCustomVar', 1, 'UserID', 'Casey Flynn', 1]);
 					_gaq.push(['_trackPageview']);
 					
 					

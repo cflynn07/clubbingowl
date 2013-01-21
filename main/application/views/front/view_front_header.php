@@ -48,8 +48,24 @@ var re_name_tag='<?= ($central->vc_user) ? ($central->vc_user->last_name . ', ' 
 document.write(unescape("%3Cscript src='<?= $central->global_assets_nocdn . 'js/reinvigorate/' ?>re_.js?<?= $central->cache_global_js ?>' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
-try {
-reinvigorate.track("k9096-0e37qc95ai");
+try{
+  var key = "k9096-0e37qc95ai";
+  reinvigorate.url_override='';
+  reinvigorate.ajax_track=function(url){
+    try{
+      delete reinvigorate.wkeys[key];
+      reinvigorate.url_override=url;
+      reinvigorate.track(key);
+    } catch(err){}
+  };
+  reinvigorate.url_filter=function(url){
+    if(reinvigorate.url_override !== ''){
+      url=reinvigorate.url_override;
+      reinvigorate.url_override='';
+    }
+    return url.replace(/^https?:\/\/(www\.)?/,"http://");
+  };
+  reinvigorate.track(key);
 } catch(err) {}
 </script>
 
