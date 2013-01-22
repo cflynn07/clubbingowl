@@ -933,7 +933,7 @@ jQuery(function(){
 						
 						jQuery('div[data-top_min]').css({
 							padding: '14px 0 14px 0'
-						}nodemon );
+						});
 						
 										
 						jQuery('*[data-mobile_font]').each(function(){
