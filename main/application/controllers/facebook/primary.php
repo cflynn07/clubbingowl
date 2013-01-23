@@ -47,6 +47,14 @@ class Primary extends MY_Controller {
 		}
 		
 		
+		
+		
+		
+		
+			
+			
+			
+			
 			
 		/*--------------------- AJAX Request Bypass Handler ---------------------*/
 		//The idea here is to avoid loading the static assets, header, body, etc if
@@ -459,7 +467,15 @@ class Primary extends MY_Controller {
 				
 				
 				
-				
+				$vc_user = $this->session->userdata('vc_user');
+				$vc_user = json_decode($vc_user);
+				if($vc_user){
+					$this->load->model('model_teams', 'teams', true);
+					$this->teams->create_team_profile_view($vc_user->oauth_uid, $data['guest_list']->tv_team_fan_page_id);
+				}
+						
+						
+						
 				
 				// --------- retrieve floorplans for venue
 				$this->load->model('model_teams', 'teams', true);

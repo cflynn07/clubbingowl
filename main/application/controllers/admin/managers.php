@@ -3812,7 +3812,7 @@ class Managers extends MY_Controller {
 		//------ end retrieve top visitors -------
 		
 		//------ retrieve recent visitors --------
-		$recent_visitors = $this->users_managers->retrieve_recent_team_visitors($promoters_pt_ids);
+		$recent_visitors = $this->users_managers->retrieve_recent_team_visitors($promoters_pt_ids, $this->vc_user->manager->team_fan_page_id);
 		$recent_visitors_uids = array();
 		foreach($recent_visitors as $rv){
 			$recent_visitors_uids[] = $rv->uv_users_oauth_uid;

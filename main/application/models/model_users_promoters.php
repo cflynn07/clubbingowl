@@ -275,10 +275,10 @@ class Model_users_promoters extends CI_Model {
 				FROM 	user_views uv
 				
 				WHERE	uv.users_oauth_uid = ?
-						AND
-						uv.promoters_teams_id = ?
-						AND
-						uv.time > ?
+				
+					AND uv.promoters_teams_id = ?
+					
+					AND uv.time > ?	
 				
 				LIMIT 1";
 		$query = $this->db->query($sql, array($users_oauth_uid, $pt_id, (time() - 30)));		

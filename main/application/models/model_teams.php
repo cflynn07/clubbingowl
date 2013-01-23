@@ -32,7 +32,38 @@ class Model_teams extends CI_Model {
 	}
 	
 	
-	
+	/**
+	 * Creates a view record for this user and this team
+	 * 
+	 * @param	int (users oauth uid)
+	 * @return	bool
+	 */
+	function create_team_profile_view($users_oauth_uid, $team_fan_page_id){
+		
+		//first make sure no recorded view exists in the past 30 seconds (rate limiting)
+		$sql = "SELECT
+					
+					uv.id
+					
+				FROM 	user_views uv
+				
+				WHERE	uv.users_oauth_uid = ?
+				
+					AND uv.team_fan_page_id = ?
+					
+					AND uv.time > ?	
+				
+				LIMIT 1";
+		$query = $this->db->query($sql, array($users_oauth_uid, $team_fan_page_id, (time() - 30)));		
+		$result = $query->row();
+		
+		if($result)
+			return false;
+		
+		$this->db->insert('user_views', array('users_oauth_uid' => $users_oauth_uid, 'team_fan_page_id' => $team_fan_page_id, 'time' => time()));
+		return $this->db->insert_id();
+		
+	}
 	
 	
 	

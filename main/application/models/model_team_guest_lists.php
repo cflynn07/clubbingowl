@@ -599,6 +599,7 @@ class Model_team_guest_lists extends CI_Model {
 	  	
 	  				tgla.id					as tgla_id,
 	  				tgla.team_venue_id		as tgla_team_venue_id,
+	  				tgla.team_fan_page_id	as tgla_team_fan_page_id,
 	  				tgla.day				as tgla_day,
 	  				tgla.name 				as tgla_name,
 	  				tgla.create_time		as tgla_create_time,

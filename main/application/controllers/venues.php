@@ -518,7 +518,7 @@ class Venues extends MY_Controller {
 			$data['guest_list'] = $this->library_venues->retrieve_individual_guest_list($arg3);
 			
 			
-			
+		
 			if(!$data['guest_list']){
 
 				if(!$this->input->post('ajaxify'))
@@ -531,7 +531,12 @@ class Venues extends MY_Controller {
 			}
 			
 			
-			
+			$vc_user = $this->session->userdata('vc_user');
+			$vc_user = json_decode($vc_user);
+			if($vc_user){
+				$this->load->model('model_teams', 'teams', true);
+				$this->teams->create_team_profile_view($vc_user->oauth_uid, $data['guest_list']->tgla_team_fan_page_id);
+			}
 			
 			
 			

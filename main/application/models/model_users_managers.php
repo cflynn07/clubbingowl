@@ -535,10 +535,10 @@ class Model_users_managers extends CI_Model {
 	 * Retrieve's the UID of recent visitors to a team's pages (widget, promoters, venue pages etc)
 	 * 
 	 */
-	function retrieve_recent_team_visitors($pt_ids){
+	function retrieve_recent_team_visitors($pt_ids, $team_fan_page_id){
 		
-		if(!$pt_ids)
-			return array();
+	//	if(!$pt_ids)
+	//		return array();
 			
 		$sql = "SELECT DISTINCT
 
@@ -546,7 +546,11 @@ class Model_users_managers extends CI_Model {
 				
 				FROM 	user_views uv 
 				
-				WHERE ";
+				WHERE 	uv.team_fan_page_id = ? ";
+				
+				if($pt_ids)
+					$sql .= " OR ";
+				
 				foreach($pt_ids as $key => $pt_id){
 					if($key == (count($pt_ids) - 1)){
 						//last
@@ -564,7 +568,7 @@ class Model_users_managers extends CI_Model {
 		$sql .=	"ORDER BY	uv.id DESC
 				
 				LIMIT 100";
-		$query = $this->db->query($sql, $pt_ids);		
+		$query = $this->db->query($sql, array_merge(array($team_fan_page_id), $pt_ids));		
 		return $query->result();	
 		
 	}
@@ -578,8 +582,8 @@ class Model_users_managers extends CI_Model {
 	 */
 	function retrieve_top_team_visitors($promoters_pt_ids, $team_fan_page_id){
 		
-		if(!$promoters_pt_ids)
-			return array();
+	//	if(!$promoters_pt_ids)
+	//		return array();
 		
 		$sql = "SELECT
 		
@@ -594,7 +598,10 @@ class Model_users_managers extends CI_Model {
 						
 				FROM 	user_views uv
 				
-				WHERE 	";
+				WHERE 	uv.team_fan_page_id = ? ";
+				
+				if($promoters_pt_ids)
+					$sql .= " OR ";
 				
 		foreach($promoters_pt_ids as $key => $pt_id){
 			if($key == (count($promoters_pt_ids) - 1)){
@@ -615,7 +622,7 @@ class Model_users_managers extends CI_Model {
 				ORDER BY count DESC
 				LIMIT 50";
 		
-		$query = $this->db->query($sql, $promoters_pt_ids);
+		$query = $this->db->query($sql, array_merge(array($team_fan_page_id), $promoters_pt_ids));
 		return $query->result();
 		
 	}
