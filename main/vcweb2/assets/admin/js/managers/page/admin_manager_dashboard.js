@@ -604,7 +604,7 @@ jQuery(function(){
 					
 					var html = '<div class="top_visitor ' + user.uid + '">';
 					html += '<img style="width:50px;height:50px;" src="' + user.pic_square + '" alt="picture" />';
-					html += '<a href="#" class="vc_name"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
+					html += '<a href="/admin/managers/clients/' + user.uid + '" class="vc_name ajaxify"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
 					html += '</div>';
 					jQuery('div#top_visitors').append(html);
 				
@@ -629,7 +629,7 @@ jQuery(function(){
 						
 					var html = '<div class="recent_visitor ' + user.uid + '">';
 					html += '<img style="width:50px;height:50px;" src="' + user.pic_square + '" alt="picture" />';
-					html += '<a href="#" class="vc_name"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
+					html += '<a href="/admin/managers/clients/' + user.uid + '" class="vc_name ajaxify"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
 					html += '</div>';
 					jQuery('div#recent_visitors').append(html);
 					
@@ -718,7 +718,7 @@ jQuery(function(){
 					
 					var html = '<div data-user_oauth_uid="' + user.uid + '" class="live_visitor ' + user.uid + '">';
 					html += '<img style="width:50px;height:50px;" src="' + user.pic_square + '" alt="picture" />';
-					html += '<a href="#" class="vc_name"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
+					html += '<a href="/admin/managers/clients/' + user.uid + '" class="vc_name ajaxify"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
 					html += '</div>';
 					jQuery('div#live_visitors').append(html);
 					
@@ -745,7 +745,7 @@ jQuery(function(){
 						
 						var html = '<div data-user_oauth_uid="' + user.uid + '" class="live_visitor ' + user.uid + '">';
 						html += '<img style="width:50px;height:50px;" src="' + user.pic_square + '" alt="picture" />';
-						html += '<a href="#" class="vc_name"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
+						html += '<a href="/admin/managers/clients/' + user.uid + '" class="vc_name ajaxify"><span class="uid">' + user.uid + '</span>' + user.first_name + '</a>';
 						html += '</div>';
 						jQuery('div#live_visitors').append(html);
 						
