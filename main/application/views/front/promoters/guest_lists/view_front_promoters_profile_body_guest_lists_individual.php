@@ -57,6 +57,32 @@
       <p>
       	<h2>Info</h2>
       	
+      	
+      	
+      	<?php
+      		$time_mod = function($hour){
+      			
+				$hour = intval($hour);
+      						
+				if($hour > 12){
+					return ($hour - 12) . "pm";
+				}else{
+					
+					if($hour === 12)
+						return "12pm";
+						
+					if($hour === 0)
+						return "12am";
+					else
+						return $hour . "am";
+					
+				}
+				
+      		};
+      	?>
+      	
+      	
+      	
       	<table id="list_info">
       		<tbody>
       			<tr>
@@ -73,11 +99,11 @@
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">Doors Open</td>
-      				<td style="text-align:right;"><?= $guest_list->pgla_door_open ?>:00</td>
+      				<td style="text-align:right;"><?= $time_mod($guest_list->pgla_door_open) ?></td>
       			</tr>
       			<tr>
       				<td style="font-weight:500; text-align:left;">List Closes</td>
-      				<td style="text-align:right;"><?= $guest_list->pgla_door_close ?>:00</td>
+      				<td style="text-align:right;"><?= $time_mod($guest_list->pgla_door_close) ?></td>
       			</tr>
       			<?php if($guest_list->pgla_additional_info_1): ?>
       			<tr>
