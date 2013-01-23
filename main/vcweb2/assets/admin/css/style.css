@@ -1280,7 +1280,7 @@ div#manager_dashboard_wrapper div#live_visitors{
 	height: 230px;
 	padding: 10px;
 	width: 480px;
-	overflow-y: scroll;
+//	overflow-y: scroll;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1307,7 +1307,7 @@ div#manager_dashboard_wrapper div#top_visitors{
 	height: 230px;
 	padding: 10px;
 	width: 480px;
-	overflow-y: scroll;
+//	overflow-y: scroll;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1334,7 +1334,7 @@ div#manager_dashboard_wrapper div#recent_visitors{
 	height: 230px;
 	padding: 10px;
 	width: 480px;
-	overflow-y: scroll;
+//	overflow-y: scroll;
 	margin-left: auto;
 	margin-right: auto;
 }
