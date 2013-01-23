@@ -6,7 +6,7 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
 
-<h1>ClubbingOwl Clients</h1>
+<h1>Clients</h1>
 <p>View & Manage your ClubbingOwl Client Database</p>
 
 
@@ -17,9 +17,7 @@
 	
 	
 	<div id="all_clients" class="full_width last">
-		
-		<h3>All Clients</h3>
-		
+				
 		<div style="display:none;" id="clients_export_hidden">
 			<img style="vertical-align:middle;margin-right:5px;" src="<?= $central->admin_assets ?>images/icons/small_icons_3/Box_Download.png" alt="" /><span><a data-action="clients_export" href="#">Export Clients</a></span>
 		</div>
