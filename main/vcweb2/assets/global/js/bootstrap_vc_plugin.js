@@ -2,7 +2,12 @@
 	var iframe;
 	
 	iframe = document.createElement('iframe');
-	iframe.src = 'https://www.clubbingowl.com/plugin/' + window.vc_plugin_tfpid;
+	
+	if(typeof window.vc_plugin_tv_id !== 'undefined')
+		iframe.src = 'https://www.clubbingowl.com/plugin/tv_id?tv_id=' + window.vc_plugin_tv_id;
+	else
+		iframe.src = 'https://www.clubbingowl.com/plugin/' + window.vc_plugin_tfpid;
+
 	iframe.style.width = '100%';
 	iframe.style.height = '100%';
 	iframe.style.border = '0px';

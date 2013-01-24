@@ -40,7 +40,13 @@ class Plugin extends MY_Controller {
 		
 		//initialize library with data stored for current page
 		$this->load->library('library_facebook_application', '', 'facebook_application');
+		
+		
+		
 		$this->facebook_application->initialize_web_plugin($arg0);
+		
+		
+		
 		
 		
 		
@@ -124,11 +130,78 @@ class Plugin extends MY_Controller {
 		
 	
 		
+		if(!$this->facebook_application->page_data){
+			
+			
+			//check if this is a team-venue facebook page
+			if(isset($this->input->get('tv_id'))){
+				
+				$tv_id = $this->input->get('tv_id');
+				
+				
+				
+				$this->load->library('library_venues', '', 'library_venues');
+				$this->library_venues->initialize_tv_id($tv_id);
+				
+								
+								
+								
+				if($this->library_venues->venue){
+					//YES this is a team_venue facebook fan page
+					
+					
+					
+					$data['guest_lists'] = $this->library_venues->retrieve_all_guest_lists();
+					$data['team_venues'] = array($this->library_venues->venue);
+					
+					
+					
+								
+								
+					$vc_user = $this->session->userdata('vc_user');
+					if($vc_user)
+						$vc_user = json_decode($vc_user);
+					
+					//if user signed in, retrieve friend-venue activity for all venues listed
+					if($vc_user){
+									
+						//assemble venue ids for gearman job
+						$team_venue_ids = array();
+						foreach($data['team_venues'] as $tv){
+							$team_venue_ids[] = $tv->tv_id;
+						}
+						
+						$this->load->helper('run_gearman_job');
+						$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
+											'access_token' => $vc_user->access_token,
+											'team_venue_ids' => $team_venue_ids);
+						run_gearman_job('gearman_retrieve_friend_venues_activity', $arguments);
+						
+					}
+					
+											
+					$this->body_html = $this->load->view($this->view_dir . 'page/view_page_facebook_page_guest_lists', $data, true);
+				
+					return;
+					
+					
+				}
+				
+				
+			}
+		}
+		
+		
+		
 		
 		
 		
 		if($this->facebook_application->page_data){
 			//we know this page
+			
+			
+			
+			
 			
 			
 			
@@ -288,6 +361,10 @@ class Plugin extends MY_Controller {
 				break;
 			case 'tgla_html_retrieve':
 								
+								
+								
+								
+								
 				$tgla_id = $this->input->post('tgla_id');
 				$tv_id = $this->input->post('tv_id');
 				
@@ -367,13 +444,16 @@ class Plugin extends MY_Controller {
 				
 				
 				$guest_list_html = $this->load->view('front/venues/guest_lists/view_front_venues_profile_body_guest_lists_individual', $data, true);
-				
-			//	die(json_encode(array('success' => true, 'message' => $guest_list_html)));
-				
+								
 				die($guest_list_html);
 				
+				
+				
+				
+				
+				
 				break;
-			case 'team_guest_list_join_request':
+	/*		case 'team_guest_list_join_request':
 				
 				//This functionality was originall built into the facebook plugin, so we copy it here
 				$this->load->library('library_facebook_application', '', 'facebook_application');
@@ -381,7 +461,7 @@ class Plugin extends MY_Controller {
 				die(json_encode($response));
 				
 				break;
-			default:
+	*/		default:
 				die(json_encode(array('success' => false,
 										'message' => 'invalid access attempt')));
 				break;
