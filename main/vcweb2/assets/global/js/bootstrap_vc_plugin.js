@@ -4,7 +4,7 @@
 	iframe = document.createElement('iframe');
 	
 	if(typeof window.vc_plugin_tv_id !== 'undefined')
-		iframe.src = 'https://www.clubbingowl.com/plugin/tv_id?tv_id=' + window.vc_plugin_tv_id;
+		iframe.src = 'https://www.clubbingowl.com/plugin/0?tv_id=' + window.vc_plugin_tv_id;
 	else
 		iframe.src = 'https://www.clubbingowl.com/plugin/' + window.vc_plugin_tfpid;
 
