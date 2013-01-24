@@ -134,7 +134,7 @@ class Plugin extends MY_Controller {
 			
 			
 			//check if this is a team-venue facebook page
-			if(isset($this->input->get('tv_id'))){
+			if($this->input->get('tv_id') !== false){
 				
 				$tv_id = $this->input->get('tv_id');
 				
