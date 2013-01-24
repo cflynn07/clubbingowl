@@ -185,7 +185,7 @@
 								
 								
 								<?php if(TRUE): ?>
-								<div class="auth_content auth_clear_content" data-up_id="<?= $pro->up_id ?>" class="friends" style="padding:10px 0 0 0; border-top:1px dashed #CCC; border-bottom:1px dashed #CCC;">
+								<div class="auth_content auth_clear_content" data-up_id="<?= $pro->up_id ?>" class="friends" style="padding:0 0 0 0; border-top:1px dashed #CCC; border-bottom:1px dashed #CCC;">
 									<img class="loading_indicator" style="margin-left:auto; margin-right:auto;" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />									
 								</div>
 								<?php endif; ?>						
