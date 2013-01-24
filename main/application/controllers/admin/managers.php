@@ -2109,6 +2109,43 @@ class Managers extends MY_Controller {
 					$head_user['name'],
 					$this->input->post('vlfit_id')
 				);
+																			
+					
+					
+					
+					
+					
+					
+			
+					
+					//gotta look shit up
+				$this->db->select('tgl.date as tgl_date, tv.id as tv_id')
+					->from('teams_guest_lists_reservations tglr')
+					->join('teams_guest_lists tgl', 'tglr.team_guest_list_id = tgl.id')
+					->join('teams_guest_list_authorizations tgla', 'tgla.id = tgl.team_guest_list_authorization_id')
+					->join('team_venues tv', 'tgla.team_venue_id = tv.id')
+					->where(array(
+						'tglr.id' => $result['message']
+					));
+				$query = $this->db->get();				
+				$result2 = $query->row();
+				
+				
+				
+			
+				$pusher_data 		= new stdClass;
+				$pusher_data->type 	= 'new_reservation';
+				$pusher_data->date 	= $result2->tgl_date;
+				$pusher_data->tv_id	= $result2->tv_id;
+				
+				$this->load->library('Pusher', '', 'pusher');
+				$this->pusher->trigger('presence-' . $this->vc_user->manager->team_fan_page_id, 'host_recieve', $pusher_data);
+								
+				
+	
+				
+				
+				
 				die(json_encode($result));
 				
 
@@ -3169,6 +3206,22 @@ class Managers extends MY_Controller {
 		$iso_date	= $this->input->post('iso_date');
 		$tv_id		= $this->input->post('tv_id');
 		
+
+				
+				
+			
+		$pusher_data 		= new stdClass;
+		$pusher_data->type 	= 'new_reservation';
+		$pusher_data->date 	= $iso_date;
+		$pusher_data->tv_id	= $tv_id;
+		
+		$this->load->library('Pusher', '', 'pusher');
+		$this->pusher->trigger('presence-' . $this->vc_user->manager->team_fan_page_id, 'host_recieve', $pusher_data);
+								
+				
+		
+		
+		
 		
 		//check if table is already assigned
 		list($init_users, $team_venues) 	= $this->_helper_venue_floorplan_retrieve_v2();
@@ -3970,10 +4023,43 @@ class Managers extends MY_Controller {
 			));
 			if($approve){
 				
+				
+				
 				$this->db->update('promoters_guest_lists_reservations', array(
 					'manager_table_approved' 				=> 1,
 					'venues_layout_floors_items_table_id'	=> $vlfit_id
 				));	
+				
+				
+				
+				
+				
+				//gotta look shit up
+				$this->db->select('pgl.date as pgl_date, tv.id as tv_id')
+					->from('promoters_guest_lists_reservations pglr')
+					->join('promoters_guest_lists pgl', 'pglr.promoter_guest_lists_id = pgl.id')
+					->join('promoters_guest_list_authorizations pgla', 'pgla.id = pgl.promoters_guest_list_authorizations_id')
+					->join('team_venues tv', 'pgla.team_venue_id = tv.id')
+					->where(array(
+						'pglr.id' => $glr_id
+					));
+				$query = $this->db->get();
+							
+				$result = $query->row();
+				
+				
+				
+			
+				$pusher_data 		= new stdClass;
+				$pusher_data->type 	= 'new_reservation';
+				$pusher_data->date 	= $result->pgl_date;
+				$pusher_data->tv_id	= $result->tv_id;
+				
+				$this->load->library('Pusher', '', 'pusher');
+				$this->pusher->trigger('presence-' . $this->vc_user->manager->team_fan_page_id, 'host_recieve', $pusher_data);
+								
+				
+				
 				
 			}else{
 				

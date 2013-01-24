@@ -363,7 +363,7 @@ jQuery(function(){
 					var tv_u_friends = jQuery('div#friends_' + i);
 					if(data.tv_friends_pop[i].length > 0){
 						
-						var tv_friends_html = '<p>' + data.tv_friends_pop[i].length + 'friend(s) have been here</p>';
+						var tv_friends_html = '<p>' + data.tv_friends_pop[i].length + ' friend(s) have been here</p>';
 						
 						for(var k in data.tv_friends_pop[i]){
 							

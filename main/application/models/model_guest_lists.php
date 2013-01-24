@@ -1143,7 +1143,9 @@ class Model_guest_lists extends CI_Model {
 					u.third_party_id		as u_third_party_id,
 					c.name 					as c_name,
 					c.url_identifier		as c_url_identifier,
-					t.fan_page_id			as t_fan_page_id
+					t.fan_page_id			as t_fan_page_id,
+					
+					tv.id 					as tv_id
 		
 				FROM 	promoters_guest_lists_reservations pglr
 				
@@ -1216,6 +1218,34 @@ class Model_guest_lists extends CI_Model {
 		$this->db->where('id', $pglr_id);
 		$this->db->update('promoters_guest_lists_reservations', array('approved' 		=> (($approved) ? 1 : -1),
 																		'response_msg' 	=> $message));	
+		
+		
+		
+		
+		
+		
+		
+		
+		//if approved and not a table request -- send pusher update to host admin
+		if($approved && $result->pglr_table_request === '0'){
+			
+			$pusher_data 		= new stdClass;
+			$pusher_data->type 	= 'new_reservation';
+			$pusher_data->date 	= $result->pgl_date;
+			$pusher_data->tv_id	= $result->tv_id;
+			
+			$this->load->library('Pusher', '', 'pusher');
+			$this->pusher->trigger('presence-' . $team_fan_page_id, 'host_recieve', $pusher_data);
+								
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		//get entourage count
 		$sql = "SELECT

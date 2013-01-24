@@ -343,6 +343,10 @@ class Model_team_guest_lists extends CI_Model {
 			$this->db->insert_batch('teams_guest_lists_reservations_entourages', $insert_data);			
 			
 		}
+
+
+
+
 				
 		//if this guest list is set to auto-approve, approve the request
 		if($auto_approve_requests)
@@ -351,6 +355,10 @@ class Model_team_guest_lists extends CI_Model {
 																		$team_fan_page_id,
 																		$teams_guest_lists_reservations_id,
 																		$approve_override);
+																		
+																		
+																		
+																		
 																		
 																		
 		if(!$approve_override && $team_fan_page_id && $team_fan_page_id != '0'){
@@ -924,7 +932,9 @@ class Model_team_guest_lists extends CI_Model {
 					tv.name					as tv_name,
 					tv.image 				as tv_image,
 					c.name					as c_name,
-					c.url_identifier		as c_url_identifier
+					c.url_identifier		as c_url_identifier,
+					
+					tv.id 					as tv_id
 					
 				FROM 	teams_guest_lists_reservations tglr
 				
@@ -994,7 +1004,34 @@ class Model_team_guest_lists extends CI_Model {
 		$this->db->where('id', $team_guest_list_reservation_id);
 		$this->db->update('teams_guest_lists_reservations', array('approved' 								=> ($approved) ? 1 : -1,
 																	'response_msg' 							=> $message,
-																	'venues_layout_floors_items_table_id' 	=> (($table_request !== false && $vlfit_id !== false) ? $vlfit_id : NULL)));	
+																	'venues_layout_floors_items_table_id' 	=> (($table_request !== false && $vlfit_id !== false) ? $vlfit_id : NULL)));
+																	
+												
+												
+						
+						
+						
+												
+																	
+		if($approved){
+			
+			$pusher_data 		= new stdClass;
+			$pusher_data->type 	= 'new_reservation';
+			$pusher_data->date 	= $result->tgl_date;
+			$pusher_data->tv_id	= $result->tv_id;
+			
+			$this->load->library('Pusher', '', 'pusher');
+			$this->pusher->trigger('presence-' . $team_fan_page_id, 'host_recieve', $pusher_data);
+								
+		}
+		
+		
+		
+		
+		
+		
+		
+																		
 		
 		//get entourage count
 		$sql = "SELECT

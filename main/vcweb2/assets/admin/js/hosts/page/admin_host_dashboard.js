@@ -8,6 +8,8 @@ jQuery(function(){
 		var globals 			= window.module.Globals.prototype;
 		var datepicker;
 		var collapsed			= true;
+		var selected_tv_id;
+		var tv_display_module;
 		
 		
 		var pusher_team_channel	= window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];				
@@ -834,6 +836,12 @@ jQuery(function(){
 		Views.ReservationsCheckinHolder = {
 			initialize: function(){
 				
+				
+				
+				
+				
+				
+				
 				this.render();
 			},
 			render: function(){
@@ -886,9 +894,12 @@ jQuery(function(){
 				
 				
 				
-				//now that all the reservations are laid out, find all oauth_uid's that have been checked in anywhere -- and remove them from places where
-				//they appear for a second time since they've already been checked in
-				this.remove_duplicates();
+				
+				
+				
+				
+				
+				
 								
 				jQuery.populateFacebook(this.$el, function(){
 						
@@ -1086,11 +1097,7 @@ jQuery(function(){
 				pusher_team_channel.unbind(event_obj.event, event_obj.callback);
 				
 			}
-			
-			
-			
-			
-			
+						
 			
 			var team_venues = tv || window.page_obj.team_venues;
 			
@@ -1109,7 +1116,6 @@ jQuery(function(){
 				for(var k in venue.venue_reservations){
 			
 					var reservation = jQuery.extend({}, temp, venue.venue_reservations[k]);
-					
 					collection_reservations.add(reservation);
 					
 				}
@@ -1122,11 +1128,6 @@ jQuery(function(){
 				var venue = team_venues[i];
 				
 				
-				
-				
-				
-				
-				
 				var view_tables = new Views.ReservationsHolder({
 					el: 		'#tabs-' + venue.tv_id + '-1',
 					collection: collection_reservations,
@@ -1134,10 +1135,7 @@ jQuery(function(){
 					tv_id:		venue.tv_id
 				});			
 				
-				
-				
-				
-				
+			
 				var view_check_in = new Views.ReservationsCheckinHolder({
 					el: 		'#tabs-' + venue.tv_id + '-2 div[data-checkin_tv=' + venue.tv_id + ']',
 					collection: collection_reservations,
@@ -1149,8 +1147,6 @@ jQuery(function(){
 				views.push(view_check_in);
 				
 			}
-			
-			
 			
 			
 			jQuery('a[data-action="expand-collapse-all"]').unbind('click').bind('click', function(e){
@@ -1166,14 +1162,8 @@ jQuery(function(){
 				return false;
 			});
 				
-			
-			
-
-
 		};
 		initialize();
-		
-		
 		
 		
 		
@@ -1196,7 +1186,7 @@ jQuery(function(){
 			
 			jQuery('div#tabs').tabs('select', parseInt(jQuery(this).val()));	
 			
-			var selected_tv_id = jQuery('select.venue_select option[value=' + jQuery(this).val() + ']').attr('data-tv_id');
+			selected_tv_id = jQuery('select.venue_select option[value=' + jQuery(this).val() + ']').attr('data-tv_id');
 			
 			
 			
@@ -1210,7 +1200,7 @@ jQuery(function(){
 			
 		
 		
-			var tv_display_module;
+		//	var tv_display_module;
 			for(var i in window.page_obj.team_venues){
 				
 				var venue 				= window.page_obj.team_venues[i];
@@ -1244,9 +1234,7 @@ jQuery(function(){
 					var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', jQuery(this).datepicker('getDate'));
 					tv_display_module.manual_date(iso_date);
 					
-					
 					jQuery('div[data-checkin_tv="' + selected_tv_id + '"]').html('<div style="width:100%; text-align:center;"><img style="margin:20px auto 15px auto;" src="' + window.module.Globals.prototype.global_assets + 'images/ajax.gif" /></div>');
-
 
 					tv_display_module.refresh_table_layout(selected_tv_id, iso_date, function(data){
 						
@@ -1260,7 +1248,10 @@ jQuery(function(){
 					
 		       }
 			});
+			
 			datepicker.datepicker('setDate', '0 days');			
+							
+			
 									
 		}).trigger('change');
 		
@@ -1269,6 +1260,45 @@ jQuery(function(){
 		
 		
 		
+		
+		window.refresh_reservations_date = function(){
+			
+			var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', datepicker.datepicker('getDate'));
+			tv_display_module.manual_date(iso_date);
+			
+			jQuery('div[data-checkin_tv="' + selected_tv_id + '"]').html('<div style="width:100%; text-align:center;"><img style="margin:20px auto 15px auto;" src="' + window.module.Globals.prototype.global_assets + 'images/ajax.gif" /></div>');
+
+			tv_display_module.refresh_table_layout(selected_tv_id, iso_date, function(data){
+				
+				if(!data.success)
+					return;
+				
+				initialize(data.message.team_venues);
+				
+			});
+			jQuery('#displayed_layout_date').html(datepicker.val());
+			
+		}
+		
+		
+		
+		
+		
+		//refresh guest list when new reservation approved/added
+		pusher_team_channel.bind('host_recieve', function(data){
+			
+			if(data.type == 'new_reservation'){
+				
+				var iso_date = jQuery.datepicker.formatDate('yy-mm-dd', datepicker.datepicker('getDate'));
+				if(iso_date == data.date && data.tv_id == selected_tv_id){
+					
+					window.refresh_reservations_date();
+					
+				}
+				
+			}
+			
+		});
 		
 		
 		

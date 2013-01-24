@@ -46,7 +46,7 @@
 			<% }else{ %>
 				<br/>
 				
-				<span style="text-decoration:underline; white-space:nowrap;">Check-in Notify:</span><br/>
+				<span style="white-space:nowrap;">Check-in Notify:</span><br/>
 				<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
 			
 			<% } %>
