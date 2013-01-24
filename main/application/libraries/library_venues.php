@@ -57,7 +57,7 @@ class library_venues{
 		$this->CI->load->model('model_app_data', 'app_data', true);
 		if(!$venue = $this->CI->app_data->retrieve_venue_tv_id($tv_id)){
 			
-			var_dump($this->CI->db->last_query()); die();
+		//	var_dump($this->CI->db->last_query()); die();
 			
 			//venue doesn't exist
 			show_error('Venue does not exist', 404);

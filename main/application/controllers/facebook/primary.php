@@ -6,10 +6,10 @@
 class Primary extends MY_Controller {
 	
 	// Base path of views unique to this controller
-	private $view_dir = 'front/facebook/';
-	private $header_html = '';
-	private $body_html = '';
-	private $footer_html = '';
+	private $view_dir 		= 'front/facebook/';
+	private $header_html 	= '';
+	private $body_html 		= '';
+	private $footer_html 	= '';
 	
 	/**
 	 * Controller constructor. Perform any universal operations here.
@@ -18,7 +18,7 @@ class Primary extends MY_Controller {
 	 * */
 	function __construct(){
 		parent::__construct();
-
+		
 	}
 	
 	/**
@@ -35,6 +35,9 @@ class Primary extends MY_Controller {
 		//initialize library with data stored for current page
 		$this->load->library('library_facebook_application', '', 'facebook_application');
 		$this->facebook_application->initialize();
+		
+		
+		
 		
 		
 		
@@ -175,8 +178,8 @@ class Primary extends MY_Controller {
 		
 		//make data globally available to all views
 		$this->load->vars(array(
-			'page_data' => $this->facebook_application->page_data,
-			'signed_request_data' => $this->facebook_application->signed_request_data
+			'page_data' 			=> $this->facebook_application->page_data,
+			'signed_request_data' 	=> $this->facebook_application->signed_request_data
 		));
 				
 		$this->load->vars('header_data', $header_data);
@@ -218,6 +221,95 @@ class Primary extends MY_Controller {
 	 * @return	null
 	 */
 	private function _page($arg0 = '', $arg1 = ''){
+										
+							
+							
+		if(!$this->facebook_application->page_data){
+			
+			
+			//check if this is a team-venue facebook page
+			if(isset($this->facebook_application->signed_request_data['page']['id'])){
+				
+				$page_id = $this->facebook_application->signed_request_data['page']['id'];
+				
+				//find if this page ID is linked with a TEAM_VENUE
+				
+				$this->db->select("*")
+					->from('facebook_team_venues')
+					->where(array(
+						'fan_page_id' => $page_id
+					));
+				$query = $this->db->get();
+				$result = $query->row();
+				
+								
+				if($result){
+					//YES this is a team_venue facebook fan page
+					
+					
+					
+					$this->load->library('library_venues', '', 'library_venues');
+					$this->library_venues->initialize_tv_id($result->team_venue_id);
+					
+					
+					
+					$data['guest_lists'] = $this->library_venues->retrieve_all_guest_lists();
+					$data['team_venues'] = array($this->library_venues->venue);
+					
+					
+					
+					
+					//retrieve page authorized guest lists and display?
+				//	$data['guest_lists'] = $this->facebook_application->retrieve_page_guest_lists();
+				//	$data['team_venues'] = 
+					
+					
+					
+								
+								
+					$vc_user = $this->session->userdata('vc_user');
+					if($vc_user)
+						$vc_user = json_decode($vc_user);
+					
+					//if user signed in, retrieve friend-venue activity for all venues listed
+					if($vc_user){
+									
+						//assemble venue ids for gearman job
+						$team_venue_ids = array();
+						foreach($data['team_venues'] as $tv){
+							$team_venue_ids[] = $tv->tv_id;
+						}
+						
+						$this->load->helper('run_gearman_job');
+						$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
+											'access_token' => $vc_user->access_token,
+											'team_venue_ids' => $team_venue_ids);
+						run_gearman_job('gearman_retrieve_friend_venues_activity', $arguments);
+						
+					}
+					
+											
+					$this->body_html = $this->load->view($this->view_dir . 'page/view_page_facebook_page_guest_lists', $data, true);
+				
+					return;
+					
+					
+				}
+				
+				
+			}
+		}
+							
+							
+					
+					
+					
+					
+					
+					
+					
+							
+							
 							
 		if($this->facebook_application->page_data){
 			//we know this page
@@ -268,6 +360,7 @@ class Primary extends MY_Controller {
 									'access_token' => $vc_user->access_token,
 									'team_venue_ids' => $team_venue_ids);
 				run_gearman_job('gearman_retrieve_friend_venues_activity', $arguments);
+				
 			}
 			
 									
@@ -435,8 +528,14 @@ class Primary extends MY_Controller {
 				break;
 			case 'team_guest_list_join_request':
 				
+				
+				
+				
 				$response = $this->facebook_application->team_guest_list_join_request();			
 				die(json_encode($response));
+				
+				
+				
 				
 				break;
 			case 'friend_venue_activity_retrieve':
@@ -451,14 +550,24 @@ class Primary extends MY_Controller {
 								
 								
 								
-				$tgla_id = $this->input->post('tgla_id');
-				$tv_id = $this->input->post('tv_id');
+				$tgla_id 	= $this->input->post('tgla_id');
+				$tv_id 		= $this->input->post('tv_id');
+				
+				
+		//		var_dump($this->input->post()); die();
+				
 				
 				$this->load->library('library_venues');
 				$this->library_venues->initialize_tv_id($tv_id);
 
+
+
+
+
+
 				$this->load->model('model_team_guest_lists', 'team_guest_lists', true);
 				$data['guest_list'] = $this->team_guest_lists->retrieve_individual_guest_list_for_plugin($tgla_id);
+				
 				
 				if(!$data['guest_list']){
 					show_404('Guest List Not Found');
@@ -524,38 +633,24 @@ class Primary extends MY_Controller {
 				
 				$data['venue_floorplan'] = $venue_floors;
 				// -------------------------
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
 				$guest_list_html = $this->load->view('front/venues/guest_lists/view_front_venues_profile_body_guest_lists_individual', $data, true);
-				
-				
-				
-				
-				
-				
-				
 				
 				die($guest_list_html);
 				
-				break;
-			case 'team_guest_list_join_request':
 				
+				
+				
+				break;
+	/*		case 'team_guest_list_join_request':
+
 				//This functionality was originall built into the facebook plugin, so we copy it here
 				$this->load->library('library_facebook_application', '', 'facebook_application');
 				$response = $this->facebook_application->team_guest_list_join_request();
 				die(json_encode($response));
 				
 				break;
-			default:
+	*/		default:
 				die(json_encode(array('success' => false,
 										'message' => 'invalid access attempt')));
 				break;

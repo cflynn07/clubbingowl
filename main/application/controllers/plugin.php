@@ -122,6 +122,11 @@ class Plugin extends MY_Controller {
 	 */
 	private function _page($arg0 = '', $arg1 = ''){
 		
+	
+		
+		
+		
+		
 		if($this->facebook_application->page_data){
 			//we know this page
 			

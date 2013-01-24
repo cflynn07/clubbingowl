@@ -39,6 +39,12 @@ class Library_facebook_application{
 	 */
 	public function initialize(){
 		
+		
+		
+		
+		
+		
+		
 		//parse POST fields and retrieve data / verify with private key
 		if($signed_request = $this->CI->input->post('signed_request')){
 			
@@ -88,9 +94,14 @@ class Library_facebook_application{
 				$this->page_admin = $page_admin;
 			}
 			
+			
+			
 			//retrieve data on file for this team
 			$this->CI->load->model('model_teams', 'teams', true);
 			$this->page_data = $this->CI->teams->retrieve_team($data['page']['id'], array('completed_setup' => true));
+
+
+
 
 			if(isset($this->page_data->team->team_piwik_id_site)){
 				
@@ -99,6 +110,10 @@ class Library_facebook_application{
 				$this->CI->load->vars('additional_sites_ids', array($this->page_data->team->team_piwik_id_site));
 		
 			}
+			
+			
+			
+			
 			
 		}else{
 			
@@ -135,6 +150,14 @@ class Library_facebook_application{
 				$this->page_data = $this->CI->teams->retrieve_team($fan_page_id);
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		return true;
 	}
@@ -719,7 +742,7 @@ class Library_facebook_application{
 											$share_facebook 		= false,
 											$phone_number 			= false,
 											$phone_carrier 			= false,
-											$team_venue_id 			= false,
+											$team_fan_page_id 			= false,
 											$date_check_override 	= false,
 											$approve_override 		= false,
 											$vc_user				= false,
@@ -733,16 +756,16 @@ class Library_facebook_application{
 		$share_facebook 	= (!$share_facebook) 	? $this->CI->input->post('facebook_share') 	: $share_facebook;
 		$phone_number 		= (!$phone_number) 		? $this->CI->input->post('phone_number') 	: $phone_number;
 		$phone_carrier 		= (!$phone_carrier) 	? $this->CI->input->post('phone_carrier') 	: $phone_carrier;
-		$team_venue_id 		= (!$team_venue_id) 	? $this->CI->input->post('fan_page_id') 	: $team_venue_id;
+		$team_fan_page_id 	= (!$team_fan_page_id) 	? $this->CI->input->post('fan_page_id') 	: $team_venue_id;
 		$table_min_spend	= (!$table_min_spend) 	? $this->CI->input->post('table_min_spend') : $table_min_spend;
 		
 		if(!$table_min_spend)
 			$table_min_spend = 0;
 		
-		$table_request = ($table_request == 'true' || $table_request == 1 || $table_request == '1') ? 1 : 0;
-		$text_message = ($text_message == 'true' || $text_message == 1 || $text_message == '1') ? 1 : 0;
-		$request_message = ($request_message == 'true' || $request_message == 1 || $request_message == '1') ? 1 : 0;
-		$share_facebook = ($share_facebook == 'true' || $share_facebook == 1 || $share_facebook == '1') ? 1 : 0;
+		$table_request 		= ($table_request	== 'true' || $table_request 	== 1 || $table_request 		== '1') ? 1 : 0;
+		$text_message 		= ($text_message 	== 'true' || $text_message 		== 1 || $text_message 		== '1') ? 1 : 0;
+		$request_message 	= ($request_message == 'true' || $request_message 	== 1 || $request_message 	== '1') ? 1 : 0;
+		$share_facebook 	= ($share_facebook 	== 'true' || $share_facebook 	== 1 || $share_facebook 	== '1') ? 1 : 0;
 		
 		/*
 		 
@@ -784,14 +807,14 @@ class Library_facebook_application{
 				$phone_carrier = 'sprint';
 				break;
 			default:
-				$text_message = false;
+		//		$text_message = false;
 		}
 		
 		//check to make sure user is authenticated
 		if(!$vc_user){
 			if(!$vc_user = $this->CI->session->userdata('vc_user')){
 				return array('success' => false,
-								'message' => 'User not authenticated');
+							 'message' => 'User not authenticated');
 			}
 			$vc_user = json_decode($vc_user);
 		}
@@ -799,7 +822,7 @@ class Library_facebook_application{
 		//attempt to add user to guest list
 		$this->CI->load->model('model_team_guest_lists', 'team_guest_lists', true);
 		return $this->CI->team_guest_lists->create_team_guest_list_reservation($vc_user->oauth_uid,
-																				$team_venue_id,
+																				$team_fan_page_id,
 																				$entourage, 
 																				$guest_list_id, 
 																				$table_request,

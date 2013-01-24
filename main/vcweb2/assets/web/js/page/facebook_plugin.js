@@ -109,7 +109,7 @@ jQuery(function(){
 							
 							var friend = data.user_friends[data.tv_friends_pop[i][k]];
 							
-							tv_friends_html += '<a target="_new" style="display:inline-block;" href="<?= $central->front_link_base ?>friends/' + friend.third_party_id + '/" title="' + friend.name + '">';
+							tv_friends_html += '<a target="_new" style="display:inline-block;" href="https://www.clubbingowl.com/friends/' + friend.third_party_id + '/" title="' + friend.name + '">';
 							tv_friends_html += '<img class="thumbnail" style="width:20px; height:20px;" src="' + friend.pic_square + '" alt="' + friend.name + '"> ';
 							tv_friends_html += '</a>';
 						}
@@ -145,10 +145,10 @@ jQuery(function(){
 			});
 			
 			
-			var tgla_id = jQuery(this).parent().find('span.tgla_id').html();
-			var tv_id = jQuery(this).parent().find('span.tv_id').html();
-			var content = jQuery('div#guest_list_content');
-			var content_holder = jQuery('div#guest_list_content_temp_holder');
+			var tgla_id 		= jQuery(this).parent().find('span.tgla_id').html();
+			var tv_id 			= jQuery(this).parent().find('span.tv_id').html();
+			var content 		= jQuery('div#guest_list_content');
+			var content_holder 	= jQuery('div#guest_list_content_temp_holder');
 			
 			
 			//retrieve tgla html from server
@@ -618,6 +618,8 @@ jQuery(function(){
 		
 		
 		
+		
+		
 		//Guest-list submit callback
 		var click_callback_2 = function(){
 			
@@ -908,6 +910,16 @@ jQuery(function(){
 				
 
 	}
+	
+	
+	jQuery('a.ajaxify').live('click', function(e){
+		
+		e.preventDefault();
+		
+		window.top.location.href = jQuery(this).attr('href');
+		return false;
+		
+	});
 	
 	
 	

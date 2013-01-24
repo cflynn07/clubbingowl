@@ -559,7 +559,14 @@ class Model_team_guest_lists extends CI_Model {
 	  				tgla.auto_approve 		as tgla_auto_approve,
 	  				tgla.description 		as tgla_description,
 	  				tgla.image 				as tgla_image,
-	  				tv.banned 				as tv_banned
+	  				
+	  				tv.banned 				as tv_banned,
+	  				tv.city_id 				as tv_city_id,
+	  				tv.name 				as tv_name,
+	  				tv.image 				as tv_image,
+	  				tv.id 					as tv_id,
+					
+	  				c.url_identifier		as c_url_identifier
 	  				
 	  			FROM 	teams_guest_list_authorizations tgla
 	  			
@@ -571,6 +578,9 @@ class Model_team_guest_lists extends CI_Model {
 												
 				JOIN 	teams t
 				ON 		tv.team_fan_page_id = t.fan_page_id
+				
+				JOIN 	cities c 
+				ON 		tv.city_id = c.id
 													  			
 	  			WHERE		tgla.deactivated 	= 0
 	  			AND 		tgla.team_venue_id 	= ? 
@@ -649,7 +659,7 @@ class Model_team_guest_lists extends CI_Model {
 				
 				
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 	  			
 	  			WHERE	tgla.deactivated = 0
 	  			AND 	tgla.team_venue_id = ? 
@@ -743,14 +753,43 @@ class Model_team_guest_lists extends CI_Model {
 	  			ON 		tv.team_fan_page_id	= t.fan_page_id
 	  			
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 	  			
 	  			WHERE	tgla.deactivated = 0
 	  			AND 	tgla.id = ?
 	  			AND 	t.completed_setup = 1
 	  			AND 	tv.banned = 0";
 	  	$query = $this->db->query($sql, array($tgla_id));
-	  	return $query->row();
+	  	$result = $query->row();
+	  	
+	  	
+	  	if(!$result){
+					
+			return $result;	
+			
+		}
+		
+	  	
+	  	//attach latest status
+		$this->db->select('
+				glas.id 				as glas_id,
+				glas.status 			as glas_status,
+				glas.create_time 		as glas_create_time,
+				glas.users_oauth_uid 	as glas_users_oauth_uid')
+			->from('guest_list_authorizations_statuses glas')	
+			->where(array(
+				'glas.team_guest_list_authorizations_id' => $result->tgla_id
+			))
+			->order_by('glas_id', 'desc')
+			->limit(1, 0);
+		$query = $this->db->get();
+		$result->status = $query->row();
+		
+		if($result->status)
+			$result->status->glas_human_date = date('l m/d/y h:i:s A', $result->status->glas_create_time);
+		
+		
+		return $result;
 		
 	 }
 	/*-------------------------------------------------------------------------
