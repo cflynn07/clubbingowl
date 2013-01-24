@@ -119,7 +119,7 @@ jQuery(function(){
 					var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
 					
 					jQuery.ajax({
-						url: window.location,
+						url: window.location.href,
 						type: 'post',
 						data: {
 							ci_csrf_token: cct,
