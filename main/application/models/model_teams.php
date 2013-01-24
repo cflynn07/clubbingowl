@@ -808,6 +808,10 @@ class Model_teams extends CI_Model {
 				
 		$query = $this->db->query($sql);
 
+
+
+
+
 		if(!$team = $query->row())
 			return false;
 				
@@ -819,11 +823,15 @@ class Model_teams extends CI_Model {
 		
 		/* -------------- retrieve team venues -------------- */
 		$sql = "SELECT
+		
+		
 					tv.id				as team_venue_id,
 					tv.name				as team_venue_name,
 					tv.image 			as team_venue_image,
 					tv.description		as team_venue_description,
 					tv.street_address	as team_venue_street_address,
+					
+					
 					tv.monday			as team_venue_monday,
 					tv.tuesday			as team_venue_tuesday,
 					tv.wednesday		as team_venue_wednesday,
@@ -837,7 +845,10 @@ class Model_teams extends CI_Model {
 		$query = $this->db->query($sql);		
 		$team_data->team_venues = $query->result();
 		
-	//	var_dump($team_data);
+		
+	
+
+
 		
 		return $team_data;
 	}

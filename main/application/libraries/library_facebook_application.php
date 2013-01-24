@@ -724,9 +724,62 @@ class Library_facebook_application{
 	function retrieve_team_venues($team_fan_page_id = false){
 		$this->CI->load->model('model_users_managers', 'users_managers', true);
 		if($team_fan_page_id)
-			return $this->CI->users_managers->retrieve_team_venues($team_fan_page_id);
+			$team_venues = $this->CI->users_managers->retrieve_team_venues($team_fan_page_id);
 		else
-			return $this->CI->users_managers->retrieve_team_venues($this->page_data->team->team_fan_page_id);
+			$team_venues = $this->CI->users_managers->retrieve_team_venues($this->page_data->team->team_fan_page_id);
+		
+		
+		foreach($team_venues as &$tv){
+			
+			$sql = "SELECT DISTINCT
+						
+							up.id					as up_id,
+							up.last_login_time		as up_last_login_time,
+							up.public_identifier	as up_public_identifier,
+							up.biography			as up_biography,
+							up.profile_image		as up_profile_image,
+							c.name					as c_name,
+							c.url_identifier		as c_url_identifier,
+							u.full_name				as u_full_name,
+							u.first_name			as u_first_name,
+							u.last_name				as u_last_name,
+							t.name 					as t_name
+						
+						FROM 	promoters_guest_list_authorizations pgla 
+						
+						JOIN 	users_promoters up 
+						ON 		pgla.user_promoter_id = up.id
+						
+						JOIN	users u 
+						ON 		up.users_oauth_uid = u.oauth_uid
+						
+						JOIN 	promoters_teams pt
+						ON 		pt.promoter_id = up.id
+						
+						JOIN	teams t 
+						ON 		pt.team_fan_page_id = t.fan_page_id
+						
+						JOIN	cities c 
+						ON		t.city_id = c.id
+						
+						JOIN 	team_venues tv 
+						ON 		pgla.team_venue_id = tv.id
+						
+						WHERE	t.completed_setup = 1
+						AND 	pt.approved = 1 
+						AND 	pt.banned = 0 
+						AND 	pt.quit = 0
+						AND 	tv.banned = 0
+						AND 	up.completed_setup = 1
+						AND 	up.banned = 0
+						AND 	pgla.team_venue_id = ?";
+			$query = $this->CI->db->query($sql, array($tv->tv_id));
+			$tv->venue_promoters = $query->result();
+			
+		}
+		
+		return $team_venues;
+		
 	}
 	
 	/**

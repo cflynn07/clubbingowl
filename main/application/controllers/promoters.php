@@ -468,6 +468,7 @@ class Promoters extends MY_Controller {
 		}
 		
 		
+		
 		$promoters_ids = array_unique($promoters_ids);
 		
 		
@@ -483,7 +484,14 @@ class Promoters extends MY_Controller {
 				'promoters_ids'		=> $promoters_ids
 			);
 			run_gearman_job('gearman_promoter_friend_activity', $arguments);
+			
 		}
+
+
+
+
+
+
 
 
 		$data['city'] = (isset($city)) ? $city : false;

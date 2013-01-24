@@ -4,7 +4,260 @@ if(typeof window.vc_page_scripts === 'undefined')
 jQuery(function(){
 	
 	
+	jQuery.extend({
+		/**
+	     * FQL query to retrieve user info for given uids
+	     */
+	    fbUserLookup: function(users, fields, callback){
+	    	
+	    	fbEnsureInit(function(){
+	    			    		
+	    		if(users && users.length && users.length > 0){
+	    			
+	    			if(fields.length == 0)
+	    				fields = "uid, name, first_name, last_name, pic_square, pic_big";
+	    			
+	    			var fql = "SELECT " + fields + " FROM user WHERE ";
+	    			for(var i = 0; i < users.length; i++){
+						if(i == (users.length - 1)){
+							fql += "uid = " + users[i];
+						}else{
+							fql += "uid = " + users[i] + " OR ";
+						}
+					}
+					
+	    			
+	    			FB.api({
+						method: 'fql.query', 
+						query: fql
+					}, function(rows){
+						callback(rows);
+					});
+					
+	    			
+	    		}else{
+    			
+	    			callback([]);
+	    			
+	    		}
+	    	});
+	    }
+	    
+	});
+	
+	
 	window.vc_page_scripts.facebook_plugin_init = function(){
+			
+		var page_items = {
+			retrieve_lock: false,
+			items_iterator: false,
+			retrieve_feed: function(request_first){
+				
+				if(page_items.retrieve_lock)
+					return;
+				page_items.retrieve_lock = true;
+				
+				
+				
+				
+				
+				
+				var incrementor = 0;
+				
+				var retrieve_function = function(){
+									
+					if(incrementor > 4){
+						incrementor = 0;
+						return; //failed
+					}
+					
+					//cross-site request forgery token, accessed from session cookie
+					//requires jQuery cookie plugin
+					var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
+					
+					jQuery.ajax({
+						url: window.location.href,
+						type: 'post',
+						data: {
+						 	ci_csrf_token: 	cct,
+							vc_method: 		'promoter_friends_retrieve',
+							status_check: 	true
+						},
+						cache: false,
+						dataType: 'json',
+						success: function(data, textStatus, jqXHR){
+							
+							if(data.trigger_refresh){
+								window.location.reload();
+								return;
+							}
+							
+							page_items.retrieve_lock = false;
+						
+							if(data.success){
+											
+								console.log('success');
+								page_items.display(data.message);
+								
+							}else{
+								
+								incrementor++;
+								var timeout = setTimeout(retrieve_function, 1000);
+								
+							}
+						
+						}
+					});
+				}
+				
+				
+				
+				//If this is an initial request, start job w/ server
+				if(request_first){
+					//cross-site request forgery token, accessed from session cookie
+					//requires jQuery cookie plugin
+					var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
+					
+					jQuery.ajax({
+						url: window.location,
+						type: 'post',
+						data: {
+							ci_csrf_token: cct,
+							vc_method: 'promoter_friends_retrieve'
+						},
+						cache: false,
+						dataType: 'json',
+						success: function(data, textStatus, jqXHR){
+							
+							if(data.success)
+								//start first check 1 second after
+								var timeout = setTimeout(retrieve_function, 1000);
+
+						}
+					});
+					
+					
+					
+					
+					return;
+				}else{
+					retrieve_function();
+				}
+				
+			},
+			display: function(data){
+				
+				if(!data.promoters_users_friends){
+					return;
+				}
+				
+				var user_ids = [];
+				for(var i in data.promoters_users_friends){
+					var up = data.promoters_users_friends[i];
+					
+					var promoter_friends_div = jQuery('div[data-up_id=' + i + ']');
+					
+					promoter_friends_div.append('<span style="font-size:12px; margin:0 5px 0 0;">' + up.length + ' Friend(s)</span>');
+										
+					for(var k=0; k < up.length; k++){
+						user_ids.push(up[k]);
+						
+						
+						promoter_friends_div.append('<span data-oauth_uid=' + up[k] + '></span>');
+		
+					}
+									
+				}
+			
+			
+				console.log(data.promoters_users_friends);
+			
+			
+				jQuery('img.loading_indicator').hide();
+				
+				jQuery.fbUserLookup(user_ids, 'uid, third_party_id, name, first_name, last_name, pic_square, pic_big', function(rows){
+					console.log(rows);
+					
+					//jQuery('img.loading_indicator').hide();
+					
+					for(var i in rows){
+						
+						var user = rows[i];
+						jQuery('span[data-oauth_uid=' + user.uid + ']').html('<a class="ajaxify" href="' + window.module.Globals.prototype.front_link_base + 'friends/' + user.third_party_id + '/"><img src="' + user.pic_square + '" class="friend_img" style="" /></a>');
+						
+						
+					}
+					
+					
+				});
+			
+			}
+			
+			
+			
+			
+			
+			
+			
+		};
+				
+				
+				
+		var vc_user = jQuery.cookies.get('vc_user');
+		if(vc_user){
+			page_items.retrieve_feed(false);
+		}
+	
+	
+	
+	
+	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 
 		// --------------------- facebook plugin object ---------------------
@@ -229,6 +482,9 @@ jQuery(function(){
 			
 			unauth_content.css('display', 'none');
 			auth_content.css('display', 'block');
+			
+			
+			page_items.retrieve_feed(true);
 			
 			venue_items.retrieve_feed(true);
 			

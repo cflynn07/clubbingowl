@@ -130,12 +130,118 @@
 			
 		</ul>
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<ul class="venue-list" style="margin-top:20px;">
+		
+		
+		<?php $displayed_promoters = array(); ?>
+		
+		<?php foreach($team_venues as $venue): ?>
+			<?php foreach($venue->venue_promoters as $key => $pro): ?>
+				
+				<?php 
+					
+					if(in_array($pro->up_id, $displayed_promoters)){
+					
+						continue;
+					
+					}
+					
+					$displayed_promoters[] = $pro->up_id;
+					
+				?>
+				
+			
+			<?php
+				$pro_gl_link = $central->front_link_base . 'promoters/' . $pro->up_public_identifier . '/guest_lists/';
+			?>
+			
+			<li>
+				
+				
+				
+				<table class="pro_overview">
+					<tr>
+						<td class="overview_pic_td">
+							<a class="ajaxify_t3" href="<?= $pro_gl_link ?>">
+						   		<img style="border: 1px solid lightgray; display:inline-block; vertical-align:top;" class="venue-image" src="<?= $central->s3_uploaded_images_base_url ?>profile-pics/<?= $pro->up_profile_image ?>_t.jpg" alt="" />
+						   	</a>
+						</td>
+						<td>
+							<div class="name_block" style="display:inline-block;clear:right;">
+							    <a class="ajaxify_t3" href="<?= $pro_gl_link ?>"><?= $pro->u_full_name ?></a>
+							    <p class="sub_details"><?= $pro->t_name ?></p>
+								
+								
+								
+								<?php if(TRUE): ?>
+								<div class="auth_content auth_clear_content" data-up_id="<?= $pro->up_id ?>" class="friends" style="padding:10px 0 0 0; border-top:1px dashed #CCC; border-bottom:1px dashed #CCC;">
+									<img class="loading_indicator" style="margin-left:auto; margin-right:auto;" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />									
+								</div>
+								<?php endif; ?>						
+			
+							</div>
+						</td>
+					</tr>
+					
+				</table>
+				
+				
+				
+	
+				
+				
+			
+			
+			</li>	
+			
+			
+			
+			
+			
+			<?php if(($key + 1) % 2 === 0): ?>
+				<div class="data_clear_2" data-clear-2="<?= $key ?>" style="clear:both;"></div>
+			<?php endif; ?>
+							
+			<?php if(($key + 1) % 3 === 0): ?>
+				<div class="data_clear_3" data-clear-3="<?= $key ?>" style="clear:both;"></div>
+			<?php endif; ?>
+			
+			
+		
+			<?php endforeach; ?>
+		<?php endforeach; ?>
+	</ul>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<div style="margin-bottom:15px;margin-left:-10px;">
 			<div class="fb-like-box" data-href="http://www.facebook.com/clubbing-owl" data-width="292" data-colorscheme="light" data-show-faces="false" data-stream="false" data-header="false"></div> 
 		</div>
 		
 		<div style="padding-top:0px;border-bottom:1px dashed #CCC;padding-bottom:4px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
 		
+
+		
+
 
 	</div><!--content-->
 	

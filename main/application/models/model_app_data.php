@@ -501,7 +501,8 @@ class Model_app_data extends CI_Model {
 						c.url_identifier		as c_url_identifier,
 						u.full_name				as u_full_name,
 						u.first_name			as u_first_name,
-						u.last_name				as u_last_name
+						u.last_name				as u_last_name,
+						t.name 					as t_name
 					
 					FROM 	promoters_guest_list_authorizations pgla 
 					

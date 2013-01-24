@@ -140,10 +140,10 @@ class Plugin extends MY_Controller {
 				
 				
 				
+				
 				$this->load->library('library_venues', '', 'library_venues');
 				$this->library_venues->initialize_tv_id($tv_id);
 				
-								
 								
 								
 				if($this->library_venues->venue){
@@ -154,6 +154,28 @@ class Plugin extends MY_Controller {
 					$data['guest_lists'] = $this->library_venues->retrieve_all_guest_lists();
 					$data['team_venues'] = array($this->library_venues->venue);
 					
+					
+					$promoters_ids = array();
+					foreach($data['team_venues'] as $tv){
+						foreach($tv->venue_promoters as $pro){
+							$promoters_ids[] = $pro->up_id;
+						}
+					}
+					$promoters_ids = array_unique($promoters_ids);
+		
+					//additional promoter information specific to this page
+					if($vc_user = $this->session->userdata('vc_user')){
+						$vc_user = json_decode($vc_user);
+						
+						$this->load->helper('run_gearman_job');
+						$arguments = array(
+							'user_oauth_uid' 	=> $vc_user->oauth_uid,
+							'access_token' 		=> $vc_user->access_token,
+							'promoters_ids'		=> $promoters_ids
+						);
+						run_gearman_job('gearman_promoter_friend_activity', $arguments);
+						
+					}
 					
 					
 								
@@ -230,7 +252,32 @@ class Plugin extends MY_Controller {
 			$data['guest_lists'] = $this->facebook_application->retrieve_page_guest_lists();
 			$data['team_venues'] = $this->facebook_application->retrieve_team_venues();
 						
-						
+			
+			
+			$promoters_ids = array();
+			foreach($data['team_venues'] as $tv){
+				foreach($tv->venue_promoters as $pro){
+					$promoters_ids[] = $pro->up_id;
+				}
+			}
+			$promoters_ids = array_unique($promoters_ids);
+
+			//additional promoter information specific to this page
+			if($vc_user = $this->session->userdata('vc_user')){
+				$vc_user = json_decode($vc_user);
+				
+				$this->load->helper('run_gearman_job');
+				$arguments = array(
+					'user_oauth_uid' 	=> $vc_user->oauth_uid,
+					'access_token' 		=> $vc_user->access_token,
+					'promoters_ids'		=> $promoters_ids
+				);
+				run_gearman_job('gearman_promoter_friend_activity', $arguments);
+				
+			}
+			
+			
+				
 			$vc_user = $this->session->userdata('vc_user');
 			if($vc_user)
 				$vc_user = json_decode($vc_user);
@@ -336,6 +383,178 @@ class Plugin extends MY_Controller {
 		
 		
 		switch($vc_method){
+			case 'promoter_friends_retrieve':
+				
+				
+				if(!$vc_user)
+					die(json_encode(array('success' => false)));
+					
+				
+				if($this->input->post('status_check')){
+					//check to see if job complete
+					
+					$this->load->helper('check_gearman_job_complete');
+					check_gearman_job_complete('gearman_promoter_friend_activity');
+					
+				}else{
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					if(!$this->facebook_application->page_data){
+			
+						
+						//check if this is a team-venue facebook page
+						if($this->input->get('tv_id') !== false){
+							
+							$tv_id = $this->input->get('tv_id');						
+							
+							
+							
+							$this->load->library('library_venues', '', 'library_venues');
+							$this->library_venues->initialize_tv_id($tv_id);
+							
+											
+											
+							if($this->library_venues->venue){
+								//YES this is a team_venue facebook fan page
+								
+								
+								
+								$data['guest_lists'] = $this->library_venues->retrieve_all_guest_lists();
+								$data['team_venues'] = array($this->library_venues->venue);
+								
+								
+								$promoters_ids = array();
+								foreach($data['team_venues'] as $tv){
+									foreach($tv->venue_promoters as $pro){
+										$promoters_ids[] = $pro->up_id;
+									}
+								}
+								$promoters_ids = array_unique($promoters_ids);
+					
+								//additional promoter information specific to this page
+								if($vc_user = $this->session->userdata('vc_user')){
+									$vc_user = json_decode($vc_user);
+									
+									$this->load->helper('run_gearman_job');
+									$arguments = array(
+										'user_oauth_uid' 	=> $vc_user->oauth_uid,
+										'access_token' 		=> $vc_user->access_token,
+										'promoters_ids'		=> $promoters_ids
+									);
+									run_gearman_job('gearman_promoter_friend_activity', $arguments);
+									
+								}
+								
+								
+											
+											
+								$vc_user = $this->session->userdata('vc_user');
+								if($vc_user)
+									$vc_user = json_decode($vc_user);
+								
+								//if user signed in, retrieve friend-venue activity for all venues listed
+								if($vc_user){
+												
+									//assemble venue ids for gearman job
+									$team_venue_ids = array();
+									foreach($data['team_venues'] as $tv){
+										$team_venue_ids[] = $tv->tv_id;
+									}
+									
+									$this->load->helper('run_gearman_job');
+									$arguments = array('user_oauth_uid' => $vc_user->oauth_uid,
+														'access_token' => $vc_user->access_token,
+														'team_venue_ids' => $team_venue_ids);
+									run_gearman_job('gearman_retrieve_friend_venues_activity', $arguments);
+									
+								}
+								
+														
+								$this->body_html = $this->load->view($this->view_dir . 'page/view_page_facebook_page_guest_lists', $data, true);
+							
+								return;
+								
+								
+							}
+							
+							
+						}
+					}
+					
+		
+		
+		
+		
+		
+		
+		
+		
+						
+					if($this->facebook_application->page_data){
+						//we know this page
+						
+						$lang = 'en';
+						$data['lang'] 		= $lang;
+						
+						
+						//retrieve page authorized guest lists and display?
+						$data['guest_lists'] = $this->facebook_application->retrieve_page_guest_lists();
+						$data['team_venues'] = $this->facebook_application->retrieve_team_venues();
+									
+									
+									
+						$promoters_ids = array();
+						foreach($data['team_venues'] as $tv){
+							foreach($tv->venue_promoters as $pro){
+								$promoters_ids[] = $pro->up_id;
+							}
+						}
+						$promoters_ids = array_unique($promoters_ids);
+			
+						//additional promoter information specific to this page
+						if($vc_user = $this->session->userdata('vc_user')){
+							$vc_user = json_decode($vc_user);
+							
+							$this->load->helper('run_gearman_job');
+							$arguments = array(
+								'user_oauth_uid' 	=> $vc_user->oauth_uid,
+								'access_token' 		=> $vc_user->access_token,
+								'promoters_ids'		=> $promoters_ids
+							);
+							run_gearman_job('gearman_promoter_friend_activity', $arguments);
+							
+						}
+						
+						die(json_encode(array('success' => true)));
+																		
+					}
+
+
+
+
+
+
+
+
+					
+			
+				}
+				
+				
+				break;
+				
+				
 			case 'setup_next_step': //requests next step in signup process
 				
 				$response = $this->facebook_application->setup_next_step();

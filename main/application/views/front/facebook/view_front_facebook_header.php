@@ -4,7 +4,7 @@
 <HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE"> 
 <title>
 	<?= $page_data->team->team_name ?>
-	<?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : ' | VibeCompass on Facebook | ' ?>
+	<?= (isset($header_custom->title_prefix)) ? $header_custom->title_prefix : ' | ClubbingOwl on Facebook | ' ?>
 	<?= $central->title ?>
 </title>
 
