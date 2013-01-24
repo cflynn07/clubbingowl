@@ -20,7 +20,7 @@
 	
 	
 	vc_plugin.style.width = '650px';
-	vc_plugin.style.height = '1300px';
+	vc_plugin.style.height = '1600px';
 	vc_plugin.style.border = '1px solid #CCC';
 	vc_plugin.style.marginLeft = 'auto';
 	vc_plugin.style.marginRight = 'auto';

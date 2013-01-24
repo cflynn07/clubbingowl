@@ -255,12 +255,22 @@ class Plugin extends MY_Controller {
 			
 			
 			$promoters_ids = array();
-			foreach($data['team_venues'] as $tv){
-				foreach($tv->venue_promoters as $pro){
+			foreach($data['team_venues'] as &$tv){
+				foreach($tv->venue_promoters as $key => $pro){
+					
+					if($pro->t_fan_page_id !== $this->facebook_application->page_data->team->team_fan_page_id){
+						unset($tv->venue_promoters[$key]);
+						continue;
+					}
+					
 					$promoters_ids[] = $pro->up_id;
 				}
-			}
+			}unset($tv);
 			$promoters_ids = array_unique($promoters_ids);
+			
+			
+			
+			
 
 			//additional promoter information specific to this page
 			if($vc_user = $this->session->userdata('vc_user')){

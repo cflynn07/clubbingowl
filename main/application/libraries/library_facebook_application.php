@@ -743,7 +743,8 @@ class Library_facebook_application{
 							u.full_name				as u_full_name,
 							u.first_name			as u_first_name,
 							u.last_name				as u_last_name,
-							t.name 					as t_name
+							t.name 					as t_name,
+							t.fan_page_id 			as t_fan_page_id
 						
 						FROM 	promoters_guest_list_authorizations pgla 
 						

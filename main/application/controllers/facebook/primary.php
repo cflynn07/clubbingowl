@@ -364,14 +364,21 @@ class Primary extends MY_Controller {
 			$data['guest_lists'] = $this->facebook_application->retrieve_page_guest_lists();
 			$data['team_venues'] = $this->facebook_application->retrieve_team_venues();
 						
-						
+	//		Kint::dump($this->facebook_application);
 						
 			$promoters_ids = array();
-			foreach($data['team_venues'] as $tv){
-				foreach($tv->venue_promoters as $pro){
+			foreach($data['team_venues'] as &$tv){
+				foreach($tv->venue_promoters as $key => $pro){
+					
+					if($pro->t_fan_page_id !== $this->facebook_application->page_data->team->team_fan_page_id){
+						unset($tv->venue_promoters[$key]);
+						continue;
+					}
+					
 					$promoters_ids[] = $pro->up_id;
 				}
-			}
+			}unset($tv);
+			
 			$promoters_ids = array_unique($promoters_ids);
 
 			//additional promoter information specific to this page

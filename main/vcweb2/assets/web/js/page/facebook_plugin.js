@@ -155,9 +155,16 @@ jQuery(function(){
 				for(var i in data.promoters_users_friends){
 					var up = data.promoters_users_friends[i];
 					
-					var promoter_friends_div = jQuery('div[data-up_id=' + i + ']');
 					
-					promoter_friends_div.append('<span style="font-size:12px; margin:0 5px 0 0;">' + up.length + ' Friend(s)</span>');
+					
+					var promoter_friends_div = jQuery('div[data-up_id=' + i + ']');
+					promoter_friends_div.empty();
+					
+					if(up.length === 0){
+						continue;
+					}
+					
+					promoter_friends_div.append('<span style="font-size:12px; margin:0 5px 0 0;">' + up.length + ' Friend(s)</span><br/>');
 										
 					for(var k=0; k < up.length; k++){
 						user_ids.push(up[k]);
