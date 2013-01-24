@@ -173,13 +173,13 @@
 				<table class="pro_overview">
 					<tr>
 						<td class="overview_pic_td">
-							<a class="ajaxify_t3" href="<?= $pro_gl_link ?>">
+							<a class="ajaxify ajaxify_t3" href="<?= $pro_gl_link ?>">
 						   		<img style="border: 1px solid lightgray; display:inline-block; vertical-align:top;" class="venue-image" src="<?= $central->s3_uploaded_images_base_url ?>profile-pics/<?= $pro->up_profile_image ?>_t.jpg" alt="" />
 						   	</a>
 						</td>
 						<td>
 							<div class="name_block" style="display:inline-block;clear:right;">
-							    <a class="ajaxify_t3" href="<?= $pro_gl_link ?>"><?= $pro->u_full_name ?></a>
+							    <a class="ajaxify ajaxify_t3" href="<?= $pro_gl_link ?>"><?= $pro->u_full_name ?></a>
 							    <p class="sub_details"><?= $pro->t_name ?></p>
 								
 								
