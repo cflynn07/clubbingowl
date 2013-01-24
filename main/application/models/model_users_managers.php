@@ -99,7 +99,7 @@ class Model_users_managers extends CI_Model {
 				ON 		tvp.team_fan_page_id = t.fan_page_id
 				
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 				
 				WHERE 	t.fan_page_id = ?
 				AND 	tv.banned = 0

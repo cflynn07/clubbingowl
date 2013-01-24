@@ -760,11 +760,11 @@ class Library_facebook_application{
 						JOIN	teams t 
 						ON 		pt.team_fan_page_id = t.fan_page_id
 						
-						JOIN	cities c 
-						ON		t.city_id = c.id
-						
 						JOIN 	team_venues tv 
 						ON 		pgla.team_venue_id = tv.id
+						
+						JOIN	cities c 
+						ON		tv.city_id = c.id
 						
 						WHERE	t.completed_setup = 1
 						AND 	pt.approved = 1 
