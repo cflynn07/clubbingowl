@@ -521,6 +521,50 @@ jQuery(function(){
 				
 				last_checkin_val = jQuery(e.currentTarget).val();
 				
+				
+				
+				
+				/*
+				jQuery.background_ajax({
+					data: {
+						vc_method: 			'category_change_event',
+						user_type: 			'entourage',
+						list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
+						pglr_id: 			_this.model.get('pglr_id'),
+						pglre_id: 			_this.model.get('pglre_id'),
+						tglr_id: 			_this.model.get('tglr_id'),
+						tglre_id: 			_this.model.get('tglre_id'),
+						checked: 			checked,
+						category: 			category,
+						category_value: 	category_value,
+						additional_guests: 	additional_guests,
+						hcd_id: 			_this.model.get('hcd_id'),
+						tv_id: 				_this.model.get('tv_id'),
+						socket_id:			window.team_chat_object.pusher.connection.socket_id
+					}, 
+					success: function(data){
+						
+						el.button('enable').button('refresh');
+						
+						if(data.success)
+							if(checked){
+								_this.model.set({
+									hc_id: true
+								});
+							}else{
+								_this.model.set({
+									hc_id: null
+								});
+							}
+						
+
+					}
+				});
+				*/
+				
+				
+				
+				
 			}
 		}; Views.ReservationCheckinEnt = Backbone.View.extend(Views.ReservationCheckinEnt);
 		
