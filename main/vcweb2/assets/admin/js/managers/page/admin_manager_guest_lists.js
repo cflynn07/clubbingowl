@@ -1418,17 +1418,17 @@ jQuery(function(){
 						
 						jQuery('#lists_container > table').width(jQuery('#lists_container').width());
 						
-						
-						jQuery('#lists_container > table').dataTable({
-							bJQueryUI: 		true,
-							bDestroy: 		true,
-							bAuthWidth: 	true,
-							 "aLengthMenu": [
-						         [-1, 		20, 50, 100],
-						         ["All", 	20, 50, 100]
-						     ]
-						});
-						
+						if(jQuery('#lists_container > table > tbody > tr').length > 1)
+							jQuery('#lists_container > table').dataTable({
+								bJQueryUI: 		true,
+								bDestroy: 		true,
+								bAuthWidth: 	true,
+								 "aLengthMenu": [
+							         [-1, 		20, 50, 100],
+							         ["All", 	20, 50, 100]
+							     ]
+							});
+							
 						
 					});
 					
