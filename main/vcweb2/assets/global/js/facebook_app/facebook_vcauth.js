@@ -274,16 +274,16 @@ jQuery(function(){
 			
 			//Construct optional menu options
 			if(vc_user.vc_promoter)
-				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/">Promoter Admin Area</a></li>';
+				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/">Promoter Admin</a></li>';
 			
 			if(vc_user.vc_manager)
-				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/managers/">Manager Admin Area</a></li>';
+				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/managers/">Manager Admin</a></li>';
 			
 			if(vc_user.vc_super_admin)
-				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/super_admins/">Super Admin Area</a></li>';
+				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/super_admins/">Super Admin</a></li>';
 
 			if(vc_user.host)
-				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/hosts/">Host Admin Area</a></li>';
+				menu_html += '<li><a target="_new" href="' + window.module.Globals.prototype.front_link_base + 'admin/hosts/">Host Admin</a></li>';
 		
 //			menu_html += '<li><a id="vc_fb_logout" href="#">Logout</a></li>'
 			
