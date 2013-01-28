@@ -684,8 +684,8 @@ jQuery(function(){
 																
 								delete vc_user.invitations[ui_i];
 								
-								var type = tr.parents('tr').find('td.type').html();		
-								
+							//	var type = tr.parents('tr').find('td.type').html();		
+								var type = tr.find('td.type').html();
 								
 								
 								if(type == 'promoter'){
