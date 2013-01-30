@@ -128,7 +128,14 @@
 											<div class="ui-widget-header">
 												<span>"<?= $wgl->pgla_name ?>" @ <span style="font-weight: bold;"><?= $wgl->tv_name ?></span></span>
 												<span style="float:right;"><?= date('l F j, Y', strtotime(rtrim($wgl->pgla_day, 's'))) ?></span>
-											</div>			
+											</div>
+												
+												<?php
+													$pgla_link = "https://www.clubbingowl.com/promoters/" . $wgl->up_public_identifier . "/guest_lists/" . str_replace(' ', '_', $wgl->pgla_name) . "/";
+												?>
+												
+												<a href="<?= $pgla_link ?>" target="_new"><?= $pgla_link ?></a>
+														
 												<table class="normal tablesorter guestlists" style="width: 100%;">
 													<thead>
 														<tr>
