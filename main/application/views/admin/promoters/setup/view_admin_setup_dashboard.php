@@ -66,9 +66,9 @@
 <div id="step_2_content" style="display:none;">
 	<fieldset>
 			<legend>Upload Profile Picture</legend> 
-						
-			<img id="profile_pic" src="http://placehold.it/200x200?text=" alt="profile picture" />
-				
+			
+			<img id="profile_pic" src="http://placehold.it/240x320?text=" alt="profile picture" />
+			<p>*Must exceed 240px width & 320px height</p>
 						<?= ''//form_open('#', array('id' => 'promoter_pic_crop_form', 'style' => 'display:none;')) ?>
 				<form id="my_profile_pic_form" action="#" style="display:none;">	
 					<input type="hidden" name="width" value="0" id="width" />
