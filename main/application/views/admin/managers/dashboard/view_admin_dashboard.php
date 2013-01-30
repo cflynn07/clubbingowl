@@ -40,7 +40,7 @@
 		<table class="normal" style="width:100%;vertical-align:text-top !important;">
 			<thead>
 				<tr>
-					<th>Head User</th>
+					<th>Guest</th>
 					<th>Promoter</th>
 					<th>Venue</th>
 					<th>Guest List</th>

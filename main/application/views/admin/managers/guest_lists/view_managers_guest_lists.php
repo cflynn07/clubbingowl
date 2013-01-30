@@ -203,7 +203,7 @@
 																<table class="normal tablesorter guestlists" style="width: 100%">
 																	<thead>
 																		<tr>
-																			<th>Head User</th>
+																			<th>Guest</th>
 																			<th>Picture</th>
 																			<th>Messages</th>
 																			<th>Table</th>

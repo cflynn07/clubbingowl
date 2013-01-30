@@ -41,7 +41,7 @@
 		
 		
 		<tr>
-			<td>Head User</td>
+			<td>Guest</td>
 			<td>
 				
 				<% if(head_user && head_user != 'null'){ %>

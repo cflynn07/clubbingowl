@@ -27,7 +27,7 @@
 		<tr>
 			<th>Status</th>
 			<th>Data</th>
-			<th>Head User</th>
+			<th>Guest</th>
 			<th data-iphone_hide>Guest List</th>
 			<th data-iphone_hide>Messages</th>
 		</tr>

@@ -263,7 +263,7 @@
 								<th style="display:none;">glr_id</th>
 								<?php endif; ?>
 								
-								<th class="header sorttable_alpha">Head User</th>
+								<th class="header sorttable_alpha">Guest</th>
 								<th class="header sorttable_nosort">Image</th>
 								<th class="header sorttable_nosort">Host Notes</th>
 								<th class="header">Promoter</th>

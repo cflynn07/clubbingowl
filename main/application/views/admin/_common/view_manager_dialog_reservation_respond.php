@@ -525,7 +525,7 @@ p.assign_title span.venue_name{
 	<div class="client" style="width:100%;">
 		<table class="normal" style="margin-left:auto; margin-right:auto;">
 			<thead>
-				<th>Head User</th>
+				<th>Guest</th>
 				<th>Picture</th>
 				<th>Venue</th>
 				<th>Promoter</th>
