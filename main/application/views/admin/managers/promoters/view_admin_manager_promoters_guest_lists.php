@@ -64,7 +64,7 @@
 						<?php endforeach; ?>
 						</ul>
 					</div>
-					
+					<?php Kint::dump($promoters); ?>
 					<?php foreach($promoters as $key => $promoter): ?>
 						
 						<?php if($promoter->up_completed_setup != '1'){ continue; } ?>
@@ -131,11 +131,12 @@
 											</div>
 												
 												<?php
-													$pgla_link = "https://www.clubbingowl.com/promoters/" . $wgl->up_public_identifier . "/guest_lists/" . str_replace(' ', '_', $wgl->pgla_name) . "/";
+													$pgla_link = $central->front_link_base . "promoters/" . $promoter->up_public_identifier . "/guest_lists/" . str_replace(' ', '_', $wgl->pgla_name) . "/";
 												?>
 												
-												<a href="<?= $pgla_link ?>" target="_new"><?= $pgla_link ?></a>
-														
+												<a style="margin:5px;" href="<?= $pgla_link ?>" target="_new"><?= $pgla_link ?></a>
+												<br/>
+												
 												<table class="normal tablesorter guestlists" style="width: 100%;">
 													<thead>
 														<tr>
