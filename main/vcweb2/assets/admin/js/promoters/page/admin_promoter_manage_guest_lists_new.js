@@ -124,7 +124,7 @@ jQuery(function(){
 	        	
 	        	console.log('onComplete');
 	        	jQuery('#ajax_loading_image').hide();
-	         	jQuery('#upload_new_image').hide();
+	         	jQuery('#upload_new_image').show();
 	         	jQuery("input[name=file]").val('');
 	         	
 
