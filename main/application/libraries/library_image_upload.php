@@ -270,12 +270,7 @@ class Library_image_upload{
 		/* ---------------------- end convert to jpg ----------------------*/	
 
 		
-		
-		//if image exceeds a certain height/width -- resize to max
-		
-			
-			
-			
+		//resize if too large
 		if($image_width > $max_resize_width){
 			
 			$resize_pct = ((float)$max_resize_width / $image_width);
@@ -304,12 +299,48 @@ class Library_image_upload{
 									
 			//save image temporarily on server filesystem
 			imagejpeg($cropped_image, $image_upload_data['full_path']);
+			
+			
+			
 			$image_width = $new_image_width;
 			$image_height = $new_image_height;
-			
+			unset($temp_image);
 		}
 		
 		
+		//if landscape image... add black bars above and below for cropping
+		$aspect_ratio = (float)$image_width / $image_height;
+		$desired_aspect_ratio = ((float)$min_width / $min_height);
+		if($aspect_ratio > $desired_aspect_ratio){
+			//we need to add black bars
+			
+			
+			$temp_image = imagecreatefromjpeg($image_upload_data['full_path']);
+			
+			//how much do we add above & below?
+			$total_extra_height = ceil(((float)$image_width / $desired_aspect_ratio) - $image_height);
+			$total_extra_height = ceil($total_extra_height / 2);
+			
+			$border_overlay = imagecreatetruecolor($image_width, $image_height + ($total_extra_height * 2));
+			imagecopyresampled($border_overlay,
+				$temp_image,
+				0,
+				$total_extra_height,
+				0,
+				0,
+				$image_width,
+				$image_height,
+				$image_width,
+				$image_height);
+			//save image temporarily on server filesystem
+			imagejpeg($border_overlay, $image_upload_data['full_path']);
+			
+			unset($temp_image);
+			
+			$image_height += ($total_extra_height * 2);
+			
+		}
+			
 		
 		
 		
