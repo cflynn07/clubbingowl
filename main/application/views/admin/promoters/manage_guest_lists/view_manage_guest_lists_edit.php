@@ -6,9 +6,12 @@
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
 
-<div class="ui-widget" style="width:1050px; margin-bottom:40px;">
+<h1>Edit Guest List</h1>
+
+
+<div class="" style="width:1050px; margin-bottom:40px;">
 		
-	<h1>Edit Guest List</h1>
+	
 
 	
 	<!-- modal window contents -->
@@ -67,7 +70,7 @@
 	
 							<p>
 			<label>Guest List Description:</label><br/>
-			<span style="color:red;">*Remember, when clients join your list their Facebook friends will see this description. A better description = more clients.</span>
+			<span style="color:gray;">Remember, when clients join your list their Facebook friends will see this description. A better description = more clients.</span>
 			<textarea rows=5 style="resize: none; width: 100%; background: none repeat scroll 0 0 #EEEEEE;" name="guest_list_description"><?= $guest_list->pgla_description ?></textarea>
 		</p>
 		
@@ -95,60 +98,60 @@
 			<p>
 			<label>Door Opens:</label>
 			<select name="guest_list_open">
-				<option <?= (($guest_list->pgla_door_open == '0') ? 'selected="selected"' : '') ?> value="0">00:00</option>
-				<option <?= (($guest_list->pgla_door_open == '1') ? 'selected="selected"' : '') ?> value="1">01:00</option>
-				<option <?= (($guest_list->pgla_door_open == '2') ? 'selected="selected"' : '') ?> value="2">02:00</option>
-				<option <?= (($guest_list->pgla_door_open == '3') ? 'selected="selected"' : '') ?> value="3">03:00</option>
-				<option <?= (($guest_list->pgla_door_open == '4') ? 'selected="selected"' : '') ?> value="4">04:00</option>
-				<option <?= (($guest_list->pgla_door_open == '5') ? 'selected="selected"' : '') ?> value="5">05:00</option>
-				<option <?= (($guest_list->pgla_door_open == '6') ? 'selected="selected"' : '') ?> value="6">06:00</option>
-				<option <?= (($guest_list->pgla_door_open == '7') ? 'selected="selected"' : '') ?> value="7">07:00</option>
-				<option <?= (($guest_list->pgla_door_open == '8') ? 'selected="selected"' : '') ?> value="8">08:00</option>
-				<option <?= (($guest_list->pgla_door_open == '9') ? 'selected="selected"' : '') ?> value="9">09:00</option>
-				<option <?= (($guest_list->pgla_door_open == '10') ? 'selected="selected"' : '') ?> value="10">10:00</option>
-				<option <?= (($guest_list->pgla_door_open == '11') ? 'selected="selected"' : '') ?> value="11">11:00</option>
-				<option <?= (($guest_list->pgla_door_open == '12') ? 'selected="selected"' : '') ?> value="12">12:00</option>
-				<option <?= (($guest_list->pgla_door_open == '13') ? 'selected="selected"' : '') ?> value="13">13:00</option>
-				<option <?= (($guest_list->pgla_door_open == '14') ? 'selected="selected"' : '') ?> value="14">14:00</option>
-				<option <?= (($guest_list->pgla_door_open == '15') ? 'selected="selected"' : '') ?> value="15">15:00</option>
-				<option <?= (($guest_list->pgla_door_open == '16') ? 'selected="selected"' : '') ?> value="16">16:00</option>
-				<option <?= (($guest_list->pgla_door_open == '17') ? 'selected="selected"' : '') ?> value="17">17:00</option>
-				<option <?= (($guest_list->pgla_door_open == '18') ? 'selected="selected"' : '') ?> value="18">18:00</option>
-				<option <?= (($guest_list->pgla_door_open == '19') ? 'selected="selected"' : '') ?> value="19">19:00</option>
-				<option <?= (($guest_list->pgla_door_open == '20') ? 'selected="selected"' : '') ?> value="20">20:00</option>
-				<option <?= (($guest_list->pgla_door_open == '21') ? 'selected="selected"' : '') ?> value="21">21:00</option>
-				<option <?= (($guest_list->pgla_door_open == '22') ? 'selected="selected"' : '') ?> value="22">22:00</option>
-				<option <?= (($guest_list->pgla_door_open == '23') ? 'selected="selected"' : '') ?> value="23">23:00</option>
+				<option <?= (($guest_list->pgla_door_open == '0') ? 'selected="selected"' : '') ?> value="0">12:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '1') ? 'selected="selected"' : '') ?> value="1">01:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '2') ? 'selected="selected"' : '') ?> value="2">02:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '3') ? 'selected="selected"' : '') ?> value="3">03:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '4') ? 'selected="selected"' : '') ?> value="4">04:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '5') ? 'selected="selected"' : '') ?> value="5">05:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '6') ? 'selected="selected"' : '') ?> value="6">06:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '7') ? 'selected="selected"' : '') ?> value="7">07:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '8') ? 'selected="selected"' : '') ?> value="8">08:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '9') ? 'selected="selected"' : '') ?> value="9">09:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '10') ? 'selected="selected"' : '') ?> value="10">10:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '11') ? 'selected="selected"' : '') ?> value="11">11:00 am</option>
+				<option <?= (($guest_list->pgla_door_open == '12') ? 'selected="selected"' : '') ?> value="12">12:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '13') ? 'selected="selected"' : '') ?> value="13">1:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '14') ? 'selected="selected"' : '') ?> value="14">2:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '15') ? 'selected="selected"' : '') ?> value="15">3:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '16') ? 'selected="selected"' : '') ?> value="16">4:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '17') ? 'selected="selected"' : '') ?> value="17">5:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '18') ? 'selected="selected"' : '') ?> value="18">6:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '19') ? 'selected="selected"' : '') ?> value="19">7:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '20') ? 'selected="selected"' : '') ?> value="20">8:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '21') ? 'selected="selected"' : '') ?> value="21">9:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '22') ? 'selected="selected"' : '') ?> value="22">10:00 pm</option>
+				<option <?= (($guest_list->pgla_door_open == '23') ? 'selected="selected"' : '') ?> value="23">11:00 pm</option>
 				
 			</select>
 		</p>
 			<p>
 			<label>List Closes:</label>
 			<select name="guest_list_close">
-				<option <?= (($guest_list->pgla_door_close == '0') ? 'selected="selected"' : '') ?> value="0">00:00</option>
-				<option <?= (($guest_list->pgla_door_close == '1') ? 'selected="selected"' : '') ?> value="1">01:00</option>
-				<option <?= (($guest_list->pgla_door_close == '2') ? 'selected="selected"' : '') ?> value="2">02:00</option>
-				<option <?= (($guest_list->pgla_door_close == '3') ? 'selected="selected"' : '') ?> value="3">03:00</option>
-				<option <?= (($guest_list->pgla_door_close == '4') ? 'selected="selected"' : '') ?> value="4">04:00</option>
-				<option <?= (($guest_list->pgla_door_close == '5') ? 'selected="selected"' : '') ?> value="5">05:00</option>
-				<option <?= (($guest_list->pgla_door_close == '6') ? 'selected="selected"' : '') ?> value="6">06:00</option>
-				<option <?= (($guest_list->pgla_door_close == '7') ? 'selected="selected"' : '') ?> value="7">07:00</option>
-				<option <?= (($guest_list->pgla_door_close == '8') ? 'selected="selected"' : '') ?> value="8">08:00</option>
-				<option <?= (($guest_list->pgla_door_close == '9') ? 'selected="selected"' : '') ?> value="9">09:00</option>
-				<option <?= (($guest_list->pgla_door_close == '10') ? 'selected="selected"' : '') ?> value="10">10:00</option>
-				<option <?= (($guest_list->pgla_door_close == '11') ? 'selected="selected"' : '') ?> value="11">11:00</option>
-				<option <?= (($guest_list->pgla_door_close == '12') ? 'selected="selected"' : '') ?> value="12">12:00</option>
-				<option <?= (($guest_list->pgla_door_close == '13') ? 'selected="selected"' : '') ?> value="13">13:00</option>
-				<option <?= (($guest_list->pgla_door_close == '14') ? 'selected="selected"' : '') ?> value="14">14:00</option>
-				<option <?= (($guest_list->pgla_door_close == '15') ? 'selected="selected"' : '') ?> value="15">15:00</option>
-				<option <?= (($guest_list->pgla_door_close == '16') ? 'selected="selected"' : '') ?> value="16">16:00</option>
-				<option <?= (($guest_list->pgla_door_close == '17') ? 'selected="selected"' : '') ?> value="17">17:00</option>
-				<option <?= (($guest_list->pgla_door_close == '18') ? 'selected="selected"' : '') ?> value="18">18:00</option>
-				<option <?= (($guest_list->pgla_door_close == '19') ? 'selected="selected"' : '') ?> value="19">19:00</option>
-				<option <?= (($guest_list->pgla_door_close == '20') ? 'selected="selected"' : '') ?> value="20">20:00</option>
-				<option <?= (($guest_list->pgla_door_close == '21') ? 'selected="selected"' : '') ?> value="21">21:00</option>
-				<option <?= (($guest_list->pgla_door_close == '22') ? 'selected="selected"' : '') ?> value="22">22:00</option>
-				<option <?= (($guest_list->pgla_door_close == '23') ? 'selected="selected"' : '') ?> value="23">23:00</option>
+				<option <?= (($guest_list->pgla_door_close == '0') ? 'selected="selected"' : '') ?> value="0">12:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '1') ? 'selected="selected"' : '') ?> value="1">01:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '2') ? 'selected="selected"' : '') ?> value="2">02:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '3') ? 'selected="selected"' : '') ?> value="3">03:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '4') ? 'selected="selected"' : '') ?> value="4">04:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '5') ? 'selected="selected"' : '') ?> value="5">05:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '6') ? 'selected="selected"' : '') ?> value="6">06:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '7') ? 'selected="selected"' : '') ?> value="7">07:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '8') ? 'selected="selected"' : '') ?> value="8">08:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '9') ? 'selected="selected"' : '') ?> value="9">09:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '10') ? 'selected="selected"' : '') ?> value="10">10:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '11') ? 'selected="selected"' : '') ?> value="11">11:00 am</option>
+				<option <?= (($guest_list->pgla_door_close == '12') ? 'selected="selected"' : '') ?> value="12">12:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '13') ? 'selected="selected"' : '') ?> value="13">1:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '14') ? 'selected="selected"' : '') ?> value="14">2:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '15') ? 'selected="selected"' : '') ?> value="15">3:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '16') ? 'selected="selected"' : '') ?> value="16">4:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '17') ? 'selected="selected"' : '') ?> value="17">5:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '18') ? 'selected="selected"' : '') ?> value="18">6:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '19') ? 'selected="selected"' : '') ?> value="19">7:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '20') ? 'selected="selected"' : '') ?> value="20">8:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '21') ? 'selected="selected"' : '') ?> value="21">9:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '22') ? 'selected="selected"' : '') ?> value="22">10:00 pm</option>
+				<option <?= (($guest_list->pgla_door_close == '23') ? 'selected="selected"' : '') ?> value="23">11:00 pm</option>
 			</select>
 		</p>
 			<p>
@@ -174,7 +177,7 @@
 			<p><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= (($guest_list->pgla_auto_approve == '1') ? 'checked="checked"' : '') ?> />Auto approve reservation requests</p>
 		</div>
 		<div class="one_fourth_last"> 
-			<p><input type="checkbox" class="iphone" name="guest_list_auto_promote" <?= (($guest_list->pgla_auto_promote == '1') ? 'checked="checked"' : '') ?> />Auto promote guest-list on Facebook</p>
+			<p><input type="checkbox" class="iphone" name="guest_list_auto_promote" <?= (($guest_list->pgla_auto_promote == '1') ? 'checked="checked"' : '') ?> />Auto promote guest list on Facebook</p>
 		</div>
 		
 		<div class="clearboth"></div> 

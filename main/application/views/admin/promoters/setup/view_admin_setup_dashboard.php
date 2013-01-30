@@ -17,7 +17,7 @@
 						<input class="sf" id="public_identifier" name="public_identifier" type="text" value="" />
 						<img src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your profile will be accessible at https://www.clubbingowl.com/promoters/YOUR_PUBLIC_IDENTIFIER/ ">
 						
-						<p style="display:none;height:50px;vertical-align:center;" id="public_identifier_error" class="error">
+						<p style="display:none; height:50px; vertical-align:center;" id="public_identifier_error" class="error">
 							Public Identifier cannot contain any special characters such as: %$*!
 						</p>
 						
@@ -32,8 +32,13 @@
 					<p>
 						
 						<label><strong>Tell Us About Yourself:</strong></label><br>
+						<br/>
+						<span style="color:gray;" class="">This will be featured on your promoter profile, and will be displayed on Facebook when your clients share a link to your ClubbingOwl profile. <br /><br />A good description will bring more clientelle from Google and other search engines to your profile. Write about why you're a good promoter and how you'll help your clients should party with you. You can always edit this later in your settings panel.</span><br/><br/>
 						
-						<span class="">This will be featured on your promoter profile, and will be displayed on Facebook when your clients share a link to your ClubbingOwl profile. <br /><br />A good description will bring more clientelle from Google and other search engines to your profile. Write about why you're a good promoter and how you'll help your clients should party with you. You can always edit this later in your settings panel.</span><br/><br/>
+						<span>Example:</span><br/>
+						<span style="color:gray;">"Striving to deliver great service and customer satisfaction to my clients, to make their night unforgettable!"</span>
+						<br/><br/>
+						
 						<span id="biography_char_remaining" style="float:left; color:red; font-size:16px;"></span>
 
 						<textarea id="text_biography" style="width:680px; height:70px; border:1px solid #CCC; resize:none; padding: 5px;" name="biography"></textarea>
@@ -67,8 +72,11 @@
 	<fieldset>
 			<legend>Upload Profile Picture</legend> 
 			
-			<img id="profile_pic" src="http://placehold.it/240x320?text=" alt="profile picture" />
-			<p>*Must exceed 240px width & 320px height</p>
+			<div id="profile_pic_holder">
+				<img id="profile_pic" src="http://placehold.it/240x320?text=" alt="profile picture" />
+			</div>
+			
+			<p style="color:gray;">Min width: 240px<br/>Min height: 320px</p>
 						<?= ''//form_open('#', array('id' => 'promoter_pic_crop_form', 'style' => 'display:none;')) ?>
 				<form id="my_profile_pic_form" action="#" style="display:none;">	
 					<input type="hidden" name="width" value="0" id="width" />
@@ -103,15 +111,13 @@
 
 <div id="step_3_content" style="display:none;">
 	<fieldset>
-			<legend>Congratulations!</legend> 
 			
+			<h1>Congratulations!</h1>
+						
 			<h2>You have completed the setup.</h2>
 			
 			<p>
-				Your profile page is now visable to others in ClubbingOwl, however <strong>you haven't set up any guest lists yet.</strong>
-				
-				
-				
+				Your profile page is now visable to others in ClubbingOwl, however <span style="color:red;">you haven't set up any guest lists yet.</span>
 			</p>
 			
 			

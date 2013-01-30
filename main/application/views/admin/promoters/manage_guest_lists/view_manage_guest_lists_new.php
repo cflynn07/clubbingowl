@@ -1,9 +1,10 @@
-<div class="ui-widget" style="width:1050px;">
-		
-	<h1>Create New Guest List</h1>
-	<p>
-		Create, update and delete your available guest lists for each venue you're authorized to represent.
-	</p>
+
+<h1>Create New Guest List</h1>
+<p>
+	Create, update and delete your available guest lists for each venue you're authorized to represent.
+</p>
+
+<div class="" style="width:1050px; margin-bottom:40px;">
 	
 	<!-- modal window contents -->
 	<div id="guest_lists_new_modal_window" style="display:none">
@@ -74,7 +75,7 @@
 	
 							<p>
 			<label>Guest List Description:</label><br/>
-			<span style="color:red;">*Remember, when clients join your list their Facebook friends will see this description. A better description = more clients.</span>
+			<span style="color:gray;">Remember, when clients join your list their Facebook friends will see this description. A better description = more clients.</span>
 			<textarea rows=5 style="resize: none; width: 100%; background: none repeat scroll 0 0 #EEEEEE;" name="guest_list_description"></textarea>
 		</p>
 		
@@ -101,59 +102,59 @@
 			<p>
 			<label>Door Opens:</label>
 			<select name="guest_list_open">
-				<option value="0">00:00</option>
-				<option value="1">01:00</option>
-				<option value="2">02:00</option>
-				<option value="3">03:00</option>
-				<option value="4">04:00</option>
-				<option value="5">05:00</option>
-				<option value="6">06:00</option>
-				<option value="7">07:00</option>
-				<option value="8">08:00</option>
-				<option value="9">09:00</option>
-				<option value="10">10:00</option>
-				<option value="11">11:00</option>
-				<option value="12">12:00</option>
-				<option value="13">13:00</option>
-				<option value="14">14:00</option>
-				<option value="15">15:00</option>
-				<option value="16">16:00</option>
-				<option value="17">17:00</option>
-				<option value="18">18:00</option>
-				<option value="19">19:00</option>
-				<option value="20" selected="selected">20:00</option>
-				<option value="21">21:00</option>
-				<option value="22">22:00</option>
-				<option value="23">23:00</option>
+				<option value="0">12:00 am</option>
+				<option value="1">1:00 am</option>
+				<option value="2">2:00 am</option>
+				<option value="3">3:00 am</option>
+				<option value="4">4:00 am</option>
+				<option value="5">5:00 am</option>
+				<option value="6">6:00 am</option>
+				<option value="7">7:00 am</option>
+				<option value="8">8:00 am</option>
+				<option value="9">9:00 am</option>
+				<option value="10">10:00 am</option>
+				<option value="11">11:00 am</option>
+				<option value="12">12:00 pm</option>
+				<option value="13">1:00 pm</option>
+				<option value="14">2:00 pm</option>
+				<option value="15">3:00 pm</option>
+				<option value="16">4:00 pm</option>
+				<option value="17">5:00 pm</option>
+				<option value="18">6:00 pm</option>
+				<option value="19">7:00 pm</option>
+				<option value="20" selected="selected">8:00 pm</option>
+				<option value="21">9:00 pm</option>
+				<option value="22">10:00 pm</option>
+				<option value="23">11:00 pm</option>
 			</select>
 		</p>
 			<p>
 			<label>List Closes:</label>
 			<select name="guest_list_close">
-				<option value="0" selected="selected">00:00</option>
-				<option value="1">01:00</option>
-				<option value="2">02:00</option>
-				<option value="3">03:00</option>
-				<option value="4">04:00</option>
-				<option value="5">05:00</option>
-				<option value="6">06:00</option>
-				<option value="7">07:00</option>
-				<option value="8">08:00</option>
-				<option value="9">09:00</option>
-				<option value="10">10:00</option>
-				<option value="11">11:00</option>
-				<option value="12">12:00</option>
-				<option value="13">13:00</option>
-				<option value="14">14:00</option>
-				<option value="15">15:00</option>
-				<option value="16">16:00</option>
-				<option value="17">17:00</option>
-				<option value="18">18:00</option>
-				<option value="19">19:00</option>
-				<option value="20">20:00</option>
-				<option value="21">21:00</option>
-				<option value="22">22:00</option>
-				<option value="23">23:00</option>
+				<option value="0" selected="selected">12:00 am</option>
+				<option value="1">1:00 am</option>
+				<option value="2">2:00 am</option>
+				<option value="3">3:00 am</option>
+				<option value="4">4:00 am</option>
+				<option value="5">5:00 am</option>
+				<option value="6">6:00 am</option>
+				<option value="7">7:00 am</option>
+				<option value="8">8:00 am</option>
+				<option value="9">9:00 am</option>
+				<option value="10">10:00 am</option>
+				<option value="11">11:00 am</option>
+				<option value="12">12:00 pm</option>
+				<option value="13">1:00 pm</option>
+				<option value="14">2:00 pm</option>
+				<option value="15">3:00 pm</option>
+				<option value="16">4:00 pm</option>
+				<option value="17">5:00 pm</option>
+				<option value="18">6:00 pm</option>
+				<option value="19">7:00 pm</option>
+				<option value="20">8:00 pm</option>
+				<option value="21">9:00 pm</option>
+				<option value="22">10:00 pm</option>
+				<option value="23">11:00 pm</option>
 			</select>
 		</p>
 			<p>
@@ -175,8 +176,10 @@
 		<div class="one_fourth_last"> 
 			<p><input type="checkbox" class="iphone" name="guest_list_auto_approve" />Auto approve reservation requests</p>
 		</div> 
+		
+		
 		<div class="one_fourth_last"> 
-			<p><input type="checkbox" class="iphone" name="guest_list_auto_promote" checked="checked"/>Auto promote guest-list on Facebook</p>
+			<p><input type="checkbox" class="iphone" name="guest_list_auto_promote" checked="checked"/>Auto promote guest list on Facebook</p>
 		</div>
 		
 		<div class="clearboth"></div> 

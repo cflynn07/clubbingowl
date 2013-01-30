@@ -363,8 +363,16 @@ jQuery(function(){
 				div.find('#trending_gl > ul').empty();
 								
 				if(data.length === 0){
-					div.find('#trending_gl > ul').html(jQuery('div#ejs_home_templates > div#pop_guestlist_empty').html());
+				//	div.find('#trending_gl > ul').html(jQuery('div#ejs_home_templates > div#pop_guestlist_empty').html());
+
+					jQuery('div#news_feed_side_data').hide();
+					jQuery('ul.updates').css({
+						width: '100%'
+					});
+				
 				}
+				
+				
 				
 				for(var i in data){
 					
@@ -374,6 +382,8 @@ jQuery(function(){
 					}).render(data[i]);
 					html = jQuery(html);
 					html.find('a').addClass('ajaxify_t3');
+					
+					console.log(html);
 					
 					div.find('#trending_gl > ul').append(html);
 					

@@ -124,13 +124,20 @@ jQuery(function(){
 	        	
 	        	console.log('onComplete');
 	        	jQuery('#ajax_loading_image').hide();
-	         	  	
+	         	jQuery('#upload_new_image').show();
+	         	jQuery("input[name=file]").val('');
+	         	
+
 	        	response = jQuery.parseJSON(response);
 	        	
 	        	if(!response.success){
 	        		alert(response.message);
 	        		return;
 	        	}
+	        	
+	        	if(crop_object && crop_object.remove)
+					crop_object.remove();
+	         	  	
 	        	
 	      		initialize_crop(response.image_data);
 	        		       

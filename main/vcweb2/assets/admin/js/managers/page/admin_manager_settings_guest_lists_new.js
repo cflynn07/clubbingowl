@@ -40,20 +40,35 @@ jQuery(function(){
 			        	
 			        	console.log('onSubmit');
 			        	jQuery('#upload_new_image').hide();
-			        	jQuery('#ajax_loading_image').show();
+			        	jQuery('#ajax_loading').show();
 			        	
 			        },
 			        onComplete: function(response){
 			        	
 			        	console.log('onComplete');
-			        	jQuery('#ajax_loading_image').hide();
+			        	
+			        	
+			        	
+			        	jQuery('#ajax_loading').hide();
+			         	jQuery('#upload_new_image').show();
+			         	jQuery("input[name=file]").val('');
+			         
+			         	  	
 			         	  	
 			        	response = jQuery.parseJSON(response);
 			        	
 			        	if(!response.success){
+			        		
+			        		_this_view.initialize_ocupload();
+			        		
 			        		alert(response.message);
 			        		return;
 			        	}
+			        	
+			        	if(crop_object && crop_object.remove)
+							crop_object.remove();
+	         	  	
+			        	
 			        	
 			      		_this_view.initialize_crop(response.image_data);
 			        	

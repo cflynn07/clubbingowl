@@ -34,7 +34,7 @@
 <table class="normal tablesorter guestlists" style="width: 770px;">
 	<thead>
 		<tr>
-			<th>Head User</th>
+			<th>Guest</th>
 			<th>Messages</th>
 			<th>Table</th>
 			<th>Status</th>

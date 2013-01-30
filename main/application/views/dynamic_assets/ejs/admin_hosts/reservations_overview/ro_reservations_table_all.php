@@ -3,7 +3,7 @@
 		<tr>
 			<th>Date</th>
 			<th>Venue</th>
-			<th>Head User</th>
+			<th>Guest</th>
 			<th>Promoter</th>
 			<th>Guest List</th>
 			<th>Messages</th>
