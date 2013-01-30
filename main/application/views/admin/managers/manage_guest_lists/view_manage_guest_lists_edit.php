@@ -32,7 +32,7 @@
 			
 			<br/>
 			<img style="vertical-align:middle;" src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your guest list name is a part of it's URL (ex: www.clubbingowl.com/venues/boston/club_argo/guest_lists/argo_fridays/ ). If you changed it, all of the links pointing to your guest list on Facebook and your client's bookmarks would break.">
-			<span style="margin-left:15px; color:red;">Why can't I change my guest list name?</span>
+			<span style="margin-left:10px; color:gray;">Why can't I change my guest list name?</span>
 			
 		</p>
 		
@@ -161,6 +161,55 @@
 		<div class="one_fourth_last"> 
 			<p><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= (($guest_list->tgla_auto_approve == '1') ? 'checked="checked"' : '') ?> />Auto approve reservation requests</p>
 		</div>
+
+
+
+
+		<hr/>
+		<h2 style="margin-bottom:5px;">Add to Promoters' guest lists</h2>
+		<span style="color:gray;">Add this guest list to your promoter's guest lists. This option will override any guest lists set up by your promoters with the same name as this guest list.</span>
+		<br/>
+		<div>
+			<?php foreach($promoters as $pro): ?>
+				
+				<?php 
+					if($pro->up_completed_setup === '0' || $pro->up_banned === '1')
+						continue;
+				?>
+			<br/>
+			<p>
+				<table>
+					<tbody>
+						
+						<?php foreach($promoters as $pro): ?>
+							
+							<?php if($pro->up_completed_setup === '0' || $pro->up_banned === '1')
+								continue; ?>
+							
+						<tr>
+							<td style="vertical-align:middle;">
+																
+								<input type="checkbox" class="iphone" name="promoters_link" <?= (in_array($pro->up_id, $linked_promoters)) ? 'checked="checked"' : '' ?> value="<?= $pro->up_id ?>" />
+							</td>
+							<td>
+								<img style="height:50px;" src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $pro->up_profile_image . '_t.jpg' ?>" alt="profile image" />
+							</td>
+							<td style="padding-left:10px; vertical-align:middle;">
+								<?= $pro->u_full_name ?>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+						
+					</tbody>
+				</table>
+			<?php endforeach; ?>
+		</div>
+		<hr/>
+
+
+
+
+
 
 		
 		<div class="clearboth"></div> 

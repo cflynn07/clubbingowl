@@ -601,8 +601,6 @@ class Model_app_data extends CI_Model {
 						up.public_identifier	as up_public_identifier,
 						up.biography			as up_biography,
 						up.profile_image		as up_profile_image,
-						c.name					as c_name,
-						c.url_identifier		as c_url_identifier,
 						u.full_name				as u_full_name,
 						u.first_name			as u_first_name,
 						u.last_name				as u_last_name,
@@ -623,21 +621,21 @@ class Model_app_data extends CI_Model {
 					JOIN	teams t 
 					ON 		pt.team_fan_page_id = t.fan_page_id
 					
-					JOIN	cities c 
-					ON		t.city_id = c.id
-					
 					JOIN 	team_venues tv 
 					ON 		pgla.team_venue_id = tv.id
 					
-					WHERE	t.completed_setup = 1
-					AND 	pt.approved = 1 
-					AND 	pt.banned = 0 
-					AND 	pt.quit = 0
-					AND 	tv.banned = 0
-					AND 	up.completed_setup = 1
-					AND 	up.banned = 0
+					WHERE	t.completed_setup 	= 1
+					AND 	pt.approved 		= 1 
+					AND 	pt.banned 			= 0 
+					AND 	pt.quit 			= 0
+					AND 	tv.banned 			= 0
+					AND 	up.completed_setup 	= 1
+					AND 	up.banned 			= 0
+					AND 	pgla.deactivated 	= 0
 					AND 	pgla.team_venue_id = ?";
 			$query = $this->db->query($sql, array($result->tv_id));
+			
+			Kint::dump($this->db->last_query());
 			
 			$result->venue_promoters = $query->result();
 		}

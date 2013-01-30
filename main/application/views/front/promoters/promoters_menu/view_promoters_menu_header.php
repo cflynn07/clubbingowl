@@ -24,7 +24,7 @@
   		<?php if($promoter->up_last_login_time 		> (time() - 60 * 20)): //20 mins ?>
     		<img src="<?= $central->front_assets ?>images/on.png" style="vertical-align:bottom;" /> <span style="color:green;">Online Now</span>
   		<?php elseif($promoter->up_last_login_time 	> (time() - 60 * 60)): //60 mins): ?>
-  			<img src="<?= $central->front_assets ?>images/off.png" style="vertical-align:bottom; filter:gray; -webkit-filter:grayscale(1); opacity:0.5;" /> <span>Last Online: Within the hour</span>
+  			<img src="<?= $central->front_assets ?>images/off.png" style="vertical-align:bottom; filter:gray; -webkit-filter:grayscale(1); opacity:0.5;" /> <span>Last Online: This hour</span>
   		<?php elseif($promoter->up_last_login_time 	> (time() - 60 * 60 * 24)): //1 day): ?>
   			<img src="<?= $central->front_assets ?>images/off.png" style="vertical-align:bottom; filter:gray; -webkit-filter:grayscale(1); opacity:0.5;" /> <span>Last Online: Today</span>  			
   		<?php elseif($promoter->up_last_login_time 	> (time() - 60 * 60 * 24 * 7)): //1 week): ?>
