@@ -595,7 +595,7 @@ class Venues extends MY_Controller {
 			$header_custom->title_prefix = lang_key($this->lang->line('ad-venues_spec_gl_title'),
 													array(
 														'venue_name' => $this->library_venues->venue->tv_name,
-														'tgla_name'	 => $data['guest_list']->tgla_name
+														'tgla_name'	 => strtoupper($data['guest_list']->tgla_name)
 													)) 
 											. ' | ';
 			$header_custom->page_image = $this->config->item('s3_uploaded_images_base_url')	

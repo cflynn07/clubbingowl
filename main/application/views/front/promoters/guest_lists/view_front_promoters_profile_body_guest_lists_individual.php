@@ -107,17 +107,17 @@
       			</tr>
       			<?php if($guest_list->pgla_additional_info_1): ?>
       			<tr>
-      				<td><?= $guest_list->pgla_additional_info_1 ?></td>
+      				<td class="gl_additional_list_info"><?= $guest_list->pgla_additional_info_1 ?></td>
       			</tr>
       			<?php endif; ?>
       			<?php if($guest_list->pgla_additional_info_2): ?>
       			<tr>
-      				<td><?= $guest_list->pgla_additional_info_2 ?></td>
+      				<td class="gl_additional_list_info"><?= $guest_list->pgla_additional_info_2 ?></td>
       			</tr>
       			<?php endif; ?>
       			<?php if($guest_list->pgla_additional_info_3): ?>
       			<tr>
-      				<td><?= $guest_list->pgla_additional_info_3 ?></td>
+      				<td class="gl_additional_list_info"><?= $guest_list->pgla_additional_info_3 ?></td>
       			</tr>
       			<?php endif; ?>
       		</tbody>	

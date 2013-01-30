@@ -784,7 +784,7 @@ class Promoters extends MY_Controller {
 										
 			$header_custom->title_prefix = lang_key($this->lang->line('ad-promoters_spec_gl_title'), array(
 				'promoter_u_full_name' 	=> $this->library_promoters->promoter->u_full_name,
-				'pgla_name'				=> $data['guest_list']->pgla_name,
+				'pgla_name'				=> strtoupper($data['guest_list']->pgla_name),
 				'tv_name'				=> $data['guest_list']->tv_name
 			)) . ' | ' . $this->lang->line('ad-promoters_home_title') . ' | ';
 			

@@ -1342,3 +1342,10 @@ div.guestlist-form-right #accordion_replace_sub_msg h2 {
 	font-weight: normal !important;
 }
 
+
+
+td.gl_additional_list_info {
+	padding-top: 10px; 
+	border-bottom: 1px dashed #CCC; 
+	padding-right: 0;
+}

@@ -8,7 +8,8 @@
 <?php endif; ?>
 
 <?php # ------------------------ Begin META tags ------------------------ # ?>
-<meta http-equiv="Content-Type" 	content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
 <meta name="description" 			content="<?= (isset($header_custom->page_description)) ? $header_custom->page_description : $this->lang->line('ad-description') ?>">
 <meta name="keywords" content="clubbing, owl, clubbing owl, clubs, venues, guestlists, guest-lists, guest lists, night life, nightlife, promoters" />
 
