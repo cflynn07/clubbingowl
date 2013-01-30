@@ -68,6 +68,8 @@ jQuery(function(){
 						
 						jQuery('div#visible_content').fadeOut(750, function(){
 							
+							jQuery(window).scrollTop(0);
+							
 							jQuery(this).empty();
 							jQuery(this).html(jQuery('div#step_2_content').html());
 							
@@ -92,28 +94,36 @@ jQuery(function(){
 						        onSubmit: function(){
 						        	
 						        	jQuery('#ajax_loading').css('visibility', 'visible');
-						        	jQuery('#ajax_complete').css('visibility', 'hidden');
+						        //	jQuery('#ajax_complete').css('visibility', 'hidden');
 						        	
 						        },
 						        onComplete: function(response){
 						        	
+						        	
+						        	
 						        	response = jQuery.parseJSON(response);
 						        	
-						        	console.log(response);
 						        	
 						        	if(!response.success){
+						        		
+						        		jQuery('#ajax_loading').hide();
 						        		alert(response.message);
 						        		return;
+						        		
 						        	}
 						        	
+						        	jQuery("input[name=file]").val('');
+						         	if(typeof crop_object !== 'undefined' && crop_object.remove)
+										crop_object.remove();
+						        	
+						        	
 						        	//load new profile image
-						        	jQuery('img#profile_pic').attr('src', window.module.Globals.prototype.s3_uploaded_images_base_url + 'profile-pics/originals/' + response.image_data.profile_img + '.jpg').bind('load', function(){
+						        	var src = window.module.Globals.prototype.s3_uploaded_images_base_url + 'profile-pics/originals/' + response.image_data.profile_img + '.jpg';
+						        	var img = jQuery('<img></img>').attr('id', 'profile_pic').attr('src', src).bind('load', function(){
 						        		
-						        		console.log('loaded!');
-						        		console.log(jQuery(this));
 						        		
-						        		jQuery('#ajax_loading').css('visibility', 'hidden');
-						        		jQuery('#ajax_complete').css('visibility', 'visible');
+						        		jQuery('#ajax_loading').hide();
+						        	//	jQuery('#ajax_complete').css('visibility', 'visible');
 						        		
 						        		//update crop form
 							        	jQuery('div#visible_content #my_profile_pic_form input[name = x0]').val(response.image_data.x0);
@@ -149,12 +159,15 @@ jQuery(function(){
 						        		
 						        	});
 						        	
+						        	jQuery('div#profile_pic_holder').html(img);
+						        	
 						        	//display crop button & bind click event to it
 						        	jQuery('#crop_button').css('display', 'inline-block');
+						        	jQuery('#crop_button').unbind('click');
 						        	jQuery('#crop_button').bind('click', function(){
 						        		
-						        		jQuery('#ajax_loading').css('visibility', 'visible');
-						        		jQuery('#ajax_complete').css('visibility', 'hidden');
+						        		jQuery('#ajax_loading').show();
+						        	//	jQuery('#ajax_complete').css('visibility', 'hidden');
 						        		
 										//cross-site request forgery token, accessed from session cookie
 										//requires jQuery cookie plugin
@@ -202,10 +215,14 @@ jQuery(function(){
 						        								jQuery('#ajax_complete').css('visibility', 'visible');
 																
 																jQuery('div#visible_content').fadeOut(750, function(){
-							
+																	
+																	jQuery(window).scrollTop(0);
+																	
 																	jQuery(this).empty();
 																	jQuery(this).html(jQuery('div#step_3_content').html());
 																	jQuery(window).scrollTop(0);
+																	
+																	Cufon.replace(jQuery('h2,h1'));
 																	
 																	
 																}).fadeIn(750, function(){

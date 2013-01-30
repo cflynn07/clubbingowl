@@ -57,6 +57,10 @@ jQuery(function(){
 			        	
 			        	console.log('onComplete');
 			        	jQuery('#ajax_loading_image').hide();
+			        	jQuery('#upload_new_image').hide();
+			        	jQuery("input[name=file]").val('');
+			         	
+			        	
 			         	  	
 			        	response = jQuery.parseJSON(response);
 			        	
@@ -64,6 +68,9 @@ jQuery(function(){
 			        		alert(response.message);
 			        		return;
 			        	}
+			        	
+			        	if(crop_object && crop_object.remove)
+							crop_object.remove();
 			        	
 			        	response.image_data.live = false;
 			        	window.module.Globals.prototype.unbind_callback();
