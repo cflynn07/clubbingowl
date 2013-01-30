@@ -455,10 +455,13 @@ class Model_users_promoters extends CI_Model {
 							AND 	tv.banned 				= 0
 							AND 	tvp.deleted 			= 0
 							AND 	pgla.user_promoter_id 	= ?
+							
+							AND 	tvp.team_fan_page_id 	= ?
+							AND 	t.fan_page_id			= ?
 					
 					GROUP BY 	tv.id
 					ORDER BY	tv.id DESC";
-			$query = $this->db->query($sql, array($res->up_id));
+			$query = $this->db->query($sql, array($res->up_id, $res->t_fan_page_id, $res->t_fan_page_id));
 			$res->venues = $query->result();
 					
 				
@@ -749,11 +752,17 @@ class Model_users_promoters extends CI_Model {
 						AND 	tv.banned = 0
 						AND 	tvp.deleted = 0
 						AND 	pgla.user_promoter_id = ?
+						
+						AND 	tvp.team_fan_page_id 	= ?
+						AND 	t.fan_page_id			= ?
 				
 				GROUP BY 	tv.id
 				ORDER BY	tv.id DESC";
-		$query = $this->db->query($sql, array($result->up_id));
+		$query = $this->db->query($sql, array($result->up_id, $result->team->t_fan_page_id, $result->team->t_fan_page_id));
 		$result->promoter_team_venues = $query->result();
+		
+	//	if(!$this->input->post('vc_method'))
+	//		Kint::dump($this->db->last_query());
 		
 		return $result;
 		

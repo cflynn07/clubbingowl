@@ -342,7 +342,8 @@ class Model_app_data extends CI_Model {
 			JOIN 	team_venues tv 
 			ON 		tv.city_id = c.id
 			
-			WHERE 	tv.banned = 0 ";
+			WHERE 		tv.banned = 0 
+			ORDER BY	c.name ASC";
 			
 			$query = $this->db->query($sql);
 			$result = $query->result();
@@ -386,7 +387,8 @@ class Model_app_data extends CI_Model {
 			AND 	pgla.deactivated 	= 0
 			AND 	t.completed_setup 	= 1
 			
-			GROUP BY 	tv.city_id";
+			GROUP BY 	tv.city_id
+			ORDER BY	c.name ASC";
 			
 			$query = $this->db->query($sql);
 			$result = $query->result();
