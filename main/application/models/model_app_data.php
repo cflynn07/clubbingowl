@@ -327,67 +327,74 @@ class Model_app_data extends CI_Model {
 	 */
 	function retrieve_active_cities($promoters = false){
 		
+		if(!$promoters){
+			
+			$sql = "SELECT DISTINCT
 		
-		$sql = "SELECT DISTINCT
-	
-			c.id					as c_id, 
-			c.name					as c_name, 
-			c.state 				as c_state, 
-			c.timezone_identifier	as c_timezone_identifier, 
-			c.url_identifier		as c_url_identifier
+				c.id					as c_id, 
+				c.name					as c_name, 
+				c.state 				as c_state, 
+				c.timezone_identifier	as c_timezone_identifier, 
+				c.url_identifier		as c_url_identifier
+			
+			FROM 	cities c
+			
+			JOIN 	team_venues tv 
+			ON 		tv.city_id = c.id
+			
+			WHERE 	tv.banned = 0 ";
+			
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			
+			return $result;
+		}
 		
-		FROM 	cities c
+		if($promoters){
+			
+			//searches for teams that are active and have at least one active promoter in them
+			$sql = "SELECT 
+			
+				c.id					as c_id, 
+				c.name					as c_name, 
+				c.state 				as c_state, 
+				c.timezone_identifier	as c_timezone_identifier, 
+				c.url_identifier		as c_url_identifier
+			
+			FROM 	team_venues tv 
+			
+			JOIN 	cities c 
+			ON 		tv.city_id = c.id
+			
+			JOIN 	promoters_guest_list_authorizations pgla
+			ON 		pgla.team_venue_id = tv.id
+			
+			JOIN	users_promoters up
+			ON 		pgla.user_promoter_id = up.id
+			
+			JOIN 	promoters_teams pt 
+			ON 		up.id = pt.promoter_id
+			
+			JOIN 	teams t 
+			ON 		t.fan_page_id = pt.team_fan_page_id
+			
+			WHERE 	
+					up.banned 			= 0
+			AND 	pt.approved 		= 1
+			AND 	pt.banned 			= 0
+			AND 	pt.quit 			= 0
+			AND 	pgla.deactivated 	= 0
+			AND 	t.completed_setup 	= 1
+			
+			GROUP BY 	tv.city_id";
+			
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			
+			
+			return $result;
+		}
 		
-		JOIN 	team_venues tv 
-		ON 		tv.city_id = c.id
-		
-		WHERE 	tv.banned = 0 ";
-		
-		if($promoters)
-		//searches for teams that are active and have at least one active promoter in them
-		$sql .= "
-		AND
-				tv.id IN 
-		(SELECT DISTINCT
-		
-			tv.id
-		
-		FROM	team_venues tv
-		
-		JOIN 	promoters_guest_list_authorizations pgla
-		ON 		pgla.team_venue_id = tv.id
-		
-		JOIN 	teams_venues_pairs tvp 
-		ON 		tvp.team_venue_id = tv.id
-		
-		JOIN 	teams t 
-		ON 		tvp.team_fan_page_id = t.fan_page_id
-		
-		JOIN 	promoters_teams pt 
-		ON 		pt.team_fan_page_id = t.fan_page_id
-		
-		JOIN 	users_promoters up
-		ON 		up.id = pgla.user_promoter_id
-		
-		WHERE 	pt.banned 			= 0
-		AND 	pt.quit 			= 0
-		AND 	pt.approved 		= 1
-		AND 	up.banned 			= 0
-		AND 	up.completed_setup 	= 1
-		AND 	tvp.deleted 		= 0
-		AND 	pgla.deactivated 	= 0)";
-		
-		$query = $this->db->query($sql);
-		$result = $query->result();
-				
-				
-				
-		Kint::dump($this->db->last_query());
-		Kint::dump($result);		
-		
-		
-				
-		return $result;
 		
 	}
 	
