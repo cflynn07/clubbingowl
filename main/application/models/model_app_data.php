@@ -369,18 +369,23 @@ class Model_app_data extends CI_Model {
 		JOIN 	users_promoters up
 		ON 		up.id = pgla.user_promoter_id
 		
-		WHERE 	pt.banned = 0
-		AND 	pt.quit = 0
-		AND 	pt.approved = 1
-		AND 	up.banned = 0
-		AND 	tvp.deleted = 0
-		AND 	pgla.deactivated = 0)";
+		WHERE 	pt.banned 			= 0
+		AND 	pt.quit 			= 0
+		AND 	pt.approved 		= 1
+		AND 	up.banned 			= 0
+		AND 	up.completed_setup 	= 1
+		AND 	tvp.deleted 		= 0
+		AND 	pgla.deactivated 	= 0)";
 		
 		$query = $this->db->query($sql);
 		$result = $query->result();
 				
-	//	Kint::dump($this->db->last_query());
-	//	Kint::dump($result);		
+				
+				
+		Kint::dump($this->db->last_query());
+		Kint::dump($result);		
+		
+		
 				
 		return $result;
 		
