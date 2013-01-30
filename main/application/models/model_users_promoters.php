@@ -1333,25 +1333,31 @@ class Model_users_promoters extends CI_Model {
 					
 		$clients_uids = $this->retrieve_promoter_clients_list($promoter_id);
 			
-				
-		$this->db->select('u.full_name 		as u_full_name,
+					
+			
+		foreach($clients_uids as $c_uid){
+			
+			$this->db->select('u.full_name 		as u_full_name,
 							u.first_name	as u_first_name,
 							u.last_name		as u_last_name,
 							u.email 		as u_email,
 							u.oauth_uid		as u_oauth_uid,
 							u.phone_number	as u_phone_number,
-							u.opt_out_email	as u_opt_out_email')
-			->from('users u');
-			
-		foreach($clients_uids as $c_uid){
-			$this->db->or_where('u.oauth_uid', $c_uid->pglr_user_oauth_uid);
+							u.opt_out_email	as u_opt_out_email');
+			$this->db->from('users u', false);
+			$this->db->or_where('oauth_uid', $c_uid->pglr_user_oauth_uid);
+
 		}
 		
 		if($clients_uids){
+
 			$query = $this->db->get();
 			$result = $query->result();
+
 		}else{
+
 			$result = array();
+
 		}
 		
 		//attach gl bookings
