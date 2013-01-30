@@ -90,9 +90,25 @@ class Model_users_promoters extends CI_Model {
 	 * @param	bool (auto-approve)
 	 * @return	array
 	 * */
-	function create_promoter_guest_list_authorization($promoter_id, $team_venue_id, $weekday, $gl_name, $gl_description, $auto_approve, $gl_cover, $regular_cover, $door_opens, $door_closes, $min_age, $additional_info_1, $additional_info_2, $additional_info_3, $auto_promote, $image_data = false){
+	function create_promoter_guest_list_authorization($promoter_id, 
+														$team_venue_id, 
+														$weekday, 
+														$gl_name, 
+														$gl_description, 
+														$auto_approve, 
+														$gl_cover, 
+														$regular_cover, 
+														$door_opens, 
+														$door_closes, 
+														$min_age, 
+														$additional_info_1, 
+														$additional_info_2, 
+														$additional_info_3, 
+														$auto_promote, 
+														$image_data = false,
+														$tgla_id	= false){
 		
-		$gl_name = strip_tags($gl_name);
+		$gl_name 		= strip_tags($gl_name);
 		$gl_description = strip_tags($gl_description);
 		
 		/*-------------- make sure this promoter is authorized with this team_venue --------------*/
@@ -127,8 +143,12 @@ class Model_users_promoters extends CI_Model {
 		
 		$team_fan_page_id = $result->t_fan_page_id;
 		
+		
+		
+		
+		//We're disabling this requirement
 		/*-------------- Make sure this promoter doesn't already have a guest list at this venue on this night -----------*/
-		$sql = "SELECT
+/*		$sql = "SELECT
 					
 					pgla.id 	as pgla_id
 			
@@ -144,6 +164,10 @@ class Model_users_promoters extends CI_Model {
 			return array('success' => false,
 							'message' => 'You already have a guest list at this venue on ' . $weekday);
 		}
+*/	
+		
+		
+		
 		
 		/*-------------- END Make sure this promoter doesn't already have a guest list at this venue on this night -----------*/
 		
@@ -160,7 +184,8 @@ class Model_users_promoters extends CI_Model {
 
 				WHERE	pgla.user_promoter_id = ?
 				AND 	tv.team_fan_page_id = ?
-				AND 	pgla.name = ?";
+				AND 	pgla.name = ?
+				AND 	pgla.deactivated = 0";
 		$query = $this->db->query($sql, array($promoter_id, $team_fan_page_id, $gl_name));
 								
 		if($result = $query->row()){
@@ -252,6 +277,9 @@ class Model_users_promoters extends CI_Model {
 			$data['y1']		= $image_data['y1'];
 			
 		}
+
+		if($tgla_id !== false)
+			$data['tgla_id'] = $tgla_id;
 		
 		$this->db->insert('promoters_guest_list_authorizations', $data);	
 		return array('success' => true);

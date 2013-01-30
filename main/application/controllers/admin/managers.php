@@ -333,7 +333,7 @@ class Managers extends MY_Controller {
 		
 		
 		
-		
+		Kint::dump($this->library_admin_managers);
 		
 		if($this->library_admin_managers->team->team_completed_setup == '1'){
 		
@@ -344,6 +344,8 @@ class Managers extends MY_Controller {
 		}
 		
 		$data = $this->_helper_retrieve_pending_requests();
+		
+		Kint::dump($data);
 
 
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_admin_dashboard', $data, true);
@@ -1155,7 +1157,7 @@ class Managers extends MY_Controller {
 			$tv->tv_gla = $tv_gla;
 		}
 
-		$data['team_venues'] = $team_venues;		
+		$data['team_venues'] = $team_venues;
 		
 		
 		
@@ -1307,7 +1309,37 @@ class Managers extends MY_Controller {
 		}
 						
 		$data = array();
+		
+				
+				
+				
+				
+		//find linked promoters
+		$this->db->select('pgla.user_promoter_id as pgla_user_promoter_id')
+			->from('promoters_guest_list_authorizations pgla')
+			->where(array(
+				'tgla_id'			=> $result->tgla_id,
+				'deactivated'		=> '0'
+			));
+		$query = $this->db->get();
+		$links = $query->result();
+		
+		$links_array = array();
+		foreach($links as $l){
+			$links_array[] = $l->pgla_user_promoter_id;
+		}
+		$data['linked_promoters'] = $links_array;
+		
+		
+		
+					
+		
 		$data['guest_list'] = $result;
+		
+		
+		
+		$this->load->model('model_teams', 'teams', true);
+		$data['promoters'] = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
 		
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists_edit', $data, true);
 		
@@ -1353,6 +1385,8 @@ class Managers extends MY_Controller {
 			));
 		$query = $this->db->get();
 		$result = $query->row();
+		
+		
 			
 		if(!$result){
 			die(json_encode(array('success' => false)));
@@ -1367,7 +1401,9 @@ class Managers extends MY_Controller {
 		$this->load->model('model_users_managers', 'users_managers', true);
 		
 		$gl_object = $this->input->post('gl_form');
-		
+		$gl_object['guest_list_name'] 		= $result->tgla_name;
+		$gl_object['guest_list_venue']		= $result->tv_id;
+		$gl_object['guest_list_weekday']	= $result->tgla_day;
 		
 		
 		
@@ -1412,6 +1448,9 @@ class Managers extends MY_Controller {
 			$new_image_name 	= $this->image_upload->image_data['image'];
 			
 		}
+
+		$gl_object['image_data']['image'] = $new_image_name;
+		
 		
 		$this->db->where(array(
 			'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
@@ -1435,9 +1474,176 @@ class Managers extends MY_Controller {
 			'additional_info_3'	=> trim($gl_object['guest_list_additional_info_3'])
 		));
 				
+				
+		$this->load->model('model_teams', 'teams', true);
+		$promoters = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
+			
+			
+		if(isset($gl_object['promoters_link'])){
+			
+			$promoters_link = $gl_object['promoters_link'];
+			if(!is_array($promoters_link))
+				$promoters_link = array($promoters_link);
+			
+			foreach($promoters_link as $pl){
+				$this->_helper_promoters_link_edit($promoters, $pl, $gl_object, $arg1);
+			}
+			
+		}else{
+			
+			$promoters_link = array();
+			
+		}
+
+
+
+		
+		//delete all the promoters with linked lists that we're not specified in the upload
+		$this->db->select('pgla.user_promoter_id as pgla_user_promoter_id')
+			->from('promoters_guest_list_authorizations pgla')
+			->where(array(
+				'tgla_id' => $result->tgla_id
+			));
+		$query = $this->db->get();
+		$links = $query->result();
+		
+		$links_array = array();
+		foreach($links as $l){
+			$links_array[] = $l->pgla_user_promoter_id;
+		}
+	
+		foreach($links_array as $key => $up_id){
+			foreach($promoters_link as $pl_up_id){
+				if($pl_up_id === $up_id)
+					unset($links_array[$key]);
+			}			
+		}
+		
+		
+		//all of the promoters that have a linked pgla that needs to be deactivated
+		foreach($links_array as $la){
+			
+			$this->db->where(array(
+				'user_promoter_id'	=> $la,
+				'tgla_id'			=> $result->tgla_id
+			))->update('promoters_guest_list_authorizations', array(
+				'deactivated'	=> 1
+			));
+
+			
+		}
+				
+				
+				
+				
+				
+				
+				
+				
 		die(json_encode(array('success' => true)));
 				
 	}
+
+
+	private function _helper_promoters_link_edit($promoters, $pl, $gl_object, $tgla_link_id){
+		
+		$pro_found = false;
+		foreach($promoters as $pro){
+			if($pro->up_completed_setup === '0' || $pro->up_banned === '1')
+				continue;
+			if($pro->up_id == $pl){
+				$pro_found = true;
+				break;
+			}
+		}
+
+		if(!$pro_found)
+			return false;
+		
+		
+		//Does this promoter already have a guest list with this same name?
+		$this->db->select('pgla.id as pgla_id')
+			->from('promoters_guest_list_authorizations pgla')
+			->where(array(
+				'user_promoter_id'	=> $pl,
+				'tgla_id'			=> NULL,
+				'name'				=> strip_tags(trim($gl_object['guest_list_name']))
+			));
+		$query = $this->db->get();
+		$result = $query->row();
+		if($result){
+			$this->db->where(array(
+				'id'	=> $result->pgla_id
+			))->update('promoters_guest_list_authorizations',
+			array(
+				'deactivated'	=> 1
+			));
+		}
+		
+		
+		
+		
+		//find this linked pgla_id
+		$this->db->select('pgla.id as pgla_id')
+			->from('promoters_guest_list_authorizations pgla')
+			->where(array(
+				'user_promoter_id'	=> $pl,
+				'tgla_id'			=> $tgla_link_id
+			));
+		$query = $this->db->get();
+		$result = $query->row();
+		
+		if(!$result){			
+			$this->_helper_promoters_link_create($promoters, $pl, $gl_object, $tgla_link_id);
+			return;
+		}
+		
+		
+/*		$this->users_promoters->update_pgla($pl, 
+																			$gl_object['guest_list_venue'], 
+																			$gl_object['guest_list_weekday'], 
+																			strip_tags(trim($gl_object['guest_list_name'])), 
+																			strip_tags(trim($gl_object['guest_list_description'])), 
+																			isset($gl_object['guest_list_auto_approve']) ? 1 : 0, 
+																			strip_tags(trim($gl_object['guest_list_gl_cover'])), 
+																			strip_tags(trim($gl_object['guest_list_reg_cover'])), 
+																			$gl_object['guest_list_open'], 
+																			$gl_object['guest_list_close'], 
+																			$gl_object['guest_list_min_age'], 
+																			strip_tags(trim($gl_object['guest_list_additional_info_1'])), 
+																			strip_tags(trim($gl_object['guest_list_additional_info_2'])), 
+																			strip_tags(trim($gl_object['guest_list_additional_info_3'])), 
+																			1, 
+																			$gl_object['image_data'],
+																			$tgla_link_id);
+*/											
+
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$this->users_promoters->update_pgla($result->pgla_id, $pl, array(
+			'min_age'			=> $gl_object['guest_list_min_age'],
+			'door_open'			=> $gl_object['guest_list_open'],
+			'door_close'		=> $gl_object['guest_list_close'],
+			'regular_cover'		=> strip_tags(trim($gl_object['guest_list_reg_cover'])),
+			'gl_cover'			=> strip_tags(trim($gl_object['guest_list_gl_cover'])),
+			'additional_info_1' => strip_tags(trim($gl_object['guest_list_additional_info_1'])),
+			'additional_info_2' => strip_tags(trim($gl_object['guest_list_additional_info_2'])),
+			'additional_info_3' => strip_tags(trim($gl_object['guest_list_additional_info_3'])),
+			'auto_approve' 		=> isset($gl_object['guest_list_auto_approve']) ? 1 : 0,
+			'description' 		=> strip_tags(trim($gl_object['guest_list_description'])),
+			'auto_promote'		=> 1,
+			'image'				=> $gl_object['image_data']['image'],
+			'x0'				=> $gl_object['image_data']['x0'],
+			'x1'				=> $gl_object['image_data']['x1'],
+			'y0'				=> $gl_object['image_data']['y0'],
+			'y1'				=> $gl_object['image_data']['y1'],
+			'deactivated'		=> 0
+		));
+															
+		
+		
+	}
+
+
 	private function _ocupload_settings_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		$this->load->library('library_image_upload', '', 'image_upload');
@@ -1474,6 +1680,13 @@ class Managers extends MY_Controller {
 		$data = array();
 		$data['team_venues'] = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 
+
+		$this->load->model('model_teams', 'teams', true);
+		$data['promoters'] = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
+		Kint::dump($data);
+		
+		
+
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists_new', $data, true);
 		
 	}
@@ -1483,10 +1696,11 @@ class Managers extends MY_Controller {
 		
 		switch($vc_method){
 			case 'new_team_guest_list':
+						
 				
-				$this->load->library('library_venues', '', 'library_venues');
-				$this->load->library('library_image_upload', '', 'image_upload');
-				$this->load->model('model_users_managers', 'users_managers', true);
+				$this->load->library('library_venues', 			'', 'library_venues');
+				$this->load->library('library_image_upload', 	'', 'image_upload');
+				$this->load->model('model_users_managers', 		'users_managers', true);
 				
 				$gl_object = $this->input->post('gl_form');
 				
@@ -1576,6 +1790,8 @@ class Managers extends MY_Controller {
 					default:
 						die(json_encode(array('success' => false, 'message' => 'Invalid weekday')));
 				}
+				$gl_object['guest_list_weekday'] = $weekday;
+				
 				
 				
 				//make image live			
@@ -1586,17 +1802,20 @@ class Managers extends MY_Controller {
 				$image_data->image = $new_image_name;
 				$this->image_upload->image_crop($image_data, 'guest_lists', true, $gl_object['image_data'], true);
 				$new_image_name = $this->image_upload->image_data['image'];
+				$image_data->image = $new_image_name;
+				
+				$gl_object['image_data']['image'] = $new_image_name;
 				
 				
 				$this->db->insert('teams_guest_list_authorizations', array(
 					'team_fan_page_id'	=> $this->vc_user->manager->team_fan_page_id,
 					'team_venue_id'		=> $gl_object['guest_list_venue'],
 					'day'				=> $weekday,
-					'name'				=> trim($gl_object['guest_list_name']),
+					'name'				=> strip_tags(trim($gl_object['guest_list_name'])),
 					'create_time'		=> time(),
 					'deactivated'		=> 0,
 					'auto_approve'		=> isset($gl_object['guest_list_auto_approve']) ? 1 : 0,
-					'description'		=> trim($gl_object['guest_list_description']),
+					'description'		=> strip_tags(trim($gl_object['guest_list_description'])),
 					
 					
 					'image'				=> $new_image_name,
@@ -1606,15 +1825,32 @@ class Managers extends MY_Controller {
 					'y1'				=> $gl_object['image_data']['y1'],
 					
 					
-					'min_age'			=> $gl_object['guest_list_min_age'],
-					'door_open'			=> $gl_object['guest_list_open'],
-					'door_close'		=> $gl_object['guest_list_close'],
-					'regular_cover'		=> trim($gl_object['guest_list_reg_cover']),
-					'gl_cover'			=> trim($gl_object['guest_list_gl_cover']),
-					'additional_info_1'	=> trim($gl_object['guest_list_additional_info_1']),
-					'additional_info_2'	=> trim($gl_object['guest_list_additional_info_2']),
-					'additional_info_3'	=> trim($gl_object['guest_list_additional_info_3'])
+					'min_age'			=> strip_tags($gl_object['guest_list_min_age']),
+					'door_open'			=> strip_tags($gl_object['guest_list_open']),
+					'door_close'		=> strip_tags($gl_object['guest_list_close']),
+					'regular_cover'		=> strip_tags(trim($gl_object['guest_list_reg_cover'])),
+					'gl_cover'			=> strip_tags(trim($gl_object['guest_list_gl_cover'])),
+					'additional_info_1'	=> strip_tags(trim($gl_object['guest_list_additional_info_1'])),
+					'additional_info_2'	=> strip_tags(trim($gl_object['guest_list_additional_info_2'])),
+					'additional_info_3'	=> strip_tags(trim($gl_object['guest_list_additional_info_3']))
 				));
+				
+				$tgla_id = $this->db->insert_id();
+				
+				if(isset($gl_object['promoters_link'])){
+					
+					$this->load->model('model_teams', 'teams', true);
+					$promoters = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
+					
+					$promoters_link = $gl_object['promoters_link'];
+					if(!is_array($promoters_link))
+						$promoters_link = array($promoters_link);
+					
+					foreach($promoters_link as $pl){
+						$this->_helper_promoters_link_create($promoters, $pl, $gl_object, $tgla_id);
+					}
+					
+				}
 				
 				
 				die(json_encode(array('success' => true)));
@@ -1623,6 +1859,68 @@ class Managers extends MY_Controller {
 		}
 		
 	}
+
+
+	private function _helper_promoters_link_create($promoters, $pl, $gl_object, $tgla_link_id){
+		
+		$pro_found = false;
+		foreach($promoters as $pro){
+			if($pro->up_completed_setup === '0' || $pro->up_banned === '1')
+				continue;
+			if($pro->up_id == $pl){
+				$pro_found = true;
+				break;
+			}
+		}
+
+		if(!$pro_found)
+			return false;
+		
+		
+		//Does this promoter already have a guest list with this same name?
+		$this->db->select('pgla.id as pgla_id')
+			->from('promoters_guest_list_authorizations pgla')
+			->where(array(
+				'user_promoter_id'	=> $pl,
+				'name'				=> strip_tags(trim($gl_object['guest_list_name']))
+			));
+		$query = $this->db->get();
+		$result = $query->row();
+		if($result){
+			$this->db->where(array(
+				'id'	=> $result->pgla_id
+			))->update('promoters_guest_list_authorizations',
+			array(
+				'deactivated'	=> 1
+			));
+		}
+		
+		
+		
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$this->users_promoters->create_promoter_guest_list_authorization($pl, 
+																			$gl_object['guest_list_venue'], 
+																			$gl_object['guest_list_weekday'], 
+																			strip_tags(trim($gl_object['guest_list_name'])), 
+																			strip_tags(trim($gl_object['guest_list_description'])), 
+																			isset($gl_object['guest_list_auto_approve']) ? 1 : 0, 
+																			strip_tags(trim($gl_object['guest_list_gl_cover'])), 
+																			strip_tags(trim($gl_object['guest_list_reg_cover'])), 
+																			$gl_object['guest_list_open'], 
+																			$gl_object['guest_list_close'], 
+																			$gl_object['guest_list_min_age'], 
+																			strip_tags(trim($gl_object['guest_list_additional_info_1'])), 
+																			strip_tags(trim($gl_object['guest_list_additional_info_2'])), 
+																			strip_tags(trim($gl_object['guest_list_additional_info_3'])), 
+																			1, 
+																			$gl_object['image_data'],
+																			$tgla_link_id);
+															
+		
+		
+	}
+
+
 	private function _ocupload_settings_guest_lists_new($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 				

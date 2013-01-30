@@ -99,7 +99,7 @@
 															<?php $day_displayed = true; ?>
 														<?php endif; ?>
 														
-													<li data-pgla_id="<?= $wgl->pgla_id ?>" style="margin-left:15px; text-decoration:none;"><span style="text-decoration:underline"><?= $wgl->pgla_name ?></span> (<?= count($wgl->groups) ?>)<span class="pgla_id" style="display:none"><?= $wgl->pgla_id ?></span></li><br>
+													<li data-pgla_id="<?= $wgl->pgla_id ?>" style="margin-left:15px; text-decoration:none; background:none !important;"><span style="text-decoration:underline"><?= $wgl->pgla_name ?></span> (<?= count($wgl->groups) ?>)<span class="pgla_id" style="display:none"><?= $wgl->pgla_id ?></span></li><br>
 													
 													<?php endif; ?>
 												

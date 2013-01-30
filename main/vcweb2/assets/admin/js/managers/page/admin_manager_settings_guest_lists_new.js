@@ -40,7 +40,7 @@ jQuery(function(){
 			        	
 			        	console.log('onSubmit');
 			        	jQuery('#upload_new_image').hide();
-			        	jQuery('#ajax_loading').show();
+			        	jQuery('#ajax_loading_image').show();
 			        	
 			        },
 			        onComplete: function(response){
@@ -49,7 +49,7 @@ jQuery(function(){
 			        	
 			        	
 			        	
-			        	jQuery('#ajax_loading').hide();
+			        	jQuery('#ajax_loading_image').hide();
 			         	jQuery('#upload_new_image').show();
 			         	jQuery("input[name=file]").val('');
 			         
@@ -194,7 +194,7 @@ jQuery(function(){
 					this.display_error('Please choose an image to represent your guest list.');
 					return false;
 				}
-				
+			
 				
 			//	this.$el.find('input#submit_new_guest_list').hide();
 				this.$el.find('#ajax_loading').show();
