@@ -635,7 +635,7 @@ class Model_app_data extends CI_Model {
 					AND 	pgla.team_venue_id = ?";
 			$query = $this->db->query($sql, array($result->tv_id));
 			
-			Kint::dump($this->db->last_query());
+		//	Kint::dump($this->db->last_query());
 			
 			$result->venue_promoters = $query->result();
 		}

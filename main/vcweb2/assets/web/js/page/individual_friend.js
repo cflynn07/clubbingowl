@@ -89,12 +89,38 @@ jQuery(function(){
 			//render vibecompass friends
 			var friends = data.vc_friend.vc_mates;
 			for(var i in friends){
+				
+			//	console.log('friends');
+			//	console.log(friends[i]);
+			//	continue;
+				
 				var friend_html = new EJS({
 				//	element: jQuery('div#ejs_friend_templates > div#ejs_vibecompass_friends').get(0)
 					text: ejs_view_templates.friends_vibecompass_friends
 				}).render(friends[i]);
 				friend_content.find('ul#vibecompass_friends').append(friend_html);
+				
+				
 			}
+			
+			
+			jQuery('ul#vibecompass_friends *[data-invite-oauth_uid]').bind('click', function(e){
+				
+				
+				var uid = jQuery(e.currentTarget).attr('data-invite-oauth_uid');
+			
+				FB.ui({
+			        method: 'apprequests',
+			        message: 'Come check out ClubbingOwl! ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away!',
+			        title: 'Invite friends to ClubbingOwl',
+			        to: uid
+			    },
+			    function (response) {		        
+			        
+			    });
+			    
+			    
+			});
 			
 			
 			//render activity feed

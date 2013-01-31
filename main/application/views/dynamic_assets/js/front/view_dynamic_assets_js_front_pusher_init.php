@@ -88,10 +88,22 @@ jQuery(function(){
 		
 	}
 	
+	
+	var unbind_callbacks = [];
 	var individual_channel_subscribe_callbacks = function(ic){
 		
-		if(typeof ic !== 'undefined' && ic.bind)
+		
+		if(typeof ic !== 'undefined' && ic.bind){
+			
+			for(var i in unbind_callbacks){
+				var c = unbind_callbacks[i];
+				ic.unbind('notification', c);
+			}
+			unbind_callbacks.push(indiv_notification_callback);
+			
 			ic.bind('notification', indiv_notification_callback);
+		
+		}
 		
 	}
 	
@@ -108,29 +120,38 @@ jQuery(function(){
 	var individual_channel;
 	jQuery('div#notification_container').notify();
 
-	var vc_user = jQuery.cookies.get('vc_user');
-	if(vc_user){
-		window.individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
-		individual_channel = window.individual_channel;
+	
+	
+	var inititate_function = function(){
+		var vc_user = jQuery.cookies.get('vc_user');
 		
-		individual_channel_subscribe_callbacks(window.individual_channel);
+		if(vc_user){
+			
+			window.individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
+			individual_channel = window.individual_channel;
+			individual_channel_subscribe_callbacks(window.individual_channel);
+			
+		}
 	}
+	inititate_function();
 	
 	window.EventHandlerObject.addListener("vc_login", function(){
 		
-		if(typeof individual_channel !== 'undefined')
-		if(typeof individual_channel.name !== 'undefined'){
-			pusher.unsubscribe(individual_channel.name);
-		}
-
-		var vc_user = jQuery.cookies.get('vc_user');
-		console.log('vc_login pusher event');
-		console.log(vc_user);
+	//	if(typeof individual_channel !== 'undefined')
+	//	if(typeof individual_channel.name !== 'undefined'){
+	//		pusher.unsubscribe(individual_channel.name);
+	//	}
 		
-		if(vc_user){
-			window.individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
-			individual_channel_subscribe_callbacks(individual_channel);
-		}
+		inititate_function();
+		
+	//	var vc_user = jQuery.cookies.get('vc_user');
+	//	console.log('vc_login pusher event');
+	//	console.log(vc_user);
+		
+	//	if(vc_user){
+	//		window.individual_channel = pusher.subscribe('private-vc-' + vc_user.vc_oauth_uid);
+	//		individual_channel_subscribe_callbacks(individual_channel);
+	//	}
 			
 	});
 	
