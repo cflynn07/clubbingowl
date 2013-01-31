@@ -5,9 +5,10 @@ www:
 daemons:
  type: php-worker
  approot: main
- process: php /home/dotcloud/current/index.php worker all
- process: php /home/dotcloud/current/index.php worker all
- process: php /home/dotcloud/current/index.php worker all
+ processes:
+  worker1: php /home/dotcloud/current/index.php worker all
+  worker2: php /home/dotcloud/current/index.php worker all
+  worker3: php /home/dotcloud/current/index.php worker all
 db:
  type: mysql
 data:
