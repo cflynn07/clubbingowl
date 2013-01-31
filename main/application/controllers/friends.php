@@ -281,7 +281,7 @@ class Friends extends MY_Controller {
 					$this->load->model('model_users_promoters', 'users_promoters', true);
 					$promoter = $this->users_promoters->retrieve_promoter(array('users_oauth_uid' => $user->users_oauth_uid));
 					
-					if($promoter->up_completed_setup == 1){
+					if(isset($promoter->up_completed_setup) && $promoter->up_completed_setup == 1){
 					//	redirect('/promoters/' . $promoter->team->c_url_identifier . '/' . $promoter->up_public_identifier . '/', 301);
 					//	die();
 					

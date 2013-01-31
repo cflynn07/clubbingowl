@@ -55,6 +55,10 @@ class Net_Gearman_Job_friend_retrieve extends Net_Gearman_Job_Common{
 				//FQL lookup of vc_friends this user goes clubbing w/
 				$fql = "SELECT uid, name, pic, pic_big, pic_square, sex, third_party_id, is_app_user FROM user WHERE ";
 				foreach($friend->vc_friend->vc_mates as $m8){
+					
+					if(!isset($m8->oauth_uid) || !$m8->oauth_uid)
+						continue;
+						
 					$fql .= "uid = $m8->oauth_uid OR ";
 				}
 				$fql = rtrim($fql, ' OR ');
