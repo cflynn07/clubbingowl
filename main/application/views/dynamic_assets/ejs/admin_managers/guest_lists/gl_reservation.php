@@ -13,9 +13,9 @@
 	<% } %>
 			
 	<% if(tglr_user_oauth_uid == null){ %>
-		<span><%= tglr_supplied_name %></span>
+		<span style="white-space:nowrap;"><%= tglr_supplied_name %></span>
 	<% }else{ %>
-		<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + tglr_user_oauth_uid + '/' %>"><span data-oauth_uid="<%= tglr_user_oauth_uid %>" data-name="<%= tglr_user_oauth_uid %>"></span></a>
+		<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + tglr_user_oauth_uid + '/' %>"><span style="white-space:nowrap;" data-oauth_uid="<%= tglr_user_oauth_uid %>" data-name="<%= tglr_user_oauth_uid %>"></span></a>
 	<% } %>
 	
 	<% if(u_phone_number){ %>

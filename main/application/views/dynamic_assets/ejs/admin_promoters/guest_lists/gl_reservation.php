@@ -16,11 +16,11 @@
 			
 	<% if(head_user == null){ %>
 		
-		<span><%= pglr_supplied_name %></span>
+		<span style="white-space:nowrap;"><%= pglr_supplied_name %></span>
 		
 	<% }else{ %>
 		
-		<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>"><span data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span></a>
+		<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + head_user + '/' %>"><span style="white-space:nowrap;" data-oauth_uid="<%= head_user %>" data-name="<%= head_user %>"></span></a>
 		
 	<% } %>
 		
