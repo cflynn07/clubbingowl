@@ -4,7 +4,10 @@
 	$page_obj->team_trailing_gl_requests_values = array_values($team_trailing_gl_requests);
 	
 	
-	$page_obj->team_venues = $team_venues;
+	
+	
+	$page_obj->team_venues 	= $team_venues;
+	$page_obj->promoters 	= $promoters;
 	
 	
 	
