@@ -32,8 +32,13 @@
 				<td><?= date("F j, Y, g:ia", $guest_list->pgla_create_time) ?></td>
 				<td><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($guest_list->pgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
 				<td class="pgla_id" style="display:none"><?= $guest_list->pgla_id ?></td>
-				<td>
+				<td style="padding:5px 0 0 5px;">
 					
+					<a href="#" class="button_link guest_list_delete delete_guest_list_button">DELETE</a>
+					<a href="<?= $central->promoter_admin_link_base ?>manage_guest_lists_edit/<?= $guest_list->pgla_id ?>/" class="button_link btn-action edit_guest_list ajaxify">EDIT</a>
+					
+					
+					<?php if(false): ?>
 					<a style="display:inline-block;" class="tooltip guest_list_delete delete_guest_list_button ajaxify" title="Delete this Guest List" href="#">
 						<img src="<?=$central->admin_assets?>images/icons/actions_small/Trash.png" />
 					</a>
@@ -41,6 +46,8 @@
 					<a style="display:inline-block;" class="tooltip edit_guest_list ajaxify" title="Edit Guest List" href="<?= $central->promoter_admin_link_base ?>manage_guest_lists_edit/<?= $guest_list->pgla_id ?>/">
 						<img src="<?= $central->admin_assets ?>images/icons/actions_small/Pencil.png" />
 					</a>
+					
+					<?php endif; ?>
 					
 				</td>
 			</tr>
@@ -56,9 +63,15 @@
 <table>
 	<tr>
 		<td>
+			
+			<a id="new_guest_list" href="<?=$central->promoter_admin_link_base?>manage_guest_lists_new/" class="button_link btn-action ajaxify">New List</a>
+			 
+			<?php if(false): ?>
 			<a href="<?=$central->promoter_admin_link_base?>manage_guest_lists_new/" class="ajaxify" style="text-decoration:none">
 				<input class="button" type="submit" value="New Guest List" id="new_guest_list" />
 			</a>
+			<?php endif; ?>
+		
 		</td>
 	</tr>
 </table>

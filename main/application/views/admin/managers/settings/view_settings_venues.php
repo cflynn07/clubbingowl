@@ -35,7 +35,7 @@
 			<tr <?= ($key % 2) ? '' : 'class="odd"' ?>>
 				<td><?= $key ?></td>
 				<td><?= $venue->tv_name ?></td>
-				<td><?= $venue->tv_description ?></td>
+				<td><?= substr($venue->tv_description, 0, 100) ?>...</td>
 				<td><?= $venue->tv_street_address ?></td>
 				<td><?= $venue->tv_city ?></td>
 				<td><?= $venue->tv_state ?></td>				
@@ -48,9 +48,20 @@
 				</td>
 				<td style="white-space:nowrap; padding:0px; width:99px;">
 					<span style="display:none;"><?= $venue->tv_id ?></span>
+					
+					<br/>
+					
+					<a href="<?= $central->manager_admin_link_base ?>settings_venues_edit_floorplan/<?= $venue->tv_id ?>/" class="button_link btn-action ajaxify">EDIT FLOORPLAN</a>
+					
+					<?php if(false): ?>
+					
 					<a style="display:inline-block;" class="tooltip table_icon delete_venue" title="Delete venue" href="#"><img alt="" src="<?= $central->admin_assets ?>images/icons/actions_small/Trash.png"></a>
 					<a style="display:inline-block;" class="ajaxify tooltip table_icon edit_venue" title="Edit venue" href="<?= $central->manager_admin_link_base ?>settings_venues_edit/<?= $venue->tv_id ?>/"><img alt="" src="<?= $central->admin_assets ?>images/icons/actions_small/Pencil.png"></a>
 					<a style="display:inline-block;" class="ajaxify tooltip table_icon edit_venue_floorplan" title="Edit floorplan" href="<?= $central->manager_admin_link_base ?>settings_venues_edit_floorplan/<?= $venue->tv_id ?>/"><img alt="" src="<?= $central->admin_assets ?>images/icons/actions_small/Preferences.png"></a>
+					
+					<?php endif; ?>
+				
+				
 				</td>
 			</tr>
 			<?php endforeach; ?>
