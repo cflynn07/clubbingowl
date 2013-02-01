@@ -31,7 +31,7 @@
 	
 	<ul class="venue-list" style="margin-top:20px;">
 		
-		<?php foreach($venues as $venue): ?>
+		<?php foreach($venues as $key => $venue): ?>
 		  <li>
 			
 			<a class="ajaxify_t3" href="<?= $central->front_link_base ?>venues/<?= $venue->c_url_identifier ?>/<?= str_replace(' ', '_', $venue->tv_name) ?>/guest_lists/">
@@ -55,6 +55,15 @@
 		    </p>
 		    
 		  </li>
+		  
+		<?php if(($key + 1) % 2 === 0): ?>
+			<div class="data_clear_2" data-clear-2="<?= $key ?>" style="clear:both;"></div>
+		<?php endif; ?>
+						
+		<?php if(($key + 1) % 3 === 0): ?>
+			<div class="data_clear_3" data-clear-3="<?= $key ?>" style="clear:both;"></div>
+		<?php endif; ?>
+		  
 		<?php endforeach; ?>
 		
 	</ul>
@@ -80,7 +89,7 @@
 			
 			<ul class="venue-list" style="margin-top:20px;">
 			
-			<?php foreach($vc_city->venues as $venue): ?>
+			<?php foreach($vc_city->venues as $key => $venue): ?>
 				
 				 <li>
 				 	
@@ -104,6 +113,14 @@
 				    </p>
 				    
 				 </li>
+				 
+				 <?php if(($key + 1) % 2 === 0): ?>
+					<div class="data_clear_2" data-clear-2="<?= $key ?>" style="clear:both;"></div>
+				<?php endif; ?>
+								
+				<?php if(($key + 1) % 3 === 0): ?>
+					<div class="data_clear_3" data-clear-3="<?= $key ?>" style="clear:both;"></div>
+				<?php endif; ?>
 				
 			<?php endforeach; ?>
 			

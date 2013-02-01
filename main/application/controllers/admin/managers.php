@@ -333,7 +333,7 @@ class Managers extends MY_Controller {
 		
 		
 		
-		Kint::dump($this->library_admin_managers);
+		//Kint::dump($this->library_admin_managers);
 		
 		if($this->library_admin_managers->team->team_completed_setup == '1'){
 		
@@ -345,7 +345,7 @@ class Managers extends MY_Controller {
 		
 		$data = $this->_helper_retrieve_pending_requests();
 		
-		Kint::dump($data);
+		//Kint::dump($data);
 
 
 		$this->body_html = $this->load->view($this->view_dir . 'dashboard/view_admin_dashboard', $data, true);
