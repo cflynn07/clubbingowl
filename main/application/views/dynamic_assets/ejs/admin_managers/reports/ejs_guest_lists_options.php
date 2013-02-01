@@ -10,11 +10,11 @@
 		<label>To:</label><br/>
 		<input name="end_date" 	 type="text" />
 	</div>
-	<br/><br/>
+	<br/>
 	
 	
 	<h2>Promoters</h2>
-	<table>
+	<table style="margin:0;">
 		<tbody>
 		<% for(var i in promoters){ var p = promoters[i]; %>
 			
@@ -23,7 +23,7 @@
 					<input data-up_id="<%= p.up_id %>" type="checkbox" class="iphone" checked>
 				</td>
 				<td>
-					<img style="height:100px; border:1px solid #CCC;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'profile-pics/' + p.up_profile_image + '_t.jpg' %>" />
+					<img style="height:60px; border:1px solid #CCC;" src="<%= window.module.Globals.prototype.s3_uploaded_images_base_url + 'profile-pics/' + p.up_profile_image + '_t.jpg' %>" />
 					<p><%= p.u_full_name %></p>
 				</td>
 			</tr>
@@ -33,7 +33,7 @@
 	</table>
 	
 	<h2>Venues</h2>
-	<table>
+	<table style="margin:0;">
 		<tbody>
 		<% for(var i in team_venues){ var tv = team_venues[i]; %>
 			

@@ -1067,6 +1067,287 @@ class Model_teams extends CI_Model {
 		
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function retrieve_venue_floorplan_reservations_range($team_venue_id,
+														$promoters, 
+														$team_fan_page_id,
+														$start_date, 
+														$end_date){
+															
+		
+		if(!$team_venue_id)
+			return array();
+		
+		
+		$promoters_reservations = array();
+		
+		if($promoters){
+			$sql = "SELECT
+						
+						vlfit.id 									as vlfit_id,
+						vlfit.venues_layout_floors_items_id			as vlfit_vlfi_id,
+						pglr.id										as pglr_id,
+						pglr.approved 								as pglr_approved,
+						pglr.user_oauth_uid 						as pglr_user_oauth_uid,
+						pglr.supplied_name							as pglr_supplied_name,
+						pglr.host_message 							as pglr_host_message,
+						pglr.request_msg							as pglr_request_msg,
+						pglr.response_msg 							as pglr_response_msg,
+						pglr.approved 								as pglr_approved,
+						pglr.create_time 							as pglr_create_time,
+						pglr.table_request 							as pglr_table_request,
+						pglr.text_message 							as pglr_text_message,
+						pglr.share_facebook							as pglr_share_facebook,
+						pglr.venues_layout_floors_items_table_id 	as pglr_vlfit_id,
+						pglr.manager_table_approved 				as pglr_manager_table_approved,
+						pgla.day									as pgla_day,
+						pgla.image 									as pgla_image,
+						pgla.name									as pgla_name,
+						pgl.date 									as pgl_date,
+						pgl.id 										as pgl_id,
+						tv.name 									as tv_name,
+						up.id										as up_id,
+						up.users_oauth_uid 							as up_users_oauth_uid,
+						up.profile_image 							as up_profile_image,
+						u.first_name 								as u_first_name,
+						u.last_name 								as u_last_name,
+						u.full_name 								as u_full_name,
+						hc.*,
+						hcd.*
+						
+									
+					FROM 	promoters_guest_lists_reservations pglr
+					
+					LEFT JOIN 	venues_layout_floors_items_tables vlfit
+					ON 			pglr.venues_layout_floors_items_table_id = vlfit.id
+					
+					JOIN 	promoters_guest_lists pgl
+					ON 		pglr.promoter_guest_lists_id = pgl.id
+					
+					JOIN 	promoters_guest_list_authorizations pgla
+					ON 		pgl.promoters_guest_list_authorizations_id = pgla.id
+					
+					JOIN 	team_venues tv
+					ON 		pgla.team_venue_id = tv.id
+					
+					JOIN	users_promoters up
+					ON		pgla.user_promoter_id = up.id
+										
+					JOIN 	promoters_teams pt 
+					ON 		pt.promoter_id = up.id
+					
+					JOIN 	users u 
+					ON 		up.users_oauth_uid = u.oauth_uid
+					
+					JOIN 	teams_venues_pairs tvp 
+					ON 		tvp.team_venue_id = tv.id 
+					
+					JOIN 	teams t 
+					ON 		tvp.team_fan_page_id = t.fan_page_id
+					
+					LEFT JOIN 	host_checkins hc 
+					ON 			hc.hc_pglr_id = pglr.id
+					
+					LEFT JOIN 	host_checkins_data hcd
+					ON 			hc.hcd_id = hcd.hcd_id
+					
+					WHERE 	pgla.team_venue_id = ?
+							AND
+							tv.id = ?
+							
+							AND pt.team_fan_page_id = ?
+							AND pt.approved = 1 
+							AND pt.banned = 0 
+							AND pt.quit = 0
+							
+							AND tvp.team_fan_page_id = ? 
+							AND tvp.team_venue_id = ? 
+							AND tvp.deleted = 0
+							
+							AND
+							pglr.approved = 1
+							
+							AND pgl.date >= ?
+							AND pgl.date <= ? AND ( ";
+						
+						
+			
+			foreach($promoters as $pro){
+				$sql .= "pgla.user_promoter_id = ? OR ";
+			}	
+			$sql = rtrim($sql, ' OR ');
+			$sql .= ")";
+			
+			
+			$options = array_merge(array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_fan_page_id, $team_venue_id, $start_date, $end_date), $promoters);
+			$query = $this->db->query($sql, $options);			
+			$promoters_reservations = $query->result();
+		}
+		
+		//add entourages to promoter reservations
+		foreach($promoters_reservations as &$res){
+			$sql = "SELECT
+						
+						pglre.id 				as pglre_id,
+						pglre.oauth_uid 		as oauth_uid,
+						pglre.oauth_uid			as pglre_oauth_uid,
+						pglre.supplied_name 	as pglre_supplied_name,
+						hc.*,
+						hcd.*
+						
+					FROM 	promoters_guest_lists_reservations_entourages pglre
+					
+					LEFT JOIN 	host_checkins hc 
+					ON 			hc.hc_pglre_id = pglre.id
+					
+					LEFT JOIN 	host_checkins_data hcd
+					ON 			hc.hcd_id = hcd.hcd_id
+					
+					WHERE	pglre.promoters_guest_lists_reservations_id = ?";
+			$query = $this->db->query($sql, array($res->pglr_id));			
+			$res->entourage = $query->result();
+			
+		}unset($res);
+		
+		
+		
+		
+		
+		
+		
+		
+		$sql = "SELECT
+		
+					vlfit.id 									as vlfit_id,
+					vlfit.venues_layout_floors_items_id			as vlfit_vlfi_id,
+					tglr.id										as tglr_id,
+					tglr.approved 								as tglr_approved,
+					tglr.user_oauth_uid 						as tglr_user_oauth_uid,
+					tglr.supplied_name							as tglr_supplied_name,
+					tglr.host_message 							as tglr_host_message,
+					tglr.request_msg							as tglr_request_msg,
+					tglr.response_msg							as tglr_response_msg, 
+					tglr.approved								as tglr_approved,
+					tglr.create_time							as tglr_create_time,
+					tglr.table_request							as tglr_table_request,
+					tglr.text_message 							as tglr_text_message,
+					tglr.share_facebook 						as tglr_share_facebook,
+					tglr.venues_layout_floors_items_table_id 	as tglr_vlfit_id,
+					tgla.day 									as tgla_day,
+					tgla.image 									as tgla_image,
+					tgla.name 									as tgla_name,
+					tgl.date 									as tgl_date,
+					tgl.id 										as tgl_id,
+					tv.name										as tv_name,
+					hc.*,
+					hcd.*
+					
+				FROM 	teams_guest_lists_reservations tglr
+				
+				LEFT JOIN 	venues_layout_floors_items_tables vlfit
+				ON 			tglr.venues_layout_floors_items_table_id = vlfit.id
+				
+				JOIN 	teams_guest_lists tgl
+				ON 		tglr.team_guest_list_id = tgl.id
+				
+				JOIN 	teams_guest_list_authorizations tgla
+				ON 		tgl.team_guest_list_authorization_id = tgla.id
+				
+				JOIN 	team_venues tv
+				ON 		tgla.team_venue_id = tv.id
+								
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_venue_id = tv.id 
+				
+				JOIN 	teams t 
+				ON 		tvp.team_fan_page_id = t.fan_page_id
+				
+				LEFT JOIN 	host_checkins hc 
+				ON 			hc.hc_tglr_id = tglr.id
+				
+				LEFT JOIN 	host_checkins_data hcd
+				ON 			hc.hcd_id = hcd.hcd_id
+				
+				WHERE	tgla.team_venue_id = ?
+						AND
+						tv.id = ?
+						
+						AND tgla.team_fan_page_id = ?
+						
+						AND tvp.team_fan_page_id = ? 
+						AND tvp.team_venue_id = ? 
+						AND tvp.deleted = 0
+						
+						AND
+						tglr.approved = 1
+						AND tgl.date >= ?
+						AND tgl.date <= ?";
+	
+	
+		$query = $this->db->query($sql, array($team_venue_id, $team_venue_id, $team_fan_page_id, $team_fan_page_id, $team_venue_id, $start_date, $end_date));
+				
+		$teams_reservations = $query->result();
+		
+		//add entourages to promoter reservations
+		foreach($teams_reservations as &$res){
+			$sql = "SELECT
+			
+						tglre.id 				as tglre_id,
+						tglre.oauth_uid 		as oauth_uid,
+						tglre.oauth_uid			as tglre_oauth_uid,
+						tglre.supplied_name 	as tglre_supplied_name,
+						hc.*,
+						hcd.*
+						
+					FROM 	teams_guest_lists_reservations_entourages tglre
+					
+					LEFT JOIN 	host_checkins hc 
+					ON 			hc.hc_tglre_id = tglre.id
+					
+					LEFT JOIN 	host_checkins_data hcd
+					ON 			hc.hcd_id = hcd.hcd_id
+					
+					WHERE	tglre.team_guest_list_reservation_id = ?";
+			$query = $this->db->query($sql, array($res->tglr_id));
+			$res->entourage = $query->result();
+		
+		}unset($res);
+		
+		return array_merge($promoters_reservations, $teams_reservations);
+
+	}
+														
+														
+														
+														
+														
+														
+														
+														
+														
+														
+														
+														
+														
+														
+														
+
 	/**
 	 * Retrieve all of the venue table reservations on a given date
 	 * 

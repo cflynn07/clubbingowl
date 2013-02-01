@@ -100,6 +100,18 @@ jQuery(function(){
 		});
 		
 		
+		
+		Models.Reservation = Backbone.Model.extend({
+			initialize: function(){},
+			defaults: {}
+		});
+		
+		Collections.Reservations = Backbone.Collection.extend({
+			model: Models.Reservation,
+			initialize: function(){}
+		})
+		
+				
 				
 		Views.GuestListsOptions = Backbone.View.extend({
 			el: '#filter_options',
@@ -177,7 +189,12 @@ jQuery(function(){
 				jQuery.background_ajax({
 					data: selected_props,
 					success: function(data){
-						Events.trigger('fetch_finish');
+						
+						Events.trigger('fetch_finish', {
+							response: data.message,
+							filters:  selected_props
+						});
+						
 					}
 				});
 				
@@ -196,25 +213,49 @@ jQuery(function(){
 					});
 				});
 				
-				Events.on('fetch_finish', function(){
-					_this.render();
+				Events.on('fetch_finish', function(data){
+					_this.render(data);
 				});
 				
-				this.render(); 
+				this.render([]); 
 			},
-			render: function(){
+			render: function(data){
+				
+				console.log('data!');
+				console.log(data);
+				
+				
+				
+				
+				var reservations = new Collections.Reservations(data.response);
+				console.log('reservations');
+				console.log(reservations.toJSON());
+				
+				
+				
+				
 				
 				var _this = this;
 				var template = EVT['reports/ejs_guest_lists_summary'];
 				var html = new EJS({
 					text: template
-				}).render({});
+				}).render(data);
 				
 				this.$el.html(html).css({
 					opacity: 1
 				});
 				
+				
+				
+				
+				
+
+				this.$el.find('#attendance_percentage').progressbar({
+					value: 40
+				});
+				
 				this.$el.addClass('ui-widget');
+				
 				
 			},
 			events: {}
