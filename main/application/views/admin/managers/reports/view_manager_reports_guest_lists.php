@@ -1,8 +1,13 @@
-<?php if($team->team_completed_setup == '1'): ?>
 <?php
 	$page_obj = new stdClass;
-	$page_obj->team_trailing_gl_requests_keys = array_keys($team_trailing_gl_requests);
+	$page_obj->team_trailing_gl_requests_keys 	= array_keys($team_trailing_gl_requests);
 	$page_obj->team_trailing_gl_requests_values = array_values($team_trailing_gl_requests);
+	
+	
+	$page_obj->team_venues = $team_venues;
+	
+	
+	
 	
 	// ----------------------------------------- CHART 1 -----------------------------------------
 	//generate series data
@@ -98,7 +103,7 @@
 	
 	
 	
-	
+	/*
 	
 	
 	
@@ -177,82 +182,152 @@
 	$page_obj->attended_array = $attended_array;
 	
 	// ----------------------------------------- END CHART 3 -----------------------------------------
+	*/
+	
+	
 	
 ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
-<h1>Guest Lists Reports</h1>
+<h1>Guest List Reports</h1>
 
-<div class="full_width last" style="width:980px;">
+
+<div id="reports_wrapper" class="full_width last tabs" style="width:980px; display:none;">
 	
-	<h3>
-		Weekly Guest List Booking
-		<img class="info_icon tooltip" title="Breakdown of which promoters or team-guest-lists are driving client reservations." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
-	</h3>
-	
-	<div class="ui-widget full_width last">
-		
-		<div class="ui-widget-header">
-			<span>Weekly Guest List Booking</span>
-		</div>
-		
-		<div id="combo_chart_guest_lists" class="ui-widget-content">
-			
-		</div>
-		
-	</div>
-	
-	<?php if(false): ?>
-	
-	
-	
-	<hr>
-	<br>
-	
-	<h3>
-		Guest List Attendance Percentage by Time
-		<img class="info_icon tooltip" title="Percentages of booked clients that actually show up." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
-	</h3>
-	
-	
-	<div class="ui-widget full_width last">
-		
-		<div class="ui-widget-header">
-			<span>Guest List Attendance Percentage</span>
-		</div>
-		
-		<div id="gl_attendance_percentage_time" class="ui-widget-content">
-			
-		</div>
-		
-	</div>
-	
-	<div style="clear:both;"></div>
-	
-	<hr>
-	<br>
-	
-	<h3>
-		Guest List Attendance Percentage by Promoters & Team
-		<img class="info_icon tooltip" title="Percentages of booked clients that actually show up." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
-	</h3>
-	
-	
-	<div class="ui-widget full_width last">
-		
-		<div class="ui-widget-header">
-			<span>Guest List Attendance Percentage</span>
-		</div>
-		
-		<div id="gl_attendance_percentage_promoter" class="ui-widget-content">
-			
-		</div>
-		
-	</div>
-	
-	
-	<?php endif; ?>
-	
-	<div style="clear:both;"></div>
+	  <div class="ui-widget-header">
+		<span>Reports</span>
+		<ul>
+			<li><a href="#tabs-1">Check In</a></li>
+			<li><a href="#tabs-2">Reservations</a></li>
+		</ul>
+	  </div>
+
+
+	  <div id="tabs-1">
+	  	<?= $this->load->view('admin/managers/reports/view_manager_reports_check_in', '', true); ?>
+	  </div>
+	  <div id="tabs-2">
+	  	<div id="combo_chart_guest_lists" class="ui-widget-content"></div>
+	  </div>
+	  
+	  
 </div>
-<?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<?php if(false): ?>
+			
+			<div class="full_width last" style="width:980px;">
+				
+				<h3>
+					Weekly Guest List Booking
+					<img class="info_icon tooltip" title="Breakdown of which promoters or team-guest-lists are driving client reservations." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				</h3>
+				
+				<div class="ui-widget full_width last">
+					
+					<div class="ui-widget-header">
+						<span>Weekly Guest List Booking</span>
+					</div>
+					
+						
+					</div>
+					
+				</div>
+				
+				<?php if(false): ?>
+				
+				
+				
+				<hr>
+				<br>
+				
+				<h3>
+					Guest List Attendance Percentage by Time
+					<img class="info_icon tooltip" title="Percentages of booked clients that actually show up." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				</h3>
+				
+				
+				<div class="ui-widget full_width last">
+					
+					<div class="ui-widget-header">
+						<span>Guest List Attendance Percentage</span>
+					</div>
+					
+					<div id="gl_attendance_percentage_time" class="ui-widget-content">
+						
+					</div>
+					
+				</div>
+				
+				<div style="clear:both;"></div>
+				
+				<hr>
+				<br>
+				
+				<h3>
+					Guest List Attendance Percentage by Promoters & Team
+					<img class="info_icon tooltip" title="Percentages of booked clients that actually show up." src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				</h3>
+				
+				
+				<div class="ui-widget full_width last">
+					
+					<div class="ui-widget-header">
+						<span>Guest List Attendance Percentage</span>
+					</div>
+					
+					<div id="gl_attendance_percentage_promoter" class="ui-widget-content">
+						
+					</div>
+					
+				</div>
+				
+				
+				<?php endif; ?>
+				
+				<div style="clear:both;"></div>
+			</div>
+			<?php endif; ?>
+

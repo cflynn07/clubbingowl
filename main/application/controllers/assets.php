@@ -784,6 +784,10 @@ class Assets extends MY_Common_Controller {
 									'pending_reservation_none',
 									
 									'admin_mobile_menu'
+									
+									
+									
+									
 																		
 								),
 								'lang' => $language
@@ -866,12 +870,17 @@ class Assets extends MY_Common_Controller {
 									
 									'settings/settings_category',
 									'settings/settings_category_edit',
-									
-									
-									
+				
 									'on_file_payment',
 									
-									'admin_mobile_menu'
+									'admin_mobile_menu',
+									
+									
+									
+									'reports/ejs_guest_lists_details',
+									'reports/ejs_guest_lists_options',
+									'reports/ejs_guest_lists_summary'
+									
 																		
 								),
 								'lang' => $language

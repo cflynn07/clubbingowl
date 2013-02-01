@@ -195,11 +195,13 @@ class Promoters extends MY_Controller {
 					
 					break;
 					
-				/*	
+				
 					
 				case 'reports_guest_lists':
 					
 					break;
+					
+				/*
 				case 'reports_sales':
 					
 					break;
@@ -254,8 +256,6 @@ class Promoters extends MY_Controller {
 			
 			switch($arg0){
 				
-				case 'reports':
-					break;
 				case 'clients':
 					
 					break;
@@ -597,8 +597,12 @@ class Promoters extends MY_Controller {
 	 * @param	Third URL segment
 	 * @return	null
 	 */
-	private function _reports($arg0 = '', $arg1 = '', $arg2 = ''){
+	private function _reports_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 		
+		$this->load->helper('admin_report_guest_lists');
+		$data = admin_report_guest_lists($this->vc_user->promoter->t_fan_page_id);
+		
+		$this->body_html = $this->load->view('admin/managers/' . 'reports/view_manager_reports_guest_lists', $data, true);
 		
 		
 	}

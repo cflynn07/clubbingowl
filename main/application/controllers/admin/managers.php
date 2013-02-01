@@ -759,40 +759,15 @@ class Managers extends MY_Controller {
 	 */
 	private function _reports_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 
-		$this->load->model('model_users_managers', 'users_managers', true);
-		$team_trailing_gl_requests = $this->users_managers->retrieve_trailing_weekly_guest_list_reservation_requests($this->vc_user->manager->team_fan_page_id);
-		$data['team_trailing_gl_requests'] = $team_trailing_gl_requests;
-		$team_trailing_gl_requests_percentage_attendance = $this->users_managers->retrieve_trailing_weekly_guest_list_reservation_requests_percentage_attendance($this->vc_user->manager->team_fan_page_id);
-		$data['team_trailing_gl_requests_percentage_attendance'] = $team_trailing_gl_requests_percentage_attendance;
 
-
-		$this->load->model('model_teams', 'teams', true);
-		$data['promoters'] = $this->teams->retrieve_team_promoters($this->vc_user->manager->team_fan_page_id);
-		
-		
-		$this->load->model('model_users_promoters', 'users_promoters', true);
-		foreach($data['promoters'] as $key => &$pro){
-			
-			//if promoter hasn't completed setup, remove
-			if($pro->up_completed_setup == '0' || $pro->up_completed_setup == 0){
-				unset($data['promoters'][$key]);
-				continue;
-			}
-			
-			$statistics = new stdClass;
-			$statistics->num_clients = $this->users_promoters->retrieve_promoter_clients_list($pro->up_id, $this->vc_user->manager->team_fan_page_id, array('count' => true));
-			$statistics->num_total_guest_list_reservations = $this->users_promoters->retrieve_num_guest_list_reservation_requests($pro->up_id, array('upcoming' => true));
-			$statistics->num_upcoming_guest_list_reservations = $this->users_promoters->retrieve_num_guest_list_reservation_requests($pro->up_id);
-			$statistics->trailing_weekly_guest_list_reservation_requests = $this->users_promoters->retrieve_trailing_weekly_guest_list_reservation_requests($pro->up_id);
-			$statistics->trailing_weekly_guest_list_reservation_requests_attendance = $this->users_promoters->retrieve_trailing_weekly_guest_list_reservation_requests_percentage_attendance($pro->up_id);
-			
-			$pro->statistics = $statistics;
-						
-		}
-		unset($pro);
-		
+	
+		$this->load->helper('admin_report_guest_lists');
+		$data = admin_report_guest_lists($this->vc_user->manager->team_fan_page_id);
 		
 		$this->body_html = $this->load->view($this->view_dir . 'reports/view_manager_reports_guest_lists', $data, true);
+		
+		
+		
 		
 	}
 	

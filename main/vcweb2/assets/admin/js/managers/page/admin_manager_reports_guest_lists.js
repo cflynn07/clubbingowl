@@ -5,17 +5,12 @@ jQuery(function(){
 	
 	window.vc_page_scripts.admin_manager_reports_guest_lists = function(){
 						
-		var unbind_callbacks = [];		
+		var unbind_callbacks = [];
+		var EVT = window.ejs_view_templates_admin_managers;
+		
+		
 			
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		jQuery('#reports_wrapper').tabs().show();
 		
 		
 		
@@ -24,8 +19,10 @@ jQuery(function(){
 			credits: {
 				enabled: false
 			},
+			
 			chart: {
-				renderTo: 'combo_chart_guest_lists'
+				renderTo: 'combo_chart_guest_lists',
+				width: 950
 			},
 			title: {
 				text: 'Guest List Reservations'
@@ -63,8 +60,91 @@ jQuery(function(){
 		
 		
 		
-		//------------------------------------------------------------
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		var Models 		= {};
+		var Collections = {};
+		var Views 		= {};
+		
+		
+		Models.TeamVenue = Backbone.Model.extend({
+			initialize: function(){},
+			defaults: {}
+		});
+		Collections.TeamVenues = Backbone.Collection.extend({
+			model: Models.TeamVenue,
+			initialize: function(){}
+		});
+		
+		
+		
+		Views.GuestListsOptions = Backbone.View.extend({
+			el: '#filter_options',
+			className: 'ui-widget',
+			initialize: function(){
+				
+				this.render();
+			},
+			render: function(){
+				
+				var template = EVT['reports/ejs_guest_lists_options'];
+				var html = new EJS({
+					text: template
+				}).render({});
+				
+				this.$el.html(html);
+				this.$el.addClass('ui-widget');
+				
+			},
+			events: {
+				
+			}
+		});
+		
+		var guestListOptions = new Views.GuestListsOptions();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//------------------------------------------------------------
+	/*	
 			
 		gl_attendance_percentage_time = new Highcharts.Chart({
 			credits: {
@@ -171,7 +251,7 @@ jQuery(function(){
 		
 		
 		
-		
+		*/
 		
 
 
