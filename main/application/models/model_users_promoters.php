@@ -1335,8 +1335,10 @@ class Model_users_promoters extends CI_Model {
 			
 					
 			
-		foreach($clients_uids as $c_uid){
-			
+	
+		
+		if($clients_uids){
+
 			$this->db->select('u.full_name 		as u_full_name,
 							u.first_name	as u_first_name,
 							u.last_name		as u_last_name,
@@ -1345,11 +1347,13 @@ class Model_users_promoters extends CI_Model {
 							u.phone_number	as u_phone_number,
 							u.opt_out_email	as u_opt_out_email');
 			$this->db->from('users u', false);
-			$this->db->or_where('oauth_uid', $c_uid->pglr_user_oauth_uid);
 
-		}
-		
-		if($clients_uids){
+			foreach($clients_uids as $c_uid){
+				
+				$this->db->or_where('oauth_uid', $c_uid->pglr_user_oauth_uid);
+	
+			}
+
 
 			$query = $this->db->get();
 			$result = $query->result();
@@ -1359,6 +1363,11 @@ class Model_users_promoters extends CI_Model {
 			$result = array();
 
 		}
+		
+		
+		
+		
+		
 		
 		//attach gl bookings
 		foreach($result as &$user){

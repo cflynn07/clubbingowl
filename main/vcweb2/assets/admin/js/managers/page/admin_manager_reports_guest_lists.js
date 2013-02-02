@@ -47,11 +47,11 @@ jQuery(function(){
 			},
 			labels: {
 				items: [{
-					html: 'Total reservations',
+					html: 'Total Reservations',
 					style: {
-						left: '40px',
-						top: '8px',
-						color: 'black'
+						left: 	'40px',
+						top: 	'8px',
+						color: 	'black'
 					}
 				}]
 			},
@@ -76,6 +76,8 @@ jQuery(function(){
 		var Collections = {};
 		var Views 		= {};
 		
+		var Events = _.extend({}, Backbone.Events);
+		
 		
 		Models.TeamVenue = Backbone.Model.extend({
 			initialize: function(){},
@@ -88,6 +90,29 @@ jQuery(function(){
 		
 		
 		
+		Models.Promoter = Backbone.Model.extend({
+			initialize: function(){},
+			defaults: {}
+		});
+		Collections.Promoters = Backbone.Collection.extend({
+			model: Models.Promoter,
+			initialize: function(){}
+		});
+		
+		
+		
+		Models.Reservation = Backbone.Model.extend({
+			initialize: function(){},
+			defaults: {}
+		});
+		
+		Collections.Reservations = Backbone.Collection.extend({
+			model: Models.Reservation,
+			initialize: function(){}
+		})
+		
+				
+				
 		Views.GuestListsOptions = Backbone.View.extend({
 			el: '#filter_options',
 			className: 'ui-widget',
@@ -97,26 +122,199 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				var _this = this;
 				var template = EVT['reports/ejs_guest_lists_options'];
 				var html = new EJS({
 					text: template
-				}).render({});
+				}).render({
+					team_venues: this.options.teamVenues.toJSON(),
+					promoters: 	 this.options.promoters.toJSON()
+				});
 				
 				this.$el.html(html);
+				
+				//initialize datepickers
+				this.$el.find('input[name=start_date]').datepicker({
+					defaultDate: 	'-1w',
+					changeMonth: 	true,
+					numberOfMonths: 1,
+					onClose: function(selectedDate){
+						_this.$el.find('input[name=end_date]').datepicker('option', 'minDate', selectedDate);
+					}
+				});
+				this.$el.find('input[name=end_date]').datepicker({
+					defaultDate: 	'+0d',
+					changeMonth: 	true,
+					numberOfMonths: 1,
+					onClose: function(selectedDate){
+						_this.$el.find('input[name=start_date]').datepicker('option', 'maxDate', selectedDate);
+					}
+				});
+				this.$el.find('input[name=start_date]').datepicker('setDate', '-1w');
+				this.$el.find('input[name=end_date]').datepicker('setDate', '0');
+				
+				
+				
 				this.$el.addClass('ui-widget');
 				
 			},
 			events: {
+				'change input': 'change_input'	
+			},
+			
+			change_input: function(){
+				
+				Events.trigger('fetch_start');
+				
+				var promoters = [];
+				var venues	  = [];
+
+				
+				jQuery('input[data-tv_id]:checked').each(function(){
+					venues.push(jQuery(this).attr('data-tv_id'));
+				});
+				jQuery('input[data-up_id]:checked').each(function(){
+					promoters.push(jQuery(this).attr('data-up_id'));
+				});
+				
+				
+				var selected_props = {
+					vc_method: 	'gl_report_update_filter',
+					start_date: jQuery.datepicker.formatDate('yy-mm-dd', this.$el.find('input[name=start_date]').datepicker('getDate')),
+					end_date:	jQuery.datepicker.formatDate('yy-mm-dd', this.$el.find('input[name=end_date]').datepicker('getDate')),
+					promoters:	promoters,
+					venues:		venues
+				}
+				
+				jQuery.background_ajax({
+					data: selected_props,
+					success: function(data){
+						
+						Events.trigger('fetch_finish', {
+							response: data.message,
+							filters:  selected_props
+						});
+						
+					}
+				});
 				
 			}
+			
 		});
 		
-		var guestListOptions = new Views.GuestListsOptions();
+		Views.GuestListsSummary = Backbone.View.extend({
+			el: '#data_summary',
+			initialize: function(){ 
+				
+				var _this = this;
+				Events.on('fetch_start', function(){
+					_this.$el.css({
+						opacity: 0.4
+					});
+				});
+				
+				Events.on('fetch_finish', function(data){
+					_this.render(data);
+				});
+				
+				this.render([]); 
+			},
+			render: function(data){
+				
+				console.log('data!');
+				console.log(data);
+				
+				
+				
+				
+				var reservations = new Collections.Reservations(data.response);
+				console.log('reservations');
+				console.log(reservations.toJSON());
+				
+				
+				
+				
+				
+				var _this = this;
+				var template = EVT['reports/ejs_guest_lists_summary'];
+				var html = new EJS({
+					text: template
+				}).render(data);
+				
+				this.$el.html(html).css({
+					opacity: 1
+				});
+				
+				
+				
+				
+				
+
+				this.$el.find('#attendance_percentage').progressbar({
+					value: 40
+				});
+				
+				this.$el.addClass('ui-widget');
+				
+				
+			},
+			events: {}
+		});
+		
+		Views.GuestListsDetail = Backbone.View.extend({
+			el: '#data_detail',
+			initialize: function(){ 
+				
+				var _this = this;
+				Events.on('fetch_start', function(){
+					_this.$el.css({
+						opacity: 0.4
+					});
+				});
+				
+				Events.on('fetch_finish', function(){
+					_this.render();
+				});
+				
+				this.render(); 
+			
+			},
+			render: function(){
+				
+				var _this = this;
+				var template = EVT['reports/ejs_guest_lists_details'];
+				var html = new EJS({
+					text: template
+				}).render({});
+				
+				this.$el.html(html).css({
+					opacity: 1
+				});
+				
+				this.$el.addClass('ui-widget');
+								
+			},
+			events: {}
+		});
 		
 		
+		var teamVenues, promoters, guestListOptions;
+		var initialize_report = function(){
+			
+			teamVenues		 = new Collections.TeamVenues(window.page_obj.team_venues);
+			promoters		 = new Collections.Promoters(_.values(window.page_obj.promoters));
+			
+			guestListOptions = new Views.GuestListsOptions({
+				teamVenues: teamVenues,
+				promoters:	promoters
+			});
+			
+			guestListSummary = new Views.GuestListsSummary();
+			guestListDetail  = new Views.GuestListsDetail();
 		
+		}
 		
-		
+		initialize_report();
 		
 		
 		

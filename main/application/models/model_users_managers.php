@@ -63,9 +63,7 @@ class Model_users_managers extends CI_Model {
 	 * @param	int (fan_page_id)
 	 * @return 	array
 	 */
-	function retrieve_team_venues($fan_page_id){
-		
-		
+	function retrieve_team_venues($fan_page_id, $filters = false){
 		
 		$sql = "SELECT
 					
@@ -103,8 +101,33 @@ class Model_users_managers extends CI_Model {
 				
 				WHERE 	t.fan_page_id = ?
 				AND 	tv.banned = 0
-				AND 	tvp.deleted = 0";
-		$query = $this->db->query($sql, array($fan_page_id));		
+				AND 	tvp.deleted = 0 ";
+				
+		if($filters){
+				
+			$sql .= "AND (";
+					
+			foreach($filters as $filter){
+						
+				$sql .= "tv.id = ? OR ";
+				
+			}
+			
+			$sql = rtrim($sql, ' OR ');
+			
+			$sql .= ")";
+			
+			$options = array_merge(array($fan_page_id), $filters);
+			
+		}else{
+				
+			$options = array($fan_page_id);
+			
+		}
+		
+		
+		$query = $this->db->query($sql, $options);		
+				
 		return $query->result();
 	}
 	

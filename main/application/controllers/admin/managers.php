@@ -759,17 +759,29 @@ class Managers extends MY_Controller {
 	 */
 	private function _reports_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 
-
-	
 		$this->load->helper('admin_report_guest_lists');
 		$data = admin_report_guest_lists($this->vc_user->manager->team_fan_page_id);
 		
 		$this->body_html = $this->load->view($this->view_dir . 'reports/view_manager_reports_guest_lists', $data, true);
 		
-		
-		
-		
 	}
+	private function _ajax_reports_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
+		
+		$vc_method = $this->input->post('vc_method');
+		
+		switch($vc_method){
+			case 'gl_report_update_filter':
+				
+				$this->load->helper('admin_report_guest_lists_checkin');
+				$data = admin_report_guest_lists_checkin($this->vc_user->manager->team_fan_page_id);
+				die(json_encode(array('success'   => true, 
+										'message' => $data)));
+				
+				break;
+		}
+
+	}
+	
 	
 	/**
 	 * Reports on team and promoter table sales

@@ -15,7 +15,7 @@
 	<div style="padding:5px;" class="ui-widget-content">
 		<p>Create 'catagories' with associated prices and details for your team hosts to check in clients with. Ex: 'Comped', 'Reduced', etc</p>
 		
-		<a data-action="add" class="button_link" href="">Add Category</a>
+		<a data-action="add" class="button_link btn-action" href="">Add Category</a>
 		<br/><br/>	
 		
 		<table id="categories" class="normal" style="width:100%;">

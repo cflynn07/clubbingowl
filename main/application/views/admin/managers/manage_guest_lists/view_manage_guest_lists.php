@@ -36,15 +36,23 @@
 				<td><?= $gla->tgla_name ?></td>
 				<td><?= date("F j, Y, g:ia", $gla->tgla_create_time) ?></td>
 				<td><input data-tgla_id="<?= $gla->tgla_id ?>" type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($gla->tgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
-				<td>
-										
-					<a data-action="delete" data-tgla_id="<?= $gla->tgla_id ?>" style="display:inline-block;" class="tooltip guest_list_delete delete_guest_list_button ajaxify" title="Delete this Guest List" href="#">
-						<img src="<?= $central->admin_assets ?>images/icons/actions_small/Trash.png" />
-					</a>
-														
-					<a style="display:inline-block;" class="tooltip edit_guest_list ajaxify" title="Edit Guest List" href="<?= $central->manager_admin_link_base ?>settings_guest_lists_edit/<?= $gla->tgla_id ?>/">
-						<img src="<?= $central->admin_assets ?>images/icons/actions_small/Pencil.png" />
-					</a>
+				<td style="padding:5px 0 0 5px;">
+					
+					<a data-action="delete" data-tgla_id="<?= $gla->tgla_id ?> href="#" class="button_link guest_list_delete delete_guest_list_button">DELETE</a>
+				
+				
+					<a  href="<?= $central->manager_admin_link_base ?>settings_guest_lists_edit/<?= $gla->tgla_id ?>/" class="button_link btn-action ajaxify">EDIT</a>
+					
+					
+					<?php if(false): ?>				
+						<a data-action="delete" data-tgla_id="<?= $gla->tgla_id ?>" style="display:inline-block;" class="tooltip guest_list_delete delete_guest_list_button ajaxify" title="Delete this Guest List" href="#">
+							<img src="<?= $central->admin_assets ?>images/icons/actions_small/Trash.png" />
+						</a>
+															
+						<a style="display:inline-block;" class="tooltip edit_guest_list ajaxify" title="Edit Guest List" href="<?= $central->manager_admin_link_base ?>settings_guest_lists_edit/<?= $gla->tgla_id ?>/">
+							<img src="<?= $central->admin_assets ?>images/icons/actions_small/Pencil.png" />
+						</a>
+					<?php endif; ?>
 					
 				</td>
 				
@@ -65,9 +73,14 @@
 <table>
 	<tr>
 		<td>
+			
+			<a id="new_guest_list" href="<?=$central->manager_admin_link_base?>settings_guest_lists_new/" class="button_link btn-action ajaxify">New List</a>
+			
+			<?php if(false): ?>
 			<a href="<?=$central->manager_admin_link_base?>settings_guest_lists_new/" class="ajaxify" style="text-decoration:none">
 				<input class="button" type="submit" value="New Guest List" id="new_guest_list" />
 			</a>
+			<?php endif; ?>
 		</td>
 	</tr>
 </table>

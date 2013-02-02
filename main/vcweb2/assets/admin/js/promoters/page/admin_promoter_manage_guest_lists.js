@@ -19,7 +19,7 @@ jQuery(function(){
 			
 			jQuery('div#delete_list_dialog').dialog({
 				title: 'Delete Guest List',
-				height: 200,
+				height: 'auto',
 				width: 280,
 				modal: true,
 				position: ['center', 'center'],
