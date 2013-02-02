@@ -1349,3 +1349,14 @@ td.gl_additional_list_info {
 	border-bottom: 1px dashed #CCC; 
 	padding-right: 0;
 }
+
+
+
+@media screen and (max-width: 479px){
+	section#guestlist {
+		padding: 0 !important;
+	}
+	section#guestlist div#accordion .ui-widget-content {
+		padding: 10px !important;
+	}
+}
