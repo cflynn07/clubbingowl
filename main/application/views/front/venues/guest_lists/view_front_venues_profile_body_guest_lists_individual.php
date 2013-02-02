@@ -91,17 +91,17 @@ div#unavailable_overlay{
       			</tr>
       			<?php if($guest_list->tgla_additional_info_1): ?>
       			<tr>
-      				<td class="gl_additional_list_info"><?= $guest_list->tgla_additional_info_1 ?></td>
+      				<td colspan="2" class="gl_additional_list_info"><?= $guest_list->tgla_additional_info_1 ?></td>
       			</tr>
       			<?php endif; ?>
       			<?php if($guest_list->tgla_additional_info_2): ?>
       			<tr>
-      				<td class="gl_additional_list_info"><?= $guest_list->tgla_additional_info_2 ?></td>
+      				<td colspan="2" class="gl_additional_list_info"><?= $guest_list->tgla_additional_info_2 ?></td>
       			</tr>
       			<?php endif; ?>
       			<?php if($guest_list->tgla_additional_info_3): ?>
       			<tr>
-      				<td class="gl_additional_list_info"><?= $guest_list->tgla_additional_info_3 ?></td>
+      				<td colspan="2" class="gl_additional_list_info"><?= $guest_list->tgla_additional_info_3 ?></td>
       			</tr>
       			<?php endif; ?>
       		</tbody>	
