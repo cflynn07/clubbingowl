@@ -420,7 +420,6 @@
   text-align: right;
 }
 #guestlist .guestlist-button {
-  border: 2px solid #474D6A !important;
   text-transform: uppercase;
   font-weight: bold;
   color: #000;
@@ -434,6 +433,17 @@
   border-radius: 5px;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
 }
+
+#guestlist .guestlist-button {
+  border: 2px solid #474D6A !important;
+}
+#guestlist .guestlist-button.submit {
+	border: 0 !important;
+}
+#guestlist .guestlist-button.cancel {
+	border: 0 !important;
+}
+
 #guestlist .guestlist-button.submit {
   background: #2db163;
   color: #FFF;
