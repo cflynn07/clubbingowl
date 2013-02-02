@@ -105,14 +105,15 @@ class Development extends MY_Controller {
 		
 		
 		$email_data = new stdClass;
-		$email_data->to_user = new stdClass;
-		$email_data->to_user->email_opts_hash 	= '9999';
-		$email_data->to_user->u_first_name 		= 'Casey';
-		$email_data->to_user->u_last_name 		= 'Flynn';
-		$email_data->to_user->u_full_name 		= 'Casey Flynn';
+		$email_data->from_user = new stdClass;
+		$email_data->from_user->email_opts_hash 	= '9999';
+		$email_data->from_user->u_first_name 		= 'Casey';
+		$email_data->from_user->u_last_name 		= 'Flynn';
+		$email_data->from_user->u_full_name 		= 'Casey Flynn';
+		$email_data->from_user->u_oauth_uid 		= '504405294';
 		
 
-		$this->body_html = $this->load->view($this->view_dir . 'view_email_new_promoter_status', array('email_data' => $email_data), true);
+		$this->body_html = $this->load->view($this->view_dir . 'view_email_friend_join_vc', array('email_data' => $email_data), true);
 		
 	}	
 }
