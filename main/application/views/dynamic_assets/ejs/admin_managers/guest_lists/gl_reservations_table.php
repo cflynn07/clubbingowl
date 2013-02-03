@@ -21,10 +21,10 @@
 </div>	
 
 <br/>
-<a href="#" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse All</a>
+<a href="#" data-action="expand-collapse-all" class="button_link btn-action">Expand/Collapse</a>
 
 <% if(current_week){ %>
-	<a href="#" data-action="manually-add" class="button_link btn-action">Manually Add Clients</a>
+	<a href="#" data-action="manually-add" class="button_link btn-action">Add Clients</a>
 <% }else{ %>
 	<a href="#" data-action="return-current-week" class="button_link btn-action">Return to Current Week</a>
 <% } %>
