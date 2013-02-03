@@ -147,7 +147,7 @@
 	
 	<% if(pglr_manual_add == '1'){ %>
 		<br/>
-		<span style="">Manually Added</span>
+		<span style="white-space:nowrap;">Manually Added</span>
 	<% } %>
 	
 	
