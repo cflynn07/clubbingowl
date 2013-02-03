@@ -352,6 +352,12 @@ jQuery(function(){
 										hcd_id: data.hcd_id
 									});
 									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 1
+									});
+									_this.$el.find('div.additional_checkin_info select').removeAttr('disabled');
+											
+									
 									break;
 								case 'check_out':
 								
@@ -360,6 +366,12 @@ jQuery(function(){
 										hcd_id: null
 									});
 									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 0.4
+									});
+									_this.$el.find('div.additional_checkin_info select').attr('disabled', 'disabled');
+							
+																		
 									break;
 							}
 							
@@ -652,6 +664,12 @@ jQuery(function(){
 										hcd_id: data.hcd_id
 									});
 									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 1
+									});
+									_this.$el.find('div.additional_checkin_info select').removeAttr('disabled');
+											
+									
 									break;
 								case 'check_out':
 								
@@ -659,6 +677,12 @@ jQuery(function(){
 									_this.model.set({
 										hcd_id: null
 									});
+									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 0.4
+									});
+									_this.$el.find('div.additional_checkin_info select').attr('disabled', 'disabled');
+							
 									
 									break;
 							}
