@@ -333,6 +333,9 @@ jQuery(function(){
 				var _this = this;
 				var callback = function(data){
 								
+								console.log('hcd_id');
+								console.log(data);
+								
 					if(data.event === 'change_category_friends')			
 						return;
 						
@@ -348,11 +351,17 @@ jQuery(function(){
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
-								
+									_this.model.set({
+										hcd_id: data.hcd_id
+									});
+									
 									break;
 								case 'check_out':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
+									_this.model.set({
+										hcd_id: null
+									});
 									
 									break;
 							}
@@ -370,11 +379,17 @@ jQuery(function(){
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
-						
+									_this.model.set({
+										hcd_id: data.hcd_id
+									});
+									
 									break;
 								case 'check_out':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
+									_this.model.set({
+										hcd_id: null
+									});
 									
 									break;
 							}
@@ -395,7 +410,7 @@ jQuery(function(){
 					if(data.event !== 'change_category_friends')			
 						return;
 								
-					if(data.hcd_id !== _this.model.get('hcd_id'))	
+					if(data.hcd_id != _this.model.get('hcd_id'))	
 						return;
 						
 					if(typeof data.hcd_checkin_amount !== 'undefined'){
@@ -645,13 +660,18 @@ jQuery(function(){
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
-									
+									_this.model.set({
+										hcd_id: data.hcd_id
+									});
 									
 									break;
 								case 'check_out':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
-								
+									_this.model.set({
+										hcd_id: null
+									});
+									
 									break;
 							}
 							
@@ -668,14 +688,18 @@ jQuery(function(){
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', true).trigger('change').button('refresh');
 									_this.$el.find('select[name=category]').val(data.checkin_category);
-								
-									
+									_this.model.set({
+										hcd_id: data.hcd_id
+									});
 								
 									break;
 								case 'check_out':
 								
 									_this.$el.find('input.checkin_button').data({auto_triggered: true}).attr('checked', false).trigger('change').button('refresh');
-								
+									_this.model.set({
+										hcd_id: null
+									});
+									
 									break;
 							}
 							
@@ -694,7 +718,7 @@ jQuery(function(){
 					if(data.event !== 'change_category_friends')			
 						return;
 								
-					if(data.hcd_id !== _this.model.get('hcd_id'))	
+					if(data.hcd_id != _this.model.get('hcd_id'))	
 						return;
 						
 					if(typeof data.hcd_checkin_amount !== 'undefined'){
