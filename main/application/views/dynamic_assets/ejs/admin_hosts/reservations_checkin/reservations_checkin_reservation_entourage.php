@@ -71,7 +71,7 @@
 <td style="padding:5px; width:15%;">
 	
 	
-	<div class="additional_checkin_info" style="<%= ((hc_id == null) ? 'opacity:0.4;' : '')  %>">
+	<div class="additional_checkin_info" style="<%= ((hcd_id == null) ? 'opacity:0.4;' : '')  %>">
 		<table>
 			<tbody>
 				<tr>
@@ -79,7 +79,7 @@
 					<td>
 						
 						
-						<select <%= ((hc_id == null) ? 'disabled="disabled"' : '')  %> data-mobile_font="18px" name="category">
+						<select <%= ((hcd_id == null) ? 'disabled="disabled"' : '')  %> data-mobile_font="18px" name="category">
 						
 							<% for(var i in window.page_obj.checkin_categories){ %>
 							
@@ -98,7 +98,7 @@
 					<td>
 						
 						
-						<select <%= ((hc_id == null) ? 'disabled="disabled"' : '')  %> data-mobile_font="18px" name="additional_guests">
+						<select <%= ((hcd_id == null) ? 'disabled="disabled"' : '')  %> data-mobile_font="18px" name="additional_guests">
 							
 							
 							<% for(var i=0; i < 21; i++){ %>
