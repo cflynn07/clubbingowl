@@ -1363,7 +1363,7 @@ jQuery(function(){
 				collapsed = !collapsed;
 				
 				Events.trigger('change_collapsed');
-				jQuery.populateFacebook(jQuery('body'), function(){});
+				jQuery.populateFacebook(jQuery('#primary_right'), function(){});
 				
 			//	for(var i in views){
 			//		var view = views[i];
