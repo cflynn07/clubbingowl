@@ -40,6 +40,8 @@ jQuery(function(){
 		if(!window.page_obj.team_venues)
 			return;
 			
+		
+		var Events = _.extend({}, Backbone.Events);
 			
 		
 		var Models 		= {};
@@ -73,11 +75,7 @@ jQuery(function(){
 			tagName: 'tr',
 			initialize: function(){
 				
-				pusher_team_channel.bind('host_events', function(data){
-					
-					
-					
-				});
+				Events.on('change_collapsed', this.render, this);
 				
 			},
 			render: function(){
@@ -330,11 +328,10 @@ jQuery(function(){
 			tagName: 'tr',
 			initialize: function(){
 				
+				Events.on('change_collapsed', this.render, this);
+				
 				var _this = this;
 				var callback = function(data){
-								
-								console.log('hcd_id');
-								console.log(data);
 								
 					if(data.event === 'change_category_friends')			
 						return;
@@ -455,7 +452,8 @@ jQuery(function(){
 			render: function(){
 				
 				console.log('render ent --');
-				console.log(this.model.get('oauth_uid'));
+				console.log(this.model.get('hcd_id'));
+				console.log(this.model.toJSON());
 				console.log(reservation_iterator);
 			//	console.log(this.model.toJSON());
 				
@@ -559,8 +557,6 @@ jQuery(function(){
 					}					
 				});
 				
-				
-				
 			},
 			events_change_arrived_checkbox: function(e){
 				
@@ -616,9 +612,6 @@ jQuery(function(){
 									});
 								}
 							
-							console.log(_this.model.toJSON());
-							console.log(_this.model.get('hcd_id'));
-
 						}
 					});
 					
@@ -641,6 +634,7 @@ jQuery(function(){
 			tagName: 'tr',
 			initialize: function(){
 				
+				Events.on('change_collapsed', this.render, this);
 				
 				var _this = this;
 				var callback = function(data){
@@ -935,13 +929,16 @@ jQuery(function(){
 		 */
 		Views.ReservationCheckinGroup = {
 			className: 'ui-widget ui-widget-content ui-helper-clearfix ui-corner-all full_width',
+			
+			collection_head_users: null,
+			collection_ent_users:  null,
+			
 			initialize: function(){
 				
 				
 			},
 			render: function(){
 				
-				console.log('render group');
 				
 				var _this = this;
 				var added_oauth_uids = [];
@@ -987,10 +984,13 @@ jQuery(function(){
 					var entourage 	= m.get('entourage');
 					var temp 		= m.toJSON();
 					delete temp.entourage;
+					delete temp.hcd_id;
+					
+					console.log('ent coll');
 										
 					for(var i in entourage){
 						
-						
+						console.log('ent coll e');
 						var row_obj 			= jQuery.extend({}, temp, entourage[i]);
 						row_obj.ent_reservation = true;
 						
@@ -998,6 +998,9 @@ jQuery(function(){
 						if(_.indexOf(added_oauth_uids, entourage[i].oauth_uid) == -1){
 							
 							var model = new Models.Reservation(row_obj);
+							
+							console.log('model');
+							console.log(model.toJSON());
 							
 							var view_reservation_checkin_individual_entourage = new Views.ReservationCheckinEnt({
 								model: model
@@ -1045,9 +1048,6 @@ jQuery(function(){
 				
 				this.$el.empty();
 				var _this = this;
-				
-				
-				
 				
 				
 				
@@ -1294,7 +1294,8 @@ jQuery(function(){
 				pusher_team_channel.unbind(event_obj.event, event_obj.callback);
 				
 			}
-						
+			Events.unbind('change_collapsed');
+			
 			
 			var team_venues = tv || window.page_obj.team_venues;
 			
@@ -1361,10 +1362,12 @@ jQuery(function(){
 			
 				collapsed = !collapsed;
 				
-				for(var i in views){
-					var view = views[i];
-					view.render();
-				}
+				Events.trigger('change_collapsed');
+				
+			//	for(var i in views){
+			//		var view = views[i];
+			//		view.render();
+			//	}
 				
 				return false;
 			});
