@@ -1363,6 +1363,7 @@ jQuery(function(){
 				collapsed = !collapsed;
 				
 				Events.trigger('change_collapsed');
+				jQuery.populateFacebook(jQuery('body'), function(){});
 				
 			//	for(var i in views){
 			//		var view = views[i];
