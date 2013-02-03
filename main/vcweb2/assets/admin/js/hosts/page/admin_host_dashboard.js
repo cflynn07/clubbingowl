@@ -691,7 +691,6 @@ jQuery(function(){
 				//changes in category amount && friends
 				var callback2 = function(data){
 					
-									
 					if(data.event !== 'change_category_friends')			
 						return;
 								
