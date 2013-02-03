@@ -130,11 +130,13 @@
 							<td>
 								
 								<% if(entourage[i].tglre_oauth_uid == null){ %>
-									<span><%= entourage[i].tglre_supplied_name %></span>
+								
+									<span style="white-space:nowrap;"><%= entourage[i].tglre_supplied_name %></span>
+								
 								<% }else{ %>
 									
 									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + entourage[i].tglre_oauth_uid + '/' %>">
-										<span data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
+										<span style="white-space:nowrap;" data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
 									</a>
 									
 								<% } %>
@@ -182,11 +184,13 @@
 						<tr class="<%= (i % 2) ? 'odd' : '' %>">
 							<td>
 								<% if(entourage[i].tglre_oauth_uid == null){ %>
-									<span><%= entourage[i].tglre_supplied_name %></span>
+							
+									<span style="white-space:nowrap;"><%= entourage[i].tglre_supplied_name %></span>
+							
 								<% }else{ %>
 									
 									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/managers/clients/' + entourage[i].tglre_oauth_uid + '/' %>">
-										<span data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
+										<span style="white-space:nowrap;" data-oauth_uid="<%= entourage[i].tglre_oauth_uid %>" data-name="<%= entourage[i].tglre_oauth_uid %>"></span>
 									</a>
 									
 								<% } %>

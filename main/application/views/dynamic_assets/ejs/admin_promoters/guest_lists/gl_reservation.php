@@ -179,12 +179,12 @@
 								
 								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
 
-									<span><%= entourage_users[i].pglre_supplied_name %></span>
+									<span style="white-space:nowrap;"><%= entourage_users[i].pglre_supplied_name %></span>
 
 								<% }else{ %>
 									
 									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage_users[i].pglre_oauth_uid + '/' %>">
-										<span data-oauth_uid="<%= entourage_users[i].pglre_oauth_uid %>" data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+										<span style="white-space:nowrap;" data-oauth_uid="<%= entourage_users[i].pglre_oauth_uid %>" data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
 									</a>
 									
 								<% } %>
@@ -232,12 +232,12 @@
 							<td>
 								<% if(entourage_users[i].pglre_oauth_uid == null){ %>
 									
-									<span><%= entourage_users[i].pglre_supplied_name %></span>
+									<span style="white-space:nowrap;"><%= entourage_users[i].pglre_supplied_name %></span>
 									
 								<% }else{ %>
 									
 									<a class="ajaxify" href="<%= window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + entourage_users[i].pglre_oauth_uid + '/' %>">
-										<span data-oauth_uid="<%= entourage_users[i].pglre_oauth_uid %>" data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
+										<span style="white-space:nowrap;" data-oauth_uid="<%= entourage_users[i].pglre_oauth_uid %>" data-name="<%= entourage_users[i].pglre_oauth_uid %>"></span>
 									</a>
 									
 								<% } %>
