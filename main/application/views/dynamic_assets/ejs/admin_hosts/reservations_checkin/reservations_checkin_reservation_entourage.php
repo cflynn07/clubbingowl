@@ -61,7 +61,7 @@
 
 <td data-mobile_font="18px" style="width:15%;" class="ui4">
 	
-	<input type="checkbox" class="checkin_button" id="button_<%= reservation_iterator %>" name="button_<%= reservation_iterator %>"  <%= ((hc_id != null) ? 'checked="checked"' : '') %> />
+	<input type="checkbox" class="checkin_button" id="button_<%= reservation_iterator %>" name="button_<%= reservation_iterator %>"  <%= ((hcd_id != null) ? 'checked="checked"' : '') %> />
 	<label data-iphone_font for="button_<%= reservation_iterator %>">Arrived</label>
 
 </td>
