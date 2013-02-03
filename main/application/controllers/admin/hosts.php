@@ -467,6 +467,71 @@ class Hosts extends MY_Controller {
 
 
 		switch($vc_method){
+			
+			case 'select_additional_guests':
+				
+				
+				
+				
+				$post = (object)$this->input->post();
+				
+				if(!isset($post->hcd_id) || !isset($post->additional_guests))
+					die(json_encode(array('success' => false)));
+				
+				$this->db->where(array(
+					'hcd_team_fan_page_id'	=> $this->vc_user->host->th_teams_fan_page_id,
+					'hcd_id'				=> $post->hcd_id
+				))->update('host_checkins_data', array(
+					'hcd_additional_guests'	=> $post->additional_guests
+				));
+				
+				
+				$data 							= new stdClass;
+				$data->event 				= 'change_category_friends';
+				$data->hcd_id 					= $post->hcd_id;
+				$data->hcd_additional_guests   	= $post->additional_guests;
+				$this->load->library('Pusher', '', 'pusher');
+				$this->pusher->trigger('presence-' . $this->vc_user->host->th_teams_fan_page_id, 'host_emit', $data, $this->input->post('socket_id'));
+				
+				
+				
+				die(json_encode(array('success' => true)));
+				
+
+				break;
+			case 'select_category':
+				
+				
+				
+				
+				$post = (object)$this->input->post();
+				
+				if(!isset($post->hcd_id) || !isset($post->category) || !isset($post->category_value))
+					die(json_encode(array('success' => false)));
+				
+				$this->db->where(array(
+					'hcd_team_fan_page_id'	=> $this->vc_user->host->th_teams_fan_page_id,
+					'hcd_id'				=> $post->hcd_id
+				))->update('host_checkins_data', array(
+					'hcd_checkin_amount'	=> $post->category_value,
+					'hcd_checkin_category'	=> $post->category
+				));
+				
+				
+				$data 						= new stdClass;
+				$data->event 				= 'change_category_friends';
+				$data->hcd_id 				= $post->hcd_id;
+				$data->hcd_checkin_amount   = $post->category_value;
+				$data->hcd_checkin_category = $post->category;
+				$this->load->library('Pusher', '', 'pusher');
+				$this->pusher->trigger('presence-' . $this->vc_user->host->th_teams_fan_page_id, 'host_emit', $data, $this->input->post('socket_id'));
+				
+				
+				
+				die(json_encode(array('success' => true)));
+				
+
+				break;
 			case 'find_tables':
 							
 				$data = $this->_helper_venue_floorplan_retrieve_v2();
@@ -634,7 +699,7 @@ class Hosts extends MY_Controller {
 								
 								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 															
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 								
 							}else{
 								//regular user -- link and link all entourage occurances
@@ -663,7 +728,7 @@ class Hosts extends MY_Controller {
 									}
 								}
 								
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 								
 							}
 							
@@ -679,7 +744,7 @@ class Hosts extends MY_Controller {
 								
 								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 															
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 								
 							}else{
 								
@@ -711,7 +776,7 @@ class Hosts extends MY_Controller {
 									}
 								}
 								
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 							}
 							
 						}
@@ -730,7 +795,7 @@ class Hosts extends MY_Controller {
 								
 								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);						
 															
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 								
 							}else{
 								//regular user -- link and link all entourage occurances
@@ -759,7 +824,7 @@ class Hosts extends MY_Controller {
 									}
 								}
 								
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 								
 							}
 							
@@ -775,7 +840,7 @@ class Hosts extends MY_Controller {
 								
 								$pusher_checkin_broadcast('check_in', $found_reservation, $post->socket_id);
 															
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 								
 							}else{
 								
@@ -807,7 +872,7 @@ class Hosts extends MY_Controller {
 									}
 								}
 								
-								die(json_encode(array('success' => true)));
+								die(json_encode(array('success' => true, 'hcd_id' => $hcd_id)));
 								
 							}
 

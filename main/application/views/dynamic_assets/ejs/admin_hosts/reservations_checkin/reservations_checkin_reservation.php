@@ -71,9 +71,9 @@
 						<select <%= ((hc_id == null) ? 'disabled="disabled"' : '')  %> data-mobile_font="18px" name="category">
 						
 							<% for(var i in window.page_obj.checkin_categories){ %>
-							
 								<% var category = window.page_obj.checkin_categories[i]; %>
-								<option data-category_value="<%= category.hcc_amount %>" value="<%= category.hcc_id %>">$<%= category.hcc_amount %> - <%= category.hcc_title %></option>
+
+								<option <%= (hcd_checkin_category === category.hcc_id ) ? 'selected="selected"' : '' %> data-category_value="<%= category.hcc_amount %>" value="<%= category.hcc_id %>">$<%= category.hcc_amount %> - <%= category.hcc_title %></option>
 							
 							<% } %>
 							

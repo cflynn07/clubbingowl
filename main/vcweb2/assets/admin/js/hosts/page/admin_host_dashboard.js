@@ -333,8 +333,9 @@ jQuery(function(){
 				var _this = this;
 				var callback = function(data){
 								
-				
-								
+					if(data.event === 'change_category_friends')			
+						return;
+						
 					//promoter or team reservation
 					if(_this.model.get('pgl_id')){
 						
@@ -388,10 +389,49 @@ jQuery(function(){
 				};
 				
 				
+				//changes in category and friends
+				var callback2 = function(data){
+					
+					if(data.event !== 'change_category_friends')			
+						return;
+								
+					if(data.hcd_id !== _this.model.get('hcd_id'))	
+						return;
+						
+					if(typeof data.hcd_checkin_amount !== 'undefined'){
+						_this.model.set({
+							hcd_checkin_amount: data.hcd_checkin_amount
+						});
+					}
+					
+					if(typeof data.hcd_checkin_category !== 'undefined'){
+						_this.model.set({
+							hcd_checkin_category: data.hcd_checkin_category
+						});
+						_this.$el.find('select[name=category]').val(data.hcd_checkin_category);
+					}
+					
+					if(typeof data.hcd_additional_guests !== 'undefined'){
+						_this.model.set({
+							hcd_additional_guests: data.hcd_additional_guests
+						});
+						_this.$el.find('select[name=additional_guests]').val(data.hcd_additional_guests);
+					}
+						
+				}
+				
+				
+				
+				
 				pusher_team_channel.bind('host_emit', callback);
+				pusher_team_channel.bind('host_emit', callback2);
 				unbind_events.push({
 					event: 		'host_emit',
 					callback: 	callback
+				});
+				unbind_events.push({
+					event: 		'host_emit',
+					callback: 	callback2
 				});
 				
 				
@@ -448,7 +488,61 @@ jQuery(function(){
 				'change select[name=additional_guests]': 	'events_change_select_additional_guests',
 				'change input.checkin_button': 				'events_change_arrived_checkbox'
 			},
+			events_change_select_category: function(e){
+				
+				
+				
+				
+				var category 			= this.$el.find('select[name=category] 			:selected').val();
+				var category_value		= this.$el.find('select[name=category] 			:selected').attr('data-category_value');			
+				
+				this.model.set({
+					hcd_checkin_category: 	category,
+					hcd_checkin_amount: 	category_value
+				});
+				
+				last_checkin_val		= category;
+				
+				var _this = this;
+				jQuery.background_ajax({
+					data: {
+						vc_method: 			'select_category',
+						hcd_id: 			_this.model.get('hcd_id'),
+						socket_id:			window.team_chat_object.pusher.connection.socket_id,
+						category:			category,
+						category_value: 	category_value
+					},
+					success: function(data){
+																			
+					}					
+				});
+				
+				
+				
+				
+			},
 			events_change_select_additional_guests: function(e){
+				
+				var additional_guests = this.$el.find('select[name=additional_guests] 			:selected').val();
+				
+				this.model.set({
+					hcd_additional_guests: 	additional_guests,
+				});
+								
+				var _this = this;
+				jQuery.background_ajax({
+					data: {
+						vc_method: 			'select_additional_guests',
+						hcd_id: 			_this.model.get('hcd_id'),
+						socket_id:			window.team_chat_object.pusher.connection.socket_id,
+						additional_guests:	additional_guests,
+					},
+					success: function(data){
+																			
+					}					
+				});
+				
+				
 				
 			},
 			events_change_arrived_checkbox: function(e){
@@ -497,11 +591,11 @@ jQuery(function(){
 							if(data.success)
 								if(checked){
 									_this.model.set({
-										hc_id: true
+										hcd_id: data.hcd_id
 									});
 								}else{
 									_this.model.set({
-										hc_id: null
+										hcd_id: null
 									});
 								}
 							
@@ -516,56 +610,7 @@ jQuery(function(){
 				});
 				
 							
-			},
-			events_change_select_category: function(e){
-				
-				last_checkin_val = jQuery(e.currentTarget).val();
-				
-				
-				
-				
-				/*
-				jQuery.background_ajax({
-					data: {
-						vc_method: 			'category_change_event',
-						user_type: 			'entourage',
-						list_type: 			((_this.model.get('pglr_id') == undefined) ? 'team' : 'promoter'),
-						pglr_id: 			_this.model.get('pglr_id'),
-						pglre_id: 			_this.model.get('pglre_id'),
-						tglr_id: 			_this.model.get('tglr_id'),
-						tglre_id: 			_this.model.get('tglre_id'),
-						checked: 			checked,
-						category: 			category,
-						category_value: 	category_value,
-						additional_guests: 	additional_guests,
-						hcd_id: 			_this.model.get('hcd_id'),
-						tv_id: 				_this.model.get('tv_id'),
-						socket_id:			window.team_chat_object.pusher.connection.socket_id
-					}, 
-					success: function(data){
-						
-						el.button('enable').button('refresh');
-						
-						if(data.success)
-							if(checked){
-								_this.model.set({
-									hc_id: true
-								});
-							}else{
-								_this.model.set({
-									hc_id: null
-								});
-							}
-						
-
-					}
-				});
-				*/
-				
-				
-				
-				
-			}
+			}			
 		}; Views.ReservationCheckinEnt = Backbone.View.extend(Views.ReservationCheckinEnt);
 		
 		
@@ -581,7 +626,12 @@ jQuery(function(){
 				var _this = this;
 				var callback = function(data){
 								
-				
+								
+								
+					if(data.event === 'change_category_friends')			
+						return;
+						
+						
 								
 					//promoter or team reservation
 					if(_this.model.get('pgl_id')){
@@ -638,11 +688,47 @@ jQuery(function(){
 				
 				};
 				
+				//changes in category amount && friends
+				var callback2 = function(data){
+					
+									
+					if(data.event !== 'change_category_friends')			
+						return;
+								
+					if(data.hcd_id !== _this.model.get('hcd_id'))	
+						return;
+						
+					if(typeof data.hcd_checkin_amount !== 'undefined'){
+						_this.model.set({
+							hcd_checkin_amount: data.hcd_checkin_amount
+						});
+					}
+					
+					if(typeof data.hcd_checkin_category !== 'undefined'){
+						_this.model.set({
+							hcd_checkin_category: data.hcd_checkin_category
+						});
+						_this.$el.find('select[name=category]').val(data.hcd_checkin_category);
+					}
+					
+					if(typeof data.hcd_additional_guests !== 'undefined'){
+						_this.model.set({
+							hcd_additional_guests: data.hcd_additional_guests
+						});
+						_this.$el.find('select[name=additional_guests]').val(data.hcd_additional_guests);
+					}
+						
+				}
 				
 				pusher_team_channel.bind('host_emit', callback);
+				pusher_team_channel.bind('host_emit', callback2);
 				unbind_events.push({
 					event: 		'host_emit',
 					callback: 	callback
+				});
+				unbind_events.push({
+					event: 		'host_emit',
+					callback: 	callback2
 				});
 				
 				
@@ -700,6 +786,52 @@ jQuery(function(){
 			},
 			events_change_select_additional_guests: function(e){
 				
+				var additional_guests = this.$el.find('select[name=additional_guests] 			:selected').val();
+				
+				this.model.set({
+					hcd_additional_guests: 	additional_guests,
+				});
+								
+				var _this = this;
+				jQuery.background_ajax({
+					data: {
+						vc_method: 			'select_additional_guests',
+						hcd_id: 			_this.model.get('hcd_id'),
+						socket_id:			window.team_chat_object.pusher.connection.socket_id,
+						additional_guests:	additional_guests,
+					},
+					success: function(data){
+																			
+					}					
+				});
+				
+			},
+			events_change_select_category: function(e){
+								
+				var category 			= this.$el.find('select[name=category] 			:selected').val();
+				var category_value		= this.$el.find('select[name=category] 			:selected').attr('data-category_value');			
+				
+				this.model.set({
+					hcd_checkin_category: 	category,
+					hcd_checkin_amount: 	category_value
+				});
+				
+				last_checkin_val		= category;
+				
+				var _this = this;
+				jQuery.background_ajax({
+					data: {
+						vc_method: 			'select_category',
+						hcd_id: 			_this.model.get('hcd_id'),
+						socket_id:			window.team_chat_object.pusher.connection.socket_id,
+						category:			category,
+						category_value: 	category_value
+					},
+					success: function(data){
+																			
+					}					
+				});
+				
 			},
 			events_change_arrived_checkbox: function(e){
 								
@@ -744,11 +876,11 @@ jQuery(function(){
 							if(data.success)
 								if(checked){
 									_this.model.set({
-										hc_id: true
+										hcd_id: data.hcd_id
 									});
 								}else{
 									_this.model.set({
-										hc_id: null
+										hcd_id: null
 									});
 								}
 							
@@ -764,14 +896,6 @@ jQuery(function(){
 				});
 				
 							
-			},
-			events_change_select_category: function(e){
-				
-				last_checkin_val = jQuery(e.currentTarget).val();
-				
-				
-				
-				
 			}
 		}; Views.ReservationCheckin = Backbone.View.extend(Views.ReservationCheckin);
 		
