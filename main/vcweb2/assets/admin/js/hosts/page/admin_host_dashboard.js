@@ -467,33 +467,9 @@ jQuery(function(){
 				
 				this.$el.html(html);
 				reservation_iterator++;
-				
-				
-				this.$el.find('input[type=checkbox]').bind('change', function(e){
-					
-					var el 		= jQuery(e.currentTarget);
-					var checked = el.is(':checked');
-				
-					if(checked){
-				
-						el.parents('tr').find('div.additional_checkin_info').css({
-							opacity: 1
-						});
-						el.parents('tr').find('div.additional_checkin_info select').removeAttr('disabled');
-				
-					}else{
-						
-						el.parents('tr').find('div.additional_checkin_info').css({
-							opacity: 0.4
-						});
-						el.parents('tr').find('div.additional_checkin_info select').attr('disabled', 'disabled');
-					
-					}
-				
-				});
-				
-				
-				
+
+
+	
 				this.$el.find('input[type=checkbox].checkin_button').button();
 				
 				
@@ -606,10 +582,24 @@ jQuery(function(){
 									_this.model.set({
 										hcd_id: data.hcd_id
 									});
+									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 1
+									});
+									_this.$el.find('div.additional_checkin_info select').removeAttr('disabled');
+											
+									
 								}else{
 									_this.model.set({
 										hcd_id: null
 									});
+									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 0.4
+									});
+									_this.$el.find('div.additional_checkin_info select').attr('disabled', 'disabled');
+							
+									
 								}
 							
 						}
@@ -771,28 +761,6 @@ jQuery(function(){
 				reservation_iterator++;
 				
 				
-				this.$el.find('input[type=checkbox]').bind('change', function(e){
-					
-					var el 		= jQuery(e.currentTarget);
-					var checked = el.is(':checked');
-				
-					if(checked){
-				
-						el.parents('tr').find('div.additional_checkin_info').css({
-							opacity: 1
-						});
-						el.parents('tr').find('div.additional_checkin_info select').removeAttr('disabled');
-				
-					}else{
-						
-						el.parents('tr').find('div.additional_checkin_info').css({
-							opacity: 0.4
-						});
-						el.parents('tr').find('div.additional_checkin_info select').attr('disabled', 'disabled');
-					
-					}
-				
-				});
 				
 				
 				this.$el.find('input[type=checkbox].checkin_button').button();
@@ -893,16 +861,31 @@ jQuery(function(){
 						}, 
 						success: function(data){
 							console.log(data);
+			
 							
 							if(data.success)
 								if(checked){
 									_this.model.set({
 										hcd_id: data.hcd_id
 									});
+									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 1
+									});
+									_this.$el.find('div.additional_checkin_info select').removeAttr('disabled');
+											
+									
 								}else{
 									_this.model.set({
 										hcd_id: null
 									});
+									
+									_this.$el.find('div.additional_checkin_info').css({
+										opacity: 0.4
+									});
+									_this.$el.find('div.additional_checkin_info select').attr('disabled', 'disabled');
+							
+									
 								}
 							
 							
