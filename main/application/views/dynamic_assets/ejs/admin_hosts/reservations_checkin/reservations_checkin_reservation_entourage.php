@@ -63,7 +63,7 @@
 	
 	<input type="checkbox" class="checkin_button" id="button_<%= reservation_iterator %>" name="button_<%= reservation_iterator %>"  <%= ((hcd_id != null) ? 'checked="checked"' : '') %> />
 	<label data-iphone_font for="button_<%= reservation_iterator %>">Arrived</label>
-
+	
 </td>
 
 

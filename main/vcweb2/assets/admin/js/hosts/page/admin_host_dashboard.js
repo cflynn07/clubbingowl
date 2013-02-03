@@ -454,8 +454,10 @@ jQuery(function(){
 			},
 			render: function(){
 				
-				
-				console.log(this.model.toJSON());
+				console.log('render ent --');
+				console.log(this.model.get('oauth_uid'));
+				console.log(reservation_iterator);
+			//	console.log(this.model.toJSON());
 				
 				var template = EVT['reservations_checkin/reservations_checkin_reservation_entourage'];
 				var html = new EJS({
@@ -614,6 +616,8 @@ jQuery(function(){
 									});
 								}
 							
+							console.log(_this.model.toJSON());
+							console.log(_this.model.get('hcd_id'));
 
 						}
 					});
@@ -937,6 +941,8 @@ jQuery(function(){
 			},
 			render: function(){
 				
+				console.log('render group');
+				
 				var _this = this;
 				var added_oauth_uids = [];
 				
@@ -992,7 +998,7 @@ jQuery(function(){
 						if(_.indexOf(added_oauth_uids, entourage[i].oauth_uid) == -1){
 							
 							var model = new Models.Reservation(row_obj);
-						
+							
 							var view_reservation_checkin_individual_entourage = new Views.ReservationCheckinEnt({
 								model: model
 							});
@@ -1318,10 +1324,20 @@ jQuery(function(){
 			for(var i in team_venues){
 				var venue = team_venues[i];
 				
+			//	console.log('----');
+			//	console.log(collection_reservations.toJSON());
+				
+				var venue_collection_reservations = collection_reservations.where({
+					tv_id: venue.tv_id
+				});
+				
+				venue_collection_reservations = new Collections.Reservations(venue_collection_reservations);
+				
+			//	console.log(venue_collection_reservations.toJSON());
 				
 				var view_tables = new Views.ReservationsHolder({
 					el: 		'#tabs-' + venue.tv_id + '-1',
-					collection: collection_reservations,
+					collection: venue_collection_reservations,
 					subtype: 	'tables',
 					tv_id:		venue.tv_id
 				});			
@@ -1329,7 +1345,7 @@ jQuery(function(){
 			
 				var view_check_in = new Views.ReservationsCheckinHolder({
 					el: 		'#tabs-' + venue.tv_id + '-2 div[data-checkin_tv=' + venue.tv_id + ']',
-					collection: collection_reservations,
+					collection: venue_collection_reservations,
 					subtype: 	'all',
 					tv_id:		venue.tv_id
 				});
