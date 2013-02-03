@@ -34,24 +34,34 @@
 		
 		
 	<% if(hc_id != null){ %>
-			
-		<br/>
-		<span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+		
+		
+		<div>
+			<table style="margin:0;">
+				<tbody>
+					<tr>
+						<td style="padding:0; color:green;"><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /></span></td>
+						<td style="padding:0;">&nbsp;<span style="color:green;">$<%= hcd_checkin_amount %></span>&nbsp;|&nbsp;<span>+<%= hcd_additional_guests %></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
 		
 	<% } %>
 	<% if(hc_id == null){ %>
 			
-			<% if(collapsed){ %>
-				<br/><input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
-			<% }else{ %>
-				<br/>
-				
-				<span style="white-space:nowrap;">Check-in Notify:</span><br/>
-				<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+		<% if(collapsed){ %>
+			<br/><input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+		<% }else{ %>
+			<br/>
 			
-			<% } %>
-			
+			<span style="white-space:nowrap;">Check-in Notify:</span><br/>
+			<input <%= ((pglr_checkin_notify == '1') ? 'checked="checked"' : '') %> class="checkin_notify" type="checkbox" />
+		
 		<% } %>
+			
+	<% } %>
 		
 	
 	
@@ -159,8 +169,6 @@
 			<table style="margin:0; width:100%;">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th style="width:50px;">Picture</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -183,7 +191,18 @@
 								
 								
 								<% if(entourage_users[i].hc_id != null){ %>
-									<br/><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+								
+									<div>
+										<table style="margin:0;">
+											<tbody>
+												<tr>
+													<td style="padding:0; color:green;"><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /></span></td>
+													<td style="padding:0;">&nbsp;<span style="color:green;">$<%= entourage_users[i].hcd_checkin_amount %></span>&nbsp;|&nbsp;<span>+<%= entourage_users[i].hcd_additional_guests %></span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								
 								<% } %>
 								
 							</td>
@@ -224,7 +243,18 @@
 								<% } %>
 								
 								<% if(entourage_users[i].hc_id != null){ %>
-									<br/><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /> Checked In</span>
+									
+									<div>
+										<table style="margin:0;">
+											<tbody>
+												<tr>
+													<td style="padding:0; color:green;"><span style="color: green; 	white-space:nowrap; width: 100%; padding: 3px;"><img style="vertical-align:middle; width:15px;" src="<%= window.module.Globals.prototype.admin_assets + 'images/icons/small_icons/OK.png' %>" /></span></td>
+													<td style="padding:0;">&nbsp;<span style="color:green;">$<%= entourage_users[i].hcd_checkin_amount %></span>&nbsp;|&nbsp;<span>+<%= entourage_users[i].hcd_additional_guests %></span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									
 								<% } %>
 								
 							</td>
