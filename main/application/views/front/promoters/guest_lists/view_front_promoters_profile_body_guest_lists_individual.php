@@ -43,7 +43,7 @@
 
     <div class="guestlist-form-left">
       	
-      <div class="guestlist-form-image">
+      <div style="text-align:center;" class="guestlist-form-image">
         <img id="gl_image" src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $guest_list->pgla_image . '_p.jpg' ?>" style="width:188px; height:266px; border-radius:10px;" alt="Event Image">
       </div>
       
