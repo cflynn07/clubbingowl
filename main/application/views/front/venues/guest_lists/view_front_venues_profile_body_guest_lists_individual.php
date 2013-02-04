@@ -380,7 +380,7 @@ div#unavailable_overlay{
 			<input class="guestlist-button step_submit" type="button" value="Next">
 		</div>
 		<h3><a style="font-weight:600;" class="no-ajaxy" href="javascript: void(0);"><span>Last Step</span>: <span style="color:#37CE73;">Submit</span></a></h3>
-		<div>
+		<div style="padding-left:15px;padding-right:15px;">
 			
 			
 					
