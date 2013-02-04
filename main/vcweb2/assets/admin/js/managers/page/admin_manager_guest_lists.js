@@ -845,6 +845,11 @@ jQuery(function(){
 				});
 
 
+				if(this.collection.length === 0){
+					this.$el.find('ul').hide();
+					this.$el.find('> div:nth-child(2)').hide();
+				}
+
 
 
 				if(!window.location.hash.length){
