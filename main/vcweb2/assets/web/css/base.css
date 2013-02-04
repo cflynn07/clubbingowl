@@ -609,6 +609,7 @@ label {
 }
 #navigation .login span.arrow-up > img {
 	border: 1px solid #CCC;
+	border-radius: 4px;
 }
 .arrow-up:after, #navigation .login.authenticated span:after {
   content: '';
