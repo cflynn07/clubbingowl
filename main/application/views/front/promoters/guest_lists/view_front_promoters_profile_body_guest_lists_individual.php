@@ -409,7 +409,7 @@
 				<div class="confirmation">
 		          
 		          <p style="font-size:12px;">Check here if you would like ClubbingOwl to text you when <?= $promoter->u_first_name ?> accepts or declines your reservation request.</p>
-		          <p style="font-size:12px;text-align:center;color:red;">*Phone number required for table reservation requests</p>
+		          <p id="gl_phone_required_msg" style="font-size:12px;text-align:center;color:red;">*Phone number required for table reservation requests</p>
 		          <input type="checkbox" id="guestlist-confirmation-text" name="guestlist-confirmation-text">
 		          <label for="guestlist-confirmation-text">Confirmation Text & List Updates</label>
 		          

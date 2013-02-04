@@ -151,9 +151,18 @@ jQuery(function(){
 			
 			
 			
-			
+			jQuery('p#gl_phone_required_msg').hide();
 			jQuery('input#guestlist-table-request').bind('change', function(){
-						
+				
+				
+				if(jQuery(this).is(':checked')){
+					jQuery('p#gl_phone_required_msg').show();
+				}else{
+					jQuery('p#gl_phone_required_msg').hide();
+				}
+				
+				
+				
 				jQuery('select#guest-list-table-price-selection').trigger('change');
 				
 				if(jQuery(this).is(':checked')){
