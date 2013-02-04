@@ -1430,7 +1430,7 @@ jQuery(function(){
 					.initialize({
 						display_target: 	'#tabs-' + venue.tv_id + '-0',
 						team_venue: 		venue,
-						factor: 			0.5,
+						factor: 			window.tables_factor_cache || 0.5,
 						options: {
 							display_slider: true
 						}

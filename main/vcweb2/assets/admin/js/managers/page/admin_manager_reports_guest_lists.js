@@ -79,6 +79,9 @@ jQuery(function(){
 		var Events = _.extend({}, Backbone.Events);
 		
 		
+		
+		
+		
 		Models.TeamVenue = Backbone.Model.extend({
 			initialize: function(){},
 			defaults: {}
@@ -87,6 +90,9 @@ jQuery(function(){
 			model: Models.TeamVenue,
 			initialize: function(){}
 		});
+		
+		
+		
 		
 		
 		
@@ -101,6 +107,9 @@ jQuery(function(){
 		
 		
 		
+		
+		
+		
 		Models.Reservation = Backbone.Model.extend({
 			initialize: function(){},
 			defaults: {}
@@ -110,6 +119,9 @@ jQuery(function(){
 			model: Models.Reservation,
 			initialize: function(){}
 		})
+		
+		
+		
 		
 				
 				
@@ -217,7 +229,7 @@ jQuery(function(){
 					_this.render(data);
 				});
 				
-				this.render([]); 
+			//	this.render([]); 
 			},
 			render: function(data){
 				
@@ -228,18 +240,15 @@ jQuery(function(){
 				
 				
 				var reservations = new Collections.Reservations(data.response);
-				console.log('reservations');
-				console.log(reservations.toJSON());
-				
-				
-				
 				
 				
 				var _this = this;
 				var template = EVT['reports/ejs_guest_lists_summary'];
 				var html = new EJS({
 					text: template
-				}).render(data);
+				}).render({
+					
+				});
 				
 				this.$el.html(html).css({
 					opacity: 1

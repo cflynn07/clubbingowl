@@ -583,6 +583,8 @@
 	            		factor: val
 	            	});
 	            	
+	            	window.tables_factor_cache = val;
+	            	
 	            	//set all other sliders on page?
 	            	jQuery('div[data-function=tv_size_slider]').slider('value', ui.value);
 				}
