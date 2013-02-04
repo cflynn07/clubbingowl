@@ -1149,12 +1149,7 @@ jQuery(function(){
 							}); 
 						}
 						
-						
-						
-						
 					}
-				
-				
 				
 			},
 			render: function(){
