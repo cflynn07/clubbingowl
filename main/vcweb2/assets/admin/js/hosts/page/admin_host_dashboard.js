@@ -1047,89 +1047,14 @@ jQuery(function(){
 				
 				
 				
-				
+				Events.on('update_for_mobile', this.update_for_mobile, this);
 				
 				this.render();
 			},
-			render: function(){
-				
-				this.$el.empty();
-				var _this = this;
+			update_for_mobile: function(){
 				
 				
-				
-				//organize all the reservations into groups
-				var reservation_groupings = this.collection.groupBy(function(m){
-					if(m.get('pglr_id') !== undefined){
-						return m.get('up_users_oauth_uid');
-					}else{
-						return 'team';
-					}
-				});
-				
-				
-				
-				
-				
-				
-				//display no reservations msg
-				if(this.collection.length === 0){
-					this.$el.html('<h2 style="width:100%; text-align:center; color:#000; margin-top:10px; margin-top: 20px; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 10px 0 10px 0;">No Reservations</h2>');
-				}
-				
-				
-				
-				
-				
-				//turn each array of reservations into a collection
-				for(var i in reservation_groupings){
-					
-					var group 		= reservation_groupings[i];
-					var collection 	= new Collections.Reservations(group);
-					
-					var view_reservation_checkin_group = new Views.ReservationCheckinGroup({
-						collection: collection
-					});
-
-					_this.$el.append(view_reservation_checkin_group.el);
-					view_reservation_checkin_group.render();
-							
-				};
-				
-				
-				
-				
-				
-				
-				
-				
-				
-								
-				jQuery.populateFacebook(this.$el, function(){
-						
-					_this.$el.find('table.reservations_holder').dataTable({
-						bJQueryUI: 		true,
-						bDestroy: 		true,
-						bAuthWidth: 	true,
-						 "aLengthMenu": [
-					         [-1, 		20, 50, 100],
-					         ["All", 	20, 50, 100]
-					     ]
-					});
-	
-	
-				
-					
-					
-					
-					_this.$el.find('label.ui-button').css({
-						'max-width': '150px',
-						'min-width': '100px'
-					});
-					
-					
-					
-					if(jQuery.isMobile()){
+				if(jQuery.isMobile()){
 						
 						_this.$el.find('label.ui-button').each(function(){
 							//speed shit up
@@ -1227,6 +1152,89 @@ jQuery(function(){
 						
 						
 					}
+				
+				
+				
+			},
+			render: function(){
+				
+				this.$el.empty();
+				var _this = this;
+				
+				
+				
+				//organize all the reservations into groups
+				var reservation_groupings = this.collection.groupBy(function(m){
+					if(m.get('pglr_id') !== undefined){
+						return m.get('up_users_oauth_uid');
+					}else{
+						return 'team';
+					}
+				});
+				
+				
+				
+				
+				
+				
+				//display no reservations msg
+				if(this.collection.length === 0){
+					this.$el.html('<h2 style="width:100%; text-align:center; color:#000; margin-top:10px; margin-top: 20px; border-top: 1px dashed #CCC; border-bottom: 1px dashed #CCC; padding: 10px 0 10px 0;">No Reservations</h2>');
+				}
+				
+				
+				
+				
+				
+				//turn each array of reservations into a collection
+				for(var i in reservation_groupings){
+					
+					var group 		= reservation_groupings[i];
+					var collection 	= new Collections.Reservations(group);
+					
+					var view_reservation_checkin_group = new Views.ReservationCheckinGroup({
+						collection: collection
+					});
+
+					_this.$el.append(view_reservation_checkin_group.el);
+					view_reservation_checkin_group.render();
+							
+				};
+				
+				
+				
+				
+				
+				
+				
+				
+				
+								
+				jQuery.populateFacebook(this.$el, function(){
+						
+					_this.$el.find('table.reservations_holder').dataTable({
+						bJQueryUI: 		true,
+						bDestroy: 		true,
+						bAuthWidth: 	true,
+						 "aLengthMenu": [
+					         [-1, 		20, 50, 100],
+					         ["All", 	20, 50, 100]
+					     ]
+					});
+	
+	
+				
+					
+					
+					
+					_this.$el.find('label.ui-button').css({
+						'max-width': '150px',
+						'min-width': '100px'
+					});
+					
+					
+					
+					_this.update_for_mobile();
 						
 				});
 				
@@ -1370,7 +1378,11 @@ jQuery(function(){
 				collapsed = !collapsed;
 				
 				Events.trigger('change_collapsed');
-				jQuery.populateFacebook(jQuery('#primary_right'), function(){});
+				jQuery.populateFacebook(jQuery('#primary_right'), function(){
+					
+					Events.trigger('update_for_mobile');
+					
+				});
 				
 			//	for(var i in views){
 			//		var view = views[i];
