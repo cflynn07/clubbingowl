@@ -1053,6 +1053,7 @@ jQuery(function(){
 			},
 			update_for_mobile: function(){
 				
+				var _this = this;
 				
 				if(jQuery.isMobile()){
 						
