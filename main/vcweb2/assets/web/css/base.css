@@ -601,13 +601,19 @@ label {
   margin-left: -5px;
 }
 
+#navigation .login span.arrow-up {
+	padding-top: 11px !important;
+}
+#navigation .login span.arrow-up > img {
+	border: 1px solid #CCC;
+}
 .arrow-up:after, #navigation .login.authenticated span:after {
   content: '';
   background: url('/vcweb2/assets/web/images/arrow-up.png?1335148809');
   width: 10px;
   height: 6px;
   position: absolute;
-  top: 12px;
+  top: 2px;
   left: 50%;
   margin-left: -5px;
 }

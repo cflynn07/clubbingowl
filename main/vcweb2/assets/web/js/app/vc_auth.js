@@ -396,7 +396,7 @@ jQuery(function(){
 					
 			//get & cache vc_user picture
 			if(vc_user.pic_square){
-				jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:30px; height:30px;" src="' + vc_user.pic_square + '" />');
+				jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:50px; height:50px;" src="' + vc_user.pic_square + '" />');
 			}
 			fbEnsureInit(function(){
 												
@@ -411,12 +411,12 @@ jQuery(function(){
 					if(!vc_user.pic_square){
 						vc_user.pic_square = data[0].pic_square;
 						jQuery.cookies.set('vc_user', vc_user);
-						jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:30px; height:30px;" src="' + vc_user.pic_square + '" />');
+						jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:50px; height:50px;" src="' + vc_user.pic_square + '" />');
 					}else{
 						if(vc_user.pic_square != data[0].pic_square){
 							vc_user.pic_square = data[0].pic_square;
 							jQuery.cookies.set('vc_user', vc_user);
-							jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:30px; height:30px;" src="' + vc_user.pic_square + '" />');
+							jQuery('nav#navigation > ul.menu > li.login > span').html('<img style="width:50px; height:50px;" src="' + vc_user.pic_square + '" />');
 						}
 					}
 				});
