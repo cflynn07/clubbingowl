@@ -1076,6 +1076,22 @@ jQuery(function(){
 							padding: '14px 0 14px 0'
 						});
 						
+						
+						
+						
+						jQuery('div.dataTables_length').css({
+							'font-size': '16px'
+						});
+						jQuery('div.dataTables_filter').css({
+							'font-size': '16px'
+						}).find('input').css({
+							'font-size': '16px'
+						});
+						
+						
+						
+						
+						
 										
 						jQuery('*[data-mobile_font]').each(function(){
 							jQuery(this).css({
@@ -1216,9 +1232,29 @@ jQuery(function(){
 					         [-1, 		20, 50, 100],
 					         ["All", 	20, 50, 100]
 					     ]
+					});//.fnSetFilteringDelay();
+	
+	
+	
+					var searchWait = 0;
+					var searchWaitInterval;
+					jQuery('.dataTables_filter input')
+					.unbind('keypress keyup')
+					.bind('keypress keyup', function(e){
+					    var item = jQuery(this);
+					    searchWait = 0;
+					    if(!searchWaitInterval) searchWaitInterval = setInterval(function(){
+					        if(searchWait>=2){
+					            clearInterval(searchWaitInterval);
+					            searchWaitInterval = '';
+					            searchTerm = jQuery(item).val();
+					            _this.$el.find('table.reservations_holder').dataTable().fnFilter(searchTerm);
+					            searchWait = 0;
+					        }
+					        searchWait++;
+					    },200);
+					
 					});
-	
-	
 				
 					
 					
