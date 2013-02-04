@@ -19,6 +19,9 @@
 	
 	<div id="friends_holder" <?= ($this->session->userdata('vc_user')) ? 'style="display:block"' : 'style="display:none"' ?>>
 		
+		<h1>Your Friends on ClubbingOwl</h1>
+		<hr style="height: 0; border-top: 1px dashed #CCC;">
+		
 		<ul id="vc_friends" class="people"></ul> 
 		
 	</div>
