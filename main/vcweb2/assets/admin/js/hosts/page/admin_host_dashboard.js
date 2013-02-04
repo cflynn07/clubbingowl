@@ -1241,6 +1241,14 @@ jQuery(function(){
 					jQuery('.dataTables_filter input')
 					.unbind('keypress keyup')
 					.bind('keypress keyup', function(e){
+						
+						
+						if(jQuery(item).val() === ''){
+							_this.$el.find('table.reservations_holder').dataTable().fnFilter('');
+							return;
+						}
+						
+						
 					    var item = jQuery(this);
 					    searchWait = 0;
 					    if(!searchWaitInterval) searchWaitInterval = setInterval(function(){
@@ -1254,6 +1262,8 @@ jQuery(function(){
 					        searchWait++;
 					    },200);
 					
+					}).unbind('blur').bind('blur', function(){
+						jQuery(this).val('').trigger('keyup');
 					});
 				
 					
