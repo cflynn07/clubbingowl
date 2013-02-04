@@ -539,6 +539,14 @@ label {
 #navigation .login img{
 	margin: 0;
 }
+
+@media screen and (max-width: 479px){
+	#navigation .login img {
+		width: 25px !important;
+		height: 25px !important;
+	}
+}
+
 .lt-ie8 #navigation .login span {
   padding: 22px 20px;
 }
