@@ -1987,3 +1987,8 @@ div.team_chat_messages.mobile-chat div.message_wrapper div.message_content {
 	padding: 15px !important;
 	line-height: 35px;
 }
+
+
+div#display_user img {
+	border: 1px solid #CCC;
+}
