@@ -1,7 +1,7 @@
 <article class="history">
 
   <header>
-    <h1><?= $user->users_full_name ?></h1>
+    <h1 style="color:#474D6A !important;"><?= $user->users_full_name ?></h1>
   </header>
   
   <h2>Your Reservations</h2>

@@ -30,7 +30,7 @@
 	
 	<section id="news" style="position:relative;">
 		
-		<h2><?= $this->lang->line('ha-activity_updates') ?></h2>
+		<h2 style="color:#474D6A !important;"><?= $this->lang->line('ha-activity_updates') ?></h2>
 		
 		<div id="news_feed_side_data">
 
