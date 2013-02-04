@@ -22,7 +22,9 @@ article.home{
 			<p style="font-size:30px;">
 				Hey <span id="fname_greeting"><?= ($vc_user && isset($vc_user->first_name)) ? $vc_user->first_name : '' ?></span>, welcome back. 
 			</p>
+			
 		</div>	
+	
 		
 		<h2 style="color:#000;">Your friends have sent you these ClubbingOwl invitations</h2>
 		
@@ -30,9 +32,7 @@ article.home{
 							
 			<img id="loading_indicator" src="<?= $central->global_assets . 'images/ajax.gif' ?>" alt="loading..." />
 			
-			<ul class="updates" id="requests_updates_ul" style="display:none;">
-				
-			</ul>
+			<ul class="updates" id="requests_updates_ul" style="display:none;"></ul>
 			
 			<style type="text/css">
 				ul.updates div.info p{
@@ -46,8 +46,14 @@ article.home{
 			
 			<p>Making your night-life even more social! <strong>It’s free, try it!</strong></p>
 			
+			
+			
 			<p style="font-size:16px;">ClubbingOwl is the fastest way to plan your evening! Find out where your friends party and join them. With ClubbingOwl getting on a guest-list or reserving a table is only one click away.</p>
-					
+				
+			<div class="unauth_content">
+				<a class="fb-connect vc_fb_login" href="javascript: void(0);"><img src="https://www.clubbingowl.dev/vcweb2/assets/web/images/connect-large.png" alt="Facebook Connect"></a>
+			</div>	
+				
 			<div style="padding-top:0px;" app_id="<?= $central->facebook_app_id ?>" class="fb-facepile" data-size="large" data-max-rows="1" data-width="1000" data-colorscheme="light"></div>		
 			
 		</div>
