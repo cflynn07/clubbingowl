@@ -435,7 +435,7 @@
                                                             					<img style="" src="https://graph.facebook.com/<?= $email_data->from_user->u_oauth_uid ?>/picture?type=large" alt="<?= $email_data->from_user->u_full_name ?>" />
                                                             				</a>
                                                             			</td>
-                                                            			<td style="vertical-align:top;font-size:18px;">Your friend <strong style="color: #3CA6E2"><a href="https://www.clubbingowl.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" ><?= $email_data->from_user->u_full_name ?></a></strong> is on ClubbingOwl and is joining guest-lists and reserving tables at their favorite venues with you!</td>
+                                                            			<td style="vertical-align:top;font-size:24px;line-height:28px;">Your friend <strong style="color: #3CA6E2"><a href="https://www.clubbingowl.com/friends/<?= $email_data->from_user->u_third_party_id ?>/" ><?= $email_data->from_user->u_full_name ?></a></strong> is on ClubbingOwl and is joining guest lists and reserving tables at their favorite venues with you!</td>
                                                             		</tr>
                                                             	</table>
                                                             	

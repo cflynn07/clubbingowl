@@ -437,7 +437,7 @@
                                                             					<img style="border-radius:5px; border:2px solid #000;" src="https://s3.amazonaws.com/clubbingowl/vc-images/guest_lists/<?= $email_data->pglr->pgla_image ?>_p.jpg" alt="<?= $email_data->pglr->pgla_name ?>" />
                                                             				</a>
                                                             			</td>
-                                                            			<td style="vertical-align:top;font-size:18px;">
+                                                            			<td style="vertical-align:top;font-size:24px;line-height:28px;">
                                                             				
                                                             				
                                                             				<?php if($email_data->approved): ?>
