@@ -107,13 +107,13 @@
 							<span>
 								<input data-mobile_width data-iphone_font data-mobile_font="20px" readonly="true" type="text" class="table_datepicker" value="<?= date('l F j, Y', time()); ?>" style="width:auto !important;" />
 								<img style="display:none;" class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
-
-								
-
 							</span>
 							
 							<ul>
+								<?php if(false): ?>
 								<li><a href="#tabs-<?= $venue->tv_id ?>-0">Floorplan</a></li>
+								<?php endif; ?>
+								
 								<li><a href="#tabs-<?= $venue->tv_id ?>-1">Table Reservations</a></li>
 								<li><a href="#tabs-<?= $venue->tv_id ?>-2">Guest Check-In</a></li>
 							</ul>
@@ -121,16 +121,17 @@
 						</div>
 									
 						
+						<?php if(false): ?>
 						<div data-clear-zone="" id="tabs-<?= $venue->tv_id ?>-0"></div>
-
+						<?php endif; ?>
 
 
 
 
 						<div style="padding:0;" id="tabs-<?= $venue->tv_id ?>-1">
 							
-							<h3>Table Reservations</h3>
-
+							<div data-clear-zone="" class="full_width last floorplan_wrapper"></div>
+							
 							<div class="full_width last table_reservations"></div>
 					
 						</div>

@@ -1344,7 +1344,7 @@ jQuery(function(){
 			//	console.log(venue_collection_reservations.toJSON());
 				
 				var view_tables = new Views.ReservationsHolder({
-					el: 		'#tabs-' + venue.tv_id + '-1',
+					el: 		'#tabs-' + venue.tv_id + '-1 div.table_reservations',
 					collection: venue_collection_reservations,
 					subtype: 	'tables',
 					tv_id:		venue.tv_id
@@ -1428,7 +1428,7 @@ jQuery(function(){
 				tv_display_module 	= jQuery.extend(true, {}, globals.module_tables_display);
 				tv_display_module
 					.initialize({
-						display_target: 	'#tabs-' + venue.tv_id + '-0',
+						display_target: 	'#tabs-' + venue.tv_id + '-1 div.floorplan_wrapper',
 						team_venue: 		venue,
 						factor: 			window.tables_factor_cache || 0.5,
 						options: {
