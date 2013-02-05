@@ -410,7 +410,8 @@ jQuery(function(){
 					
 					_this.$el.find('input').autocomplete({
 						source: 	friends,
-						delay: 		20,
+						delay: 		200,
+						minLength: 	3,
 						focus: 		function(event, ui){
 							
 							//jQuery(this).val(ui.item.label);
