@@ -1992,3 +1992,8 @@ div.team_chat_messages.mobile-chat div.message_wrapper div.message_content {
 div#display_user img {
 	border: 1px solid #CCC;
 }
+
+
+.DataTables_sort_wrapper {
+	white-space: nowrap;
+}
