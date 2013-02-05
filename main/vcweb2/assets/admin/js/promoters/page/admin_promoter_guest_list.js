@@ -288,7 +288,13 @@ jQuery(function(){
 				var clients;
 				var friends;
 							
-						
+				
+				if(typeof window.vc_gl_clients !== 'undefined' && typeof window.vc_gl_friends !== 'undefined'){
+					step1_complete = true;
+					step2_complete = true;
+					clients = window.vc_gl_clients;
+					friends = window.vc_gl_friends;
+				}
 						
 						
 														
@@ -377,6 +383,8 @@ jQuery(function(){
 					}
 					
 					
+					window.vc_gl_clients = clients;
+					window.vc_gl_friends = friends;
 					
 					
 					var template = EVT['guest_lists/gl_manual_add_guestlist_friendspick'];
@@ -459,15 +467,22 @@ jQuery(function(){
 				
 				
 				
+				if(step1_complete && step2_complete){
 				
-				
-				jQuery.fbUserLookup(window.page_obj.clients, '', function(rows){
-					
-					clients 		= rows;
-					step2_complete 	= true;
 					sync_complete_callback();
+				
+				}else{
+				
+					jQuery.fbUserLookup(window.page_obj.clients, '', function(rows){
+						
+						clients 		= rows;
+						step2_complete 	= true;
+						sync_complete_callback();
+						
+					});
 					
-				});
+				}
+				
 				fbEnsureInit(function(){
 
 					FB.api('/me/friends', function(result){

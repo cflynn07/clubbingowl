@@ -305,7 +305,12 @@ jQuery(function(){
 				var friends;
 							
 						
-						
+				if(typeof window.vc_gl_clients !== 'undefined' && typeof window.vc_gl_friends !== 'undefined'){
+					step1_complete = true;
+					step2_complete = true;
+					clients = window.vc_gl_clients;
+					friends = window.vc_gl_friends;
+				}
 						
 														
 				this.Models.User = {
@@ -374,7 +379,6 @@ jQuery(function(){
 						return;
 					
 					//merge friends & clients arrays w/ no duplicates
-					console.log(clients);
 					for(var i in clients){
 						var client_found = false;
 						for(var k in friends){
@@ -393,6 +397,8 @@ jQuery(function(){
 					}
 					
 					
+					window.vc_gl_clients = clients;
+					window.vc_gl_friends = friends;
 					
 					
 					var template = EVT['guest_lists/gl_manual_add_guestlist_friendspick'];
@@ -475,15 +481,23 @@ jQuery(function(){
 				
 				
 				
+				if(step1_complete && step2_complete){
 				
-				
-				jQuery.fbUserLookup(window.page_obj.clients, '', function(rows){
-					
-					clients 		= rows;
-					step2_complete 	= true;
 					sync_complete_callback();
+				
+				}else{
+				
+					jQuery.fbUserLookup(window.page_obj.clients, '', function(rows){
+						
+						clients 		= rows;
+						step2_complete 	= true;
+						sync_complete_callback();
+						
+					});
 					
-				});
+				}
+				
+				
 				fbEnsureInit(function(){
 
 					FB.api('/me/friends', function(result){
