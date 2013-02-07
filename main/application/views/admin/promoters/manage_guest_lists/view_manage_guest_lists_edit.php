@@ -81,7 +81,7 @@
 							<p>
 			<label>Minimum Age:</label>
 			<select name="guest_list_min_age">
-				<?php for($i = 18; $i < 24; $i++): ?>
+				<?php for($i = 14; $i < 24; $i++): ?>
 					<option <?= (($i == $guest_list->pgla_min_age) ? 'selected="selected"' : '') ?> value="<?= $i ?>"><?= $i ?></option>
 				<?php endfor; ?>
 			</select>
