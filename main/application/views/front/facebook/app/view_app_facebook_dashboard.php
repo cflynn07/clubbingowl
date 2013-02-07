@@ -1,3 +1,1 @@
-<script type="text/javascript">
-	window.top.location = 'http://<?= $lang_code ?>.<?= SITE ?>.<?= TLD ?>/requests/';
-</script>
+<script type="text/javascript"> (function(){ top.location.href = "<?= 'https://graph.facebook.com/oauth/authorize?client_id=' . $this->config->item('facebook_app_id') . '&redirect_uri=http://www.' .  SITE . '.' . TLD . '/requests&scope=publish_stream' ?>"; })(); </script>

@@ -1,5 +1,10 @@
 jQuery(function(){
 	
+	if (top.location!= self.location) {
+		top.location = self.location.href
+		return;
+	}
+	
 	jQuery('a#vc_fb_logout').live('click', function(){
 		
 		fbEnsureInit(function(){
