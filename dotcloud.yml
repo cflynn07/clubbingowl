@@ -2,11 +2,18 @@ www:
  type: php
  approot: main
  postinstall: ./postinstall.sh
-daemons:
+workers:
  type: php-worker
  approot: main
  processes:
   worker1: php /home/dotcloud/current/index.php worker cron_all
+  worker2: php /home/dotcloud/current/index.php worker all
+  worker3: php /home/dotcloud/current/index.php worker all
+workers2:
+ type: php-worker
+ approot: main
+ processes:
+  worker1: php /home/dotcloud/current/index.php worker all
   worker2: php /home/dotcloud/current/index.php worker all
   worker3: php /home/dotcloud/current/index.php worker all
 db:
