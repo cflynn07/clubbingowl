@@ -4,7 +4,7 @@
     <h1 style="color:#474D6A !important;"><?= $user->users_full_name ?></h1>
   </header>
   
-  <h2>Your Reservations</h2>
+  <h2 style="margin-bottom:10px;">Your Reservations</h2>
   
   <div class="history-table">
     <table id="history_table">
