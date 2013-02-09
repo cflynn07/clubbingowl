@@ -273,6 +273,18 @@ class Worker extends CI_Controller {
 	}
 	
 	
+	public function cron_all(){
+		
+		//set up the crontab
+		$fh = fopen('/home/dotcloud/current/cronjobs.txt', 'w+');
+		fwrite($fh, '*/1 * * * * date > date.txt' . "\n");
+		fclose($fh);
+		
+		exec('crontab /home/dotcloud/current/cronjobs.txt');
+		
+		$this->all();
+		
+	}
 	
 	
 	/**
@@ -339,7 +351,7 @@ class Worker extends CI_Controller {
 		//	if($arg1 == 'special_emails'){
 				$gearman_worker->addAbility('gearman_email_friends_new_user');	
 				$gearman_worker->addAbility('gearman_send_sms_mass_text_team_announcements');	
-				$gearman_worker->addAbility('gearman_email_friends_gl_join');
+		//		$gearman_worker->addAbility('gearman_email_friends_gl_join');
 		//	}
 			
 			
