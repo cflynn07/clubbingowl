@@ -1,0 +1,2 @@
+TZ=America/New_York
+0 2 * * 5 php /Users/casey/Documents/workspaces/clubbingowl/main/index.php worker auto_promote 2

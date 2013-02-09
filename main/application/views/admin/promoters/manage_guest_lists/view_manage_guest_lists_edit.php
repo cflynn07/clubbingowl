@@ -36,7 +36,7 @@
 			<label>Guest List Name:</label> <span><?= $guest_list->pgla_name ?></span>
 			
 			<br/><img style="vertical-align:middle;" src="<?=$central->admin_assets?>images/icons/small_icons_2/Info.png" alt="info" class="tooltip" title="Your guest list name is a part of it's URL (ex: www.clubbingowl.com/promoters/rocko/guest_lists/estate_fridays/ ). If you changed it, all of the links pointing to your guest list on Facebook and your client's bookmarks would break.">
-			<span style="margin-left:15px; color:red;">Why can't I change my guest list name? </span>
+			<span style="margin-left:15px; color:gray;">Why can't I change my guest list name?</span>
 			
 		</p>
 		
@@ -174,10 +174,13 @@
 		<p>Options</p>
 	
 		<div class="one_fourth_last"> 
-			<p><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= (($guest_list->pgla_auto_approve == '1') ? 'checked="checked"' : '') ?> />Auto approve reservation requests</p>
+			<p><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= (($guest_list->pgla_auto_approve == '1') ? 'checked="checked"' : '') ?> />Auto Approve Reservation Requests</p>
 		</div>
+		
+		
 		<div class="one_fourth_last"> 
-			<p><input type="checkbox" class="iphone" name="guest_list_auto_promote" <?= (($guest_list->pgla_auto_promote == '1') ? 'checked="checked"' : '') ?> />Auto promote guest list on Facebook</p>
+			<p style="margin-bottom:0;"><input type="checkbox" class="iphone" name="guest_list_auto_promote" <?= (($guest_list->pgla_auto_promote == '1') ? 'checked="checked"' : '') ?> />Auto Promote Guest List on Facebook</p>
+			<p style="margin-top:0; color:gray;">Easily remind your friends to join your guest list by having ClubbingOwl automatically post a link to your Facebook wall.</p>
 		</div>
 		
 		<div class="clearboth"></div> 

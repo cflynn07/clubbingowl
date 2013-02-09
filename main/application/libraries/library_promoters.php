@@ -233,7 +233,7 @@ class library_promoters{
 		$additional_info_3	= strip_tags($this->CI->input->post('additional_info_3'));
 		$image_data			= $this->CI->input->post('image_data');
 		
-	
+		$weekday_int = $weekday;
 		switch($weekday){
 			case 0:
 				$weekday = 'mondays';
@@ -310,7 +310,22 @@ class library_promoters{
 		$image_data['image']		= $new_image_name;
 		
 		
-		
+		if($auto_promote == 'true'){
+			//create auto-promote cron record
+			$this->CI->db->insert('cron_jobs',
+			array(
+				'cj_min'			=> 0,
+				'cj_hour'			=> 12,
+				'cj_day_of_month' 	=> '*',
+				'cj_month'			=> '*',
+				'cj_day_of_week'	=> $weekday_int,
+				'cj_type'			=> 'auto_promote',
+				'cj_once'			=> 0
+			));
+			$cj_id = $this->CI->db->insert_id();
+		}else{
+			$cj_id = NULL;
+		}		
 		
 		
 		
@@ -330,7 +345,14 @@ class library_promoters{
 				$additional_info_2, 
 				$additional_info_3, 
 				$auto_promote,
-				$image_data);
+				$image_data, 
+				false,
+				$cj_id);
+				
+		if($auto_promote == 'true'){
+			$this->CI->load->helper('run_gearman_job');
+			run_gearman_job('gearman_update_crontab', array());
+		}
 		
 	}
 
@@ -471,6 +493,9 @@ class library_promoters{
 			'y0'				=> $image_upload_data['y0'],
 			'y1'				=> $image_upload_data['y1']
 		));
+		
+		$this->CI->load->helper('run_gearman_job');
+		run_gearman_job('gearman_update_crontab', array());
 		
 		return array('success' => true);
 		

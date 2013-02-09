@@ -181,12 +181,15 @@
 		<p>Options</p>
 	
 		<div class="one_fourth_last"> 
-			<p><input type="checkbox" class="iphone" name="guest_list_auto_approve" />Auto approve reservation requests</p>
+			<p><input type="checkbox" class="iphone" name="guest_list_auto_approve" />Auto Approve Reservation Requests</p>
 		</div> 
 		
 		
 		<div class="one_fourth_last"> 
-			<p><input type="checkbox" class="iphone" name="guest_list_auto_promote" checked="checked"/>Auto promote guest list on Facebook</p>
+			
+			<p style="margin-bottom:0;"><input type="checkbox" class="iphone" name="guest_list_auto_promote" checked="checked"/>Auto Promote Guest List on Facebook</p>
+			<p style="margin-top:0; color:gray;">Easily remind your friends to join your guest list by having ClubbingOwl automatically post a link to your Facebook wall.</p>
+		
 		</div>
 		
 		<div class="clearboth"></div> 

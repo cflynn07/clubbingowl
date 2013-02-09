@@ -106,7 +106,8 @@ class Model_users_promoters extends CI_Model {
 														$additional_info_3, 
 														$auto_promote, 
 														$image_data = false,
-														$tgla_id	= false){
+														$tgla_id	= false,
+														$cj_id 		= NULL){
 		
 		$gl_name 		= strip_tags($gl_name);
 		$gl_description = strip_tags($gl_description);
@@ -265,7 +266,10 @@ class Model_users_promoters extends CI_Model {
 						'gl_cover'			=> $gl_cover,
 						'additional_info_1' => $additional_info_1,
 						'additional_info_2' => $additional_info_2,
-						'additional_info_3' => $additional_info_3
+						'additional_info_3' => $additional_info_3,
+						
+						'cj_id'				=> $cj_id
+						
 					);
 		
 		if($image_data){
@@ -1811,7 +1815,78 @@ class Model_users_promoters extends CI_Model {
 	 * 
 	 */
 	function update_pgla($pgla_id, $up_id, $options){
+			
+			
+		$this->db->select('*')
+			->from('promoters_guest_list_authorizations')
+			->where(array('id' => $pgla_id));
+		$query = $this->db->get();
+		$result = $query->row();
+		
+		
+		
+		$options['cj_id'] = NULL;
+		
+		if($result->cj_id != NULL && $result->cj_id != 'null' && $result->cj_id != 'NULL'){
+		
+			if($options['auto_promote'] == 0){
+				//delete cj record
 				
+				$this->db->delete('cron_jobs', array('cj_id' => $result->cj_id));
+				
+			}
+		
+		}else{
+		
+			if($options['auto_promote'] == 1){
+							
+				switch($result->day){
+					case 'sundays':
+						$weekday_int = 0;
+						break;
+					case 'mondays':
+						$weekday_int = 1;
+						break;
+					case 'tuesdays':
+						$weekday_int = 2;
+						break;
+					case 'wednesdays':
+						$weekday_int = 3;
+						break;
+					case 'thursdays':
+						$weekday_int = 4;
+						break;
+					case 'fridays':
+						$weekday_int = 5;
+						break;
+					case 'saturdays':
+						$weekday_int = 6;
+						break;
+				}
+					
+				
+				//create cj record
+				$this->db->insert('cron_jobs',
+				array(
+					'cj_min'			=> 0,
+					'cj_hour'			=> 12,
+					'cj_day_of_month'	=> '*',
+					'cj_month'			=> '*',
+					'cj_day_of_week'	=> $weekday_int,
+					'cj_type'			=> 'auto_promote',
+					'cj_once'			=> 0
+				));
+				$cj_id = $this->db->insert_id();
+				$options['cj_id'] = $cj_id;
+				
+			}
+		
+		}
+		
+		
+		
+		
+		
 		$this->db->where(array('id' => $pgla_id, 'user_promoter_id' => $up_id));
 		$this->db->update('promoters_guest_list_authorizations', $options);	
 		

@@ -275,7 +275,7 @@ class Worker extends CI_Controller {
 	
 	public function cron_all(){
 		
-		$filename = '/home/dotcloud/current/cronjobs.txt';
+		$filename = ((MODE == 'local') ? '~/Documents/workspace/clubbingowl/' : '/home/dotcloud/current/') . 'cronjobs.txt';
 		
 		//set up the crontab
 		$fh = fopen($filename, 'w+');
@@ -290,7 +290,7 @@ class Worker extends CI_Controller {
 		fclose($fh);
 		
 		exec('crontab ' . $filename);
-		$this->all();
+		$this->all('crontab');
 		
 	}
 	
@@ -362,7 +362,9 @@ class Worker extends CI_Controller {
 		//		$gearman_worker->addAbility('gearman_email_friends_gl_join');
 		//	}
 			
-			
+			if($arg1 == 'crontab'){
+				$gearman_worker->addAbility('gearman_update_crontab');
+			}
 			
 			
 		    $gearman_worker->beginWork();
@@ -374,6 +376,79 @@ class Worker extends CI_Controller {
 			
 		}
 	}
+
+
+	public function auto_promote($cj_id){
+		
+		
+		
+	}
+	
+	public function rank_invite($cj_id){
+		
+	}
+	
+	
+	
+	public function all_cron_test(){
+		$index_php = ((MODE == 'local') ? '/Users/casey/Documents/workspaces/clubbingowl/main/index.php' : '/home/dotcloud/current/index.php');
+
+		$filename  = ((MODE == 'local') ? '/Users/casey/Documents/workspaces/clubbingowl/' : '/home/dotcloud/current/') . 'cronjobs.txt';
+
+		//get all the stuff we're going to need...
+		$CI =& get_instance();
+		echo 'Updating crontab...';
+
+		$sql = "SELECT *
+				FROM cron_jobs cj
+				WHERE cj.cj_deactivated = 0 AND (cj.cj_once = 0 OR (cj.cj_once = '1' AND cj.cj_once_ran != 1))";
+		$query  = $this->db->query($sql);
+		$result = $query->result();
+
+		$cron_string = 'TZ=America/New_York' . PHP_EOL;
+		foreach($result as $res){
+			
+			
+			$dtz = new DateTimeZone("America/New_York");
+			$sec = timezone_offset_get($dtz, new DateTime());
+			if($sec !== false)
+				$gmt_offset = $sec / 60 / 60;
+			else 
+				$gmt_offset = 0;
+			
+			
+			
+			//MIN 		HOUR		Day-Of-Month		MONTH 		Day-Of-Week
+			$cron_string .= $res->cj_min . ' ' . (($res->cj_hour + $gmt_offset) % 23). ' ' . $res->cj_day_of_month . ' ' . $res->cj_month . ' ' . $res->cj_day_of_week . ' ';
+			$cron_string .= 'php ' . $index_php . ' worker ' . $res->cj_type;
+			
+			if($res->cj_type == 'auto_promote'){
+				
+				$cron_string .= ' ' . $res->cj_id;
+				
+			}else if($res->cj_type == 'rank_invite'){
+				
+				
+				
+			}
+			
+			$cron_string .= PHP_EOL;
+		
+		}
+		
+		//set up the crontab
+		$fh = fopen($filename, 'w+');
+		fwrite($fh, $cron_string);
+		fclose($fh);
+
+		exec('crontab -r');
+		exec('crontab ' . $filename);
+		
+		echo 'done' . PHP_EOL;
+		
+	}
+
+
 }
 
 /* End of file worker.php */
