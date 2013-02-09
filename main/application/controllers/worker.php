@@ -275,13 +275,21 @@ class Worker extends CI_Controller {
 	
 	public function cron_all(){
 		
+		$filename = '/home/dotcloud/current/cronjobs.txt';
+		
 		//set up the crontab
-		$fh = fopen('/home/dotcloud/current/cronjobs.txt', 'w+');
-		fwrite($fh, '*/1 * * * * date > date.txt' . "\n");
+		$fh = fopen($filename, 'w+');
+		
+		$txt = '';
+		$txt .= 'TZ=America/New_York' . PHP_EOL;
+		$txt .= '*/1 * * * * date > /home/dotcloud/current/date1.txt' . PHP_EOL;
+		$txt .= 'TZ=America/Los_Angeles' . PHP_EOL;
+		$txt .= '*/1 * * * * date > /home/dotcloud/current/date2.txt' . PHP_EOL;
+		
+		fwrite($fh, $txt);
 		fclose($fh);
 		
-		exec('crontab /home/dotcloud/current/cronjobs.txt');
-		
+		exec('crontab ' . $filename);
 		$this->all();
 		
 	}
