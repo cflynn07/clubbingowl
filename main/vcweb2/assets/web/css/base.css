@@ -1382,3 +1382,51 @@ td.gl_additional_list_info {
 		padding-top: 28px !important;
 	}
 }
+
+
+
+
+
+
+
+
+
+section#guestlist div.tables {
+    width: 49%;
+    vertical-align: top;
+    display: inline-block;
+    border-radius: 5px;
+    border-color: #474D6A;
+    background: #727381;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+@media screen and (max-width: 767px) {
+    section#guestlist div.tables {
+        width: 100%;
+        display: block;
+    }
+}
+
+section#guestlist div.tables table.event_table{
+    width: 100%;
+}
+section#guestlist div.tables table.event_table td.event_image{
+    padding: 0;
+    width: 44px;
+    vertical-align: top;
+}
+section#guestlist div.tables table.event_table td.event_text{
+    padding-left: 10px;
+}
+section#guestlist div.tables table.event_table td.event_text p.event_title{
+    margin:0; color:#FFF; font-weight: 300; display: inline-block;
+}
+section#guestlist div.tables table.event_table td.event_text p.event_date{
+    margin:0; color:#FFF; font-size:12px;
+}
+section#guestlist div.tables table.event_table div.event_join {
+    text-align: center;
+    width: 100%;
+    padding-left: 10px;
+}

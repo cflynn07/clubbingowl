@@ -1,6 +1,6 @@
  <?php //Kint::dump($all_guest_lists); ?>
  <section id="guestlist">
-  <h1>Guest Lists &amp; Tables</h1>
+  <h2><?= $venue->tv_name ?>'s Weekly Guest Lists</h2>
   <table class="guestlist">
     <tbody>
     	

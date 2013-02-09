@@ -1,5 +1,57 @@
+ 
  <section id="guestlist">
-  <h1><?= $this->lang->line('p-gl_t') ?></h1>
+ 	
+  <?php if(MODE == 'local'): ?>
+	 	
+	  <h2 style="border-bottom:1px dashed #CCC;"><?= $promoter->u_first_name . '\'s Special Events' //$this->lang->line('p-gl_t') ?></h2>
+	 
+	  <div class="tables">
+	  	<table class="event_table">
+	  		<tr>
+	  			<td class="event_image" rowspan="2">
+	  				<img src="http://placehold.it/44x54" />
+	  			</td>
+	  			<td class="event_text">
+	  				<p class="event_title">Tiesto at Estate! Long form Description!</p>
+	  				<p class="event_date">Wed November 30, 2013</p>
+	  			</td>
+	  		</tr>
+	  		<tr>
+	  			<td>
+	  				<div class="event_join action">
+				  		<a class="ajaxify_t2 join_btn" href="">Info/Join</a>
+				  	</div>
+	  			</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	  
+	  <div class="tables">
+	  	<table class="event_table">
+	  		<tr>
+	  			<td class="event_image" rowspan="2">
+	  				<img src="http://placehold.it/44x54" />
+	  			</td>
+	  			<td class="event_text">
+	  				<p class="event_title">Tiesto at Estate! Long form Description!</p>
+	  				<p class="event_date">Wed November 30, 2013</p>
+	  			</td>
+	  		</tr>
+	  		<tr>
+	  			<td>
+	  				<div class="event_join action">
+				  		<a class="ajaxify_t2 join_btn" href="">Info/Join</a>
+				  	</div>
+	  			</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	  
+  <?php endif; ?>
+  
+  
+ 	
+  <h2 style="border-bottom:1px dashed #CCC;"><?= $promoter->u_first_name . '\'s Weekly Guest Lists' //$this->lang->line('p-gl_t') ?></h2>
   <table class="guestlist">
     <tbody>
     	
