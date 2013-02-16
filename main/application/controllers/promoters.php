@@ -500,6 +500,15 @@ class Promoters extends MY_Controller {
 		$this->body_html .= $this->load->view($this->view_dir . 'view_front_promoters_home', $data, true);
 		
 	}
+
+	private function _helper_check_promoter(){
+		
+		if($this->library_promoters->promoter->pt_quit == '1' || $this->library_promoters->promoter->pt_banned == '1'){
+			show_404();
+			die();
+		}
+		
+	}
 	
 	/**
 	 * showcase a specific promoter
@@ -517,12 +526,14 @@ class Promoters extends MY_Controller {
 		
 		
 		
+		$this->_helper_check_promoter();
+		
+		
 		
 		
 		
 		$this->_helper_pop_retrieve_job();
 		$this->_helper_send_pusher_presence();
-		
 		
 		
 		
@@ -589,7 +600,10 @@ class Promoters extends MY_Controller {
 	 * @param	url segment 5
 	 * @return	null
 	 */
-	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){	
+	private function _guest_lists($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){
+			
+				
+		$this->_helper_check_promoter();
 		
 		$this->_helper_pop_retrieve_job();
 		
@@ -839,6 +853,8 @@ class Promoters extends MY_Controller {
 	 */
 	private function _events($arg0 = '', $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = ''){
 		
+		
+		$this->_helper_check_promoter();
 		$this->_helper_pop_retrieve_job();
 		
 //		$this->body_html  = $this->load->view($this->view_dir . 'view_front_promoter_pusher_presence', '', true);

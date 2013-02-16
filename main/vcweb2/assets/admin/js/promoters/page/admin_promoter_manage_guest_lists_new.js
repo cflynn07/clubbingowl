@@ -179,7 +179,9 @@ jQuery(function(){
 		
 		
 		
-		jQuery('input#submit_new_guest_list').bind('click', function(){
+		jQuery('input#submit_new_guest_list').bind('click', function(e){
+			
+			e.preventDefault();
 			
 			jQuery('#ajax_loading').css('display', 'inline-block');
 			jQuery('#ajax_complete_success').css('display', 'none');
@@ -192,9 +194,12 @@ jQuery(function(){
 			var data = {
 				venue: 		jQuery('form#guest_list_new_form select[name = guest_list_venue]').val(),
 				
-				type: 		jQuery('form#guest_list_new_form select[name = guest_list_type]').val(),
+				
+				
+				type: 		jQuery('form#guest_list_new_form input[type=radio][name=guest_list_type]').val(),
 				weekday: 	jQuery('form#guest_list_new_form select[name = guest_list_weekday]').val(),
-				date: 		jQuery('form#guest_list_new_form select[name = event_date]').val(),
+				date: 		jQuery.datepicker.formatDate('y-mm-dd', jQuery('form#guest_list_new_form input[name = event_date]').datepicker('getDate')),
+				
 				
 				gl_name: 	jQuery('form#guest_list_new_form input[name = guest_list_name]').val(),
 				gl_description: jQuery('form#guest_list_new_form textarea[name = guest_list_description]').val(),

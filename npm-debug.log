@@ -1,0 +1,464 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'sequelize' ]
+info using npm@1.1.16
+info using node@v0.6.15
+verbose config file /Users/caseyflynn/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+verbose cache add [ 'sequelize', null ]
+silly cache add: name, spec, args [ undefined, 'sequelize', [ 'sequelize', null ] ]
+verbose parsed url { pathname: 'sequelize', path: 'sequelize', href: 'sequelize' }
+verbose addNamed [ 'sequelize', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'sequelize', '', false ]
+verbose raw, before any munging sequelize
+verbose url resolving [ 'https://registry.npmjs.org/', './sequelize' ]
+verbose url resolved https://registry.npmjs.org/sequelize
+verbose etag "9R4WW7B9YEWUPGXT79L593JM3"
+http GET https://registry.npmjs.org/sequelize
+http 304 https://registry.npmjs.org/sequelize
+silly get cb [ 304,
+silly get cb   { server: 'CouchDB/1.2.1 (Erlang OTP/R15B)',
+silly get cb     etag: '"9R4WW7B9YEWUPGXT79L593JM3"',
+silly get cb     date: 'Sat, 16 Feb 2013 15:10:41 GMT',
+silly get cb     'content-length': '0' } ]
+verbose etag sequelize from cache
+silly name, range, hasData 2 [ 'sequelize', '', true ]
+silly versions [ 'sequelize',
+silly versions   [ '0.2.2',
+silly versions     '0.2.3',
+silly versions     '0.2.4',
+silly versions     '0.2.5',
+silly versions     '0.2.6',
+silly versions     '0.3.0',
+silly versions     '0.4.0',
+silly versions     '0.4.1',
+silly versions     '0.4.2',
+silly versions     '0.4.3',
+silly versions     '1.0.0',
+silly versions     '1.0.1',
+silly versions     '1.0.2',
+silly versions     '1.1.0',
+silly versions     '1.1.1',
+silly versions     '1.1.2',
+silly versions     '1.1.3',
+silly versions     '1.1.4',
+silly versions     '1.2.0',
+silly versions     '1.2.1',
+silly versions     '1.3.0',
+silly versions     '1.3.1',
+silly versions     '1.3.2',
+silly versions     '1.3.3',
+silly versions     '1.3.4',
+silly versions     '1.3.5',
+silly versions     '1.3.6',
+silly versions     '1.3.7',
+silly versions     '1.4.0',
+silly versions     '1.4.1',
+silly versions     '1.5.0-alpha',
+silly versions     '1.5.0-beta',
+silly versions     '1.5.0-beta-2',
+silly versions     '1.5.0',
+silly versions     '1.6.0-alpha-1',
+silly versions     '1.6.0-alpha-2',
+silly versions     '1.6.0-alpha-3',
+silly versions     '1.6.0-beta-1',
+silly versions     '1.6.0-beta-2',
+silly versions     '1.6.0-beta-3',
+silly versions     '1.6.0-beta4' ] ]
+verbose bin dist [ '0.6-ares1.7.5-DEV-evundefined-openssl0.9.8r-v83.6.6.24-darwin-x64-11.4.2',
+verbose bin dist   { shasum: 'f5d8e86bb97251580239144f08232baf4a07fe23',
+verbose bin dist     tarball: 'http://registry.npmjs.org/sequelize/-/sequelize-1.6.0-beta4.tgz' } ]
+verbose addRemoteTarball [ 'https://registry.npmjs.org/sequelize/-/sequelize-1.6.0-beta4.tgz',
+verbose addRemoteTarball   'f5d8e86bb97251580239144f08232baf4a07fe23' ]
+verbose fetch to /var/folders/c7/xj0_wqqx5j15b7yr9szycr_h0000gn/T/npm-1361027561293/1361027561293-0.8721464783884585/tmp.tgz
+http GET https://registry.npmjs.org/sequelize/-/sequelize-1.6.0-beta4.tgz
+http 200 https://registry.npmjs.org/sequelize/-/sequelize-1.6.0-beta4.tgz
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 6364
+info shasum f5d8e86bb97251580239144f08232baf4a07fe23
+info shasum /var/folders/c7/xj0_wqqx5j15b7yr9szycr_h0000gn/T/npm-1361027561293/1361027561293-0.8721464783884585/tmp.tgz
+verbose unpack /var/folders/c7/xj0_wqqx5j15b7yr9szycr_h0000gn/T/npm-1361027561293/1361027561293-0.8721464783884585/tmp.tgz
+silly gunzTarPerm modes [ '755', '644' ]
+silly extracting entry package.json
+silly extracting entry .npmignore
+silly extracting entry README.md
+silly extracting entry LICENSE
+silly extracting entry index.js
+silly extracting entry docs/index.html
+silly extracting entry docs/associations/belongs-to.js.html
+silly extracting entry docs/associations/has-many-double-linked.js.html
+silly extracting entry docs/associations/has-many-single-linked.js.html
+silly extracting entry docs/associations/has-many.js.html
+silly extracting entry docs/associations/has-one.js.html
+silly extracting entry docs/associations/mixin.js.html
+silly extracting entry docs/dao-factory.js.html
+silly extracting entry docs/dao.js.html
+silly extracting entry docs/data-types.js.html
+silly extracting entry docs/dialects/abstract/query.js.html
+silly extracting entry docs/dialects/connector-manager.js.html
+silly extracting entry docs/dialects/mysql/connector-manager.js.html
+silly extracting entry docs/dialects/mysql/query-generator.js.html
+silly extracting entry docs/dialects/mysql/query.js.html
+silly extracting entry docs/dialects/postgres/connector-manager.js.html
+silly extracting entry docs/dialects/postgres/query-generator.js.html
+silly extracting entry docs/dialects/postgres/query.js.html
+silly extracting entry docs/dialects/query-generator.js.html
+silly extracting entry docs/dialects/query.js.html
+silly extracting entry docs/dialects/sqlite/connector-manager.js.html
+silly extracting entry docs/dialects/sqlite/query-generator.js.html
+silly extracting entry docs/dialects/sqlite/query.js.html
+silly extracting entry docs/emitters/custom-event-emitter.js.html
+silly extracting entry docs/dao-factory-manager.js.html
+silly extracting entry docs/migration.js.html
+silly extracting entry docs/migrator.js.html
+silly extracting entry docs/query-chainer.js.html
+silly extracting entry docs/query-interface.js.html
+silly extracting entry docs/sequelize.js.html
+silly extracting entry docs/utils.js.html
+silly extracting entry examples/Associations/app.js
+silly extracting entry examples/Count/app.js
+silly extracting entry examples/default-values/app.js
+silly extracting entry examples/image-handling/app.js
+silly extracting entry examples/image-handling/source.png
+silly extracting entry examples/method-passing/app.js
+silly extracting entry examples/MinMax/app.js
+silly extracting entry examples/Performance/app.js
+silly extracting entry examples/sequelize-with-options/app.js
+silly extracting entry examples/using-multiple-model-files/app.js
+silly extracting entry examples/using-multiple-model-files/Project.js
+silly extracting entry examples/using-multiple-model-files/Task.js
+silly extracting entry .gitmodules
+silly extracting entry lib/utils.js
+silly extracting entry lib/dao-factory.js
+silly extracting entry lib/dao.js
+silly extracting entry lib/data-types.js
+silly extracting entry lib/dao-factory-manager.js
+silly extracting entry lib/migration.js
+silly extracting entry lib/migrator.js
+silly extracting entry lib/query-chainer.js
+silly extracting entry lib/query-interface.js
+silly extracting entry lib/sequelize.js
+silly extracting entry lib/associations/belongs-to.js
+silly extracting entry lib/associations/has-many-double-linked.js
+silly extracting entry lib/associations/has-many-single-linked.js
+silly extracting entry lib/associations/has-many.js
+silly extracting entry lib/associations/has-one.js
+silly extracting entry lib/associations/mixin.js
+silly extracting entry lib/dialects/connector-manager.js
+silly extracting entry lib/dialects/query-generator.js
+silly extracting entry lib/dialects/abstract/query.js
+silly extracting entry lib/dialects/mysql/connector-manager.js
+silly extracting entry lib/dialects/mysql/query-generator.js
+silly extracting entry lib/dialects/mysql/query.js
+silly extracting entry lib/dialects/postgres/connector-manager.js
+silly extracting entry lib/dialects/postgres/query-generator.js
+silly extracting entry lib/dialects/postgres/query.js
+silly extracting entry lib/dialects/sqlite/connector-manager.js
+silly extracting entry lib/dialects/sqlite/query-generator.js
+silly extracting entry lib/dialects/sqlite/query.js
+silly extracting entry lib/emitters/custom-event-emitter.js
+silly extracting entry .travis.yml
+silly extracting entry bin/sequelize
+silly extracting entry changelog.md
+silly extracting entry spec/buster-helpers.js
+silly extracting entry spec/buster.js
+silly extracting entry spec/dao-factory.spec.js
+silly extracting entry spec/dao.spec.js
+silly extracting entry spec/dao.validations.spec.js
+silly extracting entry spec/query-chainer.spec.js
+silly extracting entry spec/sequelize.spec.js
+silly extracting entry spec/associations/belongs-to.spec.js
+silly extracting entry spec/associations/has-many.spec.js
+silly extracting entry spec/associations/has-one.spec.js
+silly extracting entry spec/associations/mixin.spec.js
+silly extracting entry spec/config/config.js
+silly extracting entry spec/config/factories.js
+silly extracting entry spec/config/helpers.js
+silly extracting entry spec/sqlite/dao.spec.js
+silly extracting entry spec-jasmine/utils.spec.js
+silly extracting entry spec-jasmine/sequelize.spec.js
+silly extracting entry spec-jasmine/dao-factory.spec.js
+silly extracting entry spec-jasmine/dao.spec.js
+silly extracting entry spec-jasmine/migration.spec.js
+silly extracting entry spec-jasmine/query-interface.spec.js
+silly extracting entry spec-jasmine/migrator.spec.js
+silly extracting entry spec-jasmine/mysql/associations.has-many.spec.js
+silly extracting entry spec-jasmine/mysql/associations.spec.js
+silly extracting entry spec-jasmine/mysql/connector-manager.spec.js
+silly extracting entry spec-jasmine/mysql/dao-factory.spec.js
+silly extracting entry spec-jasmine/mysql/query-generator.spec.js
+silly extracting entry spec-jasmine/postgres/associations.has-many.spec.js
+silly extracting entry spec-jasmine/postgres/associations.spec.js
+silly extracting entry spec-jasmine/postgres/query-generator.spec.js
+silly extracting entry spec-jasmine/associations/belongs-to.spec.js
+silly extracting entry spec-jasmine/associations/has-many.spec.js
+silly extracting entry spec-jasmine/associations/has-one.spec.js
+silly extracting entry spec-jasmine/config/config.js
+silly extracting entry spec-jasmine/config/factories.js
+silly extracting entry spec-jasmine/config/helpers.js
+silly extracting entry spec-jasmine/sqlite/dao-factory.spec.js
+silly extracting entry spec-jasmine/sqlite/dao.spec.js
+silly extracting entry spec-jasmine/sqlite/query-generator.spec.js
+silly extracting entry spec-jasmine/assets/project.js
+silly extracting entry spec-jasmine/assets/migrations/20111117063700-createPerson.js
+silly extracting entry spec-jasmine/assets/migrations/20111130161100-emptyMigration.js
+silly extracting entry spec-jasmine/assets/migrations/20111205064000-renamePersonToUser.js
+silly extracting entry spec-jasmine/assets/migrations/20111205162700-addSignatureColumnToUser.js
+silly extracting entry spec-jasmine/assets/migrations/20111206061400-removeShopIdColumnFromUser.js
+silly extracting entry spec-jasmine/assets/migrations/20111206063000-changeSignatureColumnOfUserToMendatory.js
+silly extracting entry spec-jasmine/assets/migrations/20111206163300-renameSignatureColumnOfUserToSig.js
+verbose caching /var/folders/c7/xj0_wqqx5j15b7yr9szycr_h0000gn/T/npm-1361027561293/1361027561293-0.8721464783884585/package/package.json
+verbose loadDefaults sequelize@1.6.0-beta4
+verbose from cache /var/folders/c7/xj0_wqqx5j15b7yr9szycr_h0000gn/T/npm-1361027561293/1361027561293-0.8721464783884585/package/package.json
+verbose tar.pack [ '/Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package.tgz',
+verbose tar.pack   '/var/folders/c7/xj0_wqqx5j15b7yr9szycr_h0000gn/T/npm-1361027561293/1361027561293-0.8721464783884585/package' ]
+verbose tarball /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package.tgz
+verbose folder /var/folders/c7/xj0_wqqx5j15b7yr9szycr_h0000gn/T/npm-1361027561293/1361027561293-0.8721464783884585/package
+verbose unpack /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package.tgz
+silly gunzTarPerm modes [ '755', '644' ]
+silly extracting entry package.json
+silly extracting entry .npmignore
+silly extracting entry README.md
+silly extracting entry LICENSE
+silly extracting entry index.js
+silly extracting entry docs/index.html
+silly extracting entry docs/associations/belongs-to.js.html
+silly extracting entry docs/associations/has-many-double-linked.js.html
+silly extracting entry docs/associations/has-many-single-linked.js.html
+silly extracting entry docs/associations/has-many.js.html
+silly extracting entry docs/associations/has-one.js.html
+silly extracting entry docs/associations/mixin.js.html
+silly extracting entry docs/dao-factory.js.html
+silly extracting entry docs/dao.js.html
+silly extracting entry docs/data-types.js.html
+silly extracting entry docs/dialects/abstract/query.js.html
+silly extracting entry docs/dialects/connector-manager.js.html
+silly extracting entry docs/dialects/mysql/connector-manager.js.html
+silly extracting entry docs/dialects/mysql/query-generator.js.html
+silly extracting entry docs/dialects/mysql/query.js.html
+silly extracting entry docs/dialects/postgres/connector-manager.js.html
+silly extracting entry docs/dialects/postgres/query-generator.js.html
+silly extracting entry docs/dialects/postgres/query.js.html
+silly extracting entry docs/dialects/query-generator.js.html
+silly extracting entry docs/dialects/query.js.html
+silly extracting entry docs/dialects/sqlite/connector-manager.js.html
+silly extracting entry docs/dialects/sqlite/query-generator.js.html
+silly extracting entry docs/dialects/sqlite/query.js.html
+silly extracting entry docs/emitters/custom-event-emitter.js.html
+silly extracting entry docs/dao-factory-manager.js.html
+silly extracting entry docs/migration.js.html
+silly extracting entry docs/migrator.js.html
+silly extracting entry docs/query-chainer.js.html
+silly extracting entry docs/query-interface.js.html
+silly extracting entry docs/sequelize.js.html
+silly extracting entry docs/utils.js.html
+silly extracting entry examples/Associations/app.js
+silly extracting entry examples/Count/app.js
+silly extracting entry examples/default-values/app.js
+silly extracting entry examples/image-handling/app.js
+silly extracting entry examples/image-handling/source.png
+silly extracting entry examples/method-passing/app.js
+silly extracting entry examples/MinMax/app.js
+silly extracting entry examples/Performance/app.js
+silly extracting entry examples/sequelize-with-options/app.js
+silly extracting entry examples/using-multiple-model-files/app.js
+silly extracting entry examples/using-multiple-model-files/Project.js
+silly extracting entry examples/using-multiple-model-files/Task.js
+silly extracting entry .gitmodules
+silly extracting entry lib/utils.js
+silly extracting entry lib/dao-factory.js
+silly extracting entry lib/dao.js
+silly extracting entry lib/data-types.js
+silly extracting entry lib/dao-factory-manager.js
+silly extracting entry lib/migration.js
+silly extracting entry lib/migrator.js
+silly extracting entry lib/query-chainer.js
+silly extracting entry lib/query-interface.js
+silly extracting entry lib/sequelize.js
+silly extracting entry lib/associations/belongs-to.js
+silly extracting entry lib/associations/has-many-double-linked.js
+silly extracting entry lib/associations/has-many-single-linked.js
+silly extracting entry lib/associations/has-many.js
+silly extracting entry lib/associations/has-one.js
+silly extracting entry lib/associations/mixin.js
+silly extracting entry lib/dialects/connector-manager.js
+silly extracting entry lib/dialects/query-generator.js
+silly extracting entry lib/dialects/abstract/query.js
+silly extracting entry lib/dialects/mysql/connector-manager.js
+silly extracting entry lib/dialects/mysql/query-generator.js
+silly extracting entry lib/dialects/mysql/query.js
+silly extracting entry lib/dialects/postgres/connector-manager.js
+silly extracting entry lib/dialects/postgres/query-generator.js
+silly extracting entry lib/dialects/postgres/query.js
+silly extracting entry lib/dialects/sqlite/connector-manager.js
+silly extracting entry lib/dialects/sqlite/query-generator.js
+silly extracting entry lib/dialects/sqlite/query.js
+silly extracting entry lib/emitters/custom-event-emitter.js
+silly extracting entry .travis.yml
+silly extracting entry bin/sequelize
+silly extracting entry changelog.md
+silly extracting entry spec/buster-helpers.js
+silly extracting entry spec/buster.js
+silly extracting entry spec/dao-factory.spec.js
+silly extracting entry spec/dao.spec.js
+silly extracting entry spec/dao.validations.spec.js
+silly extracting entry spec/query-chainer.spec.js
+silly extracting entry spec/sequelize.spec.js
+silly extracting entry spec/associations/belongs-to.spec.js
+silly extracting entry spec/associations/has-many.spec.js
+silly extracting entry spec/associations/has-one.spec.js
+silly extracting entry spec/associations/mixin.spec.js
+silly extracting entry spec/config/config.js
+silly extracting entry spec/config/factories.js
+silly extracting entry spec/config/helpers.js
+silly extracting entry spec/sqlite/dao.spec.js
+silly extracting entry spec-jasmine/utils.spec.js
+silly extracting entry spec-jasmine/sequelize.spec.js
+silly extracting entry spec-jasmine/dao-factory.spec.js
+silly extracting entry spec-jasmine/dao.spec.js
+silly extracting entry spec-jasmine/migration.spec.js
+silly extracting entry spec-jasmine/query-interface.spec.js
+silly extracting entry spec-jasmine/migrator.spec.js
+silly extracting entry spec-jasmine/mysql/associations.has-many.spec.js
+silly extracting entry spec-jasmine/mysql/associations.spec.js
+silly extracting entry spec-jasmine/mysql/connector-manager.spec.js
+silly extracting entry spec-jasmine/mysql/dao-factory.spec.js
+silly extracting entry spec-jasmine/mysql/query-generator.spec.js
+silly extracting entry spec-jasmine/postgres/associations.has-many.spec.js
+silly extracting entry spec-jasmine/postgres/associations.spec.js
+silly extracting entry spec-jasmine/postgres/query-generator.spec.js
+silly extracting entry spec-jasmine/associations/belongs-to.spec.js
+silly extracting entry spec-jasmine/associations/has-many.spec.js
+silly extracting entry spec-jasmine/associations/has-one.spec.js
+silly extracting entry spec-jasmine/config/config.js
+silly extracting entry spec-jasmine/config/factories.js
+silly extracting entry spec-jasmine/config/helpers.js
+silly extracting entry spec-jasmine/sqlite/dao-factory.spec.js
+silly extracting entry spec-jasmine/sqlite/dao.spec.js
+silly extracting entry spec-jasmine/sqlite/query-generator.spec.js
+silly extracting entry spec-jasmine/assets/project.js
+silly extracting entry spec-jasmine/assets/migrations/20111117063700-createPerson.js
+silly extracting entry spec-jasmine/assets/migrations/20111130161100-emptyMigration.js
+silly extracting entry spec-jasmine/assets/migrations/20111205064000-renamePersonToUser.js
+silly extracting entry spec-jasmine/assets/migrations/20111205162700-addSignatureColumnToUser.js
+silly extracting entry spec-jasmine/assets/migrations/20111206061400-removeShopIdColumnFromUser.js
+silly extracting entry spec-jasmine/assets/migrations/20111206063000-changeSignatureColumnOfUserToMendatory.js
+silly extracting entry spec-jasmine/assets/migrations/20111206163300-renameSignatureColumnOfUserToSig.js
+verbose caching /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package/package.json
+verbose loadDefaults sequelize@1.6.0-beta4
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 6364
+info shasum f5d8e86bb97251580239144f08232baf4a07fe23
+info shasum /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package.tgz
+verbose from cache /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package/package.json
+verbose chmod /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package.tgz 644
+verbose chown [ '/Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package.tgz',
+verbose chown   501,
+verbose chown   20 ]
+silly resolved [ { name: 'sequelize',
+silly resolved     description: 'Multi dialect ORM for Node.JS',
+silly resolved     version: '1.6.0-beta4',
+silly resolved     author: { name: 'Sascha Depold', email: 'sascha@depold.com' },
+silly resolved     contributors: 
+silly resolved      [ { name: 'Sascha Depold', email: 'sascha@depold.com' },
+silly resolved        { name: 'Meg Sharkey', email: 'meg@metamarkets.com' },
+silly resolved        { name: 'Chase Geigle', email: 'sky@skytrife.com' },
+silly resolved        { name: 'Jan Aagaard Meier',
+silly resolved          email: 'jam@innofluence.com',
+silly resolved          url: 'Innofluence' } ],
+silly resolved     dependencies: 
+silly resolved      { mysql: '~2.0.0-alpha3',
+silly resolved        underscore: '~1.4.0',
+silly resolved        'underscore.string': '~2.3.0',
+silly resolved        lingo: '~0.0.5',
+silly resolved        validator: '0.3.x',
+silly resolved        moment: '~1.7.0',
+silly resolved        commander: '~0.6.0',
+silly resolved        'generic-pool': '1.0.9' },
+silly resolved     devDependencies: 
+silly resolved      { 'jasmine-node': '1.0.17',
+silly resolved        sqlite3: '~2.1.5',
+silly resolved        pg: '~0.8.7',
+silly resolved        buster: '~0.6.0',
+silly resolved        'dox-foundation': '~0.3.0' },
+silly resolved     keywords: [ 'mysql', 'orm', 'nodejs', 'object relational mapper' ],
+silly resolved     main: 'index',
+silly resolved     scripts: 
+silly resolved      { test: 'npm run test-jasmine && npm run test-buster',
+silly resolved        'test-jasmine': './node_modules/.bin/jasmine-node spec-jasmine/',
+silly resolved        'test-buster': 'npm run test-buster-mysql && npm run test-buster-postgres && npm run test-buster-postgres-native && npm run test-buster-sqlite',
+silly resolved        'test-buster-travis': './node_modules/.bin/buster-test',
+silly resolved        'test-buster-mysql': 'DIALECT=mysql ./node_modules/.bin/buster-test',
+silly resolved        'test-buster-postgres': 'DIALECT=postgres ./node_modules/.bin/buster-test',
+silly resolved        'test-buster-postgres-native': 'DIALECT=postgres-native ./node_modules/.bin/buster-test',
+silly resolved        'test-buster-sqlite': 'DIALECT=sqlite ./node_modules/.bin/buster-test',
+silly resolved        'generate-docs': 'node_modules/.bin/dox-foundation --source ./lib --title Sequelize' },
+silly resolved     bin: { sequelize: 'bin/sequelize' },
+silly resolved     engines: { node: '>=0.4.6' },
+silly resolved     license: 'MIT',
+silly resolved     _id: 'sequelize@1.6.0-beta4',
+silly resolved     optionalDependencies: {},
+silly resolved     _engineSupported: true,
+silly resolved     _npmVersion: '1.1.16',
+silly resolved     _nodeVersion: 'v0.6.15',
+silly resolved     _defaultsLoaded: true,
+silly resolved     dist: { shasum: 'f5d8e86bb97251580239144f08232baf4a07fe23' },
+silly resolved     _from: 'sequelize' } ]
+info into /usr/local/lib sequelize@1.6.0-beta4
+info installOne sequelize@1.6.0-beta4
+verbose from cache /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package/package.json
+info unbuild /usr/local/lib/node_modules/sequelize
+verbose unpack /Users/caseyflynn/.npm/sequelize/1.6.0-beta4/package.tgz
+silly gunzTarPerm modes [ '755', '644' ]
+ERR! Error: EACCES, mkdir '/usr/local/lib/node_modules/sequelize'
+ERR! 
+ERR! Please try running this command again as root/Administrator.
+ERR! 
+ERR! System Darwin 11.4.2
+ERR! command "node" "/usr/local/bin/npm" "install" "-g" "sequelize"
+ERR! cwd /Users/caseyflynn/Documents/workspace/clubbingowl
+ERR! node -v v0.6.15
+ERR! npm -v 1.1.16
+ERR! path /usr/local/lib/node_modules/sequelize
+ERR! fstream_path /usr/local/lib/node_modules/sequelize
+ERR! fstream_type Directory
+ERR! fstream_class DirWriter
+ERR! code EACCES
+ERR! message EACCES, mkdir '/usr/local/lib/node_modules/sequelize'
+ERR! errno {}
+ERR! fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
+ERR! fstream_stack Object.oncomplete (/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:42:17)
+verbose exit [ 1, true ]

@@ -38,10 +38,9 @@
 				<td><input data-tgla_id="<?= $gla->tgla_id ?>" type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($gla->tgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
 				<td style="padding:5px 0 0 5px;">
 					
+					
 					<a data-action="delete" data-tgla_id="<?= $gla->tgla_id ?> href="#" class="button_link guest_list_delete delete_guest_list_button">DELETE</a>
-				
-				
-					<a  href="<?= $central->manager_admin_link_base ?>settings_guest_lists_edit/<?= $gla->tgla_id ?>/" class="button_link btn-action ajaxify">EDIT</a>
+					<a href="<?= $central->manager_admin_link_base ?>settings_guest_lists_edit/<?= $gla->tgla_id ?>/" class="button_link btn-action ajaxify">EDIT</a>
 					
 					
 					<?php if(false): ?>				
@@ -60,7 +59,13 @@
 			<?php endforeach; ?>
 			
 		<?php endforeach; ?>
-				
+		
+		
+		<?php if($count === 0): ?>
+			<tr>
+				<td colspan="6">You do not have any guest lists.</td>
+			</tr>
+		<?php endif; ?>	
 				
 				
 				
@@ -74,7 +79,7 @@
 	<tr>
 		<td>
 			
-			<a id="new_guest_list" href="<?=$central->manager_admin_link_base?>settings_guest_lists_new/" class="button_link btn-action ajaxify">New List</a>
+			<a id="new_guest_list" href="<?=$central->manager_admin_link_base?>settings_guest_lists_new/" class="button_link btn-action ajaxify">New Weekly List / Event</a>
 			
 			<?php if(false): ?>
 			<a href="<?=$central->manager_admin_link_base?>settings_guest_lists_new/" class="ajaxify" style="text-decoration:none">

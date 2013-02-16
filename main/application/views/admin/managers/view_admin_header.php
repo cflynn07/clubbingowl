@@ -202,10 +202,10 @@
 							</a>
 							<ul>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_checkin_categories/">Checkin Categories</a></li>
+								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_guest_lists/">Guest Lists / Events</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_promoters/">Promoters</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_hosts/">Hosts</a></li>
-								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_venues/">Venues</a></li>
-								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_guest_lists/">Guest Lists</a></li>
+								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_venues/">Venues & Floorplans</a></li>
 								<li><a class="ajaxify" href="<?=$central->manager_admin_link_base ?>settings_payment/">Payment Info</a></li>
 							</ul>
 						</li>

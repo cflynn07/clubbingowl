@@ -29,12 +29,19 @@
 		</p>
 		
 		
+		<?php if($guest_list->pgla_event == '0'): ?>
 		
-		<p> 
-			<label>Weekday:</label> <span><?= rtrim(ucfirst($guest_list->pgla_day), 's') ?></span>
-		</p>
+			<p> 
+				<label>Weekday:</label> <span><?= rtrim(ucfirst($guest_list->pgla_day), 's') ?></span>
+			</p>
 		
-		
+		<?php else: ?>
+			
+			<p> 
+				<label>Date:</label> <span><?= $guest_list->pgla_event_date ?></span>
+			</p>
+			
+		<?php endif; ?>
 		
 		
 							<p> 

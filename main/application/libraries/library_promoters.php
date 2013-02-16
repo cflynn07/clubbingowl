@@ -221,9 +221,11 @@ class library_promoters{
 		$gl_name 			= strip_tags($this->CI->input->post('gl_name'));
 		$gl_description 	= strip_tags($this->CI->input->post('gl_description'));
 		
+		
 		$type 				= strip_tags($this->CI->input->post('type'));
 		$weekday 			= strip_tags($this->CI->input->post('weekday'));
 		$date 				= strip_tags($this->CI->input->post('date'));
+		
 		
 		$auto_promote 		= strip_tags($this->CI->input->post('auto_promote'));
 		

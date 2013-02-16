@@ -157,7 +157,7 @@ window.EventHandlerObject.addListener('pusher_init', function(){
 							</a>
 							<ul>
 								<li><a class="ajaxify" href="<?=$central->promoter_admin_link_base?>my_profile/">Profile</a></li>
-								<li><a class="ajaxify" href="<?=$central->promoter_admin_link_base?>manage_guest_lists/">Guest Lists</a></li>
+								<li><a class="ajaxify" href="<?=$central->promoter_admin_link_base?>manage_guest_lists/">Guest Lists / Events</a></li>
 							</ul>
 						</li>
 						

@@ -705,10 +705,13 @@ class Promoters extends MY_Controller {
 	private function _manage_guest_lists($arg0 = '', $arg1 = '', $arg2 = ''){
 
 		//retrieve promoter's guest lists
-		$data['promoters_guest_lists'] = $this->library_promoters->retrieve_promoter_guest_list_authorizations();
+		$this->load->model('model_users_promoters', 'users_promoters', true);
+		$data['promoters_guest_lists'] = $this->users_promoters->retrieve_promoter_guest_list_authorizations($this->library_promoters->promoter->up_id);
 		
+	//	$data['promoters_guest_lists'] = $this->library_promoters->retrieve_promoter_guest_list_authorizations();
 		
 		$this->body_html = $this->load->view($this->view_dir . 'manage_guest_lists/view_manage_guest_lists', $data, true);
+		
 	}
 	
 	
