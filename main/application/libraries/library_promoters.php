@@ -172,6 +172,7 @@ class library_promoters{
 		$this->CI->load->library('form_validation');
 		
 		$this->CI->form_validation->set_rules('venue', 				'', 'required');
+		$this->CI->form_validation->set_rules('type', 				'', 'required');
 		$this->CI->form_validation->set_rules('auto_approve', 		'', 'required');
 		$this->CI->form_validation->set_rules('auto_promote', 		'', 'required');
 		$this->CI->form_validation->set_rules('gl_name', 			'', 'required');
@@ -219,7 +220,11 @@ class library_promoters{
 		$auto_approve 		= strip_tags($this->CI->input->post('auto_approve'));
 		$gl_name 			= strip_tags($this->CI->input->post('gl_name'));
 		$gl_description 	= strip_tags($this->CI->input->post('gl_description'));
+		
+		$type 				= strip_tags($this->CI->input->post('type'));
 		$weekday 			= strip_tags($this->CI->input->post('weekday'));
+		$date 				= strip_tags($this->CI->input->post('date'));
+		
 		$auto_promote 		= strip_tags($this->CI->input->post('auto_promote'));
 		
 		
@@ -263,6 +268,15 @@ class library_promoters{
 		
 		//make sure gl_name is > 5 characters && < 30 && no special characters
 		$gl_name = trim(preg_replace('/\s\s+/', ' ', $gl_name));
+		
+		
+		if($type == 'event'){
+			if(!$date){
+				return array('success' => false,
+								'message' => 'Please provide a date');	
+			}
+		}
+		
 		
 		if(preg_match('~[^a-z0-9 ]~i', $gl_name))
 			return array('success' => false,
@@ -347,7 +361,9 @@ class library_promoters{
 				$auto_promote,
 				$image_data, 
 				false,
-				$cj_id);
+				$cj_id,
+				
+				$type, $date);
 				
 		if($auto_promote == 'true'){
 			$this->CI->load->helper('run_gearman_job');

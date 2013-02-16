@@ -24,13 +24,18 @@
 	<form id="guest_list_new_form">
 		<legend>Guest List Configuration</legend> 
 		
-								<p> 
+		<p> 
 			<label>Venue:</label> <span><?= $guest_list->tv_name ?></span>
 		</p>
 		
-								<p> 
+		
+		
+		<p> 
 			<label>Weekday:</label> <span><?= rtrim(ucfirst($guest_list->pgla_day), 's') ?></span>
 		</p>
+		
+		
+		
 		
 							<p> 
 			<label>Guest List Name:</label> <span><?= $guest_list->pgla_name ?></span>

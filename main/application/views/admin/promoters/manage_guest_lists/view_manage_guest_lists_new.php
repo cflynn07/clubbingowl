@@ -25,18 +25,44 @@
 			</select> 
 		</p>
 		
-								<p> 
-			<label>Weekday:</label> 
-			<select name="guest_list_weekday" class="dropdown"> 
-				<option value="0">Mondays</option>
-				<option value="1">Tuesdays</option>
-				<option value="2">Wednesdays</option>
-				<option value="3">Thursdays</option>
-				<option value="4">Fridays</option>
-				<option value="5">Saturdays</option>
-				<option value="6">Sundays</option>
-			</select> 
+		
+		<p style="margin-bottom:0px;">
+			<label>List Type:</label>
+			<div style="margin-left:150px;">
+				<input type="radio" name="guest_list_type" value="event">
+				<span>Event (Once, on a specific date)</span><br/>
+				<input checked type="radio" name="guest_list_type" value="weekly_list">
+				<span>Weekly (Every week on the same day)</span><br/>
+			</div>
 		</p>
+		
+		
+		
+		<div id="weekday_select">
+			<p> 
+				<label>Weekday:</label> 
+				<select name="guest_list_weekday" class="dropdown"> 
+					<option value="0">Mondays</option>
+					<option value="1">Tuesdays</option>
+					<option value="2">Wednesdays</option>
+					<option value="3">Thursdays</option>
+					<option value="4">Fridays</option>
+					<option value="5">Saturdays</option>
+					<option value="6">Sundays</option>
+				</select> 
+			</p>
+		</div>
+		
+		
+		
+		<div id="date_select">
+			<p> 
+				<label>Date:</label> 
+				<input name="event_date" type="text" class="sf">
+			</p>
+		</div>
+		
+		
 		
 							<p> 
 			<label>Guest List Name:</label> 

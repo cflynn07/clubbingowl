@@ -10,6 +10,29 @@ jQuery(function(){
 		jQuery('input.iphone').iphoneStyle();
 		
 		
+		jQuery('input[type=radio][name=guest_list_type]').bind('change', function(e){
+			
+			jQuery('#weekday_select').hide();
+			jQuery('#date_select').hide();
+			
+			var el = jQuery(e.currentTarget),
+			type = el.val();
+			if(type == 'weekly_list'){
+				jQuery('#weekday_select').show();
+			}else if(type == 'event'){
+				jQuery('#date_select').show();
+			}
+			
+		}).trigger('change');
+		
+		
+		jQuery('input[name=event_date]').datepicker({
+			minDate: 'today'
+		});
+		
+		
+		
+		
 	//	jQuery('form#guest_list_new_form').dumbFormState();
 		
 		
@@ -167,9 +190,13 @@ jQuery(function(){
 			var cct = jQuery.cookies.get('ci_csrf_token') || 'no_csrf';
 			
 			var data = {
-				venue: jQuery('form#guest_list_new_form select[name = guest_list_venue]').val(),
-				weekday: jQuery('form#guest_list_new_form select[name = guest_list_weekday]').val(),
-				gl_name: jQuery('form#guest_list_new_form input[name = guest_list_name]').val(),
+				venue: 		jQuery('form#guest_list_new_form select[name = guest_list_venue]').val(),
+				
+				type: 		jQuery('form#guest_list_new_form select[name = guest_list_type]').val(),
+				weekday: 	jQuery('form#guest_list_new_form select[name = guest_list_weekday]').val(),
+				date: 		jQuery('form#guest_list_new_form select[name = event_date]').val(),
+				
+				gl_name: 	jQuery('form#guest_list_new_form input[name = guest_list_name]').val(),
 				gl_description: jQuery('form#guest_list_new_form textarea[name = guest_list_description]').val(),
 				auto_approve: ((jQuery('form#guest_list_new_form input[name = guest_list_auto_approve]').attr('checked') == undefined) ? false : true),
 				ci_csrf_token: cct,
