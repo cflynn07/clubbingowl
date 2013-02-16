@@ -1,56 +1,70 @@
- 
+<?php 
+	$events = array();
+
+	foreach($all_guest_lists as $gl){
+		if($gl->pgla_event == '1'){
+			$events[] = $gl;
+		}
+	}
+?>
+
+	
  <section id="guestlist">
- 	
-  <?php if(MODE == 'local'): ?>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <?php if($events): ?>
 	 	
-	  <h2 style="border-bottom:1px dashed #CCC;"><?= $promoter->u_first_name . '\'s Special Events' //$this->lang->line('p-gl_t') ?></h2>
+	 <h2 style="border-bottom:1px dashed #CCC;"><?= $promoter->u_first_name . '\'s Special Events' //$this->lang->line('p-gl_t') ?></h2>
 	 
+	 <?php foreach($events as $ev): ?>
+	 	
+	 	<?php 
+    		$gl_link = $central->front_link_base . 'promoters/' . str_replace(' ', '_', $promoter->up_public_identifier) . '/guest_lists/' . str_replace(' ', '_', $ev->pgla_name) . '/';
+    	?>
+	 	
 	  <div class="tables">
 	  	<table class="event_table">
 	  		<tr>
 	  			<td class="event_image" rowspan="2">
-	  				<img src="http://placehold.it/44x54" />
+	  				<img src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $ev->pgla_image . '_t.jpg' ?>" />
 	  			</td>
 	  			<td class="event_text">
-	  				<p class="event_title">Tiesto at Estate! Long form Description!</p>
-	  				<p class="event_date">Wed November 30, 2013</p>
+	  				<p class="event_title"><?= $ev->pgla_name ?></p>
+	  				<p class="event_date"><?= date('D F j, Y', strtotime($ev->pgla_event_date)) ?></p>
 	  			</td>
 	  		</tr>
 	  		<tr>
 	  			<td>
 	  				<div class="event_join action">
-				  		<a class="ajaxify_t2 join_btn" href="">Info/Join</a>
+				  		<a class="ajaxify_t2 join_btn" href="<?= $gl_link ?>">Info/Join</a>
 				  	</div>
 	  			</td>
 	  		</tr>
 	  	</table>
 	  </div>
+	 	
+	 <?php endforeach; ?>
 	  
-	  <div class="tables">
-	  	<table class="event_table">
-	  		<tr>
-	  			<td class="event_image" rowspan="2">
-	  				<img src="http://placehold.it/44x54" />
-	  			</td>
-	  			<td class="event_text">
-	  				<p class="event_title">Tiesto at Estate! Long form Description!</p>
-	  				<p class="event_date">Wed November 30, 2013</p>
-	  			</td>
-	  		</tr>
-	  		<tr>
-	  			<td>
-	  				<div class="event_join action">
-				  		<a class="ajaxify_t2 join_btn" href="">Info/Join</a>
-				  	</div>
-	  			</td>
-	  		</tr>
-	  	</table>
-	  </div>
 	  
   <?php endif; ?>
-  
-  
- 	
+
+
+
+
+
+
+
+
+
+
+
   <h2 style="border-bottom:1px dashed #CCC;"><?= $promoter->u_first_name . '\'s Weekly Guest Lists' //$this->lang->line('p-gl_t') ?></h2>
   <table class="guestlist">
     <tbody>
@@ -75,6 +89,9 @@
           <ul class="tables">
                       	
           	<?php foreach($all_guest_lists as $gl): ?>
+          		
+          		<?php if($gl->pgla_event == '1') continue; ?>
+          		
           		<?php if(strtolower($gl->pgla_day) == strtolower(date('l', $time) . 's')): ?>
                     <li>
                     	

@@ -594,7 +594,7 @@ class Model_guest_lists extends CI_Model {
 					$sql .= "AND pgla.day = ? ";
 				
 				$sql .=	"AND pgla.deactivated 		= 0
-					/*	AND pgla.event 				= 0 	*/
+				/*		AND pgla.event 				= 0  */
 						AND pt.approved 			= 1
 						AND pt.banned 				= 0
 						AND pt.quit 				= 0

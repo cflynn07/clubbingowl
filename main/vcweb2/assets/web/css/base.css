@@ -1411,6 +1411,9 @@ section#guestlist div.tables {
 section#guestlist div.tables table.event_table{
     width: 100%;
 }
+section#guestlist div.tables table.event_table td.event_image img{
+    border: 1px solid #CCC;
+}
 section#guestlist div.tables table.event_table td.event_image{
     padding: 0;
     width: 44px;
