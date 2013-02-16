@@ -59,7 +59,7 @@
 				</td>
 			</tr>
 		<?php endforeach; ?>
-		<?php if(!count($promoters_guest_lists)): ?>
+		<?php if(!$count): ?>
 			<tr>
 				<td colspan="7">You do not have any weekly guest lists.</td>
 			</tr>
@@ -90,13 +90,13 @@
 	<tbody>
 		
 		
-		<?php 	$count = 0;
+		<?php 	$count1 = 0;
 		foreach($promoters_guest_lists as $guest_list): ?>
 		
 			<?php if($guest_list->pgla_event == '0') continue; ?>
 		
-			<tr <?= ($count % 2) ? '' : 'class="odd"' ?> name=<?=$guest_list->pgla_id?>>
-				<?php $count++; ?>
+			<tr <?= ($count1 % 2) ? '' : 'class="odd"' ?> name=<?=$guest_list->pgla_id?>>
+				<?php $count1++; ?>
 				<td><?= $guest_list->tv_name ?></td>
 				<td><?= ucfirst($guest_list->pgla_event_date) ?></td>
 				<td style="min-width:200px;"><?= $guest_list->pgla_name ?></td>
@@ -123,7 +123,7 @@
 				</td>
 			</tr>
 		<?php endforeach; ?>
-		<?php if(!count($promoters_guest_lists)): ?>
+		<?php if(!$count1): ?>
 			<tr>
 				<td colspan="7">You do not have any events.</td>
 			</tr>

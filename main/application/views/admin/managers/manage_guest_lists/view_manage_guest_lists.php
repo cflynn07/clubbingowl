@@ -25,12 +25,12 @@
 		
 		
 				
-		<?php $count = 0; ?>
+		<?php $count1 = 0; ?>
 		<?php foreach($team_venues as $key => $tv): ?>
 			
 			<?php foreach($tv->tv_gla as $gla): ?>
-			<tr <?= ($count % 2) ? '' : 'class="odd"' ?>>
-				<?php $count++ ?>
+			<tr <?= ($count1 % 2) ? '' : 'class="odd"' ?>>
+				<?php $count1++ ?>
 				<td><?= $tv->tv_name ?></td>
 				<td><?= ucfirst($gla->tgla_day) ?></td>
 				<td><?= $gla->tgla_name ?></td>
@@ -61,7 +61,7 @@
 		<?php endforeach; ?>
 		
 		
-		<?php if($count === 0): ?>
+		<?php if($count1 == 0): ?>
 			<tr>
 				<td colspan="6">You do not have any guest lists.</td>
 			</tr>
