@@ -761,7 +761,10 @@ class Assets extends MY_Common_Controller {
 									'reservation_tr_guest_lists_side_menu',
 									
 									
+									
+									
 									'guest_lists/gl_left_menu',
+									'guest_lists/gl_left_menu_events',
 									'guest_lists/gl_status',
 									'guest_lists/gl_reservations_table',
 									'guest_lists/gl_reservation',
@@ -771,6 +774,9 @@ class Assets extends MY_Common_Controller {
 									'guest_lists/gl_manual_add_guestlist_friendspick',
 									'guest_lists/gl_manual_add_guestlist_friendspick_tr',
 									'guest_lists/gl_manual_add_table',
+									
+									
+									
 									
 									'tables/t_wrapper',
 									'tables/t_vlf',

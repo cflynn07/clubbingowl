@@ -766,9 +766,10 @@ jQuery(function(){
 			},
 			render: function(){
 				
-				var template 	= EVT['guest_lists/gl_left_menu'];
-				var _this 		= this;
-				var weekdays 	= [
+				var template 			= EVT['guest_lists/gl_left_menu'];
+				var template_events 	= EVT['guest_lists/gl_left_menu_events'];
+				var _this 				= this;
+				var weekdays 			= [
 					'mondays',
 					'tuesdays',
 					'wednesdays',
@@ -780,11 +781,12 @@ jQuery(function(){
 						
 				this.ul.empty();
 				_.each(weekdays, function(day){
-										
+					
 					var day_title = day;
 					
 					var day_lists = _this.collection.where({
-						pgla_day: day
+						pgla_day: 	day,
+						pgla_event: '0'
 					});
 					for(var i in day_lists){
 						day_lists[i] = day_lists[i].toJSON();
@@ -796,10 +798,27 @@ jQuery(function(){
 						day_title: day_title,
 						day_lists: day_lists
 					});
-										
+					
 					_this.ul.append(html);
-										
+					
 				});
+
+
+
+				//append events
+				var events = this.collection.where({
+					pgla_event: '1'
+				});
+				for(var i in events){
+					events[i] = events[i].toJSON();
+				}
+
+				var html = new EJS({
+					text: template_events
+				}).render({
+					events: events
+				});
+				_this.ul.append(html);
 
 
 
