@@ -3,6 +3,12 @@
 
 	foreach($all_guest_lists as $gl){
 		if($gl->pgla_event == '1'){
+			
+			$time = strtotime($gl->pgla_event_date);
+			
+			if($time + (60 * 60 * 24) < time())
+				continue;
+			
 			$events[] = $gl;
 		}
 	}
@@ -26,6 +32,7 @@
 	 <?php foreach($events as $ev): ?>
 	 	
 	 	<?php 
+	 	
     		$gl_link = $central->front_link_base . 'promoters/' . str_replace(' ', '_', $promoter->up_public_identifier) . '/guest_lists/' . str_replace(' ', '_', $ev->pgla_name) . '/';
     	?>
 	 	
