@@ -107,7 +107,11 @@ class Model_users_promoters extends CI_Model {
 														$auto_promote, 
 														$image_data = false,
 														$tgla_id	= false,
-														$cj_id 		= NULL){
+														$cj_id 		= NULL,
+														
+														$type = '',
+														$date = ''
+														){
 		
 		$gl_name 		= strip_tags($gl_name);
 		$gl_description = strip_tags($gl_description);
@@ -281,6 +285,15 @@ class Model_users_promoters extends CI_Model {
 			$data['y1']		= $image_data['y1'];
 			
 		}
+
+		
+		if($type == 'event'){
+			
+			$data['event'] = 1;
+			$data['event_date'] = $date;
+						
+		}
+
 
 		if($tgla_id !== false)
 			$data['tgla_id'] = $tgla_id;
@@ -702,6 +715,8 @@ class Model_users_promoters extends CI_Model {
 	//	Kint::dump($this->db->last_query()); die();
 		
 		$result = $query->row();
+		
+	//	Kint::dump($result);
 					
 		if(!$result || $id_only)
 			return $result;
@@ -1064,6 +1079,8 @@ class Model_users_promoters extends CI_Model {
 					pgla.auto_approve	as pgla_auto_approve,
 					pgla.create_time	as pgla_create_time,
 					pgla.image 			as pgla_image,
+					pgla.event 			as pgla_event,
+					pgla.event_date 	as pgla_event_date,
 					t.name 				as t_name,
 					t.fan_page_id		as t_fan_page_id,
 					tv.name 			as tv_name,
@@ -1091,7 +1108,7 @@ class Model_users_promoters extends CI_Model {
 				WHERE	up.id = $promoter_id
 						AND pgla.user_promoter_id = $promoter_id
 						AND pgla.deactivated = 0
-						AND pgla.event = 0
+				/*		AND pgla.event = 0 */
 						AND pt.banned = 0
 						AND pt.approved = 1
 						AND pt.quit = 0

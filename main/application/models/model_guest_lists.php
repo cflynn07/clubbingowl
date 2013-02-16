@@ -375,7 +375,8 @@ class Model_guest_lists extends CI_Model {
 					pgla.x1					as pgla_x1,
 					pgla.y1					as pgla_y1,
 					pgla.auto_promote		as pgla_auto_promote,
-					
+					pgla.event 				as pgla_event,
+					pgla.event_date 		as pgla_event_date,
 					
 					
 					
