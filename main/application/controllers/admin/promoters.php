@@ -65,8 +65,8 @@ class Promoters extends MY_Controller {
 		$this->load->model('model_team_messaging', 'team_messaging', true);
 		$team_chat_members = $this->team_messaging->retrieve_team_members(array('teams_fan_page_id' => $vc_user->promoter->t_fan_page_id));
 		$this->load->vars('team_chat_members', $team_chat_members);
-
-		
+	
+	
 	}
 	
 	/**
@@ -2006,6 +2006,18 @@ class Promoters extends MY_Controller {
 		$this->load->model('model_guest_lists', 'guest_lists', true);
 		//for each guest list, find all groups associated with it
 		foreach($weekly_guest_lists as $key => &$gla){
+	
+	
+	
+	
+			if($gla->pgla_event == '1'){
+				$time = strtotime($gla->pgla_event_date);
+				if($time + (60 * 60 * 24) < time())
+					$gla->upcoming = false;
+				else 
+					$gla->upcoming = true;
+			}
+	
 	
 	
 	

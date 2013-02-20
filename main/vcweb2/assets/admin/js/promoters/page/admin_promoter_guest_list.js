@@ -810,8 +810,16 @@ jQuery(function(){
 					pgla_event: '1'
 				});
 				for(var i in events){
+					
+			//		console.log(events[i].get('pgla_event_date'));
+			//		var date_temp = new Date(events[i].get('pgla_event_date'));					
 					events[i] = events[i].toJSON();
+			//		events[i].pgla_event_date = date_temp;
+					
 				}
+				
+				console.log('events');
+				console.log(events);
 
 				var html = new EJS({
 					text: template_events
