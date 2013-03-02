@@ -153,11 +153,17 @@
 			if(!guest_lists_page)
 				if(resp.action == 'approve'){				
 					_this.$el.css({
-						background: 'green'
+					//	background: 'green'
+					
+						opacity: 0.5
+					
 					});
 				}else{
 					_this.$el.css({
-						background: 'red'
+					//	background: 'red'
+					
+						opacity: 0.5
+					
 					});
 				}
 			

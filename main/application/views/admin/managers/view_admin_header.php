@@ -33,6 +33,7 @@
 <script type="text/javascript">
 	window.team_fan_page_id = '<?= $team_fan_page_id ?>';
 	window.admin_users_oauth_uid = '<?= $users_oauth_uid ?>';
+	window.module.Globals.prototype.user_oauth_uid = window.admin_users_oauth_uid;
 </script>
 
 

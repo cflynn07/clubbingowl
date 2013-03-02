@@ -273,7 +273,7 @@ date_default_timezone_set('America/New_York');
  *
  */
 
-//$local_mode = 'development';
+$local_mode = 'development';
 $staging_mode = 'development';
 //$production_mode = 'development';
 
