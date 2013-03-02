@@ -79,6 +79,17 @@
 	
 			jQuery('div#user_notifications').empty();
 			
+			
+			
+			
+			
+			if(typeof sticky_notifications !== 'undefined' && typeof sticky_notifications.length !== 'undefined' && sticky_notifications.length > 0){
+				jQuery(window).scrollTop(0);
+			}
+			
+			
+			
+			
 			for(var i in sticky_notifications){
 				
 				console.log(sticky_notifications[i]);
