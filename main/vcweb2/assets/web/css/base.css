@@ -1250,6 +1250,14 @@ div.guestlist-form-right {
 	margin-bottom: 10px;
 }
 
+
+
+
+
+
+
+
+
 div.guestlist-form-right #unavailable_overlay {
 	position: absolute;
 	top: 45px;
@@ -1284,6 +1292,20 @@ div.guestlist-form-right #unavailable_overlay > p {
 		top: 55px;
 	}
 }
+
+@media screen and (max-width: 479px){
+	div.guestlist-form-right #unavailable_overlay {
+		margin-left:0;
+	}
+}
+
+
+
+
+
+
+
+
 
 
 
