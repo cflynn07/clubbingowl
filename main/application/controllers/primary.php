@@ -129,6 +129,17 @@ class Primary extends MY_Controller {
 	 * 		Below functions called based on arguments to index function. They are responsible for rendering page content
 	/ ******************************************************************************************************************/
 	
+	
+	
+	private function _rtupdates($arg0 = ''){
+		
+		echo 'hi'; die();
+		
+	}
+	
+	
+	
+	
 	/**
 	 * Display home page
 	 * 
