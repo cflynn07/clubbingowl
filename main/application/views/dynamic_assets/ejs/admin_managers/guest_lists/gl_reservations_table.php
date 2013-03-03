@@ -7,7 +7,7 @@
 	</p>
 	<p style="margin:0;"><strong>Facebook Location</strong>: 
 		<a target="_new" href="https://www.facebook.com/pages/@/<%= tv_team_fan_page_id + '?sk=app_' + '<?= $this->config->item('facebook_app_id') ?>' %>">
-			https://www.facebook.com/pages/@/<%= tv_team_fan_page_id + '?sk=app_' + '<?= $this->config->item('facebook_app_id') ?>' %>
+			https://www.facebook.com/pages/@/<%= (window.team_fan_page_id || tv_team_fan_page_id) + '?sk=app_' + '<?= $this->config->item('facebook_app_id') ?>' %>
 		</a>
 	</p>
 </div><br/>
