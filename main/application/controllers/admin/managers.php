@@ -38,7 +38,7 @@ class Managers extends MY_Controller {
 		$this->library_admin_managers->initialize($vc_user->manager->mt_user_oauth_uid);
 		/* --------------------- End Load manager library ------------------------ */
 		
-			
+			Kint::dump($vc_user);
 			
 			
 			
