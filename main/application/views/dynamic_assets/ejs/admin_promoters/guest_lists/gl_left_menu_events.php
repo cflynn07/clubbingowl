@@ -4,7 +4,7 @@
 
 <% for(var i=0; i < events.length; i++){ if(events[i].upcoming === false){ continue; } %>
 	<li style="margin-left:15px;text-decoration:none;">
-		<span data-pgla_id="<%= events[i].pgla_id %>" style="text-decoration:underline;"><%= events[i].pgla_name + ' [' + events[i].pgla_event_date + ']' %></span> (<span class="wgl_groups_count"><%= events[i].groups.length %></span>)
+		<span data-pgla_id="<%= events[i].pgla_id %>" style="text-decoration:underline;"><%= events[i].pgla_name %></span> (<span class="wgl_groups_count"><%= events[i].groups.length %></span>)
 	</li><br>
 <% } %>
 
@@ -12,6 +12,6 @@
 
 <% for(var i=0; i < events.length; i++){ if(events[i].upcoming === true){ continue; } %>
 	<li style="margin-left:15px;text-decoration:none;">
-		<span data-pgla_id="<%= events[i].pgla_id %>" style="text-decoration:underline;"><%= events[i].pgla_name + ' [' + events[i].pgla_event_date + ']' %></span> (<span class="wgl_groups_count"><%= events[i].groups.length %></span>)
+		<span data-pgla_id="<%= events[i].pgla_id %>" style="text-decoration:underline;"><%= events[i].pgla_name %></span> (<span class="wgl_groups_count"><%= events[i].groups.length %></span>)
 	</li><br>
 <% } %>

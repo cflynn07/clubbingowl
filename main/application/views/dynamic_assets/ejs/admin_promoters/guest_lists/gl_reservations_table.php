@@ -21,7 +21,7 @@
 	<% }else{ %> 
 		
 		<span style="float:right;">
-			<span style="height:10px; margin-right:-5px;"><%= pgla_event_date %></span>
+			<span style="font-size:14px; height:10px; margin-right:-5px;"><%= pgla_event_date %></span>
 		</span>
 		
 	<% } %>

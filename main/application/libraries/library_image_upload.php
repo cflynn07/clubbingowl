@@ -308,6 +308,15 @@ class Library_image_upload{
 		}
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//if landscape image... add black bars above and below for cropping
 		$aspect_ratio = (float)$image_width / $image_height;
 		$desired_aspect_ratio = ((float)$min_width / $min_height);
@@ -341,9 +350,57 @@ class Library_image_upload{
 			
 		}
 			
+			
+			
+			
+			
+			
+			
+		
+		//if portrait image... add black bars left and right for cropping
+		$aspect_ratio2 = (float)$image_height / $image_width;
+		$desired_aspect_ratio2 = ((float)$min_height / $min_width);
 		
 		
 		
+		
+		
+		
+		if($desired_aspect_ratio2 < $aspect_ratio2){
+			//we need to add black bars
+		
+			
+			//how much width must be added
+			$extra_width = ((float)$image_height / $desired_aspect_ratio2) - $image_width;
+			
+			
+			$temp_image = imagecreatefromjpeg($image_upload_data['full_path']);
+			
+			//how much do we add above & below?
+		//	$total_extra_width = ceil(((float)$image_height / $desired_aspect_ratio) - $image_width);
+		//	$total_extra_width = ceil($total_extra_width / 2);
+			
+			$total_extra_width = ceil($extra_width / 2);
+			
+			$border_overlay = imagecreatetruecolor($image_width + ($total_extra_width * 2), $image_height);
+			imagecopyresampled($border_overlay,
+				$temp_image,
+				$total_extra_width,
+				0,
+				0,
+				0,
+				$image_width,
+				$image_height,
+				$image_width,
+				$image_height);
+			//save image temporarily on server filesystem
+			imagejpeg($border_overlay, $image_upload_data['full_path']);
+			
+			unset($temp_image);
+			
+			$image_width += ($total_extra_width * 2);
+			
+		}
 		
 		
 		
