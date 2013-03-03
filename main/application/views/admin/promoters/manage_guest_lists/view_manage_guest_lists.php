@@ -8,7 +8,7 @@
 	<p>If you delete this guest list, you will have to make a new one if you want to replace it.</p>
 </div>
 
-<?php Kint::dump($promoters_guest_lists); ?>
+<?php //Kint::dump($promoters_guest_lists); ?>
 
 <h3>Weekly Guest Lists</h3>
 
@@ -61,7 +61,7 @@
 		<?php endforeach; ?>
 		<?php if(!$count): ?>
 			<tr>
-				<td colspan="7">You do not have any weekly guest lists.</td>
+				<td colspan="6">You do not have any weekly guest lists.</td>
 			</tr>
 		<?php endif; ?>
 		
@@ -98,7 +98,7 @@
 			<tr <?= ($count1 % 2) ? '' : 'class="odd"' ?> name=<?=$guest_list->pgla_id?>>
 				<?php $count1++; ?>
 				<td><?= $guest_list->tv_name ?></td>
-				<td><?= ucfirst($guest_list->pgla_event_date) ?></td>
+				<td><?= $guest_list->pgla_event_date ?></td>
 				<td style="min-width:200px;"><?= $guest_list->pgla_name ?></td>
 				<td><?= date("F j, Y, g:ia", $guest_list->pgla_create_time) ?></td>
 				<td><input type="checkbox" class="iphone" name="guest_list_auto_approve" <?= ($guest_list->pgla_auto_approve == '1') ? 'checked="checked"' : '' ?>/></td>
@@ -125,7 +125,7 @@
 		<?php endforeach; ?>
 		<?php if(!$count1): ?>
 			<tr>
-				<td colspan="7">You do not have any events.</td>
+				<td colspan="6">You do not have any events.</td>
 			</tr>
 		<?php endif; ?>
 		

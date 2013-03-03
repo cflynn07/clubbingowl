@@ -1720,6 +1720,10 @@ class Managers extends MY_Controller {
 					die(json_encode(array('success' => false, 'message' => 'Please supply an image to represent your guest list')));
 				}
 								
+								
+								
+								
+								
 				$team_venues = $this->users_managers->retrieve_team_venues($this->vc_user->manager->team_fan_page_id);
 				$found = false;
 				foreach($team_venues as $tv){
@@ -1781,15 +1785,27 @@ class Managers extends MY_Controller {
 				
 				
 				
+				
+				
+				if($gl_object['guest_list_type'] == 'event'){
+					
+					if(!isset($gl_object['date']) || $gl_object['date'] == '')
+						die(json_encode(array('success' => false, 'message' => 'Please supply an event date')));
+					
+				}
+				
+				
+				
 				//make image live			
 				$new_image_name = $this->image_upload->make_image_live('guest_lists', $gl_object['image_data']['image']);
 				
 				//crop image
-				$image_data = new stdClass;
-				$image_data->image = $new_image_name;
+				$image_data 		= new stdClass;
+				$image_data->image 	= $new_image_name;
 				$this->image_upload->image_crop($image_data, 'guest_lists', true, $gl_object['image_data'], true);
-				$new_image_name = $this->image_upload->image_data['image'];
-				$image_data->image = $new_image_name;
+				$new_image_name 	= $this->image_upload->image_data['image'];
+				$image_data->image 	= $new_image_name;
+				
 				
 				$gl_object['image_data']['image'] = $new_image_name;
 				
@@ -1803,6 +1819,10 @@ class Managers extends MY_Controller {
 					'deactivated'		=> 0,
 					'auto_approve'		=> isset($gl_object['guest_list_auto_approve']) ? 1 : 0,
 					'description'		=> strip_tags(trim($gl_object['guest_list_description'])),
+					
+					
+					'event' 			=> ((isset($gl_object['guest_list_type']) && $gl_object['guest_list_type'] == 'event') ? '1' : '0'),
+					'event_date'		=> ((isset($gl_object['date'])) ? $gl_object['date'] : ''),
 					
 					
 					'image'				=> $new_image_name,

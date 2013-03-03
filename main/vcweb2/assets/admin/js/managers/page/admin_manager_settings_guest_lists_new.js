@@ -18,7 +18,36 @@ jQuery(function(){
 				this.$el.find('input.iphone').iphoneStyle();
 				this.initialize_ocupload();
 			
+			
+			
+			
+			
+				jQuery('input[type=radio][name=guest_list_type]').bind('change', function(e){
+					
+					jQuery('#weekday_select').hide();
+					jQuery('#date_select').hide();
+					
+					var el = jQuery(e.currentTarget),
+					type = el.val();
+					if(type == 'weekly_list'){
+						jQuery('#weekday_select').show();
+					}else if(type == 'event'){
+						jQuery('#date_select').show();
+					}
+					
+				}).trigger('change');
 				
+				
+				jQuery('input[name=event_date]').datepicker({
+					minDate: 'today'
+				});
+				
+			
+			
+			
+			
+			
+			
 			},
 			initialize_ocupload: function(){
 				
@@ -159,6 +188,9 @@ jQuery(function(){
 				e.preventDefault();
 				
 				var form_object = this.$el.serializeObjectPHP();
+				form_object.date = jQuery.datepicker.formatDate('yy-mm-dd', jQuery('form#guest_list_new_form input[name = event_date]').datepicker('getDate'));
+				
+				
 				
 				if(!form_object.guest_list_name){
 					this.display_error('Please supply a guest list name.');

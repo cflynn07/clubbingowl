@@ -29,7 +29,7 @@
   	
   	<h2 style="text-align:left;font-size:1.3em;margin-bottom:20px;" ><?= $this->lang->line('v-map') ?></h2>
     <div class="logo" style="border:1px solid #CCC;margin-bottom:20px;">
-    	<img style="width:290px; height:315px;" src="http://maps.googleapis.com/maps/api/staticmap?size=290x315&maptype=roadmap&markers=color:red|<?= urlencode($this->library_venues->venue->tv_street_address . ' ' . $this->library_venues->venue->tv_city . ' ' . $this->library_venues->venue->tv_state . ' ' . $this->library_venues->venue->tv_zip) ?> &sensor=false" alt="Venue Map">
+    	<img style="width:290px; height:315px;" src="https://maps.googleapis.com/maps/api/staticmap?size=290x315&maptype=roadmap&markers=color:red|<?= urlencode($this->library_venues->venue->tv_street_address . ' ' . $this->library_venues->venue->tv_city . ' ' . $this->library_venues->venue->tv_state . ' ' . $this->library_venues->venue->tv_zip) ?> &sensor=false" alt="Venue Map">
     </div>
     <div class="gallery"></div>
   </div>

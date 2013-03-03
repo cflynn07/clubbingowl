@@ -10,6 +10,11 @@ jQuery(function(){
 		jQuery('input.iphone').iphoneStyle();
 		
 		
+		
+		
+		
+		
+		
 		jQuery('input[type=radio][name=guest_list_type]').bind('change', function(e){
 			
 			jQuery('#weekday_select').hide();
@@ -29,6 +34,13 @@ jQuery(function(){
 		jQuery('input[name=event_date]').datepicker({
 			minDate: 'today'
 		});
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -198,7 +210,7 @@ jQuery(function(){
 				
 				type: 		jQuery('form#guest_list_new_form input[type=radio][name=guest_list_type]').val(),
 				weekday: 	jQuery('form#guest_list_new_form select[name = guest_list_weekday]').val(),
-				date: 		jQuery.datepicker.formatDate('y-mm-dd', jQuery('form#guest_list_new_form input[name = event_date]').datepicker('getDate')),
+				date: 		jQuery.datepicker.formatDate('yy-mm-dd', jQuery('form#guest_list_new_form input[name = event_date]').datepicker('getDate')),
 				
 				
 				gl_name: 	jQuery('form#guest_list_new_form input[name = guest_list_name]').val(),
