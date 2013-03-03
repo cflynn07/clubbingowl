@@ -594,14 +594,27 @@ class Model_team_guest_lists extends CI_Model {
 	  				
 	  			FROM 	teams_guest_list_authorizations tgla
 	  			
+	  			
+	  			
+	  			
+	  			
 	  			JOIN 	team_venues tv
 	  			ON 		tgla.team_venue_id = tv.id
+	  			
+	  			
+	  			
 	  				  							
 				JOIN 	teams_venues_pairs tvp
-				ON 		tvp.team_venue_id = tv.id
+				ON 		tvp.team_venue_id = tv.id && tvp.team_fan_page_id = tgla.team_fan_page_id
+					
+					
+			/*		
 												
 				JOIN 	teams t
 				ON 		tv.team_fan_page_id = t.fan_page_id
+				
+			*/
+				
 				
 				JOIN 	cities c 
 				ON 		tv.city_id = c.id
@@ -611,6 +624,10 @@ class Model_team_guest_lists extends CI_Model {
 	  			AND 		tvp.deleted 		= 0";
 	  	$query 	= $this->db->query($sql, array($venue_id));
 	  	$result = $query->result();
+	  	
+	  	
+	  	
+	  	
 		
 		return $result;
 	  	
@@ -678,10 +695,12 @@ class Model_team_guest_lists extends CI_Model {
 	  			ON 		tgla.team_venue_id = tv.id
 	  				  							
 				JOIN 	teams_venues_pairs tvp
-				ON 		tvp.team_venue_id = tv.id
+				ON 		tvp.team_venue_id = tv.id AND tvp.team_fan_page_id = tgla.team_fan_page_id
+				
+				
 												
 				JOIN 	teams t
-				ON 		tv.team_fan_page_id = t.fan_page_id
+				ON 		tvp.team_fan_page_id = t.fan_page_id
 	  			
 				
 				
@@ -698,7 +717,7 @@ class Model_team_guest_lists extends CI_Model {
 	  			AND 	tv.banned = 0";
 	  	$query = $this->db->query($sql, array($venue_id, $guest_list_name));
 	  	$result = $query->row();
-		
+		Kint::dump($this->db->last_query());
 		
 		if(!$result){
 					
