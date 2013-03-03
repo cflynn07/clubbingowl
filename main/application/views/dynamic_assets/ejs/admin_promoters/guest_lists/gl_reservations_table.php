@@ -10,9 +10,24 @@
 
 <div class="ui-widget-header">
 	<span style="font-size:14px;">"<%= pgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
-	<span style="float:right;">
-		<input type="text" class="guest_list_datepicker" value="<%= human_date %>" style="height:10px; margin-right:-5px;"/>
-	</span>
+	
+	
+	<% if(pgla_event == '0'){ %>
+		
+		<span style="float:right;">
+			<input type="text" class="guest_list_datepicker" value="<%= human_date %>" style="height:10px; margin-right:-5px;"/>
+		</span>
+		
+	<% }else{ %> 
+		
+		<span style="float:right;">
+			<span style="height:10px; margin-right:-5px;"><%= pgla_event_date %></span>
+		</span>
+		
+	<% } %>
+	
+	
+	
 </div>	
 
 <br/>

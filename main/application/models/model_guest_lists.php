@@ -56,6 +56,10 @@ class Model_guest_lists extends CI_Model {
 					
 					pgla.deactivated 		as deactivated,
 					pgla.auto_approve 		as auto_approve,
+					
+					pgla.event 				as pgla_event,
+					pgla.event_date 		as pgla_event_date,
+					
 					t.fan_page_id			as t_fan_page_id,
 					up.users_oauth_uid 		as up_users_oauth_uid,
 					tv.name 				as tv_name,
@@ -110,6 +114,15 @@ class Model_guest_lists extends CI_Model {
 		$promoter_full_name 	= $result->u_full_name;
 		$promoter_twilio_number = $result->u_twilio_sms_number;
 		
+		
+		
+		
+		$pgla_event 	 = $result->pgla_event;
+		$pgla_event_date = $result->pgla_event_date;
+		
+		
+		
+		
 		//Is this guest list set to auto-approve?
 		$auto_approve_requests = $result->auto_approve;
 		
@@ -137,7 +150,16 @@ class Model_guest_lists extends CI_Model {
 		/* ---------------- end side task --------------- */
 				
 		//given the weekday of this guest list, find the date of the next occurance of this weekday
-		$guest_list_next_occurance_date = date('Y-m-d', strtotime($guest_list_weekday));
+		
+		
+		
+		if($pgla_event == '0')
+			$guest_list_next_occurance_date = date('Y-m-d', strtotime($guest_list_weekday));
+		else 
+			$guest_list_next_occurance_date = $pgla_event_date;
+		
+		
+		
 				
 		$sql = "SELECT
 		

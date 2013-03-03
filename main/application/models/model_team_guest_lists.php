@@ -97,7 +97,7 @@ class Model_team_guest_lists extends CI_Model {
 		//	set up somewhere else on this same night
 		/* ---------------- side task --------------- */
 			//first we need to know what night of the week this guest list is.
-			$this->db->select('day');
+			$this->db->select('day, event, event_date');
 			$query = $this->db->get_where('teams_guest_list_authorizations', array('id' => $id));
 			$result = $query->row();
 			//this is the weekday this guest list is set up for
@@ -105,7 +105,14 @@ class Model_team_guest_lists extends CI_Model {
 		/* ---------------- end side task --------------- */
 				
 		//given the weekday of this guest list, find the date of the next occurance of this weekday
-		$guest_list_next_occurance_date = date('Y-m-d', strtotime($guest_list_weekday));
+		
+		if($result->event == '0')
+			$guest_list_next_occurance_date = date('Y-m-d', strtotime($guest_list_weekday));
+		else 
+			$guest_list_next_occurance_date = $result->event_date;
+			
+				
+				
 				
 		$sql = "SELECT
 					
@@ -142,6 +149,10 @@ class Model_team_guest_lists extends CI_Model {
 					tgla.id 				as tgla_id,
 					tgla.name 				as tgla_name,
 					tgla.team_fan_page_id 	as tgla_team_fan_page_id,
+					
+					tgla.event 				as tgla_event,
+					tgla.event_date 		as tgla_event_date,
+					
 					tv.name 				as tv_name,
 					tv.id 					as tv_id,
 					u.full_name 			as u_full_name,

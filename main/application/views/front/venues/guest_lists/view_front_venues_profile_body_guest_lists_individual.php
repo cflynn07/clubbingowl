@@ -19,7 +19,7 @@ div#unavailable_overlay{
 		$time = strtotime($guest_list->tgla_event_date);
 	?>
 	
-		<h2 style="text-align:center; width:100%; margin-bottom:30px;"><?= date('l F j, Y0', $time) ?></h2>
+		<h2 style="text-align:center; width:100%; margin-bottom:30px;"><?= date('l F j, Y', $time) ?></h2>
 		
 	<?php endif; ?>
 	
