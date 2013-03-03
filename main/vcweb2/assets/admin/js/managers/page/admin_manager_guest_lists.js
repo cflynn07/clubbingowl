@@ -824,9 +824,10 @@ jQuery(function(){
 				
 				console.log(this.collection);
 				
-				var template 	= EVT['guest_lists/gl_left_menu'];
-				var _this 		= this;
-				var weekdays 	= [
+				var template 			= EVT['guest_lists/gl_left_menu'];
+				var template_events 	= EVT['guest_lists/gl_left_menu_events'];
+				var _this 				= this;
+				var weekdays 			= [
 					'mondays',
 					'tuesdays',
 					'wednesdays',
@@ -842,7 +843,8 @@ jQuery(function(){
 					var day_title = day;
 					
 					var day_lists = _this.collection.where({
-						tgla_day: day
+						tgla_day: 	day,
+						tgla_event: '0'
 					});
 					for(var i in day_lists){
 						day_lists[i] = day_lists[i].toJSON();
@@ -858,12 +860,54 @@ jQuery(function(){
 					_this.ul.append(html);
 										
 				});
+				
+				
+				
+				
+				
+				
+				
+				
+				//append events
+				var events = this.collection.where({
+					tgla_event: '1'
+				});
+				for(var i in events){
+					
+			//		console.log(events[i].get('pgla_event_date'));
+			//		var date_temp = new Date(events[i].get('pgla_event_date'));					
+					events[i] = events[i].toJSON();
+			//		events[i].pgla_event_date = date_temp;
+					
+				}
+				
+				console.log('events');
+				console.log(events);
+				console.log(template_events);
+
+				var html = new EJS({
+					text: template_events
+				}).render({
+					events: events
+				});
+				_this.ul.append(html);
+
+
+
+
+
 
 
 				if(this.collection.length === 0){
 					this.$el.find('ul').hide();
 					this.$el.find('> div:nth-child(2)').hide();
 				}
+
+
+
+
+
+
 
 
 

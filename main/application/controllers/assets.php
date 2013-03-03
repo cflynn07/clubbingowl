@@ -853,6 +853,7 @@ class Assets extends MY_Common_Controller {
 									
 										
 									'guest_lists/gl_left_menu',
+									'guest_lists/gl_left_menu_events',
 									'guest_lists/gl_status',
 									'guest_lists/gl_reservations_table',
 									'guest_lists/gl_reservation',

@@ -176,6 +176,11 @@ class Model_users_managers extends CI_Model {
 					tgla.team_fan_page_id	as tgla_team_fan_page_id,
 					tgla.team_venue_id 		as tgla_team_venue_id,
 					tgla.day 				as tgla_day,
+					
+					tgla.event 				as tgla_event,
+					tgla.event_date 		as tgla_event_date,
+					tgla.event_override 	as tgla_event_override,
+					
 					tgla.name				as tgla_name,
 					tgla.create_time		as tgla_create_time,
 					tgla.deactivated		as tgla_deactivated,

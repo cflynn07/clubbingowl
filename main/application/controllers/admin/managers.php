@@ -3642,6 +3642,18 @@ class Managers extends MY_Controller {
 				
 				
 				
+				if($gla->tgla_event == '1'){
+					$time = strtotime($gla->tgla_event_date);
+					if($time + (60 * 60 * 24) < time())
+						$gla->upcoming = false;
+					else 
+						$gla->upcoming = true;
+				}
+				
+				
+				
+				
+				
 				if(!$offset){
 					$gla->human_date 	= $gla->human_date = date('l m/d/y', strtotime(rtrim($gla->tgla_day, 's')));
 					$gla->iso_date 		= date('Y-m-d', strtotime(rtrim($gla->tgla_day, 's')));
