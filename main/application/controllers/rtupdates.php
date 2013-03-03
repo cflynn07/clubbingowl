@@ -22,6 +22,8 @@ class Rtupdates extends MY_Controller {
 		        && $_GET['hub_verify_token'] == 'cf5d812bb1b187b73d709820fbb9f073')
 		        	die($_GET['hub_challenge']);
 		
+			//otherwise show a 404
+			show_404();
 		
 		}elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
