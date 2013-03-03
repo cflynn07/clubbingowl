@@ -4,6 +4,8 @@
 ?>
 <script type="text/javascript">window.page_obj=<?= json_encode($page_obj) ?>;</script>
 
+<?php Kint::dump($guest_list); ?>
+
 <h1>Edit Guest List</h1>
 
 <div class="" style="width:980px; margin-bottom:40px;">
@@ -15,6 +17,8 @@
 	</div>
 	<!-- end modal window contents -->
 	
+	
+	
 	<fieldset>
 	<form id="guest_list_new_form">
 		<legend>Guest List Configuration</legend> 
@@ -23,9 +27,23 @@
 			<label>Venue:</label> <span><?= $guest_list->tv_name ?></span>
 		</p>
 		
-								<p> 
-			<label>Weekday:</label> <span><?= rtrim(ucfirst($guest_list->tgla_day), 's') ?></span>
-		</p>
+		
+		
+		<?php if($guest_list->tgla_event == '0'): ?>
+		
+			<p> 
+				<label>Weekday:</label> <span><?= rtrim(ucfirst($guest_list->tgla_day), 's') ?></span>
+			</p>
+		
+		<?php else: ?>
+		
+			<p> 
+				<label>Date:</label> <span><?= $guest_list->tgla_event_date ?></span>
+			</p>
+		
+		<?php endif; ?>
+		
+		
 		
 							<p> 
 			<label>Guest List Name:</label> <span><?= $guest_list->tgla_name ?></span>
