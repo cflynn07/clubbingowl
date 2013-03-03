@@ -20,6 +20,9 @@
 	</div>
 	<!-- end modal window contents -->
 	
+	
+	
+	
 	<fieldset>
 	<form id="guest_list_new_form">
 		<legend>Guest List Configuration</legend> 

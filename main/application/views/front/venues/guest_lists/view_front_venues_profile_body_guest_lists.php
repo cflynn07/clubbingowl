@@ -1,5 +1,73 @@
- <?php //Kint::dump($all_guest_lists); ?>
+<?php 
+	$events = array();
+
+	foreach($all_guest_lists as $gl){
+		if($gl->tgla_event == '1'){
+			
+			$time = strtotime($gl->tgla_event_date);
+			
+			if($time + (60 * 60 * 24) < time())
+				continue;
+			
+			$events[] = $gl;
+		}
+	}
+?>
+
+
+
+
  <section id="guestlist">
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+  <?php if($events): ?>
+	 	
+	 <h2 style="border-bottom:1px dashed #CCC;"><?= $venue->tv_name . '\'s Special Events' //$this->lang->line('p-gl_t') ?></h2>
+	 
+	 <?php foreach($events as $ev): ?>
+	 	
+	 	<?php 
+	 	
+    		$gl_link = $central->front_link_base . 'venues/' . $venue->c_url_identifier . '/' . str_replace(' ', '_', $venue->tv_name) . '/guest_lists/' . str_replace(' ', '_', $ev->tgla_name) . '/';
+    	?>
+	 	
+	  <div class="tables">
+	  	<table class="event_table">
+	  		<tr>
+	  			<td class="event_image" rowspan="2">
+	  				<img src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $ev->tgla_image . '_t.jpg' ?>" />
+	  			</td>
+	  			<td class="event_text">
+	  				<p class="event_title"><?= $ev->tgla_name ?></p>
+	  				<p class="event_date"><?= date('D F j, Y', strtotime($ev->tgla_event_date)) ?></p>
+	  			</td>
+	  		</tr>
+	  		<tr>
+	  			<td>
+	  				<div class="event_join action">
+				  		<a class="ajaxify_t2 join_btn" href="<?= $gl_link ?>">Info/Join</a>
+				  	</div>
+	  			</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	 	
+	 <?php endforeach; ?>
+	  
+	  
+  <?php endif; ?>
+
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
   <h2><?= $venue->tv_name ?>'s Weekly Guest Lists</h2>
   <table class="guestlist">
     <tbody>
@@ -21,6 +89,9 @@
             	<ul class="tables">
                                      
                   	<?php foreach($all_guest_lists as $gl): ?>
+                  		
+                  		<?php if($gl->tgla_event == '1') continue; ?>
+                  		
                   		<?php if(strtolower($gl->tgla_day) == strtolower(date('l', $time) . 's')): ?>
 		                    <li>
 		                      
