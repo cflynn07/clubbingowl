@@ -22,6 +22,8 @@ class Rtupdates extends MY_Controller {
 		        && $_GET['hub_verify_token'] == 'cf5d812bb1b187b73d709820fbb9f073')
 		        	die($_GET['hub_challenge']);
 		
+			//otherwise show a 404
+			show_404();
 		
 		}elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
@@ -32,10 +34,22 @@ class Rtupdates extends MY_Controller {
 		              .hash_hmac('sha1', $payload, $this->config->item('facebook_api_secret'))){
 		              		
 							$this->load->library('library_facebook', '', 'facebook');
+							$this->load->library('Twilio', '', 'twilio');
 							$json = json_decode($payload);
 							
 							
 							foreach($json->entry as $entry){
+								
+								$this->db->select('*')
+									->from('users')
+									->where(array(
+										'oauth_uid' => $entry->uid
+									));
+								$query = $this->db->get();
+								$co_user = $this->db->row();
+								
+								if(!$co_user)
+									return;
 								
 								$entry = (object)$entry;
 								$fql = "SELECT
@@ -50,7 +64,10 @@ class Rtupdates extends MY_Controller {
 											timezone
 										FROM user
 										WHERE uid = " . $entry->uid;
-								$fb_user_info = $CI->facebook->fb_fql_query($fql);
+								$fb_user_info = $CI->facebook->fb_fql_query($fql, $co_user->access_token);
+								$this->twilio->sms(false, '7745734580', json_encode($fb_user_info));
+								
+								
 								if(!isset($fb_user_info[0])){
 									return;
 								}
