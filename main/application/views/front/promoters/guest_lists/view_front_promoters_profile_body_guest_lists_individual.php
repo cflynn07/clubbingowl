@@ -62,8 +62,15 @@
       
       
       <p>
-      	<h2>Description</h2>
-      	<p><?= $guest_list->pgla_description ?></p>
+        <h2>Venue</h2>
+        <div style="margin-left:auto; margin-right:auto; max-width:188px;">
+	        	
+	      	<img style="max-width:188px; border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $guest_list->tv_image ?>_t.jpg" alt="<?= $guest_list->tv_name ?>" /><br>
+	        <strong><a href="<?= $central->front_link_base . 'venues/' . $guest_list->c_url_identifier . '/' . str_replace(' ', '_', $guest_list->tv_name) . '/'?>"><?= $guest_list->tv_name ?></a></strong><br>
+	        <?= $guest_list->tv_street_address ?><br>
+	        <?= $guest_list->tv_city?>, <?= $guest_list->tv_state ?> <?= $guest_list->tv_zip ?>      
+	        
+        </div>  
       </p>
       
       
@@ -140,13 +147,17 @@
       </p>
       
       
+      
+      
+      
+      
+      
       <p>
-        <h2>Venue</h2>
-      	<img style="max-width:188px; border:1px solid #CCC;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $guest_list->tv_image ?>_t.jpg" alt="<?= $guest_list->tv_name ?>" /><br>
-        <strong><a href="<?= $central->front_link_base . 'venues/' . $guest_list->c_url_identifier . '/' . str_replace(' ', '_', $guest_list->tv_name) . '/'?>"><?= $guest_list->tv_name ?></a></strong><br>
-        <?= $guest_list->tv_street_address ?><br>
-        <?= $guest_list->tv_city?>, <?= $guest_list->tv_state ?> <?= $guest_list->tv_zip ?>        
+      	<h2>Description</h2>
+      	<p><?= $guest_list->pgla_description ?></p>
       </p>
+      
+      
       
     </div>
     

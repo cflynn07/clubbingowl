@@ -48,9 +48,17 @@ div#unavailable_overlay{
         <img id="gl_image" src="<?= $central->s3_uploaded_images_base_url . 'guest_lists/' . $guest_list->tgla_image . '_p.jpg' ?>" style="width:188px; height:266px; border-radius:10px;" alt="Event Image">
       </div>
       
-      <p>
-      	<h2>Description</h2>
-      	<p><?= $guest_list->tgla_description ?></p>
+      
+       <p>
+        <h2>Venue</h2>
+        
+        <div style="margin-left:auto; margin-right:auto; max-width:188px;">
+	      	<img style="max-width:188px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $guest_list->tv_image ?>_t.jpg" alt="<?= $guest_list->tv_name ?>" /><br>
+	        <strong><a href="<?= $central->front_link_base . 'venues/' . $guest_list->c_url_identifier . '/' . str_replace(' ', '_', $guest_list->tv_name) . '/'?>"><?= $guest_list->tv_name ?></a></strong><br>
+	        <?= $guest_list->tv_street_address ?><br>
+	        <?= $guest_list->tv_city?>, <?= $guest_list->tv_state ?> <?= $guest_list->tv_zip ?>       
+        </div>
+         
       </p>
       
       
@@ -124,12 +132,11 @@ div#unavailable_overlay{
       
       
       <p>
-        <h2>Venue</h2>
-      	<img style="max-width:188px;" src="<?= $central->s3_uploaded_images_base_url ?>venues/banners/<?= $guest_list->tv_image ?>_t.jpg" alt="<?= $guest_list->tv_name ?>" /><br>
-        <strong><a href="<?= $central->front_link_base . 'venues/' . $guest_list->c_url_identifier . '/' . str_replace(' ', '_', $guest_list->tv_name) . '/'?>"><?= $guest_list->tv_name ?></a></strong><br>
-        <?= $guest_list->tv_street_address ?><br>
-        <?= $guest_list->tv_city?>, <?= $guest_list->tv_state ?> <?= $guest_list->tv_zip ?>        
+      	<h2>Description</h2>
+      	<p><?= $guest_list->tgla_description ?></p>
       </p>
+      
+     
       
     </div>
 
