@@ -19,6 +19,7 @@ class Primary extends MY_Controller {
 	 * @return	null
 	 * */
 	function __construct(){
+				
 		parent::__construct();
 	}
 	
@@ -39,6 +40,11 @@ class Primary extends MY_Controller {
 	 * @return	null
 	 * */
 	public function index($arg0 = 'primary'){
+		
+		//Mask duplicate URLs
+		if(isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] !== '/')
+			show_404();
+		
 		
 		/*--------------------- AJAX Request Bypass Handler ---------------------*/
 		//The idea here is to avoid loading the static assets, header, body, etc if
@@ -131,11 +137,6 @@ class Primary extends MY_Controller {
 	
 	
 	
-	private function _rtupdates($arg0 = ''){
-		
-		echo 'hi'; die();
-		
-	}
 	
 	
 	

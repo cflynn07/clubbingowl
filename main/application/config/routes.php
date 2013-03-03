@@ -59,6 +59,7 @@ $route['friends/(:any)'] 			= 'friends/index/$1';
 $route['venues/(:any)'] 			= 'venues/index/$1';
 $route['profile/(:any)'] 			= 'profile/index/$1';
 $route['primary/(:any)'] 			= 'primary/index/$1';
+$route['rtupdates/(:any)'] 			= 'rtupdates/index/$1';
 $route['corp/(:any)'] 				= 'corp/index/$1';
 $route['twilio/(:any)'] 			= 'twilio/index/$1';
 $route['email/(:any)'] 				= 'email/index/$1';
