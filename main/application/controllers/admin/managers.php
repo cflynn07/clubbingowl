@@ -1800,11 +1800,12 @@ class Managers extends MY_Controller {
 				$new_image_name = $this->image_upload->make_image_live('guest_lists', $gl_object['image_data']['image']);
 				
 				//crop image
-				$image_data = new stdClass;
-				$image_data->image = $new_image_name;
+				$image_data 		= new stdClass;
+				$image_data->image 	= $new_image_name;
 				$this->image_upload->image_crop($image_data, 'guest_lists', true, $gl_object['image_data'], true);
-				$new_image_name = $this->image_upload->image_data['image'];
-				$image_data->image = $new_image_name;
+				$new_image_name 	= $this->image_upload->image_data['image'];
+				$image_data->image 	= $new_image_name;
+				
 				
 				$gl_object['image_data']['image'] = $new_image_name;
 				
