@@ -6,7 +6,7 @@
 		</a>
 	</p>
 	<p style="margin:0;"><strong>Facebook Location</strong>: 
-		<a target="_new" href="https://www.facebook.com/pages/@/<%= tv_team_fan_page_id + '?sk=app_' + '<?= $this->config->item('facebook_app_id') ?>' %>">
+		<a target="_new" href="https://www.facebook.com/pages/@/<%= (window.team_fan_page_id || tv_team_fan_page_id) + '?sk=app_' + '<?= $this->config->item('facebook_app_id') ?>' %>">
 			https://www.facebook.com/pages/@/<%= (window.team_fan_page_id || tv_team_fan_page_id) + '?sk=app_' + '<?= $this->config->item('facebook_app_id') ?>' %>
 		</a>
 	</p>
@@ -14,7 +14,7 @@
 
 
 <div class="ui-widget-header">
-	<span>"<%= tgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
+	<span style="font-size:14px;">"<%= tgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
 	<span style="float:right;">
 		<input type="text" class="guest_list_datepicker" value="<%= human_date %>" style="height:10px; margin-right:-5px;"/>
 	</span>

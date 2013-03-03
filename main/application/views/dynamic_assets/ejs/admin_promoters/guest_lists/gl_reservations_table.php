@@ -9,7 +9,7 @@
 
 
 <div class="ui-widget-header">
-	<span>"<%= pgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
+	<span style="font-size:14px;">"<%= pgla_name %>" @ <span style="font-weight: bold;"><%= tv_name %></span></span>
 	<span style="float:right;">
 		<input type="text" class="guest_list_datepicker" value="<%= human_date %>" style="height:10px; margin-right:-5px;"/>
 	</span>
@@ -28,7 +28,7 @@
 		<a href="#" data-action="return-current-week" class="button_link btn-action">Return to Current Week</a>
 	<% } %>
 	
-<% }else{ %>
+<% }else{ %> 
 	
 	<% if(upcoming){ %>
 		<a href="#" data-action="manually-add" class="button_link btn-action">Add Clients</a>
