@@ -13,6 +13,19 @@ div#unavailable_overlay{
     <p id="gl_title_header" style="font-size:18px;">You are joining <?= $venue->tv_name ?>'s guest list "<strong><?= $guest_list->tgla_name ?></strong>"</p>
 	
 	
+	
+	
+	<?php if($guest_list->tgla_event == '1'):
+		$time = strtotime($guest_list->tgla_event_date);
+	?>
+	
+		<h2 style="text-align:center; width:100%; margin-bottom:30px;"><?= date('l F j, Y0', $time) ?></h2>
+		
+	<?php endif; ?>
+	
+	
+	
+	
     <?php if(false): ?>
     <?= Kint::dump($venue_floorplan) ?>
     <?= Kint::dump($guest_list) ?>
@@ -148,9 +161,19 @@ div#unavailable_overlay{
 </div>
 
 
+<?php
+
+$event_past = false;
+
+if($guest_list->tgla_event == '1' && $time + (60 * 60 * 24) < time()){
+	$event_past = true;
+}
+
+?>
 
 
-<div style="position:relative;" class="guestlist-form-right">
+
+<div style="position:relative; <?= ($event_past) ? 'display:none;' : '' ?> " class="guestlist-form-right">
 	   
     <div id="unavailable_overlay">
     	<p>
@@ -488,6 +511,16 @@ div#unavailable_overlay{
 
 
 
+
+
+
+<div style="position:relative; text-align:center; <?= (!$event_past) ? 'display:none;' : '' ?>" class="guestlist-form-right">
+	
+	<h3>Sorry, this event has already occured.</h3>
+	
+	<h3>Check out <?= $venue->tv_name ?>'s other guest lists and events.</h3>
+	
+</div>
 
 
 
