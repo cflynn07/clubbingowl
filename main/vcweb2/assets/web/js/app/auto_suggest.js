@@ -225,9 +225,19 @@ jQuery(function(){
 									
 					var list_html = "<a class=\"ajaxify_t3\" href='" + window.module.Globals.prototype.front_link_base +  "promoters/" + item.up_public_identifier + "/guest_lists/" + item.gl_name.replace(/ /g, '_') + "' >" + "<img src='" + mod_base_path + 'guest_lists/' + item.gl_image + "_t.jpg' style='vertical-align:text-top; float:left; margin-right:4px;'/><div><span>" + item.gl_name + "</span><br />";
 				
+					list_html += "<span class='subtext' style='color:#FFF;'>with " + item.u_full_name + "</span><br>";
+					
 					list_html += "<span class='subtext'>@ " + item.tv_name + "</span><br>";
 					list_html += "<span class='subtext'>" + item.c_name + ', ' + item.c_state + "</span><br>";
-					list_html += "<span class='subtext'>" + item.occurance_date + "</span><br>";
+					
+					
+					
+					if(item.gl_event == '0')
+						list_html += "<span class='subtext'>" + item.occurance_date + "</span><br>";
+					else 
+						list_html += "<span class='subtext'>" + item.gl_event_date + "</span><br>";
+					
+					
 					
 					list_html += "</div><div style='clear:both;'></div></a>";
 										
@@ -245,9 +255,19 @@ jQuery(function(){
 									
 					var list_html = "<a class=\"ajaxify_t3\" href='" + window.module.Globals.prototype.front_link_base +  "venues/" + item.c_url_identifier + "/" + item.tv_name.replace(/ /g, '_') + "/guest_lists/" + item.gl_name.replace(/ /g, '_') + "' >" + "<img src='" + mod_base_path + 'guest_lists/' + item.gl_image + "_t.jpg' style='vertical-align:text-top; float:left; margin-right:4px;'/><div><span>" + item.gl_name + "</span><br />";
 				
+					list_html += "<span class='subtext' style='color:#FFF;'>" + 'HOUSE LIST' + "</span><br>";
+				
 					list_html += "<span class='subtext'>@ " + item.tv_name + "</span><br>";
 					list_html += "<span class='subtext'>" + item.c_name + ', ' + item.c_state + "</span><br>";
-					list_html += "<span class='subtext'>" + item.occurance_date + "</span><br>";
+					
+					
+					
+					if(item.gl_event == '0')
+						list_html += "<span class='subtext'>" + item.occurance_date + "</span><br>";
+					else 
+						list_html += "<span class='subtext'>" + item.gl_event_date + "</span><br>";
+						
+						
 					
 					list_html += "</div><div style='clear:both;'></div></a>";
 										

@@ -486,7 +486,7 @@ class Venues extends MY_Controller {
 			//all guest lists
 
 			$data['all_guest_lists'] = $this->library_venues->retrieve_all_guest_lists();
-			Kint::dump($this->db->last_query());
+		//	Kint::dump($this->db->last_query());
 			
 			$this->body_html .= $this->load->view($this->view_dir . 'guest_lists/view_front_venues_profile_body_guest_lists', $data, true);
 			

@@ -130,6 +130,10 @@ class Model_auto_suggest extends CI_Model {
 					pgla.name 				as gl_name,
 					pgla.image				as gl_image,
 					pgla.day				as gl_day,
+					
+					pgla.event 				as gl_event,
+					pgla.event_date 		as gl_event_date,
+					
 					tv.name					as tv_name,
 					c.name					as c_name,
 					c.state 				as c_state,
@@ -176,6 +180,10 @@ class Model_auto_suggest extends CI_Model {
 					tgla.name				as gl_name,
 					tgla.image				as gl_image,
 					tgla.day 				as gl_day,
+					
+					tgla.event 				as tgla_event,
+					tgla.event_date 		as tgla_event_date,
+					
 					tv.name 				as tv_name,
 					c.name 					as c_name,
 					c.state					as c_state,
