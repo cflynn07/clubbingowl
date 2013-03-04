@@ -29,9 +29,9 @@
 		<p style="margin-bottom:0px;">
 			<label>List Type:</label>
 			<div style="margin-left:150px;">
-				<input type="radio" name="guest_list_type" value="event">
+				<input 			type="radio" name="guest_list_type" value="event">
 				<span>Event (Once, on a specific date)</span><br/>
-				<input checked type="radio" name="guest_list_type" value="weekly_list">
+				<input checked 	type="radio" name="guest_list_type" value="weekly_list">
 				<span>Weekly (Every week on the same day)</span><br/>
 			</div>
 		</p>
