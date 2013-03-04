@@ -1935,7 +1935,7 @@ class Managers extends MY_Controller {
 																			
 																			NULL,
 																			
-																			((isset($gl_object['guest_list_type']) && $gl_object['guest_list_type'] == 'event') ? '1' : '0'),
+																			$gl_object['guest_list_type'], //((isset($gl_object['guest_list_type']) && $gl_object['guest_list_type'] == 'event') ? '1' : '0'),
 																			((isset($gl_object['date'])) ? $gl_object['date'] : '')
 																			
 																			);
