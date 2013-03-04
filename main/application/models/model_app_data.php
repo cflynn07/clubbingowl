@@ -374,16 +374,13 @@ class Model_app_data extends CI_Model {
 			ON 		pgla.user_promoter_id = up.id
 			
 			JOIN 	promoters_teams pt 
-			ON 		up.id = pt.promoter_id
+			ON 		up.id = pt.promoter_id AND pt.approved = 1 AND pt.banned = 0 AND pt.quit = 0
 			
 			JOIN 	teams t 
 			ON 		t.fan_page_id = pt.team_fan_page_id
 			
 			WHERE 	
 					up.banned 			= 0
-			AND 	pt.approved 		= 1
-			AND 	pt.banned 			= 0
-			AND 	pt.quit 			= 0
 			AND 	pgla.deactivated 	= 0
 			AND 	t.completed_setup 	= 1
 			
@@ -393,6 +390,7 @@ class Model_app_data extends CI_Model {
 			$query = $this->db->query($sql);
 			$result = $query->result();
 			
+		//	Kint::dump($this->db->last_query());
 			
 			return $result;
 		}

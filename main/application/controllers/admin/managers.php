@@ -1931,8 +1931,15 @@ class Managers extends MY_Controller {
 																			strip_tags(trim($gl_object['guest_list_additional_info_3'])), 
 																			1, 
 																			$gl_object['image_data'],
-																			$tgla_link_id);
-															
+																			$tgla_link_id,
+																			
+																			NULL,
+																			
+																			((isset($gl_object['guest_list_type']) && $gl_object['guest_list_type'] == 'event') ? '1' : '0'),
+																			((isset($gl_object['date'])) ? $gl_object['date'] : '')
+																			
+																			);
+	//	var_dump($this->db->last_query());
 		
 		
 	}
