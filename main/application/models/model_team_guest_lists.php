@@ -723,7 +723,7 @@ class Model_team_guest_lists extends CI_Model {
 	  			AND 	tv.banned = 0";
 	  	$query = $this->db->query($sql, array($venue_id, $guest_list_name));
 	  	$result = $query->row();
-		Kint::dump($this->db->last_query());
+	//	Kint::dump($this->db->last_query());
 		
 		if(!$result){
 					
