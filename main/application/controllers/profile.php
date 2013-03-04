@@ -197,9 +197,9 @@ class Profile extends MY_Controller {
 	private function _primary($arg0 = '', $arg1 = ''){
 		
 		$this->load->model('model_users', 'users', true);
-		$data['user'] = $this->users->retrieve_user($this->vc_user->oauth_uid);
-		$data['reservation_requests'] = $this->users->retrieve_user_reservation_requests($this->vc_user->oauth_uid);		
-		$data['favorite_promoters'] = $this->users->retrieve_users_favorite_promoters($this->vc_user->oauth_uid);
+		$data['user'] 					= $this->users->retrieve_user($this->vc_user->oauth_uid);
+		$data['reservation_requests'] 	= $this->users->retrieve_user_reservation_requests($this->vc_user->oauth_uid);		
+		$data['favorite_promoters'] 	= $this->users->retrieve_users_favorite_promoters($this->vc_user->oauth_uid);
 
 		$cmp_function = function($a, $b){
 			

@@ -161,15 +161,21 @@ class Model_team_guest_lists extends CI_Model {
 					
 				FROM 	teams_guest_list_authorizations tgla
 				
-				JOIN 	team_venues tv
-				ON 		tv.id = tgla.team_venue_id
-				
 				JOIN 	teams_guest_lists tgl
 				ON 		tgla.id = tgl.team_guest_list_authorization_id
 				
+
+				JOIN 	team_venues tv
+				ON 		tv.id = tgla.team_venue_id
+
+
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_fan_page_id = tgla.team_fan_page_id AND tvp.team_venue_id = tv.id 
+
 				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id 
-				
+				ON 		t.fan_page_id = tvp.team_fan_page_id
+
+
 				JOIN 	managers_teams mt 
 				ON 		t.fan_page_id = mt.fan_page_id 
 				
@@ -238,7 +244,7 @@ class Model_team_guest_lists extends CI_Model {
 																		'team_guest_list_id' => $teams_guest_list_id));
 			
 		
-		//now add HEAD user to promoters_guest_list_reservations
+		//now add HEAD user to teams_guest_lists_reservations
 		$this->db->insert('teams_guest_lists_reservations', array('team_guest_list_id' 		=> $teams_guest_list_id,
 																		'user_oauth_uid' 	=> $oauth_uid,
 																		'share_facebook' 	=> ($share_facebook == 1) ? 1 : 0,
@@ -251,7 +257,7 @@ class Model_team_guest_lists extends CI_Model {
 																		'supplied_name'		=> $tglr_supplied_name,
 																		'venues_layout_floors_items_table_id'	=> (($vlfit_id && $vlfit_id != 'false') ? $vlfit_id : NULL),
 																		'create_time' 		=> time()));
-	//	var_dump($this->db->last_query()); //die();
+	//	var_dump($this->db->last_query()); die();
 		
 		$teams_guest_lists_reservations_id = $this->db->insert_id();
 	//	var_dump($teams_guest_lists_reservations_id); die();

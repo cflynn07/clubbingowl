@@ -3669,7 +3669,9 @@ class Managers extends MY_Controller {
 				
 				
 				
-				
+				if($gla->tgla_event == '1'){
+					$gla->iso_date = $gla->tgla_event_date;
+				}
 				
 				
 				
