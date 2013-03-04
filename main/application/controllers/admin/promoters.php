@@ -734,7 +734,11 @@ class Promoters extends MY_Controller {
 	private function _manage_guest_lists_edit($arg0 = '', $arg1 = '', $arg2 = ''){
 		
 		$this->load->model('model_guest_lists', 'guest_lists', true);
-		$guest_list = $this->guest_lists->retrieve_pgla($this->library_promoters->promoter->up_id, $arg1);
+		$guest_list = $this->guest_lists->retrieve_pgla(
+			$this->library_promoters->promoter->up_id, 
+			$arg1, 
+			$this->library_promoters->promoter->team->t_fan_page_id
+		);
 		
 		if(!$guest_list){
 			redirect('/admin/promoters/manage_guest_lists/', 'refresh');
