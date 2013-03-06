@@ -54,7 +54,7 @@ $config['facebook_api_secret'] 			= $creds['facebook_api_secret'];
 $config['facebook_app_access_token'] 	= $creds['facebook_app_access_token'];
 
 
-$config['facebook_default_scope']	= 'email,publish_stream'; // E.G 'read_stream,birthday,users_events,rsvp_event'
+$config['facebook_default_scope']	= 'email,publish_stream,birthday'; // E.G 'read_stream,birthday,users_events,rsvp_event'
 $config['facebook_api_url'] 		= 'https://graph.facebook.com/'; // Just in case it changes.
 
 

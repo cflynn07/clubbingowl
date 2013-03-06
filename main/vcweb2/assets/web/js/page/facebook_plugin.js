@@ -1043,7 +1043,7 @@ jQuery(function(){
 			    			 
 			    		});
 			    			
-			    	}, {scope: 'email,publish_stream'});
+			    	}, {scope: 'email,publish_stream,birthday'});
 				}
 			}else{
 				ajax_submit();
