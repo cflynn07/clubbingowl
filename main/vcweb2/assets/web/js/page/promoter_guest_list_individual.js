@@ -469,7 +469,7 @@ jQuery(function(){
 			    			 
 			    		});
 			    			
-			    	}, {scope: 'email,publish_stream,birthday'});
+			    	}, {scope: 'email,publish_stream,user_birthday'});
 				}
 			}else{
 				ajax_submit();

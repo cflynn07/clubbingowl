@@ -23,7 +23,7 @@ jQuery(function(){
 		
 		if(navigator.userAgent.match('CriOS')){
 			
-			jQuery(this).attr('href', 'https://www.facebook.com/dialog/oauth?client_id=' + window.module.Globals.prototype.fb_app_id + '&redirect_uri=' + window.location.href + '&scope=email,publish_stream,birthday');
+			jQuery(this).attr('href', 'https://www.facebook.com/dialog/oauth?client_id=' + window.module.Globals.prototype.fb_app_id + '&redirect_uri=' + window.location.href + '&scope=email,publish_stream,user_birthday');
 			//workaround attempt for chrome on ios
 			
 		}else{
@@ -31,7 +31,7 @@ jQuery(function(){
 			FB.login(function(){
 				
 			},{
-				scope: 'email,publish_stream,birthday'
+				scope: 'email,publish_stream,user_birthday'
 			});
 			
 			

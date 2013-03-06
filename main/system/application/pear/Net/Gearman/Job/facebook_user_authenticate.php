@@ -30,7 +30,8 @@ class Net_Gearman_Job_facebook_user_authenticate extends Net_Gearman_Job_Common{
 					third_party_id,
 					sex,
 					username,
-					timezone
+					timezone,
+					birthday
 				FROM user
 				WHERE uid = me()";
 		$fb_user_info = $CI->facebook->fb_fql_query($fql, $access_token);
