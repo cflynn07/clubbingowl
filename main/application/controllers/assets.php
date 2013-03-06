@@ -375,7 +375,7 @@ class Assets extends MY_Common_Controller {
 					
 					
 					
-					array('fullcalendar.min',													'global_js'),
+			//		array('fullcalendar.min',													'global_js'),
 					
 					
 					
@@ -519,6 +519,7 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('admin_team_chat', 										'admin_js');
 						
 						$group_assets[] = array('module_tables_display', 								'admin_js');
+						$group_assets[] = array('module_reservation_display',              'admin_js');
 					//	$group_assets[] = array('fullcalendar',											'global_js');
 						
 						$group_assets[] = array('managers/module_manager_accept_guest_list_display', 	'admin_js');
