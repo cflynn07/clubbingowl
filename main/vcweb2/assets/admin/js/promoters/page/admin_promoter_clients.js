@@ -49,6 +49,11 @@ jQuery(function(){
 					var data = [
 						'<a class="ajaxify" href="' + window.module.Globals.prototype.front_link_base + 'admin/promoters/clients/' + m.get('u_oauth_uid') + '/">' + m.get('u_full_name') + '</a>',
 						m.get('facebook_data').sex,
+					
+					
+						(m.get('u_facebook_birthday') ? m.get('human_birthday') : ''),
+					
+					
 						((m.get('friend_status')) ? 'Friend' : '<a data-action="add_friend" data-oauth_uid="' + m.get('u_oauth_uid') + '" href="#">Not Friend</a>'),
 						m.get('u_phone_number').replace(/(\d{3})(\d{3})(\d{4})/, '($1)-$2-$3'),
 						m.get('u_email'),
@@ -58,7 +63,13 @@ jQuery(function(){
 					
 					jQuery('textarea#clients_export').html(jQuery('textarea#clients_export').html() 
 						+ m.get('u_full_name') 									+ ',' 
-						+ data[1] 												+ ',' 
+						+ data[1]												+ ','
+					//	+ m.get('u_facebook_birthday') 							+ ',' 
+					
+					
+						+ (m.get('u_facebook_birthday') ? m.get('u_facebook_birthday') : '')					+ ',' 
+					
+					
 						+ ((m.get('friend_status')) ? 'Friend' : 'Not Friend') 	+ ',' 
 						+ m.get('u_phone_number')								+ ',' 
 						+ data[4] 												+ ',' 

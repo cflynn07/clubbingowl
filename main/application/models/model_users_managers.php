@@ -456,7 +456,8 @@ class Model_users_managers extends CI_Model {
 							u.email 		as u_email,
 							u.oauth_uid		as u_oauth_uid,
 							u.phone_number	as u_phone_number,
-							u.opt_out_email	as u_opt_out_email')
+							u.opt_out_email	as u_opt_out_email,
+							u.facebook_birthday	as u_facebook_birthday')
 			->from('users u');
 			
 		foreach($clients_oauth_uids as $c_uid){
@@ -466,6 +467,11 @@ class Model_users_managers extends CI_Model {
 		if($clients_oauth_uids){
 			$query = $this->db->get();
 			$result = $query->result();
+			
+			foreach($result as &$res){
+				$res->human_birthday = date('M d, Y', strtotime($res->u_facebook_birthday));
+			}unset($res);
+			
 		}else{
 			$result = array();
 		}

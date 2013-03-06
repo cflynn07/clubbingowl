@@ -11,7 +11,16 @@ jQuery(function(){
 		var team_chat_channel = window.team_chat_object.pusher.channels.channels['presence-' + window.team_fan_page_id];
 
 			
-			
+		
+		jQuery('#dashboard_calendar').fullCalendar({
+			theme: false,
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek'
+			}
+		});
+		
 			
 		var Models 		= {};
 		var Collections = {};

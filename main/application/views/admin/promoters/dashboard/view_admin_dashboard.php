@@ -65,56 +65,70 @@
 		<hr>
 		
 		<div id="team_announcements_parent" class="resizable_container_parent full_width" style="width:980px; padding:0; overflow:visible;">
-			<h3>
-				Team Announcements
-				<img class="info_icon tooltip" title="Send announcements to your team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
-			</h3>
 			
-			<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
-						
-			<div id="team_announcements" style="display:none; height:320px; min-height:0; overflow-y: scroll; padding:0; overflow-x: hidden; padding: 10px; border-bottom:1px dashed #CCC;">		
+			<div style="display:inline-block; width:49%; float:left;">
+				<h3>
+					Calendar
+					<img class="info_icon tooltip" title="Birthdays & Events" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				</h3>
 				
-				<?php foreach($announcements as $an): ?>
-					<div>
-						
-						<table class="normal" style="width:100%;">
-							<tbody>
-								<tr>
-									<td style="width:50px; border-right:1px solid #CCC;">
-										<div class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
-										<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
-										<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
-									</td>
-									<td style="padding-top:10px;">
-										
-										<?php if($an->type == 'regular'): ?>
-											<div class="announcement_message"><?= $an->message ?></div>
-										<?php else: ?>
+				<div id="dashboard_calendar"></div>
+			</div>
+			
+			<div style="display:inline-block; width:49%; float:right; border-left: 1px solid #000; padding-left:10px;">
+			
+				<h3>
+					Team Announcements
+					<img class="info_icon tooltip" title="Send announcements to your team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+				</h3>
+				
+				<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." />
+							
+				<div id="team_announcements" style="display:none; height:390px; min-height:0; overflow-y: scroll; padding:0; overflow-x: hidden; padding: 10px; border-bottom:1px dashed #CCC;">		
+					
+					<?php foreach($announcements as $an): ?>
+						<div>
+							
+							<table class="normal" style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width:50px; border-right:1px solid #CCC;">
+											<div class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
+											<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
+											<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
+										</td>
+										<td style="padding-top:10px;">
 											
-											<?php $message = json_decode($an->message); 
-												if($message->subtype == 'new_client_notes'):
-											?>
+											<?php if($an->type == 'regular'): ?>
+												<div class="announcement_message"><?= $an->message ?></div>
+											<?php else: ?>
 												
-												<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a data-oauth_uid="<?= $message->client_oauth_uid ?>" class="ajaxify" href="<?= $central->promoter_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
-												<br/><a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><img style="vertical-align:top; margin-right:5px;" src="https://graph.facebook.com/<?= $message->client_oauth_uid ?>/picture" /></a>
-												<span>"<?= $message->public_notes ?>"</span>
+												<?php $message = json_decode($an->message); 
+													if($message->subtype == 'new_client_notes'):
+												?>
+													
+													<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a data-oauth_uid="<?= $message->client_oauth_uid ?>" class="ajaxify" href="<?= $central->promoter_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+													<br/><a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><img style="vertical-align:top; margin-right:5px;" src="https://graph.facebook.com/<?= $message->client_oauth_uid ?>/picture" /></a>
+													<span>"<?= $message->public_notes ?>"</span>
+													
+												<?php endif; ?>
 												
 											<?php endif; ?>
-											
-										<?php endif; ?>
-									
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<?php if(!$announcements): ?>
-							<div style="text-align:center;">No Announcements</div>
-						<?php endif; ?>							
-					</div>
-				<?php endforeach; ?>
-
-				
-			</div>	
+										
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<?php if(!$announcements): ?>
+								<div style="text-align:center;">No Announcements</div>
+							<?php endif; ?>							
+						</div>
+					<?php endforeach; ?>
+	
+					
+				</div>	
+			
+			</div>
 			
 		</div>
 
