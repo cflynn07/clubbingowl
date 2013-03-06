@@ -375,7 +375,7 @@ class Assets extends MY_Common_Controller {
 					
 					
 					
-			//		array('fullcalendar.min',													'global_js'),
+					array('fullcalendar.min',													'global_js'),
 					
 					
 					
