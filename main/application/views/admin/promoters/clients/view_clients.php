@@ -33,6 +33,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Gender</th>
+					<th>Birthday</th>
 					<th>Friend Status</th>
 					<th>Phone Number</th>
 					<th>Email</th>

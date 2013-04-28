@@ -38,7 +38,9 @@ class Model_users extends CI_Model {
 						'timezone' 						=> $api_response['timezone'],
 						'third_party_id'   				=> $api_response['third_party_id'],
 						'join_time' 					=> time(),
-						'email_opts_hash'				=> md5($api_response['third_party_id'] . $api_response['uid'] . microtime()));
+						'email_opts_hash'				=> md5($api_response['third_party_id'] . $api_response['uid'] . microtime()),
+						'facebook_birthday'				=> ((isset($api_response['birthday']) && $api_response['birthday']) ? date('Y-m-d', strtotime($api_response['birthday'])) : NULL)
+						);
 		
 		$this->db->insert('users', $data);
 		if(php_sapi_name() == 'cli')

@@ -377,8 +377,14 @@ class Model_guest_lists extends CI_Model {
 	  * @param	pgla_id
 	  * @return	object || false
 	  */
-	 function retrieve_pgla($promoter_id, $pgla_id){
+	 function retrieve_pgla($promoter_id, $pgla_id, $team_fan_page_id){
 	 	
+		if($team_fan_page_id === false){
+			$this->db->select('*')
+				->from('promoters_guest_list_authorizations pgla')
+				->where();
+		}
+		
 		$sql = "SELECT
 					
 					pgla.id 				as pgla_id,
@@ -434,25 +440,33 @@ class Model_guest_lists extends CI_Model {
 				
 				FROM 	promoters_guest_list_authorizations pgla
 				
-				JOIN	team_venues tv
-				ON 		pgla.team_venue_id = tv.id
-				
 				JOIN 	users_promoters up 
 				ON 		pgla.user_promoter_id = up.id 
 				
 				JOIN	users u 
 				ON 		up.users_oauth_uid = u.oauth_uid
 				
+				
+				
+				JOIN	team_venues tv
+				ON 		pgla.team_venue_id = tv.id
+				
+				JOIN 	teams_venues_pairs tvp 
+				ON 		tvp.team_fan_page_id = ? && tvp.team_venue_id = tv.id
+				
 				JOIN 	teams t 
-				ON 		tv.team_fan_page_id = t.fan_page_id 
+				ON 		tvp.team_fan_page_id = t.fan_page_id 
+				
+				
+				
 				
 				JOIN 	cities c 
-				ON 		t.city_id = c.id
+				ON 		tv.city_id = c.id
 				
 				WHERE	pgla.id = ?
 				AND
 						pgla.user_promoter_id = ?";
-		$query = $this->db->query($sql, array('id' => $pgla_id, 'user_promoter_id' => $promoter_id));
+		$query = $this->db->query($sql, array($team_fan_page_id, $pgla_id, $promoter_id));
 			
 		return $query->row();
 		

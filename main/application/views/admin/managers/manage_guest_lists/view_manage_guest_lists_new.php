@@ -226,40 +226,37 @@
 		<span style="color:gray;">Add this guest list to your promoter's guest lists. This option will override any guest lists set up by your promoters with the same name as this guest list.</span>
 		<br/>
 		<div>
-			<?php foreach($promoters as $pro): ?>
-				
-				<?php 
-					if($pro->up_completed_setup === '0' || $pro->up_banned === '1')
-						continue;
-				?>
+			
+			
 			<br/>
-			<p>
-				<table>
-					<tbody>
+
+			<table>
+				<tbody>
+					
+					<?php foreach($promoters as $pro): ?>
 						
-						<?php foreach($promoters as $pro): ?>
-							
-							<?php
-								 if($pro->up_completed_setup === '0' || $pro->up_banned === '1')
-								continue; 
-							?>
-							
-						<tr>
-							<td style="vertical-align:middle;">
-								<input type="checkbox" class="iphone" name="promoters_link" value="<?= $pro->up_id ?>" />
-							</td>
-							<td>
-								<img style="height:50px;" src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $pro->up_profile_image . '_t.jpg' ?>" alt="profile image" />
-							</td>
-							<td style="padding-left:10px; vertical-align:middle;">
-								<?= $pro->u_full_name ?>
-							</td>
-						</tr>
-						<?php endforeach; ?>
+						<?php
+							 if($pro->up_completed_setup === '0' || $pro->up_banned === '1')
+							continue; 
+						?>
 						
-					</tbody>
-				</table>
-			<?php endforeach; ?>
+					<tr>
+						<td style="vertical-align:middle;">
+							<input type="checkbox" class="iphone" name="promoters_link" value="<?= $pro->up_id ?>" />
+						</td>
+						<td>
+							<img style="height:50px;" src="<?= $central->s3_uploaded_images_base_url . 'profile-pics/' . $pro->up_profile_image . '_t.jpg' ?>" alt="profile image" />
+						</td>
+						<td style="padding-left:10px; vertical-align:middle;">
+							<?= $pro->u_full_name ?>
+						</td>
+					</tr>
+					<?php endforeach; ?>
+					
+				</tbody>
+			</table>
+
+
 		</div>
 		<hr/>
 		

@@ -6,6 +6,16 @@ jQuery(function(){
 	window.vc_page_scripts.admin_promoter_dashboard = function(){
 		
 		
+		jQuery('#dashboard_calendar').fullCalendar({
+			theme: false,
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek'
+			}
+		});
+		
+		
 		var EVT = window.ejs_view_templates_admin_promoters;
 				
 		//multi-dimensional 2D array of event types, bounded elements, and callbacks

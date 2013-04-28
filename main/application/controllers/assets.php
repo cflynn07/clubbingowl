@@ -146,8 +146,10 @@ class Assets extends MY_Common_Controller {
 					'page/admin_team_chat',
 					'page/admin_promoter_dashboard',
 					
-					'engage.itoggle.css'
-							
+					'engage.itoggle.css',
+					
+					'fullcalendar'
+					
 				);
 			
 				break;
@@ -370,6 +372,13 @@ class Assets extends MY_Common_Controller {
 
 					array('jquery/jquery1.7.2.min',											'global_js'),
 					array('jquery-ui-1.9.1.min',											'admin_js'),
+					
+					
+					
+					array('fullcalendar.min',													'global_js'),
+					
+					
+					
 					array('pusher/pusher-1.11',												'global_js'),
 					array('pusher/pusher_extend',											'global_js'),
 					
@@ -474,7 +483,7 @@ class Assets extends MY_Common_Controller {
 					
 					//	$group .= '-promoters';
 						$group_assets[] = array('admin_team_chat', 											'admin_js');
-						
+					//	$group_assets[] = array('fullcalendar',												'global_js');
 						
 						
 						$group_assets[] = array('module_tables_display', 									'admin_js');
@@ -510,12 +519,14 @@ class Assets extends MY_Common_Controller {
 						$group_assets[] = array('admin_team_chat', 										'admin_js');
 						
 						$group_assets[] = array('module_tables_display', 								'admin_js');
-						$group_assets[] = array('module_reservation_display',							'admin_js');
+						$group_assets[] = array('module_reservation_display',              'admin_js');
+					//	$group_assets[] = array('fullcalendar',											'global_js');
 						
 						$group_assets[] = array('managers/module_manager_accept_guest_list_display', 	'admin_js');
 						
 						$group_assets[] = array('managers/global_manager_pusher_notifications', 		'admin_js');
 						$group_assets[] = array('managers/managers_ajaxify_front', 						'admin_js');
+						$group_assets[] = array('managers_ajaxify_front', 						'admin_js');
 					
 						$group_assets[] = array('managers/page/admin_manager_dashboard',				'admin_js');
 						$group_assets[] = array('managers/page/admin_manager_guest_lists',				'admin_js');

@@ -1361,12 +1361,13 @@ class Model_users_promoters extends CI_Model {
 		if($clients_uids){
 
 			$this->db->select('u.full_name 		as u_full_name,
-							u.first_name	as u_first_name,
-							u.last_name		as u_last_name,
-							u.email 		as u_email,
-							u.oauth_uid		as u_oauth_uid,
-							u.phone_number	as u_phone_number,
-							u.opt_out_email	as u_opt_out_email');
+							u.first_name		as u_first_name,
+							u.last_name			as u_last_name,
+							u.email 			as u_email,
+							u.oauth_uid			as u_oauth_uid,
+							u.phone_number		as u_phone_number,
+							u.opt_out_email		as u_opt_out_email,
+							u.facebook_birthday	as u_facebook_birthday');
 			$this->db->from('users u', false);
 
 			foreach($clients_uids as $c_uid){
@@ -1378,6 +1379,10 @@ class Model_users_promoters extends CI_Model {
 
 			$query = $this->db->get();
 			$result = $query->result();
+
+			foreach($result as &$res){
+				$res->human_birthday = date('M d, Y', strtotime($res->u_facebook_birthday));
+			}unset($res);
 
 		}else{
 

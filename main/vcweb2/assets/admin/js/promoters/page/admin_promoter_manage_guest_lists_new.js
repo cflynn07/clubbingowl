@@ -20,8 +20,10 @@ jQuery(function(){
 			jQuery('#weekday_select').hide();
 			jQuery('#date_select').hide();
 			
-			var el = jQuery(e.currentTarget),
-			type = el.val();
+			var type = jQuery('form#guest_list_new_form input[type=radio][name=guest_list_type]:checked').val();
+			
+		//	var el = jQuery(e.currentTarget),
+		//	type = el.val();
 			if(type == 'weekly_list'){
 				jQuery('#weekday_select').show();
 			}else if(type == 'event'){
@@ -208,7 +210,7 @@ jQuery(function(){
 				
 				
 				
-				type: 		jQuery('form#guest_list_new_form input[type=radio][name=guest_list_type]').val(),
+				type: 		jQuery('form#guest_list_new_form input[type=radio][name=guest_list_type]:checked').val(),
 				weekday: 	jQuery('form#guest_list_new_form select[name = guest_list_weekday]').val(),
 				date: 		jQuery.datepicker.formatDate('yy-mm-dd', jQuery('form#guest_list_new_form input[name = event_date]').datepicker('getDate')),
 				

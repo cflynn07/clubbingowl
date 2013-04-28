@@ -29,7 +29,7 @@ class Net_Gearman_Job_gearman_new_promoter_gl_status extends Net_Gearman_Job_Com
 		$CI->load->model('model_users', 		'users', true);
 		$CI->load->model('model_guest_lists', 	'guest_lists', true);
 		$CI->load->model('model_teams', 		'teams', true);
-		$pgla = $CI->guest_lists->retrieve_pgla($up_id, $pgla_id);
+		$pgla = $CI->guest_lists->retrieve_pgla($up_id, $pgla_id, $team_fan_page_id);
 		
 		
 		//find list of users that have ever joined this guest-list

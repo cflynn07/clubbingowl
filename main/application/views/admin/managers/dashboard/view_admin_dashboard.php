@@ -27,9 +27,6 @@
 
 <div id="manager_dashboard_wrapper">
 	<h1 style="display:inline-block;">Manager Dashboard</h1>
-	<?php if(false): ?>
-	 - (<span class="page_video_tutorial"><img class="page_video_tutorial" src="<?= $central->admin_assets ?>images/icons/small_icons/Film.png" /> <span>Video Tutorial</span></span>)
-	<?php endif; ?>
 	
 	
 	<h3>
@@ -65,79 +62,92 @@
 
 
 	<div class="resizable_container_parent full_width" id="team_announcements"  style="width:980px; padding:0; overflow:visible;">
-		<h3>
-			Team Announcements
-			<img class="info_icon tooltip" title="Announcements for team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
-		</h3>
+		<div style="width:49%; display:inline-block; float:left;">
+			<h3>
+				Calendar
+				<img class="info_icon tooltip" title="Birthdays & Events" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+			</h3>
+			
+			<div id="dashboard_calendar"></div>
+		</div>
 		
-		<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..."  />
-		
-		<div id="resize_box" style="height:320px; min-height: 200px; margin-bottom:10px;">
-			<div id="team_announcements_content" style="display:none; height:100%; overflow-y: scroll; overflow-x: hidden; padding: 10px; border-bottom:1px dashed #CCC;">
-				
-				
-				
-				
-				
-				
-				<?php foreach($announcements as $an): ?>
-					<div>
-						
-						<table class="normal" style="width:100%;">
-							<tbody>
-								<tr>
-									<td style="width:50px; border-right:1px solid #CCC;">
-										<div data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
-										<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
-										<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
-									</td>
-									<td style="padding-top:10px;">
-										
-										<?php if($an->type == 'regular'): ?>
-											<div class="announcement_message"><?= $an->message ?></div>
-										<?php else: ?>
+		 
+		<div style="width:49%; display:inline-block; float:right; border-left:1px solid #000; padding-left:10px;">
+			<h3>
+				Team Announcements
+				<img class="info_icon tooltip" title="Announcements for team members" src="<?= $central->admin_assets . 'images/icons/small_icons_2/Info.png'?>" alt="info" />
+			</h3>
+			
+			<img id="messages_loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..."  />
+			
+			<div id="resize_box" style="height:370px; min-height: 200px; margin-bottom:10px;">
+				<div id="team_announcements_content" style="display:none; height:100%; overflow-y: scroll; overflow-x: hidden; padding: 10px; border-bottom:1px dashed #CCC;">
+					
+					
+					
+					
+					
+					
+					<?php foreach($announcements as $an): ?>
+						<div>
+							
+							<table class="normal" style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width:50px; border-right:1px solid #CCC;">
+											<div data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="manager_pic pic_square_<?= $an->manager_oauth_uid ?>"></div>
+											<p style="margin:0; white-space:nowrap;" class="name_<?= $an->manager_oauth_uid ?>"></p>
+											<p style="margin:0; white-space:nowrap;"><?= date('m.d.y g:i a', $an->created) ?></p>
+										</td>
+										<td style="padding-top:10px;">
 											
-											<?php $message = json_decode($an->message); 
-												if($message->subtype == 'new_client_notes'):
+											<?php if($an->type == 'regular'): ?>
+												<div class="announcement_message"><?= $an->message ?></div>
+											<?php else: ?>
+												
+												<?php $message = json_decode($an->message); 
+													if($message->subtype == 'new_client_notes'):
+														
+												?>
+												
+												<?php if(false): ?>
+													<div class="announcement_message"><span data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="name_<?= $an->manager_oauth_uid ?>"</span> has updated their notes on <a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span data-oauth_uid="<?= $message->client_oauth_uid ?>" class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+												<?php endif; ?>
+												
+													<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a data-oauth_uid="<?= $message->client_oauth_uid ?>" class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
+													<br/><a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><img style="vertical-align:top; margin-right:5px;" src="https://graph.facebook.com/<?= $message->client_oauth_uid ?>/picture" /></a>
+													<span>"<?= $message->public_notes ?>"</span>
 													
-											?>
-											
-											<?php if(false): ?>
-												<div class="announcement_message"><span data-oauth_uid="<?= $an->manager_oauth_uid ?>" class="name_<?= $an->manager_oauth_uid ?>"</span> has updated their notes on <a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span data-oauth_uid="<?= $message->client_oauth_uid ?>" class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
-											<?php endif; ?>
-											
-												<div class="announcement_message"><span class="name_<?= $an->manager_oauth_uid ?>"></span> has updated their notes on <a data-oauth_uid="<?= $message->client_oauth_uid ?>" class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><span class="name_<?= $message->client_oauth_uid ?>"></span></a></div>
-												<br/><a class="ajaxify" href="<?= $central->manager_admin_link_base . 'clients/' . $message->client_oauth_uid . '/' ?>"><img style="vertical-align:top; margin-right:5px;" src="https://graph.facebook.com/<?= $message->client_oauth_uid ?>/picture" /></a>
-												<span>"<?= $message->public_notes ?>"</span>
+												<?php endif; ?>
 												
 											<?php endif; ?>
 											
-										<?php endif; ?>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<?php if(!$announcements): ?>
+								<div style="text-align:center;">No Announcements</div>
+							<?php endif; ?>						
+						</div>
+					<?php endforeach; ?>
 										
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<?php if(!$announcements): ?>
-							<div style="text-align:center;">No Announcements</div>
-						<?php endif; ?>						
-					</div>
-				<?php endforeach; ?>
-									
-				
+					
+				</div>
 			</div>
-		</div>
 		
 		
-		<br/>
-		<a data-action="create-announcement" id="create_announcement_btn" class="button_link" style="float:right;" href="#">Create Announcement</a>
-
-		<div id="announcement_dialog" style="display:none;">
-			<p>New Staff Announcement</p>
-			<textarea id="manager_announcement_textarea"></textarea>
+			<br/>
+			<a data-action="create-announcement" id="create_announcement_btn" class="button_link" style="float:right;" href="#">Create Announcement</a>
+	
+			<div id="announcement_dialog" style="display:none;">
+				<p>New Staff Announcement</p>
+				<textarea id="manager_announcement_textarea"></textarea>
+				
+				<img class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." style="display:none; margin-top:4px; margin-left:auto; margin-right:auto;" />
+				<p id="manager_announcement_msg" style="margin-left:auto; margin-right:auto; margin-top:4px;"></p>
 			
-			<img class="loading_indicator" src="<?=$central->global_assets . 'images/ajax.gif'?>" alt="loading..." style="display:none; margin-top:4px; margin-left:auto; margin-right:auto;" />
-			<p id="manager_announcement_msg" style="margin-left:auto; margin-right:auto; margin-top:4px;"></p>
+			</div>
 		
 		</div>
 		

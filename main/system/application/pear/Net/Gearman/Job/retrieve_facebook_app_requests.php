@@ -84,7 +84,7 @@ class Net_Gearman_Job_retrieve_facebook_app_requests extends Net_Gearman_Job_Com
 								}
 								
 								$CI->load->model('model_guest_lists', 'guest_lists', true);
-								$data->retrieve_pgla = $CI->guest_lists->retrieve_pgla($data->promoter_id, $data->pgla_id);
+								$data->retrieve_pgla = $CI->guest_lists->retrieve_pgla($data->promoter_id, $data->pgla_id, false);
 								
 								if(!$data->retrieve_pgla){
 									//unknown pgla
