@@ -5,13 +5,13 @@
 | -------------------------------------------------------------------
 | Author: Casey Flynn
 | Date: June 7, 2011
-| 
+|
 | This file defines constants for useful variables supplied by facebook's
 | app registration process.
-| ------------------------------------------------------------------- 
+| -------------------------------------------------------------------
  */
- 
- 
+
+
 $facebook_variables = array(
 	//nemesis
 	'local'			=> array(
@@ -23,14 +23,14 @@ $facebook_variables = array(
 //		'facebook_api_secret'			=> '7d279eb359234840123a78522a5809bb',
 //		'facebook_app_access_token'		=> '236258849725316|OK6iu5HSDxIexFEyZ6iG0OuK6qs'
 	),
-	
+
 	//nemesis_staging
 	'staging'		=> array(
 		'facebook_app_id'				=> '395302060543702',
 		'facebook_api_secret'			=> 'd71da8500017dc071efb48104062e3f0',
 		'facebook_app_access_token'		=> '395302060543702|sAQGyTaBQYZ2XlISusrGoUrp4bo'
 	),
-	
+
 	//clubbingowl
 	'production'	=> array(
 //		'facebook_app_id'				=> '286248728153271',

@@ -170,7 +170,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 */
 $config['allow_get_array']		= TRUE;
 
-if(isset($_SERVER['REQUEST_URI']) 
+if(isset($_SERVER['REQUEST_URI'])
 	&& (strpos($_SERVER['REQUEST_URI'], '/facebook') === 0)){
 	//Facebook access to this controller
 	$config['enable_query_strings'] = TRUE;
@@ -327,7 +327,7 @@ if(isset($_SERVER['REQUEST_URI'])
 	//turn it onnnnnnnnnnnn
 	$config['csrf_protection'] = TRUE;
 }
-	
+
 $config['csrf_token_name'] = 'csrf_token';
 $config['csrf_cookie_name'] = 'csrf_check';
 $config['csrf_expire'] = 7200;
@@ -351,7 +351,7 @@ $config['csrf_expire'] = 7200;
 */
 if(ENVIRONMENT == 'production' || ENVIRONMENT == 'staging')
 	$config['compress_output'] = TRUE;
-else 
+else
 	$config['compress_output'] = FALSE;
 
 /*
@@ -408,31 +408,31 @@ $config['img_file_ext'] = '.jpg';
 $state_list = array(
 				//states
 				'AL'=>"Alabama",
-                'AK'=>"Alaska", 
-                'AZ'=>"Arizona", 
-                'AR'=>"Arkansas", 
-                'CA'=>"California", 
-                'CO'=>"Colorado", 
-                'CT'=>"Connecticut", 
-                'DE'=>"Delaware", 
-                'DC'=>"District Of Columbia", 
-                'FL'=>"Florida", 
-                'GA'=>"Georgia", 
-                'HI'=>"Hawaii", 
-                'ID'=>"Idaho", 
-                'IL'=>"Illinois", 
-                'IN'=>"Indiana", 
-                'IA'=>"Iowa", 
-                'KS'=>"Kansas", 
-                'KY'=>"Kentucky", 
-                'LA'=>"Louisiana", 
-                'ME'=>"Maine", 
-                'MD'=>"Maryland", 
-                'MA'=>"Massachusetts", 
-                'MI'=>"Michigan", 
-                'MN'=>"Minnesota", 
-                'MS'=>"Mississippi", 
-                'MO'=>"Missouri", 
+                'AK'=>"Alaska",
+                'AZ'=>"Arizona",
+                'AR'=>"Arkansas",
+                'CA'=>"California",
+                'CO'=>"Colorado",
+                'CT'=>"Connecticut",
+                'DE'=>"Delaware",
+                'DC'=>"District Of Columbia",
+                'FL'=>"Florida",
+                'GA'=>"Georgia",
+                'HI'=>"Hawaii",
+                'ID'=>"Idaho",
+                'IL'=>"Illinois",
+                'IN'=>"Indiana",
+                'IA'=>"Iowa",
+                'KS'=>"Kansas",
+                'KY'=>"Kentucky",
+                'LA'=>"Louisiana",
+                'ME'=>"Maine",
+                'MD'=>"Maryland",
+                'MA'=>"Massachusetts",
+                'MI'=>"Michigan",
+                'MN'=>"Minnesota",
+                'MS'=>"Mississippi",
+                'MO'=>"Missouri",
                 'MT'=>"Montana",
                 'NE'=>"Nebraska",
                 'NV'=>"Nevada",
@@ -442,21 +442,21 @@ $state_list = array(
                 'NY'=>"New York",
                 'NC'=>"North Carolina",
                 'ND'=>"North Dakota",
-                'OH'=>"Ohio", 
-                'OK'=>"Oklahoma", 
-                'OR'=>"Oregon", 
-                'PA'=>"Pennsylvania", 
-                'RI'=>"Rhode Island", 
-                'SC'=>"South Carolina", 
+                'OH'=>"Ohio",
+                'OK'=>"Oklahoma",
+                'OR'=>"Oregon",
+                'PA'=>"Pennsylvania",
+                'RI'=>"Rhode Island",
+                'SC'=>"South Carolina",
                 'SD'=>"South Dakota",
-                'TN'=>"Tennessee", 
-                'TX'=>"Texas", 
-                'UT'=>"Utah", 
-                'VT'=>"Vermont", 
-                'VA'=>"Virginia", 
-                'WA'=>"Washington", 
-                'WV'=>"West Virginia", 
-                'WI'=>"Wisconsin", 
+                'TN'=>"Tennessee",
+                'TX'=>"Texas",
+                'UT'=>"Utah",
+                'VT'=>"Vermont",
+                'VA'=>"Virginia",
+                'WA'=>"Washington",
+                'WV'=>"West Virginia",
+                'WI'=>"Wisconsin",
                 'WY'=>"Wyoming",
                 //provinces
 				'AB'=>"Alberta",

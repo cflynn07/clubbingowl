@@ -3,11 +3,14 @@
 define('SITE', 'clubbingowl');
 define('ASSETS_SITE', 'clubbingowl'); //staticowl
 
+
+
+/*
 $dotcloud_environment = '/home/dotcloud/environment.json';
 define('DOTCLOUD_JSON', $dotcloud_environment);
 if(file_exists(DOTCLOUD_JSON)){
 	//we're on dotcloud...
-	
+
 	$dotcloud_environment = json_decode(file_get_contents($dotcloud_environment), true);
 	if(isset($dotcloud_environment['DOTCLOUD_PROJECT']) && $dotcloud_environment['DOTCLOUD_PROJECT'] == 'coproduction'){
 		define('MODE', 'production');
@@ -16,58 +19,60 @@ if(file_exists(DOTCLOUD_JSON)){
 		define('MODE', 'staging');
 		define('TLD', 'staging');
 	}
-	
+
 }else{
 	//we're on local...
-	
+
 	define('MODE', 'local');
 	define('TLD', 'dev');
-	
+
 }
 unset($dotcloud_environment);
+*/
 
 
+define('MODE', 'production');
+define('TLD', 'com');
 
-
-
+/*
 //temporary access control
 if(FALSE && MODE != 'local'){
 	if(isset($_GET['token_value'])){
-		setcookie('token_value', 
-					$_GET['token_value'], 
-					time()+60*60*24*30, 
-					'/', 
-					(SITE . '.' . TLD), 
+		setcookie('token_value',
+					$_GET['token_value'],
+					time()+60*60*24*30,
+					'/',
+					(SITE . '.' . TLD),
 					false,
 					false);
-		
+
 		header('Location: http://www.' . SITE . '.' . TLD . '/');
 		die();
 	}
-	
-	
+
+
 	if(php_sapi_name() != 'cli')
 		if(!isset($_COOKIE['token_value'])){
 			die();
 		}else{
 			if($_COOKIE['token_value'] != 'v49y49fgs068y33nwfg90'){
-				die();	
+				die();
 			}
 			error_reporting(E_ALL);
 		}
 }
+*/
 
 
 
 
 
-
-
+/*
 //Casey Flynn Added 5/6/2012
 //Hack for compatability. SSL enabled with CloudFlare -- does not reach server (USER ---ssl---- CF -------- HOST)
 //BEGIN HACK -----------------------------
 if(isset($_SERVER['HTTP_CF_VISITOR'])){
-	
+
 	$http_cf_visitor = json_decode($_SERVER['HTTP_CF_VISITOR']);
 	if(isset($http_cf_visitor->scheme))
 		$_SERVER['HTTPS'] = ($http_cf_visitor->scheme == 'https') ? 'on' : 'off';
@@ -79,60 +84,58 @@ if(isset($_SERVER['HTTP_CF_VISITOR'])){
 if(MODE == 'staging'){
 	$_SERVER['HTTPS'] = 'on';
 }
-
+*/
 
 //force https globally
+
+/*
 if(php_sapi_name() !== 'cli'){
-	if(strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0 
+	if(strpos($_SERVER['REQUEST_URI'], '/facebook') !== 0
 		&& strpos($_SERVER['REQUEST_URI'], '/plugin') !== 0
 		&& strpos($_SERVER['REQUEST_URI'], '/ajax') !== 0){
 		if(strtolower($_SERVER['HTTPS']) != 'on'){
 			$base_url = 'https';
 		    $base_url .= '://'. $_SERVER['HTTP_HOST'];
 		// 	$base_url .= '/';
-			
+
 			header('HTTP/1.1 301 Moved Permanently');
 			header('Location: ' . $base_url . (($_SERVER['REQUEST_URI'] == '/') ? '' : $_SERVER['REQUEST_URI']));
 			die();
 		}
 	}
-}	
+}
+*/
 
 
 
 //shut down any requests at www.clubbingowl.com/index.php/.....
 if(php_sapi_name() !== 'cli')
 	if(strpos($_SERVER['REQUEST_URI'], '/index.php') === 0){
-			
+
 		$base_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
 	    $base_url .= '://'. $_SERVER['HTTP_HOST'];
 	    $base_url .= isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != '80' ? ( ':'.$_SERVER['SERVER_PORT'] ) : '';
 	 	$base_url .= '/';
-		
+
 		header('HTTP/1.1 301 Moved Permanently');
 		if(strpos($_SERVER['REQUEST_URI'], '/index.php/') === 0)
 			header('Location: ' . $base_url . str_replace('/index.php/', '', $_SERVER['REQUEST_URI']));
 		else
 			header('Location: ' . $base_url);
-		
+
 		die();
 	}
 
 
 
 
-
-
-
-
-
 //shut down any requests at www.clubbingowl.com/index.php/.....
 if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
-		
+
 	$perform_redirect = false;
 
 	$redirect_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
-    $redirect_url .= '://';
+  $redirect_url .= '://';
 
 	$allowed_hosts = array(
 		'www',			//English
@@ -141,32 +144,32 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		'de',			//German
 		'ja'			//Japanese
 	);
-	
+
 	$domain = "clubbingowl";
-	
+
 	foreach($allowed_hosts as $key => $val){
 		$allowed_hosts[$key] = $allowed_hosts[$key] . '.' . $domain . '.' . TLD;
 	}
-	
+
 	if(!in_array($_SERVER['HTTP_HOST'], $allowed_hosts)){
 		$perform_redirect = true;
 		$redirect_url .= 'www.' . $domain . '.' . TLD . '/';
 	}else{
 		$redirect_url .= $_SERVER['HTTP_HOST'] . '/';
 	}
-		
+
 	if(strpos($_SERVER['REQUEST_URI'], '/index.php') === 0){
-			
-		$perform_redirect = true;	
+
+		$perform_redirect = true;
 		$redirect_url .= str_replace('/index.php/', '', $_SERVER['REQUEST_URI']);
-		
+
 	}else{
-				
+
 		$redirect_url .= ltrim($_SERVER['REQUEST_URI'], '/');
-		
+
 	}
-	
-	
+
+
 	//http://www.staticowl.dev/assets/js?g=base&cache=20_1321057554_1349920359
 	//one exception, www.staticowl.com/assets/
 /*	if($_SERVER['HTTP_HOST'] == 'www.' . ASSETS_SITE . '.' . TLD){
@@ -175,23 +178,23 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 		else
 			$perform_redirect = true;
 	}else{
-		
+
 		if(strpos($_SERVER['REQUEST_URI'], '/assets') === 0){
 			$perform_redirect = true;
 			$redirect_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' ? 'https' : 'http';
     		$redirect_url .= '://www.' . $domain . '.' . TLD . '/';
 		}
-		
+
 	}
 */
 
 
-	if($perform_redirect){		
+	if($perform_redirect){
 		header('HTTP/1.1 301 Moved Permanently');
 		header('Location: ' . $redirect_url);
 		die();
 	}
-	
+
 }
 
 
@@ -199,7 +202,7 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 
 
 /**
- * 
+ *
 	#force non-www to www.clubbingowl.com
 	#DEVELOPMENT URLS
 	RewriteCond %{HTTP_HOST} !^www.clubbingowl.dev$
@@ -222,7 +225,7 @@ if(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['HTTP_HOST'])){
 	RewriteCond %{HTTP_HOST} !^ru.clubbingowl.dev$
 	RewriteCond %{HTTP_HOST} !^sv.clubbingowl.dev$
 	RewriteCond %{HTTP_HOST} !^zh.clubbingowl.dev$
-	
+
 	#PRODUCTION URLS
 	RewriteCond %{HTTP_HOST} !^www.clubbingowl.com$
 	RewriteCond %{HTTP_HOST} !^ar.clubbingowl.com$
@@ -293,7 +296,7 @@ unset($staging_mode);
 unset($production_mode);
 
 
- 
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -311,7 +314,7 @@ if (defined('ENVIRONMENT'))
 			error_reporting(E_ALL);
 			ini_set('display_errors', '1');
 		break;
-	
+
 		case 'staging':
 		case 'production':
 			error_reporting(0);
@@ -345,7 +348,7 @@ if (defined('ENVIRONMENT'))
  * can also be renamed or relocated anywhere on your server.  If
  * you do, use a full server path. For more info please see the user guide:
  * http://codeigniter.com/user_guide/general/managing_apps.html
- * 
+ *
  * NO TRAILING SLASH!
  *
  */
@@ -475,7 +478,7 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
- 
+
 
 require_once BASEPATH.'core/CodeIgniter'.EXT;
 

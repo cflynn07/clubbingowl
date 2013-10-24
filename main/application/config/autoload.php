@@ -61,8 +61,8 @@ $autoload['libraries'] = array(
 								'lang',
 								'user_agent'
 								);
-								
-						
+
+
 
 
 /*
@@ -102,7 +102,7 @@ $autoload['config'] = array(
 							's3',
 							'piwik',
 							'gearman',
-							'kint', 
+							'kint',
 							'pusher',
 							'lang',
 							'mcapi'

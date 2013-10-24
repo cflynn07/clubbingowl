@@ -46,19 +46,21 @@
 
 
 
-
+/*
 if(MODE == 'production' || MODE == 'staging'){
-	$active_group 	= 'cloud';
+	$active_group = 'cloud';
 	$dotcloud 		= json_decode(file_get_contents(DOTCLOUD_JSON), true);
 }else{
 	$active_group 	= 'local';
 }
+*/
+$active_group = 'local';
 
 
 $active_record = TRUE;
 
 	//DOTCLOUD_DB_MYSQL_PASSWORD
-// cloud 
+// cloud
 $db['cloud']['hostname'] = (isset($dotcloud['DOTCLOUD_DB_MYSQL_HOST'])) 	? $dotcloud['DOTCLOUD_DB_MYSQL_HOST'] 		: '';
 $db['cloud']['username'] = (isset($dotcloud['DOTCLOUD_DB_MYSQL_LOGIN'])) 	? $dotcloud['DOTCLOUD_DB_MYSQL_LOGIN'] 		: '';					//'application';
 $db['cloud']['password'] = (isset($dotcloud['DOTCLOUD_DB_MYSQL_PASSWORD'])) ? $dotcloud['DOTCLOUD_DB_MYSQL_PASSWORD'] 	: '';					//'chepufraCheDagu3p8Ch';
@@ -67,7 +69,7 @@ $db['cloud']['database'] =  MODE;  //staging or production
 $db['cloud']['dbdriver'] = 'mysqli';
 $db['cloud']['dbprefix'] = '';
 $db['cloud']['pconnect'] = FALSE;
-$db['cloud']['port']	 = (isset($dotcloud['DOTCLOUD_DB_MYSQL_PORT'])) 	? $dotcloud['DOTCLOUD_DB_MYSQL_PORT'] 		: ''; 
+$db['cloud']['port']	 = (isset($dotcloud['DOTCLOUD_DB_MYSQL_PORT'])) 	? $dotcloud['DOTCLOUD_DB_MYSQL_PORT'] 		: '';
 $db['cloud']['db_debug'] = FALSE;
 $db['cloud']['cache_on'] = FALSE;
 $db['cloud']['cachedir'] = '';
@@ -82,11 +84,12 @@ $db['cloud']['stricton'] = FALSE;
 $db['local']['hostname'] = 'localhost';
 $db['local']['username'] = 'root';
 $db['local']['password'] = 'root';
-$db['local']['database'] = 'clubbingowl_development';
+//$db['local']['database'] = 'clubbingowl_development';
+$db['local']['database'] = 'clubbingowl';
 $db['local']['dbdriver'] = 'mysqli';
 $db['local']['dbprefix'] = '';
 $db['local']['pconnect'] = FALSE;
-$db['local']['port']	 = 8889; 
+$db['local']['port']	   = 8889;
 $db['local']['db_debug'] = FALSE;
 $db['local']['cache_on'] = FALSE;
 $db['local']['cachedir'] = '';
